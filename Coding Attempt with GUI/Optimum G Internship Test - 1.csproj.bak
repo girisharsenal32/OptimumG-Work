@@ -1,0 +1,582 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2E8B5618-D13E-49EC-8D05-819A975FD233}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Coding_Attempt_with_GUI</RootNamespace>
+    <AssemblyName>Coding Attempt with GUI</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>C:\Users\rk\Desktop\Publish Test\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>86C887E74DFA0DD7486DFA9F7A392C7045BBC2C4</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>Optimum G Internship Test - 1_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup />
+  <ItemGroup>
+    <Reference Include="devDept.Eyeshot.Control.v10, Version=10.0.1050.0, Culture=neutral, PublicKeyToken=5385d83d2fb4d7d9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files\devDept Software\Eyeshot Ultimate 10\Bin\devDept.Eyeshot.Control.v10.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="devDept.Geometry.v10, Version=10.0.1050.0, Culture=neutral, PublicKeyToken=9440825e8b4733bc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files\devDept Software\Eyeshot Ultimate 10\Bin\devDept.Geometry.v10.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="devDept.Graphics.Shaders.v10, Version=10.0.1050.0, Culture=neutral, PublicKeyToken=54ce5f5f803e4b42, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files\devDept Software\Eyeshot Ultimate 10\Bin\devDept.Graphics.Shaders.v10.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="devDept.Graphics.v10, Version=10.0.1050.0, Culture=neutral, PublicKeyToken=f3cd437f0d8061b5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files\devDept Software\Eyeshot Ultimate 10\Bin\devDept.Graphics.v10.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.BonusSkins.v17.1, Version=17.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Charts.v17.1.Core, Version=17.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.CodeParser.v17.1, Version=17.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Data.v17.1, Version=17.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.DemoData.v17.1, Version=17.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.DemoData.v17.1.Core, Version=17.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.DevAV.v17.1.Data, Version=17.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v17.1.Core, Version=17.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v17.1, Version=17.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v17.1.UI, Version=17.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Themes.VS2010.v17.1, Version=17.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.TreeMap.v17.1, Version=17.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v17.1, Version=17.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v17.1, Version=17.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraCharts.v17.1.Extensions, Version=17.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v17.1.UI, Version=17.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v17.1.Wizard, Version=17.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraEditors.v17.1, Version=17.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v17.1, Version=17.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraLayout.v17.1, Version=17.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraNavBar.v17.1, Version=17.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v17.1, Version=17.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraTreeMap.v17.1, Version=17.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="MathNet.Numerics, Version=3.20.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MathNet.Numerics.3.20.0\lib\net40\MathNet.Numerics.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualC">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Configuration.Install">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Management">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Xml.Linq">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Deployment">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ItemName.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ItemName.Designer.cs">
+      <DependentUpon>ItemName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Motion.cs" />
+    <Compile Include="MotionGUI.cs" />
+    <Compile Include="Simulation.cs" />
+    <Compile Include="MotionChart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MotionChart.Designer.cs">
+      <DependentUpon>MotionChart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimulationPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SimulationPanel.Designer.cs">
+      <DependentUpon>SimulationPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Solvers\SolverMasterClass.cs" />
+    <Compile Include="Solvers\CoordinateTranslator.cs" />
+    <Compile Include="Forms\SplashScreen1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SplashScreen1.Designer.cs">
+      <DependentUpon>SplashScreen1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI Elements\Graphics\GraphicsCoordinatesJoint.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI Elements\Graphics\GraphicsCoordinatesJoint.Designer.cs">
+      <DependentUpon>GraphicsCoordinatesJoint.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI Elements\Graphics\GraphicsCoorsdinatesBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI Elements\Graphics\GraphicsCoorsdinatesBar.Designer.cs">
+      <DependentUpon>GraphicsCoorsdinatesBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI Elements\Custom Controls\CusXtraTabControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI Elements\Custom Controls\CustomXtraTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI Elements\Graphics\CAD.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI Elements\Graphics\CAD.Designer.cs">
+      <DependentUpon>CAD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Solvers\DoubleWishboneKinematicsSolver.cs" />
+    <Compile Include="Forms\About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\KinematicsSoftwareNew.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\KinematicsSoftwareNew.Designer.cs">
+      <DependentUpon>KinematicsSoftwareNew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\WaitForm1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\WaitForm1.Designer.cs">
+      <DependentUpon>WaitForm1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI Elements\GUI Elements of Input Classes\AntiRollBarGUI.cs" />
+    <Compile Include="GUI Elements\Serialization Classes\KinematicsSoftwareNewSerialization.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GUI Elements\Serialization Classes\nBItem\navBarItemARBClass.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI Elements\Serialization Classes\nBItem\navBarItemChassisClass.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI Elements\Serialization Classes\nBItem\navbarItemDamperClass.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI Elements\Serialization Classes\nBItem\navBarItemSCFLClass.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI Elements\Serialization Classes\nBItem\navBarItemSCFRClass.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI Elements\Serialization Classes\nBItem\navBarItemSCRLClass.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI Elements\Serialization Classes\nBItem\navBarItemSCRRClass.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI Elements\Serialization Classes\nBItem\navBarItemSpringClass.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI Elements\Serialization Classes\nBItem\navBarItemTireClass.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI Elements\Serialization Classes\nBItem\navBarItemVehicleClass.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI Elements\Serialization Classes\nBItem\navBarItemWAClass.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI Elements\Serialization Classes\ProgressBarSerialization.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI Elements\Serialization Classes\SerAccordionControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI Elements\Serialization Classes\SerAccordionControlElement.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI Elements\Serialization Classes\SerGroupControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI Elements\Serialization Classes\SerLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI Elements\Serialization Classes\SerSidePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI Elements\UndoRedo\ICommandVehicle.cs" />
+    <Compile Include="Input Item Classes\Chassis.cs" />
+    <Compile Include="GUI Elements\GUI Elements of Input Classes\ChassisGUI.cs" />
+    <Compile Include="GUI Elements\GUI Elements of Input Classes\DamperGUI.cs" />
+    <Compile Include="GUI Elements\Default Values.cs" />
+    <Compile Include="GUI Elements\UndoRedo\ICommand.cs" />
+    <Compile Include="Solvers\McPhersonKinematicsSolver.cs" />
+    <Compile Include="GUI Elements\Custom Controls\CusNavBarGroup.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI Elements\Custom Controls\CusNavBarItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Output Classes\OutputClassGUI.cs" />
+    <Compile Include="Solvers\QuadraticEquationSolver.cs" />
+    <Compile Include="Reset Form %28Still not Implemented%29\IReset.cs" />
+    <Compile Include="Output Classes\OutputClass.cs" />
+    <Compile Include="Reset Form %28Still not Implemented%29\ResetForm.cs" />
+    <Compile Include="GUI Elements\Serialization Classes\SerNavigationPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI Elements\Serialization Classes\SerTabPane.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Installer\ShortcutsInstallerClass.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI Elements\GUI Elements of Input Classes\SpringGUI.cs" />
+    <Compile Include="GUI Elements\GUI Elements of Input Classes\SuspendionCoordinatesFrontGUI.cs" />
+    <Compile Include="Input Item Classes\SuspensionCoordinatesFrontRight.cs" />
+    <Compile Include="GUI Elements\GUI Elements of Input Classes\SuspensionCoordinatesFrontRightGUI.cs" />
+    <Compile Include="GUI Elements\GUI Elements of Input Classes\SuspensionCoordinatesMasterGUI.cs" />
+    <Compile Include="GUI Elements\GUI Elements of Input Classes\SuspensionCoordinatesRearGUI.cs" />
+    <Compile Include="Input Item Classes\SuspensionCoordinatesRearRight.cs" />
+    <Compile Include="GUI Elements\GUI Elements of Input Classes\SuspensionCoordinatesRearRightGUI.cs" />
+    <Compile Include="Forms\Suspension Type.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Suspension Type.Designer.cs">
+      <DependentUpon>Suspension Type.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI Elements\GUI Elements of Input Classes\TireGUI.cs" />
+    <Compile Include="GUI Elements\GUI Elements of Input Classes\VehicleGUI.cs" />
+    <Compile Include="GUI Elements\UndoRedo\UndoRedo.cs" />
+    <Compile Include="Input Item Classes\WheelAlignment.cs" />
+    <Compile Include="Input Item Classes\SuspnesionCoordinatesFront.cs" />
+    <Compile Include="Input Item Classes\Vehicle.cs" />
+    <Compile Include="Input Item Classes\Tire.cs" />
+    <Compile Include="Input Item Classes\SuspensionCoordinatesMaster.cs" />
+    <Compile Include="Input Item Classes\SuspensionCoordinatesRear.cs" />
+    <Compile Include="Input Item Classes\Damper.cs" />
+    <Compile Include="Input Item Classes\AntiRollBar.cs" />
+    <Compile Include="Input Item Classes\Spring.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\InputSheet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\InputSheet.Designer.cs">
+      <DependentUpon>InputSheet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI Elements\GUI Elements of Input Classes\WheelAlignmentGUI.cs" />
+    <Compile Include="GUI Elements\Custom Controls\CusBandedGridColumn.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI Elements\Custom Controls\CusBandedGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI Elements\Custom Controls\CusGridBand.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Solvers\VehicleOutputsCalculator.cs" />
+    <Compile Include="GUI Elements\User Controls\XUC_CW_Def_WA.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI Elements\User Controls\XUC_CW_Def_WA.Designer.cs">
+      <DependentUpon>XUC_CW_Def_WA.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI Elements\User Controls\XUC_InputSheet.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI Elements\User Controls\XUC_InputSheet.Designer.cs">
+      <DependentUpon>XUC_InputSheet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI Elements\User Controls\XUC_LinkLengths.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI Elements\User Controls\XUC_LinkLengths.Designer.cs">
+      <DependentUpon>XUC_LinkLengths.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI Elements\User Controls\XUC_RenameInputItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI Elements\User Controls\XUC_RenameInputItem.Designer.cs">
+      <DependentUpon>XUC_RenameInputItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI Elements\User Controls\XUC_VehicleOutputs.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI Elements\User Controls\XUC_VehicleOutputs.Designer.cs">
+      <DependentUpon>XUC_VehicleOutputs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI Elements\User Controls\XUC_WishboneForces.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI Elements\User Controls\XUC_WishboneForces.Designer.cs">
+      <DependentUpon>XUC_WishboneForces.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="ItemName.resx">
+      <DependentUpon>ItemName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\KinematicsSoftwareNew.resx">
+      <DependentUpon>KinematicsSoftwareNew.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SplashScreen1.resx">
+      <DependentUpon>SplashScreen1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\WaitForm1.resx">
+      <DependentUpon>WaitForm1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI Elements\Graphics\GraphicsCoordinatesJoint.resx">
+      <DependentUpon>GraphicsCoordinatesJoint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI Elements\Graphics\GraphicsCoorsdinatesBar.resx">
+      <DependentUpon>GraphicsCoorsdinatesBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI Elements\Graphics\CAD.resx">
+      <DependentUpon>CAD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MotionChart.resx">
+      <DependentUpon>MotionChart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\InputSheet.resx">
+      <DependentUpon>InputSheet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Suspension Type.resx">
+      <DependentUpon>Suspension Type.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI Elements\User Controls\XUC_CW_Def_WA.resx">
+      <DependentUpon>XUC_CW_Def_WA.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI Elements\User Controls\XUC_InputSheet.resx">
+      <DependentUpon>XUC_InputSheet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI Elements\User Controls\XUC_LinkLengths.resx">
+      <DependentUpon>XUC_LinkLengths.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI Elements\User Controls\XUC_VehicleOutputs.resx">
+      <DependentUpon>XUC_VehicleOutputs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI Elements\User Controls\XUC_WishboneForces.resx">
+      <DependentUpon>XUC_WishboneForces.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimulationPanel.resx">
+      <DependentUpon>SimulationPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Optimum G Internship Test - 1_TemporaryKey.pfx" />
+    <None Include="packages.config" />
+    <None Include="Properties\app.manifest" />
+    <None Include="Properties\DataSources\AntiRollBar.datasource" />
+    <None Include="Properties\DataSources\Chassis.datasource" />
+    <None Include="Properties\DataSources\Coding_Attempt_with_GUI.Properties.Resources.datasource" />
+    <None Include="Properties\DataSources\Coding_Attempt_with_GUI.Properties.Settings.datasource" />
+    <None Include="Properties\DataSources\Damper.datasource" />
+    <None Include="Properties\DataSources\InputSheet.datasource" />
+    <None Include="Properties\DataSources\KinematicsSoftwareInterface.datasource" />
+    <None Include="Properties\DataSources\KinematicsSoftwareInterface.ObjectInitializer.datasource" />
+    <None Include="Properties\DataSources\OutputClass.datasource" />
+    <None Include="Properties\DataSources\Program.datasource" />
+    <None Include="Properties\DataSources\Spring.datasource" />
+    <None Include="Properties\DataSources\SuspensionCoordinatesFront.datasource" />
+    <None Include="Properties\DataSources\SuspensionCoordinatesMaster.datasource" />
+    <None Include="Properties\DataSources\SuspensionCoordinatesRear.datasource" />
+    <None Include="Properties\DataSources\Tire.datasource" />
+    <None Include="Properties\DataSources\UI_Trial.datasource" />
+    <None Include="Properties\DataSources\Vehicle.datasource" />
+    <None Include="Properties\DataSources\WheelAlignment.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="IWshRuntimeLibrary">
+      <Guid>{F935DC20-1CF0-11D0-ADB9-00C04FD58A0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Shell32">
+      <Guid>{50A7E9B0-70EF-11D1-B75A-00A0C90564FE}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

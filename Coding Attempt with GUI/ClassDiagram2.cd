@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Coding_Attempt_with_GUI.AntiRollBar" Collapsed="true">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AntiRollBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coding_Attempt_with_GUI.Chassis" Collapsed="true">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAQAAAAAAAAAAAAABAQwBYAIAAIAAgAAA=</HashCode>
+      <FileName>Chassis.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coding_Attempt_with_GUI.Damper" Collapsed="true">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAgAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Damper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coding_Attempt_with_GUI.RibbonForm1" Collapsed="true">
+    <Position X="6.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>////f//a////////3//u///////v////+//////f//w=</HashCode>
+      <FileName>Kinematics Software.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coding_Attempt_with_GUI.Program" Collapsed="true">
+    <Position X="3" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coding_Attempt_with_GUI.Spring" Collapsed="true">
+    <Position X="4.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAABAAAAAAAg=</HashCode>
+      <FileName>Spring.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coding_Attempt_with_GUI.SuspensionCoordinatesFront" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAMAAAAAAAAAAAAAAAAAAAAAAACA5XcfAAAAAAAAAAA=</HashCode>
+      <FileName>SuspensionCoordinatesFront.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coding_Attempt_with_GUI.SuspensionCoordinatesRear" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SuspensionCoordinatesRear.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coding_Attempt_with_GUI.Tire" Collapsed="true">
+    <Position X="6.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tire.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coding_Attempt_with_GUI.Properties.Resources" Collapsed="true">
+    <Position X="4.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coding_Attempt_with_GUI.Properties.Settings" Collapsed="true">
+    <Position X="3" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
