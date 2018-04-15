@@ -843,13 +843,34 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
         #region Arrow Plotter to represent Forces
-        private Color ColoScaler(Color _colorToBeScaled, double _force)
+        /// <summary>
+        /// Decides which color 'value' represents. Scales the colour based ont he Ratio of Cell Value to (Max-Min) Value
+        /// </summary>
+        /// <param name="_cellValue"></param>
+        /// <param name="_minValue"></param>
+        /// <param name="_maxValue"></param>
+        /// <returns></returns>
+        public Color PaintArrow(double _cellValue, double _minValue, double _maxValue,Color _firstColour,Color _secondColour)
         {
-            int scalingFactor;
+            double val;
 
-            scalingFactor = Convert.ToInt32(_force * 0.01);
+            int deltaR = _firstColour.R - _secondColour.R;
+            int deltaG = _firstColour.G - _secondColour.G;
+            int deltaB = _firstColour.B - _secondColour.B;
 
-            return _colorToBeScaled;
+            if (_maxValue == _minValue)  //It avoids NotANumber results if max = min
+            {
+                val = 1;
+            }
+            else
+            {
+                val = ((_cellValue) - _minValue) / (_maxValue - _minValue);
+            }
+            int r = _secondColour.R + Convert.ToInt32(Math.Round((deltaR * (val))));
+            int g = _secondColour.G + Convert.ToInt32(Math.Round((deltaG * (val))));
+            int b = _secondColour.B + Convert.ToInt32(Math.Round((deltaB * (val))));
+
+            return Color.FromArgb(255, r, g, b);
         }
         /// <summary>
         /// Method to Plot Arrows which will represent the XYZ forces acting at a particular Joint of interest. 
@@ -907,7 +928,7 @@ namespace Coding_Attempt_with_GUI
             if (_forceX != 0)
             {
                 Mesh arrowX = Mesh.CreateArrow(arrowStart, directionX, cylinderRadius, Math.Abs(_forceX + 0.01) * 0.1, coneRadius, coneLength, 10, Mesh.natureType.Smooth, Mesh.edgeStyleType.Sharp);
-                viewportLayout1.Entities.Add(arrowX, 1, /*Color.LimeGreen*/scaledLimeGreen);
+                viewportLayout1.Entities.Add(arrowX, 1, scaledLimeGreen);
                 arrowX.MaterialName = Convert.ToString(_forceX);
 
             }
@@ -915,7 +936,7 @@ namespace Coding_Attempt_with_GUI
             if (_forceY != 0)
             {
                 Mesh arrowY = Mesh.CreateArrow(arrowStart, directionY, cylinderRadius, Math.Abs(_forceY + 0.01) * 0.1, coneRadius, coneLength, 10, Mesh.natureType.Smooth, Mesh.edgeStyleType.Sharp);
-                viewportLayout1.Entities.Add(arrowY, 1, /*Color.Turquoise*/scaledTurquoise);
+                viewportLayout1.Entities.Add(arrowY, 1, scaledTurquoise);
                 arrowY.MaterialName = Convert.ToString(_forceY);
 
             }
@@ -923,7 +944,7 @@ namespace Coding_Attempt_with_GUI
             if (_forceZ != 0)
             {
                 Mesh arrowZ = Mesh.CreateArrow(arrowStart, directionZ, cylinderRadius, Math.Abs(_forceZ + 0.01) * 0.1, coneRadius, coneLength, 10, Mesh.natureType.Smooth, Mesh.edgeStyleType.Sharp);
-                viewportLayout1.Entities.Add(arrowZ, 1, /*Color.Orange*/scaledOrange);
+                viewportLayout1.Entities.Add(arrowZ, 1, scaledOrange);
                 arrowZ.MaterialName = Convert.ToString(_forceZ);
 
             }
@@ -2752,4 +2773,12 @@ namespace Coding_Attempt_with_GUI
 
         }
     }
+
+    enum ForceRepresentationType
+    {
+        AxialForce,
+        DecompositionForce,
+        ContactPatchForce
+    };
+
 }

@@ -369,6 +369,7 @@ namespace Coding_Attempt_with_GUI
             }
             #endregion
 
+            ///<summary>Grouping the Positive Forces</summary>
             j = 1;
             for (int i = 0; i < _NoOfSteps; i++)
             {
@@ -385,6 +386,8 @@ namespace Coding_Attempt_with_GUI
 
                 }
             }
+
+            ///<summary>Grouping the negative Forces</summary>
             j = 1;
             for (int i = 0; i < _NoOfSteps; i++)
             {

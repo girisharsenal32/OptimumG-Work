@@ -400,6 +400,7 @@ namespace Coding_Attempt_with_GUI
 
         }
 
+        private void ReturnFirstColor() { }
 
         /// <summary>
         /// Decides which color 'value' represents. Scales the colour based ont he Ratio of Cell Value to (Max-Min) Value
@@ -408,7 +409,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_minValue"></param>
         /// <param name="_maxValue"></param>
         /// <returns></returns>
-        private Color PaintHeatMap(double _cellValue, double _minValue, double _maxValue)
+        public Color PaintHeatMap(double _cellValue, double _minValue, double _maxValue)
         {
             double val;
             Color firstColour = Color.DarkGreen;

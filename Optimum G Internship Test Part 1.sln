@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Optimum G Internship Test - 1", "Coding Attempt with GUI\Optimum G Internship Test - 1.csproj", "{2E8B5618-D13E-49EC-8D05-819A975FD233}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "..\..\Setup\Setup.vdproj", "{448B8FEB-0DD0-42C7-9C47-6BDFADA0A79F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,15 +31,6 @@ Global
 		{2E8B5618-D13E-49EC-8D05-819A975FD233}.Release|x64.Build.0 = Release|x64
 		{2E8B5618-D13E-49EC-8D05-819A975FD233}.Release|x86.ActiveCfg = Release|x86
 		{2E8B5618-D13E-49EC-8D05-819A975FD233}.Release|x86.Build.0 = Release|x86
-		{448B8FEB-0DD0-42C7-9C47-6BDFADA0A79F}.Debug|Any CPU.ActiveCfg = Debug
-		{448B8FEB-0DD0-42C7-9C47-6BDFADA0A79F}.Debug|Mixed Platforms.ActiveCfg = Debug
-		{448B8FEB-0DD0-42C7-9C47-6BDFADA0A79F}.Debug|x64.ActiveCfg = Debug
-		{448B8FEB-0DD0-42C7-9C47-6BDFADA0A79F}.Debug|x86.ActiveCfg = Release
-		{448B8FEB-0DD0-42C7-9C47-6BDFADA0A79F}.Release|Any CPU.ActiveCfg = Release
-		{448B8FEB-0DD0-42C7-9C47-6BDFADA0A79F}.Release|Mixed Platforms.ActiveCfg = Release
-		{448B8FEB-0DD0-42C7-9C47-6BDFADA0A79F}.Release|x64.ActiveCfg = Release
-		{448B8FEB-0DD0-42C7-9C47-6BDFADA0A79F}.Release|x64.Build.0 = Release
-		{448B8FEB-0DD0-42C7-9C47-6BDFADA0A79F}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
