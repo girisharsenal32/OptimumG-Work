@@ -27,10 +27,10 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         private double Mx, Mz;
 
-        /// <summary>
-        /// Temp <see cref="BatchRunResults"/> object. This is to be used ONLY during a regular Simulation Run to enable coloring of Forces arrows in <see cref="devDept.Eyeshot"/>
-        /// </summary>
-        BatchRunResults singleLoadCaseResults = new BatchRunResults();
+        ///// <summary>
+        ///// Temp <see cref="BatchRunResults"/> object. This is to be used ONLY during a regular Simulation Run to enable coloring of Forces arrows in <see cref="devDept.Eyeshot"/>
+        ///// </summary>
+        //BatchRunResults singleLoadCaseResults = new BatchRunResults();
 
         #region Methods
 
@@ -1126,9 +1126,9 @@ namespace Coding_Attempt_with_GUI
 
                 CalculateSuspensionForces(oc, scm, spring, dummy2);
 
-                singleLoadCaseResults = AssignSingleBatchRunResultsObject(Identifier, _vehicleKinematicsDWSolver);
+                //singleLoadCaseResults = AssignSingleBatchRunResultsObject(Identifier, _vehicleKinematicsDWSolver);
 
-                singleLoadCaseResults.AssignSuspensionForces(oc[dummy2]);
+                //singleLoadCaseResults.AssignSuspensionForces(oc[dummy2]);
 
                 BreakPointA2:
                 if (MotionExists)
@@ -1137,32 +1137,32 @@ namespace Coding_Attempt_with_GUI
                 }
             }
 
-            singleLoadCaseResults.SortSuspensionForces(N);
+            //singleLoadCaseResults.SortSuspensionForces(N);
 
             #endregion
         }
 
-        private BatchRunResults AssignSingleBatchRunResultsObject(int _identifier,Vehicle _vLoadCase)
-        {
-            if (_identifier == 1)
-            {
-                return _vLoadCase.vehicleLoadCase.runResults_FL;
-            }
-            else if (_identifier == 2)
-            {
-                return _vLoadCase.vehicleLoadCase.runResults_FR;
-            }
-            else if (_identifier == 3)
-            {
-                return _vLoadCase.vehicleLoadCase.runResults_RL;
-            }
-            else
-            {
-                return _vLoadCase.vehicleLoadCase.runResults_RR;
-            }
+        //private BatchRunResults AssignSingleBatchRunResultsObject(int _identifier,Vehicle _vLoadCase)
+        //{
+        //    if (_identifier == 1)
+        //    {
+        //        return _vLoadCase.vehicleLoadCase.runResults_FL;
+        //    }
+        //    else if (_identifier == 2)
+        //    {
+        //        return _vLoadCase.vehicleLoadCase.runResults_FR;
+        //    }
+        //    else if (_identifier == 3)
+        //    {
+        //        return _vLoadCase.vehicleLoadCase.runResults_RL;
+        //    }
+        //    else
+        //    {
+        //        return _vLoadCase.vehicleLoadCase.runResults_RR;
+        //    }
 
 
-        }
+        //}
 
 
         public void CalculateSuspensionForces(List<OutputClass> _oc, SuspensionCoordinatesMaster _scm, Spring spring, int _dummy2)

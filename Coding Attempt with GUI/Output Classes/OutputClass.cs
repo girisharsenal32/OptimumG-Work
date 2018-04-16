@@ -110,6 +110,31 @@ namespace Coding_Attempt_with_GUI
                       SColumnInboard1_x, SColumnInboard1_y, SColumnInboard1_z,
                       SColumnInboard2_x, SColumnInboard2_y, SColumnInboard2_z;
 
+        /// <summary>
+        /// <see cref="List{T}"/> of Wishbone Link Forces. This will be used for regular Simulations to find the heaviest loaded link and colour the <see cref="devDept.Eyeshot"/> with a Gradient
+        /// </summary>
+        public List<double> WishboneForceList = new List<double>();
+        /// <summary>
+        /// <see cref="List{T}"/> of Wishbone Decomposition Forces. This will be used for regular Simulations to find the heaviest loaded link and colour the <see cref="devDept.Eyeshot"/> with a Gradient
+        /// </summary>
+        public List<double> WishboneForceDecompList_X = new List<double>();
+        public List<double> WishboneForceDecompList_Y = new List<double>();
+        public List<double> WishboneForceDecompList_Z = new List<double>();
+        /// <summary>
+        /// <see cref="List{T}"/> of Bearing Cap Forces. This will be used for regular Simulations to find the heaviest loaded link and colour the <see cref="devDept.Eyeshot"/> with a Gradient
+        /// </summary>
+        public List<double> BearingCapForcesList_X = new List<double>();
+        public List<double> BearingCapForcesList_Y = new List<double>();
+        public List<double> BearingCapForcesList_Z = new List<double>();
+        /// <summary>
+        /// Variable representing the Most Compressive Force
+        /// </summary>
+        public double MaxForce, MinForce;
+
+        public double MaxCompressiveWishboneForce, MinCompressiveWishboneForce;
+
+        public double MaxTensileWishboneForce, MinTensileWishboneForce;
+
 
         #endregion
 
@@ -141,8 +166,149 @@ namespace Coding_Attempt_with_GUI
             OC_SC_DataTable.Columns[3].ReadOnly = true;
 
             return OC_SC_DataTable;
-        } 
+        }
         #endregion
+
+        /// <summary>
+        /// <para> Method to Populate the 3 Wishbone Force lists with the forces of ALL Corners </para>
+        /// <para> Currently this method will generate Lists of Forces which will be used in colouring the Force Arrows in Eyeshot with a Gradient </para>
+        /// </summary>
+        /// <param name="_ocList">Object of the Output Class whos Force Lists are to be populated</param>
+        public void PopulateForceLists(OutputClass _ocList)
+        {
+            ///<summary>Adding the Wishbone forces to the List of Wishbone Link Forces so that they can be sorted and Max and Min Values decided</summary>
+            _ocList.WishboneForceList.AddRange(new double[] { _ocList.LowerFront, _ocList.LowerRear, _ocList.UpperFront, _ocList.UpperRear, _ocList.PushRod, _ocList.ToeLink, _ocList.DamperForce, _ocList.ARBDroopLink });
+            _ocList.WishboneForceList.Sort();
+
+            ///<summary>Adding the Wishbone Decomposition forces to the List of Wishbone Decomposition Forces so that they can be sorted and Max and Min Values decided</summary>
+            _ocList.WishboneForceDecompList_X.AddRange(new double[] { LowerFront_x, LowerRear_x, UpperFront_x, UpperRear_x, PushRod_x, DamperForce_x, ARBDroopLink_x, ToeLink_x, UBJ_x, LBJ_x });
+            _ocList.WishboneForceDecompList_X.Sort();
+            _ocList.WishboneForceDecompList_Y.AddRange(new double[] { LowerFront_y, LowerRear_y, UpperFront_y, UpperRear_y, PushRod_y, DamperForce_y, ARBDroopLink_y, ToeLink_y, UBJ_y, LBJ_y });
+            _ocList.WishboneForceDecompList_Y.Sort();
+            _ocList.WishboneForceDecompList_Z.AddRange(new double[] { LowerFront_z, LowerRear_z, UpperFront_z, UpperRear_z, PushRod_z, DamperForce_z, ARBDroopLink_z, ToeLink_z, UBJ_z, LBJ_z });
+            _ocList.WishboneForceDecompList_Z.Sort();
+
+            ///<summary>Adding the Bearing Decomposition forces to the List of Bearing Decomposition Forces so that they can be sorted and Max and Min Values decided</summary>
+            _ocList.BearingCapForcesList_X.AddRange(new double[] { RackInboard1_x, RackInboard2_x, ARBInboard1_x, ARBInboard2_x, SColumnInboard1_x, SColumnInboard2_x});
+            _ocList.BearingCapForcesList_X.Sort();
+            _ocList.BearingCapForcesList_Y.AddRange(new double[] { RackInboard1_y, RackInboard2_y, ARBInboard1_y, ARBInboard2_y, SColumnInboard1_y, SColumnInboard2_y});
+            _ocList.BearingCapForcesList_Y.Sort();
+            _ocList.BearingCapForcesList_Z.AddRange(new double[] { RackInboard1_z, RackInboard2_z, ARBInboard1_z, ARBInboard2_z, SColumnInboard1_z, SColumnInboard2_z});
+            _ocList.BearingCapForcesList_Z.Sort();
+
+            ///<summary>Finding the Max Force (Most Compressive) </summary>
+            FindMaxForce(_ocList);
+
+            ///<summary>Finding the Min Force (Most Tensile) </summary>
+            FindMinForce(_ocList);
+
+            ///<summary>Method to segregate the Wishbone forces into Most and Least Compressive Tensile Forces. See descritption of Method for more details</summary>
+            SegregateWishboneLinkForces(_ocList);
+
+
+        }
+
+        /// <summary>
+        /// Method to find the Maximum Force or Most Compressive  among ALL the Forces 
+        /// </summary>
+        /// <param name="_oc"></param>
+        private void FindMaxForce(OutputClass _oc)
+        {
+
+            if (MaxForce < _oc.WishboneForceList[0])
+            {
+                MaxForce = _oc.WishboneForceList[0];
+            }
+            if (MaxForce < _oc.WishboneForceDecompList_X[0]) 
+            {
+                MaxForce = _oc.WishboneForceDecompList_X[0];
+            }
+            if (MaxForce < _oc.WishboneForceDecompList_Y[0]) 
+            {
+                MaxForce = _oc.WishboneForceDecompList_Y[0];
+            }
+            if (MaxForce < _oc.WishboneForceDecompList_Z[0]) 
+            {
+                MaxForce = _oc.WishboneForceDecompList_Z[0];
+            }
+            if (MaxForce < _oc.BearingCapForcesList_X[0]) 
+            {
+                MaxForce = _oc.BearingCapForcesList_X[0];
+            }
+            if (MaxForce < _oc.BearingCapForcesList_Y[0]) 
+            {
+                MaxForce = _oc.BearingCapForcesList_Y[0];
+            }
+            if (MaxForce < _oc.BearingCapForcesList_Z[0]) 
+            {
+                MaxForce = _oc.BearingCapForcesList_Z[0];
+            }
+        }
+
+        /// <summary>
+        /// Method to find the Least force or the Most Tensile Force
+        /// </summary>
+        /// <param name="_oc"></param>
+        private void FindMinForce(OutputClass _oc)
+        {
+            if (MinForce > _oc.WishboneForceList[_oc.WishboneForceList.Count - 1])
+            {
+                MinForce = _oc.WishboneForceList[_oc.WishboneForceList.Count - 1];
+            }
+            if (MinForce > _oc.WishboneForceDecompList_X[_oc.WishboneForceDecompList_X.Count - 1])
+            {
+                MinForce = _oc.WishboneForceDecompList_X[_oc.WishboneForceDecompList_X.Count - 1];
+            }
+            if (MinForce > _oc.WishboneForceDecompList_Y[_oc.WishboneForceDecompList_Y.Count - 1])
+            {
+                MinForce = _oc.WishboneForceDecompList_Y[_oc.WishboneForceDecompList_Y.Count - 1];
+            }
+            if (MinForce > _oc.WishboneForceDecompList_Z[_oc.WishboneForceDecompList_Z.Count - 1])
+            {
+                MinForce = _oc.WishboneForceDecompList_Z[_oc.WishboneForceDecompList_Z.Count - 1];
+            }
+            if (MinForce > _oc.BearingCapForcesList_X[_oc.BearingCapForcesList_X.Count - 1])
+            {
+                MinForce = _oc.BearingCapForcesList_X[_oc.BearingCapForcesList_X.Count - 1];
+            }
+            if (MinForce > _oc.BearingCapForcesList_Y[_oc.BearingCapForcesList_Y.Count - 1])
+            {
+                MinForce = _oc.BearingCapForcesList_Y[_oc.BearingCapForcesList_Y.Count - 1];
+            }
+            if (MinForce > _oc.BearingCapForcesList_Z[_oc.BearingCapForcesList_Z.Count - 1])
+            {
+                MinForce = _oc.BearingCapForcesList_Z[_oc.BearingCapForcesList_Z.Count - 1];
+            }
+        }
+
+        /// <summary>
+        /// <para>Method to find the Most and Least Compressive and Tensile Forces respectively</para>
+        /// <para>Such a method is needed because unlike the Decomposition forces, the Wishbone axial forces are coloured differently for tensile and compressive forces (blue and red respectively)</para>
+        /// </summary>
+        /// <param name="_oc"></param>
+        private void SegregateWishboneLinkForces(OutputClass _oc)
+        {
+
+            for (int i = 0; i < _oc.WishboneForceList.Count; i++)
+            {
+                if (_oc.WishboneForceList[i] > 0 && MaxCompressiveWishboneForce < _oc.WishboneForceList[i])
+                {
+                    MaxCompressiveWishboneForce = _oc.WishboneForceList[0];
+                }
+                else if (_oc.WishboneForceList[i] > 0 && MinCompressiveWishboneForce > _oc.WishboneForceList[i])
+                {
+                    MinCompressiveWishboneForce = _oc.WishboneForceList[i];
+                }
+                else if (_oc.WishboneForceList[i] < 0 && MaxTensileWishboneForce > _oc.WishboneForceList[i])
+                {
+                    MaxTensileWishboneForce = _oc.WishboneForceList[i];
+                }
+                else if (_oc.WishboneForceList[i] < 0 && MinTensileWishboneForce < _oc.WishboneForceList[i])
+                {
+                    MinTensileWishboneForce = _oc.WishboneForceList[i];
+                }
+            }
+        }
 
         public OutputClass()
         {

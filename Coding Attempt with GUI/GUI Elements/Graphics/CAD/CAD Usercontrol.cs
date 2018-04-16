@@ -846,9 +846,9 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Decides which color 'value' represents. Scales the colour based ont he Ratio of Cell Value to (Max-Min) Value
         /// </summary>
-        /// <param name="_cellValue"></param>
-        /// <param name="_minValue"></param>
-        /// <param name="_maxValue"></param>
+        /// <param name="_cellValue">Current Value of the Force</param>
+        /// <param name="_minValue">Max Force Value</param>
+        /// <param name="_maxValue">Min Force Value</param>
         /// <returns></returns>
         public Color PaintArrow(double _cellValue, double _minValue, double _maxValue,Color _firstColour,Color _secondColour)
         {
@@ -961,7 +961,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_isInitializing">Boolean variable to determine if the input items are being plotted or the Output </param>
         /// <param name="_ocColor">Object of the Output Class. Here is it used to determine the Color of the Wishbone</param>
         string damperName;
-        private void PlotCommonSuspension_Joints(SuspensionCoordinatesMaster _scmPlotCommon, bool _isInitializing, OutputClass _ocColor, double _cPForcex, double _cPForcey, double _cPForcez, int _mcPhersonIdentifier)
+        private void PlotCommonSuspension(SuspensionCoordinatesMaster _scmPlotCommon, bool _isInitializing, OutputClass _ocColor, double _cPForcex, double _cPForcey, double _cPForcez, int _mcPhersonIdentifier)
         {
             Color color = Color.Orange;
 
@@ -1094,6 +1094,11 @@ namespace Coding_Attempt_with_GUI
             //tV2 = new Point3D(CoordinatesMaster.InboardPickUp["DamperShockMount"].Position);
             //tV3 = new Point3D(CoordinatesMaster.OutboardPickUp["SteeringLinkUpright"].Position);
             #endregion
+        }
+
+        private void PlotCommonSuspension_ForceArrows(SuspensionCoordinatesMaster _scmPlotCommon, OutputClass _ocColor, double _cPForcex, double _cPForcey, double _cPForcez, int _mcPhersonIdentifier)
+        {
+            PlotArrows(_scmPlotCommon.C1x, _scmPlotCommon.C1y, _scmPlotCommon.C1z, _ocColor.LowerRear_x, _ocColor.LowerRear_y, _ocColor.LowerRear_z, false);
         }
 
         #region Maybe this a better method to add bars to the viewport. Scrapping this for now because no time to debug and test
@@ -2049,11 +2054,11 @@ namespace Coding_Attempt_with_GUI
             #region Invoking the Common Plotter (Commnon to both McPherson and Double Wishbone
             if (Identifier == 1 || Identifier == 2)
             {
-                PlotCommonSuspension_Joints(_scm, _IsInitializing, _ocPlotter, _CPForceX, _CPForceY, _CPForceZ, _scm.McPhersonIdentifierFront);
+                PlotCommonSuspension(_scm, _IsInitializing, _ocPlotter, _CPForceX, _CPForceY, _CPForceZ, _scm.McPhersonIdentifierFront);
             }
             else if (Identifier == 3 || Identifier == 4)
             {
-                PlotCommonSuspension_Joints(_scm, _IsInitializing, _ocPlotter, _CPForceX, _CPForceY, _CPForceZ, _scm.McPhersonIdentifierRear);
+                PlotCommonSuspension(_scm, _IsInitializing, _ocPlotter, _CPForceX, _CPForceY, _CPForceZ, _scm.McPhersonIdentifierRear);
 
             }
             #endregion
@@ -2116,8 +2121,14 @@ namespace Coding_Attempt_with_GUI
             }
             #endregion
 
+
+
         }
 
+        public void PlotForceArrows(OutputClass _ocForce)
+        {
+            _ocForce.PopulateForceLists(_ocForce);
+        }
 
         #endregion
 

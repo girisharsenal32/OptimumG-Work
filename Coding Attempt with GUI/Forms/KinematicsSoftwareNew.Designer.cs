@@ -29,7 +29,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Kinematics_Software_New));
             DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
             DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
@@ -121,14 +120,14 @@
             DevExpress.Utils.ToolTipTitleItem toolTipTitleItem17 = new DevExpress.Utils.ToolTipTitleItem();
             DevExpress.Utils.ToolTipItem toolTipItem35 = new DevExpress.Utils.ToolTipItem();
             this.splashScreenManager2 = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(global::Coding_Attempt_with_GUI.Forms.WaitForm1), true, true);
-            this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
+            this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel();
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.backstageViewControl1 = new DevExpress.XtraBars.Ribbon.BackstageViewControl();
             this.backstageViewClientControl2 = new DevExpress.XtraBars.Ribbon.BackstageViewClientControl();
             this.simpleButtonNew = new DevExpress.XtraEditors.SimpleButton();
             this.backstageViewClientControl4 = new DevExpress.XtraBars.Ribbon.BackstageViewClientControl();
             this.dropDownButton1 = new DevExpress.XtraEditors.DropDownButton();
-            this.applicationMenu2 = new DevExpress.XtraBars.Ribbon.ApplicationMenu(this.components);
+            this.applicationMenu2 = new DevExpress.XtraBars.Ribbon.ApplicationMenu();
             this.barButtonItemRegular = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItemDark = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItemWhite = new DevExpress.XtraBars.BarButtonItem();
@@ -154,7 +153,7 @@
             this.barButtonWA = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonVehicleItem = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
-            this.popupControlContainerInputSheet = new DevExpress.XtraBars.PopupControlContainer(this.components);
+            this.popupControlContainerInputSheet = new DevExpress.XtraBars.PopupControlContainer();
             this.HideInputSheet = new DevExpress.XtraEditors.SimpleButton();
             this.CreateInputSheet = new DevExpress.XtraEditors.SimpleButton();
             this.barButtonItem5 = new DevExpress.XtraBars.BarButtonItem();
@@ -166,7 +165,7 @@
             this.barButtonGroup3 = new DevExpress.XtraBars.BarButtonGroup();
             this.barButtonGroup4 = new DevExpress.XtraBars.BarButtonGroup();
             this.barButtonInputOrigin = new DevExpress.XtraBars.BarButtonItem();
-            this.popupControlContainerInputOrigin = new DevExpress.XtraBars.PopupControlContainer(this.components);
+            this.popupControlContainerInputOrigin = new DevExpress.XtraBars.PopupControlContainer();
             this.label530 = new System.Windows.Forms.Label();
             this.label529 = new System.Windows.Forms.Label();
             this.label528 = new System.Windows.Forms.Label();
@@ -179,7 +178,7 @@
             this.delete = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonDisplayResults = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonRecalculateResults = new DevExpress.XtraBars.BarButtonItem();
-            this.popupControlContainerRecalculateResults = new DevExpress.XtraBars.PopupControlContainer(this.components);
+            this.popupControlContainerRecalculateResults = new DevExpress.XtraBars.PopupControlContainer();
             this.ReCalculateForDesiredCornerWeight = new DevExpress.XtraEditors.SimpleButton();
             this.ReCalculate = new DevExpress.XtraEditors.SimpleButton();
             this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
@@ -205,14 +204,14 @@
             this.barButtonItem11 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem7 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem12 = new DevExpress.XtraBars.BarButtonItem();
-            this.popupControlContainerSimulationType = new DevExpress.XtraBars.PopupControlContainer(this.components);
+            this.popupControlContainerSimulationType = new DevExpress.XtraBars.PopupControlContainer();
             this.radioButtonSimulationMode = new System.Windows.Forms.RadioButton();
             this.radioButtonSetupMode = new System.Windows.Forms.RadioButton();
             this.barButtonItemCreateMotion = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItemCreateSimulation = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonRunSimulation = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItemOutputOrigin = new DevExpress.XtraBars.BarButtonItem();
-            this.popupControlContainerOutputOrigin = new DevExpress.XtraBars.PopupControlContainer(this.components);
+            this.popupControlContainerOutputOrigin = new DevExpress.XtraBars.PopupControlContainer();
             this.radioButtonTransToCS = new System.Windows.Forms.RadioButton();
             this.radioButtonTranstoGround = new System.Windows.Forms.RadioButton();
             this.label533 = new System.Windows.Forms.Label();
@@ -224,7 +223,7 @@
             this.barButtonItemImportSuspension = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItemExportSuspension = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonCreateLoadCase = new DevExpress.XtraBars.BarButtonItem();
-            this.popupMenuLoadCase = new DevExpress.XtraBars.PopupMenu(this.components);
+            this.popupMenuLoadCase = new DevExpress.XtraBars.PopupMenu();
             this.barButtonPureAyPos = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonPureAyNeg = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonPureAxPos = new DevExpress.XtraBars.BarButtonItem();
@@ -266,14 +265,14 @@
             this.ribbonPageGroupHeatMap = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.repositoryItemRadioGroup1 = new DevExpress.XtraEditors.Repository.RepositoryItemRadioGroup();
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
-            this.applicationMenu1 = new DevExpress.XtraBars.Ribbon.ApplicationMenu(this.components);
+            this.applicationMenu1 = new DevExpress.XtraBars.Ribbon.ApplicationMenu();
             this.sidePanel1 = new DevExpress.XtraEditors.SidePanel();
             this.navBarControl1 = new DevExpress.XtraNavBar.NavBarControl();
             this.navBarGroupDesign = new DevExpress.XtraNavBar.NavBarGroup();
             this.navBarGroupControlContainer1 = new DevExpress.XtraNavBar.NavBarGroupControlContainer();
             this.navBarControlDesign = new DevExpress.XtraNavBar.NavBarControl();
             this.navBarGroupTireStiffness = new DevExpress.XtraNavBar.NavBarGroup();
-            this.contextMenuStripRenameInputItem = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuStripRenameInputItem = new System.Windows.Forms.ContextMenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripTextBoxRenameInputItem = new System.Windows.Forms.ToolStripTextBox();
             this.navBarGroupSuspensionFL = new DevExpress.XtraNavBar.NavBarGroup();
@@ -1212,7 +1211,7 @@
             this.accordionControlMovingPointsFLWheelCentre = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.accordionControlMovingPointsFLSteeringLinkUpright = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             this.accordionControlMovingPointsFLTireContactPatch = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTip1 = new System.Windows.Forms.ToolTip();
             this.backstageViewTabItemNew = new DevExpress.XtraBars.Ribbon.BackstageViewTabItem();
             this.backstageViewClientControl1 = new DevExpress.XtraBars.Ribbon.BackstageViewClientControl();
             this.barEditItem1 = new DevExpress.XtraBars.BarEditItem();
