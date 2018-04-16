@@ -584,8 +584,8 @@ namespace Coding_Attempt_with_GUI
                 //_scflGUI.CADFront.InitializeEntities();
                 _susCADFront.ClearViewPort(false, false, null);
                 _susCADFront.InitializeLayers();
-                _susCADFront.SuspensionPlotterInvoker(_scFL, 1, null, true, true, null, 0, 0, 0);
-                _susCADFront.SuspensionPlotterInvoker(_scFR, 2, null, true, true, null, 0, 0, 0);
+                _susCADFront.SuspensionPlotterInvoker(_scFL, 1, null, true, true, null);
+                _susCADFront.SuspensionPlotterInvoker(_scFR, 2, null, true, true, null);
                 _susCADFront.ARBConnector(_susCADFront.CoordinatesFL.InboardPickUp, _susCADFront.CoordinatesFR.InboardPickUp);
                 _susCADFront.SteeringCSystemPlotter(_scFL, _scFR, _susCADFront.CoordinatesFL.InboardPickUp, _susCADFront.CoordinatesFR.InboardPickUp);
                 _susCADFront.RefreshViewPort();
