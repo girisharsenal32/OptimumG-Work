@@ -662,6 +662,8 @@ namespace Coding_Attempt_with_GUI
                 CADVehicleOutputs.PaintForceDecompArrows(Vehicle.List_Vehicle[VehicleIndex].oc_RR[OutputIndex].scmOP, Vehicle.List_Vehicle[VehicleIndex].oc_RR[OutputIndex], MasterOC, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RR_Fx,
                     Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RR_Fy + Vehicle.List_Vehicle[VehicleIndex].oc_RR[OutputIndex].CW, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RR_Fz);
 
+                 CADVehicleOutputs.PaintBarForce(MasterOC);
+
                 ///<summary>Painting the Force Decomposition Arrows - Bearing Cap Forces</summary>
                 CADVehicleOutputs.PaintForceBearingDecompArrows(Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.FL_BearingCoordinates, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.FR_BearingCoordinates, false, true, false,
                                                                 ForcePLeft, ForceQLeft, ForcePRight, ForceQRight, MasterOC);

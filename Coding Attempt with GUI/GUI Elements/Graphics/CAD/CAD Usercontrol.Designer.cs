@@ -62,6 +62,24 @@
             devDept.Eyeshot.Viewport viewport1 = new devDept.Eyeshot.Viewport(new System.Drawing.Point(0, 0), new System.Drawing.Size(988, 712), backgroundSettings1, camera1, new devDept.Eyeshot.ToolBar[] {
             toolBar1}, devDept.Eyeshot.displayType.Rendered, true, false, false, false, new devDept.Eyeshot.Grid[0], false, rotateSettings1, zoomSettings1, panSettings1, navigationSettings1, savedViewsManager1, devDept.Eyeshot.viewType.Trimetric);
             devDept.Eyeshot.CoordinateSystemIcon coordinateSystemIcon1 = new devDept.Eyeshot.CoordinateSystemIcon(System.Drawing.Color.White, System.Drawing.Color.LimeGreen, System.Drawing.Color.Turquoise, System.Drawing.Color.Orange, "Origin", "Y", "Z", "X", true, devDept.Eyeshot.coordinateSystemPositionType.BottomLeft, 37, true);
+            devDept.Eyeshot.Legend legend1 = new devDept.Eyeshot.Legend(-100D, 100D, "Title", "Subtitle", new System.Drawing.Point(24, 24), new System.Drawing.Size(10, 30), true, true, false, "{0:+0.###;-0.###;0}", System.Drawing.Color.Transparent, System.Drawing.Color.Black, System.Drawing.Color.Black, new System.Drawing.Color[] {
+            System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255))))),
+            System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(63)))), ((int)(((byte)(255))))),
+            System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(127)))), ((int)(((byte)(255))))),
+            System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(191)))), ((int)(((byte)(255))))),
+            System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255))))),
+            System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(191))))),
+            System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(127))))),
+            System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(63))))),
+            System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(0))))),
+            System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(255)))), ((int)(((byte)(0))))),
+            System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(255)))), ((int)(((byte)(0))))),
+            System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(255)))), ((int)(((byte)(0))))),
+            System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(0))))),
+            System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(191)))), ((int)(((byte)(0))))),
+            System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(127)))), ((int)(((byte)(0))))),
+            System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(63)))), ((int)(((byte)(0))))),
+            System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))))}, true, false);
             devDept.Eyeshot.OriginSymbol originSymbol1 = new devDept.Eyeshot.OriginSymbol(10, devDept.Eyeshot.originSymbolStyleType.Ball, System.Drawing.Color.Black, System.Drawing.Color.Red, System.Drawing.Color.Green, System.Drawing.Color.Blue, "Origin", "X", "Y", "Z", true, null, false);
             devDept.Eyeshot.ViewCubeIcon viewCubeIcon1 = new devDept.Eyeshot.ViewCubeIcon(devDept.Eyeshot.coordinateSystemPositionType.TopRight, true, System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(20)))), ((int)(((byte)(147))))), true, "FRONT", "BACK", "LEFT", "RIGHT", "TOP", "BOTTOM", System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77))))), System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77))))), System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77))))), System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77))))), System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77))))), System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77))))), 'S', 'N', 'W', 'E', true, System.Drawing.Color.White, System.Drawing.Color.Black, 120, true, true, null, null, null, null, null, null, false);
             this.viewportLayout1 = new devDept.Eyeshot.ViewportLayout();
@@ -69,7 +87,6 @@
             this.barButtonSelectByEdge = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonSelectByFace = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonSelectByVertex = new DevExpress.XtraBars.BarButtonItem();
-            this.barButtonItemEnableIndividualSelection = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonBoxSelectionVisible = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonBoxSelectionAll = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonSingleSelection = new DevExpress.XtraBars.BarButtonItem();
@@ -100,6 +117,7 @@
             this.barEditItem5 = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemPopupContainerEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemPopupContainerEdit();
             this.barCheckItem2 = new DevExpress.XtraBars.BarCheckItem();
+            this.barButtonItemEnableIndividualSelection = new DevExpress.XtraBars.BarButtonItem();
             this.barToggleSwitchItem2 = new DevExpress.XtraBars.BarToggleSwitchItem();
             ((System.ComponentModel.ISupportInitialize)(this.viewportLayout1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenuCADRightClick)).BeginInit();
@@ -131,7 +149,10 @@
             this.viewportLayout1.Units = devDept.Geometry.linearUnitsType.Millimeters;
             coordinateSystemIcon1.LabelFont = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             viewport1.CoordinateSystemIcon = coordinateSystemIcon1;
-            viewport1.Legends = new devDept.Eyeshot.Legend[0];
+            legend1.TextFont = new System.Drawing.Font("Tahoma", 7.875F);
+            legend1.TitleFont = new System.Drawing.Font("Tahoma", 11.8125F, System.Drawing.FontStyle.Bold);
+            viewport1.Legends = new devDept.Eyeshot.Legend[] {
+        legend1};
             originSymbol1.LabelFont = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             viewport1.OriginSymbol = originSymbol1;
             viewCubeIcon1.Font = null;
@@ -182,12 +203,6 @@
             this.barButtonSelectByVertex.Name = "barButtonSelectByVertex";
             this.barButtonSelectByVertex.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             this.barButtonSelectByVertex.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonSelectByVertex_ItemClick);
-            // 
-            // barButtonItemEnableIndividualSelection
-            // 
-            this.barButtonItemEnableIndividualSelection.Caption = "Enable Individual Selection";
-            this.barButtonItemEnableIndividualSelection.Id = 24;
-            this.barButtonItemEnableIndividualSelection.Name = "barButtonItemEnableIndividualSelection";
             // 
             // barButtonBoxSelectionVisible
             // 
@@ -422,6 +437,12 @@
             // 
             this.barCheckItem2.Id = 23;
             this.barCheckItem2.Name = "barCheckItem2";
+            // 
+            // barButtonItemEnableIndividualSelection
+            // 
+            this.barButtonItemEnableIndividualSelection.Caption = "Enable Individual Selection";
+            this.barButtonItemEnableIndividualSelection.Id = 24;
+            this.barButtonItemEnableIndividualSelection.Name = "barButtonItemEnableIndividualSelection";
             // 
             // barToggleSwitchItem2
             // 

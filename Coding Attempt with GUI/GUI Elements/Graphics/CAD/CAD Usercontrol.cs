@@ -888,6 +888,7 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
         #region Arrow Plotter to represent Forces
+        List<Color> LegendColors = new List<Color>();
         /// <summary>
         /// Decides which color 'value' represents. Scales the colour based ont he Ratio of Cell Value to (Max-Min) Value
         /// </summary>
@@ -897,7 +898,52 @@ namespace Coding_Attempt_with_GUI
         /// <returns></returns>
         public Color PaintGradient(double _cellValue, double _minValue, double _maxValue, Color _firstColour, Color _secondColour)
         {
-            double val;
+            double absValue;
+            double halfMax = _maxValue / 2;
+            double halfMin = _minValue / 2;
+            double relValuePos_MaxToCurr;
+            double relValuePos_CurrtoZero;
+            double relValueNeg_ZeroToCurr;
+            double relValueNeg_CurrToMin;
+            long  red = 255, green = 255, blue= 255;
+
+            if (_cellValue > 0)
+            {
+                relValuePos_MaxToCurr = _maxValue - _cellValue;
+                relValuePos_CurrtoZero = _cellValue - 0;
+
+                if (_cellValue > halfMax)
+                {
+                    red = 255;
+                    green = Convert.ToInt32(255 * (relValuePos_MaxToCurr / relValuePos_CurrtoZero));
+                    blue = 0;
+                }
+                else
+                {
+                    red = Convert.ToInt32(255 * (relValuePos_CurrtoZero / relValuePos_MaxToCurr));
+                    green = 255;
+                    blue = 0;
+                }
+
+            }
+            else if (_cellValue < 0)
+            {
+                relValueNeg_ZeroToCurr = 0 - _cellValue;
+                relValueNeg_CurrToMin = _cellValue - _minValue;
+
+                if (Math.Abs(_cellValue) > Math.Abs(halfMin)) 
+                {
+                    red = 0;
+                    green = Convert.ToInt64(255 * (relValueNeg_CurrToMin / relValueNeg_ZeroToCurr));
+                    blue = 255;
+                }
+                else
+                {
+                    red = 0;
+                    green = 255;
+                    blue = Convert.ToInt64(255 * (relValueNeg_ZeroToCurr / relValueNeg_CurrToMin));
+                }
+            }
 
             Color midColor = Color.Green;
 
@@ -907,17 +953,24 @@ namespace Coding_Attempt_with_GUI
 
             if (_maxValue == _minValue)  //It avoids NotANumber results if max = min
             {
-                val = 1;
+                absValue = 1;
             }
             else
             {
-                val = ((_cellValue) - _minValue) / (_maxValue - _minValue);
+                absValue = ((_cellValue) - _minValue) / (_maxValue - _minValue);
             }
-            int r = _secondColour.R + Convert.ToInt32(Math.Round((deltaR * (val))));
-            int g = _secondColour.G + Convert.ToInt32(Math.Round((deltaG * (val))));
-            int b = _secondColour.B + Convert.ToInt32(Math.Round((deltaB * (val))));
 
-            return Color.FromArgb(255, r, g, b);
+
+
+            //red = _secondColour.R + Convert.ToInt32(Math.Round((deltaR * (absValue))));
+            //green = _secondColour.G + Convert.ToInt32(Math.Round((deltaG * (absValue))));
+            //blue = _secondColour.B + Convert.ToInt32(Math.Round((deltaB * (absValue))));
+
+            LegendColors.Add(Color.FromArgb(255, Convert.ToInt32(red), Convert.ToInt32(green), Convert.ToInt32(blue)));
+
+            return Color.FromArgb(255, Convert.ToInt32(red), Convert.ToInt32(green), Convert.ToInt32(blue));
+
+
         }
         
 
@@ -1434,7 +1487,7 @@ namespace Coding_Attempt_with_GUI
                     }
                     else
                     {
-                        viewportLayout1.Entities[i].Color = Color.Orange;
+                        viewportLayout1.Entities[i].Color = Color.WhiteSmoke;
                         goto END;
                     }
 
@@ -1444,6 +1497,7 @@ namespace Coding_Attempt_with_GUI
 
 
                     END:
+                    viewportLayout1.Invalidate();
                     viewportLayout1.Update();
                     viewportLayout1.Refresh();
 
@@ -2270,12 +2324,21 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_MinForce_Z"></param>
         public void PaintForceDecompArrows(SuspensionCoordinatesMaster _SCM, OutputClass _OCCorner, OutputClass _OCMaster, double _CPForceX, double _CPForceY, double _CPForceZ)
         {
-            PaintCommonForceDecmopArrows(_SCM, _OCCorner, _CPForceX, _CPForceY, _CPForceZ, _OCMaster.MaxDecompForce_X, _OCMaster.MinDecompForce_X, _OCMaster.MaxDecompForce_Y, _OCMaster.MinDecompForce_Y, _OCMaster.MaxDecompForce_Z, _OCMaster.MinDecompForce_Z);
+            PaintCommonForceDecmopArrows(_SCM, _OCCorner, _CPForceX, _CPForceY, _CPForceZ, _OCMaster.MaxForce, _OCMaster.MinForce, _OCMaster.MaxForce, _OCMaster.MinForce, _OCMaster.MaxForce, _OCMaster.MinForce);
 
-            PaintDWForceArrows(_SCM, _OCCorner, _CPForceX, _CPForceY, _CPForceZ, _OCMaster.MaxDecompForce_X, _OCMaster.MinDecompForce_X, _OCMaster.MaxDecompForce_Y, _OCMaster.MinDecompForce_Y, _OCMaster.MaxDecompForce_Z, _OCMaster.MinDecompForce_Z);
+            PaintDWForceArrows(_SCM, _OCCorner, _CPForceX, _CPForceY, _CPForceZ, _OCMaster.MaxForce, _OCMaster.MinForce, _OCMaster.MaxForce, _OCMaster.MinForce, _OCMaster.MaxForce, _OCMaster.MinForce);
 
-            PaintBars(_OCMaster);
 
+
+        }
+
+        public void PaintBarForce(OutputClass _ocMaster)
+        {
+            PaintBars(_ocMaster);
+
+            viewportLayout1.Legends[0].Max = _ocMaster.MaxForce;
+            viewportLayout1.Legends[0].Min = _ocMaster.MinForce;
+            viewportLayout1.Legends[0].ColorTable = LegendColors.ToArray();
         }
 
         public void PaintForceBearingDecompArrows(double[,] leftAttach, double[,] rightAttach, bool isInitializing, bool sRack, bool sColumn, MathNet.Spatial.Euclidean.Vector3D force_P_Left, MathNet.Spatial.Euclidean.Vector3D force_Q_Left,
