@@ -712,7 +712,8 @@ namespace Coding_Attempt_with_GUI
 
                 }
 
-
+                vehicleCADDrawer_Output.viewportLayout1.Update();
+                vehicleCADDrawer_Output.viewportLayout1.Refresh();
                 //vehicleCADDrawer_Output.SetupViewPort();
             }
             catch (Exception E)

@@ -895,7 +895,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_minValue">Max Force Value</param>
         /// <param name="_maxValue">Min Force Value</param>
         /// <returns></returns>
-        public Color PaintArrow(double _cellValue, double _minValue, double _maxValue, Color _firstColour, Color _secondColour)
+        public Color PaintGradient(double _cellValue, double _minValue, double _maxValue, Color _firstColour, Color _secondColour)
         {
             double val;
 
@@ -941,9 +941,9 @@ namespace Coding_Attempt_with_GUI
                 arrowStart = new Point3D(_startX, _startY - (_forceY * 0.1) - 30, _startZ);
             }
 
-            Color scaledLimeGreen = PaintArrow(_forceX, _minValueX, _maxValueX, Color.DarkOliveGreen  , Color.Lime);
-            Color scaledTurquoise = PaintArrow(_forceY, _minValueY, _maxValueY, Color.DarkSlateBlue, Color.LightSkyBlue);
-            Color scaledOrange = PaintArrow(_forceZ, _minValueZ, _maxValueZ, Color.DarkOrange, Color.LightYellow);
+            Color scaledLimeGreen = PaintGradient(_forceX, _minValueX, _maxValueX, Color.DarkOliveGreen  , Color.Lime);
+            Color scaledTurquoise = PaintGradient(_forceY, _minValueY, _maxValueY, Color.DarkSlateBlue, Color.LightSkyBlue);
+            Color scaledOrange = PaintGradient(_forceZ, _minValueZ, _maxValueZ, Color.DarkOrange, Color.LightYellow);
 
             ///<summary>
             ///Vectors to allign the arrows in along the Axes
@@ -979,6 +979,7 @@ namespace Coding_Attempt_with_GUI
                 viewportLayout1.Entities.Add(arrowX, "Joints", scaledLimeGreen);
                 //arrowX.MaterialName = Convert.ToString(_forceX);
                 //arrowX.MaterialName = "Trial";
+
             }
 
             if (_forceY != 0)
@@ -1082,16 +1083,17 @@ namespace Coding_Attempt_with_GUI
             /// </summary>
             if (!_isInitializing && _ocColor.LowerRear > 0) { color = Color.Red; } else if (!_isInitializing && _ocColor.LowerRear < 0) { color = Color.Blue; }
             Bar LowerRearArm = new Bar(CoordinatesTemp.InboardPickUp["Lower Rear Chassis"].Position, CoordinatesTemp.OutboardPickUp["Lower Ball Joint"].Position, 4.5, 8); ///<remarks>Need to use the dictionaries for all the plot commands shown below </remarks>
-            //if (_ocColor != null)
-            //{
-            //    LowerRearArm.MaterialName = Convert.ToString(_ocColor.LowerRear);
-            //}
             CoordinatesTemp.SuspensionLinks.Add("LowerRearArm", LowerRearArm);
             viewportLayout1.Entities.Add(LowerRearArm, "Bars", color);
-            //if (_ocColor != null)
-            //{
-            //    LowerRearArm.MaterialName = Convert.ToString(_ocColor.LowerRear);
-            //}
+            if (_ocColor != null)
+            {
+                if (!viewportLayout1.Materials.Contains(Convert.ToString(_ocColor.LowerRear)))
+                {
+                    viewportLayout1.Materials.Add(new Material(Convert.ToString(_ocColor.LowerRear)));
+
+                }
+                LowerRearArm.MaterialName = Convert.ToString(_ocColor.LowerRear);
+            }
 
 
             ///<summary>
@@ -1101,10 +1103,15 @@ namespace Coding_Attempt_with_GUI
             Bar LowerFrontArm = new Bar(CoordinatesTemp.InboardPickUp["Lower Front Chassis"].Position, CoordinatesTemp.OutboardPickUp["Lower Ball Joint"].Position, 4.5, 8);
             CoordinatesTemp.SuspensionLinks.Add("LowerFrontArm", LowerFrontArm);
             viewportLayout1.Entities.Add(LowerFrontArm, "Bars", color);
-            //if (_ocColor != null)
-            //{
-            //    LowerFrontArm.MaterialName = Convert.ToString(_ocColor.LowerFront);
-            //}
+            if (_ocColor != null)
+            {
+                if (!viewportLayout1.Materials.Contains(Convert.ToString(_ocColor.LowerFront)))
+                {
+                    viewportLayout1.Materials.Add(new Material(Convert.ToString(_ocColor.LowerFront)));
+
+                }
+                LowerFrontArm.MaterialName = Convert.ToString(_ocColor.LowerFront);
+            }
 
             ///<summary>
             ///Toe Link
@@ -1113,10 +1120,15 @@ namespace Coding_Attempt_with_GUI
             Bar ToeLink = new Bar(CoordinatesTemp.InboardPickUp["Steering Link Chassis"].Position, CoordinatesTemp.OutboardPickUp["Steering Link Upright"].Position, 4.5, 8);
             CoordinatesTemp.SuspensionLinks.Add("ToeLink", ToeLink);
             viewportLayout1.Entities.Add(ToeLink, "Bars", color);
-            //if (_ocColor != null)
-            //{
-            //    ToeLink.MaterialName = Convert.ToString(_ocColor.ToeLink);
-            //}
+            if (_ocColor != null)
+            {
+                if (!viewportLayout1.Materials.Contains(Convert.ToString(_ocColor.ToeLink)))
+                {
+                    viewportLayout1.Materials.Add(new Material(Convert.ToString(_ocColor.ToeLink)));
+
+                }
+                ToeLink.MaterialName = Convert.ToString(_ocColor.ToeLink);
+            }
 
             ///<summary>
             ///Damper 
@@ -1125,10 +1137,15 @@ namespace Coding_Attempt_with_GUI
             Bar Damper = new Bar(CoordinatesTemp.InboardPickUp["Damper Shock Mount"].Position, CoordinatesTemp.InboardPickUp[damperName].Position, 4.5, 8);
             CoordinatesTemp.SuspensionLinks.Add("Damper", Damper);
             viewportLayout1.Entities.Add(Damper, "Bars", color);
-            //if (_ocColor != null)
-            //{
-            //    Damper.MaterialName = Convert.ToString(_ocColor.DamperForce);
-            //}
+            if (_ocColor != null)
+            {
+                if (!viewportLayout1.Materials.Contains(Convert.ToString(_ocColor.DamperForce)))
+                {
+                    viewportLayout1.Materials.Add(new Material(Convert.ToString(_ocColor.DamperForce)));
+
+                }
+                Damper.MaterialName = Convert.ToString(_ocColor.DamperForce);
+            }
 
             ///<summary>
             ///Anti Roll Bar Droop Link
@@ -1137,10 +1154,15 @@ namespace Coding_Attempt_with_GUI
             Bar ARBLever = new Bar(CoordinatesTemp.InboardPickUp["Anti-Roll Bar Chassis"].Position, CoordinatesTemp.InboardPickUp["Anti-Roll Bar Link"].Position, 4.5, 8);
             CoordinatesTemp.SuspensionLinks.Add("ARBLever", ARBLever);
             viewportLayout1.Entities.Add(ARBLever, "Bars", color);
-            //if (_ocColor != null)
-            //{
-            //    ARBLever.MaterialName = Convert.ToString(_ocColor.ARBDroopLink);
-            //}
+            if (_ocColor != null)
+            {
+                if (!viewportLayout1.Materials.Contains(Convert.ToString(_ocColor.ARBDroopLink)))
+                {
+                    viewportLayout1.Materials.Add(new Material(Convert.ToString(_ocColor.ARBDroopLink)));
+
+                }
+                ARBLever.MaterialName = Convert.ToString(_ocColor.ARBDroopLink);
+            }
 
             //tV1 = new Point3D(CoordinatesMaster.OutboardPickUp["LowerBallJoint"].Position);
             //tV2 = new Point3D(CoordinatesMaster.InboardPickUp["DamperShockMount"].Position);
@@ -1148,8 +1170,23 @@ namespace Coding_Attempt_with_GUI
             #endregion
         }
 
-        private void PaintCommonForceArrows(SuspensionCoordinatesMaster scmPlotCommon, OutputClass ocColor, double cPForcex, double cPForcey, double cPForcez, double maxForceX, double minForceX, double maxForceY, double minForceY, double maxForceZ, double minForceZ)
+        /// <summary>
+        /// Medhot to Plot and Paint the Force Decomp Arrows for the Common Suspension Elements between Mcp and DW
+        /// </summary>
+        /// <param name="scmPlotCommon"></param>
+        /// <param name="ocColor"></param>
+        /// <param name="cPForcex">Contact Patch Force X</param>
+        /// <param name="cPForcey">Contact Patch Force Y</param>
+        /// <param name="cPForcez">Contact Patch Force Z</param>
+        /// <param name="maxForceX">Max Decomp Force in X Direction</param>
+        /// <param name="minForceX">MinDecomp Force in X Direction</param>
+        /// <param name="maxForceY">Max Decomp Force in Y Direction</param>
+        /// <param name="minForceY">Min Decomp Force in Y Direction</param>
+        /// <param name="maxForceZ">Max Decomp Force in Z Direction</param>
+        /// <param name="minForceZ">Min Decomp Force in Z Direction</param>
+        private void PaintCommonForceDecmopArrows(SuspensionCoordinatesMaster scmPlotCommon, OutputClass ocColor, double cPForcex, double cPForcey, double cPForcez, double maxForceX, double minForceX, double maxForceY, double minForceY, double maxForceZ, double minForceZ)
         {
+            ///<summary>Plotting and Painting the Decomp Forces at the Pick Up Points for the Common Suspension Points</summary>
             PlotArrows(scmPlotCommon.C1x, scmPlotCommon.C1y, scmPlotCommon.C1z, ocColor.LowerRear_x, ocColor.LowerRear_y, ocColor.LowerRear_z, false, maxForceX, minForceX, maxForceY, minForceY, maxForceZ, minForceZ);
             PlotArrows(scmPlotCommon.D1x, scmPlotCommon.D1y, scmPlotCommon.D1z, ocColor.LowerFront_x, ocColor.LowerFront_y, ocColor.LowerFront_z, false, maxForceX, minForceX, maxForceY, minForceY, maxForceZ, minForceZ);
             PlotArrows(scmPlotCommon.E1x, scmPlotCommon.E1y, scmPlotCommon.E1z, ocColor.LBJ_x, ocColor.LBJ_y, ocColor.LBJ_z, false, maxForceX, minForceX, maxForceY, minForceY, maxForceZ, minForceZ);
@@ -1159,6 +1196,12 @@ namespace Coding_Attempt_with_GUI
             PlotArrows(scmPlotCommon.N1x, scmPlotCommon.N1y, scmPlotCommon.N1z, ocColor.ToeLink_x, ocColor.ToeLink_y, ocColor.ToeLink_z, false, maxForceX, minForceX, maxForceY, minForceY, maxForceZ, minForceZ);
             PlotArrows(scmPlotCommon.P1x, scmPlotCommon.P1y, scmPlotCommon.P1z, ocColor.ARBDroopLink_x, ocColor.ARBDroopLink_y, ocColor.ARBDroopLink_z, false, maxForceX, minForceX, maxForceY, minForceY, maxForceZ, minForceZ);
             PlotArrows(scmPlotCommon.W1x, scmPlotCommon.W1y, scmPlotCommon.W1z, cPForcex, cPForcey, cPForcez, true, maxForceX, minForceX, maxForceY, minForceY, maxForceZ, minForceZ);
+
+            
+        }
+
+        private void PaintCommonForceBars()
+        {
 
         }
 
@@ -1315,10 +1358,15 @@ namespace Coding_Attempt_with_GUI
             Bar UpperFrontArm = new Bar(CoordinatesTemp.InboardPickUp["Upper Front Chassis"].Position, CoordinatesTemp.OutboardPickUp["Upper Ball Joint"].Position, 4.5, 8);
             CoordinatesTemp.SuspensionLinks.Add("UpperFrontArm", UpperFrontArm);
             viewportLayout1.Entities.Add(UpperFrontArm, "Bars", color);
-            //if (_ocColor != null)
-            //{
-            //    UpperFrontArm.MaterialName = Convert.ToString(_ocColor.UpperFront);
-            //}
+            if (_ocColor != null)
+            {
+                if (!viewportLayout1.Materials.Contains(Convert.ToString(_ocColor.UpperFront)))
+                {
+                    viewportLayout1.Materials.Add(new Material(Convert.ToString(_ocColor.UpperFront)));
+
+                }
+                UpperFrontArm.MaterialName = Convert.ToString(_ocColor.UpperFront);
+            }
 
             ///<summary>
             ///Upper Rear Wishbone
@@ -1327,10 +1375,15 @@ namespace Coding_Attempt_with_GUI
             Bar UpperRearArm = new Bar(CoordinatesTemp.InboardPickUp["Upper Rear Chassis"].Position, CoordinatesTemp.OutboardPickUp["Upper Ball Joint"].Position, 4.5, 8);
             CoordinatesTemp.SuspensionLinks.Add("UpperRearArm", UpperRearArm);
             viewportLayout1.Entities.Add(UpperRearArm, "Bars", color);
-            //if (_ocColor != null)
-            //{
-            //    UpperRearArm.MaterialName = Convert.ToString(_ocColor.UpperRear);
-            //}
+            if (_ocColor != null)
+            {
+                if (!viewportLayout1.Materials.Contains(Convert.ToString(_ocColor.UpperRear)))
+                {
+                    viewportLayout1.Materials.Add(new Material(Convert.ToString(_ocColor.UpperRear)));
+
+                }
+                UpperRearArm.MaterialName = Convert.ToString(_ocColor.UpperRear);
+            }
 
             ///<summary>
             ///Pushrod 
@@ -1339,10 +1392,16 @@ namespace Coding_Attempt_with_GUI
             Bar Pushrod = new Bar(CoordinatesTemp.InboardPickUp[pushPullName + " Bell-Crank"].Position, CoordinatesTemp.OutboardPickUp[pushPullName + " Upright"].Position, 4.5, 8);
             CoordinatesTemp.SuspensionLinks.Add("Pushrod", Pushrod);
             viewportLayout1.Entities.Add(Pushrod, "Bars", color);
-            //if (_ocColor != null)
-            //{
-            //    Pushrod.MaterialName = Convert.ToString(_ocColor.PushRod);
-            //}
+            if (_ocColor != null)
+            {
+                if (!viewportLayout1.Materials.Contains(Convert.ToString(_ocColor.PushRod)))
+                {
+                    viewportLayout1.Materials.Add(new Material(Convert.ToString(_ocColor.PushRod)));
+
+                }
+
+                Pushrod.MaterialName = Convert.ToString(_ocColor.PushRod);
+            }
 
             ///<summary>
             ///Bell Crank Arms
@@ -1380,10 +1439,12 @@ namespace Coding_Attempt_with_GUI
             Bar ARBDroopLink = new Bar(CoordinatesTemp.InboardPickUp["Anti-Roll Bar Bell-Crank"].Position, CoordinatesTemp.InboardPickUp["Anti-Roll Bar Link"].Position, 4.5, 8);
             CoordinatesTemp.SuspensionLinks.Add("ARBDroopLink", ARBDroopLink);
             viewportLayout1.Entities.Add(ARBDroopLink, 2, color);
-            //if (_ocColor != null)
-            //{
-            //    ARBDroopLink.MaterialName = Convert.ToString(_ocColor.ARBDroopLink);
-            //}
+            if (_ocColor != null)
+            {
+                //viewportLayout1.Materials.Add(new Material(Convert.ToString(_ocColor.ARBDroopLink)));
+
+                ARBDroopLink.MaterialName = Convert.ToString(_ocColor.ARBDroopLink);
+            }
             #endregion
         }
 
@@ -1399,6 +1460,29 @@ namespace Coding_Attempt_with_GUI
         }
 
         #endregion
+
+        private void PaintBars(OutputClass _masterOC)
+        {
+
+            for (int i = 0; i < viewportLayout1.Entities.Count; i++)
+            {
+                if (viewportLayout1.Entities[i] as Bar != null)
+                {
+                    Bar tempBar = viewportLayout1.Entities[i] as Bar;
+                    
+
+                    viewportLayout1.Entities[i].ColorMethod = colorMethodType.byEntity;
+                    viewportLayout1.Entities[i].Color.Equals(PaintGradient(Convert.ToDouble(viewportLayout1.Entities[i].MaterialName), _masterOC.MinForce, _masterOC.MaxForce, Color.Red, Color.Blue));
+                    viewportLayout1.Entities[i] = 
+                    viewportLayout1.Entities[i].RegenMode = regenType.RegenAndCompile;
+                    viewportLayout1.Entities[i].Regen(0);
+                    viewportLayout1.Update();
+                    viewportLayout1.Refresh();
+                }
+            }
+
+        }
+
 
         #region TARB Suspension Plotter
         private void TARBPlotter(SuspensionCoordinatesMaster _scmPlotTARB)
@@ -2217,9 +2301,12 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_MinForce_Z"></param>
         public void PaintForceDecompArrows(SuspensionCoordinatesMaster _SCM, OutputClass _OCCorner, OutputClass _OCMaster, double _CPForceX, double _CPForceY, double _CPForceZ)
         {
-            PaintCommonForceArrows(_SCM, _OCCorner, _CPForceX, _CPForceY, _CPForceZ, _OCMaster.MaxDecompForce_X, _OCMaster.MinDecompForce_X, _OCMaster.MaxDecompForce_Y, _OCMaster.MinDecompForce_Y, _OCMaster.MaxDecompForce_Z, _OCMaster.MinDecompForce_Z);
+            PaintCommonForceDecmopArrows(_SCM, _OCCorner, _CPForceX, _CPForceY, _CPForceZ, _OCMaster.MaxDecompForce_X, _OCMaster.MinDecompForce_X, _OCMaster.MaxDecompForce_Y, _OCMaster.MinDecompForce_Y, _OCMaster.MaxDecompForce_Z, _OCMaster.MinDecompForce_Z);
 
             PaintDWForceArrows(_SCM, _OCCorner, _CPForceX, _CPForceY, _CPForceZ, _OCMaster.MaxDecompForce_X, _OCMaster.MinDecompForce_X, _OCMaster.MaxDecompForce_Y, _OCMaster.MinDecompForce_Y, _OCMaster.MaxDecompForce_Z, _OCMaster.MinDecompForce_Z);
+
+            PaintBars(_OCMaster);
+
         }
 
         public void PaintForceBearingDecompArrows(double[,] leftAttach, double[,] rightAttach, bool isInitializing, bool sRack, bool sColumn, MathNet.Spatial.Euclidean.Vector3D force_P_Left, MathNet.Spatial.Euclidean.Vector3D force_Q_Left,
