@@ -977,8 +977,7 @@ namespace Coding_Attempt_with_GUI
             {
                 Mesh arrowX = Mesh.CreateArrow(arrowStart, directionX, cylinderRadius, Math.Abs(_forceX + 0.01) * 0.1, coneRadius, coneLength, 10, Mesh.natureType.Smooth, Mesh.edgeStyleType.Sharp);
                 viewportLayout1.Entities.Add(arrowX, "Joints", scaledLimeGreen);
-                //arrowX.MaterialName = Convert.ToString(_forceX);
-                //arrowX.MaterialName = "Trial";
+                arrowX.EntityData = new CustomData("arrowX", _forceX);
 
             }
 
@@ -986,16 +985,14 @@ namespace Coding_Attempt_with_GUI
             {
                 Mesh arrowY = Mesh.CreateArrow(arrowStart, directionY, cylinderRadius, Math.Abs(_forceY + 0.01) * 0.1, coneRadius, coneLength, 10, Mesh.natureType.Smooth, Mesh.edgeStyleType.Sharp);
                 viewportLayout1.Entities.Add(arrowY, "Joints", scaledTurquoise);
-                //arrowY.MaterialName = Convert.ToString(_forceY);
-
+                arrowY.EntityData = new CustomData("arrowY", _forceY);
             }
 
             if (_forceZ != 0)
             {
                 Mesh arrowZ = Mesh.CreateArrow(arrowStart, directionZ, cylinderRadius, Math.Abs(_forceZ + 0.01) * 0.1, coneRadius, coneLength, 10, Mesh.natureType.Smooth, Mesh.edgeStyleType.Sharp);
                 viewportLayout1.Entities.Add(arrowZ, "Joints", scaledOrange);
-                //arrowZ.MaterialName = Convert.ToString(_forceZ);
-
+                arrowZ.EntityData = new CustomData("arrowZ", _forceZ);
             }
 
 
@@ -1081,92 +1078,63 @@ namespace Coding_Attempt_with_GUI
             ///<summary>
             ///Lower Rear Wishbone
             /// </summary>
-            if (!_isInitializing && _ocColor.LowerRear > 0) { color = Color.Red; } else if (!_isInitializing && _ocColor.LowerRear < 0) { color = Color.Blue; }
+            //if (!_isInitializing && _ocColor.LowerRear > 0) { color = Color.Red; } else if (!_isInitializing && _ocColor.LowerRear < 0) { color = Color.Blue; }
             Bar LowerRearArm = new Bar(CoordinatesTemp.InboardPickUp["Lower Rear Chassis"].Position, CoordinatesTemp.OutboardPickUp["Lower Ball Joint"].Position, 4.5, 8); ///<remarks>Need to use the dictionaries for all the plot commands shown below </remarks>
             CoordinatesTemp.SuspensionLinks.Add("LowerRearArm", LowerRearArm);
-            viewportLayout1.Entities.Add(LowerRearArm, "Bars", color);
+            viewportLayout1.Entities.Add(LowerRearArm, "Bars"/*, color*/);
             if (_ocColor != null)
             {
-                if (!viewportLayout1.Materials.Contains(Convert.ToString(_ocColor.LowerRear)))
-                {
-                    viewportLayout1.Materials.Add(new Material(Convert.ToString(_ocColor.LowerRear)));
-
-                }
-                LowerRearArm.MaterialName = Convert.ToString(_ocColor.LowerRear);
+                LowerRearArm.EntityData = new CustomData("LowerRearArm", _ocColor.LowerRear);
             }
 
 
             ///<summary>
             ///Lower Front Wishbone
             /// </summary>
-            if (!_isInitializing && _ocColor.LowerFront > 0) { color = Color.Red; } else if (!_isInitializing && _ocColor.LowerFront < 0) { color = Color.Blue; }
+            //if (!_isInitializing && _ocColor.LowerFront > 0) { color = Color.Red; } else if (!_isInitializing && _ocColor.LowerFront < 0) { color = Color.Blue; }
             Bar LowerFrontArm = new Bar(CoordinatesTemp.InboardPickUp["Lower Front Chassis"].Position, CoordinatesTemp.OutboardPickUp["Lower Ball Joint"].Position, 4.5, 8);
             CoordinatesTemp.SuspensionLinks.Add("LowerFrontArm", LowerFrontArm);
-            viewportLayout1.Entities.Add(LowerFrontArm, "Bars", color);
+            viewportLayout1.Entities.Add(LowerFrontArm, "Bars"/*, color*/);
             if (_ocColor != null)
             {
-                if (!viewportLayout1.Materials.Contains(Convert.ToString(_ocColor.LowerFront)))
-                {
-                    viewportLayout1.Materials.Add(new Material(Convert.ToString(_ocColor.LowerFront)));
-
-                }
-                LowerFrontArm.MaterialName = Convert.ToString(_ocColor.LowerFront);
+                LowerFrontArm.EntityData = new CustomData("LowerFrontArm", _ocColor.LowerFront);
             }
 
             ///<summary>
             ///Toe Link
             /// </summary>
-            if (!_isInitializing && _ocColor.ToeLink > 0) { color = Color.Red; } else if (!_isInitializing && _ocColor.ToeLink < 0) { color = Color.Blue; }
+            //if (!_isInitializing && _ocColor.ToeLink > 0) { color = Color.Red; } else if (!_isInitializing && _ocColor.ToeLink < 0) { color = Color.Blue; }
             Bar ToeLink = new Bar(CoordinatesTemp.InboardPickUp["Steering Link Chassis"].Position, CoordinatesTemp.OutboardPickUp["Steering Link Upright"].Position, 4.5, 8);
             CoordinatesTemp.SuspensionLinks.Add("ToeLink", ToeLink);
-            viewportLayout1.Entities.Add(ToeLink, "Bars", color);
+            viewportLayout1.Entities.Add(ToeLink, "Bars"/*, color*/);
             if (_ocColor != null)
             {
-                if (!viewportLayout1.Materials.Contains(Convert.ToString(_ocColor.ToeLink)))
-                {
-                    viewportLayout1.Materials.Add(new Material(Convert.ToString(_ocColor.ToeLink)));
-
-                }
-                ToeLink.MaterialName = Convert.ToString(_ocColor.ToeLink);
+                ToeLink.EntityData = new CustomData("ToeLink", _ocColor.ToeLink);
             }
 
             ///<summary>
             ///Damper 
             /// </summary>
-            if (!_isInitializing && _ocColor.DamperForce > 0) { color = Color.Red; } else if (!_isInitializing && _ocColor.DamperForce < 0) { color = Color.Blue; }
+            //if (!_isInitializing && _ocColor.DamperForce > 0) { color = Color.Red; } else if (!_isInitializing && _ocColor.DamperForce < 0) { color = Color.Blue; }
             Bar Damper = new Bar(CoordinatesTemp.InboardPickUp["Damper Shock Mount"].Position, CoordinatesTemp.InboardPickUp[damperName].Position, 4.5, 8);
             CoordinatesTemp.SuspensionLinks.Add("Damper", Damper);
-            viewportLayout1.Entities.Add(Damper, "Bars", color);
+            viewportLayout1.Entities.Add(Damper, "Bars"/*, color*/);
             if (_ocColor != null)
             {
-                if (!viewportLayout1.Materials.Contains(Convert.ToString(_ocColor.DamperForce)))
-                {
-                    viewportLayout1.Materials.Add(new Material(Convert.ToString(_ocColor.DamperForce)));
-
-                }
-                Damper.MaterialName = Convert.ToString(_ocColor.DamperForce);
+                Damper.EntityData = new CustomData("Damper", _ocColor.DamperForce);
             }
 
             ///<summary>
             ///Anti Roll Bar Droop Link
             /// </summary>
-            if (!_isInitializing && _ocColor.ARBDroopLink > 0) { color = Color.Red; } else if (!_isInitializing && _ocColor.ARBDroopLink < 0) { color = Color.Blue; }
+            //if (!_isInitializing && _ocColor.ARBDroopLink > 0) { color = Color.Red; } else if (!_isInitializing && _ocColor.ARBDroopLink < 0) { color = Color.Blue; }
             Bar ARBLever = new Bar(CoordinatesTemp.InboardPickUp["Anti-Roll Bar Chassis"].Position, CoordinatesTemp.InboardPickUp["Anti-Roll Bar Link"].Position, 4.5, 8);
             CoordinatesTemp.SuspensionLinks.Add("ARBLever", ARBLever);
-            viewportLayout1.Entities.Add(ARBLever, "Bars", color);
+            viewportLayout1.Entities.Add(ARBLever, "Bars"/*, color*/);
             if (_ocColor != null)
             {
-                if (!viewportLayout1.Materials.Contains(Convert.ToString(_ocColor.ARBDroopLink)))
-                {
-                    viewportLayout1.Materials.Add(new Material(Convert.ToString(_ocColor.ARBDroopLink)));
-
-                }
-                ARBLever.MaterialName = Convert.ToString(_ocColor.ARBDroopLink);
+                ARBLever.EntityData = new CustomData("ARBLever", _ocColor.ARBDroopLink);
             }
-
-            //tV1 = new Point3D(CoordinatesMaster.OutboardPickUp["LowerBallJoint"].Position);
-            //tV2 = new Point3D(CoordinatesMaster.InboardPickUp["DamperShockMount"].Position);
-            //tV3 = new Point3D(CoordinatesMaster.OutboardPickUp["SteeringLinkUpright"].Position);
             #endregion
         }
 
@@ -1198,11 +1166,6 @@ namespace Coding_Attempt_with_GUI
             PlotArrows(scmPlotCommon.W1x, scmPlotCommon.W1y, scmPlotCommon.W1z, cPForcex, cPForcey, cPForcez, true, maxForceX, minForceX, maxForceY, minForceY, maxForceZ, minForceZ);
 
             
-        }
-
-        private void PaintCommonForceBars()
-        {
-
         }
 
         #region Maybe this a better method to add bars to the viewport. Scrapping this for now because no time to debug and test
@@ -1354,53 +1317,38 @@ namespace Coding_Attempt_with_GUI
             ///<summary>
             ///Upper Front Wishbone
             /// </summary>
-            if (!_isInitializing && _ocColor.UpperFront > 0) { color = Color.Red; } else if (!_isInitializing && _ocColor.UpperFront < 0) { color = Color.Blue; }
+            //if (!_isInitializing && _ocColor.UpperFront > 0) { color = Color.Red; } else if (!_isInitializing && _ocColor.UpperFront < 0) { color = Color.Blue; }
             Bar UpperFrontArm = new Bar(CoordinatesTemp.InboardPickUp["Upper Front Chassis"].Position, CoordinatesTemp.OutboardPickUp["Upper Ball Joint"].Position, 4.5, 8);
             CoordinatesTemp.SuspensionLinks.Add("UpperFrontArm", UpperFrontArm);
-            viewportLayout1.Entities.Add(UpperFrontArm, "Bars", color);
+            viewportLayout1.Entities.Add(UpperFrontArm, "Bars"/*, color*/);
             if (_ocColor != null)
             {
-                if (!viewportLayout1.Materials.Contains(Convert.ToString(_ocColor.UpperFront)))
-                {
-                    viewportLayout1.Materials.Add(new Material(Convert.ToString(_ocColor.UpperFront)));
-
-                }
-                UpperFrontArm.MaterialName = Convert.ToString(_ocColor.UpperFront);
+                UpperFrontArm.EntityData = new CustomData("UpperFrontArm", _ocColor.UpperFront);
             }
 
             ///<summary>
             ///Upper Rear Wishbone
             /// </summary>
-            if (!_isInitializing && _ocColor.UpperRear > 0) { color = Color.Red; } else if (!_isInitializing && _ocColor.UpperRear < 0) { color = Color.Blue; }
+            //if (!_isInitializing && _ocColor.UpperRear > 0) { color = Color.Red; } else if (!_isInitializing && _ocColor.UpperRear < 0) { color = Color.Blue; }
             Bar UpperRearArm = new Bar(CoordinatesTemp.InboardPickUp["Upper Rear Chassis"].Position, CoordinatesTemp.OutboardPickUp["Upper Ball Joint"].Position, 4.5, 8);
             CoordinatesTemp.SuspensionLinks.Add("UpperRearArm", UpperRearArm);
-            viewportLayout1.Entities.Add(UpperRearArm, "Bars", color);
+            viewportLayout1.Entities.Add(UpperRearArm, "Bars"/*, color*/);
             if (_ocColor != null)
             {
-                if (!viewportLayout1.Materials.Contains(Convert.ToString(_ocColor.UpperRear)))
-                {
-                    viewportLayout1.Materials.Add(new Material(Convert.ToString(_ocColor.UpperRear)));
-
-                }
-                UpperRearArm.MaterialName = Convert.ToString(_ocColor.UpperRear);
+                UpperRearArm.EntityData = new CustomData("UpperRearArm", _ocColor.UpperRear);
             }
 
             ///<summary>
             ///Pushrod 
             /// </summary>
-            if (!_isInitializing && _ocColor.PushRod > 0) { color = Color.Red; } else if (!_isInitializing && _ocColor.PushRod < 0) { color = Color.Blue; }
+            //if (!_isInitializing && _ocColor.PushRod > 0) { color = Color.Red; } else if (!_isInitializing && _ocColor.PushRod < 0) { color = Color.Blue; }
             Bar Pushrod = new Bar(CoordinatesTemp.InboardPickUp[pushPullName + " Bell-Crank"].Position, CoordinatesTemp.OutboardPickUp[pushPullName + " Upright"].Position, 4.5, 8);
             CoordinatesTemp.SuspensionLinks.Add("Pushrod", Pushrod);
-            viewportLayout1.Entities.Add(Pushrod, "Bars", color);
+            viewportLayout1.Entities.Add(Pushrod, "Bars"/*, color*/);
             if (_ocColor != null)
             {
-                if (!viewportLayout1.Materials.Contains(Convert.ToString(_ocColor.PushRod)))
-                {
-                    viewportLayout1.Materials.Add(new Material(Convert.ToString(_ocColor.PushRod)));
+                Pushrod.EntityData = new CustomData("Pushrod", _ocColor.PushRod);
 
-                }
-
-                Pushrod.MaterialName = Convert.ToString(_ocColor.PushRod);
             }
 
             ///<summary>
@@ -1429,21 +1377,19 @@ namespace Coding_Attempt_with_GUI
             ///<summary> 
             ///Triangles joining the Bell-Crank Vectors
             /// </summary>
-            viewportLayout1.Entities.Add(new Triangle(bellCrankTriangle_I, bellCrankTriangle_J, bellCrankTriangle_H), 4, Color.Orange);
-            viewportLayout1.Entities.Add(new Triangle(bellCrankTriangle_I, bellCrankTriangle_H, bellCrankTriangle_O), 4, Color.Orange);
+            viewportLayout1.Entities.Add(new Triangle(bellCrankTriangle_I, bellCrankTriangle_J, bellCrankTriangle_H), "Triangles", Color.Orange);
+            viewportLayout1.Entities.Add(new Triangle(bellCrankTriangle_I, bellCrankTriangle_H, bellCrankTriangle_O), "Triangles", Color.Orange);
 
             ///<summary>
             ///ARB Droop Link 
             /// </summary>
-            if (!_isInitializing && _ocColor.ARBDroopLink > 0) { color = Color.Red; } else if (!_isInitializing && _ocColor.ARBDroopLink < 0) { color = Color.Blue; }
+            //if (!_isInitializing && _ocColor.ARBDroopLink > 0) { color = Color.Red; } else if (!_isInitializing && _ocColor.ARBDroopLink < 0) { color = Color.Blue; }
             Bar ARBDroopLink = new Bar(CoordinatesTemp.InboardPickUp["Anti-Roll Bar Bell-Crank"].Position, CoordinatesTemp.InboardPickUp["Anti-Roll Bar Link"].Position, 4.5, 8);
             CoordinatesTemp.SuspensionLinks.Add("ARBDroopLink", ARBDroopLink);
-            viewportLayout1.Entities.Add(ARBDroopLink, 2, color);
+            viewportLayout1.Entities.Add(ARBDroopLink, "Bars"/*, color*/);
             if (_ocColor != null)
             {
-                //viewportLayout1.Materials.Add(new Material(Convert.ToString(_ocColor.ARBDroopLink)));
-
-                ARBDroopLink.MaterialName = Convert.ToString(_ocColor.ARBDroopLink);
+                ARBDroopLink.EntityData = new CustomData("ARBDroopLink", _ocColor.ARBDroopLink);
             }
             #endregion
         }
@@ -1468,16 +1414,16 @@ namespace Coding_Attempt_with_GUI
             {
                 if (viewportLayout1.Entities[i] as Bar != null)
                 {
-                    Bar tempBar = viewportLayout1.Entities[i] as Bar;
+                    //Bar tempBar = viewportLayout1.Entities[i] as Bar;
                     
 
-                    viewportLayout1.Entities[i].ColorMethod = colorMethodType.byEntity;
-                    viewportLayout1.Entities[i].Color.Equals(PaintGradient(Convert.ToDouble(viewportLayout1.Entities[i].MaterialName), _masterOC.MinForce, _masterOC.MaxForce, Color.Red, Color.Blue));
-                    viewportLayout1.Entities[i] = 
-                    viewportLayout1.Entities[i].RegenMode = regenType.RegenAndCompile;
-                    viewportLayout1.Entities[i].Regen(0);
-                    viewportLayout1.Update();
-                    viewportLayout1.Refresh();
+                    //viewportLayout1.Entities[i].ColorMethod = colorMethodType.byEntity;
+                    //viewportLayout1.Entities[i].Color.Equals(PaintGradient(Convert.ToDouble(viewportLayout1.Entities[i].MaterialName), _masterOC.MinForce, _masterOC.MaxForce, Color.Red, Color.Blue));
+
+                    //viewportLayout1.Entities[i].RegenMode = regenType.RegenAndCompile;
+                    //viewportLayout1.Entities[i].Regen(0);
+                    //viewportLayout1.Update();
+                    //viewportLayout1.Refresh();
                 }
             }
 
@@ -2970,11 +2916,19 @@ namespace Coding_Attempt_with_GUI
         }
     }
 
-    enum ForceRepresentationType
+    struct CustomData
     {
-        AxialForce,
-        DecompositionForce,
-        ContactPatchForce
-    };
+        public string Name { get; set; }
+        public double Force { get; set; }
+        //public Color EntityColor{ get; set; }
+
+        public CustomData(string _name, double _force)
+        {
+            Name = _name;
+            Force = _force;
+        }
+
+
+    }
 
 }
