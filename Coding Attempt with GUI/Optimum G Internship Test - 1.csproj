@@ -526,6 +526,9 @@
     <Compile Include="SetupChange\XUC_SetupChangeResults.Designer.cs">
       <DependentUpon>XUC_SetupChangeResults.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="LegendEditor.resx">
+      <DependentUpon>LegendEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Load Cases\Batch Runs\BatchRunForm.resx">
       <DependentUpon>BatchRunForm.cs</DependentUpon>
     </EmbeddedResource>

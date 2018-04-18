@@ -84,10 +84,10 @@
             this.listBoxControlSusCoordinatesInboard.Appearance.Options.UseFont = true;
             this.listBoxControlSusCoordinatesInboard.Cursor = System.Windows.Forms.Cursors.Default;
             this.listBoxControlSusCoordinatesInboard.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBoxControlSusCoordinatesInboard.Location = new System.Drawing.Point(2, 15);
+            this.listBoxControlSusCoordinatesInboard.Location = new System.Drawing.Point(2, 20);
             this.listBoxControlSusCoordinatesInboard.LookAndFeel.SkinName = "VS2010";
             this.listBoxControlSusCoordinatesInboard.Name = "listBoxControlSusCoordinatesInboard";
-            this.listBoxControlSusCoordinatesInboard.Size = new System.Drawing.Size(197, 124);
+            this.listBoxControlSusCoordinatesInboard.Size = new System.Drawing.Size(197, 119);
             this.listBoxControlSusCoordinatesInboard.TabIndex = 0;
             this.listBoxControlSusCoordinatesInboard.DrawItem += new DevExpress.XtraEditors.ListBoxDrawItemEventHandler(this.listBoxControlSusCoordinatesInboard_DrawItem);
             this.listBoxControlSusCoordinatesInboard.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listBoxControlSusCoordinatesInboard_MouseClick);
@@ -107,10 +107,10 @@
             this.listBoxControlVehicleCorners.Appearance.Options.UseFont = true;
             this.listBoxControlVehicleCorners.Cursor = System.Windows.Forms.Cursors.Default;
             this.listBoxControlVehicleCorners.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBoxControlVehicleCorners.Location = new System.Drawing.Point(2, 15);
+            this.listBoxControlVehicleCorners.Location = new System.Drawing.Point(2, 20);
             this.listBoxControlVehicleCorners.LookAndFeel.SkinName = "VS2010";
             this.listBoxControlVehicleCorners.Name = "listBoxControlVehicleCorners";
-            this.listBoxControlVehicleCorners.Size = new System.Drawing.Size(197, 112);
+            this.listBoxControlVehicleCorners.Size = new System.Drawing.Size(197, 107);
             this.listBoxControlVehicleCorners.TabIndex = 0;
             this.listBoxControlVehicleCorners.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listBoxControlVehicleCorners_MouseClick);
             // 
@@ -242,7 +242,7 @@
             "Visible by Polygon",
             "Visible by Pick Dynamic",
             "Visible by Pick Label"});
-            this.selectionComboBox.Location = new System.Drawing.Point(103, 15);
+            this.selectionComboBox.Location = new System.Drawing.Point(103, 20);
             this.selectionComboBox.Name = "selectionComboBox";
             this.selectionComboBox.Size = new System.Drawing.Size(158, 21);
             this.selectionComboBox.TabIndex = 130;
@@ -336,10 +336,10 @@
             this.listBoxControlSusCoordinatesOutboard.Appearance.Options.UseFont = true;
             this.listBoxControlSusCoordinatesOutboard.Cursor = System.Windows.Forms.Cursors.Default;
             this.listBoxControlSusCoordinatesOutboard.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBoxControlSusCoordinatesOutboard.Location = new System.Drawing.Point(2, 15);
+            this.listBoxControlSusCoordinatesOutboard.Location = new System.Drawing.Point(2, 20);
             this.listBoxControlSusCoordinatesOutboard.LookAndFeel.SkinName = "VS2010";
             this.listBoxControlSusCoordinatesOutboard.Name = "listBoxControlSusCoordinatesOutboard";
-            this.listBoxControlSusCoordinatesOutboard.Size = new System.Drawing.Size(197, 124);
+            this.listBoxControlSusCoordinatesOutboard.Size = new System.Drawing.Size(197, 119);
             this.listBoxControlSusCoordinatesOutboard.TabIndex = 0;
             this.listBoxControlSusCoordinatesOutboard.DrawItem += new DevExpress.XtraEditors.ListBoxDrawItemEventHandler(this.listBoxControlSusCoordinatesOutboard_DrawItem);
             this.listBoxControlSusCoordinatesOutboard.Paint += new System.Windows.Forms.PaintEventHandler(this.listBoxControlSusCoordinatesOutboard_Paint);
@@ -360,10 +360,10 @@
             this.listBoxControlMappedCoordinate.Appearance.Options.UseFont = true;
             this.listBoxControlMappedCoordinate.Cursor = System.Windows.Forms.Cursors.Default;
             this.listBoxControlMappedCoordinate.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBoxControlMappedCoordinate.Location = new System.Drawing.Point(2, 15);
+            this.listBoxControlMappedCoordinate.Location = new System.Drawing.Point(2, 20);
             this.listBoxControlMappedCoordinate.LookAndFeel.SkinName = "VS2010";
             this.listBoxControlMappedCoordinate.Name = "listBoxControlMappedCoordinate";
-            this.listBoxControlMappedCoordinate.Size = new System.Drawing.Size(197, 124);
+            this.listBoxControlMappedCoordinate.Size = new System.Drawing.Size(197, 119);
             this.listBoxControlMappedCoordinate.TabIndex = 0;
             this.listBoxControlMappedCoordinate.SelectedIndexChanged += new System.EventHandler(this.listBoxControlMappedComponents_SelectedIndexChanged);
             // 

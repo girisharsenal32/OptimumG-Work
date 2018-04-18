@@ -13,6 +13,7 @@ using System.Runtime.Serialization;
 using MathNet.Spatial;
 using DevExpress.XtraBars.Docking;
 using System.Data;
+using System.Linq;
 
 namespace Coding_Attempt_with_GUI
 {
@@ -181,6 +182,28 @@ namespace Coding_Attempt_with_GUI
         /// 
         /// </summary>
         Kinematics_Software_New R1 = Kinematics_Software_New.AssignFormVariable();
+
+        public GradientStyle GradientType = GradientStyle.StandardFEM;
+
+        /// <summary>
+        /// User choice of the First Color if the <see cref="GradientStyle"/> selected if <see cref="GradientStyle.TwoColours"/>
+        /// </summary>
+        public Color GradientColor1 { get; set; } = Color.DarkViolet;
+        /// <summary>
+        /// User choice of the Second Color if the <see cref="GradientStyle"/> selected if <see cref="GradientStyle.TwoColours"/>
+        /// </summary>
+        public Color GradientColor2 { get; set; } = Color.Azure;
+
+        /// <summary>
+        /// List of Colours which will be passed to the <see cref="Legend"/>'s <see cref="Legend.ColorTable"/> if the user wishes to see the Legend in <see cref="GradientStyle.TwoColours"/>
+        /// </summary>
+        List<Color> LegendColors = new List<Color>();
+        /// <summary>
+        /// <para>List of <see cref="CustomData"/> which stores the <see cref="CustomData"/> of every single <see cref="Entity"/> in the Viewport and later sorts it</para>
+        /// <para>This is done primarily to facilitate the sorting of the <see cref="Color"/> of the <see cref="Entity"/>'s of the <see cref="Viewport"/> so that it can be passed in the right order to the <see cref="Legend.ColorTable"/></para>
+        /// </summary>
+        List<CustomData> CustomDataList = new List<CustomData>();
+
         #endregion
 
         #region Constructor
@@ -722,6 +745,7 @@ namespace Coding_Attempt_with_GUI
         }
         #endregion
 
+        #region Clone Method to Clone the Imported entities from the Input Viewport to the Output Viewport
         public void CloneOutputViewPort(ViewportLayout _outputViewPort, ViewportLayout _inputViewport)
         {
             for (int i = 0; i < _inputViewport.Layers.Count; i++)
@@ -741,7 +765,8 @@ namespace Coding_Attempt_with_GUI
             }
             //}
 
-        }
+        } 
+        #endregion
 
         #region Plotter or Drawer methods
 
@@ -888,8 +913,7 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
         #region Arrow Plotter to represent Forces
-        List<Color> LegendColors = new List<Color>();
-        List<double> AllForces = new List<double>();
+
         /// <summary>
         /// Decides which color 'value' represents. Scales the colour based ont he Ratio of Cell Value to (Max-Min) Value
         /// </summary>
@@ -897,83 +921,105 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_minValue">Max Force Value</param>
         /// <param name="_maxValue">Min Force Value</param>
         /// <returns></returns>
-        public Color PaintGradient(double _cellValue, double _minValue, double _maxValue, Color _firstColour, Color _secondColour)
+        public Color PaintGradient(Entity _entityToBeColoured,double _cellValue, double _minValue, double _maxValue, Color _firstColour, Color _secondColour)
         {
-            double absValue;
+            GradientType = GradientStyle.TwoColours;
+
+            ///<summary>Cell Value as a Percent of the Max Value</summary>
+            double absValue = 1;
+            ///<summary>Half of the Max Vallue </summary>
             double halfMax = _maxValue / 2;
+            ///<summary>Half of the Min Value</summary>
             double halfMin = _minValue / 2;
+            ///<summary>Distance between Cell Value and the Max Value when represented on a Number Line</summary>
             double relValuePos_MaxToCurr;
+            ///<summary>Postion of the Cell Value on a Number Line</summary>
             double relValuePos_CurrtoZero;
+            ///<summary>Distance between Cell Value and the Min Value when represented on a Number Line</summary>
             double relValueNeg_ZeroToCurr;
+            ///<summary>Postion of the Cell Value on a Number Line</summary>
             double relValueNeg_CurrToMin;
             long  red = 255, green = 255, blue= 255;
 
-            if (_cellValue > 0)
+            ///<summary>If loop to determine the course of action depending on the <see cref="GradientStyle"/></summary>
+            if (GradientType == GradientStyle.StandardFEM)
             {
-                relValuePos_MaxToCurr = _maxValue - _cellValue;
-                relValuePos_CurrtoZero = _cellValue - 0;
-
-                if (_cellValue > halfMax)
+                ///<summary>This algorithm assumes the Forces to be on a Number Line. If Cell Value is less than Half Max, Red value increases. If otherway around, Green Value reduces. Similar for Blue</summary>
+                if (_cellValue > 0)
                 {
-                    red = 255;
-                    green = Convert.ToInt32(/*255 -*/ (255 * (relValuePos_MaxToCurr / relValuePos_CurrtoZero/*/2*/)));
-                    blue = 0;
+                    relValuePos_MaxToCurr = _maxValue - _cellValue;
+                    relValuePos_CurrtoZero = _cellValue - 0;
+
+                    if (_cellValue > halfMax)
+                    {
+                        red = 255;
+                        green = Convert.ToInt32((255 * (relValuePos_MaxToCurr / relValuePos_CurrtoZero/*/2*/)));
+                        blue = 0;
+                    }
+                    else
+                    {
+                        red = Convert.ToInt32((255 * (relValuePos_CurrtoZero / relValuePos_MaxToCurr)));
+                        green = 255;
+                        blue = 0;
+                    }
+
+                }
+
+                else if (_cellValue < 0)
+                {
+                    relValueNeg_ZeroToCurr = 0 - _cellValue;
+                    relValueNeg_CurrToMin = _cellValue - _minValue;
+
+                    if (Math.Abs(_cellValue) > Math.Abs(halfMin))
+                    {
+                        red = 0;
+                        green = Convert.ToInt64((255 * (relValueNeg_CurrToMin / relValueNeg_ZeroToCurr/*/2*/)));
+                        blue = 255;
+                    }
+                    else
+                    {
+                        red = 0;
+                        green = 255;
+                        blue = Convert.ToInt64((255 * (relValueNeg_ZeroToCurr / relValueNeg_CurrToMin)));
+                    }
+                } 
+            }
+
+            else if(GradientType == GradientStyle.TwoColours)
+            {
+                int deltaR = _firstColour.R - _secondColour.R;
+                int deltaG = _firstColour.G - _secondColour.G;
+                int deltaB = _firstColour.B - _secondColour.B;
+
+                if (_maxValue == _minValue)  //It avoids NotANumber results if max = min
+                {
+                    absValue = 1;
                 }
                 else
                 {
-                    red = Convert.ToInt32(/*255 -*/ (255 * (relValuePos_CurrtoZero / relValuePos_MaxToCurr)));
-                    green = 255;
-                    blue = 0;
+                    absValue = ((_cellValue) - _minValue) / (_maxValue - _minValue);
                 }
 
+                red = _secondColour.R + Convert.ToInt32(Math.Round((deltaR * (absValue))));
+                green = _secondColour.G + Convert.ToInt32(Math.Round((deltaG * (absValue))));
+                blue = _secondColour.B + Convert.ToInt32(Math.Round((deltaB * (absValue))));    
             }
-            else if (_cellValue < 0)
-            {
-                relValueNeg_ZeroToCurr = 0 - _cellValue;
-                relValueNeg_CurrToMin = _cellValue - _minValue;
 
-                if (Math.Abs(_cellValue) > Math.Abs(halfMin)) 
-                {
-                    red = 0;
-                    green = Convert.ToInt64(/*255 -*/ (255 * (relValueNeg_CurrToMin / relValueNeg_ZeroToCurr/*/2*/)));
-                    blue = 255;
-                }
-                else
-                {
-                    red = 0;
-                    green = 255;
-                    blue = Convert.ToInt64(/*255 -*/ (255 * (relValueNeg_ZeroToCurr / relValueNeg_CurrToMin)));
-                }
-            }
+            ///<summary>At this stage, the <see cref="CustomData"/> of the <see cref="Entity"/> is edited and the correct color is assigned. </summary>
+            CustomData tempEntityData = (CustomData)_entityToBeColoured.EntityData;
+            tempEntityData.EntityColor = Color.FromArgb(255, Convert.ToInt32(red), Convert.ToInt32(green), Convert.ToInt32(blue));
+            _entityToBeColoured.EntityData = tempEntityData;
             
-            Color midColor = Color.Green;
+            CustomDataList.Add(tempEntityData);
 
-            int deltaR = _firstColour.R - _secondColour.R;
-            int deltaG = _firstColour.G - _secondColour.G;
-            int deltaB = _firstColour.B - _secondColour.B;
+            
 
-            if (_maxValue == _minValue)  //It avoids NotANumber results if max = min
-            {
-                absValue = 1;
-            }
-            else
-            {
-                absValue = ((_cellValue) - _minValue) / (_maxValue - _minValue);
-            }
+            return tempEntityData.EntityColor;
+            //return Color.FromArgb(255, Convert.ToInt32(red), Convert.ToInt32(green), Convert.ToInt32(blue));
 
-
-
-            //red = _secondColour.R + Convert.ToInt32(Math.Round((deltaR * (absValue))));
-            //green = _secondColour.G + Convert.ToInt32(Math.Round((deltaG * (absValue))));
-            //blue = _secondColour.B + Convert.ToInt32(Math.Round((deltaB * (absValue))));
-
-            LegendColors.Add(Color.FromArgb(255, Convert.ToInt32(red), Convert.ToInt32(green), Convert.ToInt32(blue)));
-            AllForces.Add(_cellValue);
-            return Color.FromArgb(255, Convert.ToInt32(red), Convert.ToInt32(green), Convert.ToInt32(blue));
 
 
         }
-        
 
 
         /// <summary>
@@ -997,9 +1043,7 @@ namespace Coding_Attempt_with_GUI
                 arrowStart = new Point3D(_startX, _startY - (_forceY * 0.1) - 30, _startZ);
             }
 
-            Color scaledLimeGreen = PaintGradient(_forceX, _minValueX, _maxValueX, Color.DarkOliveGreen  , Color.Lime);
-            Color scaledTurquoise = PaintGradient(_forceY, _minValueY, _maxValueY, Color.DarkSlateBlue, Color.LightSkyBlue);
-            Color scaledOrange = PaintGradient(_forceZ, _minValueZ, _maxValueZ, Color.DarkOrange, Color.LightYellow);
+            
 
             ///<summary>
             ///Vectors to allign the arrows in along the Axes
@@ -1032,23 +1076,28 @@ namespace Coding_Attempt_with_GUI
             if (_forceX != 0)
             {
                 Mesh arrowX = Mesh.CreateArrow(arrowStart, directionX, cylinderRadius, Math.Abs(_forceX + 0.01) * 0.1, coneRadius, coneLength, 10, Mesh.natureType.Smooth, Mesh.edgeStyleType.Sharp);
-                viewportLayout1.Entities.Add(arrowX, "Joints", scaledLimeGreen);
-                arrowX.EntityData = new CustomData("arrowX", _forceX);
+                arrowX.EntityData = new CustomData("arrowX", _forceX, Color.White);
+                Color xColor = PaintGradient(arrowX, _forceX, _minValueX, _maxValueX, GradientColor1, GradientColor2);
+                viewportLayout1.Entities.Add(arrowX, "Joints", xColor);
+                
 
             }
 
             if (_forceY != 0)
             {
                 Mesh arrowY = Mesh.CreateArrow(arrowStart, directionY, cylinderRadius, Math.Abs(_forceY + 0.01) * 0.1, coneRadius, coneLength, 10, Mesh.natureType.Smooth, Mesh.edgeStyleType.Sharp);
-                viewportLayout1.Entities.Add(arrowY, "Joints", scaledTurquoise);
-                arrowY.EntityData = new CustomData("arrowY", _forceY);
+                arrowY.EntityData = new CustomData("arrowY", _forceY, Color.White);
+                Color yColor = PaintGradient(arrowY, _forceY, _minValueY, _maxValueY, GradientColor1, GradientColor2);
+                viewportLayout1.Entities.Add(arrowY, "Joints", yColor);
+                
             }
 
             if (_forceZ != 0)
             {
                 Mesh arrowZ = Mesh.CreateArrow(arrowStart, directionZ, cylinderRadius, Math.Abs(_forceZ + 0.01) * 0.1, coneRadius, coneLength, 10, Mesh.natureType.Smooth, Mesh.edgeStyleType.Sharp);
-                viewportLayout1.Entities.Add(arrowZ, "Joints", scaledOrange);
-                arrowZ.EntityData = new CustomData("arrowZ", _forceZ);
+                arrowZ.EntityData = new CustomData("arrowZ", _forceZ, Color.White);
+                Color zColor = PaintGradient(arrowZ, _forceZ, _minValueZ, _maxValueZ, GradientColor1, GradientColor2);
+                viewportLayout1.Entities.Add(arrowZ, "Joints", zColor);
             }
 
 
@@ -1136,10 +1185,10 @@ namespace Coding_Attempt_with_GUI
             /// </summary>
             Bar LowerRearArm = new Bar(CoordinatesTemp.InboardPickUp["Lower Rear Chassis"].Position, CoordinatesTemp.OutboardPickUp["Lower Ball Joint"].Position, 4.5, 8); ///<remarks>Need to use the dictionaries for all the plot commands shown below </remarks>
             CoordinatesTemp.SuspensionLinks.Add("LowerRearArm", LowerRearArm);
-            viewportLayout1.Entities.Add(LowerRearArm, "Bars"/*, color*/);
+            viewportLayout1.Entities.Add(LowerRearArm, "Bars");
             if (_ocColor != null)
             {
-                LowerRearArm.EntityData = new CustomData("LowerRearArm", _ocColor.LowerRear);
+                LowerRearArm.EntityData = new CustomData("LowerRearArm", _ocColor.LowerRear, Color.Orange);
             }
 
 
@@ -1148,10 +1197,10 @@ namespace Coding_Attempt_with_GUI
             /// </summary>
             Bar LowerFrontArm = new Bar(CoordinatesTemp.InboardPickUp["Lower Front Chassis"].Position, CoordinatesTemp.OutboardPickUp["Lower Ball Joint"].Position, 4.5, 8);
             CoordinatesTemp.SuspensionLinks.Add("LowerFrontArm", LowerFrontArm);
-            viewportLayout1.Entities.Add(LowerFrontArm, "Bars"/*, color*/);
+            viewportLayout1.Entities.Add(LowerFrontArm, "Bars");
             if (_ocColor != null)
             {
-                LowerFrontArm.EntityData = new CustomData("LowerFrontArm", _ocColor.LowerFront);
+                LowerFrontArm.EntityData = new CustomData("LowerFrontArm", _ocColor.LowerFront, Color.Orange);
             }
 
             ///<summary>
@@ -1160,10 +1209,10 @@ namespace Coding_Attempt_with_GUI
             //if (!_isInitializing && _ocColor.ToeLink > 0) { color = Color.Red; } else if (!_isInitializing && _ocColor.ToeLink < 0) { color = Color.Blue; }
             Bar ToeLink = new Bar(CoordinatesTemp.InboardPickUp["Steering Link Chassis"].Position, CoordinatesTemp.OutboardPickUp["Steering Link Upright"].Position, 4.5, 8);
             CoordinatesTemp.SuspensionLinks.Add("ToeLink", ToeLink);
-            viewportLayout1.Entities.Add(ToeLink, "Bars"/*, color*/);
+            viewportLayout1.Entities.Add(ToeLink, "Bars");
             if (_ocColor != null)
             {
-                ToeLink.EntityData = new CustomData("ToeLink", _ocColor.ToeLink);
+                ToeLink.EntityData = new CustomData("ToeLink", _ocColor.ToeLink, Color.Orange);
             }
 
             ///<summary>
@@ -1171,10 +1220,10 @@ namespace Coding_Attempt_with_GUI
             /// </summary>
             Bar Damper = new Bar(CoordinatesTemp.InboardPickUp["Damper Shock Mount"].Position, CoordinatesTemp.InboardPickUp[damperName].Position, 4.5, 8);
             CoordinatesTemp.SuspensionLinks.Add("Damper", Damper);
-            viewportLayout1.Entities.Add(Damper, "Bars"/*, color*/);
+            viewportLayout1.Entities.Add(Damper, "Bars");
             if (_ocColor != null)
             {
-                Damper.EntityData = new CustomData("Damper", _ocColor.DamperForce);
+                Damper.EntityData = new CustomData("Damper", _ocColor.DamperForce, Color.Orange);
             }
 
             ///<summary>
@@ -1182,10 +1231,10 @@ namespace Coding_Attempt_with_GUI
             /// </summary>
             Bar ARBLever = new Bar(CoordinatesTemp.InboardPickUp["Anti-Roll Bar Chassis"].Position, CoordinatesTemp.InboardPickUp["Anti-Roll Bar Link"].Position, 4.5, 8);
             CoordinatesTemp.SuspensionLinks.Add("ARBLever", ARBLever);
-            viewportLayout1.Entities.Add(ARBLever, "Bars"/*, color*/);
+            viewportLayout1.Entities.Add(ARBLever, "Bars");
             if (_ocColor != null)
             {
-                ARBLever.EntityData = new CustomData("ARBLever", _ocColor.ARBDroopLink);
+                ARBLever.EntityData = new CustomData("ARBLever", _ocColor.ARBDroopLink, Color.Orange);
             }
             #endregion
         }
@@ -1374,7 +1423,7 @@ namespace Coding_Attempt_with_GUI
             viewportLayout1.Entities.Add(UpperFrontArm, "Bars"/*, color*/);
             if (_ocColor != null)
             {
-                UpperFrontArm.EntityData = new CustomData("UpperFrontArm", _ocColor.UpperFront);
+                UpperFrontArm.EntityData = new CustomData("UpperFrontArm", _ocColor.UpperFront, Color.Orange);
             }
 
             ///<summary>
@@ -1382,10 +1431,10 @@ namespace Coding_Attempt_with_GUI
             /// </summary>
             Bar UpperRearArm = new Bar(CoordinatesTemp.InboardPickUp["Upper Rear Chassis"].Position, CoordinatesTemp.OutboardPickUp["Upper Ball Joint"].Position, 4.5, 8);
             CoordinatesTemp.SuspensionLinks.Add("UpperRearArm", UpperRearArm);
-            viewportLayout1.Entities.Add(UpperRearArm, "Bars"/*, color*/);
+            viewportLayout1.Entities.Add(UpperRearArm, "Bars");
             if (_ocColor != null)
             {
-                UpperRearArm.EntityData = new CustomData("UpperRearArm", _ocColor.UpperRear);
+                UpperRearArm.EntityData = new CustomData("UpperRearArm", _ocColor.UpperRear, Color.Orange);
             }
 
             ///<summary>
@@ -1393,10 +1442,10 @@ namespace Coding_Attempt_with_GUI
             /// </summary>
             Bar Pushrod = new Bar(CoordinatesTemp.InboardPickUp[pushPullName + " Bell-Crank"].Position, CoordinatesTemp.OutboardPickUp[pushPullName + " Upright"].Position, 4.5, 8);
             CoordinatesTemp.SuspensionLinks.Add("Pushrod", Pushrod);
-            viewportLayout1.Entities.Add(Pushrod, "Bars"/*, color*/);
+            viewportLayout1.Entities.Add(Pushrod, "Bars");
             if (_ocColor != null)
             {
-                Pushrod.EntityData = new CustomData("Pushrod", _ocColor.PushRod);
+                Pushrod.EntityData = new CustomData("Pushrod", _ocColor.PushRod, Color.Orange);
 
             }
 
@@ -1434,10 +1483,10 @@ namespace Coding_Attempt_with_GUI
             /// </summary>
             Bar ARBDroopLink = new Bar(CoordinatesTemp.InboardPickUp["Anti-Roll Bar Bell-Crank"].Position, CoordinatesTemp.InboardPickUp["Anti-Roll Bar Link"].Position, 4.5, 8);
             CoordinatesTemp.SuspensionLinks.Add("ARBDroopLink", ARBDroopLink);
-            viewportLayout1.Entities.Add(ARBDroopLink, "Bars"/*, color*/);
+            viewportLayout1.Entities.Add(ARBDroopLink, "Bars");
             if (_ocColor != null)
             {
-                ARBDroopLink.EntityData = new CustomData("ARBDroopLink", _ocColor.ARBDroopLink);
+                ARBDroopLink.EntityData = new CustomData("ARBDroopLink", _ocColor.ARBDroopLink, Color.Orange);
             }
             #endregion
         }
@@ -1473,8 +1522,9 @@ namespace Coding_Attempt_with_GUI
         /// Method to Paint all the Bars in the Viewport basd on the <see cref="CustomData.Force"/> value using a For Loop 
         /// </summary>
         /// <param name="_masterOC"></param>
-        private void PaintBars(OutputClass _masterOC)
+        private void PaintBars(OutputClass _masterOC, Color _firstColor, Color _secondColor)
         {
+            CustomDataList.Clear();
 
             for (int i = 0; i < viewportLayout1.Entities.Count; i++)
             {
@@ -1494,10 +1544,11 @@ namespace Coding_Attempt_with_GUI
 
 
                     viewportLayout1.Entities[i].ColorMethod = colorMethodType.byEntity;
-                    viewportLayout1.Entities[i].Color = PaintGradient(barData.Force, _masterOC.MinForce, _masterOC.MaxForce, Color.Red, Color.Blue);
-
+                    viewportLayout1.Entities[i].Color = PaintGradient(viewportLayout1.Entities[i], barData.Force, _masterOC.MinForce, _masterOC.MaxForce, _firstColor, _secondColor);
 
                     END:
+                    viewportLayout1.Entities[i].RegenMode = regenType.RegenAndCompile;
+                    viewportLayout1.Entities[i].Regen(0);
                     viewportLayout1.Invalidate();
                     viewportLayout1.Update();
                     viewportLayout1.Refresh();
@@ -1507,6 +1558,33 @@ namespace Coding_Attempt_with_GUI
 
         }
 
+        private void PaintArrows(OutputClass _masterOC, Color _firstColor, Color _secondColor)
+        {
+            for (int i = 0; i < viewportLayout1.Entities.Count; i++)
+            {
+                if (viewportLayout1.Entities[i] as Mesh != null)
+                {
+                    CustomData arrowData = new CustomData();
+
+                    if (viewportLayout1.Entities[i].EntityData != null)
+                    {
+                        arrowData = (CustomData)viewportLayout1.Entities[i].EntityData;
+                    }
+                    else
+                    {
+                        goto END;
+                    }
+
+                    viewportLayout1.Entities[i].ColorMethod = colorMethodType.byEntity;
+                    viewportLayout1.Entities[i].Color = PaintGradient(viewportLayout1.Entities[i], arrowData.Force, _masterOC.MinForce, _masterOC.MaxForce, _firstColor, _secondColor);
+
+                    END:
+                    viewportLayout1.Invalidate();
+                    viewportLayout1.Update();
+                    viewportLayout1.Refresh();
+                }
+            }
+        }
 
         #region TARB Suspension Plotter
         private void TARBPlotter(SuspensionCoordinatesMaster _scmPlotTARB)
@@ -2225,7 +2303,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_wa">Object of the WheelAlignment Class</param>
         /// <param name="_IsInitializing">Boolean variable to determine if the Input items are being plotted or the Output Items</param>
         /// <param name="_ocPlotter"> Object of the OutputClass. Here it is needed to color the Wishbones during Output display. NULL for Input calls</param>
-        public void SuspensionPlotterInvoker(SuspensionCoordinatesMaster _scm, int Identifier, WheelAlignment _wa, bool _IsInitializing, bool _PlotWheel, OutputClass _ocPlotter/*, double _CPForceX, double _CPForceY, double _CPForceZ*/)
+        public void SuspensionPlotterInvoker(SuspensionCoordinatesMaster _scm, int Identifier, WheelAlignment _wa, bool _IsInitializing, bool _PlotWheel, OutputClass _ocPlotter)
         {
             CoordinatesTemp = new CoordinateDatabase();
 
@@ -2307,6 +2385,12 @@ namespace Coding_Attempt_with_GUI
 
         }
 
+        public void GetGradientColors(Color _gradientColor1, Color _gradientColor2)
+        {
+            GradientColor1 = _gradientColor1;
+            GradientColor2 = _gradientColor2;
+        }
+
         /// <summary>
         /// <para>Method to Plot the Force Arrows for the Force Decompositions</para>
         /// <para>Pass Individual Decomp Forces for each direction OR Overall Max/MinForces thrice</para>
@@ -2317,16 +2401,11 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_CPForceX"></param>
         /// <param name="_CPForceY"></param>
         /// <param name="_CPForceZ"></param>
-        /// <param name="_MaxForce_X"></param>
-        /// <param name="_MinForce_X"></param>
-        /// <param name="_MaxForce_Y"></param>
-        /// <param name="_MinForce_Y"></param>
-        /// <param name="_MaxForce_Z"></param>
-        /// <param name="_MinForce_Z"></param>
         public void PaintForceDecompArrows(SuspensionCoordinatesMaster _SCM, OutputClass _OCCorner, OutputClass _OCMaster, double _CPForceX, double _CPForceY, double _CPForceZ)
         {
+            ///<summary>Plotting and Painting the Wishbone Joint Decomp Forces Common to McP and DW</summary>
             PaintCommonForceDecmopArrows(_SCM, _OCCorner, _CPForceX, _CPForceY, _CPForceZ, _OCMaster.MaxForce, _OCMaster.MinForce, _OCMaster.MaxForce, _OCMaster.MinForce, _OCMaster.MaxForce, _OCMaster.MinForce);
-
+            ///<summary>Plotting and Painting the Wishbone Joint Decomp Forces of DW</summary>
             PaintDWForceArrows(_SCM, _OCCorner, _CPForceX, _CPForceY, _CPForceZ, _OCMaster.MaxForce, _OCMaster.MinForce, _OCMaster.MaxForce, _OCMaster.MinForce, _OCMaster.MaxForce, _OCMaster.MinForce);
         }
 
@@ -2340,19 +2419,77 @@ namespace Coding_Attempt_with_GUI
 
         public void PaintBarForce(OutputClass _ocMaster)
         {
-            PaintBars(_ocMaster);
-            
+            PaintBars(_ocMaster, GradientColor1, GradientColor2);
+        }
+
+        public void PaintArrowForce(OutputClass _ocMaster)
+        {
+            PaintArrows(_ocMaster, GradientColor1, GradientColor2);
         }
 
         public void PostProcessing(OutputClass _ocMaster)
         {
             viewportLayout1.Legends[0].Max = Math.Round(_ocMaster.MaxForce, 0);
             viewportLayout1.Legends[0].Min = Math.Round(_ocMaster.MinForce, 0);
+            LegendColors.Clear();
+            int NumberOfLegendDivisions = 20;
 
-            AllForces.Sort();
+            int Jumper = 1;
 
+            List<CustomData> SortedList = CustomDataList.OrderBy(o => o.Force).ToList();
+            List<CustomData> SortedListTruncated = new List<CustomData>();
+            Jumper = SortedList.Count / NumberOfLegendDivisions;
+
+            for (int i = 0; i < SortedList.Count; i++)
+            {
+                if (i == 0)
+                {
+                    //LegendColors.Add(SortedList[i].EntityColor);
+                    SortedListTruncated.Add(SortedList[i]);
+                }
+                else
+                {
+                    if (i * Jumper < SortedList.Count) 
+                    {
+                        //LegendColors.Add(SortedList[i * Jumper].EntityColor); 
+                        SortedListTruncated.Add(SortedList[i * Jumper]);
+                    }
+                    else
+                    {
+                        //LegendColors.Add(SortedList[SortedList.Count - 1].EntityColor);
+                        SortedListTruncated.Add(SortedList[SortedList.Count - 1]);
+                        break;
+                    }
+                }
+            }
+
+            List<float> trial = new List<float>();
+
+            for (int i = 0; i < SortedListTruncated.Count; i++)
+            {
+                LegendColors.Add(SortedListTruncated[i].EntityColor);
+                trial.Add(SortedListTruncated[i].EntityColor.GetBrightness());
+            }
+
+            List<Color> SortedLegendColors = LegendColors.OrderBy(l => l.GetBrightness()).ToList();
+
+            SortedLegendColors.Reverse();
             viewportLayout1.Legends[0].Visible = true;
-            viewportLayout1.Legends[0].ColorTable = Legend.RedToBlue17;
+            trial.Clear();
+            for (int i = 0; i < SortedLegendColors.Count; i++)
+            {
+                trial.Add(SortedLegendColors[i].GetBrightness());
+            }
+            GradientType = GradientStyle.TwoColours;
+
+            if (GradientType == GradientStyle.StandardFEM)
+            {
+                viewportLayout1.Legends[0].ColorTable = Legend.RedToBlue17; 
+            }
+            else
+            {
+                viewportLayout1.Legends[0].ColorTable = /*LegendColors*/SortedLegendColors.ToArray();
+            }
         }
 
         #endregion
@@ -3014,15 +3151,31 @@ namespace Coding_Attempt_with_GUI
     {
         public string Name { get; set; }
         public double Force { get; set; }
-        //public Color EntityColor{ get; set; }
+        public Color EntityColor { get; set; }
 
-        public CustomData(string _name, double _force)
+        public CustomData(string _name, double _force,Color _entityColor)
         {
             Name = _name;
             Force = _force;
+            EntityColor = _entityColor;
         }
-
-
     }
+
+    public enum GradientStyle
+    {
+        /// <summary>
+        /// HeatMap style gradient with 2 colours between which the Gradient is swept
+        /// </summary>
+        TwoColours,
+        /// <summary>
+        /// Standard FEM style legend with only Red, Green and Blue
+        /// </summary>
+        StandardFEM,
+        /// <summary>
+        /// User selects a Custom Color for each Range of Forces
+        /// </summary>
+        CustomColor,
+    }
+
 
 }
