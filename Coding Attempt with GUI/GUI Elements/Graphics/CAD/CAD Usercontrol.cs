@@ -889,6 +889,7 @@ namespace Coding_Attempt_with_GUI
 
         #region Arrow Plotter to represent Forces
         List<Color> LegendColors = new List<Color>();
+        List<double> AllForces = new List<double>();
         /// <summary>
         /// Decides which color 'value' represents. Scales the colour based ont he Ratio of Cell Value to (Max-Min) Value
         /// </summary>
@@ -915,12 +916,12 @@ namespace Coding_Attempt_with_GUI
                 if (_cellValue > halfMax)
                 {
                     red = 255;
-                    green = Convert.ToInt32(255 * (relValuePos_MaxToCurr / relValuePos_CurrtoZero));
+                    green = Convert.ToInt32(/*255 -*/ (255 * (relValuePos_MaxToCurr / relValuePos_CurrtoZero/*/2*/)));
                     blue = 0;
                 }
                 else
                 {
-                    red = Convert.ToInt32(255 * (relValuePos_CurrtoZero / relValuePos_MaxToCurr));
+                    red = Convert.ToInt32(/*255 -*/ (255 * (relValuePos_CurrtoZero / relValuePos_MaxToCurr)));
                     green = 255;
                     blue = 0;
                 }
@@ -934,17 +935,17 @@ namespace Coding_Attempt_with_GUI
                 if (Math.Abs(_cellValue) > Math.Abs(halfMin)) 
                 {
                     red = 0;
-                    green = Convert.ToInt64(255 * (relValueNeg_CurrToMin / relValueNeg_ZeroToCurr));
+                    green = Convert.ToInt64(/*255 -*/ (255 * (relValueNeg_CurrToMin / relValueNeg_ZeroToCurr/*/2*/)));
                     blue = 255;
                 }
                 else
                 {
                     red = 0;
                     green = 255;
-                    blue = Convert.ToInt64(255 * (relValueNeg_ZeroToCurr / relValueNeg_CurrToMin));
+                    blue = Convert.ToInt64(/*255 -*/ (255 * (relValueNeg_ZeroToCurr / relValueNeg_CurrToMin)));
                 }
             }
-
+            
             Color midColor = Color.Green;
 
             int deltaR = _firstColour.R - _secondColour.R;
@@ -967,7 +968,7 @@ namespace Coding_Attempt_with_GUI
             //blue = _secondColour.B + Convert.ToInt32(Math.Round((deltaB * (absValue))));
 
             LegendColors.Add(Color.FromArgb(255, Convert.ToInt32(red), Convert.ToInt32(green), Convert.ToInt32(blue)));
-
+            AllForces.Add(_cellValue);
             return Color.FromArgb(255, Convert.ToInt32(red), Convert.ToInt32(green), Convert.ToInt32(blue));
 
 
@@ -2327,24 +2328,31 @@ namespace Coding_Attempt_with_GUI
             PaintCommonForceDecmopArrows(_SCM, _OCCorner, _CPForceX, _CPForceY, _CPForceZ, _OCMaster.MaxForce, _OCMaster.MinForce, _OCMaster.MaxForce, _OCMaster.MinForce, _OCMaster.MaxForce, _OCMaster.MinForce);
 
             PaintDWForceArrows(_SCM, _OCCorner, _CPForceX, _CPForceY, _CPForceZ, _OCMaster.MaxForce, _OCMaster.MinForce, _OCMaster.MaxForce, _OCMaster.MinForce, _OCMaster.MaxForce, _OCMaster.MinForce);
-
-
-
         }
 
-        public void PaintBarForce(OutputClass _ocMaster)
-        {
-            PaintBars(_ocMaster);
 
-            viewportLayout1.Legends[0].Max = _ocMaster.MaxForce;
-            viewportLayout1.Legends[0].Min = _ocMaster.MinForce;
-            viewportLayout1.Legends[0].ColorTable = LegendColors.ToArray();
-        }
 
         public void PaintForceBearingDecompArrows(double[,] leftAttach, double[,] rightAttach, bool isInitializing, bool sRack, bool sColumn, MathNet.Spatial.Euclidean.Vector3D force_P_Left, MathNet.Spatial.Euclidean.Vector3D force_Q_Left,
                                  MathNet.Spatial.Euclidean.Vector3D force_P_Right, MathNet.Spatial.Euclidean.Vector3D force_Q_Right,OutputClass oc)
         {
             PaintLoadCaseArrows(leftAttach, rightAttach, isInitializing, sRack, sColumn, force_P_Left, force_Q_Right, force_P_Right, force_Q_Right, oc.MaxDecompForce_X, oc.MinDecompForce_X, oc.MaxDecompForce_Y, oc.MinDecompForce_Y, oc.MaxDecompForce_Z, oc.MinDecompForce_Z);
+        }
+
+        public void PaintBarForce(OutputClass _ocMaster)
+        {
+            PaintBars(_ocMaster);
+            
+        }
+
+        public void PostProcessing(OutputClass _ocMaster)
+        {
+            viewportLayout1.Legends[0].Max = Math.Round(_ocMaster.MaxForce, 0);
+            viewportLayout1.Legends[0].Min = Math.Round(_ocMaster.MinForce, 0);
+
+            AllForces.Sort();
+
+            viewportLayout1.Legends[0].Visible = true;
+            viewportLayout1.Legends[0].ColorTable = Legend.RedToBlue17;
         }
 
         #endregion

@@ -183,6 +183,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bruno Heat Map Code.cs" />
+    <Compile Include="LegendEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LegendEditor.Designer.cs">
+      <DependentUpon>LegendEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Load Cases\Batch Runs\BatchRunForm.cs">
       <SubType>Form</SubType>
     </Compile>
