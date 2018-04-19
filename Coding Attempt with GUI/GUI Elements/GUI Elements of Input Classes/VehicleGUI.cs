@@ -664,7 +664,6 @@ namespace Coding_Attempt_with_GUI
 
                 CADVehicleOutputs.GetGradientColors(Color.Red, Color.White);
 
-                 CADVehicleOutputs.PaintBarForce(MasterOC);
 
                 ///<summary>Painting the Force Decomposition Arrows - Bearing Cap Forces</summary>
                 CADVehicleOutputs.PaintForceBearingDecompArrows(Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.FL_BearingCoordinates, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.FR_BearingCoordinates, false, true, false,
@@ -676,9 +675,13 @@ namespace Coding_Attempt_with_GUI
                 CADVehicleOutputs.PaintForceBearingDecompArrows(Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.SteeringColumnBearing, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.SteeringColumnBearing, false, true, true,
                                                                 ForcePLeft, new Vector3D(), ForcePRight, new Vector3D(), MasterOC);
 
-                CADVehicleOutputs.PaintArrowForce(MasterOC);
+
 
                 CADVehicleOutputs.PostProcessing(MasterOC);
+
+                CADVehicleOutputs.PaintBarForce(MasterOC);
+
+                CADVehicleOutputs.PaintArrowForce(MasterOC);
 
                 ///<summary>This method exists to ensure that the Imported FIles are not recloned everytime the user selects a different Motion Percentage from the Motion View Grid</summary>
                 if (_importCAD && !OutputIGESPlotted) 

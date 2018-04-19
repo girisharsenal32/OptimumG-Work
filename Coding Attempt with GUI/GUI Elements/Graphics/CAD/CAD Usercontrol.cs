@@ -204,6 +204,8 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         List<CustomData> CustomDataList = new List<CustomData>();
 
+        DataTable LegendDataTable = new DataTable();
+
         #endregion
 
         #region Constructor
@@ -923,7 +925,7 @@ namespace Coding_Attempt_with_GUI
         /// <returns></returns>
         public Color PaintGradient(Entity _entityToBeColoured,double _cellValue, double _minValue, double _maxValue, Color _firstColour, Color _secondColour)
         {
-            GradientType = GradientStyle.StandardFEM;
+            GradientType = GradientStyle.TwoColours;
 
             ///<summary>Cell Value as a Percent of the Max Value</summary>
             double absValue = 1;
@@ -1005,17 +1007,16 @@ namespace Coding_Attempt_with_GUI
                 blue = _secondColour.B + Convert.ToInt32(Math.Round((deltaB * (absValue))));    
             }
 
-            ///<summary>At this stage, the <see cref="CustomData"/> of the <see cref="Entity"/> is edited and the correct color is assigned. </summary>
-            CustomData tempEntityData = (CustomData)_entityToBeColoured.EntityData;
-            tempEntityData.EntityColor = Color.FromArgb(255, Convert.ToInt32(red), Convert.ToInt32(green), Convert.ToInt32(blue));
-            _entityToBeColoured.EntityData = tempEntityData;
-            
-            CustomDataList.Add(tempEntityData);
+            if (_entityToBeColoured != null)
+            {
+                ///<summary>At this stage, the <see cref="CustomData"/> of the <see cref="Entity"/> is edited and the correct color is assigned. </summary>
+                CustomData tempEntityData = (CustomData)_entityToBeColoured.EntityData;
+                tempEntityData.EntityColor = Color.FromArgb(255, Convert.ToInt32(red), Convert.ToInt32(green), Convert.ToInt32(blue));
+                _entityToBeColoured.EntityData = tempEntityData;
+                CustomDataList.Add(tempEntityData);
+            }
 
-            
-
-            return tempEntityData.EntityColor;
-            //return Color.FromArgb(255, Convert.ToInt32(red), Convert.ToInt32(green), Convert.ToInt32(blue));
+            return Color.FromArgb(255, Convert.ToInt32(red), Convert.ToInt32(green), Convert.ToInt32(blue));
 
 
 
@@ -1517,74 +1518,6 @@ namespace Coding_Attempt_with_GUI
         }
 
         #endregion
-
-        /// <summary>
-        /// Method to Paint all the Bars in the Viewport basd on the <see cref="CustomData.Force"/> value using a For Loop 
-        /// </summary>
-        /// <param name="_masterOC"></param>
-        private void PaintBars(OutputClass _masterOC, Color _firstColor, Color _secondColor)
-        {
-            CustomDataList.Clear();
-
-            for (int i = 0; i < viewportLayout1.Entities.Count; i++)
-            {
-                if (viewportLayout1.Entities[i] as Bar != null)
-                {
-                    CustomData barData = new CustomData();
-                    if (viewportLayout1.Entities[i].EntityData != null)
-                    {
-                        barData = (CustomData)viewportLayout1.Entities[i].EntityData; 
-
-                    }
-                    else
-                    {
-                        viewportLayout1.Entities[i].Color = Color.WhiteSmoke;
-                        goto END;
-                    }
-
-
-                    viewportLayout1.Entities[i].ColorMethod = colorMethodType.byEntity;
-                    viewportLayout1.Entities[i].Color = PaintGradient(viewportLayout1.Entities[i], barData.Force, _masterOC.MinForce, _masterOC.MaxForce, _firstColor, _secondColor);
-
-                    END:
-                    //viewportLayout1.Entities[i].RegenMode = regenType.RegenAndCompile;
-                    //viewportLayout1.Entities[i].Regen(0);
-                    viewportLayout1.Invalidate();
-                    //viewportLayout1.Update();
-                    //viewportLayout1.Refresh();
-
-                }
-            }
-
-        }
-
-        private void PaintArrows(OutputClass _masterOC, Color _firstColor, Color _secondColor)
-        {
-            for (int i = 0; i < viewportLayout1.Entities.Count; i++)
-            {
-                if (viewportLayout1.Entities[i] as Mesh != null)
-                {
-                    CustomData arrowData = new CustomData();
-
-                    if (viewportLayout1.Entities[i].EntityData != null)
-                    {
-                        arrowData = (CustomData)viewportLayout1.Entities[i].EntityData;
-                    }
-                    else
-                    {
-                        goto END;
-                    }
-
-                    viewportLayout1.Entities[i].ColorMethod = colorMethodType.byEntity;
-                    viewportLayout1.Entities[i].Color = PaintGradient(viewportLayout1.Entities[i], arrowData.Force, _masterOC.MinForce, _masterOC.MaxForce, _firstColor, _secondColor);
-
-                    END:
-                    viewportLayout1.Invalidate();
-                    //viewportLayout1.Update();
-                    //viewportLayout1.Refresh();
-                }
-            }
-        }
 
         #region TARB Suspension Plotter
         private void TARBPlotter(SuspensionCoordinatesMaster _scmPlotTARB)
@@ -2384,7 +2317,14 @@ namespace Coding_Attempt_with_GUI
 
 
         }
+        #endregion
 
+        #region Gradient Painter Methods
+        /// <summary>
+        /// Method to Assign the Gradient Colours as Selected by the User
+        /// </summary>
+        /// <param name="_gradientColor1"></param>
+        /// <param name="_gradientColor2"></param>
         public void GetGradientColors(Color _gradientColor1, Color _gradientColor2)
         {
             GradientColor1 = _gradientColor1;
@@ -2412,9 +2352,95 @@ namespace Coding_Attempt_with_GUI
 
 
         public void PaintForceBearingDecompArrows(double[,] leftAttach, double[,] rightAttach, bool isInitializing, bool sRack, bool sColumn, MathNet.Spatial.Euclidean.Vector3D force_P_Left, MathNet.Spatial.Euclidean.Vector3D force_Q_Left,
-                                 MathNet.Spatial.Euclidean.Vector3D force_P_Right, MathNet.Spatial.Euclidean.Vector3D force_Q_Right,OutputClass oc)
+                                 MathNet.Spatial.Euclidean.Vector3D force_P_Right, MathNet.Spatial.Euclidean.Vector3D force_Q_Right, OutputClass oc)
         {
             PaintLoadCaseArrows(leftAttach, rightAttach, isInitializing, sRack, sColumn, force_P_Left, force_Q_Right, force_P_Right, force_Q_Right, oc.MaxDecompForce_X, oc.MinDecompForce_X, oc.MaxDecompForce_Y, oc.MinDecompForce_Y, oc.MaxDecompForce_Z, oc.MinDecompForce_Z);
+        }
+
+        /// <summary>
+        /// Post Processing methods to Create a Sorted AND Grouped Data Table which will also be the source for the Legend
+        /// </summary>
+        /// <param name="_ocMaster"></param>
+        public void PostProcessing(OutputClass _ocMaster)
+        {
+            LegendDataTable = new DataTable();
+
+            InitializeLegendDataTable();
+
+            viewportLayout1.Legends[0].Max = Convert.ToInt32(_ocMaster.MaxForce);
+            viewportLayout1.Legends[0].Min = Convert.ToInt32(_ocMaster.MinForce);
+            LegendColors.Clear();
+
+            int NumberOfLegendDivisions = 11;
+
+            int StepSize = Convert.ToInt32((viewportLayout1.Legends[0].Max - viewportLayout1.Legends[0].Min) / NumberOfLegendDivisions);
+
+            PopulateDataTable(viewportLayout1.Legends[0].Max, viewportLayout1.Legends[0].Min, StepSize, NumberOfLegendDivisions);
+
+            viewportLayout1.Legends[0].Visible = true;
+
+            GradientType = GradientStyle.TwoColours;
+
+            if (GradientType == GradientStyle.StandardFEM)
+            {
+                viewportLayout1.Legends[0].ColorTable = LegendDataTable.AsEnumerable().Select(legend => legend.Field<Color>("Colour")).Reverse().ToArray();
+
+            }
+            else
+            {
+
+                viewportLayout1.Legends[0].ColorTable = LegendDataTable.AsEnumerable().Select(legend => legend.Field<Color>("Colour")).Reverse().ToArray();
+            }
+        }
+
+        private void InitializeLegendDataTable()
+        {
+            LegendDataTable.Columns.Add("Force Range", typeof(string));
+            LegendDataTable.Columns[0].ReadOnly = true;
+
+            LegendDataTable.Columns.Add("Force Start", typeof(double));
+
+            LegendDataTable.Columns.Add("Force End", typeof(double));
+
+            LegendDataTable.Columns.Add("Colour", typeof(Color));
+        }
+
+        private void PopulateDataTable(double _maxValue, double _minValue, int _stepSize, int _noOfDivisions)
+        {
+            LegendDataTable.Clear();
+
+            for (int i = 0; i < _noOfDivisions; i++)
+            {
+                double currentValue = _maxValue - (i * _stepSize);
+                double nextValue = currentValue - _stepSize;
+                LegendDataTable.Rows.Add(Convert.ToString(currentValue), currentValue, nextValue, PaintGradient(null, currentValue, _minValue, _maxValue, GradientColor1, GradientColor2));
+            }
+        }
+
+        private bool BelongsToForceRange(double _startForce, double _endForce, double _checkForce)
+        {
+            if (_checkForce > 0)
+            {
+                if (((_endForce) < (_checkForce)) && ((_checkForce) < (_startForce)))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                } 
+            }
+            else
+            {
+                if (((_endForce) < (_checkForce)) && ((_checkForce) < (_startForce)))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
         }
 
         public void PaintBarForce(OutputClass _ocMaster)
@@ -2427,71 +2453,92 @@ namespace Coding_Attempt_with_GUI
             PaintArrows(_ocMaster, GradientColor1, GradientColor2);
         }
 
-        public void PostProcessing(OutputClass _ocMaster)
+        /// <summary>
+        /// Method to Paint all the Bars in the Viewport basd on the <see cref="CustomData.Force"/> value using a For Loop 
+        /// </summary>
+        /// <param name="_masterOC"></param>
+        private void PaintBars(OutputClass _masterOC, Color _firstColor, Color _secondColor)
         {
-            viewportLayout1.Legends[0].Max = Math.Round(_ocMaster.MaxForce, 0);
-            viewportLayout1.Legends[0].Min = Math.Round(_ocMaster.MinForce, 0);
-            LegendColors.Clear();
-            int NumberOfLegendDivisions = 13;
+            //CustomDataList.Clear();
 
-            int Jumper = 1;
-
-            List<CustomData> SortedList = CustomDataList.OrderBy(o => o.Force).ToList();
-            List<CustomData> SortedListTruncated = new List<CustomData>();
-            Jumper = SortedList.Count / NumberOfLegendDivisions;
-
-            for (int i = 0; i < SortedList.Count; i++)
+            for (int i = 0; i < viewportLayout1.Entities.Count; i++)
             {
-                if (i == 0)
+                if (viewportLayout1.Entities[i] as Bar != null)
                 {
-                    //LegendColors.Add(SortedList[i].EntityColor);
-                    SortedListTruncated.Add(SortedList[i]);
-                }
-                else
-                {
-                    if (i * Jumper < SortedList.Count) 
+                    CustomData barData = new CustomData();
+                    viewportLayout1.Entities[i].ColorMethod = colorMethodType.byEntity;
+
+                    if (viewportLayout1.Entities[i].EntityData != null)
                     {
-                        //LegendColors.Add(SortedList[i * Jumper].EntityColor); 
-                        SortedListTruncated.Add(SortedList[i * Jumper]);
+                        barData = (CustomData)viewportLayout1.Entities[i].EntityData;
+
                     }
                     else
                     {
-                        //LegendColors.Add(SortedList[SortedList.Count - 1].EntityColor);
-                        SortedListTruncated.Add(SortedList[SortedList.Count - 1]);
-                        break;
+                        viewportLayout1.Entities[i].Color = Color.MediumPurple;
+                        goto END;
                     }
+
+                     
+
+                    for (int j = 0; j < LegendDataTable.Rows.Count; j++)
+                    {
+                        if (BelongsToForceRange(LegendDataTable.Rows[j].Field<double>("Force Start"), LegendDataTable.Rows[j].Field<double>("Force End"), barData.Force))
+                        {
+                            barData.EntityColor = LegendDataTable.Rows[j].Field<Color>("Colour");
+                            viewportLayout1.Entities[i].Color = LegendDataTable.Rows[j].Field<Color>("Colour");
+                            viewportLayout1.Entities[i].EntityData = barData;
+                            break;
+                        }
+                    }
+
+                    
+                    //viewportLayout1.Entities[i].Color = PaintGradient(viewportLayout1.Entities[i], barData.Force, _masterOC.MinForce, _masterOC.MaxForce, _firstColor, _secondColor);
+
+                    END:
+                    viewportLayout1.Invalidate();
                 }
             }
 
-            List<float> trial = new List<float>();
-
-            for (int i = 0; i < SortedListTruncated.Count; i++)
-            {
-                LegendColors.Add(SortedListTruncated[i].EntityColor);
-                trial.Add(SortedListTruncated[i].EntityColor.GetBrightness());
-            }
-
-            List<Color> SortedLegendColors = LegendColors.OrderBy(l => l.GetBrightness()).ToList();
-
-            SortedLegendColors.Reverse();
-            viewportLayout1.Legends[0].Visible = true;
-            trial.Clear();
-            for (int i = 0; i < SortedLegendColors.Count; i++)
-            {
-                trial.Add(SortedLegendColors[i].GetBrightness());
-            }
-            GradientType = GradientStyle.StandardFEM;
-
-            if (GradientType == GradientStyle.StandardFEM)
-            {
-                viewportLayout1.Legends[0].ColorTable = Legend.RedToBlue17; 
-            }
-            else
-            {
-                viewportLayout1.Legends[0].ColorTable = /*LegendColors*/SortedLegendColors.ToArray();
-            }
         }
 
+        private void PaintArrows(OutputClass _masterOC, Color _firstColor, Color _secondColor)
+        {
+            for (int i = 0; i < viewportLayout1.Entities.Count; i++)
+            {
+                if (viewportLayout1.Entities[i] as Mesh != null)
+                {
+                    CustomData arrowData = new CustomData();
+
+                    viewportLayout1.Entities[i].ColorMethod = colorMethodType.byEntity;
+
+                    if (viewportLayout1.Entities[i].EntityData != null)
+                    {
+                        arrowData = (CustomData)viewportLayout1.Entities[i].EntityData;
+                    }
+                    else
+                    {
+                        goto END;
+                    }
+
+                    
+                    for (int j = 0; j < LegendDataTable.Rows.Count; j++)
+                    {
+                        if (BelongsToForceRange(LegendDataTable.Rows[j].Field<double>("Force Start"), LegendDataTable.Rows[j].Field<double>("Force End"),arrowData.Force))
+                        {
+                            arrowData.EntityColor = LegendDataTable.Rows[j].Field<Color>("Colour");
+                            viewportLayout1.Entities[i].Color = LegendDataTable.Rows[j].Field<Color>("Colour");
+                            viewportLayout1.Entities[i].EntityData = arrowData;
+                        }
+                    }
+
+                    //viewportLayout1.Entities[i].Color = PaintGradient(viewportLayout1.Entities[i], arrowData.Force, _masterOC.MinForce, _masterOC.MaxForce, _firstColor, _secondColor);
+
+                    END:
+                    viewportLayout1.Invalidate();
+                }
+            }
+        }
         #endregion
 
         #region Suspension Coordinate Mapping Functions

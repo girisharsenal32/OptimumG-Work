@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             devDept.Eyeshot.ButtonSettings buttonSettings1 = new devDept.Eyeshot.ButtonSettings(32, 0, 4, System.Drawing.Color.DeepPink);
             devDept.Eyeshot.CancelToolBarButton cancelToolBarButton1 = new devDept.Eyeshot.CancelToolBarButton("Cancel", devDept.Eyeshot.ToolBarButton.styleType.ToggleButton, true, true);
             devDept.Eyeshot.ProgressBar progressBar1 = new devDept.Eyeshot.ProgressBar(devDept.Eyeshot.ProgressBar.styleType.Circular, 0, "Idle", System.Drawing.Color.GhostWhite, System.Drawing.Color.Gray, System.Drawing.Color.DimGray, 1D, true, cancelToolBarButton1, true, 0.1D, true);
@@ -61,7 +62,7 @@
             devDept.Eyeshot.Viewport viewport1 = new devDept.Eyeshot.Viewport(new System.Drawing.Point(0, 0), new System.Drawing.Size(988, 712), backgroundSettings1, camera1, new devDept.Eyeshot.ToolBar[] {
             toolBar1}, devDept.Eyeshot.displayType.Rendered, true, false, false, false, new devDept.Eyeshot.Grid[0], false, rotateSettings1, zoomSettings1, panSettings1, navigationSettings1, savedViewsManager1, devDept.Eyeshot.viewType.Trimetric);
             devDept.Eyeshot.CoordinateSystemIcon coordinateSystemIcon1 = new devDept.Eyeshot.CoordinateSystemIcon(System.Drawing.Color.White, System.Drawing.Color.LimeGreen, System.Drawing.Color.Turquoise, System.Drawing.Color.Orange, "Origin", "Y", "Z", "X", true, devDept.Eyeshot.coordinateSystemPositionType.BottomLeft, 37, true);
-            devDept.Eyeshot.Legend legend1 = new devDept.Eyeshot.Legend(-100D, 100D, "Force Distribution", "Newtons", new System.Drawing.Point(24, 24), new System.Drawing.Size(10, 30), true, false, false, "{0:+0.##;-0;0.##}", System.Drawing.Color.Transparent, System.Drawing.Color.White, System.Drawing.Color.GhostWhite, new System.Drawing.Color[] {
+            devDept.Eyeshot.Legend legend1 = new devDept.Eyeshot.Legend(-100D, 100D, "Force Distribution (N)", "Positive - Compression ; Negative - Tension", new System.Drawing.Point(24, 24), new System.Drawing.Size(10, 30), false, false, false, "{0:+0;-0;0}", System.Drawing.Color.Transparent, System.Drawing.Color.White, System.Drawing.Color.GhostWhite, new System.Drawing.Color[] {
             System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255))))),
             System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(63)))), ((int)(((byte)(255))))),
             System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(127)))), ((int)(((byte)(255))))),
@@ -82,7 +83,7 @@
             devDept.Eyeshot.OriginSymbol originSymbol1 = new devDept.Eyeshot.OriginSymbol(10, devDept.Eyeshot.originSymbolStyleType.Ball, System.Drawing.Color.Black, System.Drawing.Color.Red, System.Drawing.Color.Green, System.Drawing.Color.Blue, "Origin", "X", "Y", "Z", true, null, false);
             devDept.Eyeshot.ViewCubeIcon viewCubeIcon1 = new devDept.Eyeshot.ViewCubeIcon(devDept.Eyeshot.coordinateSystemPositionType.TopRight, true, System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(20)))), ((int)(((byte)(147))))), true, "FRONT", "BACK", "LEFT", "RIGHT", "TOP", "BOTTOM", System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77))))), System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77))))), System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77))))), System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77))))), System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77))))), System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77))))), 'S', 'N', 'W', 'E', true, System.Drawing.Color.White, System.Drawing.Color.Black, 120, true, true, null, null, null, null, null, null, false);
             this.viewportLayout1 = new devDept.Eyeshot.ViewportLayout();
-            this.popupMenuCADRightClick = new DevExpress.XtraBars.PopupMenu();
+            this.popupMenuCADRightClick = new DevExpress.XtraBars.PopupMenu(this.components);
             this.barButtonSelectByEdge = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonSelectByFace = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonSelectByVertex = new DevExpress.XtraBars.BarButtonItem();
@@ -93,7 +94,7 @@
             this.barButtonHideObject = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonRestoreOrientation = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonClearSelection = new DevExpress.XtraBars.BarButtonItem();
-            this.barManager1 = new DevExpress.XtraBars.BarManager();
+            this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
