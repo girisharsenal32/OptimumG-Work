@@ -186,16 +186,16 @@ namespace Coding_Attempt_with_GUI
         public GradientStyle GradientType = GradientStyle.StandardFEM;
 
         /// <summary>
-        /// User choice of the First Color if the <see cref="GradientStyle"/> selected if <see cref="GradientStyle.TwoColours"/>
+        /// User choice of the First Color if the <see cref="GradientStyle"/> selected if <see cref="GradientStyle.Monochromatic"/>
         /// </summary>
         public Color GradientColor1 { get; set; } = Color.DarkViolet;
         /// <summary>
-        /// User choice of the Second Color if the <see cref="GradientStyle"/> selected if <see cref="GradientStyle.TwoColours"/>
+        /// User choice of the Second Color if the <see cref="GradientStyle"/> selected if <see cref="GradientStyle.Monochromatic"/>
         /// </summary>
         public Color GradientColor2 { get; set; } = Color.Azure;
 
         /// <summary>
-        /// List of Colours which will be passed to the <see cref="Legend"/>'s <see cref="Legend.ColorTable"/> if the user wishes to see the Legend in <see cref="GradientStyle.TwoColours"/>
+        /// List of Colours which will be passed to the <see cref="Legend"/>'s <see cref="Legend.ColorTable"/> if the user wishes to see the Legend in <see cref="GradientStyle.Monochromatic"/>
         /// </summary>
         List<Color> LegendColors = new List<Color>();
         /// <summary>
@@ -214,6 +214,8 @@ namespace Coding_Attempt_with_GUI
             InitializeComponent();
             viewportLayout1.Unlock("US1-126DS-NQPVC-7XRN-S062");
             //viewportLayout1.CreateControl();
+            viewportLayout1.ToolBars[0].Buttons[7].Click += CAD_Click;
+
             viewportLayout1.MultipleSelection = true;
             viewportLayout1.ShowLoad = true;
             viewportLayout1.AskForHardwareAcceleration = false;
@@ -232,8 +234,9 @@ namespace Coding_Attempt_with_GUI
             viewportLayout1.Update();
 
             viewportLayout1.WorkCompleted += ViewportLayout1_WorkCompleted;
-            viewportLayout1.ToolBars[0].Buttons[7].Click += RotateObject_FormInvoker;
-            viewportLayout1.ToolBars[0].Buttons[8].Click += TranslateObject_FormInvoker;
+            //viewportLayout1.ToolBars[0].Buttons[7].Click += RotateObject_FormInvoker;
+            //viewportLayout1.ToolBars[0].Buttons[8].Click += TranslateObject_FormInvoker;
+            viewportLayout1.ToolBars[0].Buttons[7].Click += CAD_Click;
             viewportLayout1.SelectionChanged += ViewportLayout1_SelectionChanged;
             viewportLayout1.MultipleSelection = true;
             viewportLayout1.ShowLoad = true;
@@ -243,8 +246,6 @@ namespace Coding_Attempt_with_GUI
             viewportLayout1.AskForHardwareAcceleration = false;
             string Version = viewportLayout1.ProductVersion;
         }
-
-
         #endregion
 
         #region Usercontrol Load Event
@@ -925,7 +926,7 @@ namespace Coding_Attempt_with_GUI
         /// <returns></returns>
         public Color PaintGradient(Entity _entityToBeColoured,double _cellValue, double _minValue, double _maxValue, Color _firstColour, Color _secondColour)
         {
-            GradientType = GradientStyle.TwoColours;
+            GradientType = GradientStyle.Monochromatic;
 
             ///<summary>Cell Value as a Percent of the Max Value</summary>
             double absValue = 1;
@@ -987,7 +988,7 @@ namespace Coding_Attempt_with_GUI
                 } 
             }
 
-            else if(GradientType == GradientStyle.TwoColours)
+            else if(GradientType == GradientStyle.Monochromatic)
             {
                 int deltaR = _firstColour.R - _secondColour.R;
                 int deltaG = _firstColour.G - _secondColour.G;
@@ -2363,6 +2364,10 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_ocMaster"></param>
         public void PostProcessing(OutputClass _ocMaster)
         {
+            viewportLayout1.ToolBar.Buttons[7].Enabled = true;
+
+            barButtonItemLegendEditor.Enabled = true;
+
             LegendDataTable = new DataTable();
 
             InitializeLegendDataTable();
@@ -2379,7 +2384,7 @@ namespace Coding_Attempt_with_GUI
 
             viewportLayout1.Legends[0].Visible = true;
 
-            GradientType = GradientStyle.TwoColours;
+            GradientType = GradientStyle.Monochromatic;
 
             if (GradientType == GradientStyle.StandardFEM)
             {
@@ -2413,8 +2418,22 @@ namespace Coding_Attempt_with_GUI
             {
                 double currentValue = _maxValue - (i * _stepSize);
                 double nextValue = currentValue - _stepSize;
-                LegendDataTable.Rows.Add(Convert.ToString(currentValue), currentValue, nextValue, PaintGradient(null, currentValue, _minValue, _maxValue, GradientColor1, GradientColor2));
+                AddRowToLegendTable(currentValue, nextValue, _minValue, _maxValue);
             }
+        }
+
+        public void AddRowToLegendTable(double currentValue, double nextValue, double _minValue,double _maxValue)
+        {
+            LegendDataTable.Rows.Add(Convert.ToString(currentValue) + " - " + Convert.ToString(nextValue), currentValue, nextValue, PaintGradient(null, currentValue, _minValue, _maxValue, GradientColor1, GradientColor2));
+
+        }
+
+        public void EditRowLegendTable(string _forceRange, double _startForce, double _endForce, Color _userSelectedColor, int _rowIndex)
+        {
+            LegendDataTable.Rows[_rowIndex].SetField<string>("Force Range", _forceRange);
+            LegendDataTable.Rows[_rowIndex].SetField<double>("Force Start", _startForce);
+            LegendDataTable.Rows[_rowIndex].SetField<double>("Force End", _endForce);
+            LegendDataTable.Rows[_rowIndex].SetField<Color>("Colour", _userSelectedColor);
         }
 
         private bool BelongsToForceRange(double _startForce, double _endForce, double _checkForce)
@@ -2479,7 +2498,6 @@ namespace Coding_Attempt_with_GUI
                         goto END;
                     }
 
-                     
 
                     for (int j = 0; j < LegendDataTable.Rows.Count; j++)
                     {
@@ -2534,11 +2552,31 @@ namespace Coding_Attempt_with_GUI
 
                     //viewportLayout1.Entities[i].Color = PaintGradient(viewportLayout1.Entities[i], arrowData.Force, _masterOC.MinForce, _masterOC.MaxForce, _firstColor, _secondColor);
 
-                    END:
+                     END:
                     viewportLayout1.Invalidate();
                 }
             }
         }
+
+        private void barButtonItemLegendEditor_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            EditLegend();
+        }
+        private void CAD_Click(object sender, EventArgs e)
+        {
+            EditLegend();
+        }
+
+        private void EditLegend()
+        {
+            LegendEditor legendEdit = new LegendEditor();
+
+            legendEdit.InitializeLegendEditor(LegendDataTable, this);
+
+            legendEdit.Show();
+
+        }
+
         #endregion
 
         #region Suspension Coordinate Mapping Functions
@@ -3001,6 +3039,8 @@ namespace Coding_Attempt_with_GUI
             }
 
         }
+
+
         #endregion
 
         #region Method to Set a Block as Current Block to allow for individual component Selection
@@ -3213,7 +3253,7 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// HeatMap style gradient with 2 colours between which the Gradient is swept
         /// </summary>
-        TwoColours,
+        Monochromatic,
         /// <summary>
         /// Standard FEM style legend with only Red, Green and Blue
         /// </summary>

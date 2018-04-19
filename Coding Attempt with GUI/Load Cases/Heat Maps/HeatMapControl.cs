@@ -364,8 +364,6 @@ namespace Coding_Attempt_with_GUI
             {
                 bool FoundHighestLoad = false;
 
-                //if (HeatMapDataSource.Rows.Count > 2)
-                //{
                 if (e.Column.AbsoluteIndex != 0)
                 {
 
@@ -390,11 +388,6 @@ namespace Coding_Attempt_with_GUI
                     }
 
                 }
-
-
-                //}
-
-
             }
 
 

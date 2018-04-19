@@ -42,8 +42,8 @@
             devDept.Eyeshot.PanToolBarButton panToolBarButton1 = new devDept.Eyeshot.PanToolBarButton("Pan", devDept.Eyeshot.ToolBarButton.styleType.ToggleButton, true, true);
             devDept.Eyeshot.RotateToolBarButton rotateToolBarButton1 = new devDept.Eyeshot.RotateToolBarButton("Rotate", devDept.Eyeshot.ToolBarButton.styleType.ToggleButton, true, true);
             devDept.Eyeshot.ZoomFitToolBarButton zoomFitToolBarButton1 = new devDept.Eyeshot.ZoomFitToolBarButton("Zoom Fit", devDept.Eyeshot.ToolBarButton.styleType.PushButton, true, true);
-            devDept.Eyeshot.ToolBarButton toolBarButton1 = new devDept.Eyeshot.ToolBarButton(global::Coding_Attempt_with_GUI.Properties.Resources.RotateObjectIcon, "RotateObject", "Rotate Object", devDept.Eyeshot.ToolBarButton.styleType.ToggleButton, true, true, global::Coding_Attempt_with_GUI.Properties.Resources.RotateObjectIcon, global::Coding_Attempt_with_GUI.Properties.Resources.RotateObjectIcon);
-            devDept.Eyeshot.ToolBarButton toolBarButton2 = new devDept.Eyeshot.ToolBarButton(global::Coding_Attempt_with_GUI.Properties.Resources.TranslateObjectIcon, "TranslateObject", "Translate Object", devDept.Eyeshot.ToolBarButton.styleType.ToggleButton, true, true, global::Coding_Attempt_with_GUI.Properties.Resources.TranslateObjectIcon, global::Coding_Attempt_with_GUI.Properties.Resources.TranslateObjectIcon);
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CAD));
+            devDept.Eyeshot.ToolBarButton toolBarButton1 = new devDept.Eyeshot.ToolBarButton(((System.Drawing.Image)(resources.GetObject("viewportLayout1.Viewports"))), "LegendEditor", "Edit Legend Style", devDept.Eyeshot.ToolBarButton.styleType.PushButton, true, false, ((System.Drawing.Image)(resources.GetObject("viewportLayout1.Viewports1"))), null);
             devDept.Eyeshot.ToolBar toolBar1 = new devDept.Eyeshot.ToolBar(devDept.Eyeshot.ToolBar.positionType.HorizontalTopCenter, true, new devDept.Eyeshot.ToolBarButton[] {
             ((devDept.Eyeshot.ToolBarButton)(homeToolBarButton1)),
             ((devDept.Eyeshot.ToolBarButton)(magnifyingGlassToolBarButton1)),
@@ -52,8 +52,7 @@
             ((devDept.Eyeshot.ToolBarButton)(panToolBarButton1)),
             ((devDept.Eyeshot.ToolBarButton)(rotateToolBarButton1)),
             ((devDept.Eyeshot.ToolBarButton)(zoomFitToolBarButton1)),
-            toolBarButton1,
-            toolBarButton2});
+            toolBarButton1});
             devDept.Eyeshot.RotateSettings rotateSettings1 = new devDept.Eyeshot.RotateSettings(new devDept.Eyeshot.MouseButton(devDept.Eyeshot.mouseButtonsZPR.Middle, devDept.Eyeshot.modifierKeys.None), 10D, true, 1D, devDept.Eyeshot.rotationType.Trackball, devDept.Eyeshot.rotationCenterType.CursorLocation, new devDept.Geometry.Point3D(0D, 0D, 0D), false);
             devDept.Eyeshot.ZoomSettings zoomSettings1 = new devDept.Eyeshot.ZoomSettings(new devDept.Eyeshot.MouseButton(devDept.Eyeshot.mouseButtonsZPR.Middle, devDept.Eyeshot.modifierKeys.Shift), 25, true, devDept.Eyeshot.zoomStyleType.AtCursorLocation, false, 1D, System.Drawing.Color.Empty, devDept.Eyeshot.Camera.perspectiveFitType.Accurate, true, 10, true);
             devDept.Eyeshot.PanSettings panSettings1 = new devDept.Eyeshot.PanSettings(new devDept.Eyeshot.MouseButton(devDept.Eyeshot.mouseButtonsZPR.Middle, devDept.Eyeshot.modifierKeys.Ctrl), 25, true);
@@ -119,6 +118,7 @@
             this.barCheckItem2 = new DevExpress.XtraBars.BarCheckItem();
             this.barButtonItemEnableIndividualSelection = new DevExpress.XtraBars.BarButtonItem();
             this.barToggleSwitchItem2 = new DevExpress.XtraBars.BarToggleSwitchItem();
+            this.barButtonItemLegendEditor = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.viewportLayout1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenuCADRightClick)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
@@ -176,7 +176,8 @@
             new DevExpress.XtraBars.LinkPersistInfo(this.barButtonMultipleSelection),
             new DevExpress.XtraBars.LinkPersistInfo(this.barButtonHideObject, true),
             new DevExpress.XtraBars.LinkPersistInfo(this.barButtonRestoreOrientation),
-            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonClearSelection)});
+            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonClearSelection),
+            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItemLegendEditor, true)});
             this.popupMenuCADRightClick.Manager = this.barManager1;
             this.popupMenuCADRightClick.Name = "popupMenuCADRightClick";
             // 
@@ -285,8 +286,9 @@
             this.barEditItem5,
             this.barCheckItem2,
             this.barButtonItemEnableIndividualSelection,
-            this.barToggleSwitchItem2});
-            this.barManager1.MaxItemId = 26;
+            this.barToggleSwitchItem2,
+            this.barButtonItemLegendEditor});
+            this.barManager1.MaxItemId = 27;
             this.barManager1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemTextEdit1,
             this.repositoryItemCheckedComboBoxEdit1,
@@ -450,6 +452,14 @@
             this.barToggleSwitchItem2.Id = 25;
             this.barToggleSwitchItem2.Name = "barToggleSwitchItem2";
             // 
+            // barButtonItemLegendEditor
+            // 
+            this.barButtonItemLegendEditor.Caption = "Legend Editor";
+            this.barButtonItemLegendEditor.Enabled = false;
+            this.barButtonItemLegendEditor.Id = 26;
+            this.barButtonItemLegendEditor.Name = "barButtonItemLegendEditor";
+            this.barButtonItemLegendEditor.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemLegendEditor_ItemClick);
+            // 
             // CAD
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -516,5 +526,6 @@
         private DevExpress.XtraBars.BarCheckItem barCheckItem2;
         private DevExpress.XtraBars.BarButtonItem barButtonItemEnableIndividualSelection;
         private DevExpress.XtraBars.BarToggleSwitchItem barToggleSwitchItem2;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemLegendEditor;
     }
 }

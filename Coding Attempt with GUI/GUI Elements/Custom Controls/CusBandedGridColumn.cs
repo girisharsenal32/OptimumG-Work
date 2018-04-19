@@ -205,6 +205,16 @@ namespace Coding_Attempt_with_GUI
             return _bandedGridView;
         }
 
+        public static BandedGridView ColumnEditor_ForLegend(BandedGridView _bandedGridView)
+        {
+            FontFamily font = new FontFamily("Tahoma");
+            float fontSize = 10;
 
+            _bandedGridView.Columns[0].AppearanceCell.Font = new Font(font, fontSize, FontStyle.Bold);
+
+            _bandedGridView.OptionsView.ShowColumnHeaders = true;
+
+            return _bandedGridView;
+        }
     }
 }
