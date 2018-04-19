@@ -662,7 +662,7 @@ namespace Coding_Attempt_with_GUI
                 CADVehicleOutputs.PaintForceDecompArrows(Vehicle.List_Vehicle[VehicleIndex].oc_RR[OutputIndex].scmOP, Vehicle.List_Vehicle[VehicleIndex].oc_RR[OutputIndex], MasterOC, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RR_Fx,
                     Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RR_Fy + Vehicle.List_Vehicle[VehicleIndex].oc_RR[OutputIndex].CW, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RR_Fz);
 
-                CADVehicleOutputs.GetGradientColors(Color.Blue, Color.White);
+                CADVehicleOutputs.GetGradientColors(Color.Red, Color.White);
 
                  CADVehicleOutputs.PaintBarForce(MasterOC);
 

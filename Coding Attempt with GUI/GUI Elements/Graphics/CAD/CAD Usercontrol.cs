@@ -923,7 +923,7 @@ namespace Coding_Attempt_with_GUI
         /// <returns></returns>
         public Color PaintGradient(Entity _entityToBeColoured,double _cellValue, double _minValue, double _maxValue, Color _firstColour, Color _secondColour)
         {
-            GradientType = GradientStyle.TwoColours;
+            GradientType = GradientStyle.StandardFEM;
 
             ///<summary>Cell Value as a Percent of the Max Value</summary>
             double absValue = 1;
@@ -1547,11 +1547,11 @@ namespace Coding_Attempt_with_GUI
                     viewportLayout1.Entities[i].Color = PaintGradient(viewportLayout1.Entities[i], barData.Force, _masterOC.MinForce, _masterOC.MaxForce, _firstColor, _secondColor);
 
                     END:
-                    viewportLayout1.Entities[i].RegenMode = regenType.RegenAndCompile;
-                    viewportLayout1.Entities[i].Regen(0);
+                    //viewportLayout1.Entities[i].RegenMode = regenType.RegenAndCompile;
+                    //viewportLayout1.Entities[i].Regen(0);
                     viewportLayout1.Invalidate();
-                    viewportLayout1.Update();
-                    viewportLayout1.Refresh();
+                    //viewportLayout1.Update();
+                    //viewportLayout1.Refresh();
 
                 }
             }
@@ -1580,8 +1580,8 @@ namespace Coding_Attempt_with_GUI
 
                     END:
                     viewportLayout1.Invalidate();
-                    viewportLayout1.Update();
-                    viewportLayout1.Refresh();
+                    //viewportLayout1.Update();
+                    //viewportLayout1.Refresh();
                 }
             }
         }
@@ -2432,7 +2432,7 @@ namespace Coding_Attempt_with_GUI
             viewportLayout1.Legends[0].Max = Math.Round(_ocMaster.MaxForce, 0);
             viewportLayout1.Legends[0].Min = Math.Round(_ocMaster.MinForce, 0);
             LegendColors.Clear();
-            int NumberOfLegendDivisions = 20;
+            int NumberOfLegendDivisions = 13;
 
             int Jumper = 1;
 
@@ -2480,7 +2480,7 @@ namespace Coding_Attempt_with_GUI
             {
                 trial.Add(SortedLegendColors[i].GetBrightness());
             }
-            GradientType = GradientStyle.TwoColours;
+            GradientType = GradientStyle.StandardFEM;
 
             if (GradientType == GradientStyle.StandardFEM)
             {
