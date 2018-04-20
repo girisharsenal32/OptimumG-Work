@@ -216,6 +216,10 @@ namespace Coding_Attempt_with_GUI
 
             _bandedGridView.OptionsView.ShowColumnHeaders = true;
 
+            _bandedGridView.Columns[0].SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
+
+            _bandedGridView.Columns[2].BestFit();
+
             return _bandedGridView;
         }
     }

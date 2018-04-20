@@ -15,25 +15,50 @@ namespace Coding_Attempt_with_GUI
 {
     public partial class LegendEditor : XtraForm
     {
-
+        /// <summary>
+        /// <see cref="DataTable"/> which will be used as source for the <see cref=gridControl1"/>
+        /// </summary>
         public DataTable LegendDataTable { get; set; }
-
+        /// <summary>
+        /// Parent <see cref="CAD"/> object
+        /// </summary>
         public CAD ParentCAD { get; set; }
+        /// <summary>
+        /// User defined Maximum Value of the Legend 
+        /// </summary>
+        public double MaxValue { get; set; } = 0;
+        /// <summary>
+        /// User defined Minimum Value of the Legend 
+        /// </summary>
+        public double MinValue { get; set; } = 0;
+        /// <summary>
+        /// User defined Colour Upper Colour Gradient of the Legend 
+        /// </summary>
+        public Color UsersGradient1 { get; set; } = Color.Maroon;
+        /// <summary>
+        /// User defined Colour Lower Colour Gradient of the Legend 
+        /// </summary>
+        public Color UsersGradient2 { get; set; } = Color.Ivory;
+        /// <summary>
+        /// Number of Steps in the Legend
+        /// </summary>
+        public int NoOfSteps { get; set; } = 0;
+        /// <summary>
+        /// Step Size of the Steps in the Legned
+        /// </summary>
+        public double StepSize { get; set; } = 0;
+        /// <summary>
+        /// User defined <see cref="GradientStyle"/> 0f the Legend
+        /// </summary>
+        public GradientStyle UsersGradientStyle { get; set; } = GradientStyle.StandardFEM;
+        /// <summary>
+        /// Base or Primary <see cref="OutputClass"/> which is used to populate the Legend in ONLY 2 conditions. First time (Initialization) and Reset or (Re-Initialization)
+        /// </summary>
+        public OutputClass BaseOC { get; set; }
 
-        public double MaxValue { get; set; }
-
-        public double MinValue { get; set; }
-
-        public Color UsersGradient1 { get; set; }
-
-        public Color UsersGradient2 { get; set; }
-
-        public int NoOfSteps { get; set; }
-
-        public double StepSize { get; set; }
-
-        public GradientStyle UsersGradientStyle { get; set; }
-
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public LegendEditor()
         {
             InitializeComponent();
@@ -43,34 +68,57 @@ namespace Coding_Attempt_with_GUI
             radioGroup2.SelectedIndex = -1;
         }
 
-        public void InitializeLegendEditor(DataTable _LegendDataTable, CAD _ParentCAD)
+        /// <summary>
+        /// Public Inititalizer method which Performs all the Init activites required for a fully functioning <see cref="LegendEditor"/> Form
+        /// </summary>
+        /// <param name="_MasterOC">Base <see cref="OutputClass"/></param>
+        /// <param name="_ParentCAD"></param>
+        public void InitializeLegendEditor(OutputClass _MasterOC, CAD _ParentCAD)
         {
+            ///<summary>Performing the Post Processing Activies of the Legend based on whether the Max and Min Value are 0. If they are 0 then it means the User is calling the Legend Editor for the very first time and hence the <see cref="BaseOC"/> should be passed</summary>
+            if (MaxValue == 0 && MinValue == 0) 
+            {
+                BaseOC = _MasterOC;
+                _ParentCAD.PostProcessing(this, BaseOC, UsersGradient1, UsersGradient2, UsersGradientStyle, NoOfSteps, StepSize);
 
+            }
 
+            else
+            {
+                OutputClass tempOC = new OutputClass();
+                tempOC.MaxForce = MaxValue;
+                tempOC.MinForce = MinValue;
+                _ParentCAD.PostProcessing(this, tempOC, UsersGradient1, UsersGradient2, UsersGradientStyle, NoOfSteps, StepSize);
+            }
+
+            ///<summary>Method to assign the Parent <see cref="CAD"/> object</summary>
             GetParentCADControl(_ParentCAD);
 
-            GetDataLegendDataSource(_LegendDataTable);
+            ///<summary>Method to get the <see cref="LegendDataTable"/> property of this class</summary>
+            GetDataLegendDataSource(_ParentCAD.LegendDataTable);
 
-            GridControlConditioning();
+            ///<summary>Method to condition the <see cref="gridControl1"/> of this Form</summary>
+            GridControlConditioning(_ParentCAD.LegendDataTable);
 
+            ///<summary>Method to initialize the <see cref="CellValueChangedEventArgs"/> </summary>
             InitializeGridControlEvents();
 
         }
 
-        private void InitializeGridControlEvents()
-        {
-            bandedGridView1.CellValueChanged += BandedGridView1_CellValueChanged;
-
-            bandedGridView1.ValidatingEditor += BandedGridView1_ValidatingEditor;
-
-        }
-
+        /// <summary>
+        /// Method to get the Parent <see cref="CAD"/> control of this Form
+        /// </summary>
+        /// <param name="_parentCAD">Parent <see cref="CAD"/> Control </param>
         private void GetParentCADControl(CAD _parentCAD)
         {
             ParentCAD = _parentCAD;
 
         }
 
+        /// <summary>
+        /// Method to get the <see cref="LegendDataTable"/> property of this Form and the <see cref="MaxValue"/> and <see cref="MinValue"/> properties
+        /// </summary>
+        /// <param name="_legendDataTable"></param>
         private  void GetDataLegendDataSource(DataTable _legendDataTable)
         {
             LegendDataTable = _legendDataTable;
@@ -81,21 +129,40 @@ namespace Coding_Attempt_with_GUI
 
         }
 
-        private void GridControlConditioning()
+        /// <summary>
+        /// Method to initialize the <see cref="bandedGridView1"/>, set the <see cref="GridControl.DataSource"/> and perform some conditioning for the <see cref="GridControl.MainView"/> (which is the <see cref="bandedGridView1"/>)
+        /// </summary>
+        /// <param name="_legendDataTable"><see cref="DataTable"/> of the Legend</param>
+        private void GridControlConditioning(DataTable _legendDataTable)
         {
+            ///<summary> Initializing the <see cref="bandedGridView1"/> </summary>
             bandedGridView1 = CustomBandedGridView.CreateNewBandedGridView(0, 3, "Legend Data");
 
+            ///<summary>Setting the DataSource and MainView of the <see cref="gridControl1"/></summary>
             GridControlConditioning_SetDataSource();
 
+            ///<summary>Conditioning the Columns of the BandedGridView </summary>
             bandedGridView1 = CustomBandedGridColumn.ColumnEditor_ForLegend(bandedGridView1);
 
-            bandedGridView1.Columns[0].SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
-
+            ///<summary>Assigning the Colour Column of the Legend with the <see cref="repositoryItemColorPickEdit1"/> so that it displayes the colours from the <see cref="LegendDataTable"/></summary>
             bandedGridView1.Columns[2].ColumnEdit = repositoryItemColorPickEdit1;
-
-            bandedGridView1.Columns[2].BestFit();
+            
         }
 
+        /// <summary>
+        /// Method to initialize the <see cref="CellValueChangedEventArgs"/> of the <see cref="bandedGridView1"/>
+        /// </summary>
+        private void InitializeGridControlEvents()
+        {
+            bandedGridView1.CellValueChanged += BandedGridView1_CellValueChanged;
+
+            bandedGridView1.ValidatingEditor += BandedGridView1_ValidatingEditor;
+
+        }
+
+        /// <summary>
+        /// Medhot to assign the <see cref="GridControl.DataSource"/> and the <see cref="GridControl.MainView"/>
+        /// </summary>
         private void GridControlConditioning_SetDataSource()
         {
             gridControl1.DataSource = LegendDataTable;
@@ -103,6 +170,11 @@ namespace Coding_Attempt_with_GUI
             gridControl1.MainView = bandedGridView1;
         }
 
+        /// <summary>
+        /// Event which is fired when the index of the <see cref="radioGroup1"/> is changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void radioGroup1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (radioGroup1.SelectedIndex == 0)
@@ -118,14 +190,17 @@ namespace Coding_Attempt_with_GUI
 
             ParentCAD.GradientType = UsersGradientStyle;
 
-            EditEntireLegend(); 
+            ReDoEntireLegend(); 
         }
 
+        /// <summary>
+        /// Event which is fired when a cell of the <see cref="gridControl1"/> is changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void BandedGridView1_CellValueChanged(object sender, CellValueChangedEventArgs e)
         {
             int RowIndex = bandedGridView1.FocusedRowHandle;
-
-            //string ForceRange = LegendDataTable.Rows[RowIndex].Field<string>("Force Range");
 
             double StartForce = LegendDataTable.Rows[RowIndex].Field<double>("Force Start");
 
@@ -135,9 +210,14 @@ namespace Coding_Attempt_with_GUI
 
             ///<summary>Passed by Reference because it's an object. So the below method not needed</summary>
             //ParentCAD.EditRowLegendTable(StartForce, EndForce, ForceRangeColour, RowIndex);
-
+            
         }
 
+        /// <summary>
+        /// Event which is fired when the cell of the <see cref="gridControl1"/> is changed. This event serves to only validate the typed values
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void BandedGridView1_ValidatingEditor(object sender, DevExpress.XtraEditors.Controls.BaseContainerValidateEditorEventArgs e)
         {
             int ColumnIndex = bandedGridView1.FocusedColumn.AbsoluteIndex;
@@ -173,6 +253,16 @@ namespace Coding_Attempt_with_GUI
         {
             ParentCAD.AddRowToLegendTable(0, 0, MaxValue, MinValue, UsersGradient1, UsersGradient2);
 
+            //ParentCAD.LegendDataTable.AsEnumerable().OrderByDescending(legend => legend.Field<double>("Force Start"));
+
+            ParentCAD.LegendDataTable.DefaultView.Sort = "Force Start";
+
+            ParentCAD.LegendDataTable = ParentCAD.LegendDataTable.DefaultView.ToTable();
+
+            ParentCAD.LegendDataTable = ParentCAD.LegendDataTable.AsEnumerable().Reverse().CopyToDataTable();
+
+            ReConditionLegend();
+
             GridControlConditioning_SetDataSource();
         }
 
@@ -186,22 +276,52 @@ namespace Coding_Attempt_with_GUI
 
         }
 
-        private void labelControl1_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Event which is fired when the <see cref="simpleButtonReset"/> is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void simpleButtonReset_Click(object sender, EventArgs e)
         {
-
+            ResetLegend();
+        }
+        /// <summary>
+        /// Method to reset the Legend to its very initial state
+        /// </summary>
+        private void ResetLegend()
+        {
+            ParentCAD.PostProcessing(this, BaseOC, UsersGradient1, UsersGradient2, UsersGradientStyle, NoOfSteps, StepSize);
+            GridControlConditioning_SetDataSource();
         }
 
+        /// <summary>
+        /// Event which is fired when the <see cref="textBoxStepSize"/> control is left
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textBoxStepSize_Leave(object sender, EventArgs e)
         {
-            if (Double.TryParse(textBoxStepSize.Text,out double checker))
+            CustomStepSize();
+        }
+
+        /// <summary>
+        /// Method to assign custom or user defined step size to the legend and redraw the legend based on this input. 
+        /// </summary>
+        private void CustomStepSize()
+        {
+            if (Double.TryParse(textBoxStepSize.Text, out double checker))
             {
                 if (checker > 0)
                 {
                     StepSize = Convert.ToDouble(textBoxStepSize.Text);
 
+                    ///<summary>If Step Size is set then the NoOfSteps can't be an Input so it is set to 0</summary>
                     NoOfSteps = 0;
 
-                    EditEntireLegend();
+                    ///<summary>Redrawing the entire <see cref="LegendDataTable"/> and then <see cref="bandedGridView1"/> and then the <see cref="gridControl1"/></summary>
+                    ReDoEntireLegend();
+
+                    //EditEntireLegend();
                 }
                 else if (checker == 0)
                 {
@@ -218,23 +338,40 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
+        /// <summary>
+        /// Event which is fired when the <see cref="textBoxNoOfSteps"/> control is left
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textBoxNoOfSteps_Leave(object sender, EventArgs e)
         {
-            if (Int32.TryParse(textBoxNoOfSteps.Text,out int checker))
+            CustomNoOfSteps();
+        }
+
+        /// <summary>
+        /// Method to assign a custom or user degined number of steps of the legend and redraw the legend based on this input
+        /// </summary>
+        private void CustomNoOfSteps()
+        {
+            if (Int32.TryParse(textBoxNoOfSteps.Text, out int checker))
             {
                 if (checker > 0)
                 {
                     NoOfSteps = Convert.ToInt32(textBoxNoOfSteps.Text);
 
+                    ///<summary>If Number of steps is set then the Step Size can't be an input so setting it to 0</summary>
                     StepSize = 0;
 
-                    EditEntireLegend();
+                    ///<summary>Redrawing the entire <see cref="LegendDataTable"/> and then <see cref="bandedGridView1"/> and then the <see cref="gridControl1"/></summary>
+                    ReDoEntireLegend();
+
+                    //EditEntireLegend();
                 }
                 else if (checker == 0)
                 {
                     MessageBox.Show("No Of Steps Cannot Be 0");
                 }
-                else 
+                else
                 {
                     MessageBox.Show("No Of Steps Cannot Be Negative");
                 }
@@ -245,22 +382,48 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
+        /// <summary>
+        /// Event which is fired when the Colour of the <see cref="colorPickEdit1"/> is changed. This event causes the Legend Colours to be redrawn
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void colorPickEdit1_ColorChanged(object sender, EventArgs e)
-        {
+         {
+            ///<summary>Assinging the <see cref="UsersGradient1"/> property of this form</summary>
             UsersGradient1 = colorPickEdit1.Color;
             ParentCAD.GradientColor1 = UsersGradient1;
-            EditEntireLegend();
+            ///<summary>Re-Painting the Colour Column of the <see cref="CAD.LegendDataTable"/></summary>
+            ParentCAD.PaintLegendTableColorColumn(UsersGradient1, UsersGradient2);
+            ///<summary>Reconditionring the Legend</summary>
+            ReConditionLegend();
         }
 
+        /// <summary>
+        /// Event which is fired when the Colour of the <see cref="colorPickEdit2"/> is changed. This event causes the Legend Colours to be redrawn
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void colorPickEdit2_ColorChanged(object sender, EventArgs e)
         {
+            ///<summary>Assinging the <see cref="UsersGradient1"/> property of this form</summary>
+
             UsersGradient2 = colorPickEdit2.Color;
             ParentCAD.GradientColor2 = UsersGradient2;
-            EditEntireLegend();
+            ///<summary>Re-Painting the Colour Column of the <see cref="CAD.LegendDataTable"/></summary>
+            ParentCAD.PaintLegendTableColorColumn(UsersGradient1, UsersGradient2);
+            ///<summary>Reconditionring the Legend</summary>
+            ReConditionLegend();
         }
 
+        /// <summary>
+        /// Event fired when the <see cref="simpleButtonOK"/> is clicked. This method repaints ALL the Arrows and Bars of the <see cref="CAD.viewportLayout1"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void simpleButtonOK_Click(object sender, EventArgs e)
         {
+            ReConditionLegend();
+
             ParentCAD.PaintBarForce();
 
             ParentCAD.PaintArrowForce();
@@ -274,16 +437,11 @@ namespace Coding_Attempt_with_GUI
             this.Hide();
         }
 
-        private void EditEntireLegend()
-        {
-            OutputClass tempOC = new OutputClass();
-            tempOC.MaxForce = MaxValue;
-            tempOC.MinForce = MinValue;
-            ParentCAD.PostProcessing(tempOC, UsersGradient1, UsersGradient2, NoOfSteps, StepSize);
-            GetDataLegendDataSource(ParentCAD.LegendDataTable);
-            GridControlConditioning_SetDataSource();
-        }
-
+        /// <summary>
+        /// Event fired when the <see cref="radioGroup2"/>'s index is changed. This event determines whether the Legend is going to be Standard FEM or Monochrome
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void radioGroup2_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (radioGroup2.SelectedIndex == 0)
@@ -306,9 +464,36 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
-        private void simpleButtonMoveUp_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Medhot to Recreate the Entire Legend
+        /// </summary>
+        private void ReDoEntireLegend()
         {
 
+            OutputClass tempOC = new OutputClass();
+            GetDataLegendDataSource(ParentCAD.LegendDataTable);
+            tempOC.MaxForce = MaxValue;
+            tempOC.MinForce = MinValue;
+            ParentCAD.PostProcessing(this, tempOC, UsersGradient1, UsersGradient2, UsersGradientStyle, NoOfSteps, StepSize);
+            GridControlConditioning_SetDataSource();
         }
+
+        /// <summary>
+        /// Method to only assign the color table of the <see cref="CAD.viewportLayout1"/>'s <see cref="Legend"/>
+        /// </summary>
+        private void ReConditionLegend()
+        {
+            OutputClass tempOC = new OutputClass();
+            GetDataLegendDataSource(ParentCAD.LegendDataTable);
+            tempOC.MaxForce = MaxValue;
+            tempOC.MinForce = MinValue;
+            //ParentCAD.PostProcessing(this, tempOC, UsersGradient1, UsersGradient2, UsersGradientStyle, NoOfSteps, StepSize);
+            //GetDataLegendDataSource(ParentCAD.LegendDataTable);
+            //ParentCAD.GetLegendParams(tempOC, NoOfSteps, StepSize);
+            //ParentCAD.PaintLegendTableColorColumn(UsersGradient1,UsersGradient2);
+            ParentCAD.AssignLegendColourTable();
+            GridControlConditioning_SetDataSource();
+        }
+
     }
 }

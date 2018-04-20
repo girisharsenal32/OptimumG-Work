@@ -75,10 +75,11 @@ namespace Coding_Attempt_with_GUI
         public XtraUserControl_InputSheet IS = new XtraUserControl_InputSheet(r1);
         public CAD CADVehicleInputs = new CAD();
         public CAD CADVehicleOutputs = new CAD();
+        public LegendEditor LoadCaseLegend = new LegendEditor();
         #endregion
 
         #region ImportCAD Form
-        public /*ImportCADForm*/ XUC_ImportCAD importCADForm = new XUC_ImportCAD();
+        public XUC_ImportCAD importCADForm = new XUC_ImportCAD();
         public ImportCAD importCAD = new ImportCAD();
         public bool ImportCADFormInvoked = false;
         public bool PlotWheel = true;
@@ -576,7 +577,9 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
         #region Output Coordinates Plotter
-        private void GetAttachmentPointForces(OutputClass _ocLeft, OutputClass _ocRight, out Vector3D _Force_P_Left, out Vector3D _Force_Q_Left, out Vector3D _Force_P_Right, out Vector3D _Force_Q_Right, bool _SRack,bool _SColumn)
+
+        #region Method to get the Bearing Cap Attachment Point Forces
+        private void GetAttachmentPointForces(OutputClass _ocLeft, OutputClass _ocRight, out Vector3D _Force_P_Left, out Vector3D _Force_Q_Left, out Vector3D _Force_P_Right, out Vector3D _Force_Q_Right, bool _SRack, bool _SColumn)
         {
             _Force_P_Left = _Force_P_Right = _Force_Q_Left = _Force_Q_Right = new Vector3D();
             if (_SRack)
@@ -596,13 +599,15 @@ namespace Coding_Attempt_with_GUI
 
             if (_SColumn)
             {
-                _Force_P_Left  = new Vector3D(_ocLeft.SColumnInboard1_x, _ocLeft.SColumnInboard1_y, _ocLeft.SColumnInboard1_z);
+                _Force_P_Left = new Vector3D(_ocLeft.SColumnInboard1_x, _ocLeft.SColumnInboard1_y, _ocLeft.SColumnInboard1_z);
                 _Force_P_Right = new Vector3D(_ocLeft.SColumnInboard2_x, _ocLeft.SColumnInboard2_y, _ocLeft.SColumnInboard2_z);
             }
 
         }
+        #endregion
 
-        private void OutputDrawer(CAD vehicleCADDrawer_Output, int VehicleIndex, int OutputIndex, bool _importCAD,bool _plotWheel)
+        #region Method to plot the Complete Output Suspension depnding on the motin Percentage Index passed and ALSO to plot all the Legend and ALSO to Paint the Force Arrows
+        private void OutputDrawer(CAD vehicleCADDrawer_Output, int VehicleIndex, int OutputIndex, bool _importCAD, bool _plotWheel)
         {
             try
             {
@@ -662,9 +667,6 @@ namespace Coding_Attempt_with_GUI
                 CADVehicleOutputs.PaintForceDecompArrows(Vehicle.List_Vehicle[VehicleIndex].oc_RR[OutputIndex].scmOP, Vehicle.List_Vehicle[VehicleIndex].oc_RR[OutputIndex], MasterOC, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RR_Fx,
                     Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RR_Fy + Vehicle.List_Vehicle[VehicleIndex].oc_RR[OutputIndex].CW, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RR_Fz);
 
-                //CADVehicleOutputs.GetGradientColors(Color.Red, Color.White);
-
-
                 ///<summary>Painting the Force Decomposition Arrows - Bearing Cap Forces</summary>
                 CADVehicleOutputs.PaintForceBearingDecompArrows(Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.FL_BearingCoordinates, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.FR_BearingCoordinates, false, true, false,
                                                                 ForcePLeft, ForceQLeft, ForcePRight, ForceQRight, MasterOC);
@@ -675,18 +677,17 @@ namespace Coding_Attempt_with_GUI
                 CADVehicleOutputs.PaintForceBearingDecompArrows(Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.SteeringColumnBearing, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.SteeringColumnBearing, false, true, true,
                                                                 ForcePLeft, new Vector3D(), ForcePRight, new Vector3D(), MasterOC);
 
-
-                //CADVehicleOutputs.GetGradientColors(Color.Red, Color.White);
+                LoadCaseLegend.InitializeLegendEditor(MasterOC, CADVehicleOutputs);
 
                 ///<summary>At this stage Colours passed can be anything because it will always initialize with Standard FEM Style </summary>
-                CADVehicleOutputs.PostProcessing(MasterOC, Color.Firebrick, Color.Ivory, 0, 0);
+                //CADVehicleOutputs.PostProcessing(MasterOC, Color.Firebrick, Color.Ivory, 0, 0);
 
                 CADVehicleOutputs.PaintBarForce();
 
                 CADVehicleOutputs.PaintArrowForce();
 
                 ///<summary>This method exists to ensure that the Imported FIles are not recloned everytime the user selects a different Motion Percentage from the Motion View Grid</summary>
-                if (_importCAD && !OutputIGESPlotted) 
+                if (_importCAD && !OutputIGESPlotted)
                 {
                     try
                     {
@@ -718,10 +719,6 @@ namespace Coding_Attempt_with_GUI
                         vehicleCADDrawer_Output.viewportLayout1.Entities[iTrans].Translate(0, -(ImportedCADTranslationHistory[ImportedCADTranslationHistory.Count - 1] - ImportedCADTranslationHistory[ImportedCADTranslationHistory.Count - 2]), 0);
                         vehicleCADDrawer_Output.viewportLayout1.Refresh();
                     }
-
-
-
-
                 }
 
                 vehicleCADDrawer_Output.viewportLayout1.Update();
@@ -733,7 +730,9 @@ namespace Coding_Attempt_with_GUI
                 MessageBox.Show(E.Message);
                 // Keeping this code in try and catch block will help during Open operation. If the method is called without a Vehicle or VehicleGUI item being present, then the software won't crasha
             }
-        }
+        } 
+        #endregion
+
         #endregion
 
         #endregion

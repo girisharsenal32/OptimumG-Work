@@ -11293,6 +11293,7 @@ namespace Coding_Attempt_with_GUI
                 M1_Global.vehicleGUI[VIndex].CADVehicleOutputs.CloneOutputViewPort(M1_Global.vehicleGUI[VIndex].CADVehicleOutputs.viewportLayout1, M1_Global.vehicleGUI[VIndex].CADVehicleInputs.viewportLayout1);
             }
 
+            M1_Global.vehicleGUI[VIndex].LoadCaseLegend.MaxValue = M1_Global.vehicleGUI[VIndex].LoadCaseLegend.MinValue = 0;
             M1_Global.vehicleGUI[VIndex].EditORCreateVehicleCAD(M1_Global.vehicleGUI[VIndex].CADVehicleOutputs, VIndex, false, M1_Global.vehicleGUI[VIndex].Vehicle_MotionExists, 0, false, M1_Global.vehicleGUI[VIndex].CadIsTobeImported, M1_Global.vehicleGUI[VIndex].PlotWheel);
 
             //Vehicle temp_Vehicle = new Vehicle();

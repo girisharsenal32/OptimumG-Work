@@ -220,6 +220,7 @@ namespace Coding_Attempt_with_GUI
             viewportLayout1.ShowLoad = true;
             viewportLayout1.AskForHardwareAcceleration = false;
             string Version = viewportLayout1.ProductVersion;
+            InitializeLegendDataTable();
         }
         /// <summary>
         /// This overloaded constructor accpets an object of the ImportCADForm. This is so that a connection can be established between this user control and the ImportCADForm when the user wishes to Import a Vehicle
@@ -245,6 +246,7 @@ namespace Coding_Attempt_with_GUI
             importCADForm.translateObject.GetCADObject(this);
             viewportLayout1.AskForHardwareAcceleration = false;
             string Version = viewportLayout1.ProductVersion;
+            InitializeLegendDataTable();
         }
         #endregion
 
@@ -2350,7 +2352,19 @@ namespace Coding_Attempt_with_GUI
         }
 
 
-
+        /// <summary>
+        /// DELETE EVENTUALLY
+        /// </summary>
+        /// <param name="leftAttach"></param>
+        /// <param name="rightAttach"></param>
+        /// <param name="isInitializing"></param>
+        /// <param name="sRack"></param>
+        /// <param name="sColumn"></param>
+        /// <param name="force_P_Left"></param>
+        /// <param name="force_Q_Left"></param>
+        /// <param name="force_P_Right"></param>
+        /// <param name="force_Q_Right"></param>
+        /// <param name="oc"></param>
         public void PaintForceBearingDecompArrows(double[,] leftAttach, double[,] rightAttach, bool isInitializing, bool sRack, bool sColumn, MathNet.Spatial.Euclidean.Vector3D force_P_Left, MathNet.Spatial.Euclidean.Vector3D force_Q_Left,
                                  MathNet.Spatial.Euclidean.Vector3D force_P_Right, MathNet.Spatial.Euclidean.Vector3D force_Q_Right, OutputClass oc)
         {
@@ -2368,41 +2382,56 @@ namespace Coding_Attempt_with_GUI
         /// <param name="Gradient2"></param>
         /// <param name="NoOfSteps_UserSelected"></param>
         /// <param name="StepSize_UserSelected"></param>
-        public void PostProcessing(OutputClass OCmaster, Color Gradient1, Color Gradient2, int NoOfSteps_UserSelected, double StepSize_UserSelected)
+        public void PostProcessing(LegendEditor LegendEdit, OutputClass OCmaster, Color Gradient1, Color Gradient2, GradientStyle GradientStyle, int NoOfSteps_UserSelected, double StepSize_UserSelected)
         {
-            //GetGradientColors(Gradient1, Gradient2);
+            legendEdit = LegendEdit;
 
             viewportLayout1.ToolBar.Buttons[7].Enabled = true;
 
             barButtonItemLegendEditor.Enabled = true;
 
-            LegendDataTable = new DataTable();
+            LegendDataTable.Clear();
 
-            InitializeLegendDataTable();
-
-            viewportLayout1.Legends[0].Max = Convert.ToInt32(OCmaster.MaxForce);
-            viewportLayout1.Legends[0].Min = Convert.ToInt32(OCmaster.MinForce);
             LegendColors.Clear();
 
-            GetLegendParams(NoOfSteps_UserSelected, StepSize_UserSelected, viewportLayout1.Legends[0].Max - viewportLayout1.Legends[0].Min);
+            GetLegendParams(OCmaster, NoOfSteps_UserSelected, StepSize_UserSelected);
 
             ///<summary> </summary>
             PopulateDataTable(viewportLayout1.Legends[0].Max, viewportLayout1.Legends[0].Min, StepSize, NumberOfLegendDivisions, Gradient1, Gradient2);
 
             viewportLayout1.Legends[0].Visible = true;
 
-            if (GradientType == GradientStyle.StandardFEM)
-            {
-                viewportLayout1.Legends[0].ColorTable = LegendDataTable.AsEnumerable().Select(legend => legend.Field<Color>("Colour")).Reverse().ToArray();
-            }
-            else
-            {
-                viewportLayout1.Legends[0].ColorTable = LegendDataTable.AsEnumerable().Select(legend => legend.Field<Color>("Colour")).Reverse().ToArray();
-            }
+            AssignLegendColourTable();
+
         }
 
-        private void GetLegendParams(int _noOfSteps, double _stepSIze, double _forceRange)
+        /// <summary>
+        /// <para>Method to Add the Columns to the Legend Row</para> 
+        /// <para>This must be called ONLY ONCE when the CAD Control is loading </para>
+        /// </summary>
+        private void InitializeLegendDataTable()
         {
+            ///<summary>Creating a Force Start Columns</summary>
+            LegendDataTable.Columns.Add("Force Start", typeof(double));
+            ///<summary>Creating a Force End Column</summary>
+            LegendDataTable.Columns.Add("Force End", typeof(double));
+            ///<summary>Creating a Colour Column</summary>
+            LegendDataTable.Columns.Add("Colour", typeof(Color));
+        }
+
+        /// <summary>
+        /// Method toget the <see cref="Legend"/> Params of Max/Min Values, Steps and Step Size
+        /// </summary>
+        /// <param name="_ocMaster">Object of the Output Class. This can be Calculated OR a TEMP <see cref="OutputClass"/> object which the user temporarily creates with ONLY the <see cref="OutputClass.MaxForce"/> & <see cref="OutputClass.MaxForce"/></param>
+        /// <param name="_noOfSteps">No of Steps. If 0, then this is calculated</param>
+        /// <param name="_stepSIze">Step Size. If 0, the this is calculated</param>
+        public void GetLegendParams(OutputClass _ocMaster, int _noOfSteps, double _stepSIze)
+        {
+            viewportLayout1.Legends[0].Max = Convert.ToInt32(_ocMaster.MaxForce);
+            viewportLayout1.Legends[0].Min = Convert.ToInt32(_ocMaster.MinForce);
+
+            double _forceRange = viewportLayout1.Legends[0].Max - viewportLayout1.Legends[0].Min;
+
             if (_noOfSteps == 0 && _stepSIze == 0)
             {
                 NumberOfLegendDivisions = 11;
@@ -2424,43 +2453,81 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
-
-        private void InitializeLegendDataTable()
-        {
-            //LegendDataTable.Columns.Add("Force Range", typeof(string));
-            //LegendDataTable.Columns[0].ReadOnly = true;
-
-            LegendDataTable.Columns.Add("Force Start", typeof(double));
-
-            LegendDataTable.Columns.Add("Force End", typeof(double));
-
-            LegendDataTable.Columns.Add("Colour", typeof(Color));
-        }
-
+        /// <summary>
+        /// Method to the Add the rows to the <see cref="LegendDataTable"/>
+        /// </summary>
+        /// <param name="_maxValue">Maximum Value of Force. This is either the <see cref="OutputClass.MaxForce"/> OR a user defined Maximum Value</param>
+        /// <param name="_minValue">Minimum Value of Force. This is either the <see cref="OutputClass.MinForce"/> OR a user defined Minimum Value</param>
+        /// <param name="_stepSize">Step Size of the Legend which can be calculated OR User defined</param>
+        /// <param name="_noOfDivisions">No.Of Stepsof the Legend which can be calculated OR User defined</param>
+        /// <param name="_Gradient1">Can be User Defined (for <see cref="GradientStyle.Monochromatic"/>) or Anything else for <see cref="GradientStyle.StandardFEM"/></param>
+        /// <param name="_Gradient2">Can be User Defined (for <see cref="GradientStyle.Monochromatic"/>) or Anything else for <see cref="GradientStyle.StandardFEM"/></param>
         private void PopulateDataTable(double _maxValue, double _minValue, double _stepSize, int _noOfDivisions, Color _Gradient1, Color _Gradient2)
         {
+            ///<summary> Method to clear the <see cref="LegendDataTable"/> to prevent duplicate creation </summary>
             LegendDataTable.Clear();
 
             for (int i = 0; i < _noOfDivisions; i++)
             {
+                ///<summary>Finding the Current Value which is being considered</summary>
                 double currentValue = _maxValue - (i * Convert.ToInt32(_stepSize));
+                ///<summary>Finding the Next Value in the overal Force Range</summary>
                 double nextValue = currentValue - Convert.ToInt32(_stepSize);
+                ///<summary>Adding a row to the <see cref="LegendDataTable"/> </summary>
                 AddRowToLegendTable(currentValue, nextValue, _minValue, _maxValue, _Gradient1, _Gradient2);
             }
         }
 
+        /// <summary>
+        /// Method to add a row to the <see cref="LegendDataTable"/>
+        /// </summary>
+        /// <param name="currentValue">Current Value</param>
+        /// <param name="nextValue">Next Value</param>
+        /// <param name="_maxValue">Maximum Value of Force. This is either the <see cref="OutputClass.MaxForce"/> OR a user defined Maximum Value</param>
+        /// <param name="_minValue">Minimum Value of Force. This is either the <see cref="OutputClass.MinForce"/> OR a user defined Minimum Value</param>
+        /// <param name="_gradient1">Can be User Defined (for <see cref="GradientStyle.Monochromatic"/>) or Anything else for <see cref="GradientStyle.StandardFEM"/></param>
+        /// <param name="_gradient2">Can be User Defined (for <see cref="GradientStyle.Monochromatic"/>) or Anything else for <see cref="GradientStyle.StandardFEM"/></param>
         public void AddRowToLegendTable(double currentValue, double nextValue, double _minValue, double _maxValue, Color _gradient1, Color _gradient2)
         {
             LegendDataTable.Rows.Add(currentValue, nextValue, PaintGradient(null, currentValue, _minValue, _maxValue, _gradient1, _gradient2));
         }
 
-        public void EditRowLegendTable(double _startForce, double _endForce, Color _userSelectedColor, int _rowIndex)
+        /// <summary>
+        /// Method to Paint the <see cref="LegendDataTable"/>'s Colour Colum with the Colour Gradient options that the user has selected. 
+        /// </summary>
+        /// <param name="_gradient1">First User defined Colour Gradient </param>
+        /// <param name="_gradient2">First User defined Colour Gradient </param>
+        public void PaintLegendTableColorColumn(Color _gradient1, Color _gradient2)
         {
-            LegendDataTable.Rows[_rowIndex].SetField<double>("Force Start", _startForce);
-            LegendDataTable.Rows[_rowIndex].SetField<double>("Force End", _endForce);
-            LegendDataTable.Rows[_rowIndex].SetField<Color>("Colour", _userSelectedColor);
+            ///<summary>Gettting the Minimum and Maximum Values of the Legend</summary>
+            double _maxValue = LegendDataTable.Rows[0].Field<double>("Force Start");
+            double _minValue = LegendDataTable.Rows[LegendDataTable.Rows.Count - 1].Field<double>("Force End");
+
+            ///<summary>Setting the Colour of the Colour Column of the <see cref="LegendDataTable"/></summary>
+            for (int i = 0; i < LegendDataTable.Rows.Count; i++)
+            {
+                double currentValue = LegendDataTable.Rows[i].Field<double>("Force Start");
+                LegendDataTable.Rows[i].SetField<Color>("Colour", PaintGradient(null, currentValue, _minValue, _maxValue, _gradient1, _gradient2));
+            }
         }
 
+        /// <summary>
+        /// Method to convert the <see cref="LegendDataTable"/>'s Colour Column into an array and pass it to the <see cref="Legend.ColorTable"/> 
+        /// </summary>
+        public void AssignLegendColourTable()
+        {
+            viewportLayout1.Legends[0].Max = LegendDataTable.Rows[0].Field<double>("Force Start");
+            viewportLayout1.Legends[0].Min = LegendDataTable.Rows[LegendDataTable.Rows.Count - 1].Field<double>("Force End");
+            viewportLayout1.Legends[0].ColorTable = LegendDataTable.AsEnumerable().Select(legend => legend.Field<Color>("Colour")).Reverse().ToArray();
+        }
+
+        /// <summary>
+        /// Method to check if a particular Force value belongs to a Force Range within the <see cref="LegendDataTable"/>. If yes, then the <see cref="Entity"/> representing that force value will be painting with the Colour of the Force Range
+        /// </summary>
+        /// <param name="_startForce">Start Force of the Range</param>
+        /// <param name="_endForce">End Force of the Range</param>
+        /// <param name="_checkForce">Force which being checked. That is, Force being represented by the Entity</param>
+        /// <returns></returns>
         private bool BelongsToForceRange(double _startForce, double _endForce, double _checkForce)
         {
             if (_checkForce > 0)
@@ -2487,11 +2554,17 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
+        /// <summary>
+        /// Public Invoker Method to Paint the Bars based on their Force Value
+        /// </summary>
         public void PaintBarForce()
         {
             PaintBars();
         }
 
+        /// <summary>
+        /// Public invoker method to the Paint the Arrows based on their force value
+        /// </summary>
         public void PaintArrowForce()
         {
             PaintArrows();
@@ -2505,9 +2578,12 @@ namespace Coding_Attempt_with_GUI
         {
             for (int i = 0; i < viewportLayout1.Entities.Count; i++)
             {
+                ///<summary>Check to see if the Entity is Bar</summary>
                 if (viewportLayout1.Entities[i] as Bar != null)
                 {
+                    ///<summary>Extracting the <see cref="CustomData"/> of the Bar</summary>
                     CustomData barData = new CustomData();
+                    ///<summary>Setting the Colour Method of the Entity</summary>
                     viewportLayout1.Entities[i].ColorMethod = colorMethodType.byEntity;
 
                     if (viewportLayout1.Entities[i].EntityData != null)
@@ -2516,15 +2592,18 @@ namespace Coding_Attempt_with_GUI
                     }
                     else
                     {
+                        ///<summary>If there is no <see cref="CustomData"/> (like for Bars representing Pushrod point to Bell-Crank Pivot) then setting their colour to Purple </summary>
                         viewportLayout1.Entities[i].Color = Color.MediumPurple;
                         goto END;
                     }
 
-
+                    
                     for (int j = 0; j < LegendDataTable.Rows.Count; j++)
                     {
+                        ///<summary>Finding the Force Range to which the Bar Belongs to</summary>
                         if (BelongsToForceRange(LegendDataTable.Rows[j].Field<double>("Force Start"), LegendDataTable.Rows[j].Field<double>("Force End"), barData.Force))
                         {
+                            ///<summary>Painting the Bar with the Colour of the Force Range which it belongs to </summary>
                             barData.EntityColor = LegendDataTable.Rows[j].Field<Color>("Colour");
                             viewportLayout1.Entities[i].Color = LegendDataTable.Rows[j].Field<Color>("Colour");
                             viewportLayout1.Entities[i].EntityData = barData;
@@ -2538,18 +2617,23 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
+        /// <summary>
+        /// Method to Paint all the Arrows in the Viewport basd on the <see cref="CustomData.Force"/> value using a For Loop 
+        /// </summary>
         private void PaintArrows()
         {
             for (int i = 0; i < viewportLayout1.Entities.Count; i++)
             {
                 if (viewportLayout1.Entities[i] as Mesh != null)
                 {
+                    ///<summary>Check to see if the Entity is Arrow</summary>
                     CustomData arrowData = new CustomData();
-
+                    ///<summary>Setting the Colour Method of the Entity</summary>
                     viewportLayout1.Entities[i].ColorMethod = colorMethodType.byEntity;
 
                     if (viewportLayout1.Entities[i].EntityData != null)
                     {
+                        ///<summary>If there is no <see cref="CustomData"/> (like for Bars representing Pushrod point to Bell-Crank Pivot) then setting their colour to Purple </summary>
                         arrowData = (CustomData)viewportLayout1.Entities[i].EntityData;
                     }
                     else
@@ -2560,8 +2644,10 @@ namespace Coding_Attempt_with_GUI
                     
                     for (int j = 0; j < LegendDataTable.Rows.Count; j++)
                     {
+                        ///<summary>Finding the Force Range to which the Bar Belongs to</summary>
                         if (BelongsToForceRange(LegendDataTable.Rows[j].Field<double>("Force Start"), LegendDataTable.Rows[j].Field<double>("Force End"),arrowData.Force))
                         {
+                            ///<summary>Painting the Bar with the Colour of the Force Range which it belongs to </summary>
                             arrowData.EntityColor = LegendDataTable.Rows[j].Field<Color>("Colour");
                             viewportLayout1.Entities[i].Color = LegendDataTable.Rows[j].Field<Color>("Colour");
                             viewportLayout1.Entities[i].EntityData = arrowData;
@@ -2575,6 +2661,11 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void barButtonItemLegendEditor_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             EditLegend();
@@ -2584,14 +2675,13 @@ namespace Coding_Attempt_with_GUI
             EditLegend();
         }
 
-        LegendEditor legendEdit = new LegendEditor();
+        LegendEditor legendEdit;
 
         private void EditLegend()
         {
-            legendEdit.InitializeLegendEditor(LegendDataTable, this);
+            //legendEdit.InitializeLegendEditor(,this);
 
             legendEdit.Show();
-
         }
 
         #endregion
