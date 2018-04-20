@@ -212,6 +212,8 @@ namespace Coding_Attempt_with_GUI
 
             _bandedGridView.Columns[0].AppearanceCell.Font = new Font(font, fontSize, FontStyle.Bold);
 
+            _bandedGridView.Columns[1].AppearanceCell.Font = new Font(font, fontSize, FontStyle.Bold);
+
             _bandedGridView.OptionsView.ShowColumnHeaders = true;
 
             return _bandedGridView;

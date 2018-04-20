@@ -204,7 +204,7 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         List<CustomData> CustomDataList = new List<CustomData>();
 
-        DataTable LegendDataTable = new DataTable();
+        public DataTable LegendDataTable = new DataTable();
 
         #endregion
 
@@ -926,7 +926,6 @@ namespace Coding_Attempt_with_GUI
         /// <returns></returns>
         public Color PaintGradient(Entity _entityToBeColoured,double _cellValue, double _minValue, double _maxValue, Color _firstColour, Color _secondColour)
         {
-            GradientType = GradientStyle.Monochromatic;
 
             ///<summary>Cell Value as a Percent of the Max Value</summary>
             double absValue = 1;
@@ -2326,11 +2325,11 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         /// <param name="_gradientColor1"></param>
         /// <param name="_gradientColor2"></param>
-        public void GetGradientColors(Color _gradientColor1, Color _gradientColor2)
-        {
-            GradientColor1 = _gradientColor1;
-            GradientColor2 = _gradientColor2;
-        }
+        //public void GetGradientColors(Color _gradientColor1, Color _gradientColor2)
+        //{
+        //    GradientColor1 = _gradientColor1;
+        //    GradientColor2 = _gradientColor2;
+        //}
 
         /// <summary>
         /// <para>Method to Plot the Force Arrows for the Force Decompositions</para>
@@ -2358,12 +2357,21 @@ namespace Coding_Attempt_with_GUI
             PaintLoadCaseArrows(leftAttach, rightAttach, isInitializing, sRack, sColumn, force_P_Left, force_Q_Right, force_P_Right, force_Q_Right, oc.MaxDecompForce_X, oc.MinDecompForce_X, oc.MaxDecompForce_Y, oc.MinDecompForce_Y, oc.MaxDecompForce_Z, oc.MinDecompForce_Z);
         }
 
+        int NumberOfLegendDivisions;
+
+        double StepSize;
         /// <summary>
         /// Post Processing methods to Create a Sorted AND Grouped Data Table which will also be the source for the Legend
         /// </summary>
-        /// <param name="_ocMaster"></param>
-        public void PostProcessing(OutputClass _ocMaster)
+        /// <param name="OCmaster">Sufficient to Pass a Temporary <see cref="OutputClass"/> which has only Max and Min Values </param>
+        /// <param name="Gradient1"></param>
+        /// <param name="Gradient2"></param>
+        /// <param name="NoOfSteps_UserSelected"></param>
+        /// <param name="StepSize_UserSelected"></param>
+        public void PostProcessing(OutputClass OCmaster, Color Gradient1, Color Gradient2, int NoOfSteps_UserSelected, double StepSize_UserSelected)
         {
+            //GetGradientColors(Gradient1, Gradient2);
+
             viewportLayout1.ToolBar.Buttons[7].Enabled = true;
 
             barButtonItemLegendEditor.Enabled = true;
@@ -2372,36 +2380,55 @@ namespace Coding_Attempt_with_GUI
 
             InitializeLegendDataTable();
 
-            viewportLayout1.Legends[0].Max = Convert.ToInt32(_ocMaster.MaxForce);
-            viewportLayout1.Legends[0].Min = Convert.ToInt32(_ocMaster.MinForce);
+            viewportLayout1.Legends[0].Max = Convert.ToInt32(OCmaster.MaxForce);
+            viewportLayout1.Legends[0].Min = Convert.ToInt32(OCmaster.MinForce);
             LegendColors.Clear();
 
-            int NumberOfLegendDivisions = 11;
+            GetLegendParams(NoOfSteps_UserSelected, StepSize_UserSelected, viewportLayout1.Legends[0].Max - viewportLayout1.Legends[0].Min);
 
-            int StepSize = Convert.ToInt32((viewportLayout1.Legends[0].Max - viewportLayout1.Legends[0].Min) / NumberOfLegendDivisions);
-
-            PopulateDataTable(viewportLayout1.Legends[0].Max, viewportLayout1.Legends[0].Min, StepSize, NumberOfLegendDivisions);
+            ///<summary> </summary>
+            PopulateDataTable(viewportLayout1.Legends[0].Max, viewportLayout1.Legends[0].Min, StepSize, NumberOfLegendDivisions, Gradient1, Gradient2);
 
             viewportLayout1.Legends[0].Visible = true;
-
-            GradientType = GradientStyle.Monochromatic;
 
             if (GradientType == GradientStyle.StandardFEM)
             {
                 viewportLayout1.Legends[0].ColorTable = LegendDataTable.AsEnumerable().Select(legend => legend.Field<Color>("Colour")).Reverse().ToArray();
-
             }
             else
             {
-
                 viewportLayout1.Legends[0].ColorTable = LegendDataTable.AsEnumerable().Select(legend => legend.Field<Color>("Colour")).Reverse().ToArray();
             }
         }
 
+        private void GetLegendParams(int _noOfSteps, double _stepSIze, double _forceRange)
+        {
+            if (_noOfSteps == 0 && _stepSIze == 0)
+            {
+                NumberOfLegendDivisions = 11;
+
+                StepSize = ((viewportLayout1.Legends[0].Max - viewportLayout1.Legends[0].Min) / NumberOfLegendDivisions);
+            }
+            else if (_noOfSteps == 0 && _stepSIze != 0)
+            {
+                StepSize = _stepSIze;
+
+                NumberOfLegendDivisions = Convert.ToInt32(_forceRange / StepSize);
+
+            }
+            else if (_noOfSteps != 0 && _stepSIze == 0)
+            {
+                NumberOfLegendDivisions = _noOfSteps;
+
+                StepSize = _forceRange / NumberOfLegendDivisions;
+            }
+        }
+
+
         private void InitializeLegendDataTable()
         {
-            LegendDataTable.Columns.Add("Force Range", typeof(string));
-            LegendDataTable.Columns[0].ReadOnly = true;
+            //LegendDataTable.Columns.Add("Force Range", typeof(string));
+            //LegendDataTable.Columns[0].ReadOnly = true;
 
             LegendDataTable.Columns.Add("Force Start", typeof(double));
 
@@ -2410,27 +2437,25 @@ namespace Coding_Attempt_with_GUI
             LegendDataTable.Columns.Add("Colour", typeof(Color));
         }
 
-        private void PopulateDataTable(double _maxValue, double _minValue, int _stepSize, int _noOfDivisions)
+        private void PopulateDataTable(double _maxValue, double _minValue, double _stepSize, int _noOfDivisions, Color _Gradient1, Color _Gradient2)
         {
             LegendDataTable.Clear();
 
             for (int i = 0; i < _noOfDivisions; i++)
             {
-                double currentValue = _maxValue - (i * _stepSize);
-                double nextValue = currentValue - _stepSize;
-                AddRowToLegendTable(currentValue, nextValue, _minValue, _maxValue);
+                double currentValue = _maxValue - (i * Convert.ToInt32(_stepSize));
+                double nextValue = currentValue - Convert.ToInt32(_stepSize);
+                AddRowToLegendTable(currentValue, nextValue, _minValue, _maxValue, _Gradient1, _Gradient2);
             }
         }
 
-        public void AddRowToLegendTable(double currentValue, double nextValue, double _minValue,double _maxValue)
+        public void AddRowToLegendTable(double currentValue, double nextValue, double _minValue, double _maxValue, Color _gradient1, Color _gradient2)
         {
-            LegendDataTable.Rows.Add(Convert.ToString(currentValue) + " - " + Convert.ToString(nextValue), currentValue, nextValue, PaintGradient(null, currentValue, _minValue, _maxValue, GradientColor1, GradientColor2));
-
+            LegendDataTable.Rows.Add(currentValue, nextValue, PaintGradient(null, currentValue, _minValue, _maxValue, _gradient1, _gradient2));
         }
 
-        public void EditRowLegendTable(string _forceRange, double _startForce, double _endForce, Color _userSelectedColor, int _rowIndex)
+        public void EditRowLegendTable(double _startForce, double _endForce, Color _userSelectedColor, int _rowIndex)
         {
-            LegendDataTable.Rows[_rowIndex].SetField<string>("Force Range", _forceRange);
             LegendDataTable.Rows[_rowIndex].SetField<double>("Force Start", _startForce);
             LegendDataTable.Rows[_rowIndex].SetField<double>("Force End", _endForce);
             LegendDataTable.Rows[_rowIndex].SetField<Color>("Colour", _userSelectedColor);
@@ -2462,24 +2487,22 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
-        public void PaintBarForce(OutputClass _ocMaster)
+        public void PaintBarForce()
         {
-            PaintBars(_ocMaster, GradientColor1, GradientColor2);
+            PaintBars();
         }
 
-        public void PaintArrowForce(OutputClass _ocMaster)
+        public void PaintArrowForce()
         {
-            PaintArrows(_ocMaster, GradientColor1, GradientColor2);
+            PaintArrows();
         }
 
         /// <summary>
         /// Method to Paint all the Bars in the Viewport basd on the <see cref="CustomData.Force"/> value using a For Loop 
         /// </summary>
         /// <param name="_masterOC"></param>
-        private void PaintBars(OutputClass _masterOC, Color _firstColor, Color _secondColor)
+        private void PaintBars()
         {
-            //CustomDataList.Clear();
-
             for (int i = 0; i < viewportLayout1.Entities.Count; i++)
             {
                 if (viewportLayout1.Entities[i] as Bar != null)
@@ -2490,7 +2513,6 @@ namespace Coding_Attempt_with_GUI
                     if (viewportLayout1.Entities[i].EntityData != null)
                     {
                         barData = (CustomData)viewportLayout1.Entities[i].EntityData;
-
                     }
                     else
                     {
@@ -2510,17 +2532,13 @@ namespace Coding_Attempt_with_GUI
                         }
                     }
 
-                    
-                    //viewportLayout1.Entities[i].Color = PaintGradient(viewportLayout1.Entities[i], barData.Force, _masterOC.MinForce, _masterOC.MaxForce, _firstColor, _secondColor);
-
                     END:
                     viewportLayout1.Invalidate();
                 }
             }
-
         }
 
-        private void PaintArrows(OutputClass _masterOC, Color _firstColor, Color _secondColor)
+        private void PaintArrows()
         {
             for (int i = 0; i < viewportLayout1.Entities.Count; i++)
             {
@@ -2547,10 +2565,9 @@ namespace Coding_Attempt_with_GUI
                             arrowData.EntityColor = LegendDataTable.Rows[j].Field<Color>("Colour");
                             viewportLayout1.Entities[i].Color = LegendDataTable.Rows[j].Field<Color>("Colour");
                             viewportLayout1.Entities[i].EntityData = arrowData;
+                            break;
                         }
                     }
-
-                    //viewportLayout1.Entities[i].Color = PaintGradient(viewportLayout1.Entities[i], arrowData.Force, _masterOC.MinForce, _masterOC.MaxForce, _firstColor, _secondColor);
 
                      END:
                     viewportLayout1.Invalidate();
@@ -2567,10 +2584,10 @@ namespace Coding_Attempt_with_GUI
             EditLegend();
         }
 
+        LegendEditor legendEdit = new LegendEditor();
+
         private void EditLegend()
         {
-            LegendEditor legendEdit = new LegendEditor();
-
             legendEdit.InitializeLegendEditor(LegendDataTable, this);
 
             legendEdit.Show();

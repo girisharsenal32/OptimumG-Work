@@ -32,6 +32,7 @@
             this.groupControlCustomColours = new DevExpress.XtraEditors.GroupControl();
             this.colorPickEdit1 = new DevExpress.XtraEditors.ColorPickEdit();
             this.groupControlGradientStyle = new DevExpress.XtraEditors.GroupControl();
+            this.radioGroup1 = new DevExpress.XtraEditors.RadioGroup();
             this.groupControlLegendPreview = new DevExpress.XtraEditors.GroupControl();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.bandedGridView1 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridView();
@@ -40,36 +41,38 @@
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.simpleButtonAddRow = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButtonDeleteRow = new DevExpress.XtraEditors.SimpleButton();
+            this.simpleButtonMoveUp = new DevExpress.XtraEditors.SimpleButton();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem4 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.radioGroup1 = new DevExpress.XtraEditors.RadioGroup();
-            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
-            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.simpleButtonMoveUp = new DevExpress.XtraEditors.SimpleButton();
+            this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem6 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.splitterControl1 = new DevExpress.XtraEditors.SplitterControl();
-            this.simpleButtonOK = new DevExpress.XtraEditors.SimpleButton();
-            this.simpleButtonCanel = new DevExpress.XtraEditors.SimpleButton();
             this.groupControlLegendParams = new DevExpress.XtraEditors.GroupControl();
-            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.textBoxNoOfSteps = new System.Windows.Forms.TextBox();
+            this.textBoxStepSize = new System.Windows.Forms.TextBox();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.simpleButtonCanel = new DevExpress.XtraEditors.SimpleButton();
+            this.simpleButtonOK = new DevExpress.XtraEditors.SimpleButton();
+            this.splitterControl1 = new DevExpress.XtraEditors.SplitterControl();
+            this.radioGroup2 = new DevExpress.XtraEditors.RadioGroup();
+            this.colorPickEdit2 = new DevExpress.XtraEditors.ColorPickEdit();
+            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.groupControlCustomColours)).BeginInit();
             this.groupControlCustomColours.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.colorPickEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControlGradientStyle)).BeginInit();
             this.groupControlGradientStyle.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radioGroup1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControlLegendPreview)).BeginInit();
             this.groupControlLegendPreview.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
@@ -79,14 +82,12 @@
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radioGroup1.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).BeginInit();
@@ -94,32 +95,37 @@
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControlLegendParams)).BeginInit();
             this.groupControlLegendParams.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radioGroup2.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorPickEdit2.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // groupControlCustomColours
             // 
+            this.groupControlCustomColours.Controls.Add(this.colorPickEdit2);
             this.groupControlCustomColours.Controls.Add(this.colorPickEdit1);
+            this.groupControlCustomColours.Controls.Add(this.labelControl4);
+            this.groupControlCustomColours.Controls.Add(this.labelControl3);
             this.groupControlCustomColours.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupControlCustomColours.Location = new System.Drawing.Point(2, 162);
+            this.groupControlCustomColours.Location = new System.Drawing.Point(2, 198);
             this.groupControlCustomColours.Name = "groupControlCustomColours";
-            this.groupControlCustomColours.Size = new System.Drawing.Size(209, 46);
+            this.groupControlCustomColours.Size = new System.Drawing.Size(209, 91);
             this.groupControlCustomColours.TabIndex = 1;
             this.groupControlCustomColours.Text = "Two Colour Gradient";
+            this.groupControlCustomColours.Visible = false;
             // 
             // colorPickEdit1
             // 
-            this.colorPickEdit1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.colorPickEdit1.EditValue = System.Drawing.Color.Empty;
-            this.colorPickEdit1.Location = new System.Drawing.Point(2, 20);
+            this.colorPickEdit1.EditValue = System.Drawing.Color.Maroon;
+            this.colorPickEdit1.Location = new System.Drawing.Point(104, 23);
             this.colorPickEdit1.Name = "colorPickEdit1";
-            this.colorPickEdit1.Properties.AutomaticColor = System.Drawing.Color.Black;
             this.colorPickEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.colorPickEdit1.Properties.ColorDialogOptions.FormIcon = ((System.Drawing.Icon)(resources.GetObject("resource.FormIcon")));
+            this.colorPickEdit1.Properties.ColorDialogOptions.FormIcon = ((System.Drawing.Icon)(resources.GetObject("resource.FormIcon1")));
             this.colorPickEdit1.Properties.ColorDialogOptions.ShowArrows = DevExpress.XtraEditors.ShowArrows.True;
             this.colorPickEdit1.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
-            this.colorPickEdit1.Size = new System.Drawing.Size(205, 20);
+            this.colorPickEdit1.Size = new System.Drawing.Size(100, 20);
             this.colorPickEdit1.TabIndex = 6;
+            this.colorPickEdit1.ColorChanged += new System.EventHandler(this.colorPickEdit1_ColorChanged);
             // 
             // groupControlGradientStyle
             // 
@@ -130,6 +136,18 @@
             this.groupControlGradientStyle.Size = new System.Drawing.Size(209, 70);
             this.groupControlGradientStyle.TabIndex = 0;
             this.groupControlGradientStyle.Text = "Gradient Style";
+            // 
+            // radioGroup1
+            // 
+            this.radioGroup1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radioGroup1.Location = new System.Drawing.Point(2, 20);
+            this.radioGroup1.Name = "radioGroup1";
+            this.radioGroup1.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "Standard FEM Style Gradient"),
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "Monochromatic Gradient")});
+            this.radioGroup1.Size = new System.Drawing.Size(205, 48);
+            this.radioGroup1.TabIndex = 0;
+            this.radioGroup1.SelectedIndexChanged += new System.EventHandler(this.radioGroup1_SelectedIndexChanged);
             // 
             // groupControlLegendPreview
             // 
@@ -179,7 +197,6 @@
             this.layoutControl1.Controls.Add(this.groupControlLegendPreview);
             this.layoutControl1.Controls.Add(this.simpleButtonAddRow);
             this.layoutControl1.Controls.Add(this.simpleButtonDeleteRow);
-            this.layoutControl1.Controls.Add(this.simpleButton1);
             this.layoutControl1.Controls.Add(this.simpleButtonMoveUp);
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Left;
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
@@ -201,6 +218,7 @@
             this.simpleButtonAddRow.Size = new System.Drawing.Size(40, 22);
             this.simpleButtonAddRow.StyleController = this.layoutControl1;
             this.simpleButtonAddRow.TabIndex = 7;
+            this.simpleButtonAddRow.ToolTip = "Add Row";
             this.simpleButtonAddRow.Click += new System.EventHandler(this.simpleButtonAddRow_Click);
             // 
             // simpleButtonDeleteRow
@@ -212,7 +230,21 @@
             this.simpleButtonDeleteRow.Size = new System.Drawing.Size(40, 22);
             this.simpleButtonDeleteRow.StyleController = this.layoutControl1;
             this.simpleButtonDeleteRow.TabIndex = 8;
+            this.simpleButtonDeleteRow.ToolTip = "Delete Row";
             this.simpleButtonDeleteRow.Click += new System.EventHandler(this.simpleButtonDeleteRow_Click);
+            // 
+            // simpleButtonMoveUp
+            // 
+            this.simpleButtonMoveUp.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("simpleButtonMoveUp.ImageOptions.Image")));
+            this.simpleButtonMoveUp.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
+            this.simpleButtonMoveUp.Location = new System.Drawing.Point(386, 140);
+            this.simpleButtonMoveUp.Name = "simpleButtonMoveUp";
+            this.simpleButtonMoveUp.Size = new System.Drawing.Size(40, 22);
+            this.simpleButtonMoveUp.StyleController = this.layoutControl1;
+            this.simpleButtonMoveUp.TabIndex = 10;
+            this.simpleButtonMoveUp.ToolTip = "Reset Legend";
+            this.simpleButtonMoveUp.Visible = false;
+            this.simpleButtonMoveUp.Click += new System.EventHandler(this.simpleButtonMoveUp_Click);
             // 
             // layoutControlGroup1
             // 
@@ -228,7 +260,6 @@
             this.emptySpaceItem1,
             this.layoutControlItem3,
             this.emptySpaceItem2,
-            this.layoutControlItem2,
             this.emptySpaceItem6});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "Root";
@@ -243,14 +274,6 @@
             this.layoutControlItem1.Size = new System.Drawing.Size(374, 622);
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
-            // 
-            // emptySpaceItem1
-            // 
-            this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(374, 190);
-            this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(44, 432);
-            this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem6
             // 
@@ -294,48 +317,13 @@
             this.emptySpaceItem5.Size = new System.Drawing.Size(418, 26);
             this.emptySpaceItem5.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // radioGroup1
+            // emptySpaceItem1
             // 
-            this.radioGroup1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radioGroup1.Location = new System.Drawing.Point(2, 20);
-            this.radioGroup1.Name = "radioGroup1";
-            this.radioGroup1.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "Standard FEM Style Gradient"),
-            new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "Monochromatic Gradient")});
-            this.radioGroup1.Size = new System.Drawing.Size(205, 48);
-            this.radioGroup1.TabIndex = 0;
-            this.radioGroup1.SelectedIndexChanged += new System.EventHandler(this.radioGroup1_SelectedIndexChanged);
-            // 
-            // simpleButton1
-            // 
-            this.simpleButton1.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton1.ImageOptions.Image")));
-            this.simpleButton1.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
-            this.simpleButton1.Location = new System.Drawing.Point(386, 176);
-            this.simpleButton1.Name = "simpleButton1";
-            this.simpleButton1.Size = new System.Drawing.Size(40, 22);
-            this.simpleButton1.StyleController = this.layoutControl1;
-            this.simpleButton1.TabIndex = 9;
-            this.simpleButton1.Visible = false;
-            // 
-            // layoutControlItem2
-            // 
-            this.layoutControlItem2.Control = this.simpleButton1;
-            this.layoutControlItem2.Location = new System.Drawing.Point(374, 164);
-            this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(44, 26);
-            this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem2.TextVisible = false;
-            // 
-            // simpleButtonMoveUp
-            // 
-            this.simpleButtonMoveUp.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton3.ImageOptions.Image")));
-            this.simpleButtonMoveUp.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
-            this.simpleButtonMoveUp.Location = new System.Drawing.Point(386, 140);
-            this.simpleButtonMoveUp.Name = "simpleButtonMoveUp";
-            this.simpleButtonMoveUp.Size = new System.Drawing.Size(40, 22);
-            this.simpleButtonMoveUp.StyleController = this.layoutControl1;
-            this.simpleButtonMoveUp.TabIndex = 10;
-            this.simpleButtonMoveUp.Visible = false;
+            this.emptySpaceItem1.AllowHotTrack = false;
+            this.emptySpaceItem1.Location = new System.Drawing.Point(374, 164);
+            this.emptySpaceItem1.Name = "emptySpaceItem1";
+            this.emptySpaceItem1.Size = new System.Drawing.Size(44, 458);
+            this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem3
             // 
@@ -375,22 +363,57 @@
             this.panelControl1.Size = new System.Drawing.Size(213, 668);
             this.panelControl1.TabIndex = 8;
             // 
-            // splitterControl1
+            // groupControlLegendParams
             // 
-            this.splitterControl1.Location = new System.Drawing.Point(438, 0);
-            this.splitterControl1.Name = "splitterControl1";
-            this.splitterControl1.Size = new System.Drawing.Size(5, 668);
-            this.splitterControl1.TabIndex = 9;
-            this.splitterControl1.TabStop = false;
+            this.groupControlLegendParams.Controls.Add(this.radioGroup2);
+            this.groupControlLegendParams.Controls.Add(this.textBoxNoOfSteps);
+            this.groupControlLegendParams.Controls.Add(this.textBoxStepSize);
+            this.groupControlLegendParams.Controls.Add(this.labelControl2);
+            this.groupControlLegendParams.Controls.Add(this.labelControl1);
+            this.groupControlLegendParams.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupControlLegendParams.Location = new System.Drawing.Point(2, 72);
+            this.groupControlLegendParams.Name = "groupControlLegendParams";
+            this.groupControlLegendParams.Size = new System.Drawing.Size(209, 126);
+            this.groupControlLegendParams.TabIndex = 3;
+            this.groupControlLegendParams.Text = "Legend Parameters";
             // 
-            // simpleButtonOK
+            // textBoxNoOfSteps
             // 
-            this.simpleButtonOK.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
-            this.simpleButtonOK.Location = new System.Drawing.Point(11, 640);
-            this.simpleButtonOK.Name = "simpleButtonOK";
-            this.simpleButtonOK.Size = new System.Drawing.Size(90, 23);
-            this.simpleButtonOK.TabIndex = 2;
-            this.simpleButtonOK.Text = "OK";
+            this.textBoxNoOfSteps.Enabled = false;
+            this.textBoxNoOfSteps.Location = new System.Drawing.Point(104, 96);
+            this.textBoxNoOfSteps.Name = "textBoxNoOfSteps";
+            this.textBoxNoOfSteps.Size = new System.Drawing.Size(100, 21);
+            this.textBoxNoOfSteps.TabIndex = 1;
+            this.textBoxNoOfSteps.Leave += new System.EventHandler(this.textBoxNoOfSteps_Leave);
+            // 
+            // textBoxStepSize
+            // 
+            this.textBoxStepSize.Enabled = false;
+            this.textBoxStepSize.Location = new System.Drawing.Point(104, 69);
+            this.textBoxStepSize.Name = "textBoxStepSize";
+            this.textBoxStepSize.Size = new System.Drawing.Size(100, 21);
+            this.textBoxStepSize.TabIndex = 1;
+            this.textBoxStepSize.Leave += new System.EventHandler(this.textBoxStepSize_Leave);
+            // 
+            // labelControl2
+            // 
+            this.labelControl2.Enabled = false;
+            this.labelControl2.Location = new System.Drawing.Point(9, 100);
+            this.labelControl2.Name = "labelControl2";
+            this.labelControl2.Size = new System.Drawing.Size(56, 13);
+            this.labelControl2.TabIndex = 0;
+            this.labelControl2.Text = "No of Steps";
+            this.labelControl2.Click += new System.EventHandler(this.labelControl1_Click);
+            // 
+            // labelControl1
+            // 
+            this.labelControl1.Enabled = false;
+            this.labelControl1.Location = new System.Drawing.Point(9, 73);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(44, 13);
+            this.labelControl1.TabIndex = 0;
+            this.labelControl1.Text = "Step Size";
+            this.labelControl1.Click += new System.EventHandler(this.labelControl1_Click);
             // 
             // simpleButtonCanel
             // 
@@ -400,57 +423,78 @@
             this.simpleButtonCanel.Size = new System.Drawing.Size(90, 23);
             this.simpleButtonCanel.TabIndex = 2;
             this.simpleButtonCanel.Text = "Canel";
+            this.simpleButtonCanel.Click += new System.EventHandler(this.simpleButtonCanel_Click);
             // 
-            // groupControlLegendParams
+            // simpleButtonOK
             // 
-            this.groupControlLegendParams.Controls.Add(this.textBox2);
-            this.groupControlLegendParams.Controls.Add(this.textBox1);
-            this.groupControlLegendParams.Controls.Add(this.labelControl2);
-            this.groupControlLegendParams.Controls.Add(this.labelControl1);
-            this.groupControlLegendParams.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupControlLegendParams.Location = new System.Drawing.Point(2, 72);
-            this.groupControlLegendParams.Name = "groupControlLegendParams";
-            this.groupControlLegendParams.Size = new System.Drawing.Size(209, 90);
-            this.groupControlLegendParams.TabIndex = 3;
-            this.groupControlLegendParams.Text = "Legend Parameters";
+            this.simpleButtonOK.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
+            this.simpleButtonOK.Location = new System.Drawing.Point(11, 640);
+            this.simpleButtonOK.Name = "simpleButtonOK";
+            this.simpleButtonOK.Size = new System.Drawing.Size(90, 23);
+            this.simpleButtonOK.TabIndex = 2;
+            this.simpleButtonOK.Text = "OK";
+            this.simpleButtonOK.Click += new System.EventHandler(this.simpleButtonOK_Click);
             // 
-            // labelControl1
+            // splitterControl1
             // 
-            this.labelControl1.Location = new System.Drawing.Point(9, 27);
-            this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(44, 13);
-            this.labelControl1.TabIndex = 0;
-            this.labelControl1.Text = "Step Size";
-            this.labelControl1.Click += new System.EventHandler(this.labelControl1_Click);
+            this.splitterControl1.Location = new System.Drawing.Point(438, 0);
+            this.splitterControl1.Name = "splitterControl1";
+            this.splitterControl1.Size = new System.Drawing.Size(5, 668);
+            this.splitterControl1.TabIndex = 9;
+            this.splitterControl1.TabStop = false;
             // 
-            // labelControl2
+            // radioGroup2
             // 
-            this.labelControl2.Location = new System.Drawing.Point(9, 54);
-            this.labelControl2.Name = "labelControl2";
-            this.labelControl2.Size = new System.Drawing.Size(56, 13);
-            this.labelControl2.TabIndex = 0;
-            this.labelControl2.Text = "No of Steps";
-            this.labelControl2.Click += new System.EventHandler(this.labelControl1_Click);
+            this.radioGroup2.Location = new System.Drawing.Point(9, 23);
+            this.radioGroup2.Name = "radioGroup2";
+            this.radioGroup2.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "Step Size Edit"),
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "No Of Steps Edit")});
+            this.radioGroup2.Size = new System.Drawing.Size(195, 44);
+            this.radioGroup2.TabIndex = 2;
+            this.radioGroup2.SelectedIndexChanged += new System.EventHandler(this.radioGroup2_SelectedIndexChanged);
             // 
-            // textBox1
+            // colorPickEdit2
             // 
-            this.textBox1.Location = new System.Drawing.Point(104, 23);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 21);
-            this.textBox1.TabIndex = 1;
+            this.colorPickEdit2.EditValue = System.Drawing.Color.White;
+            this.colorPickEdit2.Location = new System.Drawing.Point(104, 51);
+            this.colorPickEdit2.Name = "colorPickEdit2";
+            this.colorPickEdit2.Properties.AutomaticColor = System.Drawing.Color.Black;
+            this.colorPickEdit2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.colorPickEdit2.Properties.ColorDialogOptions.FormIcon = ((System.Drawing.Icon)(resources.GetObject("resource.FormIcon")));
+            this.colorPickEdit2.Properties.ColorDialogOptions.ShowArrows = DevExpress.XtraEditors.ShowArrows.True;
+            this.colorPickEdit2.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
+            this.colorPickEdit2.Size = new System.Drawing.Size(100, 20);
+            this.colorPickEdit2.TabIndex = 6;
+            this.colorPickEdit2.ColorChanged += new System.EventHandler(this.colorPickEdit2_ColorChanged);
             // 
-            // textBox2
+            // labelControl3
             // 
-            this.textBox2.Location = new System.Drawing.Point(104, 50);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 21);
-            this.textBox2.TabIndex = 1;
+            this.labelControl3.Enabled = false;
+            this.labelControl3.Location = new System.Drawing.Point(10, 27);
+            this.labelControl3.Name = "labelControl3";
+            this.labelControl3.Size = new System.Drawing.Size(84, 13);
+            this.labelControl3.TabIndex = 0;
+            this.labelControl3.Text = "Gradient Colour 1";
+            this.labelControl3.Click += new System.EventHandler(this.labelControl1_Click);
+            // 
+            // labelControl4
+            // 
+            this.labelControl4.Enabled = false;
+            this.labelControl4.Location = new System.Drawing.Point(10, 55);
+            this.labelControl4.Name = "labelControl4";
+            this.labelControl4.Size = new System.Drawing.Size(84, 13);
+            this.labelControl4.TabIndex = 0;
+            this.labelControl4.Text = "Gradient Colour 2";
+            this.labelControl4.Click += new System.EventHandler(this.labelControl1_Click);
             // 
             // LegendEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(651, 668);
+            this.ControlBox = false;
             this.Controls.Add(this.splitterControl1);
             this.Controls.Add(this.panelControl1);
             this.Controls.Add(this.layoutControl1);
@@ -460,9 +504,11 @@
             this.Text = "LegendEditor";
             ((System.ComponentModel.ISupportInitialize)(this.groupControlCustomColours)).EndInit();
             this.groupControlCustomColours.ResumeLayout(false);
+            this.groupControlCustomColours.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.colorPickEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControlGradientStyle)).EndInit();
             this.groupControlGradientStyle.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.radioGroup1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControlLegendPreview)).EndInit();
             this.groupControlLegendPreview.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
@@ -472,14 +518,12 @@
             this.layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radioGroup1.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).EndInit();
@@ -488,6 +532,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControlLegendParams)).EndInit();
             this.groupControlLegendParams.ResumeLayout(false);
             this.groupControlLegendParams.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radioGroup2.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorPickEdit2.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -514,11 +560,9 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemColorPickEdit repositoryItemColorPickEdit1;
         private DevExpress.XtraEditors.RadioGroup radioGroup1;
         private System.Windows.Forms.ColorDialog colorDialog1;
-        private DevExpress.XtraEditors.SimpleButton simpleButton1;
         private DevExpress.XtraEditors.SimpleButton simpleButtonMoveUp;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem6;
         private DevExpress.XtraEditors.PanelControl panelControl1;
         private DevExpress.XtraEditors.SimpleButton simpleButtonCanel;
@@ -526,8 +570,12 @@
         private DevExpress.XtraEditors.SplitterControl splitterControl1;
         private DevExpress.XtraEditors.GroupControl groupControlLegendParams;
         private DevExpress.XtraEditors.LabelControl labelControl1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxNoOfSteps;
+        private System.Windows.Forms.TextBox textBoxStepSize;
         private DevExpress.XtraEditors.LabelControl labelControl2;
+        private DevExpress.XtraEditors.RadioGroup radioGroup2;
+        private DevExpress.XtraEditors.ColorPickEdit colorPickEdit2;
+        private DevExpress.XtraEditors.LabelControl labelControl4;
+        private DevExpress.XtraEditors.LabelControl labelControl3;
     }
 }

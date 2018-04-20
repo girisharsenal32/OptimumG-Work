@@ -662,7 +662,7 @@ namespace Coding_Attempt_with_GUI
                 CADVehicleOutputs.PaintForceDecompArrows(Vehicle.List_Vehicle[VehicleIndex].oc_RR[OutputIndex].scmOP, Vehicle.List_Vehicle[VehicleIndex].oc_RR[OutputIndex], MasterOC, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RR_Fx,
                     Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RR_Fy + Vehicle.List_Vehicle[VehicleIndex].oc_RR[OutputIndex].CW, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RR_Fz);
 
-                CADVehicleOutputs.GetGradientColors(Color.Red, Color.White);
+                //CADVehicleOutputs.GetGradientColors(Color.Red, Color.White);
 
 
                 ///<summary>Painting the Force Decomposition Arrows - Bearing Cap Forces</summary>
@@ -676,12 +676,14 @@ namespace Coding_Attempt_with_GUI
                                                                 ForcePLeft, new Vector3D(), ForcePRight, new Vector3D(), MasterOC);
 
 
+                //CADVehicleOutputs.GetGradientColors(Color.Red, Color.White);
 
-                CADVehicleOutputs.PostProcessing(MasterOC);
+                ///<summary>At this stage Colours passed can be anything because it will always initialize with Standard FEM Style </summary>
+                CADVehicleOutputs.PostProcessing(MasterOC, Color.Firebrick, Color.Ivory, 0, 0);
 
-                CADVehicleOutputs.PaintBarForce(MasterOC);
+                CADVehicleOutputs.PaintBarForce();
 
-                CADVehicleOutputs.PaintArrowForce(MasterOC);
+                CADVehicleOutputs.PaintArrowForce();
 
                 ///<summary>This method exists to ensure that the Imported FIles are not recloned everytime the user selects a different Motion Percentage from the Motion View Grid</summary>
                 if (_importCAD && !OutputIGESPlotted) 
