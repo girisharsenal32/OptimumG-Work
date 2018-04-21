@@ -256,11 +256,6 @@ namespace Coding_Attempt_with_GUI
         {
 
         }
-        private void OpenTKInput_Load(object sender, EventArgs e)
-        {
-
-
-        }
         #endregion
 
         #region Selection Changed Event
@@ -384,11 +379,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="e"></param>
         private void TranslateObject_FormInvoker(object sender, EventArgs e)
         {
-            ///<summary>Adding the List of Mapped Parts into Translate Object List</summary>
-            for (int i = 0; i < importCADForm.listBoxControlMappedParts.Items.Count; i++)
-            {
-                importCADForm.translateObject.listBoxItemsWhichCanBeTranslated.Items.Add(importCADForm.listBoxControlMappedParts.Items[i]);
-            }
+
         }
         /// <summary>
         /// Method to Translate the Particular Block of which is selected by the user 
@@ -2670,6 +2661,7 @@ namespace Coding_Attempt_with_GUI
         {
             EditLegend();
         }
+
         private void CAD_Click(object sender, EventArgs e)
         {
             EditLegend();

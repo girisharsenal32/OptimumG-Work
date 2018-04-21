@@ -93,6 +93,7 @@
             this.barButtonHideObject = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonRestoreOrientation = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonClearSelection = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemLegendEditor = new DevExpress.XtraBars.BarButtonItem();
             this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
@@ -118,7 +119,6 @@
             this.barCheckItem2 = new DevExpress.XtraBars.BarCheckItem();
             this.barButtonItemEnableIndividualSelection = new DevExpress.XtraBars.BarButtonItem();
             this.barToggleSwitchItem2 = new DevExpress.XtraBars.BarToggleSwitchItem();
-            this.barButtonItemLegendEditor = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.viewportLayout1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenuCADRightClick)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
@@ -253,6 +253,14 @@
             this.barButtonClearSelection.Id = 6;
             this.barButtonClearSelection.Name = "barButtonClearSelection";
             this.barButtonClearSelection.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonClearSelection_ItemClick);
+            // 
+            // barButtonItemLegendEditor
+            // 
+            this.barButtonItemLegendEditor.Caption = "Legend Editor";
+            this.barButtonItemLegendEditor.Enabled = false;
+            this.barButtonItemLegendEditor.Id = 26;
+            this.barButtonItemLegendEditor.Name = "barButtonItemLegendEditor";
+            this.barButtonItemLegendEditor.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemLegendEditor_ItemClick);
             // 
             // barManager1
             // 
@@ -451,14 +459,6 @@
             this.barToggleSwitchItem2.Caption = "barToggleSwitchItem2";
             this.barToggleSwitchItem2.Id = 25;
             this.barToggleSwitchItem2.Name = "barToggleSwitchItem2";
-            // 
-            // barButtonItemLegendEditor
-            // 
-            this.barButtonItemLegendEditor.Caption = "Legend Editor";
-            this.barButtonItemLegendEditor.Enabled = false;
-            this.barButtonItemLegendEditor.Id = 26;
-            this.barButtonItemLegendEditor.Name = "barButtonItemLegendEditor";
-            this.barButtonItemLegendEditor.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemLegendEditor_ItemClick);
             // 
             // CAD
             // 
