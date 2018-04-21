@@ -213,14 +213,14 @@ namespace Coding_Attempt_with_GUI
         {
             InitializeComponent();
             viewportLayout1.Unlock("US1-126DS-NQPVC-7XRN-S062");
-            //viewportLayout1.CreateControl();
-            viewportLayout1.ToolBars[0].Buttons[7].Click += CAD_Click;
+            InitializationCodes();
 
-            viewportLayout1.MultipleSelection = true;
-            viewportLayout1.ShowLoad = true;
-            viewportLayout1.AskForHardwareAcceleration = false;
-            string Version = viewportLayout1.ProductVersion;
-            InitializeLegendDataTable();
+            ///<summary>
+            ///Below line of code is necessary for operations like <see cref="ViewportLayout.ZoomFit"/> and <see cref="ViewportLayout.Isometric"/> 
+            ///BUT using this code screws up the fucntioning of the entire SOftware. 
+            ///Whenever a new <see cref="CAD"/> is created this method takes a lot off time to execute and eventually at some point the software just fails 
+            /// </summary>
+            //viewportLayout1.CreateControl();
         }
         /// <summary>
         /// This overloaded constructor accpets an object of the ImportCADForm. This is so that a connection can be established between this user control and the ImportCADForm when the user wishes to Import a Vehicle
@@ -230,20 +230,31 @@ namespace Coding_Attempt_with_GUI
         {
             InitializeComponent();
             viewportLayout1.Unlock("US1-126DS-NQPVC-7XRN-S062");
+            InitializationCodes();
+
+            ///<summary>
+            ///Below line of code is necessary for operations like <see cref="ViewportLayout.ZoomFit"/> and <see cref="ViewportLayout.Isometric"/> 
+            ///BUT using this code screws up the fucntioning of the entire SOftware. 
+            ///Whenever a new <see cref="CAD"/> is created this method takes a lot off time to execute and eventually at some point the software just fails 
+            /// </summary>
             //viewportLayout1.CreateControl();
-            viewportLayout1.Refresh();
-            viewportLayout1.Update();
 
             viewportLayout1.WorkCompleted += ViewportLayout1_WorkCompleted;
-            //viewportLayout1.ToolBars[0].Buttons[7].Click += RotateObject_FormInvoker;
-            //viewportLayout1.ToolBars[0].Buttons[8].Click += TranslateObject_FormInvoker;
-            viewportLayout1.ToolBars[0].Buttons[7].Click += CAD_Click;
+
             viewportLayout1.SelectionChanged += ViewportLayout1_SelectionChanged;
-            viewportLayout1.MultipleSelection = true;
-            viewportLayout1.ShowLoad = true;
+
             importCADForm = _importCADForm;
             importCADForm.rotateObject.GetCADObject(this);
             importCADForm.translateObject.GetCADObject(this);
+
+        }
+
+        private void InitializationCodes()
+        {
+            viewportLayout1.ToolBars[0].Buttons[7].Click += CAD_Click_EditLegend;
+            viewportLayout1.ToolBars[0].Buttons[8].Click += CAD_Click_MakeTransparent;
+            viewportLayout1.MultipleSelection = true;
+            viewportLayout1.ShowLoad = true;
             viewportLayout1.AskForHardwareAcceleration = false;
             string Version = viewportLayout1.ProductVersion;
             InitializeLegendDataTable();
@@ -342,7 +353,11 @@ namespace Coding_Attempt_with_GUI
         public void ClearSelection()
         {
             viewportLayout1.Entities.ClearSelection();
-            importCADForm.listBoxSelectedParts.Items.Clear();
+            if (importCADForm != null)
+            {
+                importCADForm.listBoxSelectedParts.Items.Clear();
+
+            }
             SelectedEntityList.Clear();
             viewportLayout1.Refresh();
         }
@@ -1362,7 +1377,7 @@ namespace Coding_Attempt_with_GUI
             Color color = Color.Orange;
 
             #region Double Wishbone Joints
-
+            
             //if (!_isInitializing) { PlotArrows(_scmPlot.A1x, _scmPlot.A1y, _scmPlot.A1z, _ocColor.UpperFront_x, _ocColor.UpperFront_y, _ocColor.UpperFront_z, false); }
             CoordinatesTemp.InboardPickUp.Add("Upper Front Chassis", new Joint(_scmPlot.A1x, _scmPlot.A1y, _scmPlot.A1z, 5, 2));
             viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp["Upper Front Chassis"], "Joints");
@@ -1517,13 +1532,13 @@ namespace Coding_Attempt_with_GUI
         {
             #region TARB Joint
             CoordinatesTemp.InboardPickUp.Add("Torsion Bar Bottom Pivot", new Joint(_scmPlotTARB.R1x, _scmPlotTARB.R1y, _scmPlotTARB.R1z, 5, 2));
-            viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp["Torsion Bar Bottom Pivot"], 1);
+            viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp["Torsion Bar Bottom Pivot"], "Joints");
             #endregion
 
             #region TARB Bar
             Bar TARB = new Bar(CoordinatesTemp.InboardPickUp["Anti-Roll Bar Chassis"].Position, CoordinatesTemp.InboardPickUp["Torsion Bar Bottom Pivot"].Position, 4.5, 8);
             CoordinatesTemp.SuspensionLinks.Add("TARB", TARB);
-            viewportLayout1.Entities.Add(CoordinatesTemp.SuspensionLinks["TARB"], 2);
+            viewportLayout1.Entities.Add(CoordinatesTemp.SuspensionLinks["TARB"], "Bars");
             #endregion
         }
         #endregion
@@ -1540,52 +1555,52 @@ namespace Coding_Attempt_with_GUI
         {
             // Pinion Point
             CoordinatesTemp.InboardPickUp.Add("Pinion Centre", new Joint(_scmSteeringLeft.Pin1x, _scmSteeringLeft.Pin1y, _scmSteeringLeft.Pin1z, 5, 2));
-            viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp["Pinion Centre"], 1);
+            viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp["Pinion Centre"], "Joints");
 
             // UV2 Point (if applicable)
             if (_scmSteeringLeft.NoOfCouplings == 2)
             {
                 CoordinatesTemp.InboardPickUp.Add("Pinion Universal Joint", new Joint(_scmSteeringLeft.UV2x, _scmSteeringLeft.UV2y, _scmSteeringLeft.UV2z, 5, 2));
-                viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp["Pinion Universal Joint"], 1);
+                viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp["Pinion Universal Joint"], "Joints");
             }
 
             // UV1 Point
             CoordinatesTemp.InboardPickUp.Add("Steering Shaft Universal Joint", new Joint(_scmSteeringLeft.UV1x, _scmSteeringLeft.UV1y, _scmSteeringLeft.UV1z, 5, 2));
-            viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp["Steering Shaft Universal Joint"], 1);
+            viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp["Steering Shaft Universal Joint"], "Joints");
 
             // Steering Shaft Chassis Mount
             CoordinatesTemp.InboardPickUp.Add("Steering Shaft Support Chassis", new Joint(_scmSteeringLeft.STC1x, _scmSteeringLeft.STC1y, _scmSteeringLeft.STC1z, 5, 2));
-            viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp["Steering Shaft Support Chassis"], 1);
+            viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp["Steering Shaft Support Chassis"], "Joints");
 
             //Steering Column
             Bar RackHousing = new Bar(_inboardLeft["Steering Link Chassis"].Position, _inboardRight["Steering Link Chassis"].Position, 12, 8);
             CoordinatesTemp.SuspensionLinks.Add("RackHousing", RackHousing);
-            viewportLayout1.Entities.Add(CoordinatesTemp.SuspensionLinks["RackHousing"], 2);
+            viewportLayout1.Entities.Add(CoordinatesTemp.SuspensionLinks["RackHousing"], "Bars");
 
             // Pinion to UV2 or UV1 (whichever is applicable
             if (_scmSteeringLeft.NoOfCouplings == 2)
             {
                 Bar Pinon1ToUV2 = new Bar(CoordinatesTemp.InboardPickUp["Pinion Centre"].Position, CoordinatesTemp.InboardPickUp["Pinion Universal Joint"].Position, 4.5, 8);
                 CoordinatesTemp.SuspensionLinks.Add("Pinon1ToUV2", Pinon1ToUV2);
-                viewportLayout1.Entities.Add(CoordinatesTemp.SuspensionLinks["Pinon1ToUV2"], 2);
+                viewportLayout1.Entities.Add(CoordinatesTemp.SuspensionLinks["Pinon1ToUV2"], "Bars");
 
                 Bar UV2ToUV1 = new Bar(CoordinatesTemp.InboardPickUp["Pinion Universal Joint"].Position, CoordinatesTemp.InboardPickUp["Steering Shaft Universal Joint"].Position, 4.5, 8);
                 CoordinatesTemp.SuspensionLinks.Add("UV2ToUV1", UV2ToUV1);
-                viewportLayout1.Entities.Add(CoordinatesTemp.SuspensionLinks["UV2ToUV1"], 2);
+                viewportLayout1.Entities.Add(CoordinatesTemp.SuspensionLinks["UV2ToUV1"], "Bars");
 
                 Bar UV1TOSTC = new Bar(CoordinatesTemp.InboardPickUp["Steering Shaft Universal Joint"].Position, CoordinatesTemp.InboardPickUp["Steering Shaft Support Chassis"].Position, 4.5, 8);
                 CoordinatesTemp.SuspensionLinks.Add("UV1TOSTC", UV1TOSTC);
-                viewportLayout1.Entities.Add(CoordinatesTemp.SuspensionLinks["UV1TOSTC"], 2);
+                viewportLayout1.Entities.Add(CoordinatesTemp.SuspensionLinks["UV1TOSTC"], "Bars");
             }
             else
             {
                 Bar Pinon1ToUV1 = new Bar(CoordinatesTemp.InboardPickUp["Pinion Centre"].Position, CoordinatesTemp.InboardPickUp["Steering Shaft Universal Joint"].Position, 4.5, 8);
                 CoordinatesTemp.SuspensionLinks.Add("Pinon1ToUV1", Pinon1ToUV1);
-                viewportLayout1.Entities.Add(CoordinatesTemp.SuspensionLinks["Pinon1ToUV1"], 2);
+                viewportLayout1.Entities.Add(CoordinatesTemp.SuspensionLinks["Pinon1ToUV1"], "Bars");
 
                 Bar UV1TOSTC = new Bar(CoordinatesTemp.InboardPickUp["Steering Shaft Universal Joint"].Position, CoordinatesTemp.InboardPickUp["Steering Shaft Support Chassis"].Position, 4.5, 8);
                 CoordinatesTemp.SuspensionLinks.Add("UV1TOSTC", UV1TOSTC);
-                viewportLayout1.Entities.Add(CoordinatesTemp.SuspensionLinks["UV1TOSTC"], 2);
+                viewportLayout1.Entities.Add(CoordinatesTemp.SuspensionLinks["UV1TOSTC"], "Bars");
             }
         }
         #endregion
@@ -1599,7 +1614,7 @@ namespace Coding_Attempt_with_GUI
             if (_scmCT.DoubleWishboneIdentifierFront == 1 && (Identifier == 1 || Identifier == 2))
             {
                 Triangle CasterTriangle = new Triangle(CoordinatesTemp.OutboardPickUp["Lower Ball Joint"].Position, CoordinatesTemp.OutboardPickUp["Steering Link Upright"].Position, CoordinatesTemp.OutboardPickUp["Upper Ball Joint"].Position);
-                viewportLayout1.Entities.Add(CasterTriangle, 3, Color.Orange);
+                viewportLayout1.Entities.Add(CasterTriangle, "Triangles", Color.Orange);
 
                 Vector3D vector3D = CasterTriangle.Normal;
 
@@ -1607,7 +1622,7 @@ namespace Coding_Attempt_with_GUI
             else if (_scmCT.McPhersonIdentifierFront == 1 && (Identifier == 1 || Identifier == 2))
             {
                 Triangle CasterTriangle = new Triangle(CoordinatesTemp.OutboardPickUp["Lower Ball Joint"].Position, CoordinatesTemp.OutboardPickUp["Steering Link Upright"].Position, CoordinatesTemp.OutboardPickUp["Damper Bell-Crank"].Position);
-                viewportLayout1.Entities.Add(CasterTriangle, 3, Color.Orange);
+                viewportLayout1.Entities.Add(CasterTriangle, "Triangles", Color.Orange);
             }
             #endregion
 
@@ -1617,12 +1632,12 @@ namespace Coding_Attempt_with_GUI
             else if (_scmCT.DoubleWishboneIdentifierRear == 1 && (Identifier == 3 || Identifier == 4))
             {
                 Triangle CasterTriangle = new Triangle(CoordinatesTemp.OutboardPickUp["Lower Ball Joint"].Position, CoordinatesTemp.OutboardPickUp["Steering Link Upright"].Position, CoordinatesTemp.OutboardPickUp["Upper Ball Joint"].Position);
-                viewportLayout1.Entities.Add(CasterTriangle, 3, Color.Orange);
+                viewportLayout1.Entities.Add(CasterTriangle, "Triangles", Color.Orange);
             }
             else if (_scmCT.McPhersonIdentifierRear == 1 && (Identifier == 3 || Identifier == 4))
             {
                 Triangle CasterTriangle = new Triangle(CoordinatesTemp.OutboardPickUp["Lower Ball Joint"].Position, CoordinatesTemp.OutboardPickUp["Steering Link Upright"].Position, CoordinatesTemp.OutboardPickUp["Damper Bell-Crank"].Position);
-                viewportLayout1.Entities.Add(CasterTriangle, 3, Color.Orange);
+                viewportLayout1.Entities.Add(CasterTriangle, "Triangles", Color.Orange);
             }
 
             #endregion
@@ -2279,7 +2294,7 @@ namespace Coding_Attempt_with_GUI
             #region Invoking the Spring and Wheel Plotter
             if (_PlotWheel)
             {
-                //PlotWheel(_scm, _wa, Identifier, _IsInitializing);
+                PlotWheel(_scm, _wa, Identifier, _IsInitializing);
 
             }
 
@@ -2662,7 +2677,7 @@ namespace Coding_Attempt_with_GUI
             EditLegend();
         }
 
-        private void CAD_Click(object sender, EventArgs e)
+        private void CAD_Click_EditLegend(object sender, EventArgs e)
         {
             EditLegend();
         }
@@ -3055,11 +3070,6 @@ namespace Coding_Attempt_with_GUI
         }
         #endregion
 
-        private void viewportLayout1_Click(object sender, EventArgs e)
-        {
-
-        }
-
 
 
         private void ViewportLayout1_WorkCompleted(object sender, WorkCompletedEventArgs e)
@@ -3292,6 +3302,68 @@ namespace Coding_Attempt_with_GUI
             if (entityIndex != -1)
             {
                 Entity temp_Entity = viewportLayout1.Entities[entityIndex];
+
+                ///<summary>If the <see cref="ViewportLayout.ToolBar.Buttons"/> corresponding to the MakeTransparent BUtton is pushed then the method below is activated</summary>
+                if (viewportLayout1.ToolBars[0].Buttons[8].Pushed) 
+                {
+                    CustomData tempEntityData;
+                    if (temp_Entity.EntityData != null)
+                    {
+                        ///<summary>If the Entity has EntityData then casting that as <see cref="CustomData"/> and storing it into the temporary Object of the <see cref="CustomData"/></summary>
+                        tempEntityData = (CustomData)temp_Entity.EntityData;
+                    }
+                    else
+                    {
+                        ///<summary>If the Entity doesn't have Entity then initializing the <see cref="CustomData"/> object with the <see cref="Color"/> so that it can reused later to undo the transparency</summary>
+                        if (temp_Entity.LayerName== "Joints")
+                        {
+                            tempEntityData = new CustomData(temp_Entity.ToString(), 0, Color.White);
+                        }
+                        else if (temp_Entity.LayerName == "Bars")
+                        {
+                            tempEntityData = new CustomData(temp_Entity.ToString(), 0, Color.Orange);
+                        }
+                        else if (temp_Entity.LayerName == "Triangles")
+                        {
+                            tempEntityData = new CustomData(temp_Entity.ToString(), 0, Color.Orange);
+                        }
+                        else
+                        {
+                            ///<summary>To deal with Imported Entities of which you want to retain the Color</summary>
+                            tempEntityData = new CustomData(temp_Entity.ToString(), 0, temp_Entity.Color);
+                        }
+                    }
+                    ///<summary>Setting the <see cref="Entity.ColorMethod"/> is crucial. Without it the code doesn't function</summary>
+                    temp_Entity.ColorMethod = colorMethodType.byEntity;
+                    ///<summary>Setting the colour of the Entity as transparent</summary>
+                    //Color transparentColor = temp_Entity.Color;
+                    if (temp_Entity as BlockReference == null)
+                    {
+                        temp_Entity.Color = Color.FromArgb(75, temp_Entity.Color);
+
+                    }
+                    else
+                    {
+                        temp_Entity.ColorMethod = colorMethodType.byParent;
+                        temp_Entity.Color = Color.Transparent;
+                        BlockReference f = temp_Entity as BlockReference;
+                        f.Color = Color.Transparent;
+                        
+                    }
+                    ///<summary>Re-storing the <see cref="CustomData"/> of the Entity into the Entity itself</summary>
+                    viewportLayout1.Entities[entityIndex].EntityData = tempEntityData; 
+                }
+
+
+                viewportLayout1.Invalidate();
+                viewportLayout1.Update();
+                viewportLayout1.Refresh();
+
+            }
+
+            else if (entityIndex == -1)
+            {
+                Kinematics_Software_New.GraphicsCoordinatesHide();
             }
         }
 
@@ -3302,6 +3374,45 @@ namespace Coding_Attempt_with_GUI
         }
 
         #endregion
+
+        private void CAD_Click_MakeTransparent(object sender, EventArgs e)
+        {
+
+            if (viewportLayout1.ToolBars[0].Buttons[8].Pushed)
+            {
+
+            }
+            ///<summary>If user is un-toggling the button then it means he/she wants to undo the transparency</summary>
+            else if(!viewportLayout1.ToolBars[0].Buttons[8].Pushed)
+            {
+                for (int i = 0; i < viewportLayout1.Entities.Count; i++)
+                {
+                    if (viewportLayout1.Entities[i].EntityData != null)
+                    {
+
+
+                        try
+                        {
+                            ///<summary>
+                            ///Either the Entity has <see cref="CustomData"/> data defined or temporary <see cref="CustomData"/> defined with only Colour. Either way this data is used to restore the Colour of the Entity and undo the transparency
+                            /// </summary>
+                            CustomData tempEntityData = (CustomData)viewportLayout1.Entities[i].EntityData;
+                            viewportLayout1.Entities[i].ColorMethod = colorMethodType.byEntity;
+                            viewportLayout1.Entities[i].Color = tempEntityData.EntityColor;
+                        }
+                        catch (Exception)
+                        {
+                        }
+
+
+                    }
+                }
+                viewportLayout1.Invalidate();
+                viewportLayout1.Update();
+                viewportLayout1.Refresh();
+            }
+
+        }
 
         public void ResizeVP()
         {

@@ -44,6 +44,7 @@
             devDept.Eyeshot.ZoomFitToolBarButton zoomFitToolBarButton1 = new devDept.Eyeshot.ZoomFitToolBarButton("Zoom Fit", devDept.Eyeshot.ToolBarButton.styleType.PushButton, true, true);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CAD));
             devDept.Eyeshot.ToolBarButton toolBarButton1 = new devDept.Eyeshot.ToolBarButton(((System.Drawing.Image)(resources.GetObject("viewportLayout1.Viewports"))), "LegendEditor", "Edit Legend Style", devDept.Eyeshot.ToolBarButton.styleType.PushButton, true, false, ((System.Drawing.Image)(resources.GetObject("viewportLayout1.Viewports1"))), null);
+            devDept.Eyeshot.ToolBarButton toolBarButton2 = new devDept.Eyeshot.ToolBarButton(((System.Drawing.Image)(resources.GetObject("viewportLayout1.Viewports2"))), "MakeTransparent", "Make Transparent", devDept.Eyeshot.ToolBarButton.styleType.ToggleButton, true, true, ((System.Drawing.Image)(resources.GetObject("viewportLayout1.Viewports3"))), null);
             devDept.Eyeshot.ToolBar toolBar1 = new devDept.Eyeshot.ToolBar(devDept.Eyeshot.ToolBar.positionType.HorizontalTopCenter, true, new devDept.Eyeshot.ToolBarButton[] {
             ((devDept.Eyeshot.ToolBarButton)(homeToolBarButton1)),
             ((devDept.Eyeshot.ToolBarButton)(magnifyingGlassToolBarButton1)),
@@ -52,7 +53,8 @@
             ((devDept.Eyeshot.ToolBarButton)(panToolBarButton1)),
             ((devDept.Eyeshot.ToolBarButton)(rotateToolBarButton1)),
             ((devDept.Eyeshot.ToolBarButton)(zoomFitToolBarButton1)),
-            toolBarButton1});
+            toolBarButton1,
+            toolBarButton2});
             devDept.Eyeshot.RotateSettings rotateSettings1 = new devDept.Eyeshot.RotateSettings(new devDept.Eyeshot.MouseButton(devDept.Eyeshot.mouseButtonsZPR.Middle, devDept.Eyeshot.modifierKeys.None), 10D, true, 1D, devDept.Eyeshot.rotationType.Trackball, devDept.Eyeshot.rotationCenterType.CursorLocation, new devDept.Geometry.Point3D(0D, 0D, 0D), false);
             devDept.Eyeshot.ZoomSettings zoomSettings1 = new devDept.Eyeshot.ZoomSettings(new devDept.Eyeshot.MouseButton(devDept.Eyeshot.mouseButtonsZPR.Middle, devDept.Eyeshot.modifierKeys.Shift), 25, true, devDept.Eyeshot.zoomStyleType.AtCursorLocation, false, 1D, System.Drawing.Color.Empty, devDept.Eyeshot.Camera.perspectiveFitType.Accurate, true, 10, true);
             devDept.Eyeshot.PanSettings panSettings1 = new devDept.Eyeshot.PanSettings(new devDept.Eyeshot.MouseButton(devDept.Eyeshot.mouseButtonsZPR.Middle, devDept.Eyeshot.modifierKeys.Ctrl), 25, true);
@@ -159,7 +161,6 @@
             viewCubeIcon1.InitialRotation = new devDept.Geometry.Quaternion(0D, 0D, 0D, 1D);
             viewport1.ViewCubeIcon = viewCubeIcon1;
             this.viewportLayout1.Viewports.Add(viewport1);
-            this.viewportLayout1.Click += new System.EventHandler(this.viewportLayout1_Click);
             this.viewportLayout1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.viewportLayout1_MouseDoubleClick);
             this.viewportLayout1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.viewportLayout1_MouseDoubleClick);
             this.viewportLayout1.MouseLeave += new System.EventHandler(this.viewportLayout1_MouseLeave);
