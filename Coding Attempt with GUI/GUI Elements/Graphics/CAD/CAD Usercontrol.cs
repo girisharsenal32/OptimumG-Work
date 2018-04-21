@@ -3302,6 +3302,8 @@ namespace Coding_Attempt_with_GUI
             if (entityIndex != -1)
             {
                 Entity temp_Entity = viewportLayout1.Entities[entityIndex];
+                viewportLayout1.Cursor = viewportLayout1.CursorTypes[cursorType.Pick];
+                temp_Entity.Selected = true;
 
                 ///<summary>If the <see cref="ViewportLayout.ToolBar.Buttons"/> corresponding to the MakeTransparent BUtton is pushed then the method below is activated</summary>
                 if (viewportLayout1.ToolBars[0].Buttons[8].Pushed) 
@@ -3354,6 +3356,21 @@ namespace Coding_Attempt_with_GUI
                     viewportLayout1.Entities[entityIndex].EntityData = tempEntityData; 
                 }
 
+                else if (!viewportLayout1.ToolBars[0].Buttons[8].Pushed)
+                {
+                    if (temp_Entity is Joint)
+                    {
+                        DisplayJointCoordinates(temp_Entity);
+                    }
+                    else if (temp_Entity is Bar)
+                    {
+                        DisplayBarCoordinates(temp_Entity);
+                    }
+                    else if (temp_Entity is Mesh)
+                    {
+                        DisplayArrowForce(temp_Entity);
+                    }
+                }
 
                 viewportLayout1.Invalidate();
                 viewportLayout1.Update();
@@ -3364,7 +3381,62 @@ namespace Coding_Attempt_with_GUI
             else if (entityIndex == -1)
             {
                 Kinematics_Software_New.GraphicsCoordinatesHide();
+                ClearSelection();
             }
+        }
+
+        /// <summary>
+        /// Method to call the <see cref="Kinematics_Software_New.GraphicsCoordinatesJointsOperations(Point3D)"/> to display the Joint Coordinates
+        /// </summary>
+        /// <param name="_entity"></param>
+        private void DisplayJointCoordinates(Entity _joint)
+        {
+            Point3D[] jointCoordinate = _joint.Vertices;
+
+            temp_Joint = _joint as Joint;
+            temp_Point = temp_Joint.Position;
+
+            Joint joint = (Joint)_joint;
+            Point3D point3D = joint.Position;
+
+            Kinematics_Software_New.GraphicsCoordinatesJointsOperations(temp_Point);
+        }
+
+        /// <summary>
+        /// Method to call the <see cref="Kinematics_Software_New.GraphicsCoordinatesBarOperations(Point3D, Point3D, Vector3D, string)"/> to display the Bar properties and Bar Force
+        /// </summary>
+        /// <param name="_entity"></param>
+        private void DisplayBarCoordinates(Entity _bar)
+        {
+            temp_Bar = _bar as Bar;
+            temp_Bar_Start = temp_Bar.StartPoint;
+            temp_Bar_End = temp_Bar.EndPoint;
+            temp_Bar_Length = new Vector3D(temp_Bar_Start, temp_Bar_End);
+
+            CustomData tempData = new CustomData();
+            if (temp_Bar.EntityData != null)
+            {
+                tempData = (CustomData)temp_Bar.EntityData; 
+            }
+
+            Kinematics_Software_New.GraphicsCoordinatesBarOperations(temp_Bar_Start, temp_Bar_End, temp_Bar_Length, tempData.Force);
+        }
+
+        /// <summary>
+        /// Method to call the <see cref="Kinematics_Software_New.GraphicsControlArrowOperations(string)"/> method to display the Arrow Force
+        /// </summary>
+        /// <param name="_entity"></param>
+        private void DisplayArrowForce(Entity _arrow)
+        {
+            temp_arrow = (Mesh)_arrow;
+
+            CustomData tempData = new CustomData();
+            if (temp_arrow.EntityData != null)
+            {
+                tempData = (CustomData)temp_arrow.EntityData;
+            }
+
+            Kinematics_Software_New.GraphicsControlArrowOperations(tempData.Force);
         }
 
 

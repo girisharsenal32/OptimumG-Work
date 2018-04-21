@@ -9954,11 +9954,13 @@ namespace Coding_Attempt_with_GUI
             R1.GCBar.SendToBack();
         }
 
-        public static void GraphicsControlArrowOperations(string _arrowForce)
+        public static void GraphicsControlArrowOperations(double _arrowForce)
         {
             R1 = R1.FormVariableUpdater();
 
-            R1.GCArrow.ArrowForce.Text = String.Format("{0:0.000}", Convert.ToDouble(_arrowForce));
+            
+
+            R1.GCArrow.ArrowForce.Text = String.Format("{0:0.000}", (_arrowForce));
 
             R1.GCArrow.Show();
             R1.GC.SendToBack();
@@ -9983,7 +9985,7 @@ namespace Coding_Attempt_with_GUI
 
         }
 
-        public static void GraphicsCoordinatesBarOperations(Point3D _temp_Bar_Start, Point3D _temp_Bar_End, Vector3D _temp_Bar_Length, string _tempBarForce)
+        public static void GraphicsCoordinatesBarOperations(Point3D _temp_Bar_Start, Point3D _temp_Bar_End, Vector3D _temp_Bar_Length, double _tempBarForce)
         {
             R1 = R1.FormVariableUpdater();
 
@@ -9997,7 +9999,7 @@ namespace Coding_Attempt_with_GUI
 
             R1.GCBar.BarLength.Text = String.Format("{0:0.000}", _temp_Bar_Length.Length);
 
-            double BarForce = Convert.ToDouble(_tempBarForce);
+            double BarForce = (_tempBarForce);
 
             if (BarForce == 0)
             {
@@ -10010,7 +10012,7 @@ namespace Coding_Attempt_with_GUI
                 R1.GCBar.BarForce.Show();
                 R1.GCBar.labelForce.Show();
                 R1.GCBar.labelNeawton.Show();
-                R1.GCBar.BarForce.Text = String.Format("{0:0.000}", Convert.ToDouble(_tempBarForce));
+                R1.GCBar.BarForce.Text = String.Format("{0:0.000}", (_tempBarForce));
             }
 
             R1.GCBar.Show();
