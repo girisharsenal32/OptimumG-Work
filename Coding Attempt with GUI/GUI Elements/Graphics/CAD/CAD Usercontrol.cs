@@ -546,7 +546,7 @@ namespace Coding_Attempt_with_GUI
 
                 if (index != -1)
                 {
-                    viewportLayout1.Entities[viewportLayout1.Entities.IndexOf(CoordinatesFL.InboardPickUp[key])].Rotate(RotationAngle, AxisOfRotation, PointOfRotation); 
+                    viewportLayout1.Entities[viewportLayout1.Entities.IndexOf(CoordinatesFL.InboardPickUp[key])].Rotate(RotationAngle, AxisOfRotation, PointOfRotation);
                 }
             }
             foreach (string key in CoordinatesFR.InboardPickUp.Keys)
@@ -555,7 +555,7 @@ namespace Coding_Attempt_with_GUI
 
                 if (index != -1)
                 {
-                    viewportLayout1.Entities[viewportLayout1.Entities.IndexOf(CoordinatesFR.InboardPickUp[key])].Rotate(RotationAngle, AxisOfRotation, PointOfRotation); 
+                    viewportLayout1.Entities[viewportLayout1.Entities.IndexOf(CoordinatesFR.InboardPickUp[key])].Rotate(RotationAngle, AxisOfRotation, PointOfRotation);
                 }
             }
             foreach (string key in CoordinatesRL.InboardPickUp.Keys)
@@ -564,7 +564,7 @@ namespace Coding_Attempt_with_GUI
 
                 if (index != -1)
                 {
-                    viewportLayout1.Entities[viewportLayout1.Entities.IndexOf(CoordinatesRL.InboardPickUp[key])].Rotate(RotationAngle, AxisOfRotation, PointOfRotation); 
+                    viewportLayout1.Entities[viewportLayout1.Entities.IndexOf(CoordinatesRL.InboardPickUp[key])].Rotate(RotationAngle, AxisOfRotation, PointOfRotation);
                 }
             }
             foreach (string key in CoordinatesRR.InboardPickUp.Keys)
@@ -573,7 +573,7 @@ namespace Coding_Attempt_with_GUI
 
                 if (index != -1)
                 {
-                    viewportLayout1.Entities[viewportLayout1.Entities.IndexOf(CoordinatesRR.InboardPickUp[key])].Rotate(RotationAngle, AxisOfRotation, PointOfRotation); 
+                    viewportLayout1.Entities[viewportLayout1.Entities.IndexOf(CoordinatesRR.InboardPickUp[key])].Rotate(RotationAngle, AxisOfRotation, PointOfRotation);
                 }
             }
         }
@@ -590,7 +590,7 @@ namespace Coding_Attempt_with_GUI
 
                 if (index != -1)
                 {
-                    viewportLayout1.Entities[viewportLayout1.Entities.IndexOf(_outboardPoints[key])].Rotate(RotationAngle, AxisOfRotation, PointOfRotation); 
+                    viewportLayout1.Entities[viewportLayout1.Entities.IndexOf(_outboardPoints[key])].Rotate(RotationAngle, AxisOfRotation, PointOfRotation);
                 }
             }
         }
@@ -776,7 +776,7 @@ namespace Coding_Attempt_with_GUI
             }
             //}
 
-        } 
+        }
         #endregion
 
         #region Plotter or Drawer methods
@@ -791,7 +791,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_force_Q_Left">Force Vector on the Bottom Left Attachment Bolt</param>
         /// <param name="_force_P_Right">Force Vector on the Top Right Attachment Bolt</param>
         /// <param name="_force_Q_Right">Force Vector on the Bottom Right Attachment Bolt</param>
-        public void PlotLoadCase(double[,] _leftAttach, double[,] _rightAttach, bool _isInitializing, bool _sRack, bool _sColumn, MathNet.Spatial.Euclidean.Vector3D _force_P_Left, MathNet.Spatial.Euclidean.Vector3D _force_Q_Left, 
+        public void PlotLoadCase(double[,] _leftAttach, double[,] _rightAttach, bool _isInitializing, bool _sRack, bool _sColumn, MathNet.Spatial.Euclidean.Vector3D _force_P_Left, MathNet.Spatial.Euclidean.Vector3D _force_Q_Left,
                                  MathNet.Spatial.Euclidean.Vector3D _force_P_Right, MathNet.Spatial.Euclidean.Vector3D _force_Q_Right)
         {
             int pos = 0;
@@ -805,7 +805,7 @@ namespace Coding_Attempt_with_GUI
             ///Plotting arrows for the Front Left and Front Right
             ///The notation "P" stands for front in the TOP VIEW of the Bolted system <seealso cref="VehicleModel.InitializeBoltedJointVariables(double[,], double[,], OutputClass, OutputClass, bool)"/>
             /// </summary>
-            //if (!_isInitializing) { PlotArrows(_leftAttach[0, pos], _leftAttach[1, pos], _leftAttach[2, pos], _force_P_Left.X, _force_P_Left.Y, _force_P_Left.Z, false); }
+            if (!_isInitializing) { PlotArrows(_leftAttach[0, pos], _leftAttach[1, pos], _leftAttach[2, pos], _force_P_Left.X, _force_P_Left.Y, _force_P_Left.Z, false); }
             viewportLayout1.Entities.Add(new Joint(_leftAttach[0, pos], _leftAttach[1, pos], _leftAttach[2, pos], 2, 2), "Joints");
 
             if (_sColumn)
@@ -815,12 +815,12 @@ namespace Coding_Attempt_with_GUI
                 ///So I need to increment pos by 1 so that the position 1 of the 3x2 array which is passed is accessed. 
                 /// </summary>
                 pos += 1;
-                //if (!_isInitializing) { PlotArrows(_rightAttach[0, pos], _rightAttach[1, pos], _rightAttach[2, pos], _force_P_Right.X, _force_P_Right.Y, _force_P_Right.Z, false); }
+                if (!_isInitializing) { PlotArrows(_rightAttach[0, pos], _rightAttach[1, pos], _rightAttach[2, pos], _force_P_Right.X, _force_P_Right.Y, _force_P_Right.Z, false); }
                 viewportLayout1.Entities.Add(new Joint(_rightAttach[0, pos], _rightAttach[1, pos], _rightAttach[2, pos], 2, 2), "Joints");
             }
             else
             {
-                //if (!_isInitializing) { PlotArrows(_rightAttach[0, pos], _rightAttach[1, pos], _rightAttach[2, pos], _force_P_Right.X, _force_P_Right.Y, _force_P_Right.Z, false); }
+                if (!_isInitializing) { PlotArrows(_rightAttach[0, pos], _rightAttach[1, pos], _rightAttach[2, pos], _force_P_Right.X, _force_P_Right.Y, _force_P_Right.Z, false); }
                 viewportLayout1.Entities.Add(new Joint(_rightAttach[0, pos], _rightAttach[1, pos], _rightAttach[2, pos], 2, 2), "Joints");
             }
 
@@ -831,55 +831,12 @@ namespace Coding_Attempt_with_GUI
                 ///Plotting arrows for the REAR Left and Front Right
                 ///The notation "Q" stands for rear in the TOP VIEW of the Bolted system <seealso cref="VehicleModel.InitializeBoltedJointVariables(double[,], double[,], OutputClass, OutputClass, bool)"/>
                 /// </summary>
-                //if (!_isInitializing) { PlotArrows(_leftAttach[0, pos + 1], _leftAttach[1, pos + 1], _leftAttach[2, pos + 1], _force_Q_Left.X, _force_Q_Left.Y, _force_Q_Left.Z, false); }
+                if (!_isInitializing) { PlotArrows(_leftAttach[0, pos + 1], _leftAttach[1, pos + 1], _leftAttach[2, pos + 1], _force_Q_Left.X, _force_Q_Left.Y, _force_Q_Left.Z, false); }
                 viewportLayout1.Entities.Add(new Joint(_leftAttach[0, pos + 1], _leftAttach[1, pos + 1], _leftAttach[2, pos + 1], 2, 2), "Joints");
 
 
-                //if (!_isInitializing) { PlotArrows(_rightAttach[0, pos + 1], _rightAttach[1, pos + 1], _rightAttach[2, pos + 1], _force_Q_Right.X, _force_Q_Right.Y, _force_Q_Right.Z, false); }
+                if (!_isInitializing) { PlotArrows(_rightAttach[0, pos + 1], _rightAttach[1, pos + 1], _rightAttach[2, pos + 1], _force_Q_Right.X, _force_Q_Right.Y, _force_Q_Right.Z, false); }
                 viewportLayout1.Entities.Add(new Joint(_rightAttach[0, pos + 1], _rightAttach[1, pos + 1], _rightAttach[2, pos + 1], 2, 2), "Joints");
-            }
-        }
-
-
-        private void PaintLoadCaseArrows(double[,] _leftAttach, double[,] _rightAttach, bool _isInitializing, bool _sRack, bool _sColumn, MathNet.Spatial.Euclidean.Vector3D _force_P_Left, MathNet.Spatial.Euclidean.Vector3D _force_Q_Left,
-                                 MathNet.Spatial.Euclidean.Vector3D _force_P_Right, MathNet.Spatial.Euclidean.Vector3D _force_Q_Right, double _maxValueX, double _minValueX, double _maxValueY, double _minValueY, double _maxValueZ, double _minValueZ)
-        {
-            int pos = 0;
-            if (_sRack)
-            {
-                pos = 0;
-            }
-            else pos = 2;
-
-            ///<summary>
-            ///Plotting arrows for the Front Left and Front Right
-            ///The notation "P" stands for front in the TOP VIEW of the Bolted system <seealso cref="VehicleModel.InitializeBoltedJointVariables(double[,], double[,], OutputClass, OutputClass, bool)"/>
-            /// </summary>
-            PlotArrows(_leftAttach[0, pos], _leftAttach[1, pos], _leftAttach[2, pos], _force_P_Left.X, _force_P_Left.Y, _force_P_Left.Z, false, _maxValueX, _minValueX, _maxValueY, _minValueY, _maxValueZ, _minValueZ);
-
-            if (_sColumn)
-            {
-                ///<summary>
-                ///If Steering Column is passed then it means that <c>_leftAttach</c> and <c>_rightAttach</c> mean the same thing <seealso cref="VehicleGUI.OutputDrawer(CAD, int, int, bool)"/> 
-                ///So I need to increment pos by 1 so that the position 1 of the 3x2 array which is passed is accessed. 
-                /// </summary>
-                pos += 1;
-                PlotArrows(_rightAttach[0, pos], _rightAttach[1, pos], _rightAttach[2, pos], _force_P_Right.X, _force_P_Right.Y, _force_P_Right.Z, false, _maxValueX, _minValueX, _maxValueY, _minValueY, _maxValueZ, _minValueZ); 
-            }
-            else
-            {
-                PlotArrows(_rightAttach[0, pos], _rightAttach[1, pos], _rightAttach[2, pos], _force_P_Right.X, _force_P_Right.Y, _force_P_Right.Z, false, _maxValueX, _minValueX, _maxValueY, _minValueY, _maxValueZ, _minValueZ); 
-            }
-
-
-            if (!_sColumn)
-            {
-                ///<summary>
-                ///Plotting arrows for the REAR Left and Front Right
-                ///The notation "Q" stands for rear in the TOP VIEW of the Bolted system <seealso cref="VehicleModel.InitializeBoltedJointVariables(double[,], double[,], OutputClass, OutputClass, bool)"/>
-                /// </summary>
-                PlotArrows(_leftAttach[0, pos + 1], _leftAttach[1, pos + 1], _leftAttach[2, pos + 1], _force_Q_Left.X, _force_Q_Left.Y, _force_Q_Left.Z, false, _maxValueX, _minValueX, _maxValueY, _minValueY, _maxValueZ, _minValueZ); 
-                PlotArrows(_rightAttach[0, pos + 1], _rightAttach[1, pos + 1], _rightAttach[2, pos + 1], _force_Q_Right.X, _force_Q_Right.Y, _force_Q_Right.Z, false, _maxValueX, _minValueX, _maxValueY, _minValueY, _maxValueZ, _minValueZ); 
             }
         }
 
@@ -932,7 +889,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_minValue">Max Force Value</param>
         /// <param name="_maxValue">Min Force Value</param>
         /// <returns></returns>
-        public Color PaintGradient(Entity _entityToBeColoured,double _cellValue, double _minValue, double _maxValue, Color _firstColour, Color _secondColour)
+        public Color PaintGradient(Entity _entityToBeColoured, double _cellValue, double _minValue, double _maxValue, Color _firstColour, Color _secondColour)
         {
 
             ///<summary>Cell Value as a Percent of the Max Value</summary>
@@ -949,7 +906,7 @@ namespace Coding_Attempt_with_GUI
             double relValueNeg_ZeroToCurr;
             ///<summary>Postion of the Cell Value on a Number Line</summary>
             double relValueNeg_CurrToMin;
-            long  red = 255, green = 255, blue= 255;
+            long red = 255, green = 255, blue = 255;
 
             ///<summary>If loop to determine the course of action depending on the <see cref="GradientStyle"/></summary>
             if (GradientType == GradientStyle.StandardFEM)
@@ -992,10 +949,10 @@ namespace Coding_Attempt_with_GUI
                         green = 255;
                         blue = Convert.ToInt64((255 * (relValueNeg_ZeroToCurr / relValueNeg_CurrToMin)));
                     }
-                } 
+                }
             }
 
-            else if(GradientType == GradientStyle.Monochromatic)
+            else if (GradientType == GradientStyle.Monochromatic)
             {
                 int deltaR = _firstColour.R - _secondColour.R;
                 int deltaG = _firstColour.G - _secondColour.G;
@@ -1012,7 +969,7 @@ namespace Coding_Attempt_with_GUI
 
                 red = _secondColour.R + Convert.ToInt32(Math.Round((deltaR * (absValue))));
                 green = _secondColour.G + Convert.ToInt32(Math.Round((deltaG * (absValue))));
-                blue = _secondColour.B + Convert.ToInt32(Math.Round((deltaB * (absValue))));    
+                blue = _secondColour.B + Convert.ToInt32(Math.Round((deltaB * (absValue))));
             }
 
             if (_entityToBeColoured != null)
@@ -1025,9 +982,6 @@ namespace Coding_Attempt_with_GUI
             }
 
             return Color.FromArgb(255, Convert.ToInt32(red), Convert.ToInt32(green), Convert.ToInt32(blue));
-
-
-
         }
 
 
@@ -1040,7 +994,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_forceX">X Component of the Force on Joint being considered</param>
         /// <param name="_forceY">Y Component of the Force on Joint being considered</param>
         /// <param name="_forceZ">Z Component of the Force on Joint being considered</param>
-        private void PlotArrows(double _startX, double _startY, double _startZ, double _forceX, double _forceY, double _forceZ, bool CPPassed,double _maxValueX, double _minValueX, double _maxValueY, double _minValueY, double _maxValueZ, double _minValueZ)
+        private void PlotArrows(double _startX, double _startY, double _startZ, double _forceX, double _forceY, double _forceZ, bool CPPassed/*, double _maxValueX, double _minValueX, double _maxValueY, double _minValueY, double _maxValueZ, double _minValueZ*/)
         {
             Point3D arrowStart = new Point3D();
             if (!CPPassed)
@@ -1052,7 +1006,7 @@ namespace Coding_Attempt_with_GUI
                 arrowStart = new Point3D(_startX, _startY - (_forceY * 0.1) - 30, _startZ);
             }
 
-            
+
 
             ///<summary>
             ///Vectors to allign the arrows in along the Axes
@@ -1084,29 +1038,32 @@ namespace Coding_Attempt_with_GUI
             /// </remarks>
             if (_forceX != 0)
             {
+                ///<summary>Creating an arrow to represent the X Force using its length value and its <see cref="CustomData"/></summary>
                 Mesh arrowX = Mesh.CreateArrow(arrowStart, directionX, cylinderRadius, Math.Abs(_forceX + 0.01) * 0.1, coneRadius, coneLength, 10, Mesh.natureType.Smooth, Mesh.edgeStyleType.Sharp);
-                arrowX.EntityData = new CustomData("arrowX", _forceX, Color.White);
-                Color xColor = PaintGradient(arrowX, _forceX, _minValueX, _maxValueX, GradientColor1, GradientColor2);
-                viewportLayout1.Entities.Add(arrowX, "Joints", xColor);
-                
+                ///<summary>Setting the <see cref="Entity.EntityData"/> using the <see cref="CustomData"/> <see cref="struct"/></summary>
+                arrowX.EntityData = new CustomData("arrowX", _forceX, Color.DarkMagenta);
+                viewportLayout1.Entities.Add(arrowX, "Joints", Color.DarkMagenta);
+
 
             }
 
             if (_forceY != 0)
             {
+                ///<summary>Creating an arrow to represent the X Force using its length value and its <see cref="CustomData"/></summary>
                 Mesh arrowY = Mesh.CreateArrow(arrowStart, directionY, cylinderRadius, Math.Abs(_forceY + 0.01) * 0.1, coneRadius, coneLength, 10, Mesh.natureType.Smooth, Mesh.edgeStyleType.Sharp);
-                arrowY.EntityData = new CustomData("arrowY", _forceY, Color.White);
-                Color yColor = PaintGradient(arrowY, _forceY, _minValueY, _maxValueY, GradientColor1, GradientColor2);
-                viewportLayout1.Entities.Add(arrowY, "Joints", yColor);
-                
+                ///<summary>Setting the <see cref="Entity.EntityData"/> using the <see cref="CustomData"/> <see cref="struct"/></summary>
+                arrowY.EntityData = new CustomData("arrowY", _forceY, Color.DarkMagenta);
+                viewportLayout1.Entities.Add(arrowY, "Joints", Color.DarkMagenta);
+
             }
 
             if (_forceZ != 0)
             {
+                ///<summary>Creating an arrow to represent the X Force using its length value and its <see cref="CustomData"/></summary>
                 Mesh arrowZ = Mesh.CreateArrow(arrowStart, directionZ, cylinderRadius, Math.Abs(_forceZ + 0.01) * 0.1, coneRadius, coneLength, 10, Mesh.natureType.Smooth, Mesh.edgeStyleType.Sharp);
-                arrowZ.EntityData = new CustomData("arrowZ", _forceZ, Color.White);
-                Color zColor = PaintGradient(arrowZ, _forceZ, _minValueZ, _maxValueZ, GradientColor1, GradientColor2);
-                viewportLayout1.Entities.Add(arrowZ, "Joints", zColor);
+                ///<summary>Setting the <see cref="Entity.EntityData"/> using the <see cref="CustomData"/> <see cref="struct"/></summary
+                arrowZ.EntityData = new CustomData("arrowZ", _forceZ, Color.DarkMagenta);
+                viewportLayout1.Entities.Add(arrowZ, "Joints", Color.DarkMagenta);
             }
 
 
@@ -1121,25 +1078,25 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_isInitializing">Boolean variable to determine if the input items are being plotted or the Output </param>
         /// <param name="_ocColor">Object of the Output Class. Here is it used to determine the Color of the Wishbone</param>
         string damperName;
-        private void PlotCommonSuspension(SuspensionCoordinatesMaster _scmPlotCommon, bool _isInitializing, OutputClass _ocColor, int _mcPhersonIdentifier)
+        private void PlotCommonSuspension(SuspensionCoordinatesMaster _scmPlotCommon, bool _isInitializing, OutputClass _ocColor, int _mcPhersonIdentifier, double _cPForcex, double _cPForcey, double _cPForcez)
         {
             Color color = Color.Orange;
 
             #region Common Joints
 
-            //if (!_isInitializing) { PlotArrows(_scmPlotCommon.C1x, _scmPlotCommon.C1y, _scmPlotCommon.C1z, _ocColor.LowerRear_x, _ocColor.LowerRear_y, _ocColor.LowerRear_z, false); }
+            if (!_isInitializing) { PlotArrows(_scmPlotCommon.C1x, _scmPlotCommon.C1y, _scmPlotCommon.C1z, _ocColor.LowerRear_x, _ocColor.LowerRear_y, _ocColor.LowerRear_z, false); }
             CoordinatesTemp.InboardPickUp.Add("Lower Rear Chassis", (new Joint(_scmPlotCommon.C1x, _scmPlotCommon.C1y, _scmPlotCommon.C1z, 5, 2)));
             viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp["Lower Rear Chassis"], "Joints");
 
-            //if (!_isInitializing) { PlotArrows(_scmPlotCommon.D1x, _scmPlotCommon.D1y, _scmPlotCommon.D1z, _ocColor.LowerFront_x, _ocColor.LowerFront_y, _ocColor.LowerFront_z, false); }
+            if (!_isInitializing) { PlotArrows(_scmPlotCommon.D1x, _scmPlotCommon.D1y, _scmPlotCommon.D1z, _ocColor.LowerFront_x, _ocColor.LowerFront_y, _ocColor.LowerFront_z, false); }
             CoordinatesTemp.InboardPickUp.Add("Lower Front Chassis", (new Joint(_scmPlotCommon.D1x, _scmPlotCommon.D1y, _scmPlotCommon.D1z, 5, 2)));
             viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp["Lower Front Chassis"], "Joints");
 
-            //if (!_isInitializing) { PlotArrows(_scmPlotCommon.E1x, _scmPlotCommon.E1y, _scmPlotCommon.E1z, _ocColor.LBJ_x, _ocColor.LBJ_y, _ocColor.LBJ_z, false); }
+            if (!_isInitializing) { PlotArrows(_scmPlotCommon.E1x, _scmPlotCommon.E1y, _scmPlotCommon.E1z, _ocColor.LBJ_x, _ocColor.LBJ_y, _ocColor.LBJ_z, false); }
             CoordinatesTemp.OutboardPickUp.Add("Lower Ball Joint", (new Joint(_scmPlotCommon.E1x, _scmPlotCommon.E1y, _scmPlotCommon.E1z, 5, 2)));
             viewportLayout1.Entities.Add(CoordinatesTemp.OutboardPickUp["Lower Ball Joint"], "Joints");
 
-            //if (!_isInitializing) { PlotArrows(_scmPlotCommon.J1x, _scmPlotCommon.J1y, _scmPlotCommon.J1z, _ocColor.DamperForce_x, _ocColor.DamperForce_y, _ocColor.DamperForce_z, false); }
+            if (!_isInitializing) { PlotArrows(_scmPlotCommon.J1x, _scmPlotCommon.J1y, _scmPlotCommon.J1z, _ocColor.DamperForce_x, _ocColor.DamperForce_y, _ocColor.DamperForce_z, false); }
             if (_mcPhersonIdentifier == 1)
             {
                 damperName = "Damper Upright";
@@ -1152,29 +1109,29 @@ namespace Coding_Attempt_with_GUI
             CoordinatesTemp.InboardPickUp.Add(damperName, new Joint(_scmPlotCommon.J1x, _scmPlotCommon.J1y, _scmPlotCommon.J1z, 5, 2));
             viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp[damperName], "Joints");
 
-            //if (!_isInitializing) { PlotArrows(_scmPlotCommon.JO1x, _scmPlotCommon.JO1y, _scmPlotCommon.JO1z, _ocColor.DamperForce_x, _ocColor.DamperForce_y, _ocColor.DamperForce_z, false); }
+            if (!_isInitializing) { PlotArrows(_scmPlotCommon.JO1x, _scmPlotCommon.JO1y, _scmPlotCommon.JO1z, _ocColor.DamperForce_x, _ocColor.DamperForce_y, _ocColor.DamperForce_z, false); }
             CoordinatesTemp.InboardPickUp.Add("Damper Shock Mount", new Joint(_scmPlotCommon.JO1x, _scmPlotCommon.JO1y, _scmPlotCommon.JO1z, 5, 2));
             viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp["Damper Shock Mount"], "Joints");
 
             CoordinatesTemp.OutboardPickUp.Add("Wheel Centre", new Joint(_scmPlotCommon.K1x, _scmPlotCommon.K1y, _scmPlotCommon.K1z, 5, 2));
             viewportLayout1.Entities.Add(CoordinatesTemp.OutboardPickUp["Wheel Centre"], "Joints");
 
-            //if (!_isInitializing) { PlotArrows(_scmPlotCommon.M1x, _scmPlotCommon.M1y, _scmPlotCommon.M1z, _ocColor.ToeLink_x, _ocColor.ToeLink_y, _ocColor.ToeLink_z, false); }
+            if (!_isInitializing) { PlotArrows(_scmPlotCommon.M1x, _scmPlotCommon.M1y, _scmPlotCommon.M1z, _ocColor.ToeLink_x, _ocColor.ToeLink_y, _ocColor.ToeLink_z, false); }
             CoordinatesTemp.OutboardPickUp.Add("Steering Link Upright", new Joint(_scmPlotCommon.M1x, _scmPlotCommon.M1y, _scmPlotCommon.M1z, 5, 2));
             viewportLayout1.Entities.Add(CoordinatesTemp.OutboardPickUp["Steering Link Upright"], "Joints");
 
-            //if (!_isInitializing) { PlotArrows(_scmPlotCommon.N1x, _scmPlotCommon.N1y, _scmPlotCommon.N1z, _ocColor.ToeLink_x, _ocColor.ToeLink_y, _ocColor.ToeLink_z, false); }
+            if (!_isInitializing) { PlotArrows(_scmPlotCommon.N1x, _scmPlotCommon.N1y, _scmPlotCommon.N1z, _ocColor.ToeLink_x, _ocColor.ToeLink_y, _ocColor.ToeLink_z, false); }
             CoordinatesTemp.InboardPickUp.Add("Steering Link Chassis", new Joint(_scmPlotCommon.N1x, _scmPlotCommon.N1y, _scmPlotCommon.N1z, 5, 2));
             viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp["Steering Link Chassis"], "Joints");
 
-            //if (!_isInitializing) { PlotArrows(_scmPlotCommon.P1x, _scmPlotCommon.P1y, _scmPlotCommon.P1z, _ocColor.ARBDroopLink_x, _ocColor.ARBDroopLink_y, _ocColor.ARBDroopLink_z, false); }
+            if (!_isInitializing) { PlotArrows(_scmPlotCommon.P1x, _scmPlotCommon.P1y, _scmPlotCommon.P1z, _ocColor.ARBDroopLink_x, _ocColor.ARBDroopLink_y, _ocColor.ARBDroopLink_z, false); }
             CoordinatesTemp.InboardPickUp.Add("Anti-Roll Bar Link", new Joint(_scmPlotCommon.P1x, _scmPlotCommon.P1y, _scmPlotCommon.P1z, 5, 2));
             viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp["Anti-Roll Bar Link"], "Joints");
 
             CoordinatesTemp.InboardPickUp.Add("Anti-Roll Bar Chassis", new Joint(_scmPlotCommon.Q1x, _scmPlotCommon.Q1y, _scmPlotCommon.Q1z, 5, 2));
             viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp["Anti-Roll Bar Chassis"], "Joints");
 
-            //if (!_isInitializing) { PlotArrows(_scmPlotCommon.W1x, _scmPlotCommon.W1y, _scmPlotCommon.W1z, _cPForcex, _cPForcey, _cPForcez, true); }
+            if (!_isInitializing) { PlotArrows(_scmPlotCommon.W1x, _scmPlotCommon.W1y, _scmPlotCommon.W1z, _cPForcex, _cPForcey, _cPForcez, true); }
             CoordinatesTemp.OutboardPickUp.Add("Contact Patch", new Joint(_scmPlotCommon.W1x, _scmPlotCommon.W1y, _scmPlotCommon.W1z, 5, 2));
             viewportLayout1.Entities.Add(CoordinatesTemp.OutboardPickUp["Contact Patch"], "Joints");
             #endregion
@@ -1215,7 +1172,6 @@ namespace Coding_Attempt_with_GUI
             ///<summary>
             ///Toe Link
             /// </summary>
-            //if (!_isInitializing && _ocColor.ToeLink > 0) { color = Color.Red; } else if (!_isInitializing && _ocColor.ToeLink < 0) { color = Color.Blue; }
             Bar ToeLink = new Bar(CoordinatesTemp.InboardPickUp["Steering Link Chassis"].Position, CoordinatesTemp.OutboardPickUp["Steering Link Upright"].Position, 4.5, 8);
             CoordinatesTemp.SuspensionLinks.Add("ToeLink", ToeLink);
             viewportLayout1.Entities.Add(ToeLink, "Bars");
@@ -1246,36 +1202,6 @@ namespace Coding_Attempt_with_GUI
                 ARBLever.EntityData = new CustomData("ARBLever", _ocColor.ARBDroopLink, Color.Orange);
             }
             #endregion
-        }
-
-        /// <summary>
-        /// Medhot to Plot and Paint the Force Decomp Arrows for the Common Suspension Elements between Mcp and DW
-        /// </summary>
-        /// <param name="scmPlotCommon"></param>
-        /// <param name="ocColor"></param>
-        /// <param name="cPForcex">Contact Patch Force X</param>
-        /// <param name="cPForcey">Contact Patch Force Y</param>
-        /// <param name="cPForcez">Contact Patch Force Z</param>
-        /// <param name="maxForceX">Max Decomp Force in X Direction</param>
-        /// <param name="minForceX">MinDecomp Force in X Direction</param>
-        /// <param name="maxForceY">Max Decomp Force in Y Direction</param>
-        /// <param name="minForceY">Min Decomp Force in Y Direction</param>
-        /// <param name="maxForceZ">Max Decomp Force in Z Direction</param>
-        /// <param name="minForceZ">Min Decomp Force in Z Direction</param>
-        private void PaintCommonForceDecmopArrows(SuspensionCoordinatesMaster scmPlotCommon, OutputClass ocColor, double cPForcex, double cPForcey, double cPForcez, double maxForceX, double minForceX, double maxForceY, double minForceY, double maxForceZ, double minForceZ)
-        {
-            ///<summary>Plotting and Painting the Decomp Forces at the Pick Up Points for the Common Suspension Points</summary>
-            PlotArrows(scmPlotCommon.C1x, scmPlotCommon.C1y, scmPlotCommon.C1z, ocColor.LowerRear_x, ocColor.LowerRear_y, ocColor.LowerRear_z, false, maxForceX, minForceX, maxForceY, minForceY, maxForceZ, minForceZ);
-            PlotArrows(scmPlotCommon.D1x, scmPlotCommon.D1y, scmPlotCommon.D1z, ocColor.LowerFront_x, ocColor.LowerFront_y, ocColor.LowerFront_z, false, maxForceX, minForceX, maxForceY, minForceY, maxForceZ, minForceZ);
-            PlotArrows(scmPlotCommon.E1x, scmPlotCommon.E1y, scmPlotCommon.E1z, ocColor.LBJ_x, ocColor.LBJ_y, ocColor.LBJ_z, false, maxForceX, minForceX, maxForceY, minForceY, maxForceZ, minForceZ);
-            PlotArrows(scmPlotCommon.J1x, scmPlotCommon.J1y, scmPlotCommon.J1z, ocColor.DamperForce_x, ocColor.DamperForce_y, ocColor.DamperForce_z, false, maxForceX, minForceX, maxForceY, minForceY, maxForceZ, minForceZ);
-            PlotArrows(scmPlotCommon.JO1x, scmPlotCommon.JO1y, scmPlotCommon.JO1z, ocColor.DamperForce_x, ocColor.DamperForce_y, ocColor.DamperForce_z, false, maxForceX, minForceX, maxForceY, minForceY, maxForceZ, minForceZ);
-            PlotArrows(scmPlotCommon.M1x, scmPlotCommon.M1y, scmPlotCommon.M1z, ocColor.ToeLink_x, ocColor.ToeLink_y, ocColor.ToeLink_z, false, maxForceX, minForceX, maxForceY, minForceY, maxForceZ, minForceZ);
-            PlotArrows(scmPlotCommon.N1x, scmPlotCommon.N1y, scmPlotCommon.N1z, ocColor.ToeLink_x, ocColor.ToeLink_y, ocColor.ToeLink_z, false, maxForceX, minForceX, maxForceY, minForceY, maxForceZ, minForceZ);
-            PlotArrows(scmPlotCommon.P1x, scmPlotCommon.P1y, scmPlotCommon.P1z, ocColor.ARBDroopLink_x, ocColor.ARBDroopLink_y, ocColor.ARBDroopLink_z, false, maxForceX, minForceX, maxForceY, minForceY, maxForceZ, minForceZ);
-            PlotArrows(scmPlotCommon.W1x, scmPlotCommon.W1y, scmPlotCommon.W1z, cPForcex, cPForcey, cPForcez, true, maxForceX, minForceX, maxForceY, minForceY, maxForceZ, minForceZ);
-
-            
         }
 
         #region Maybe this a better method to add bars to the viewport. Scrapping this for now because no time to debug and test
@@ -1373,24 +1299,23 @@ namespace Coding_Attempt_with_GUI
         string pushPullName;
         private void PlotDoubleWishboneSuspension(SuspensionCoordinatesMaster _scmPlot, bool _isInitializing, OutputClass _ocColor, int pushrodIdentifier)
         {
-
             Color color = Color.Orange;
 
             #region Double Wishbone Joints
-            
-            //if (!_isInitializing) { PlotArrows(_scmPlot.A1x, _scmPlot.A1y, _scmPlot.A1z, _ocColor.UpperFront_x, _ocColor.UpperFront_y, _ocColor.UpperFront_z, false); }
+
+            if (!_isInitializing) { PlotArrows(_scmPlot.A1x, _scmPlot.A1y, _scmPlot.A1z, _ocColor.UpperFront_x, _ocColor.UpperFront_y, _ocColor.UpperFront_z, false); }
             CoordinatesTemp.InboardPickUp.Add("Upper Front Chassis", new Joint(_scmPlot.A1x, _scmPlot.A1y, _scmPlot.A1z, 5, 2));
             viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp["Upper Front Chassis"], "Joints");
 
-            //if (!_isInitializing) { PlotArrows(_scmPlot.B1x, _scmPlot.B1y, _scmPlot.B1z, _ocColor.UpperRear_x, _ocColor.UpperRear_y, _ocColor.UpperRear_z, false); }
+            if (!_isInitializing) { PlotArrows(_scmPlot.B1x, _scmPlot.B1y, _scmPlot.B1z, _ocColor.UpperRear_x, _ocColor.UpperRear_y, _ocColor.UpperRear_z, false); }
             CoordinatesTemp.InboardPickUp.Add("Upper Rear Chassis", new Joint(_scmPlot.B1x, _scmPlot.B1y, _scmPlot.B1z, 5, 2));
             viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp["Upper Rear Chassis"], "Joints");
 
-            //if (!_isInitializing) { PlotArrows(_scmPlot.F1x, _scmPlot.F1y, _scmPlot.F1z, _ocColor.UBJ_x, _ocColor.UBJ_y, _ocColor.UBJ_z, false); }
+            if (!_isInitializing) { PlotArrows(_scmPlot.F1x, _scmPlot.F1y, _scmPlot.F1z, _ocColor.UBJ_x, _ocColor.UBJ_y, _ocColor.UBJ_z, false); }
             CoordinatesTemp.OutboardPickUp.Add("Upper Ball Joint", new Joint(_scmPlot.F1x, _scmPlot.F1y, _scmPlot.F1z, 5, 2));
             viewportLayout1.Entities.Add(CoordinatesTemp.OutboardPickUp["Upper Ball Joint"], "Joints");
 
-            //if (!_isInitializing) { PlotArrows(_scmPlot.G1x, _scmPlot.G1y, _scmPlot.G1z, _ocColor.PushRod_x, _ocColor.PushRod_y, _ocColor.PushRod_z, false); }
+            if (!_isInitializing) { PlotArrows(_scmPlot.G1x, _scmPlot.G1y, _scmPlot.G1z, _ocColor.PushRod_x, _ocColor.PushRod_y, _ocColor.PushRod_z, false); }
             if (pushrodIdentifier == 1)
             {
                 pushPullName = "Pushrod";
@@ -1402,14 +1327,14 @@ namespace Coding_Attempt_with_GUI
             CoordinatesTemp.OutboardPickUp.Add(pushPullName + " Upright", new Joint(_scmPlot.G1x, _scmPlot.G1y, _scmPlot.G1z, 5, 2));
             viewportLayout1.Entities.Add(CoordinatesTemp.OutboardPickUp[pushPullName + " Upright"], "Joints");
 
-            //if (!_isInitializing) { PlotArrows(_scmPlot.H1x, _scmPlot.H1y, _scmPlot.H1z, _ocColor.PushRod_x, _ocColor.PushRod_y, _ocColor.PushRod_z, false); }
+            if (!_isInitializing) { PlotArrows(_scmPlot.H1x, _scmPlot.H1y, _scmPlot.H1z, _ocColor.PushRod_x, _ocColor.PushRod_y, _ocColor.PushRod_z, false); }
             CoordinatesTemp.InboardPickUp.Add(pushPullName + " Bell-Crank", new Joint(_scmPlot.H1x, _scmPlot.H1y, _scmPlot.H1z, 5, 2));
             viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp[pushPullName + " Bell-Crank"], "Joints");
 
             CoordinatesTemp.InboardPickUp.Add("Bell Crank Pivot", new Joint(_scmPlot.I1x, _scmPlot.I1y, _scmPlot.I1z, 5, 2));
             viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp["Bell Crank Pivot"], "Joints");
 
-            //if (!_isInitializing) { PlotArrows(_scmPlot.O1x, _scmPlot.O1y, _scmPlot.O1z, _ocColor.ARBDroopLink_x, _ocColor.ARBDroopLink_y, _ocColor.ARBDroopLink_z, false); }
+            if (!_isInitializing) { PlotArrows(_scmPlot.O1x, _scmPlot.O1y, _scmPlot.O1z, _ocColor.ARBDroopLink_x, _ocColor.ARBDroopLink_y, _ocColor.ARBDroopLink_z, false); }
             CoordinatesTemp.InboardPickUp.Add("Anti-Roll Bar Bell-Crank", new Joint(_scmPlot.O1x, _scmPlot.O1y, _scmPlot.O1z, 5, 2));
             viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp["Anti-Roll Bar Bell-Crank"], "Joints");
 
@@ -1464,14 +1389,19 @@ namespace Coding_Attempt_with_GUI
             Bar DamperBellcrankToPivot = new Bar(CoordinatesTemp.InboardPickUp["Damper Bell-Crank"].Position, CoordinatesTemp.InboardPickUp["Bell Crank Pivot"].Position, 4.5, 8);
             CoordinatesTemp.SuspensionLinks.Add("DamperBellcrankToPivot", DamperBellcrankToPivot);
             viewportLayout1.Entities.Add(DamperBellcrankToPivot, "Bars");
+            DamperBellcrankToPivot.EntityData = new CustomData("DamperBellCrankToPivot", 0, Color.Orange);
+            
             ///<remarks>Point I comes before H while going from centre of the Vehicle towards thr wheel </remarks>
             Bar PushrodBellcrankToPivot = new Bar(CoordinatesTemp.InboardPickUp["Bell Crank Pivot"].Position, CoordinatesTemp.InboardPickUp[pushPullName + " Bell-Crank"].Position, 4.5, 8);
             CoordinatesTemp.SuspensionLinks.Add("PushrodBellcrankToPivot", PushrodBellcrankToPivot);
             viewportLayout1.Entities.Add(PushrodBellcrankToPivot, "Bars");
+            PushrodBellcrankToPivot.EntityData = new CustomData("PushrodBellcrankToPivot", 0, Color.Orange);
+            
             ///<remarks>Point I comes before O while going from the Centre of the Vehicle towards the Wheel </remarks>
             Bar ARBDroopLinkBellcrankToPivot = new Bar(CoordinatesTemp.InboardPickUp["Bell Crank Pivot"].Position, CoordinatesTemp.InboardPickUp["Anti-Roll Bar Bell-Crank"].Position, 4.5, 8);
             CoordinatesTemp.SuspensionLinks.Add("ARBDroopLinkBellcrankToPivot", ARBDroopLinkBellcrankToPivot);
             viewportLayout1.Entities.Add(ARBDroopLinkBellcrankToPivot, "Bars");
+            ARBDroopLinkBellcrankToPivot.EntityData = new CustomData("ARBDroopLinkBellcrankToPivot", 0, Color.Orange);
 
             ///<summary>
             ///Points to form the triangles joining the Bell-Crank vectors
@@ -1498,31 +1428,6 @@ namespace Coding_Attempt_with_GUI
                 ARBDroopLink.EntityData = new CustomData("ARBDroopLink", _ocColor.ARBDroopLink, Color.Orange);
             }
             #endregion
-        }
-
-        /// <summary>
-        /// Medhot to Plot and Paint the Force Decomp Arrows for the Suspension Elements of DW
-        /// </summary>
-        /// <param name="_scmPlot"></param>
-        /// <param name="_ocColor"></param>
-        /// <param name="cPForcex">Contact Patch Force X</param>
-        /// <param name="cPForcey">Contact Patch Force Y</param>
-        /// <param name="cPForcez">Contact Patch Force Z</param>
-        /// <param name="maxForceX">Max Decomp Force in X Direction</param>
-        /// <param name="minForceX">MinDecomp Force in X Direction</param>
-        /// <param name="maxForceY">Max Decomp Force in Y Direction</param>
-        /// <param name="minForceY">Min Decomp Force in Y Direction</param>
-        /// <param name="maxForceZ">Max Decomp Force in Z Direction</param>
-        /// <param name="minForceZ">Min Decomp Force in Z Direction</param>
-        private void PaintDWForceArrows(SuspensionCoordinatesMaster _scmPlot, OutputClass _ocColor, double cPForcex, double cPForcey, double cPForcez, double maxForceX, double minForceX, double maxForceY, double minForceY, double maxForceZ, double minForceZ)
-        {
-            PlotArrows(_scmPlot.A1x, _scmPlot.A1y, _scmPlot.A1z, _ocColor.UpperFront_x, _ocColor.UpperFront_y, _ocColor.UpperFront_z, false, maxForceX, minForceX, maxForceY, minForceY, maxForceZ, minForceZ);
-            PlotArrows(_scmPlot.B1x, _scmPlot.B1y, _scmPlot.B1z, _ocColor.UpperRear_x, _ocColor.UpperRear_y, _ocColor.UpperRear_z, false, maxForceX, minForceX, maxForceY, minForceY, maxForceZ, minForceZ);
-            PlotArrows(_scmPlot.F1x, _scmPlot.F1y, _scmPlot.F1z, _ocColor.UBJ_x, _ocColor.UBJ_y, _ocColor.UBJ_z, false, maxForceX, minForceX, maxForceY, minForceY, maxForceZ, minForceZ);
-            PlotArrows(_scmPlot.G1x, _scmPlot.G1y, _scmPlot.G1z, _ocColor.PushRod_x, _ocColor.PushRod_y, _ocColor.PushRod_z, false, maxForceX, minForceX, maxForceY, minForceY, maxForceZ, minForceZ);
-            PlotArrows(_scmPlot.H1x, _scmPlot.H1y, _scmPlot.H1z, _ocColor.PushRod_x, _ocColor.PushRod_y, _ocColor.PushRod_z, false, maxForceX, minForceX, maxForceY, minForceY, maxForceZ, minForceZ);
-            PlotArrows(_scmPlot.O1x, _scmPlot.O1y, _scmPlot.O1z, _ocColor.ARBDroopLink_x, _ocColor.ARBDroopLink_y, _ocColor.ARBDroopLink_z, false, maxForceX, minForceX, maxForceY, minForceY, maxForceZ, minForceZ);
-            
         }
 
         #endregion
@@ -2244,7 +2149,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_wa">Object of the WheelAlignment Class</param>
         /// <param name="_IsInitializing">Boolean variable to determine if the Input items are being plotted or the Output Items</param>
         /// <param name="_ocPlotter"> Object of the OutputClass. Here it is needed to color the Wishbones during Output display. NULL for Input calls</param>
-        public void SuspensionPlotterInvoker(SuspensionCoordinatesMaster _scm, int Identifier, WheelAlignment _wa, bool _IsInitializing, bool _PlotWheel, OutputClass _ocPlotter)
+        public void SuspensionPlotterInvoker(SuspensionCoordinatesMaster _scm, int Identifier, WheelAlignment _wa, bool _IsInitializing, bool _PlotWheel, OutputClass _ocPlotter, double _CPForceX, double _CPForceY, double _CPForceZ)
         {
             CoordinatesTemp = new CoordinateDatabase();
 
@@ -2255,11 +2160,11 @@ namespace Coding_Attempt_with_GUI
             #region Invoking the Common Plotter (Commnon to both McPherson and Double Wishbone
             if (Identifier == 1 || Identifier == 2)
             {
-                PlotCommonSuspension(_scm, _IsInitializing, _ocPlotter/*, _CPForceX, _CPForceY, _CPForceZ*/, _scm.McPhersonIdentifierFront);
+                PlotCommonSuspension(_scm, _IsInitializing, _ocPlotter, _scm.McPhersonIdentifierFront, _CPForceX, _CPForceY, _CPForceZ);
             }
             else if (Identifier == 3 || Identifier == 4)
             {
-                PlotCommonSuspension(_scm, _IsInitializing, _ocPlotter/*, _CPForceX, _CPForceY, _CPForceZ*/, _scm.McPhersonIdentifierRear);
+                PlotCommonSuspension(_scm, _IsInitializing, _ocPlotter, _scm.McPhersonIdentifierRear, _CPForceX, _CPForceY, _CPForceZ);
 
             }
             #endregion
@@ -2339,43 +2244,43 @@ namespace Coding_Attempt_with_GUI
         //    GradientColor2 = _gradientColor2;
         //}
 
-        /// <summary>
-        /// <para>Method to Plot the Force Arrows for the Force Decompositions</para>
-        /// <para>Pass Individual Decomp Forces for each direction OR Overall Max/MinForces thrice</para>
-        /// <para>THIS METHOD SHOULD BE CALLED AFTER PLOTTING ALL THE ARROWS. NOT BEFORE</para>
-        /// </summary>
-        /// <param name="_SCM"></param>
-        /// <param name="_OCMaster">Pass a Temproary <see cref="OutputClass"/> variable here which will hold the Max and Min Forces from ALL THE CORNERS</param>
-        /// <param name="_CPForceX"></param>
-        /// <param name="_CPForceY"></param>
-        /// <param name="_CPForceZ"></param>
-        public void PaintForceDecompArrows(SuspensionCoordinatesMaster _SCM, OutputClass _OCCorner, OutputClass _OCMaster, double _CPForceX, double _CPForceY, double _CPForceZ)
-        {
-            ///<summary>Plotting and Painting the Wishbone Joint Decomp Forces Common to McP and DW</summary>
-            PaintCommonForceDecmopArrows(_SCM, _OCCorner, _CPForceX, _CPForceY, _CPForceZ, _OCMaster.MaxForce, _OCMaster.MinForce, _OCMaster.MaxForce, _OCMaster.MinForce, _OCMaster.MaxForce, _OCMaster.MinForce);
-            ///<summary>Plotting and Painting the Wishbone Joint Decomp Forces of DW</summary>
-            PaintDWForceArrows(_SCM, _OCCorner, _CPForceX, _CPForceY, _CPForceZ, _OCMaster.MaxForce, _OCMaster.MinForce, _OCMaster.MaxForce, _OCMaster.MinForce, _OCMaster.MaxForce, _OCMaster.MinForce);
-        }
+        ///// <summary>
+        ///// <para>Method to Plot the Force Arrows for the Force Decompositions</para>
+        ///// <para>Pass Individual Decomp Forces for each direction OR Overall Max/MinForces thrice</para>
+        ///// <para>THIS METHOD SHOULD BE CALLED AFTER PLOTTING ALL THE ARROWS. NOT BEFORE</para>
+        ///// </summary>
+        ///// <param name="_SCM"></param>
+        ///// <param name="_OCMaster">Pass a Temproary <see cref="OutputClass"/> variable here which will hold the Max and Min Forces from ALL THE CORNERS</param>
+        ///// <param name="_CPForceX"></param>
+        ///// <param name="_CPForceY"></param>
+        ///// <param name="_CPForceZ"></param>
+        //public void PaintForceDecompArrows(SuspensionCoordinatesMaster _SCM, OutputClass _OCCorner, OutputClass _OCMaster, double _CPForceX, double _CPForceY, double _CPForceZ)
+        //{
+        //    ///<summary>Plotting and Painting the Wishbone Joint Decomp Forces Common to McP and DW</summary>
+        //    PaintCommonForceDecmopArrows(_SCM, _OCCorner, _CPForceX, _CPForceY, _CPForceZ, _OCMaster.MaxForce, _OCMaster.MinForce, _OCMaster.MaxForce, _OCMaster.MinForce, _OCMaster.MaxForce, _OCMaster.MinForce);
+        //    ///<summary>Plotting and Painting the Wishbone Joint Decomp Forces of DW</summary>
+        //    PaintDWForceArrows(_SCM, _OCCorner, _CPForceX, _CPForceY, _CPForceZ, _OCMaster.MaxForce, _OCMaster.MinForce, _OCMaster.MaxForce, _OCMaster.MinForce, _OCMaster.MaxForce, _OCMaster.MinForce);
+        //}
 
 
-        /// <summary>
-        /// DELETE EVENTUALLY
-        /// </summary>
-        /// <param name="leftAttach"></param>
-        /// <param name="rightAttach"></param>
-        /// <param name="isInitializing"></param>
-        /// <param name="sRack"></param>
-        /// <param name="sColumn"></param>
-        /// <param name="force_P_Left"></param>
-        /// <param name="force_Q_Left"></param>
-        /// <param name="force_P_Right"></param>
-        /// <param name="force_Q_Right"></param>
-        /// <param name="oc"></param>
-        public void PaintForceBearingDecompArrows(double[,] leftAttach, double[,] rightAttach, bool isInitializing, bool sRack, bool sColumn, MathNet.Spatial.Euclidean.Vector3D force_P_Left, MathNet.Spatial.Euclidean.Vector3D force_Q_Left,
-                                 MathNet.Spatial.Euclidean.Vector3D force_P_Right, MathNet.Spatial.Euclidean.Vector3D force_Q_Right, OutputClass oc)
-        {
-            PaintLoadCaseArrows(leftAttach, rightAttach, isInitializing, sRack, sColumn, force_P_Left, force_Q_Right, force_P_Right, force_Q_Right, oc.MaxDecompForce_X, oc.MinDecompForce_X, oc.MaxDecompForce_Y, oc.MinDecompForce_Y, oc.MaxDecompForce_Z, oc.MinDecompForce_Z);
-        }
+        ///// <summary>
+        ///// DELETE EVENTUALLY
+        ///// </summary>
+        ///// <param name="leftAttach"></param>
+        ///// <param name="rightAttach"></param>
+        ///// <param name="isInitializing"></param>
+        ///// <param name="sRack"></param>
+        ///// <param name="sColumn"></param>
+        ///// <param name="force_P_Left"></param>
+        ///// <param name="force_Q_Left"></param>
+        ///// <param name="force_P_Right"></param>
+        ///// <param name="force_Q_Right"></param>
+        ///// <param name="oc"></param>
+        //public void PaintForceBearingDecompArrows(double[,] leftAttach, double[,] rightAttach, bool isInitializing, bool sRack, bool sColumn, MathNet.Spatial.Euclidean.Vector3D force_P_Left, MathNet.Spatial.Euclidean.Vector3D force_Q_Left,
+        //                         MathNet.Spatial.Euclidean.Vector3D force_P_Right, MathNet.Spatial.Euclidean.Vector3D force_Q_Right, OutputClass oc)
+        //{
+        //    PaintLoadCaseArrows(leftAttach, rightAttach, isInitializing, sRack, sColumn, force_P_Left, force_Q_Right, force_P_Right, force_Q_Right, oc.MaxDecompForce_X, oc.MinDecompForce_X, oc.MaxDecompForce_Y, oc.MinDecompForce_Y, oc.MaxDecompForce_Z, oc.MinDecompForce_Z);
+        //}
 
         int NumberOfLegendDivisions;
 
@@ -2545,7 +2450,7 @@ namespace Coding_Attempt_with_GUI
                 else
                 {
                     return false;
-                } 
+                }
             }
             else
             {
@@ -2603,7 +2508,7 @@ namespace Coding_Attempt_with_GUI
                         goto END;
                     }
 
-                    
+
                     for (int j = 0; j < LegendDataTable.Rows.Count; j++)
                     {
                         ///<summary>Finding the Force Range to which the Bar Belongs to</summary>
@@ -2647,11 +2552,11 @@ namespace Coding_Attempt_with_GUI
                         goto END;
                     }
 
-                    
+
                     for (int j = 0; j < LegendDataTable.Rows.Count; j++)
                     {
                         ///<summary>Finding the Force Range to which the Bar Belongs to</summary>
-                        if (BelongsToForceRange(LegendDataTable.Rows[j].Field<double>("Force Start"), LegendDataTable.Rows[j].Field<double>("Force End"),arrowData.Force))
+                        if (BelongsToForceRange(LegendDataTable.Rows[j].Field<double>("Force Start"), LegendDataTable.Rows[j].Field<double>("Force End"), arrowData.Force))
                         {
                             ///<summary>Painting the Bar with the Colour of the Force Range which it belongs to </summary>
                             arrowData.EntityColor = LegendDataTable.Rows[j].Field<Color>("Colour");
@@ -2661,7 +2566,7 @@ namespace Coding_Attempt_with_GUI
                         }
                     }
 
-                     END:
+                    END:
                     viewportLayout1.Invalidate();
                 }
             }
@@ -2800,7 +2705,7 @@ namespace Coding_Attempt_with_GUI
             else
             {
                 MessageBox.Show("Appropriate Reference Surfaces not selected");
-                MappingSuccessful =  false;
+                MappingSuccessful = false;
             }
 
 
@@ -3022,7 +2927,7 @@ namespace Coding_Attempt_with_GUI
                         break;
                     }
                 }
-                viewportLayout1.Refresh(); 
+                viewportLayout1.Refresh();
             }
 
         }
@@ -3165,7 +3070,7 @@ namespace Coding_Attempt_with_GUI
 
         public void SetCurrent()
         {
-            
+
 
             if (!PrimaryBlockExploded)
             {
@@ -3225,11 +3130,11 @@ namespace Coding_Attempt_with_GUI
 
                         viewportLayout1.Update();
                         viewportLayout1.Refresh();
-                    } 
+                    }
                 }
             }
         }
-        
+
 
         #endregion
 
@@ -3267,14 +3172,14 @@ namespace Coding_Attempt_with_GUI
 
             //Solid spring = new Solid();
             //spring = Solid.CreateSpring(30, 5, 100, 10, 10, 10, false);
-            
+
 
             ////Point3D sP1 = new Point3D(_scmPlotSW.J1x, _scmPlotSW.J1y, _scmPlotSW.J1z);
             //Vector3D sTV = new Vector3D(_scmPlotSpring.JO1x, _scmPlotSpring.JO1y, _scmPlotSpring.JO1z);
 
             //spring.Rotate(thetaY, YAxis);
             //spring.Rotate(thetaX, Xaxis);
-            
+
             ////spring.Rotate(thetaZ, sTV);
             ////spring.Translate(sTV);
 
@@ -3306,7 +3211,7 @@ namespace Coding_Attempt_with_GUI
                 temp_Entity.Selected = true;
 
                 ///<summary>If the <see cref="ViewportLayout.ToolBar.Buttons"/> corresponding to the MakeTransparent BUtton is pushed then the method below is activated</summary>
-                if (viewportLayout1.ToolBars[0].Buttons[8].Pushed) 
+                if (viewportLayout1.ToolBars[0].Buttons[8].Pushed)
                 {
                     CustomData tempEntityData;
                     if (temp_Entity.EntityData != null)
@@ -3317,7 +3222,7 @@ namespace Coding_Attempt_with_GUI
                     else
                     {
                         ///<summary>If the Entity doesn't have Entity then initializing the <see cref="CustomData"/> object with the <see cref="Color"/> so that it can reused later to undo the transparency</summary>
-                        if (temp_Entity.LayerName== "Joints")
+                        if (temp_Entity.LayerName == "Joints")
                         {
                             tempEntityData = new CustomData(temp_Entity.ToString(), 0, Color.White);
                         }
@@ -3350,10 +3255,10 @@ namespace Coding_Attempt_with_GUI
                         temp_Entity.Color = Color.Transparent;
                         BlockReference f = temp_Entity as BlockReference;
                         f.Color = Color.Transparent;
-                        
+
                     }
                     ///<summary>Re-storing the <see cref="CustomData"/> of the Entity into the Entity itself</summary>
-                    viewportLayout1.Entities[entityIndex].EntityData = tempEntityData; 
+                    viewportLayout1.Entities[entityIndex].EntityData = tempEntityData;
                 }
 
                 else if (!viewportLayout1.ToolBars[0].Buttons[8].Pushed)
@@ -3416,7 +3321,7 @@ namespace Coding_Attempt_with_GUI
             CustomData tempData = new CustomData();
             if (temp_Bar.EntityData != null)
             {
-                tempData = (CustomData)temp_Bar.EntityData; 
+                tempData = (CustomData)temp_Bar.EntityData;
             }
 
             Kinematics_Software_New.GraphicsCoordinatesBarOperations(temp_Bar_Start, temp_Bar_End, temp_Bar_Length, tempData.Force);
@@ -3447,6 +3352,12 @@ namespace Coding_Attempt_with_GUI
 
         #endregion
 
+        #region Transparency setter methods 
+        /// <summary>
+        /// Event which is fired when the push button of the Tool Bar at 8th index is pushed/unpuhed. If unpushed then all transparent entities are assigned with their colour
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CAD_Click_MakeTransparent(object sender, EventArgs e)
         {
 
@@ -3455,26 +3366,21 @@ namespace Coding_Attempt_with_GUI
 
             }
             ///<summary>If user is un-toggling the button then it means he/she wants to undo the transparency</summary>
-            else if(!viewportLayout1.ToolBars[0].Buttons[8].Pushed)
+            else if (!viewportLayout1.ToolBars[0].Buttons[8].Pushed)
             {
                 for (int i = 0; i < viewportLayout1.Entities.Count; i++)
                 {
                     if (viewportLayout1.Entities[i].EntityData != null)
                     {
 
+                        /////<summary>
+                        /////Either the Entity has <see cref="CustomData"/> data defined or temporary <see cref="CustomData"/> defined with only Colour. Either way this data is used to restore the Colour of the Entity and undo the transparency
+                        ///// </summary>
+                        //CustomData tempEntityData = (CustomData)viewportLayout1.Entities[i].EntityData;
+                        //viewportLayout1.Entities[i].ColorMethod = colorMethodType.byEntity;
+                        //viewportLayout1.Entities[i].Color = tempEntityData.EntityColor;
+                        RestoreEntityColour(i);
 
-                        try
-                        {
-                            ///<summary>
-                            ///Either the Entity has <see cref="CustomData"/> data defined or temporary <see cref="CustomData"/> defined with only Colour. Either way this data is used to restore the Colour of the Entity and undo the transparency
-                            /// </summary>
-                            CustomData tempEntityData = (CustomData)viewportLayout1.Entities[i].EntityData;
-                            viewportLayout1.Entities[i].ColorMethod = colorMethodType.byEntity;
-                            viewportLayout1.Entities[i].Color = tempEntityData.EntityColor;
-                        }
-                        catch (Exception)
-                        {
-                        }
 
 
                     }
@@ -3485,6 +3391,33 @@ namespace Coding_Attempt_with_GUI
             }
 
         }
+
+        /// <summary>
+        /// Method to restore the Colour of the entiti
+        /// </summary>
+        /// <param name="_entityIndex"></param>
+        private void RestoreEntityColour(int _entityIndex)
+        {
+            try
+            {
+                ///<summary>
+                ///Either the Entity has <see cref="CustomData"/> data defined or temporary <see cref="CustomData"/> defined with only Colour. Either way this data is used to restore the Colour of the Entity and undo the transparency
+                /// </summary>
+                CustomData tempEntityData = (CustomData)viewportLayout1.Entities[_entityIndex].EntityData;
+                viewportLayout1.Entities[_entityIndex].ColorMethod = colorMethodType.byEntity;
+                viewportLayout1.Entities[_entityIndex].Color = tempEntityData.EntityColor;
+            }
+            catch (Exception)
+            {
+
+                ///<summary>
+                /// <see cref="try"/> block is unavoidable here because the <see cref="Entity.EntityData"/> of the <see cref="Entity"/> is of type <see cref="object"/> and for all entities it would consist of the struct 
+                /// <see cref="CustomData"/> but since it is a struct, it is not possible to check whether the <see cref="Entity.EntityData"/> is ACTUALLY of the type <see cref="CustomData"/> hence we need this block 
+                /// </summary>
+            }
+        } 
+        #endregion
+
 
         public void ResizeVP()
         {

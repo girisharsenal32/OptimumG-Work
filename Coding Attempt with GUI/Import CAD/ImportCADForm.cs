@@ -602,13 +602,13 @@ namespace Coding_Attempt_with_GUI
             if (SuspensionCoordinatesFront.Assy_List_SCFL.Count != 0)
             {
                 ///<summary>Plotting Front Left Points</summary>
-                importCADViewport.SuspensionPlotterInvoker(SuspensionCoordinatesFront.Assy_List_SCFL[indexSusFL_Form], 1, null, true, PlotWheel_Form, null);
+                importCADViewport.SuspensionPlotterInvoker(SuspensionCoordinatesFront.Assy_List_SCFL[indexSusFL_Form], 1, null, true, PlotWheel_Form, null,0,0,0);
                 ///<summary>Plotting Front Right Points</summary>
-                importCADViewport.SuspensionPlotterInvoker(SuspensionCoordinatesFrontRight.Assy_List_SCFR[indexSusFR_Form], 2, null, true, PlotWheel_Form, null);
+                importCADViewport.SuspensionPlotterInvoker(SuspensionCoordinatesFrontRight.Assy_List_SCFR[indexSusFR_Form], 2, null, true, PlotWheel_Form, null,0,0,0);
                 ///<summary>Plotting Rear Left Points</summary>
-                importCADViewport.SuspensionPlotterInvoker(SuspensionCoordinatesRear.Assy_List_SCRL[indexSusRL_Form], 3, null, true, PlotWheel_Form, null);
+                importCADViewport.SuspensionPlotterInvoker(SuspensionCoordinatesRear.Assy_List_SCRL[indexSusRL_Form], 3, null, true, PlotWheel_Form, null,0,0,0);
                 ///<summary>Plotting Rear Right Points</summary>
-                importCADViewport.SuspensionPlotterInvoker(SuspensionCoordinatesRearRight.Assy_List_SCRR[indexSusRR_Form], 4, null, true, PlotWheel_Form, null);
+                importCADViewport.SuspensionPlotterInvoker(SuspensionCoordinatesRearRight.Assy_List_SCRR[indexSusRR_Form], 4, null, true, PlotWheel_Form, null,0,0,0);
                 /////<summary>Plotting Front ARB</summary>
                 //importCADViewport.ARBConnector( importCADViewport.CoordinatesFL.InboardPickUp, importCADViewport.CoordinatesFR.InboardPickUp);
                 /////<summary>Plotting Rear ARB</summary>

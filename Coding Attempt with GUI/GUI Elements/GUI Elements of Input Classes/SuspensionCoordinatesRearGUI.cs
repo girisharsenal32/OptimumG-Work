@@ -826,8 +826,8 @@ namespace Coding_Attempt_with_GUI
                 //_scrlGUI.CADRear.InitializeEntities();
                 _susCADRear.ClearViewPort(false, false, null);
                 _susCADRear.InitializeLayers();
-                _susCADRear.SuspensionPlotterInvoker(_sCRL, 3, null, true,true, null);
-                _susCADRear.SuspensionPlotterInvoker(_sCRR, 4, null, true, true, null);
+                _susCADRear.SuspensionPlotterInvoker(_sCRL, 3, null, true,true, null,0,0,0);
+                _susCADRear.SuspensionPlotterInvoker(_sCRR, 4, null, true, true, null,0,0,0);
                 _susCADRear.ARBConnector(_susCADRear.CoordinatesRL.InboardPickUp, _susCADRear.CoordinatesRR.InboardPickUp);
                 _susCADRear.RefreshViewPort();
             }

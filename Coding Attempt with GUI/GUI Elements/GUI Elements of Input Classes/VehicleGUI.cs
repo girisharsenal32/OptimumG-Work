@@ -522,16 +522,16 @@ namespace Coding_Attempt_with_GUI
                     vehicleCADDrawer_Input.GetCoG(Vehicle.List_Vehicle[Index_Input].chassis_vehicle);
 
                     GetCPForce(Vehicle.List_Vehicle[Index_Input].vehicleLoadCase, out CPForceX, out CPForceY, out CPForceZ, 1);
-                    vehicleCADDrawer_Input.SuspensionPlotterInvoker(Vehicle.List_Vehicle[Index_Input].sc_FL, 1, Vehicle.List_Vehicle[Index_Input].wa_FL, true, _plotWheel, null/*, CPForceX, CPForceY, CPForceZ*/);
+                    vehicleCADDrawer_Input.SuspensionPlotterInvoker(Vehicle.List_Vehicle[Index_Input].sc_FL, 1, Vehicle.List_Vehicle[Index_Input].wa_FL, true, _plotWheel, null, CPForceX, CPForceY, CPForceZ);
 
                     GetCPForce(Vehicle.List_Vehicle[Index_Input].vehicleLoadCase, out CPForceX, out CPForceY, out CPForceZ, 2);
-                    vehicleCADDrawer_Input.SuspensionPlotterInvoker(Vehicle.List_Vehicle[Index_Input].sc_FR, 2, Vehicle.List_Vehicle[Index_Input].wa_FR, true, _plotWheel, null/*, CPForceX, CPForceY, CPForceZ*/);
+                    vehicleCADDrawer_Input.SuspensionPlotterInvoker(Vehicle.List_Vehicle[Index_Input].sc_FR, 2, Vehicle.List_Vehicle[Index_Input].wa_FR, true, _plotWheel, null, CPForceX, CPForceY, CPForceZ);
 
                     GetCPForce(Vehicle.List_Vehicle[Index_Input].vehicleLoadCase, out CPForceX, out CPForceY, out CPForceZ, 3);
-                    vehicleCADDrawer_Input.SuspensionPlotterInvoker(Vehicle.List_Vehicle[Index_Input].sc_RL, 3, Vehicle.List_Vehicle[Index_Input].wa_RL, true, _plotWheel, null/*, CPForceX, CPForceY, CPForceZ*/);
+                    vehicleCADDrawer_Input.SuspensionPlotterInvoker(Vehicle.List_Vehicle[Index_Input].sc_RL, 3, Vehicle.List_Vehicle[Index_Input].wa_RL, true, _plotWheel, null, CPForceX, CPForceY, CPForceZ);
 
                     GetCPForce(Vehicle.List_Vehicle[Index_Input].vehicleLoadCase, out CPForceX, out CPForceY, out CPForceZ, 4);
-                    vehicleCADDrawer_Input.SuspensionPlotterInvoker(Vehicle.List_Vehicle[Index_Input].sc_RR, 4, Vehicle.List_Vehicle[Index_Input].wa_RR, true, _plotWheel, null/*, CPForceX, CPForceY, CPForceZ*/);
+                    vehicleCADDrawer_Input.SuspensionPlotterInvoker(Vehicle.List_Vehicle[Index_Input].sc_RR, 4, Vehicle.List_Vehicle[Index_Input].wa_RR, true, _plotWheel, null, CPForceX, CPForceY, CPForceZ);
 
 
                     vehicleCADDrawer_Input.ARBConnector(vehicleCADDrawer_Input.CoordinatesFL.InboardPickUp,  vehicleCADDrawer_Input.CoordinatesFR.InboardPickUp);
@@ -616,16 +616,20 @@ namespace Coding_Attempt_with_GUI
                 vehicleCADDrawer_Output.GetCoG(Vehicle.List_Vehicle[VehicleIndex].chassis_vehicle);
 
                 ///<remarks> Plotting the Front Left Outputs. CP Forces which are calculated are passed so that the arrows can be plotted for them <seealso cref="CAD.PlotArrows(double, double, double, double, double, double, bool)"/></remarks>
-                vehicleCADDrawer_Output.SuspensionPlotterInvoker(Vehicle.List_Vehicle[VehicleIndex].oc_FL[OutputIndex].scmOP, 1, Vehicle.List_Vehicle[VehicleIndex].oc_FL[OutputIndex].waOP, false, _plotWheel, Vehicle.List_Vehicle[VehicleIndex].oc_FL[OutputIndex]);
+                vehicleCADDrawer_Output.SuspensionPlotterInvoker(Vehicle.List_Vehicle[VehicleIndex].oc_FL[OutputIndex].scmOP, 1, Vehicle.List_Vehicle[VehicleIndex].oc_FL[OutputIndex].waOP, false, _plotWheel, Vehicle.List_Vehicle[VehicleIndex].oc_FL[OutputIndex],
+                    Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_FL_Fx, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_FL_Fy + Vehicle.List_Vehicle[VehicleIndex].oc_FL[OutputIndex].CW, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_FL_Fz);
 
                 ///<remarks> Plotting the Front Right Outputs. CP Forces which are calculated are passed so that the arrows can be plotted for them <seealso cref="CAD.PlotArrows(double, double, double, double, double, double, bool)"/></remarks>
-                vehicleCADDrawer_Output.SuspensionPlotterInvoker(Vehicle.List_Vehicle[VehicleIndex].oc_FR[OutputIndex].scmOP, 2, Vehicle.List_Vehicle[VehicleIndex].oc_FR[OutputIndex].waOP, false, _plotWheel, Vehicle.List_Vehicle[VehicleIndex].oc_FR[OutputIndex]);
+                vehicleCADDrawer_Output.SuspensionPlotterInvoker(Vehicle.List_Vehicle[VehicleIndex].oc_FR[OutputIndex].scmOP, 2, Vehicle.List_Vehicle[VehicleIndex].oc_FR[OutputIndex].waOP, false, _plotWheel, Vehicle.List_Vehicle[VehicleIndex].oc_FR[OutputIndex],
+                   Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_FR_Fx, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_FR_Fy + Vehicle.List_Vehicle[VehicleIndex].oc_FR[OutputIndex].CW, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_FR_Fz);
 
                 ///<remarks> Plotting the Rear Left Outputs. CP Forces which are calculated are passed so that the arrows can be plotted for them <seealso cref="CAD.PlotArrows(double, double, double, double, double, double, bool)"/></remarks>
-                vehicleCADDrawer_Output.SuspensionPlotterInvoker(Vehicle.List_Vehicle[VehicleIndex].oc_RL[OutputIndex].scmOP, 3, Vehicle.List_Vehicle[VehicleIndex].oc_RL[OutputIndex].waOP, false, _plotWheel, Vehicle.List_Vehicle[VehicleIndex].oc_RL[OutputIndex]);
+                vehicleCADDrawer_Output.SuspensionPlotterInvoker(Vehicle.List_Vehicle[VehicleIndex].oc_RL[OutputIndex].scmOP, 3, Vehicle.List_Vehicle[VehicleIndex].oc_RL[OutputIndex].waOP, false, _plotWheel, Vehicle.List_Vehicle[VehicleIndex].oc_RL[OutputIndex],
+                    Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RL_Fx, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RL_Fy + Vehicle.List_Vehicle[VehicleIndex].oc_RL[OutputIndex].CW, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RL_Fz);
 
                 ///<remarks> Plotting the Rear Right Outputs. CP Forces which are calculated are passed so that the arrows can be plotted for them <seealso cref="CAD.PlotArrows(double, double, double, double, double, double, bool)"/></remarks>
-                vehicleCADDrawer_Output.SuspensionPlotterInvoker(Vehicle.List_Vehicle[VehicleIndex].oc_RR[OutputIndex].scmOP, 4, Vehicle.List_Vehicle[VehicleIndex].oc_RR[OutputIndex].waOP, false, _plotWheel, Vehicle.List_Vehicle[VehicleIndex].oc_RR[OutputIndex]);
+                vehicleCADDrawer_Output.SuspensionPlotterInvoker(Vehicle.List_Vehicle[VehicleIndex].oc_RR[OutputIndex].scmOP, 4, Vehicle.List_Vehicle[VehicleIndex].oc_RR[OutputIndex].waOP, false, _plotWheel, Vehicle.List_Vehicle[VehicleIndex].oc_RR[OutputIndex],
+                    Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RR_Fx, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RR_Fy + Vehicle.List_Vehicle[VehicleIndex].oc_RR[OutputIndex].CW, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RR_Fz);
 
 
                 vehicleCADDrawer_Output.ARBConnector(vehicleCADDrawer_Output.CoordinatesFL.InboardPickUp, vehicleCADDrawer_Output.CoordinatesFR.InboardPickUp);
@@ -657,25 +661,25 @@ namespace Coding_Attempt_with_GUI
                 ///<summary>Creating a temporary Output Class Variable which will hold the Max and Min Values collated from ALL THE 4 CORNERS</summary>
                 OutputClass MasterOC = new OutputClass();
                 MasterOC = MasterOC.PopulateForceLists(Vehicle.List_Vehicle[VehicleIndex].oc_FL[OutputIndex], Vehicle.List_Vehicle[VehicleIndex].oc_FR[OutputIndex], Vehicle.List_Vehicle[VehicleIndex].oc_RL[OutputIndex], Vehicle.List_Vehicle[VehicleIndex].oc_RR[OutputIndex]);
-                ///<summary>Painting the Force Decomposition Arrows</summary>
-                CADVehicleOutputs.PaintForceDecompArrows(Vehicle.List_Vehicle[VehicleIndex].oc_FL[OutputIndex].scmOP, Vehicle.List_Vehicle[VehicleIndex].oc_FL[OutputIndex], MasterOC, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_FL_Fx,
-                    Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_FL_Fy + Vehicle.List_Vehicle[VehicleIndex].oc_FL[OutputIndex].CW, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_FL_Fz);
-                CADVehicleOutputs.PaintForceDecompArrows(Vehicle.List_Vehicle[VehicleIndex].oc_FR[OutputIndex].scmOP, Vehicle.List_Vehicle[VehicleIndex].oc_FR[OutputIndex], MasterOC, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_FR_Fx,
-                    Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_FR_Fy + Vehicle.List_Vehicle[VehicleIndex].oc_FR[OutputIndex].CW, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_FR_Fz);
-                CADVehicleOutputs.PaintForceDecompArrows(Vehicle.List_Vehicle[VehicleIndex].oc_RL[OutputIndex].scmOP, Vehicle.List_Vehicle[VehicleIndex].oc_RL[OutputIndex], MasterOC, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RL_Fx,
-                    Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RL_Fy + Vehicle.List_Vehicle[VehicleIndex].oc_RL[OutputIndex].CW, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RL_Fz);
-                CADVehicleOutputs.PaintForceDecompArrows(Vehicle.List_Vehicle[VehicleIndex].oc_RR[OutputIndex].scmOP, Vehicle.List_Vehicle[VehicleIndex].oc_RR[OutputIndex], MasterOC, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RR_Fx,
-                    Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RR_Fy + Vehicle.List_Vehicle[VehicleIndex].oc_RR[OutputIndex].CW, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RR_Fz);
+                /////<summary>Painting the Force Decomposition Arrows</summary>
+                //CADVehicleOutputs.PaintForceDecompArrows(Vehicle.List_Vehicle[VehicleIndex].oc_FL[OutputIndex].scmOP, Vehicle.List_Vehicle[VehicleIndex].oc_FL[OutputIndex], MasterOC, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_FL_Fx,
+                //    Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_FL_Fy + Vehicle.List_Vehicle[VehicleIndex].oc_FL[OutputIndex].CW, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_FL_Fz);
+                //CADVehicleOutputs.PaintForceDecompArrows(Vehicle.List_Vehicle[VehicleIndex].oc_FR[OutputIndex].scmOP, Vehicle.List_Vehicle[VehicleIndex].oc_FR[OutputIndex], MasterOC, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_FR_Fx,
+                //    Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_FR_Fy + Vehicle.List_Vehicle[VehicleIndex].oc_FR[OutputIndex].CW, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_FR_Fz);
+                //CADVehicleOutputs.PaintForceDecompArrows(Vehicle.List_Vehicle[VehicleIndex].oc_RL[OutputIndex].scmOP, Vehicle.List_Vehicle[VehicleIndex].oc_RL[OutputIndex], MasterOC, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RL_Fx,
+                //    Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RL_Fy + Vehicle.List_Vehicle[VehicleIndex].oc_RL[OutputIndex].CW, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RL_Fz);
+                //CADVehicleOutputs.PaintForceDecompArrows(Vehicle.List_Vehicle[VehicleIndex].oc_RR[OutputIndex].scmOP, Vehicle.List_Vehicle[VehicleIndex].oc_RR[OutputIndex], MasterOC, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RR_Fx,
+                //    Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RR_Fy + Vehicle.List_Vehicle[VehicleIndex].oc_RR[OutputIndex].CW, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RR_Fz);
 
-                ///<summary>Painting the Force Decomposition Arrows - Bearing Cap Forces</summary>
-                CADVehicleOutputs.PaintForceBearingDecompArrows(Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.FL_BearingCoordinates, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.FR_BearingCoordinates, false, true, false,
-                                                                ForcePLeft, ForceQLeft, ForcePRight, ForceQRight, MasterOC);
-                CADVehicleOutputs.PaintForceBearingDecompArrows(Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.FL_BearingCoordinates, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.FR_BearingCoordinates, false, false, false,
-                                                                ForcePLeft, ForceQLeft, ForcePRight, ForceQRight, MasterOC);
-                CADVehicleOutputs.PaintForceBearingDecompArrows(Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.RL_BearingCoordinates, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.RR_BearingCoordinates, false, true, false,
-                                                                ForcePLeft, ForceQLeft, ForcePRight, ForceQRight, MasterOC);
-                CADVehicleOutputs.PaintForceBearingDecompArrows(Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.SteeringColumnBearing, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.SteeringColumnBearing, false, true, true,
-                                                                ForcePLeft, new Vector3D(), ForcePRight, new Vector3D(), MasterOC);
+                /////<summary>Painting the Force Decomposition Arrows - Bearing Cap Forces</summary>
+                //CADVehicleOutputs.PaintForceBearingDecompArrows(Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.FL_BearingCoordinates, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.FR_BearingCoordinates, false, true, false,
+                //                                                ForcePLeft, ForceQLeft, ForcePRight, ForceQRight, MasterOC);
+                //CADVehicleOutputs.PaintForceBearingDecompArrows(Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.FL_BearingCoordinates, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.FR_BearingCoordinates, false, false, false,
+                //                                                ForcePLeft, ForceQLeft, ForcePRight, ForceQRight, MasterOC);
+                //CADVehicleOutputs.PaintForceBearingDecompArrows(Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.RL_BearingCoordinates, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.RR_BearingCoordinates, false, true, false,
+                //                                                ForcePLeft, ForceQLeft, ForcePRight, ForceQRight, MasterOC);
+                //CADVehicleOutputs.PaintForceBearingDecompArrows(Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.SteeringColumnBearing, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.SteeringColumnBearing, false, true, true,
+                //                                                ForcePLeft, new Vector3D(), ForcePRight, new Vector3D(), MasterOC);
 
                 LoadCaseLegend.InitializeLegendEditor(MasterOC, CADVehicleOutputs);
 
