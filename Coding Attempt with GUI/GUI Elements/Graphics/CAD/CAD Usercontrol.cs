@@ -252,7 +252,8 @@ namespace Coding_Attempt_with_GUI
         private void InitializationCodes()
         {
             viewportLayout1.ToolBars[0].Buttons[7].Click += CAD_Click_EditLegend;
-            viewportLayout1.ToolBars[0].Buttons[8].Click += CAD_Click_MakeTransparent;
+            //viewportLayout1.ToolBars[0].Buttons[8].Click += CAD_Click_MakeTransparent;
+            viewportLayout1.ToolBars[0].Buttons[9].Click += CAD_Click_RestoreColours;
             viewportLayout1.MultipleSelection = true;
             viewportLayout1.ShowLoad = true;
             viewportLayout1.AskForHardwareAcceleration = false;
@@ -260,6 +261,8 @@ namespace Coding_Attempt_with_GUI
             InitializeLegendDataTable();
         }
         #endregion
+
+
 
         #region Usercontrol Load Event
 
@@ -3218,6 +3221,14 @@ namespace Coding_Attempt_with_GUI
                     {
                         ///<summary>If the Entity has EntityData then casting that as <see cref="CustomData"/> and storing it into the temporary Object of the <see cref="CustomData"/></summary>
                         tempEntityData = (CustomData)temp_Entity.EntityData;
+
+                        ///<summary>If the <see cref="CustomData"/> of the <see cref="Entity"/> has a Colour with the <see cref="Color.A"/> value as 75 then it means that is transparent and it is being reclicked and hence I want to restore its colour</summary>
+                        if (Color.Equals(temp_Entity.Color, Color.FromArgb(75, tempEntityData.EntityColor))) 
+                        {
+                            temp_Entity.Color = Color.FromArgb(255, tempEntityData.EntityColor);
+                            goto END;
+                        }
+
                     }
                     else
                     {
@@ -3246,7 +3257,7 @@ namespace Coding_Attempt_with_GUI
                     //Color transparentColor = temp_Entity.Color;
                     if (temp_Entity as BlockReference == null)
                     {
-                        temp_Entity.Color = Color.FromArgb(75, temp_Entity.Color);
+                        temp_Entity.Color = Color.FromArgb(75, tempEntityData.EntityColor);
 
                     }
                     else
@@ -3277,6 +3288,7 @@ namespace Coding_Attempt_with_GUI
                     }
                 }
 
+                END:
                 viewportLayout1.Invalidate();
                 viewportLayout1.Update();
                 viewportLayout1.Refresh();
@@ -3353,43 +3365,45 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
         #region Transparency setter methods 
-        /// <summary>
-        /// Event which is fired when the push button of the Tool Bar at 8th index is pushed/unpuhed. If unpushed then all transparent entities are assigned with their colour
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void CAD_Click_MakeTransparent(object sender, EventArgs e)
+        ///// <summary>
+        ///// Event which is fired when the push button of the Tool Bar at 8th index is pushed/unpuhed. If unpushed then all transparent entities are assigned with their colour
+        ///// </summary>
+        ///// <param name="sender"></param>
+        ///// <param name="e"></param>
+        //private void CAD_Click_MakeTransparent(object sender, EventArgs e)
+        //{
+
+        //    if (viewportLayout1.ToolBars[0].Buttons[8].Pushed)
+        //    {
+
+        //    }
+        //    ///<summary>If user is un-toggling the button then it means he/she wants to undo the transparency</summary>
+        //    else if (!viewportLayout1.ToolBars[0].Buttons[8].Pushed)
+        //    {
+
+        //    }
+
+        //}
+
+        void CAD_Click_RestoreColours(object sender, EventArgs e)
         {
-
-            if (viewportLayout1.ToolBars[0].Buttons[8].Pushed)
+            for (int i = 0; i < viewportLayout1.Entities.Count; i++)
             {
-
-            }
-            ///<summary>If user is un-toggling the button then it means he/she wants to undo the transparency</summary>
-            else if (!viewportLayout1.ToolBars[0].Buttons[8].Pushed)
-            {
-                for (int i = 0; i < viewportLayout1.Entities.Count; i++)
+                if (viewportLayout1.Entities[i].EntityData != null)
                 {
-                    if (viewportLayout1.Entities[i].EntityData != null)
-                    {
 
-                        /////<summary>
-                        /////Either the Entity has <see cref="CustomData"/> data defined or temporary <see cref="CustomData"/> defined with only Colour. Either way this data is used to restore the Colour of the Entity and undo the transparency
-                        ///// </summary>
-                        //CustomData tempEntityData = (CustomData)viewportLayout1.Entities[i].EntityData;
-                        //viewportLayout1.Entities[i].ColorMethod = colorMethodType.byEntity;
-                        //viewportLayout1.Entities[i].Color = tempEntityData.EntityColor;
-                        RestoreEntityColour(i);
+                    ///<summary>
+                    ///Restoring the Colours all the Transparent Entities
+                    ///</summary>
+                    RestoreEntityColour(i);
 
 
 
-                    }
                 }
-                viewportLayout1.Invalidate();
-                viewportLayout1.Update();
-                viewportLayout1.Refresh();
             }
-
+            viewportLayout1.Invalidate();
+            viewportLayout1.Update();
+            viewportLayout1.Refresh();
         }
 
         /// <summary>
