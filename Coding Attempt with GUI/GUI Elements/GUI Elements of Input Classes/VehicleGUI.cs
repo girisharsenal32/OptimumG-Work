@@ -73,14 +73,13 @@ namespace Coding_Attempt_with_GUI
         public XtraUserControl_LinkLengths LL = new XtraUserControl_LinkLengths();
         public XtraUserControl_VehicleOutputs VO = new XtraUserControl_VehicleOutputs();
         public XtraUserControl_InputSheet IS = new XtraUserControl_InputSheet(r1);
-        public CAD CADVehicleInputs = new CAD();
-        public CAD CADVehicleOutputs = new CAD();
+        public CAD CADVehicleInputs/* = new CAD()*/;
+        public CAD CADVehicleOutputs/* = new CAD()*/;
         public LegendEditor LoadCaseLegend = new LegendEditor();
         #endregion
 
         #region ImportCAD Form
-        public XUC_ImportCAD importCADForm = new XUC_ImportCAD();
-        public ImportCAD importCAD = new ImportCAD();
+        public XUC_ImportCAD importCADForm/* = new XUC_ImportCAD()*/;
         public bool ImportCADFormInvoked = false;
         public bool PlotWheel = true;
         #endregion
@@ -94,6 +93,7 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
         public bool CadIsTobeImported = false;
+        public VehicleVisualizationType VisualizationType { get; set; }
         public bool FileHasBeenImported = false;
         public bool OutputIGESPlotted = false;
         //public ReadFileAsync ImportedFile;
@@ -113,7 +113,7 @@ namespace Coding_Attempt_with_GUI
                                // If the user wants to save the file without creating a Vehicle object he will not be able to do so unless this constructor is used to create the Vehicle object 
 
 
-        public VehicleGUI(Kinematics_Software_New _r1)
+        public VehicleGUI(Kinematics_Software_New _r1, VehicleVisualizationType _vVisualizationType)
         {
 
             r1 = _r1;
@@ -121,6 +121,20 @@ namespace Coding_Attempt_with_GUI
             ProgressBarVehicleGUI = r1.progressBar;
             //Vehicle_MotionExists = Vehicle.List_Vehicle[Vehicle.VehicleCounter].sc_FL.SuspensionMotionExists;
             IndexOfOutput = 0;
+
+            ///<summary>Constructing the <see cref="CAD"/> usercontrol here to prevent overcrowding the memory by initializing the controls in the declaration itself</summary>
+            if (_vVisualizationType == VehicleVisualizationType.Generic)
+            {
+                CADVehicleInputs = new CAD();
+                CadIsTobeImported = false;
+                VisualizationType = VehicleVisualizationType.Generic;
+            }
+            else if (_vVisualizationType == VehicleVisualizationType.ImportedCAD)
+            {
+                importCADForm = new XUC_ImportCAD();
+                CadIsTobeImported = true;
+                VisualizationType = VehicleVisualizationType.ImportedCAD;
+            }
 
             ocGUI_FL = new OutputClassGUI();
             ocGUI_FR = new OutputClassGUI();
@@ -442,7 +456,7 @@ namespace Coding_Attempt_with_GUI
                 {
                     //vehicleCADDrawer.InitializeEntities();
                     //vehicleCADDrawer.CloneOutputViewPort(vehicleCADDrawer.viewportLayout1,);
-                    vehicleCADDrawer.ClearViewPort(CadIsTobeImported, FileHasBeenImported, Kinematics_Software_New.M1_Global.vehicleGUI[Index].importCADForm.importCADViewport.igesEntities);
+                    vehicleCADDrawer.ClearViewPort(CadIsTobeImported, FileHasBeenImported, null);
                     OutputDrawer(vehicleCADDrawer, Index, _IndexOfOutput, _importCAD, _PlotWheel);
                     if (!IsCreated)
                     {
@@ -661,30 +675,8 @@ namespace Coding_Attempt_with_GUI
                 ///<summary>Creating a temporary Output Class Variable which will hold the Max and Min Values collated from ALL THE 4 CORNERS</summary>
                 OutputClass MasterOC = new OutputClass();
                 MasterOC = MasterOC.PopulateForceLists(Vehicle.List_Vehicle[VehicleIndex].oc_FL[OutputIndex], Vehicle.List_Vehicle[VehicleIndex].oc_FR[OutputIndex], Vehicle.List_Vehicle[VehicleIndex].oc_RL[OutputIndex], Vehicle.List_Vehicle[VehicleIndex].oc_RR[OutputIndex]);
-                /////<summary>Painting the Force Decomposition Arrows</summary>
-                //CADVehicleOutputs.PaintForceDecompArrows(Vehicle.List_Vehicle[VehicleIndex].oc_FL[OutputIndex].scmOP, Vehicle.List_Vehicle[VehicleIndex].oc_FL[OutputIndex], MasterOC, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_FL_Fx,
-                //    Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_FL_Fy + Vehicle.List_Vehicle[VehicleIndex].oc_FL[OutputIndex].CW, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_FL_Fz);
-                //CADVehicleOutputs.PaintForceDecompArrows(Vehicle.List_Vehicle[VehicleIndex].oc_FR[OutputIndex].scmOP, Vehicle.List_Vehicle[VehicleIndex].oc_FR[OutputIndex], MasterOC, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_FR_Fx,
-                //    Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_FR_Fy + Vehicle.List_Vehicle[VehicleIndex].oc_FR[OutputIndex].CW, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_FR_Fz);
-                //CADVehicleOutputs.PaintForceDecompArrows(Vehicle.List_Vehicle[VehicleIndex].oc_RL[OutputIndex].scmOP, Vehicle.List_Vehicle[VehicleIndex].oc_RL[OutputIndex], MasterOC, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RL_Fx,
-                //    Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RL_Fy + Vehicle.List_Vehicle[VehicleIndex].oc_RL[OutputIndex].CW, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RL_Fz);
-                //CADVehicleOutputs.PaintForceDecompArrows(Vehicle.List_Vehicle[VehicleIndex].oc_RR[OutputIndex].scmOP, Vehicle.List_Vehicle[VehicleIndex].oc_RR[OutputIndex], MasterOC, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RR_Fx,
-                //    Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RR_Fy + Vehicle.List_Vehicle[VehicleIndex].oc_RR[OutputIndex].CW, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_RR_Fz);
-
-                /////<summary>Painting the Force Decomposition Arrows - Bearing Cap Forces</summary>
-                //CADVehicleOutputs.PaintForceBearingDecompArrows(Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.FL_BearingCoordinates, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.FR_BearingCoordinates, false, true, false,
-                //                                                ForcePLeft, ForceQLeft, ForcePRight, ForceQRight, MasterOC);
-                //CADVehicleOutputs.PaintForceBearingDecompArrows(Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.FL_BearingCoordinates, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.FR_BearingCoordinates, false, false, false,
-                //                                                ForcePLeft, ForceQLeft, ForcePRight, ForceQRight, MasterOC);
-                //CADVehicleOutputs.PaintForceBearingDecompArrows(Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.RL_BearingCoordinates, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.RR_BearingCoordinates, false, true, false,
-                //                                                ForcePLeft, ForceQLeft, ForcePRight, ForceQRight, MasterOC);
-                //CADVehicleOutputs.PaintForceBearingDecompArrows(Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.SteeringColumnBearing, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.SteeringColumnBearing, false, true, true,
-                //                                                ForcePLeft, new Vector3D(), ForcePRight, new Vector3D(), MasterOC);
 
                 LoadCaseLegend.InitializeLegendEditor(MasterOC, CADVehicleOutputs);
-
-                ///<summary>At this stage Colours passed can be anything because it will always initialize with Standard FEM Style </summary>
-                //CADVehicleOutputs.PostProcessing(MasterOC, Color.Firebrick, Color.Ivory, 0, 0);
 
                 CADVehicleOutputs.PaintBarForce();
 
@@ -859,4 +851,11 @@ namespace Coding_Attempt_with_GUI
         } 
         #endregion
     }
+
+    public enum VehicleVisualizationType
+    {
+        Generic,
+        ImportedCAD
+    }
+
 }

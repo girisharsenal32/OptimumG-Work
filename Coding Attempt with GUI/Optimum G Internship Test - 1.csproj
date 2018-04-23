@@ -235,13 +235,6 @@
     <Compile Include="GUI Elements\Graphics\CAD Auxillaries\Arrow Force.Designer.cs">
       <DependentUpon>Arrow Force.cs</DependentUpon>
     </Compile>
-    <Compile Include="Import CAD\ImportCADForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Import CAD\ImportCADForm.Designer.cs">
-      <DependentUpon>ImportCADForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Import CAD\ImportCAD.cs" />
     <Compile Include="Load Cases\Basic Load Case\LoadCase.cs" />
     <Compile Include="Load Cases\Basic Load Case\LoadCaseGUI.cs" />
     <Compile Include="Motion\Motion.cs" />
@@ -549,9 +542,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI Elements\Graphics\CAD Auxillaries\Arrow Force.resx">
       <DependentUpon>Arrow Force.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Import CAD\ImportCADForm.resx">
-      <DependentUpon>ImportCADForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\About.resx">
       <DependentUpon>About.cs</DependentUpon>

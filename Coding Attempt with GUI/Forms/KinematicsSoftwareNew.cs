@@ -5855,16 +5855,16 @@ namespace Coding_Attempt_with_GUI
 
         private void barButtonVehicleItem_ItemClick(object sender, ItemClickEventArgs e)
         {
-            CreateNewVehicleItem(false);
+            CreateNewVehicleItem(/*false*/ VehicleVisualizationType.Generic);
         }
 
         private void barButtonImportVehicleModel_ItemClick(object sender, ItemClickEventArgs e)
         {
-            CreateNewVehicleItem(true);
+            CreateNewVehicleItem(/*true*/ VehicleVisualizationType.ImportedCAD);
             VehicleGUI.InitializeImportCADForm(this);
         }
 
-        public void CreateNewVehicleItem(bool _calledByImportVehicleButton)
+        public void CreateNewVehicleItem(/*bool _calledByImportVehicleButton*/VehicleVisualizationType vVisualizationType)
         {
             #region GUI
             gridControl2.Hide();
@@ -5900,16 +5900,17 @@ namespace Coding_Attempt_with_GUI
                 if (Vehicle.VehicleCounter == l_vehicle)
                 {
                     M1_Global.vehicleGUI.Insert(l_vehicle, new VehicleGUI());
-                    M1_Global.vehicleGUI[l_vehicle] = new VehicleGUI(this);
+                    M1_Global.vehicleGUI[l_vehicle] = new VehicleGUI(this, vVisualizationType);
 
-                    if (_calledByImportVehicleButton)
-                    {
-                        M1_Global.vehicleGUI[l_vehicle].CadIsTobeImported = true; 
-                    }
-                    else
-                    {
-                        M1_Global.vehicleGUI[l_vehicle].CadIsTobeImported = false;
-                    }
+                    //if (/*_calledByImportVehicleButton*/vVisualizationType == VehicleVisualizationType.ImportedCAD)
+                    //{
+                    //    M1_Global.vehicleGUI[l_vehicle].CadIsTobeImported = true; 
+                    //}
+                    //else if (vVisualizationType == VehicleVisualizationType.Generic)
+                    //{
+                    //    M1_Global.vehicleGUI[l_vehicle].CadIsTobeImported = false;
+                    //}
+
                     try
                     {
                         #region Assembling the Vehicle and creating a Vehicle Item
@@ -8545,6 +8546,9 @@ namespace Coding_Attempt_with_GUI
 
                 TabControl_Outputs = CustomXtraTabPage.ClearTabPages(TabControl_Outputs, M1_Global.vehicleGUI[VIndex].TabPages_Vehicle);
 
+                ///<summary>Constructing the Output <see cref="CAD"/> usercontrol here to prevent overcrowding the memory by initializing the controls in the declaration itself</summary>
+                M1_Global.vehicleGUI[VIndex].CADVehicleOutputs = new CAD();
+
                 M1_Global.vehicleGUI[VIndex].TabPages_Vehicle = M1_Global.vehicleGUI[VIndex].CreateTabPages_For_Vehicle_Outputs(M1_Global.vehicleGUI[VIndex].TabPages_Vehicle, this, Vehicle.List_Vehicle[VIndex].VehicleID);
 
                 #region Reseting the corner weights, ride height and deflections inside the Assmebled Vehicle to the values that were calculated after the initial calculationd
@@ -8625,6 +8629,9 @@ namespace Coding_Attempt_with_GUI
 
             PopulateOutputDataTable(Vehicle.Assembled_Vehicle);
 
+            /////<summary>Constructing the Output <see cref="CAD"/> usercontrol here to prevent overcrowding the memory by initializing the controls in the declaration itself</summary>
+            //M1_Global.vehicleGUI[VIndex].CADVehicleOutputs = new CAD();
+
             TabControl_Outputs = CustomXtraTabPage.AddTabPages(TabControl_Outputs, M1_Global.vehicleGUI[Vehicle.Assembled_Vehicle.VehicleID - 1].TabPages_Vehicle);
 
             DisplayOutputs(Vehicle.Assembled_Vehicle);
@@ -8635,10 +8642,10 @@ namespace Coding_Attempt_with_GUI
 
             PopulateInputSheet(Vehicle.Assembled_Vehicle);
 
-            M1_Global.vehicleGUI[VIndex].CADVehicleOutputs.openFileDialog1 = M1_Global.vehicleGUI[VIndex].CADVehicleInputs.openFileDialog1;
-            M1_Global.vehicleGUI[VIndex].CADVehicleOutputs.igesEntities = M1_Global.vehicleGUI[VIndex].importCADForm.importCADViewport.igesEntities;
-            M1_Global.vehicleGUI[VIndex].CADVehicleOutputs.openFileDialog1 = new OpenFileDialog();
-            M1_Global.vehicleGUI[VIndex].CADVehicleOutputs.viewportLayout1.Clear();
+            //M1_Global.vehicleGUI[VIndex].CADVehicleOutputs.openFileDialog1 = M1_Global.vehicleGUI[VIndex].CADVehicleInputs.openFileDialog1;
+            //M1_Global.vehicleGUI[VIndex].CADVehicleOutputs.igesEntities = M1_Global.vehicleGUI[VIndex].importCADForm.importCADViewport.igesEntities;
+            //M1_Global.vehicleGUI[VIndex].CADVehicleOutputs.openFileDialog1 = new OpenFileDialog();
+            //M1_Global.vehicleGUI[VIndex].CADVehicleOutputs.viewportLayout1.Clear();
             M1_Global.vehicleGUI[VIndex].OutputIGESPlotted = false;
             M1_Global.vehicleGUI[VIndex].TranslateChassisToGround = false;
             M1_Global.vehicleGUI[VIndex].ImportedCADTranslationHistory = new List<double>(new double[] { 0, 0 });
@@ -8719,137 +8726,6 @@ namespace Coding_Attempt_with_GUI
                 bool Proceed;
                 ///<summary>Performing the preliminary Vehicle check operations</summary>
                 Proceed = PreliminaryVehicleChecks();
-                #region ---DELETE EVENTUALLY---
-                //if (Vehicle.VehicleCounter != 0 && Simulation.SimulationCounter != 0)
-                //{
-                //    SimulationIndex = navBarGroupSimulation.SelectedLinkIndex;
-                //    ///<summary>
-                //    ///Passing the selected Simulation's Vehicle to temporary Vehicle object to solve. 
-                //    /// </summary>
-                //    Vehicle.Assembled_Vehicle = Simulation.List_Simulation[SimulationIndex].Simulation_Vehicle;
-                //    index = Vehicle.Assembled_Vehicle.VehicleID - 1;
-
-                //    ///<summary>Validating the Vehicle</summary>
-                //    if (!Vehicle.Assembled_Vehicle.ValidateAssembly(out ErrorMessage))
-                //    {
-                //        MessageBox.Show(ErrorMessage);
-                //        return;
-                //    }
-
-                //    ///<summary>
-                //    ///Passing the selected Simulation's Load Case to temporary Vehicle object to solve. 
-                //    /// </summary>
-                //    Vehicle.Assembled_Vehicle.vehicleLoadCase = new LoadCase();
-                //    Vehicle.Assembled_Vehicle.vehicleLoadCase = Simulation.List_Simulation[SimulationIndex].Simulation_LoadCase;
-                //    ///<summary>Passing the selected Simulation's Setup Change object to the temporary Vehicle object to solve</summary>
-                //    Vehicle.Assembled_Vehicle.vehicleSetupChange = Simulation.List_Simulation[SimulationIndex].Simulation_SetupChange;
-
-                //    Vehicle.Assembled_Vehicle.Vehicle_Results_Tracker = 0;Vehicle.Assembled_Vehicle.SuspensionIsSolved = false;
-
-                //    #region IF Loops to safeguard the calculations
-                //    ///<summary>
-                //    ///Passing the selected Simulation's Motion to temporary Vehicle object to solve. 
-                //    /// </summary>
-                //    if (Simulation.List_Simulation[SimulationIndex].Simulation_Vehicle.sc_FL.SuspensionMotionExists && Simulation.List_Simulation[SimulationIndex].Simulation_Motion != null)
-                //    {
-                //        Vehicle.Assembled_Vehicle.vehicle_Motion = Simulation.List_Simulation[SimulationIndex].Simulation_Motion;
-                //    }
-                //    else if (Simulation.List_Simulation[SimulationIndex].Simulation_Vehicle.sc_FL.SuspensionMotionExists && Simulation.List_Simulation[SimulationIndex].Simulation_Motion == null)
-                //    {
-                //        MessageBox.Show("Motion not created");
-                //        return;
-                //    }
-                //    if (Vehicle.Assembled_Vehicle.vehicle_Motion == null)
-                //    {
-                //        Vehicle.Assembled_Vehicle.InitializeOutputClass(NoOfSteps);
-
-                //    }
-                //    else if (Vehicle.Assembled_Vehicle.vehicle_Motion != null)
-                //    {
-                //        if (Vehicle.Assembled_Vehicle.vehicle_Motion.Final_WheelDeflectionsX.Count != 0) 
-                //        {
-                //            NoOfSteps = Vehicle.Assembled_Vehicle.vehicle_Motion.Final_WheelDeflectionsX.Count;
-                //            Vehicle.Assembled_Vehicle.InitializeOutputClass(NoOfSteps);
-                //        }
-                //        else
-                //        {
-                //            ErrorMessage = "Motion Not Defined";
-                //            MessageBox.Show(ErrorMessage);
-                //            return;
-                //        }
-
-                //    } 
-                //    #endregion
-
-                //    ///<summary>
-                //    ///Calculating the Corner Weights of the Chassis using the Vehicle Model 
-                //    /// </summary>
-                //    Vehicle.Assembled_Vehicle.ChassisCornerMassCalculator();
-                //    ///<summary>
-                //    ///Calculating the Load Case Loads. Since Load Case is initialized in the as <c>public LoadCase vehicleLoadCase = new LoadCase()</c> it will never be null
-                //    ///</summary>
-                //    Vehicle.Assembled_Vehicle.vehicleLoadCase.ComputeWheelLoads(Vehicle.Assembled_Vehicle);
-
-                //    progressBar = ProgressBarSerialization.CreateProgressBar(progressBar, 800, 1);
-                //    progressBar.AddProgressBarToRibbonStatusBar(this, progressBar);
-                //    M1_Global.vehicleGUI[index].ProgressBarVehicleGUI = progressBar;
-                //    M1_Global.vehicleGUI[index].ProgressBarVehicleGUI.Show();
-
-                //    #region Coloring the Corner Weight and Pushrod Length Textboxes White
-                //    M1_Global.vehicleGUI[index].LL.PushRodLinkLengthFL.BackColor = Color.White;
-                //    M1_Global.vehicleGUI[index].CW_Def_WA.CWFL.BackColor = Color.White;
-
-                //    M1_Global.vehicleGUI[index].LL.PushRodLinkLengthFR.BackColor = Color.White;
-                //    M1_Global.vehicleGUI[index].CW_Def_WA.CWFR.BackColor = Color.White;
-
-                //    M1_Global.vehicleGUI[index].LL.PushRodLinkLengthRL.BackColor = Color.White;
-                //    M1_Global.vehicleGUI[index].CW_Def_WA.CWRL.BackColor = Color.White;
-
-
-                //    M1_Global.vehicleGUI[index].LL.PushRodLinkLengthRR.BackColor = Color.White;
-                //    M1_Global.vehicleGUI[index].CW_Def_WA.CWRR.BackColor = Color.White;
-                //    #endregion
-
-
-                //    Vehicle.Assembled_Vehicle.vehicleGUI = M1_Global.vehicleGUI[index];
-
-                //    TabControl_Outputs = CustomXtraTabPage.ClearTabPages(TabControl_Outputs, M1_Global.vehicleGUI[index].TabPages_Vehicle);
-
-                //    M1_Global.vehicleGUI[index].TabPages_Vehicle = M1_Global.vehicleGUI[index].CreateTabPages_For_Vehicle_Outputs(M1_Global.vehicleGUI[index].TabPages_Vehicle, this, Vehicle.List_Vehicle[index].VehicleID);
-
-                //    #region Reseting the corner weights, ride height and deflections inside the Assmebled Vehicle to the values that were calculated after the initial calculationd
-                //    for (int i_reset = 0; i_reset < Vehicle.Assembled_Vehicle.oc_FL.Count; i_reset++)
-                //    {
-                //        Vehicle.Assembled_Vehicle.Reset_CornerWeights(Vehicle.Assembled_Vehicle.oc_FL[i_reset].CW_1, Vehicle.Assembled_Vehicle.oc_FR[i_reset].CW_1, Vehicle.Assembled_Vehicle.oc_RL[i_reset].CW_1, Vehicle.Assembled_Vehicle.oc_RR[i_reset]. CW_1,i_reset); 
-                //    }
-                //    Vehicle.Assembled_Vehicle.Reset_PushrodLengths();
-                //    Vehicle.Assembled_Vehicle.Reset_RideHeight();
-                //    Vehicle.Assembled_Vehicle.Reset_Deflections();
-                //    #endregion
-
-                //    #region Clearing the Output Class to eliminate any chances of residue
-                //    M1_Global.Assy_OC[0].Clear();
-                //    M1_Global.Assy_OC[1].Clear();
-                //    M1_Global.Assy_OC[2].Clear();
-                //    M1_Global.Assy_OC[3].Clear();
-                //    #endregion
-
-                //}
-
-                //else
-                //{
-                //    progressBar.Hide();
-                //    ErrorMessage = "User has not selected Vehicle item for Simulation";
-                //    MessageBox.Show(ErrorMessage);
-                //    return;
-                //} 
-                #endregion
-
-                #region ---DELETE EVENTUALLY---
-                //Vehicle.Assembled_Vehicle.KinematicsInvoker(Simulation.List_Simulation[SimulationIndex].Simulation_Vehicle.sc_FL.SuspensionMotionExists);
-                //Vehicle.Assembled_Vehicle.VehicleOutputs(NoOfSteps);
-                //Vehicle.Assembled_Vehicle.Vehicle_Results_Tracker = 1; 
-                #endregion
 
                 ///<summary>Solving the Vehicle's Kinematics</summary>
                 if (Proceed)
@@ -8862,73 +8738,6 @@ namespace Coding_Attempt_with_GUI
                     return;
                 }
 
-
-                #region ---DELETE EVENTUALLY
-                //FindOutPutIndex(0);
-
-                //Button_Recalculate_Enabler();
-
-                //PopulateOutputDataTable(Vehicle.Assembled_Vehicle);
-
-                //TabControl_Outputs = CustomXtraTabPage.AddTabPages(TabControl_Outputs, M1_Global.vehicleGUI[Vehicle.Assembled_Vehicle.VehicleID - 1].TabPages_Vehicle);
-
-                //DisplayOutputs(Vehicle.Assembled_Vehicle);
-
-                //M1_Global.vehicleGUI[VIndex].PopulateSuspensionGridControl(this, M1_Global.vehicleGUI[VIndex], Vehicle.Assembled_Vehicle, OutputIndex);
-
-                //Results_NavBarOerations(Vehicle.Assembled_Vehicle);
-
-                //PopulateInputSheet(Vehicle.Assembled_Vehicle);
-
-                //M1_Global.vehicleGUI[VIndex].CADVehicleOutputs.openFileDialog1 = M1_Global.vehicleGUI[VIndex].CADVehicleInputs.openFileDialog1;
-                //M1_Global.vehicleGUI[VIndex].CADVehicleOutputs.igesEntities = M1_Global.vehicleGUI[VIndex].CADVehicleInputs.igesEntities;
-
-
-                //M1_Global.vehicleGUI[VIndex].EditORCreateVehicleCAD(M1_Global.vehicleGUI[VIndex].CADVehicleOutputs, VIndex, false, M1_Global.vehicleGUI[VIndex].Vehicle_MotionExists, 0, false, M1_Global.vehicleGUI[VIndex].CadIsTobeImported, M1_Global.vehicleGUI[VIndex].PlotWheel);
-
-                ////Vehicle temp_Vehicle = new Vehicle();
-
-                ////temp_Vehicle = Vehicle.Assembled_Vehicle;
-
-                ////Vehicle.List_Vehicle[VIndex] = temp_Vehicle;
-
-                //progressBar.Hide();
-
-                //radioButtonTranstoGround.Checked = false;
-                //radioButtonTransToCS.Checked = false;
-
-                //ChangeTracker++;
-
-                //try
-                //{
-                //    ribbon.SelectedPage = ribbonPageResults;
-                //    navBarControl1.ActiveGroup = navBarGroupResults;
-                //    navBarControlResults.ActiveGroup = navBarControlResults.Groups[M1_Global.vehicleGUI[VIndex].navBarGroup_Vehicle_Result.Name];
-                //}
-                //catch (Exception)
-                //{
-
-                //    //Unexpectedly failing sometimes
-
-                //}
-
-                //if (Vehicle.Assembled_Vehicle.vehicle_Motion != null)
-                //{
-                //    ///<remarks>
-                //    ///This line of code exists, so that the Vehicle's Motion Object can be identified in the List of MotionGUI (Motion and MotionGUI have synchronus Lists). Then this MotionGUI object can be used to populate the GridControl of the Motion View. 
-                //    /// </remarks>
-                //    MotionIndex = Vehicle.Assembled_Vehicle.vehicle_Motion.MotionID - 1;
-                //    MotionGUI.List_MotionGUI[MotionIndex].InitializeGridControl_MotionView(VIndex, this);
-
-                //    sidePanel2.Show();
-                //    groupControl13.Show();
-                //    gridControl2.Show();
-                //}
-                //else
-                //{
-                //    sidePanel2.Hide();
-                //} 
-                #endregion
                 if (Proceed)
                 {
                     OutputGUIOperations();
@@ -8966,6 +8775,7 @@ namespace Coding_Attempt_with_GUI
 
         #endregion
 
+        #region Setup Change Events
         private void barButtonRunSetupChange_ItemClick(object sender, ItemClickEventArgs e)
         {
             ///<summary>Boolean to check if the the code has suceeded and the software can proceed or if the code has to be stopped with an error message displayed to the user </summary>
@@ -9022,7 +8832,8 @@ namespace Coding_Attempt_with_GUI
             ChangeTracker++;
 
             progressBar.Hide();
-        }
+        } 
+        #endregion
 
         #region Translator invoker methods
         private void OutputOriginZ_TextChanged(object sender, EventArgs e)
@@ -11421,9 +11232,6 @@ namespace Coding_Attempt_with_GUI
 
                     PopulateInputSheet(Vehicle.List_Vehicle[i_RecreareResults]);
 
-                    //M1_Global.vehicleGUI[i_RecreareResults].CADVehicleInputs.openFileDialog1.FileName = M1_Global.vehicleGUI[i_RecreareResults].IGESFIleName;
-                    //M1_Global.vehicleGUI[i_RecreareResults].CADVehicleOutputs.openFileDialog1.FileName = M1_Global.vehicleGUI[i_RecreareResults].IGESFIleName;
-
                     if (M1_Global.vehicleGUI[i_RecreareResults].CadIsTobeImported)
                     {
                         M1_Global.vehicleGUI[i_RecreareResults].CADVehicleOutputs.CloneImportedCAD(ref M1_Global.vehicleGUI[i_RecreareResults].FileHasBeenImported, ref M1_Global.vehicleGUI[i_RecreareResults].CadIsTobeImported, true,
@@ -12476,18 +12284,23 @@ namespace Coding_Attempt_with_GUI
             return R1;
         }
 
-        //private void barButtonUserManual_ItemClick(object sender, ItemClickEventArgs e)
-        //{
-        //    try
-        //    {
-        //        System.Diagnostics.Process.Start(@".\User Manual Weekly Deliverable.pdf");
-        //    }
-        //    catch (Exception)
-        //    {
+        /// <summary>
+        /// Don't delete. Try to make this work 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void barButtonUserManual_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            //try
+            //{
+            //    System.Diagnostics.Process.Start(@".\User Manual Weekly Deliverable.pdf");
+            //}
+            //catch (Exception)
+            //{
 
-        //        MessageBox.Show("File not found");
-        //    }
-        //}
+            //    MessageBox.Show("File not found");
+            //}
+        }
 
     }
 }
