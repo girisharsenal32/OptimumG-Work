@@ -252,8 +252,8 @@ namespace Coding_Attempt_with_GUI
         private void InitializationCodes()
         {
             viewportLayout1.ToolBars[0].Buttons[7].Click += CAD_Click_EditLegend;
-            //viewportLayout1.ToolBars[0].Buttons[8].Click += CAD_Click_MakeTransparent;
             viewportLayout1.ToolBars[0].Buttons[9].Click += CAD_Click_RestoreColours;
+            viewportLayout1.Rendered.SilhouettesDrawingMode = silhouettesDrawingType.Never;
             viewportLayout1.MultipleSelection = true;
             viewportLayout1.ShowLoad = true;
             viewportLayout1.AskForHardwareAcceleration = false;
@@ -770,14 +770,18 @@ namespace Coding_Attempt_with_GUI
                 }
             }
 
-            //foreach (string blockName in _inputViewport.Blocks.Keys)
-            //{
             for (int i = 0; i < _inputViewport.Blocks.Count; i++)
             {
-                //_outputViewPort.Blocks.Add(_inputViewport.Blocks[i].Name, (Block)_inputViewport.Blocks[i].Clone());
                 _outputViewPort.Blocks.Add((Block)_inputViewport.Blocks[i].Clone());
             }
-            //}
+            
+            for (int i = 0; i < _inputViewport.Entities.Count; i++)
+            {
+                if (_inputViewport.Entities[i] is BlockReference)
+                {
+                    _outputViewPort.Entities.Add((Entity)_inputViewport.Entities[i].Clone());
+                }
+            }
 
         }
         #endregion
@@ -3267,10 +3271,17 @@ namespace Coding_Attempt_with_GUI
                         }
                         else
                         {
-                            temp_Entity.ColorMethod = colorMethodType.byParent;
-                            temp_Entity.Color = Color.Transparent;
-                            BlockReference f = temp_Entity as BlockReference;
-                            f.Color = Color.Transparent;
+                            BlockReference tempRef = viewportLayout1.Entities[entityIndex] as BlockReference;
+
+                            tempRef.ColorMethod = colorMethodType.byEntity;
+
+                            Block tempBlock = viewportLayout1.Blocks[tempRef.BlockName];
+
+                            for (int i = 0; i < tempBlock.Entities.Count; i++)
+                            {
+                                tempBlock.Entities[i].ColorMethod = colorMethodType.byParent;
+                                tempBlock.Entities[i].Color = Color.Transparent;
+                            }
 
                         }
                         ///<summary>Re-storing the <see cref="CustomData"/> of the Entity into the Entity itself</summary>
@@ -3303,7 +3314,7 @@ namespace Coding_Attempt_with_GUI
                 else if (entityIndex == -1)
                 {
                     Kinematics_Software_New.GraphicsCoordinatesHide();
-                    //ClearSelection();
+                    ClearSelection();
                 } 
             }
         }

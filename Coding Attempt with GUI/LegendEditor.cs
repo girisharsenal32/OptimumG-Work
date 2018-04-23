@@ -290,6 +290,12 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         private void ResetLegend()
         {
+            ///<summary>Resetting the <see cref="NoOfSteps"/> and the <see cref="StepSize"/> to because thats how the default legend is created</summary>
+            NoOfSteps = 0;
+            StepSize = 0;
+            textBoxNoOfSteps.Clear();
+            textBoxStepSize.Clear();
+            ///<summary>Calling the <see cref="CAD.PostProcessing(LegendEditor, OutputClass, Color, Color, GradientStyle, int, double)"/> method. This method is what initializes the Legend and hence it is use to reset it</summary>
             ParentCAD.PostProcessing(this, BaseOC, UsersGradient1, UsersGradient2, UsersGradientStyle, NoOfSteps, StepSize);
             GridControlConditioning_SetDataSource();
         }

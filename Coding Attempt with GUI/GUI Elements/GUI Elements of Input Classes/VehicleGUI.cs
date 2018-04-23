@@ -694,16 +694,16 @@ namespace Coding_Attempt_with_GUI
                 ///<summary>This method exists to ensure that the Imported FIles are not recloned everytime the user selects a different Motion Percentage from the Motion View Grid</summary>
                 if (_importCAD && !OutputIGESPlotted)
                 {
-                    try
-                    {
-                        vehicleCADDrawer_Output.CloneImportedCAD(ref FileHasBeenImported, ref CadIsTobeImported, true, Kinematics_Software_New.M1_Global.vehicleGUI[VehicleIndex].importCADForm.importCADViewport.igesEntities);
-                        IGESFIleName = vehicleCADDrawer_Output.openFileDialog1.FileName;
-                        OutputIGESPlotted = true;
-                    }
-                    catch (Exception E)
-                    {
-                        string error = E.Message;
-                    }
+                    //try
+                    //{
+                    //    vehicleCADDrawer_Output.CloneImportedCAD(ref FileHasBeenImported, ref CadIsTobeImported, true, Kinematics_Software_New.M1_Global.vehicleGUI[VehicleIndex].importCADForm.importCADViewport.igesEntities);
+                    //    IGESFIleName = vehicleCADDrawer_Output.openFileDialog1.FileName;
+                    //    OutputIGESPlotted = true;
+                    //}
+                    //catch (Exception E)
+                    //{
+                    //    string error = E.Message;
+                    //}
                 }
 
                 ///<summary>This Loop exists to allow the imported files to be translated around the Suspension  </summary>
