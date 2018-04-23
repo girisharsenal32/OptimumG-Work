@@ -34,7 +34,7 @@ using devDept.Geometry;
 
 namespace Coding_Attempt_with_GUI
 {
-    
+
     public partial class Kinematics_Software_New : RibbonForm
     {
         #region Initialization of the Form and ObjectInitializer Class's Object
@@ -91,7 +91,7 @@ namespace Coding_Attempt_with_GUI
             InputOriginY.Text = Convert.ToString(60);
         }
 
-        
+
 
         #endregion
 
@@ -123,7 +123,7 @@ namespace Coding_Attempt_with_GUI
         #region Form Load Event
         private void Kinematics_Software_New_Load(object sender, EventArgs e)
         {
-            
+
             DoubleWishboneFront_VehicleGUI = 1;
             DoubleWishboneRear_VehicleGUI = 1;
 
@@ -290,7 +290,7 @@ namespace Coding_Attempt_with_GUI
                 #endregion
 
             }
-        } 
+        }
         #endregion
 
         #region GUI Code to copy the Left coordinates to the Right and vice versa
@@ -300,7 +300,7 @@ namespace Coding_Attempt_with_GUI
         public bool RearSymmetry = true;
         #endregion
 
-        
+
         public void CopyFrontLeftTOFrontRight()
         {
             int index = navBarGroupSuspensionFL.SelectedLinkIndex;
@@ -329,10 +329,10 @@ namespace Coding_Attempt_with_GUI
                 {
                     indexRowLeft += 5;
                 }
-                else indexRowLeft+=4;
-                indexRowRight ++;
+                else indexRowLeft += 4;
+                indexRowRight++;
                 SuspensionCoordinatesFrontRight.Assy_List_SCFR[index].SCFRDataTable.Rows[indexRowRight].SetField<double>("X (mm)", SuspensionCoordinatesFront.Assy_List_SCFL[index].SCFLDataTable.Rows[indexRowLeft].Field<double>(1));
-                indexRowLeft++;indexRowRight++;
+                indexRowLeft++; indexRowRight++;
                 SuspensionCoordinatesFrontRight.Assy_List_SCFR[index].SCFRDataTable.Rows[indexRowRight].SetField<double>("X (mm)", SuspensionCoordinatesFront.Assy_List_SCFL[index].SCFLDataTable.Rows[indexRowLeft].Field<double>(1));
                 indexRowLeft++; indexRowRight++;
                 SuspensionCoordinatesFrontRight.Assy_List_SCFR[index].SCFRDataTable.Rows[indexRowRight].SetField<double>("X (mm)", SuspensionCoordinatesFront.Assy_List_SCFL[index].SCFLDataTable.Rows[indexRowLeft].Field<double>(1));
@@ -362,7 +362,7 @@ namespace Coding_Attempt_with_GUI
                 #endregion
 
                 #region Copying the Lateral Coordinates
-                indexRowLeft=0; indexRowRight=0;
+                indexRowLeft = 0; indexRowRight = 0;
                 SuspensionCoordinatesFrontRight.Assy_List_SCFR[index].SCFRDataTable.Rows[indexRowRight].SetField<double>("Y (mm)", -SuspensionCoordinatesFront.Assy_List_SCFL[index].SCFLDataTable.Rows[indexRowLeft].Field<double>(2));
                 indexRowLeft++; indexRowRight++;
 
@@ -414,7 +414,7 @@ namespace Coding_Attempt_with_GUI
                 #endregion
 
                 #region Copying the Vertical Coordinates
-                indexRowLeft=0; indexRowRight=0;
+                indexRowLeft = 0; indexRowRight = 0;
                 SuspensionCoordinatesFrontRight.Assy_List_SCFR[index].SCFRDataTable.Rows[indexRowRight].SetField<double>("Z (mm)", SuspensionCoordinatesFront.Assy_List_SCFL[index].SCFLDataTable.Rows[indexRowLeft].Field<double>(3));
                 indexRowLeft++; indexRowRight++;
                 SuspensionCoordinatesFrontRight.Assy_List_SCFR[index].SCFRDataTable.Rows[indexRowRight].SetField<double>("Z (mm)", SuspensionCoordinatesFront.Assy_List_SCFL[index].SCFLDataTable.Rows[indexRowLeft].Field<double>(3));
@@ -474,7 +474,7 @@ namespace Coding_Attempt_with_GUI
                 #region Copying coordinates for McPherson
 
                 #region Copying Longitudinal Coordinates
-                indexRowLeft=0; indexRowRight=0;
+                indexRowLeft = 0; indexRowRight = 0;
                 SuspensionCoordinatesFrontRight.Assy_List_SCFR[index].SCFRDataTable.Rows[indexRowRight].SetField<double>("X (mm)", SuspensionCoordinatesFront.Assy_List_SCFL[index].SCFLDataTable.Rows[indexRowLeft].Field<double>(1));
                 indexRowLeft++; indexRowRight++;
                 SuspensionCoordinatesFrontRight.Assy_List_SCFR[index].SCFRDataTable.Rows[indexRowRight].SetField<double>("X (mm)", SuspensionCoordinatesFront.Assy_List_SCFL[index].SCFLDataTable.Rows[indexRowLeft].Field<double>(1));
@@ -507,7 +507,7 @@ namespace Coding_Attempt_with_GUI
                 #endregion
 
                 #region Copying Lateral Coordinates
-                indexRowLeft=0; indexRowRight=0;
+                indexRowLeft = 0; indexRowRight = 0;
                 SuspensionCoordinatesFrontRight.Assy_List_SCFR[index].SCFRDataTable.Rows[indexRowRight].SetField<double>("Y (mm)", -SuspensionCoordinatesFront.Assy_List_SCFL[index].SCFLDataTable.Rows[indexRowLeft].Field<double>(2));
                 indexRowLeft++; indexRowRight++;
                 SuspensionCoordinatesFrontRight.Assy_List_SCFR[index].SCFRDataTable.Rows[indexRowRight].SetField<double>("Y (mm)", -SuspensionCoordinatesFront.Assy_List_SCFL[index].SCFLDataTable.Rows[indexRowLeft].Field<double>(2));
@@ -540,7 +540,7 @@ namespace Coding_Attempt_with_GUI
                 #endregion
 
                 #region Copying Vertical Coordinates
-                indexRowLeft=0; indexRowRight=0;
+                indexRowLeft = 0; indexRowRight = 0;
                 SuspensionCoordinatesFrontRight.Assy_List_SCFR[index].SCFRDataTable.Rows[indexRowRight].SetField<double>("Z (mm)", SuspensionCoordinatesFront.Assy_List_SCFL[index].SCFLDataTable.Rows[indexRowLeft].Field<double>(3));
                 indexRowLeft++; indexRowRight++;
                 SuspensionCoordinatesFrontRight.Assy_List_SCFR[index].SCFRDataTable.Rows[indexRowRight].SetField<double>("Z (mm)", SuspensionCoordinatesFront.Assy_List_SCFL[index].SCFLDataTable.Rows[indexRowLeft].Field<double>(3));
@@ -580,7 +580,7 @@ namespace Coding_Attempt_with_GUI
 
             ModifyFrontRightSuspension(true, index);
 
- 
+
         }
 
         public void CopyRearRightTORearLeft()
@@ -735,7 +735,7 @@ namespace Coding_Attempt_with_GUI
 
             ModifyRearLeftSuspension(true, index);
 
- 
+
         }
 
         public void CopyRearLeftTOReaRight()
@@ -891,7 +891,7 @@ namespace Coding_Attempt_with_GUI
             ModifyRearRightSuspension(true, index);
         }
 
-        
+
         public void CopyFrontRightTOFrontLeft()
         {
             int index = navBarGroupSuspensionFR.SelectedLinkIndex;
@@ -1184,7 +1184,7 @@ namespace Coding_Attempt_with_GUI
             S1.Reset();
             S1.Show();
             ChangeTracker++;
-        } 
+        }
         #endregion
 
         #region GUI operations to change the values of Labels, Textboxes when McPherson, TARB or Pullrod is selected.
@@ -1211,7 +1211,7 @@ namespace Coding_Attempt_with_GUI
             #region GUI operations for Front McPherson
             else if (McPhersonFront == 1)
             {
-               if (McPhersonRear == 1)
+                if (McPhersonRear == 1)
                 {
                     barButtonActuationType.Enabled = false;
                     barButtonAntiRollBarType.Enabled = false;
@@ -1268,7 +1268,7 @@ namespace Coding_Attempt_with_GUI
 
             UARBFront_VehicleGUI = UARBFront; TARBFront_VehicleGUI = TARBFront;
             UARBRear_VehicleGUI = UARBRear; TARBRear_VehicleGUI = TARBRear;
-            
+
         }
 
         #endregion
@@ -1299,7 +1299,7 @@ namespace Coding_Attempt_with_GUI
             TabControl_Outputs.CloseButtonClick += new EventHandler(TabControl_Outputs_CloseButtonClick);
             TabControl_Outputs.SelectedPageChanged += TabControl_Outputs_SelectedPageChanged;
             TabControl_Outputs.MouseUp += TabControl_Outputs_MouseUp;
-            
+
             TabControl_Outputs.Visible = true;
             TabControl_Outputs.BringToFront();
             TabControl_Outputs.Dock = DockStyle.Fill;
@@ -1321,7 +1321,7 @@ namespace Coding_Attempt_with_GUI
             ///<remarks>
             ///Right now, the issue which the MouseUp event is that if the tab is closed, then still this event is fired for the tabPage which was closed. Which doesn't make sense
             /// </remarks>
-            
+
 
             TabControl_Outputs = sender as CustomXtraTabControl;
             XtraTabHitInfo hitInfo = TabControl_Outputs.CalcHitInfo(e.Location);
@@ -1330,7 +1330,7 @@ namespace Coding_Attempt_with_GUI
 
             if (hitInfo.HitTest == XtraTabHitTest.PageHeader && !TabPageBeingClosed)
             {
-             
+
                 if (!IsBeingOpened)
                 {
                     try
@@ -1499,7 +1499,7 @@ namespace Coding_Attempt_with_GUI
                     {
                         #region GUI
                         ribbon.SelectedPage = ribbonPageSimulation;
-                        
+
                         sidePanel2.Hide();
                         #endregion
                     }
@@ -1540,7 +1540,7 @@ namespace Coding_Attempt_with_GUI
                 catch (Exception)
                 {
 
-                } 
+                }
             }
         }
         private void navBarControl1_MouseDown(object sender, MouseEventArgs e)
@@ -1617,7 +1617,7 @@ namespace Coding_Attempt_with_GUI
             //    #endregion
             //} 
             #endregion
-        } 
+        }
         #endregion
 
         #region NavBarControlResults GUI
@@ -1652,7 +1652,7 @@ namespace Coding_Attempt_with_GUI
                     else
                     {
                         barButtonItemCreateWorksheet.Enabled = false;
-                        
+
                     }
                 }
 
@@ -1950,7 +1950,7 @@ namespace Coding_Attempt_with_GUI
             {
                 if (!IsBeingOpened)
                 {
-                    navBarControl2ActiveGroupOperations(navBarControlDesign.ActiveGroup); 
+                    navBarControl2ActiveGroupOperations(navBarControlDesign.ActiveGroup);
                 }
             }
             catch (Exception)
@@ -1963,7 +1963,7 @@ namespace Coding_Attempt_with_GUI
 
         private void navBarControl2_MouseDown(object sender, MouseEventArgs e)
         {
-        } 
+        }
         #endregion
 
         #region Ribbon GUI
@@ -1995,7 +1995,7 @@ namespace Coding_Attempt_with_GUI
                         navBarGroupResults.Expanded = false;
                         navBarGroupDesign.Visible = true;
                         navBarGroupDesign.Expanded = true;
-                        
+
                         //#endregion
 
                         navBarControl2ActiveGroupOperations(navBarControlDesign.ActiveGroup);
@@ -2004,7 +2004,7 @@ namespace Coding_Attempt_with_GUI
 
                     case "ribbonPageSimulation":
                         #region GUI
-                        
+
                         sidePanel2.Hide();
                         //accordionControlTireStiffness.Hide();
                         //accordionControlSuspensionCoordinatesFL.Hide();
@@ -2067,7 +2067,7 @@ namespace Coding_Attempt_with_GUI
                         {
                             string error = E.Message;
                             //In case the active group is null. This happens when there are no results yet to display
-                        } 
+                        }
                         #endregion
 
                         break;
@@ -2144,7 +2144,7 @@ namespace Coding_Attempt_with_GUI
             }
             #endregion
         }
-        public static void SCFL_ModifyInVehicle(int _index,SuspensionCoordinatesFront _SCFL)
+        public static void SCFL_ModifyInVehicle(int _index, SuspensionCoordinatesFront _SCFL)
         {
             #region Changing the Vehicle Front Left Suspension Coordinate 
 
@@ -2165,7 +2165,15 @@ namespace Coding_Attempt_with_GUI
 
                     if (VehicleIsChanged)
                     {
-                        M1_Global.vehicleGUI[i].EditORCreateVehicleCAD(M1_Global.vehicleGUI[i].CADVehicleInputs, i, true, M1_Global.vehicleGUI[i].Vehicle_MotionExists, 0, true, M1_Global.vehicleGUI[i].CadIsTobeImported, M1_Global.vehicleGUI[i].PlotWheel);
+                        if (M1_Global.vehicleGUI[i].VisualizationType == VehicleVisualizationType.Generic)
+                        {
+                            M1_Global.vehicleGUI[i].EditORCreateVehicleCAD(M1_Global.vehicleGUI[i].CADVehicleInputs, i, true, M1_Global.vehicleGUI[i].Vehicle_MotionExists, 0, true, M1_Global.vehicleGUI[i].CadIsTobeImported, M1_Global.vehicleGUI[i].PlotWheel);
+                        }
+                        else if (M1_Global.vehicleGUI[i].VisualizationType == VehicleVisualizationType.ImportedCAD)
+                        {
+                            M1_Global.vehicleGUI[i].EditORCreateVehicleCAD(M1_Global.vehicleGUI[i].importCADForm.importCADViewport, i, true, M1_Global.vehicleGUI[i].Vehicle_MotionExists, 0, true, M1_Global.vehicleGUI[i].CadIsTobeImported, M1_Global.vehicleGUI[i].PlotWheel);
+                        }
+
                         R1.FormVariableUpdater();
                         R1.DeleteNavBarControlResultsGroupANDTabPages(i);
                     }
@@ -2175,7 +2183,7 @@ namespace Coding_Attempt_with_GUI
             catch (Exception) { }
             #endregion
         }
-        public static void SCFR_ModifyInVehicle(int _index,SuspensionCoordinatesFrontRight _SCFR)
+        public static void SCFR_ModifyInVehicle(int _index, SuspensionCoordinatesFrontRight _SCFR)
         {
             #region Changing the  Vehicle Front Right Suspension Coordinate 
 
@@ -2188,14 +2196,23 @@ namespace Coding_Attempt_with_GUI
                     VehicleIsChanged = false;
                     if (Vehicle.List_Vehicle[i].sc_FR._SCName == SuspensionCoordinatesFrontRight.Assy_List_SCFR[_index]._SCName)
                     {
-
                         Vehicle.List_Vehicle[i].sc_FR = _SCFR;
                         VehicleIsChanged = true;
                     }
 
                     if (VehicleIsChanged)
                     {
-                        M1_Global.vehicleGUI[i].EditORCreateVehicleCAD(M1_Global.vehicleGUI[i].CADVehicleInputs, i, true, M1_Global.vehicleGUI[i].Vehicle_MotionExists, 0, true, M1_Global.vehicleGUI[i].CadIsTobeImported, M1_Global.vehicleGUI[i].PlotWheel);
+                        if (M1_Global.vehicleGUI[i].VisualizationType == VehicleVisualizationType.Generic)
+                        {
+                            M1_Global.vehicleGUI[i].EditORCreateVehicleCAD(M1_Global.vehicleGUI[i].CADVehicleInputs, i, true, M1_Global.vehicleGUI[i].Vehicle_MotionExists, 0, true, M1_Global.vehicleGUI[i].CadIsTobeImported, M1_Global.vehicleGUI[i].PlotWheel);
+                        }
+
+                        else if (M1_Global.vehicleGUI[i].VisualizationType == VehicleVisualizationType.ImportedCAD)
+                        {
+                            M1_Global.vehicleGUI[i].EditORCreateVehicleCAD(M1_Global.vehicleGUI[i].importCADForm.importCADViewport, i, true, M1_Global.vehicleGUI[i].Vehicle_MotionExists, 0, true, M1_Global.vehicleGUI[i].CadIsTobeImported, M1_Global.vehicleGUI[i].PlotWheel);
+                        }
+
+
                         R1.FormVariableUpdater();
                         R1.DeleteNavBarControlResultsGroupANDTabPages(i);
                     }
@@ -2206,7 +2223,7 @@ namespace Coding_Attempt_with_GUI
             #endregion
         }
 
-        public static void SCRL_ModifyInVehicle(int _index,SuspensionCoordinatesRear _SCRL)
+        public static void SCRL_ModifyInVehicle(int _index, SuspensionCoordinatesRear _SCRL)
         {
             #region Changing the Vehicle Rear Left Suspension Coordinate 
             try
@@ -2225,7 +2242,15 @@ namespace Coding_Attempt_with_GUI
 
                     if (VehicleIsChanged)
                     {
-                        M1_Global.vehicleGUI[i].EditORCreateVehicleCAD(M1_Global.vehicleGUI[i].CADVehicleInputs, i, true, M1_Global.vehicleGUI[i].Vehicle_MotionExists, 0, true, M1_Global.vehicleGUI[i].CadIsTobeImported, M1_Global.vehicleGUI[i].PlotWheel);
+                        if (M1_Global.vehicleGUI[i].VisualizationType == VehicleVisualizationType.Generic)
+                        {
+                            M1_Global.vehicleGUI[i].EditORCreateVehicleCAD(M1_Global.vehicleGUI[i].CADVehicleInputs, i, true, M1_Global.vehicleGUI[i].Vehicle_MotionExists, 0, true, M1_Global.vehicleGUI[i].CadIsTobeImported, M1_Global.vehicleGUI[i].PlotWheel);
+                        }
+                        else if (M1_Global.vehicleGUI[i].VisualizationType == VehicleVisualizationType.ImportedCAD)
+                        {
+                            M1_Global.vehicleGUI[i].EditORCreateVehicleCAD(M1_Global.vehicleGUI[i].importCADForm.importCADViewport, i, true, M1_Global.vehicleGUI[i].Vehicle_MotionExists, 0, true, M1_Global.vehicleGUI[i].CadIsTobeImported, M1_Global.vehicleGUI[i].PlotWheel);
+                        }
+
                         R1.FormVariableUpdater();
                         R1.DeleteNavBarControlResultsGroupANDTabPages(i);
                     }
@@ -2236,7 +2261,7 @@ namespace Coding_Attempt_with_GUI
             catch (Exception) { }
             #endregion
         }
-        public static void SCRR_ModifyInVehicle(int _index,SuspensionCoordinatesRearRight _SCRR)
+        public static void SCRR_ModifyInVehicle(int _index, SuspensionCoordinatesRearRight _SCRR)
         {
             #region Changing the Vehicle Rear Right Suspension Coordinate 
             try
@@ -2254,7 +2279,16 @@ namespace Coding_Attempt_with_GUI
 
                     if (VehicleIsChanged)
                     {
-                        M1_Global.vehicleGUI[i].EditORCreateVehicleCAD(M1_Global.vehicleGUI[i].CADVehicleInputs, i, true, M1_Global.vehicleGUI[i].Vehicle_MotionExists, 0, true, M1_Global.vehicleGUI[i].CadIsTobeImported, M1_Global.vehicleGUI[i].PlotWheel);
+                        if (M1_Global.vehicleGUI[i].VisualizationType == VehicleVisualizationType.Generic)
+                        {
+                            M1_Global.vehicleGUI[i].EditORCreateVehicleCAD(M1_Global.vehicleGUI[i].CADVehicleInputs, i, true, M1_Global.vehicleGUI[i].Vehicle_MotionExists, 0, true, M1_Global.vehicleGUI[i].CadIsTobeImported, M1_Global.vehicleGUI[i].PlotWheel);
+
+                        }
+                        else if (M1_Global.vehicleGUI[i].VisualizationType == VehicleVisualizationType.ImportedCAD)
+                        {
+                            M1_Global.vehicleGUI[i].EditORCreateVehicleCAD(M1_Global.vehicleGUI[i].importCADForm.importCADViewport, i, true, M1_Global.vehicleGUI[i].Vehicle_MotionExists, 0, true, M1_Global.vehicleGUI[i].CadIsTobeImported, M1_Global.vehicleGUI[i].PlotWheel);
+                        }
+
                         R1.FormVariableUpdater();
                         R1.DeleteNavBarControlResultsGroupANDTabPages(i);
                     }
@@ -2266,7 +2300,7 @@ namespace Coding_Attempt_with_GUI
             #endregion
         }
 
-        public static void Chassis_ModifyInVehicle(int _index,Chassis _chassis)
+        public static void Chassis_ModifyInVehicle(int _index, Chassis _chassis)
         {
             #region Chnaing the Vehicle Chassis 
             try
@@ -2296,7 +2330,7 @@ namespace Coding_Attempt_with_GUI
             #endregion
         }
 
-        public static void Sring_ModifyInVehicle(int _index,Spring _spring)
+        public static void Sring_ModifyInVehicle(int _index, Spring _spring)
         {
             #region Changing the Vehicle Spring 
             try
@@ -2351,7 +2385,7 @@ namespace Coding_Attempt_with_GUI
             #endregion
         }
 
-        public static void Damper_ModifyInVehicle(int _index,Damper _damper)
+        public static void Damper_ModifyInVehicle(int _index, Damper _damper)
         {
             #region Changing the Vehicle Damper 
             try
@@ -2400,7 +2434,7 @@ namespace Coding_Attempt_with_GUI
             #endregion
         }
 
-        public static void ARB_ModifyInVehicle(int _index,AntiRollBar _arb)
+        public static void ARB_ModifyInVehicle(int _index, AntiRollBar _arb)
         {
             #region Changing the Vehicle ARB 
             try
@@ -2499,7 +2533,15 @@ namespace Coding_Attempt_with_GUI
 
                     if (VehicleIsChanged)
                     {
-                        M1_Global.vehicleGUI[i].EditORCreateVehicleCAD(M1_Global.vehicleGUI[i].CADVehicleInputs, i, true, M1_Global.vehicleGUI[i].Vehicle_MotionExists, 0, true, M1_Global.vehicleGUI[i].CadIsTobeImported, M1_Global.vehicleGUI[i].PlotWheel);
+                        if (M1_Global.vehicleGUI[i].VisualizationType == VehicleVisualizationType.Generic)
+                        {
+                            M1_Global.vehicleGUI[i].EditORCreateVehicleCAD(M1_Global.vehicleGUI[i].CADVehicleInputs, i, true, M1_Global.vehicleGUI[i].Vehicle_MotionExists, 0, true, M1_Global.vehicleGUI[i].CadIsTobeImported, M1_Global.vehicleGUI[i].PlotWheel);
+                             
+                        }
+                        else if (M1_Global.vehicleGUI[i].VisualizationType == VehicleVisualizationType.ImportedCAD)
+                        {
+                            M1_Global.vehicleGUI[i].EditORCreateVehicleCAD(M1_Global.vehicleGUI[i].importCADForm.importCADViewport, i, true, M1_Global.vehicleGUI[i].Vehicle_MotionExists, 0, true, M1_Global.vehicleGUI[i].CadIsTobeImported, M1_Global.vehicleGUI[i].PlotWheel);
+                        }
                         R1.FormVariableUpdater();
                         R1.DeleteNavBarControlResultsGroupANDTabPages(i);
                     }
@@ -2564,7 +2606,7 @@ namespace Coding_Attempt_with_GUI
                         break;
                     }
                 }
-                
+
                 ComboboxTireOperations();
 
                 // Counter is not incremented here because in this code block a new item is not being created, it is only being edited. 
@@ -2733,7 +2775,7 @@ namespace Coding_Attempt_with_GUI
             if (navBarControlDesign.ActiveGroup == navBarGroupSuspensionFL)
             {
                 ModifyFrontLeftSuspension(false, navBarGroupSuspensionFL.SelectedLinkIndex);
-                
+
             }
             #endregion
 
@@ -2887,8 +2929,8 @@ namespace Coding_Attempt_with_GUI
         //            #endregion
         //        }
         //    }
-            //ComboboxTireOperations();
-            //// Counter is not incremented here because in this code block a new item is not being created, it is only being edited. 
+        //ComboboxTireOperations();
+        //// Counter is not incremented here because in this code block a new item is not being created, it is only being edited. 
         //}
 
         //private void TireTextBox_KeyDown(object sender, KeyEventArgs e)
@@ -3051,7 +3093,7 @@ namespace Coding_Attempt_with_GUI
             }
             catch (Exception)
             {// To safeguard against Open command if there is no item in combobox 
-            } 
+            }
             #endregion
         }
 
@@ -3171,7 +3213,7 @@ namespace Coding_Attempt_with_GUI
                     e.ErrorText = "Please enter positive values";
                 }
             }
-        } 
+        }
         #endregion
 
         void navBarItemSpring_LinkClicked(object sender, NavBarLinkEventArgs e)
@@ -3261,7 +3303,7 @@ namespace Coding_Attempt_with_GUI
 
                     #endregion
                 }
-                catch (Exception){}
+                catch (Exception) { }
             }
 
             #region Re-assigning the combobox selected item index
@@ -3293,7 +3335,7 @@ namespace Coding_Attempt_with_GUI
             }
             catch (Exception)
             {// To safeguard against Open command if there is no item in combobox
-            } 
+            }
             #endregion
 
         }
@@ -3331,7 +3373,7 @@ namespace Coding_Attempt_with_GUI
             //accordionControlDamper.ExpandElement(accordionControlDamperGasPressure);
             //accordionControlDamper.ExpandElement(accordionControlDamperShaftDiameter);
 
-            
+
 
             #endregion
 
@@ -3359,7 +3401,7 @@ namespace Coding_Attempt_with_GUI
                     #endregion
 
                     #region Invoking the Default_Values class' method to populate the DamperGUI table
-                    Default_Values.DamperDefaultValues2(damperGUI[l_damper]); 
+                    Default_Values.DamperDefaultValues2(damperGUI[l_damper]);
                     #endregion
 
                     #region Populating the DameprGUI object
@@ -3400,7 +3442,7 @@ namespace Coding_Attempt_with_GUI
         #region Delete
         //private void DamperTextBox_Leave(object sender, EventArgs e)
         //{
- 
+
         //}
 
         //private void DamperTextBox_KeyDown(object sender, KeyEventArgs e)
@@ -3555,7 +3597,7 @@ namespace Coding_Attempt_with_GUI
             }
             catch (Exception)
             { // To safeguard against Open command if there is no item in combobox
-            } 
+            }
             #endregion
 
         }
@@ -3592,7 +3634,7 @@ namespace Coding_Attempt_with_GUI
             navBarGroupAntiRollBar.Expanded = true;
             //accordionControlAntiRollBar.ExpandElement(accordionControlAntiRollBarStiffness);
 
-            
+
 
             #endregion
 
@@ -3643,7 +3685,7 @@ namespace Coding_Attempt_with_GUI
                     #endregion
 
                     #region Populate Data Table Method
-                    UndoObject.Identifier(AntiRollBar.Assy_List_ARB[l_arb]._UndocommandsARB, AntiRollBar.Assy_List_ARB[l_arb]._RedocommandsARB, AntiRollBar.CurrentAntiRollBarID, AntiRollBar.Assy_List_ARB[l_arb].AntiRollBarIsModified); 
+                    UndoObject.Identifier(AntiRollBar.Assy_List_ARB[l_arb]._UndocommandsARB, AntiRollBar.Assy_List_ARB[l_arb]._RedocommandsARB, AntiRollBar.CurrentAntiRollBarID, AntiRollBar.Assy_List_ARB[l_arb].AntiRollBarIsModified);
                     #endregion
 
                     ChangeTracker++;
@@ -3708,7 +3750,7 @@ namespace Coding_Attempt_with_GUI
             AntiRollBar.CurrentAntiRollBarID = index + 1;
 
             #region Populating the Undo/Redo Stack of the Undo Redo Class
-            UndoObject.Identifier(AntiRollBar.Assy_List_ARB[index]._UndocommandsARB, AntiRollBar.Assy_List_ARB[index]._RedocommandsARB, AntiRollBar.CurrentAntiRollBarID, AntiRollBar.Assy_List_ARB[index].AntiRollBarIsModified); 
+            UndoObject.Identifier(AntiRollBar.Assy_List_ARB[index]._UndocommandsARB, AntiRollBar.Assy_List_ARB[index]._RedocommandsARB, AntiRollBar.CurrentAntiRollBarID, AntiRollBar.Assy_List_ARB[index].AntiRollBarIsModified);
             #endregion
 
 
@@ -3770,7 +3812,7 @@ namespace Coding_Attempt_with_GUI
 
                     #endregion
                 }
-                catch (Exception){ }
+                catch (Exception) { }
             }
 
 
@@ -3791,7 +3833,7 @@ namespace Coding_Attempt_with_GUI
             }
             catch (Exception)
             {// To safeguard against Open command if there is no item in combobox
-            } 
+            }
             #endregion
         }
         #endregion
@@ -3863,7 +3905,7 @@ namespace Coding_Attempt_with_GUI
                         #endregion
 
                         #region Invoking the Default_Values class' method to populate the ChassisGUI table
-                        Default_Values.ChassisDefaultValues.MassAndSMCoGDefaultValues(chassisGUI[l_chassis],this);
+                        Default_Values.ChassisDefaultValues.MassAndSMCoGDefaultValues(chassisGUI[l_chassis], this);
                         Default_Values.ChassisDefaultValues.FRONTLEFTNonSuspendedMassCoGValues(chassisGUI[l_chassis], this);
                         Default_Values.ChassisDefaultValues.FRONTRIGHTNonSuspendedMassCoGValues(chassisGUI[l_chassis], this);
                         Default_Values.ChassisDefaultValues.REARLEFTNonSuspendedMassCoGValues(chassisGUI[l_chassis], this);
@@ -3934,7 +3976,7 @@ namespace Coding_Attempt_with_GUI
                     e.ErrorText = "Please enter positive values";
                 }
             }
-        } 
+        }
         #endregion
 
         #region Delete
@@ -4089,7 +4131,7 @@ namespace Coding_Attempt_with_GUI
             }
             catch (Exception)
             {// To safeguard against Open command if there is no item in combobox
-            } 
+            }
             #endregion
         }
         #endregion
@@ -4126,7 +4168,7 @@ namespace Coding_Attempt_with_GUI
             //accordionControlWheelAlignment.ExpandElement(accordionControlWACamber1);
             //accordionControlWheelAlignment.ExpandElement(accordionControWAlToe1);
 
-            
+
 
             #endregion
 
@@ -4154,7 +4196,7 @@ namespace Coding_Attempt_with_GUI
                     #endregion
 
                     #region Invoking the Default_Values class' method to populate the TireGUI table
-                    Default_Values.WheelAlignmentDefaultValues2(waGUI[l_wa]); 
+                    Default_Values.WheelAlignmentDefaultValues2(waGUI[l_wa]);
                     #endregion
 
                     #region Populating the WheelAlignmentGUI object
@@ -4175,7 +4217,7 @@ namespace Coding_Attempt_with_GUI
                     #endregion
 
                     #region Populating the Undo/Redo Stack of the UndoRedo Class
-                    UndoObject.Identifier(WheelAlignment.Assy_List_WA[l_wa]._UndocommandsWheelAlignment, WheelAlignment.Assy_List_WA[l_wa]._RedocommandsWheelAlignment, WheelAlignment.CurrentWheelAlignmentID, WheelAlignment.Assy_List_WA[l_wa].WheelAlignmentIsModified); 
+                    UndoObject.Identifier(WheelAlignment.Assy_List_WA[l_wa]._UndocommandsWheelAlignment, WheelAlignment.Assy_List_WA[l_wa]._RedocommandsWheelAlignment, WheelAlignment.CurrentWheelAlignmentID, WheelAlignment.Assy_List_WA[l_wa].WheelAlignmentIsModified);
                     #endregion
 
                     ChangeTracker++;
@@ -4194,7 +4236,7 @@ namespace Coding_Attempt_with_GUI
             WheelAlignment.CurrentWheelAlignmentID = index + 1;
 
             #region Populating the Undo/Redo Stack of the UndoRedo Class
-            UndoObject.Identifier(WheelAlignment.Assy_List_WA[index]._UndocommandsWheelAlignment, WheelAlignment.Assy_List_WA[index]._RedocommandsWheelAlignment, WheelAlignment.CurrentWheelAlignmentID, WheelAlignment.Assy_List_WA[index].WheelAlignmentIsModified); 
+            UndoObject.Identifier(WheelAlignment.Assy_List_WA[index]._UndocommandsWheelAlignment, WheelAlignment.Assy_List_WA[index]._RedocommandsWheelAlignment, WheelAlignment.CurrentWheelAlignmentID, WheelAlignment.Assy_List_WA[index].WheelAlignmentIsModified);
             #endregion
 
 
@@ -4308,7 +4350,7 @@ namespace Coding_Attempt_with_GUI
             }
             catch (Exception)
             {// To safeguard against Open command if there is no item in combobox
-            } 
+            }
             #endregion
         }
         #endregion
@@ -4374,11 +4416,11 @@ namespace Coding_Attempt_with_GUI
                         barButtonItemCreateMotion.PerformClick();
                     }
 
-                    if (!defaultItemBeingCreated) 
+                    if (!defaultItemBeingCreated)
                     {
                         navBarGroupSimulationSetup.Visible = true;
                         navBarGroupSimulationSetup.Expanded = true;
-                        navBarGroupLoadCases.Expanded = true; 
+                        navBarGroupLoadCases.Expanded = true;
                     }
 
                     ///<summary>
@@ -4433,7 +4475,7 @@ namespace Coding_Attempt_with_GUI
 
             BatchRunGUI.batchRuns_GUI[index].batchRun.ShowDialog();
             BatchRunGUI.batchRunBeingCreated = false;
-            
+
             BatchRunGUI.Counter++;
 
         }
@@ -4632,7 +4674,8 @@ namespace Coding_Attempt_with_GUI
                         Default_Values.FRONTLEFTSuspensionDefaultValues.McPherson(scflGUI[l_scfl], this);
 
                     }
-                    /*else*/ if (CurrentSuspensionIsMapped)
+                    /*else*/
+                    if (CurrentSuspensionIsMapped)
                     {
                         Default_Values.FRONTLEFTSuspensionDefaultValues.CreateMappedSuspension(M1_Global.vehicleGUI[navBarGroupVehicle.SelectedLinkIndex].importCADForm.importCADViewport.CoordinatesFL, scflGUI[l_scfl]);
                     }
@@ -4923,7 +4966,8 @@ namespace Coding_Attempt_with_GUI
                     {
                         Default_Values.FRONTRIGHTSuspensionDefaultValues.McPherson(scfrGUI[l_scfr], this);
                     }
-                    /*else*/ if (CurrentSuspensionIsMapped)
+                    /*else*/
+                    if (CurrentSuspensionIsMapped)
                     {
                         Default_Values.FRONTRIGHTSuspensionDefaultValues.CreateMappedSuspension(M1_Global.vehicleGUI[navBarGroupVehicle.SelectedLinkIndex].importCADForm.importCADViewport.CoordinatesFR, scfrGUI[l_scfr]);
                     }
@@ -5058,7 +5102,7 @@ namespace Coding_Attempt_with_GUI
                         scfrGUI[c_scfr].SCFRDataTableGUI = SuspensionCoordinatesFrontRight.Assy_List_SCFR[c_scfr].SCFRDataTable;
                         scfrGUI[c_scfr].bandedGridView_SCFRGUI.ExpandAllGroups();
                         scflGUI[c_scfr].TabPage_FrontCAD.PageVisible = true;
-                        int SelectedPage =  TabControl_Outputs.TabPages.IndexOf(scflGUI[c_scfr].TabPage_FrontCAD);
+                        int SelectedPage = TabControl_Outputs.TabPages.IndexOf(scflGUI[c_scfr].TabPage_FrontCAD);
                         TabControl_Outputs.SelectedTabPageIndex = SelectedPage;
 
                     }
@@ -5123,13 +5167,13 @@ namespace Coding_Attempt_with_GUI
         public static void EditFrontCAD(int Index)
         {
             R1 = R1.FormVariableUpdater();
-            R1.scflGUI[Index].CreateFrontCAD(R1.scflGUI[Index].CADFront,R1.scflGUI[Index], SuspensionCoordinatesFront.Assy_List_SCFL[Index], SuspensionCoordinatesFrontRight.Assy_List_SCFR[Index]);
+            R1.scflGUI[Index].CreateFrontCAD(R1.scflGUI[Index].CADFront, R1.scflGUI[Index], SuspensionCoordinatesFront.Assy_List_SCFL[Index], SuspensionCoordinatesFrontRight.Assy_List_SCFR[Index]);
         }
 
         #endregion
 
         #region Method to invoke the Front Suspension CAD Creator
-        public void CreateFrontInputCAD(int Index,bool IsRecreated) => scflGUI[Index].FrontCADPreProcessor(scflGUI[Index], Index, IsRecreated);
+        public void CreateFrontInputCAD(int Index, bool IsRecreated) => scflGUI[Index].FrontCADPreProcessor(scflGUI[Index], Index, IsRecreated);
         #endregion 
         #endregion
 
@@ -5221,9 +5265,10 @@ namespace Coding_Attempt_with_GUI
                     }
                     else if (McPhersonRear_VehicleGUI == 1 /*&& !CurrentSuspensionIsMapped*/)
                     {
-                        Default_Values.REARLEFTSuspensionDefaultValues.McPherson(scrlGUI[l_scrl],this);
+                        Default_Values.REARLEFTSuspensionDefaultValues.McPherson(scrlGUI[l_scrl], this);
                     }
-                    /*else*/ if (CurrentSuspensionIsMapped)
+                    /*else*/
+                    if (CurrentSuspensionIsMapped)
                     {
                         Default_Values.REARLEFTSuspensionDefaultValues.CreateMappedSuspension(M1_Global.vehicleGUI[navBarGroupVehicle.SelectedLinkIndex].importCADForm.importCADViewport.CoordinatesRL, scrlGUI[l_scrl]);
                     }
@@ -5261,7 +5306,7 @@ namespace Coding_Attempt_with_GUI
 
         }
 
-        public void ModifyRearLeftSuspension(bool CopiedIdentifier,int index)
+        public void ModifyRearLeftSuspension(bool CopiedIdentifier, int index)
         {
             // Copied Identifier determines whether Rear Left Coordinates have been copied or manually edited by the user. Based on its value, the CopyRearLeftTORearRight function is called.
             // This prevents an infinite loop
@@ -5508,7 +5553,8 @@ namespace Coding_Attempt_with_GUI
                     {
                         Default_Values.REARRIGHTSuspensionDefaultValues.McPherson(scrrGUI[l_scrr], this);
                     }
-                    /*else*/ if (CurrentSuspensionIsMapped)
+                    /*else*/
+                    if (CurrentSuspensionIsMapped)
                     {
                         Default_Values.REARRIGHTSuspensionDefaultValues.CreateMappedSuspension(M1_Global.vehicleGUI[navBarGroupVehicle.SelectedLinkIndex].importCADForm.importCADViewport.CoordinatesRR, scrrGUI[l_scrr]);
                     }
@@ -5709,7 +5755,7 @@ namespace Coding_Attempt_with_GUI
         public static void EditRearCAD(int Index)
         {
             R1 = R1.FormVariableUpdater();
-            R1.scrlGUI[Index].CreateRearCAD(R1.scrlGUI[Index].CADRear,R1.scrlGUI[Index], SuspensionCoordinatesRear.Assy_List_SCRL[Index], SuspensionCoordinatesRearRight.Assy_List_SCRR[Index]);
+            R1.scrlGUI[Index].CreateRearCAD(R1.scrlGUI[Index].CADRear, R1.scrlGUI[Index], SuspensionCoordinatesRear.Assy_List_SCRL[Index], SuspensionCoordinatesRearRight.Assy_List_SCRR[Index]);
         }
         #endregion
 
@@ -5833,7 +5879,7 @@ namespace Coding_Attempt_with_GUI
                 M1_Global.vehicleGUI[indexVehicle].WAIsAssembled_GUI = true;
                 return false;
             }
-        } 
+        }
         #endregion
 
         /// <summary>
@@ -6026,7 +6072,7 @@ namespace Coding_Attempt_with_GUI
                 //
 
                 M1_Global.List_I1[l_vehicle] = I1;
-                
+
                 //
                 // Passing the parameters to VEHICLE ASSEMBLY method where a new Vehicle Object will be Initialized. This object will then be returned using an out parameter of type Vehicle 
                 //
@@ -6043,7 +6089,16 @@ namespace Coding_Attempt_with_GUI
 
                 if (Vehicle.List_Vehicle[l_vehicle].SuspensionIsAssembled)
                 {
-                    EditVehicleCAD(M1_Global.vehicleGUI[l_vehicle].CADVehicleInputs, l_vehicle, true, M1_Global.vehicleGUI[l_vehicle].CadIsTobeImported, M1_Global.vehicleGUI[l_vehicle].PlotWheel);
+                    if (M1_Global.vehicleGUI[l_vehicle].VisualizationType == VehicleVisualizationType.Generic)
+                    {
+                        EditVehicleCAD(M1_Global.vehicleGUI[l_vehicle].CADVehicleInputs, l_vehicle, true, M1_Global.vehicleGUI[l_vehicle].CadIsTobeImported, M1_Global.vehicleGUI[l_vehicle].PlotWheel);
+
+                    }
+                    else if (M1_Global.vehicleGUI[l_vehicle].VisualizationType == VehicleVisualizationType.ImportedCAD)
+                    {
+                        EditVehicleCAD(M1_Global.vehicleGUI[l_vehicle].importCADForm.importCADViewport, l_vehicle, true, M1_Global.vehicleGUI[l_vehicle].CadIsTobeImported, M1_Global.vehicleGUI[l_vehicle].PlotWheel);
+                    }
+
                     //M1_Global.vehicleGUI[l_vehicle].CADVehicleInputs.viewportLayout1.ZoomFit();
                 }
 
@@ -6407,7 +6462,7 @@ namespace Coding_Attempt_with_GUI
                 }
 
             }
-            catch (Exception){ }
+            catch (Exception) { }
         }
 
         public static void comboBoxVehicle_Leave_Invoker()
@@ -6486,7 +6541,7 @@ namespace Coding_Attempt_with_GUI
                             comboBoxSCFL.Text = Vehicle.List_Vehicle[c_vehicle].sc_FL._SCName;
                             comboBoxSCFR.Text = Vehicle.List_Vehicle[c_vehicle].sc_FR._SCName;
                             comboBoxSCRL.Text = Vehicle.List_Vehicle[c_vehicle].sc_RL._SCName;
-                            comboBoxSCRR.Text = Vehicle.List_Vehicle[c_vehicle].sc_RR._SCName; 
+                            comboBoxSCRR.Text = Vehicle.List_Vehicle[c_vehicle].sc_RR._SCName;
                         }
 
                         if (Vehicle.List_Vehicle[c_vehicle].tire_FL != null && Vehicle.List_Vehicle[c_vehicle].tire_FR != null && Vehicle.List_Vehicle[c_vehicle].tire_RL != null && Vehicle.List_Vehicle[c_vehicle].tire_RR != null)
@@ -6494,7 +6549,7 @@ namespace Coding_Attempt_with_GUI
                             comboBoxTireFL.Text = Vehicle.List_Vehicle[c_vehicle].tire_FL._TireName;
                             comboBoxTireFR.Text = Vehicle.List_Vehicle[c_vehicle].tire_FR._TireName;
                             comboBoxTireRL.Text = Vehicle.List_Vehicle[c_vehicle].tire_RL._TireName;
-                            comboBoxTireRR.Text = Vehicle.List_Vehicle[c_vehicle].tire_RR._TireName; 
+                            comboBoxTireRR.Text = Vehicle.List_Vehicle[c_vehicle].tire_RR._TireName;
                         }
 
                         if (Vehicle.List_Vehicle[c_vehicle].spring_FL != null && Vehicle.List_Vehicle[c_vehicle].spring_FR != null && Vehicle.List_Vehicle[c_vehicle].spring_RL != null && Vehicle.List_Vehicle[c_vehicle].spring_RR != null)
@@ -6502,7 +6557,7 @@ namespace Coding_Attempt_with_GUI
                             comboBoxSpringFL.Text = Vehicle.List_Vehicle[c_vehicle].spring_FL._SpringName;
                             comboBoxSpringFR.Text = Vehicle.List_Vehicle[c_vehicle].spring_FR._SpringName;
                             comboBoxSpringRL.Text = Vehicle.List_Vehicle[c_vehicle].spring_RL._SpringName;
-                            comboBoxSpringRR.Text = Vehicle.List_Vehicle[c_vehicle].spring_RR._SpringName; 
+                            comboBoxSpringRR.Text = Vehicle.List_Vehicle[c_vehicle].spring_RR._SpringName;
                         }
 
                         if (Vehicle.List_Vehicle[c_vehicle].damper_FL != null && Vehicle.List_Vehicle[c_vehicle].damper_FR != null && Vehicle.List_Vehicle[c_vehicle].damper_RL != null && Vehicle.List_Vehicle[c_vehicle].damper_RR != null)
@@ -6510,7 +6565,7 @@ namespace Coding_Attempt_with_GUI
                             comboBoxDamperFL.Text = Vehicle.List_Vehicle[c_vehicle].damper_FL._DamperName;
                             comboBoxDamperFR.Text = Vehicle.List_Vehicle[c_vehicle].damper_FR._DamperName;
                             comboBoxDamperRL.Text = Vehicle.List_Vehicle[c_vehicle].damper_RL._DamperName;
-                            comboBoxDamperRR.Text = Vehicle.List_Vehicle[c_vehicle].damper_RR._DamperName; 
+                            comboBoxDamperRR.Text = Vehicle.List_Vehicle[c_vehicle].damper_RR._DamperName;
                         }
 
                         comboBoxARBFront.Text = Vehicle.List_Vehicle[c_vehicle].arb_FL._ARBName;
@@ -6526,7 +6581,7 @@ namespace Coding_Attempt_with_GUI
                             comboBoxWAFL.Text = Vehicle.List_Vehicle[c_vehicle].wa_FL._WAName;
                             comboBoxWAFR.Text = Vehicle.List_Vehicle[c_vehicle].wa_FR._WAName;
                             comboBoxWARL.Text = Vehicle.List_Vehicle[c_vehicle].wa_RL._WAName;
-                            comboBoxWARR.Text = Vehicle.List_Vehicle[c_vehicle].wa_RR._WAName; 
+                            comboBoxWARR.Text = Vehicle.List_Vehicle[c_vehicle].wa_RR._WAName;
                         }
                         #endregion
 
@@ -6653,7 +6708,7 @@ namespace Coding_Attempt_with_GUI
                     else
                     {
                         BatchRunGUI.batchRuns_GUI[i_BR].batchRun.comboBoxVehicleBatchRun.SelectedIndex = 0;
-                    } 
+                    }
                 }
             }
             ChangeTracker++;
@@ -6817,7 +6872,7 @@ namespace Coding_Attempt_with_GUI
             _vehicle.AssignAssemblyValidators(M1_Global.vehicleGUI[index]);
             for (int i_vehicle = 0; i_vehicle <= Vehicle.List_Vehicle.Count; i_vehicle++)
             {
-                if (index == i_vehicle) 
+                if (index == i_vehicle)
                 {
                     #region Vehicle object
                     Vehicle vehicle1 = new Vehicle(M1_Global.vehicleGUI[index], Identifier, _SC, _Tire, _Spring, _Damper, _ARB, chassis1, _WA, _OC);
@@ -6863,505 +6918,505 @@ namespace Coding_Attempt_with_GUI
 
                 #region Population of the Input Sheet
                 #region Populating the Input Sheet - Front Left Coordinates
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.A1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.A1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.A1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.A1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.A1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.A1z)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.B1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.B1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.B1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.B1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.B1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.B1z)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.C1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.C1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.C1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.C1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.C1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.C1z)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.D1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.D1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.D1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.D1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.D1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.D1z)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.N1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.N1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.N1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.N1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.N1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.N1z)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.Q1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.Q1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.Q1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.Q1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.Q1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.Q1z)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.I1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.I1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.I1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.I1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.I1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.I1z)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.JO1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.JO1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.JO1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.JO1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.JO1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.JO1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.A1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.A1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.A1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.A1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.A1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.A1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.B1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.B1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.B1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.B1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.B1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.B1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.C1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.C1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.C1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.C1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.C1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.C1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.D1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.D1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.D1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.D1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.D1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.D1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.N1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.N1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.N1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.N1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.N1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.N1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.Q1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.Q1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.Q1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.Q1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.Q1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.Q1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.I1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.I1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.I1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.I1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.I1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.I1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.JO1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.JO1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.JO1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.JO1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.JO1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.JO1z)));
                 // TO CALCULATE THE NEW POSITION OF J i.e., TO CALCULATE J'
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.J1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.J1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.J1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.J1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.J1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.J1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.J1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.J1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.J1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.J1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.J1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.J1z)));
                 // TO CALCULATE THE NEW POSITION OF H i.e., TO CALCULATE H'
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.H1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.H1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.H1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.H1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.H1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.H1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.H1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.H1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.H1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.H1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.H1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.H1z)));
                 // TO CALCULATE THE NEW POSITION OF O i.e., TO CALCULATE O'
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.O1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.O1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.O1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.O1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.O1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.O1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.O1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.O1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.O1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.O1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.O1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.O1z)));
                 // TO CALCULATE THE NEW POSITION OF G i.e., TO CALCULATE G'
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.G1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.G1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.G1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.G1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.G1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.G1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.G1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.G1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.G1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.G1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.G1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.G1z)));
                 // TO CALCULATE THE NEW POSITION OF F i.e., TO CALCULATE F' 
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.F1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.F1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.F1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.F1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.F1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.F1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.F1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.F1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.F1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.F1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.F1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.F1z)));
                 // TO CALCULATE THE NEW POSITION OF E i.e., TO CALCULATE E' 
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.E1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.E1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.E1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.E1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.E1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.E1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.E1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.E1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.E1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.E1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.E1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.E1z)));
                 // TO CALCULATE THE NEW POSITION OF M i.e., TO CALCULATE M'
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.M1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.M1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.M1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.M1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.M1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.M1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.M1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.M1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.M1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.M1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.M1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.M1z)));
                 // TO CALCULATE THE NEW POSITION OF K i.e., TO CALCULATE K'
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.K1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.K1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.K1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.K1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.K1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.K1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.K1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.K1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.K1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.K1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.K1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.K1z)));
                 // TO CALCULATE THE NEW POSITION OF P i.e., TO CALCULATE P'
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.P1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.P1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.P1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.P1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.P1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.P1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.P1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.P1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.P1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.P1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.P1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.P1z)));
                 // TO CALCULATE THE NEW POSITION OF W i.e., TO CALCULATE W'
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.W1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.W1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.W1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.W1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.W1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.W1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.W1xFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.W1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.W1yFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.W1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.W1zFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.W1z)));
                 // Link Lengths
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.LowerFrontFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.LowerFrontLength)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.LowerRearFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.LowerRearLength)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.UpperFrontFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.UpperFrontLength)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.UpperRearFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.UpperRearLength)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.PushRodFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.PushRodLength)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.ToeLinkFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.ToeLinkLength)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.ARBBladeFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.ARBBladeLength)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.ARBDroopLinkFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.ARBDroopLinkLength)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.DamperLengthFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.DamperLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.LowerFrontFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.LowerFrontLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.LowerRearFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.LowerRearLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.UpperFrontFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.UpperFrontLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.UpperRearFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.UpperRearLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.PushRodFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.PushRodLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.ToeLinkFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.ToeLinkLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.ARBBladeFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.ARBBladeLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.ARBDroopLinkFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.ARBDroopLinkLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.DamperLengthFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.DamperLength)));
                 #endregion
                 #region Populating the Input Sheet - Front Left Coordinates
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.A1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.A1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.A1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.A1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.A1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.A1z)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.B1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.B1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.B1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.B1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.B1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.B1z)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.C1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.C1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.C1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.C1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.C1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.C1z)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.D1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.D1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.D1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.D1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.D1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.D1z)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.N1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.N1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.N1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.N1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.N1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.N1z)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.Q1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.Q1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.Q1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.Q1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.Q1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.Q1z)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.I1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.I1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.I1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.I1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.I1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.I1z)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.JO1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.JO1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.JO1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.JO1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.JO1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.JO1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.A1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.A1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.A1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.A1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.A1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.A1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.B1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.B1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.B1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.B1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.B1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.B1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.C1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.C1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.C1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.C1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.C1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.C1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.D1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.D1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.D1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.D1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.D1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.D1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.N1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.N1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.N1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.N1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.N1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.N1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.Q1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.Q1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.Q1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.Q1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.Q1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.Q1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.I1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.I1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.I1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.I1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.I1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.I1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.JO1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.JO1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.JO1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.JO1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.JO1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.JO1z)));
                 // TO CALCULATE THE NEW POSITION OF J i.e., TO CALCULATE J'
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.J1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.J1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.J1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.J1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.J1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.J1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.J1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.J1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.J1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.J1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.J1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.J1z)));
                 // TO CALCULATE THE NEW POSITION OF H i.e., TO CALCULATE H'
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.H1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.H1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.H1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.H1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.H1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.H1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.H1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.H1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.H1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.H1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.H1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.H1z)));
                 // TO CALCULATE THE NEW POSITION OF O i.e., TO CALCULATE O'
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.O1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.O1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.O1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.O1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.O1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.O1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.O1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.O1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.O1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.O1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.O1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.O1z)));
                 // TO CALCULATE THE NEW POSITION OF G i.e., TO CALCULATE G'
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.G1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.G1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.G1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.G1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.G1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.G1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.G1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.G1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.G1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.G1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.G1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.G1z)));
                 // TO CALCULATE THE NEW POSITION OF F i.e., TO CALCULATE F' 
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.F1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.F1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.F1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.F1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.F1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.F1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.F1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.F1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.F1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.F1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.F1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.F1z)));
                 // TO CALCULATE THE NEW POSITION OF E i.e., TO CALCULATE E' 
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.E1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.E1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.E1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.E1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.E1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.E1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.E1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.E1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.E1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.E1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.E1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.E1z)));
                 // TO CALCULATE THE NEW POSITION OF M i.e., TO CALCULATE M'
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.M1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.M1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.M1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.M1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.M1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.M1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.M1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.M1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.M1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.M1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.M1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.M1z)));
                 // TO CALCULATE THE NEW POSITION OF K i.e., TO CALCULATE K'
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.K1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.K1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.K1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.K1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.K1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.K1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.K1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.K1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.K1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.K1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.K1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.K1z)));
                 // TO CALCULATE THE NEW POSITION OF P i.e., TO CALCULATE P'
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.P1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.P1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.P1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.P1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.P1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.P1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.P1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.P1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.P1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.P1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.P1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.P1z)));
                 // TO CALCULATE THE NEW POSITION OF W i.e., TO CALCULATE W'
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.W1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.W1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.W1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.W1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.W1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.W1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.W1xFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.W1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.W1yFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.W1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.W1zFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.W1z)));
                 // Link Lengths
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.LowerFrontFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.LowerFrontLength)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.LowerRearFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.LowerRearLength)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.UpperFrontFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.UpperFrontLength)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.UpperRearFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.UpperRearLength)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.PushRodFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.PushRodLength)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.ToeLinkFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.ToeLinkLength)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.ARBBladeFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.ARBBladeLength)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.ARBDroopLinkFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.ARBDroopLinkLength)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.DamperLengthFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.DamperLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.LowerFrontFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.LowerFrontLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.LowerRearFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.LowerRearLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.UpperFrontFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.UpperFrontLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.UpperRearFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.UpperRearLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.PushRodFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.PushRodLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.ToeLinkFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.ToeLinkLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.ARBBladeFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.ARBBladeLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.ARBDroopLinkFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.ARBDroopLinkLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.DamperLengthFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.DamperLength)));
                 #endregion
                 #region Populating the Input Sheet - REAR Left Coordinates
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.A1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.A1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.A1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.A1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.A1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.A1z)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.B1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.B1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.B1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.B1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.B1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.B1z)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.C1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.C1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.C1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.C1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.C1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.C1z)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.D1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.D1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.D1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.D1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.D1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.D1z)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.N1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.N1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.N1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.N1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.N1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.N1z)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.Q1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.Q1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.Q1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.Q1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.Q1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.Q1z)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.I1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.I1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.I1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.I1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.I1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.I1z)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.JO1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.JO1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.JO1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.JO1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.JO1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.JO1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.A1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.A1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.A1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.A1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.A1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.A1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.B1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.B1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.B1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.B1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.B1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.B1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.C1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.C1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.C1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.C1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.C1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.C1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.D1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.D1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.D1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.D1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.D1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.D1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.N1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.N1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.N1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.N1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.N1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.N1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.Q1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.Q1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.Q1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.Q1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.Q1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.Q1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.I1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.I1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.I1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.I1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.I1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.I1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.JO1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.JO1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.JO1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.JO1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.JO1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.JO1z)));
                 // TO CALCULATE THE NEW POSITION OF J i.e., TO CALCULATE J'
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.J1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.J1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.J1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.J1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.J1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.J1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.J1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.J1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.J1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.J1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.J1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.J1z)));
                 // TO CALCULATE THE NEW POSITION OF H i.e., TO CALCULATE H'
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.H1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.H1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.H1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.H1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.H1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.H1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.H1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.H1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.H1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.H1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.H1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.H1z)));
                 // TO CALCULATE THE NEW POSITION OF O i.e., TO CALCULATE O'
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.O1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.O1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.O1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.O1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.O1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.O1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.O1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.O1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.O1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.O1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.O1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.O1z)));
                 // TO CALCULATE THE NEW POSITION OF G i.e., TO CALCULATE G'
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.G1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.G1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.G1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.G1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.G1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.G1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.G1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.G1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.G1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.G1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.G1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.G1z)));
                 // TO CALCULATE THE NEW POSITION OF F i.e., TO CALCULATE F' 
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.F1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.F1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.F1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.F1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.F1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.F1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.F1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.F1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.F1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.F1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.F1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.F1z)));
                 // TO CALCULATE THE NEW POSITION OF E i.e., TO CALCULATE E' 
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.E1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.E1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.E1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.E1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.E1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.E1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.E1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.E1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.E1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.E1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.E1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.E1z)));
                 // TO CALCULATE THE NEW POSITION OF M i.e., TO CALCULATE M'
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.M1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.M1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.M1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.M1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.M1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.M1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.M1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.M1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.M1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.M1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.M1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.M1z)));
                 // TO CALCULATE THE NEW POSITION OF K i.e., TO CALCULATE K'
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.K1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.K1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.K1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.K1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.K1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.K1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.K1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.K1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.K1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.K1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.K1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.K1z)));
                 // TO CALCULATE THE NEW POSITION OF P i.e., TO CALCULATE P'
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.P1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.P1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.P1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.P1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.P1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.P1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.P1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.P1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.P1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.P1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.P1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.P1z)));
                 // TO CALCULATE THE NEW POSITION OF W i.e., TO CALCULATE W'
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.W1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.W1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.W1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.W1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.W1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.W1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.W1xRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.W1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.W1yRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.W1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.W1zRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.W1z)));
                 // Link Lengths
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.LowerFrontRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.LowerFrontLength)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.LowerRearRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.LowerRearLength)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.UpperFrontRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.UpperFrontLength)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.UpperRearRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.UpperRearLength)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.PushRodRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.PushRodLength)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.ToeLinkRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.ToeLinkLength)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.ARBBladeRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.ARBBladeLength)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.ARBDroopLinkRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.ARBDroopLinkLength)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.DamperLengthRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.DamperLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.LowerFrontRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.LowerFrontLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.LowerRearRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.LowerRearLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.UpperFrontRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.UpperFrontLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.UpperRearRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.UpperRearLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.PushRodRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.PushRodLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.ToeLinkRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.ToeLinkLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.ARBBladeRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.ARBBladeLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.ARBDroopLinkRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.ARBDroopLinkLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.DamperLengthRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.DamperLength)));
                 #endregion
                 #region Populating the Input Sheet - REAR RIGHT Coordinates
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.A1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.A1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.A1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.A1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.A1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.A1z)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.B1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.B1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.B1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.B1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.B1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.B1z)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.C1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.C1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.C1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.C1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.C1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.C1z)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.D1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.D1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.D1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.D1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.D1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.D1z)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.N1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.N1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.N1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.N1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.N1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.N1z)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.Q1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.Q1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.Q1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.Q1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.Q1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.Q1z)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.I1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.I1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.I1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.I1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.I1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.I1z)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.JO1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.JO1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.JO1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.JO1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.JO1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.JO1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.A1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.A1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.A1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.A1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.A1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.A1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.B1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.B1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.B1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.B1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.B1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.B1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.C1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.C1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.C1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.C1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.C1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.C1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.D1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.D1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.D1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.D1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.D1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.D1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.N1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.N1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.N1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.N1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.N1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.N1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.Q1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.Q1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.Q1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.Q1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.Q1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.Q1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.I1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.I1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.I1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.I1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.I1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.I1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.JO1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.JO1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.JO1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.JO1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.JO1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.JO1z)));
                 // TO CALCULATE THE NEW POSITION OF J i.e., TO CALCULATE J'
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.J1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.J1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.J1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.J1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.J1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.J1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.J1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.J1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.J1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.J1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.J1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.J1z)));
                 // TO CALCULATE THE NEW POSITION OF H i.e., TO CALCULATE H'
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.H1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.H1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.H1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.H1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.H1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.H1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.H1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.H1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.H1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.H1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.H1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.H1z)));
                 // TO CALCULATE THE NEW POSITION OF O i.e., TO CALCULATE O'
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.O1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.O1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.O1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.O1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.O1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.O1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.O1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.O1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.O1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.O1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.O1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.O1z)));
                 // TO CALCULATE THE NEW POSITION OF G i.e., TO CALCULATE G'
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.G1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.G1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.G1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.G1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.G1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.G1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.G1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.G1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.G1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.G1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.G1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.G1z)));
                 // TO CALCULATE THE NEW POSITION OF F i.e., TO CALCULATE F' 
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.F1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.F1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.F1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.F1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.F1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.F1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.F1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.F1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.F1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.F1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.F1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.F1z)));
                 // TO CALCULATE THE NEW POSITION OF E i.e., TO CALCULATE E' 
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.E1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.E1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.E1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.E1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.E1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.E1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.E1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.E1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.E1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.E1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.E1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.E1z)));
                 // TO CALCULATE THE NEW POSITION OF M i.e., TO CALCULATE M'
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.M1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.M1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.M1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.M1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.M1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.M1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.M1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.M1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.M1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.M1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.M1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.M1z)));
                 // TO CALCULATE THE NEW POSITION OF K i.e., TO CALCULATE K'
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.K1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.K1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.K1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.K1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.K1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.K1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.K1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.K1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.K1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.K1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.K1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.K1z)));
                 // TO CALCULATE THE NEW POSITION OF P i.e., TO CALCULATE P'
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.P1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.P1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.P1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.P1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.P1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.P1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.P1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.P1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.P1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.P1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.P1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.P1z)));
                 // TO CALCULATE THE NEW POSITION OF W i.e., TO CALCULATE W'
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.W1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.W1x)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.W1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.W1y)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.W1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.W1z)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.W1xRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.W1x)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.W1yRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.W1y)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.W1zRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.W1z)));
                 // Link Lengths
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.LowerFrontRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.LowerFrontLength)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.LowerRearRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.LowerRearLength)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.UpperFrontRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.UpperFrontLength)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.UpperRearRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.UpperRearLength)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.PushRodRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.PushRodLength)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.ToeLinkRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.ToeLinkLength)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.ARBBladeRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.ARBBladeLength)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.ARBDroopLinkRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.ARBDroopLinkLength)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.DamperLengthRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.DamperLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.LowerFrontRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.LowerFrontLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.LowerRearRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.LowerRearLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.UpperFrontRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.UpperFrontLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.UpperRearRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.UpperRearLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.PushRodRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.PushRodLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.ToeLinkRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.ToeLinkLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.ARBBladeRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.ARBBladeLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.ARBDroopLinkRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.ARBDroopLinkLength)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.DamperLengthRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.DamperLength)));
                 #endregion
                 #region GUI operations to change the Input Sheet Textboxes and labels
                 if (_vehicleInputSheetPopulation.McPhersonFront == 1)
                 {
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.A1xFL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.A1yFL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.A1zFL.Text = "NaN";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.A1xFR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.A1yFR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.A1zFR.Text = "NaN";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.B1xFL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.B1yFL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.B1zFL.Text = "NaN";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.B1xFR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.B1yFR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.B1zFR.Text = "NaN";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.I1xFL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.I1yFL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.I1zFL.Text = "NaN";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.I1xFR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.I1yFR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.I1zFR.Text = "NaN";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.H1xFL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.H1yFL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.H1zFL.Text = "NaN";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.H1xFR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.H1yFR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.H1zFR.Text = "NaN";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.G1xFL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.G1yFL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.G1zFL.Text = "NaN";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.G1xFR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.G1yFR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.G1zFR.Text = "NaN";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.F1xFL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.F1yFL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.F1zFL.Text = "NaN";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.F1xFR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.F1yFR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.F1zFR.Text = "NaN";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.O1xFL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.O1yFL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.O1zFL.Text = "NaN";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.O1xFR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.O1yFR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.O1zFR.Text = "NaN";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.A1xFL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.A1yFL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.A1zFL.Text = "NaN";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.A1xFR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.A1yFR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.A1zFR.Text = "NaN";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.B1xFL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.B1yFL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.B1zFL.Text = "NaN";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.B1xFR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.B1yFR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.B1zFR.Text = "NaN";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.I1xFL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.I1yFL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.I1zFL.Text = "NaN";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.I1xFR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.I1yFR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.I1zFR.Text = "NaN";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.H1xFL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.H1yFL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.H1zFL.Text = "NaN";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.H1xFR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.H1yFR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.H1zFR.Text = "NaN";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.G1xFL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.G1yFL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.G1zFL.Text = "NaN";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.G1xFR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.G1yFR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.G1zFR.Text = "NaN";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.F1xFL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.F1yFL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.F1zFL.Text = "NaN";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.F1xFR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.F1yFR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.F1zFR.Text = "NaN";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.O1xFL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.O1yFL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.O1zFL.Text = "NaN";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.O1xFR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.O1yFR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.O1zFR.Text = "NaN";
 
                 }
 
                 if (_vehicleInputSheetPopulation.McPhersonRear == 1)
                 {
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.A1xRL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.A1yRL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.A1zRL.Text = "NaN";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.A1xRR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.A1yRR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.A1zRR.Text = "NaN";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.B1xRL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.B1yRL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.B1zRL.Text = "NaN";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.B1xRR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.B1yRR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.B1zRR.Text = "NaN";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.I1xRL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.I1yRL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.I1zRL.Text = "NaN";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.I1xRR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.I1yRR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.I1zRR.Text = "NaN";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.H1xRL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.H1yRL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.H1zRL.Text = "NaN";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.H1xRR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.H1yRR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.H1zRR.Text = "NaN";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.G1xRL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.G1yRL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.G1zRL.Text = "NaN";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.G1xRR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.G1yRR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.G1zRR.Text = "NaN";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.F1xRL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.F1yRL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.F1zRL.Text = "NaN";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.F1xRR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.F1yRR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.F1zRR.Text = "NaN";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.O1xRL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.O1yRL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.O1zRL.Text = "NaN";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.O1xRR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.O1yRR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID-1].IS.O1zRR.Text = "NaN";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.A1xRL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.A1yRL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.A1zRL.Text = "NaN";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.A1xRR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.A1yRR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.A1zRR.Text = "NaN";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.B1xRL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.B1yRL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.B1zRL.Text = "NaN";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.B1xRR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.B1yRR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.B1zRR.Text = "NaN";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.I1xRL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.I1yRL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.I1zRL.Text = "NaN";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.I1xRR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.I1yRR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.I1zRR.Text = "NaN";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.H1xRL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.H1yRL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.H1zRL.Text = "NaN";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.H1xRR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.H1yRR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.H1zRR.Text = "NaN";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.G1xRL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.G1yRL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.G1zRL.Text = "NaN";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.G1xRR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.G1yRR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.G1zRR.Text = "NaN";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.F1xRL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.F1yRL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.F1zRL.Text = "NaN";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.F1xRR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.F1yRR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.F1zRR.Text = "NaN";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.O1xRL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.O1yRL.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.O1zRL.Text = "NaN";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.O1xRR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.O1yRR.Text = "NaN"; M1_Global.vehicleGUI[local_VehicleID - 1].IS.O1zRR.Text = "NaN";
                 }
 
                 if (_vehicleInputSheetPopulation.PushRodIdentifierFront == 1 || _vehicleInputSheetPopulation.PushRodIdentifierFront == 0)
                 {
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.label183.Text = "Pushrod Bell Crank";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.label205.Text = "Pushrod Upright";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.label317.Text = "Pushrod Bell Crank";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.label244.Text = "Pushrod Upright";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.label183.Text = "Pushrod Bell Crank";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.label205.Text = "Pushrod Upright";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.label317.Text = "Pushrod Bell Crank";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.label244.Text = "Pushrod Upright";
                 }
                 if (_vehicleInputSheetPopulation.PullRodIdentifierFront == 1)
                 {
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.label183.Text = "Pullrod Bell Crank";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.label205.Text = "Pullrod Upright";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.label317.Text = "Pullrod Bell Crank";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.label244.Text = "Pullrod Upright";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.label183.Text = "Pullrod Bell Crank";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.label205.Text = "Pullrod Upright";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.label317.Text = "Pullrod Bell Crank";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.label244.Text = "Pullrod Upright";
                 }
 
                 if (_vehicleInputSheetPopulation.PushRodIdentifierRear == 1 || _vehicleInputSheetPopulation.PushRodIdentifierRear == 0)
                 {
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.label277.Text = "Pushrod Bell Crank";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.label272.Text = "Pushrod Upright";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.label396.Text = "Pushrod Bell Crank";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.label349.Text = "Pushrod Upright";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.label277.Text = "Pushrod Bell Crank";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.label272.Text = "Pushrod Upright";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.label396.Text = "Pushrod Bell Crank";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.label349.Text = "Pushrod Upright";
                 }
                 if (_vehicleInputSheetPopulation.PullRodIdentifierRear == 1)
                 {
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.label277.Text = "Pullrod Bell Crank";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.label272.Text = "Pullrod Upright";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.label396.Text = "Pullrod Bell Crank";
-                    M1_Global.vehicleGUI[local_VehicleID-1].IS.label349.Text = "Pullrod Upright";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.label277.Text = "Pullrod Bell Crank";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.label272.Text = "Pullrod Upright";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.label396.Text = "Pullrod Bell Crank";
+                    M1_Global.vehicleGUI[local_VehicleID - 1].IS.label349.Text = "Pullrod Upright";
                 }
                 #endregion
 
 
                 #region Populating Input Sheet - FRONT LEFT Tire
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.TireRateFL.Text = Convert.ToString(_vehicleInputSheetPopulation.tire_FL.TireRate);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.TireWidthFL.Text = Convert.ToString(_vehicleInputSheetPopulation.tire_FL.TireWidth);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.TireRateFL.Text = Convert.ToString(_vehicleInputSheetPopulation.tire_FL.TireRate);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.TireWidthFL.Text = Convert.ToString(_vehicleInputSheetPopulation.tire_FL.TireWidth);
                 #endregion
                 #region Populating Input Sheet - FRONT RIGHT Tire
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.TireRateFR.Text = Convert.ToString(_vehicleInputSheetPopulation.tire_FR.TireRate);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.TireWidthFR.Text = Convert.ToString(_vehicleInputSheetPopulation.tire_FR.TireWidth);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.TireRateFR.Text = Convert.ToString(_vehicleInputSheetPopulation.tire_FR.TireRate);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.TireWidthFR.Text = Convert.ToString(_vehicleInputSheetPopulation.tire_FR.TireWidth);
                 #endregion
                 #region Populating Input Sheet - REAR LEFT Tire
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.TireRateRL.Text = Convert.ToString(_vehicleInputSheetPopulation.tire_RL.TireRate);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.TireWidthRL.Text = Convert.ToString(_vehicleInputSheetPopulation.tire_RL.TireWidth);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.TireRateRL.Text = Convert.ToString(_vehicleInputSheetPopulation.tire_RL.TireRate);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.TireWidthRL.Text = Convert.ToString(_vehicleInputSheetPopulation.tire_RL.TireWidth);
                 #endregion
                 #region Populating Input Sheet - REAR RIGHT Tire
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.TireRateRR.Text = Convert.ToString(_vehicleInputSheetPopulation.tire_RR.TireRate);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.TireWidthRR.Text = Convert.ToString(_vehicleInputSheetPopulation.tire_RR.TireWidth);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.TireRateRR.Text = Convert.ToString(_vehicleInputSheetPopulation.tire_RR.TireRate);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.TireWidthRR.Text = Convert.ToString(_vehicleInputSheetPopulation.tire_RR.TireWidth);
                 #endregion
 
 
                 #region Populating the Input Sheet - FRONT LEFT Spring
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.SpringRateFL.Text = Convert.ToString(_vehicleInputSheetPopulation.spring_FL.SpringRate);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.SpringPreloadFL.Text = Convert.ToString(_vehicleInputSheetPopulation.spring_FL.SpringPreload);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.SpringFreeLengthFL.Text = Convert.ToString(_vehicleInputSheetPopulation.spring_FL.SpringFreeLength);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.SpringRateFL.Text = Convert.ToString(_vehicleInputSheetPopulation.spring_FL.SpringRate);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.SpringPreloadFL.Text = Convert.ToString(_vehicleInputSheetPopulation.spring_FL.SpringPreload);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.SpringFreeLengthFL.Text = Convert.ToString(_vehicleInputSheetPopulation.spring_FL.SpringFreeLength);
                 #endregion
                 #region Populating the Input Sheet - FRONT RIGHT Spring
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.SpringRateFR.Text = Convert.ToString(_vehicleInputSheetPopulation.spring_FR.SpringRate);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.SpringPreloadFR.Text = Convert.ToString(_vehicleInputSheetPopulation.spring_FR.SpringPreload);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.SpringFreeLengthFR.Text = Convert.ToString(_vehicleInputSheetPopulation.spring_FR.SpringFreeLength);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.SpringRateFR.Text = Convert.ToString(_vehicleInputSheetPopulation.spring_FR.SpringRate);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.SpringPreloadFR.Text = Convert.ToString(_vehicleInputSheetPopulation.spring_FR.SpringPreload);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.SpringFreeLengthFR.Text = Convert.ToString(_vehicleInputSheetPopulation.spring_FR.SpringFreeLength);
                 #endregion
                 #region Populating the Input Sheet - REAR LEFT Spring
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.SpringRateRL.Text = Convert.ToString(_vehicleInputSheetPopulation.spring_RL.SpringRate);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.SpringPreloadRL.Text = Convert.ToString(_vehicleInputSheetPopulation.spring_RL.SpringPreload);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.SpringFreeLengthRL.Text = Convert.ToString(_vehicleInputSheetPopulation.spring_RL.SpringFreeLength);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.SpringRateRL.Text = Convert.ToString(_vehicleInputSheetPopulation.spring_RL.SpringRate);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.SpringPreloadRL.Text = Convert.ToString(_vehicleInputSheetPopulation.spring_RL.SpringPreload);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.SpringFreeLengthRL.Text = Convert.ToString(_vehicleInputSheetPopulation.spring_RL.SpringFreeLength);
                 #endregion
                 #region Populating the Input Sheet - REAR RIGHT Spring
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.SpringRateRR.Text = Convert.ToString(_vehicleInputSheetPopulation.spring_RR.SpringRate);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.SpringPreloadRR.Text = Convert.ToString(_vehicleInputSheetPopulation.spring_RR.SpringPreload);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.SpringFreeLengthRR.Text = Convert.ToString(_vehicleInputSheetPopulation.spring_RR.SpringFreeLength);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.SpringRateRR.Text = Convert.ToString(_vehicleInputSheetPopulation.spring_RR.SpringRate);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.SpringPreloadRR.Text = Convert.ToString(_vehicleInputSheetPopulation.spring_RR.SpringPreload);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.SpringFreeLengthRR.Text = Convert.ToString(_vehicleInputSheetPopulation.spring_RR.SpringFreeLength);
                 #endregion
 
 
                 #region Populating the Input Sheet - FRONT LEFT Damper
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.DamperPressureFL.Text = Convert.ToString(_vehicleInputSheetPopulation.damper_FL.DamperGasPressure);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.DamperShaftDiaFL.Text = Convert.ToString(_vehicleInputSheetPopulation.damper_FL.DamperShaftDia);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.DamperPressureFL.Text = Convert.ToString(_vehicleInputSheetPopulation.damper_FL.DamperGasPressure);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.DamperShaftDiaFL.Text = Convert.ToString(_vehicleInputSheetPopulation.damper_FL.DamperShaftDia);
                 #endregion
                 #region Populating the Input Sheet - FRONT RIGHT Damper
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.DamperPressureFR.Text = Convert.ToString(_vehicleInputSheetPopulation.damper_FR.DamperGasPressure);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.DamperShaftDiaFR.Text = Convert.ToString(_vehicleInputSheetPopulation.damper_FR.DamperShaftDia);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.DamperPressureFR.Text = Convert.ToString(_vehicleInputSheetPopulation.damper_FR.DamperGasPressure);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.DamperShaftDiaFR.Text = Convert.ToString(_vehicleInputSheetPopulation.damper_FR.DamperShaftDia);
                 #endregion
                 #region Populating the Input Sheet - REAR LEFT Damper
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.DamperPressureRL.Text = Convert.ToString(_vehicleInputSheetPopulation.damper_RL.DamperGasPressure);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.DamperShaftDiaRL.Text = Convert.ToString(_vehicleInputSheetPopulation.damper_RL.DamperShaftDia);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.DamperPressureRL.Text = Convert.ToString(_vehicleInputSheetPopulation.damper_RL.DamperGasPressure);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.DamperShaftDiaRL.Text = Convert.ToString(_vehicleInputSheetPopulation.damper_RL.DamperShaftDia);
                 #endregion
                 #region Populating the Input Sheet - REAR RIGHT Damper
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.DamperPressureRR.Text = Convert.ToString(_vehicleInputSheetPopulation.damper_RR.DamperGasPressure);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.DamperShaftDiaRR.Text = Convert.ToString(_vehicleInputSheetPopulation.damper_RR.DamperShaftDia);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.DamperPressureRR.Text = Convert.ToString(_vehicleInputSheetPopulation.damper_RR.DamperGasPressure);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.DamperShaftDiaRR.Text = Convert.ToString(_vehicleInputSheetPopulation.damper_RR.DamperShaftDia);
                 #endregion
 
 
                 #region Populating the Input Sheet - Rear Anti-Roll Bar
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.RearAntiRollBar.Text = Convert.ToString(_vehicleInputSheetPopulation.arb_RL.AntiRollBarRate);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.RearAntiRollBar.Text = Convert.ToString(_vehicleInputSheetPopulation.arb_RL.AntiRollBarRate);
                 #endregion
                 #region Populating the Input Sheet - Front Anti-Roll Bar
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.FrontAntiRollBar.Text = Convert.ToString(_vehicleInputSheetPopulation.arb_FL.AntiRollBarRate);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.FrontAntiRollBar.Text = Convert.ToString(_vehicleInputSheetPopulation.arb_FL.AntiRollBarRate);
                 #endregion
 
 
                 #region Populating the Input Sheet Chassis Items
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.SuspendedMass.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.SuspendedMass);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.SuspendedMass.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.SuspendedMass);
 
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.SuspendedMassCoGx.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.SuspendedMassCoGx);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.SuspendedMassCoGy.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.SuspendedMassCoGy);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.SuspendedMassCoGz.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.SuspendedMassCoGz);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.SuspendedMassCoGx.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.SuspendedMassCoGx);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.SuspendedMassCoGy.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.SuspendedMassCoGy);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.SuspendedMassCoGz.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.SuspendedMassCoGz);
 
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.NonSuspendedMassFL.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.NonSuspendedMassFL);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.NonSuspendedMassCoGFLx.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.NonSuspendedMassFLCoGx);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.NonSuspendedMassCoGFLy.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.NonSuspendedMassFLCoGy);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.NonSuspendedMassCoGFLz.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.NonSuspendedMassFLCoGz);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.NonSuspendedMassFL.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.NonSuspendedMassFL);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.NonSuspendedMassCoGFLx.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.NonSuspendedMassFLCoGx);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.NonSuspendedMassCoGFLy.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.NonSuspendedMassFLCoGy);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.NonSuspendedMassCoGFLz.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.NonSuspendedMassFLCoGz);
 
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.NonSuspendedMassFR.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.NonSuspendedMassFR);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.NonSuspendedMassCoGFRx.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.NonSuspendedMassFRCoGx);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.NonSuspendedMassCoGFRy.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.NonSuspendedMassFRCoGy);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.NonSuspendedMassCoGFRz.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.NonSuspendedMassFRCoGz);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.NonSuspendedMassFR.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.NonSuspendedMassFR);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.NonSuspendedMassCoGFRx.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.NonSuspendedMassFRCoGx);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.NonSuspendedMassCoGFRy.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.NonSuspendedMassFRCoGy);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.NonSuspendedMassCoGFRz.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.NonSuspendedMassFRCoGz);
 
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.NonSuspendedMassRL.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.NonSuspendedMassRL);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.NonSuspendedMassCoGRLx.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.NonSuspendedMassRLCoGx);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.NonSuspendedMassCoGRLy.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.NonSuspendedMassRLCoGy);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.NonSuspendedMassCoGRLz.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.NonSuspendedMassRLCoGz);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.NonSuspendedMassRL.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.NonSuspendedMassRL);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.NonSuspendedMassCoGRLx.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.NonSuspendedMassRLCoGx);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.NonSuspendedMassCoGRLy.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.NonSuspendedMassRLCoGy);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.NonSuspendedMassCoGRLz.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.NonSuspendedMassRLCoGz);
 
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.NonSuspendedMassRR.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.NonSuspendedMassRR);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.NonSuspendedMassCoGRRx.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.NonSuspendedMassRRCoGx);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.NonSuspendedMassCoGRRy.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.NonSuspendedMassRRCoGy);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.NonSuspendedMassCoGRRz.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.NonSuspendedMassRRCoGz);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.NonSuspendedMassRR.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.NonSuspendedMassRR);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.NonSuspendedMassCoGRRx.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.NonSuspendedMassRRCoGx);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.NonSuspendedMassCoGRRy.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.NonSuspendedMassRRCoGy);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.NonSuspendedMassCoGRRz.Text = Convert.ToString(_vehicleInputSheetPopulation.chassis_vehicle.NonSuspendedMassRRCoGz);
                 #endregion
 
 
                 #region Populating the Input Sheet - FRONT LEFT Wheel Alignment
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.CamberFL.Text = Convert.ToString(_vehicleInputSheetPopulation.wa_FL.StaticCamber);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.ToeFL.Text = Convert.ToString(_vehicleInputSheetPopulation.wa_FL.StaticToe);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.CamberFL.Text = Convert.ToString(_vehicleInputSheetPopulation.wa_FL.StaticCamber);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.ToeFL.Text = Convert.ToString(_vehicleInputSheetPopulation.wa_FL.StaticToe);
                 #endregion
                 #region Populating the Input Sheet - FRONT RIGHT Wheel Alignment
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.CamberFR.Text = Convert.ToString(_vehicleInputSheetPopulation.wa_FR.StaticCamber);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.ToeFR.Text = Convert.ToString(_vehicleInputSheetPopulation.wa_FR.StaticToe);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.CamberFR.Text = Convert.ToString(_vehicleInputSheetPopulation.wa_FR.StaticCamber);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.ToeFR.Text = Convert.ToString(_vehicleInputSheetPopulation.wa_FR.StaticToe);
                 #endregion
                 #region Populating the Input Sheet - REAR LEFT Wheel Alignment
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.CamberRL.Text = Convert.ToString(_vehicleInputSheetPopulation.wa_RL.StaticCamber);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.ToeRL.Text = Convert.ToString(_vehicleInputSheetPopulation.wa_RL.StaticToe);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.CamberRL.Text = Convert.ToString(_vehicleInputSheetPopulation.wa_RL.StaticCamber);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.ToeRL.Text = Convert.ToString(_vehicleInputSheetPopulation.wa_RL.StaticToe);
                 #endregion
                 #region Populating the Input Sheet - REAR RIGHT Wheel Alignment
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.CamberRR.Text = Convert.ToString(_vehicleInputSheetPopulation.wa_RR.StaticCamber);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.ToeRR.Text = Convert.ToString(_vehicleInputSheetPopulation.wa_RR.StaticToe);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.CamberRR.Text = Convert.ToString(_vehicleInputSheetPopulation.wa_RR.StaticCamber);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.ToeRR.Text = Convert.ToString(_vehicleInputSheetPopulation.wa_RR.StaticToe);
                 #endregion
 
 
                 #region Populating the Input Sheet -MOTION RATIO of All Corners
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.MotionRatioFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.InitialMR)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.MotionRatioFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.InitialMR)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.MotionRatioRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.InitialMR)));
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.MotionRatioRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.InitialMR)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.MotionRatioFL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FL.InitialMR)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.MotionRatioFR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_FR.InitialMR)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.MotionRatioRL.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RL.InitialMR)));
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.MotionRatioRR.Text = String.Format("{0:0.000}", ((_vehicleInputSheetPopulation.sc_RR.InitialMR)));
                 #endregion
 
 
                 #region Populating the Input Sheet - Corner Weight of All Corners
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.CornerWeightFL.Text = String.Format("{0:00.000}", /*-*/_vehicleInputSheetPopulation.oc_FL[index].CW);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.CornerWeightFR.Text = String.Format("{0:00.000}", /*-*/_vehicleInputSheetPopulation.oc_FR[index].CW);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.CornerWeightRL.Text = String.Format("{0:00.000}", /*-*/_vehicleInputSheetPopulation.oc_RL[index].CW);
-                M1_Global.vehicleGUI[local_VehicleID-1].IS.CornerWeightRR.Text = String.Format("{0:00.000}", /*-*/_vehicleInputSheetPopulation.oc_RR[index].CW);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.CornerWeightFL.Text = String.Format("{0:00.000}", /*-*/_vehicleInputSheetPopulation.oc_FL[index].CW);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.CornerWeightFR.Text = String.Format("{0:00.000}", /*-*/_vehicleInputSheetPopulation.oc_FR[index].CW);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.CornerWeightRL.Text = String.Format("{0:00.000}", /*-*/_vehicleInputSheetPopulation.oc_RL[index].CW);
+                M1_Global.vehicleGUI[local_VehicleID - 1].IS.CornerWeightRR.Text = String.Format("{0:00.000}", /*-*/_vehicleInputSheetPopulation.oc_RR[index].CW);
                 #endregion
                 #endregion
 
@@ -7597,7 +7652,7 @@ namespace Coding_Attempt_with_GUI
 
         private void barButtonItemCreateSimulation_ItemClick(object sender, ItemClickEventArgs e)
         {
-            
+
             navBarGroupSimulationSetup.Visible = true;
             navBarGroupSimulationSetup.Expanded = true;
             navBarGroupSimulation.Expanded = true;
@@ -7626,12 +7681,12 @@ namespace Coding_Attempt_with_GUI
             OutputIndex = _outputIndex;
         }
         #endregion
-        
+
         #region Reset of Outputs
         private void ResetOutputs()
         {
             // Add code if necessary 
-        } 
+        }
         #endregion
 
         #region Populating the Output Class Data Table
@@ -7677,7 +7732,7 @@ namespace Coding_Attempt_with_GUI
             {
                 ///<summary>Creating a <see cref="NavBarGroup"/> object </summary>
                 M1_Global.vehicleGUI[index].navBarGroup_Vehicle_Result = M1_Global.vehicleGUI[index].navBarGroup_Vehicle_Result.CreateNewNavBarGroup_For_VehicleResults(M1_Global.vehicleGUI[index].navBarGroup_Vehicle_Result, navBarControlResults, index + 1, _vehicleNavBarOperations._VehicleName);
-                
+
                 ///<summary>Adding the created <see cref="NavBarGroup"/> object to the <see cref="navBarControlResults"/></summary>
                 navBarControlResults.Groups.Add(M1_Global.vehicleGUI[index].navBarGroup_Vehicle_Result);
 
@@ -7720,7 +7775,7 @@ namespace Coding_Attempt_with_GUI
                 return false;
                 // If catch block is entered then it means that there was nothing inside the navBarControlResults
             }
-        } 
+        }
         #endregion
 
         #region Display of Outputs
@@ -7824,7 +7879,7 @@ namespace Coding_Attempt_with_GUI
                 M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].WF.UpperFrontUprightFLz.Text = String.Format("{0:0.000}", _vehicle_OutputDisplay.oc_FL[_OPIndex].UBJ_z);
                 M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].WF.UpperRearUprightFLx.Text = String.Format("{0:0.000}", _vehicle_OutputDisplay.oc_FL[_OPIndex].UBJ_x);
                 M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].WF.UpperRearUprightFLy.Text = String.Format("{0:0.000}", _vehicle_OutputDisplay.oc_FL[_OPIndex].UBJ_y);
-                M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].WF.UpperRearUprightFLz.Text = String.Format("{0:0.000}", _vehicle_OutputDisplay.oc_FL[_OPIndex].UBJ_z); 
+                M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].WF.UpperRearUprightFLz.Text = String.Format("{0:0.000}", _vehicle_OutputDisplay.oc_FL[_OPIndex].UBJ_z);
 
                 ///<remarks>
                 ///Steering Rack and ARB Attachment point forces in XYZ direction
@@ -7858,7 +7913,7 @@ namespace Coding_Attempt_with_GUI
                 M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.ToeLinkLengthFL.Text = String.Format("{0:0.000}", _vehicle_OutputDisplay.sc_FL.ToeLinkLength);
                 M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.ARBDroopLinkLengthFL.Text = String.Format("{0:0.000}", _vehicle_OutputDisplay.sc_FL.ARBDroopLinkLength);
                 M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.DamperLinkLengthFL.Text = String.Format("{0:0.000}", _vehicle_OutputDisplay.sc_FL.DamperLength);
-                M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.ARBLeverLinkLengthFL.Text = String.Format("{0:0.000}", _vehicle_OutputDisplay.sc_FL.ARBBladeLength); 
+                M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.ARBLeverLinkLengthFL.Text = String.Format("{0:0.000}", _vehicle_OutputDisplay.sc_FL.ARBBladeLength);
                 #endregion
 
                 #endregion
@@ -7985,7 +8040,7 @@ namespace Coding_Attempt_with_GUI
                 M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.ToeLinkLengthFR.Text = String.Format("{0:0.000}", _vehicle_OutputDisplay.sc_FR.ToeLinkLength);
                 M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.ARBDroopLinkLengthFR.Text = String.Format("{0:0.000}", _vehicle_OutputDisplay.sc_FR.ARBDroopLinkLength);
                 M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.DamperLinkLengthFR.Text = String.Format("{0:0.000}", _vehicle_OutputDisplay.sc_FR.DamperLength);
-                M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.ARBLeverLinkLengthFR.Text = String.Format("{0:0.000}", _vehicle_OutputDisplay.sc_FR.ARBBladeLength); 
+                M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.ARBLeverLinkLengthFR.Text = String.Format("{0:0.000}", _vehicle_OutputDisplay.sc_FR.ARBBladeLength);
                 #endregion
 
                 #endregion
@@ -8104,7 +8159,7 @@ namespace Coding_Attempt_with_GUI
                 M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.ToeLinkLengthRL.Text = String.Format("{0:0.000}", _vehicle_OutputDisplay.sc_RL.ToeLinkLength);
                 M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.ARBDroopLinkLengthRL.Text = String.Format("{0:0.000}", _vehicle_OutputDisplay.sc_RL.ARBDroopLinkLength);
                 M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.DamperLinkLengthRL.Text = String.Format("{0:0.000}", _vehicle_OutputDisplay.sc_RL.DamperLength);
-                M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.ARBLeverLinkLengthRL.Text = String.Format("{0:0.000}", _vehicle_OutputDisplay.sc_RL.ARBBladeLength); 
+                M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.ARBLeverLinkLengthRL.Text = String.Format("{0:0.000}", _vehicle_OutputDisplay.sc_RL.ARBBladeLength);
                 #endregion
 
 
@@ -8258,7 +8313,7 @@ namespace Coding_Attempt_with_GUI
                 /// </remarks>
                 M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].VO.ChassisHeave.Text = String.Format("{0:0.000}", (_vehicle_OutputDisplay.oc_FL[_OPIndex].ChassisHeave));
                 M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].VO.RollAngleChassis.Text = String.Format("{0:0.000}", (_vehicle_OutputDisplay.RollAngle[_OPIndex]));
-                M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].VO.PitchAngleChassis.Text = String.Format("{0:0.000}", (_vehicle_OutputDisplay.PitchAngle [_OPIndex]));
+                M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].VO.PitchAngleChassis.Text = String.Format("{0:0.000}", (_vehicle_OutputDisplay.PitchAngle[_OPIndex]));
 
                 M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].VO.ARBMotionRatioFront.Text = String.Format("{0:0.000}", _vehicle_OutputDisplay.ARB_MR_Front[_OPIndex]);
                 M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].VO.ARBMotionRatioRear.Text = String.Format("{0:0.000}", _vehicle_OutputDisplay.ARB_MR_Rear[_OPIndex]);
@@ -8279,16 +8334,16 @@ namespace Coding_Attempt_with_GUI
                 {
                     #region Bringing out the changes in UI and values if the Suspension Type is Double Wishbone with Pushrod
 
-                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.UpperFrontLinkLengthFL.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.UpperFrontLinkLengthFR.Show(); 
+                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.UpperFrontLinkLengthFL.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.UpperFrontLinkLengthFR.Show();
                     M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.UpperRearLinkLengthFL.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.UpperRearLinkLengthFR.Show();
-                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.PushRodLinkLengthFL.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.PushRodLinkLengthFR.Show(); 
+                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.PushRodLinkLengthFL.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.PushRodLinkLengthFR.Show();
                     M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.ARBDroopLinkLengthFL.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.ARBDroopLinkLengthFR.Show();
 
-                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1110.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1104.Show(); 
-                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1112.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1105.Show(); 
-                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1114.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1106.Show(); 
+                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1110.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1104.Show();
+                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1112.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1105.Show();
+                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1114.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1106.Show();
                     M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1113.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label2.Show();
-                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1127.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1125.Show(); 
+                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1127.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1125.Show();
                     M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1123.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1124.Show();
                     M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1133.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1132.Show();
                     M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1131.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label3.Show();
@@ -8304,16 +8359,16 @@ namespace Coding_Attempt_with_GUI
                     #region Bringing out the changes in UI and values if the Suspension type is McPherson Strut
                     M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.UpperFrontLinkLengthFL.Hide(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.UpperFrontLinkLengthFR.Hide();
                     M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.UpperRearLinkLengthFL.Hide(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.UpperRearLinkLengthFR.Hide();
-                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.PushRodLinkLengthFL.Hide(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.PushRodLinkLengthFR.Hide(); 
+                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.PushRodLinkLengthFL.Hide(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.PushRodLinkLengthFR.Hide();
                     M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.ARBDroopLinkLengthFL.Hide(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.ARBDroopLinkLengthFR.Hide();
 
                     M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1110.Hide(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1104.Hide();
-                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1112.Hide(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1105.Hide(); 
-                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1114.Hide(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1106.Hide(); 
+                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1112.Hide(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1105.Hide();
+                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1114.Hide(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1106.Hide();
                     M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1113.Hide(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label2.Hide();
                     M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1127.Hide(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1125.Hide();
                     M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1123.Hide(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1124.Hide();
-                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1133.Hide(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1132.Hide(); 
+                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1133.Hide(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1132.Hide();
                     M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1131.Hide(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label3.Hide();
 
                     M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].WF.navigationPagePushRodFL.Caption = "Strut FL";
@@ -8327,18 +8382,18 @@ namespace Coding_Attempt_with_GUI
                 {
                     #region Bringing out the changes in UI and values if the Suspension Type is Double Wishbone with Pushrod
 
-                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.UpperFrontLinkLengthRL.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.UpperFrontLinkLengthRR.Show(); 
+                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.UpperFrontLinkLengthRL.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.UpperFrontLinkLengthRR.Show();
                     M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.UpperRearLinkLengthRL.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.UpperRearLinkLengthRR.Show();
                     M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.PushRodLinkLengthRL.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.PushRodLinkLengthRR.Show();
                     M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.ARBDroopLinkLengthRL.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.ARBDroopLinkLengthRR.Show();
 
-                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1149.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1152.Show(); 
-                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1157.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1154.Show(); 
-                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1163.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1161.Show(); 
+                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1149.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1152.Show();
+                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1157.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1154.Show();
+                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1163.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1161.Show();
                     M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1158.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label8.Show();
-                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1142.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1140.Show(); 
-                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1137.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1139.Show(); 
-                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1148.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1147.Show(); 
+                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1142.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1140.Show();
+                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1137.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1139.Show();
+                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1148.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1147.Show();
                     M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1146.Show(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label5.Show();
 
                     M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].WF.navigationPagePushRodRL.Caption = "Pushrod RL";
@@ -8349,20 +8404,20 @@ namespace Coding_Attempt_with_GUI
                 else if (_vehicle_OutputDisplay.McPhersonRear == 1)
                 {
                     #region Bringing out the changes in UI and values if the Suspension type is McPherson Strut
-                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.UpperFrontLinkLengthRL.Hide(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.UpperFrontLinkLengthRR.Hide(); 
+                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.UpperFrontLinkLengthRL.Hide(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.UpperFrontLinkLengthRR.Hide();
                     M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.UpperRearLinkLengthRL.Hide(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.UpperRearLinkLengthRR.Hide();
                     M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.PushRodLinkLengthRL.Hide(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.PushRodLinkLengthRR.Hide();
                     M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.ARBDroopLinkLengthRL.Hide(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.ARBDroopLinkLengthRR.Hide();
 
-                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1149.Hide(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1152.Hide(); 
-                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1157.Hide(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1154.Hide(); 
+                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1149.Hide(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1152.Hide();
+                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1157.Hide(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1154.Hide();
                     M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1163.Hide(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1161.Hide();
                     M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1158.Hide(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label8.Hide();
-                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1142.Hide(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1140.Hide(); 
+                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1142.Hide(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1140.Hide();
                     M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1137.Hide(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1139.Hide();
-                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1148.Hide(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1147.Hide(); 
+                    M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1148.Hide(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1147.Hide();
                     M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label1146.Hide(); M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].LL.label5.Hide();
-                    
+
                     M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].WF.navigationPagePushRodRL.Caption = "Stut RL";
                     M1_Global.vehicleGUI[_vehicle_OutputDisplay.VehicleID - 1].WF.navigationPagePushRodRR.Caption = "Strut RR";
 
@@ -8416,7 +8471,7 @@ namespace Coding_Attempt_with_GUI
 
         private void BandedGridView_Motion_FocusedRowChanged(object sender, FocusedRowChangedEventArgs e)
         {
-            
+
         }
         #endregion
 
@@ -8544,13 +8599,6 @@ namespace Coding_Attempt_with_GUI
 
                 Vehicle.Assembled_Vehicle.vehicleGUI = M1_Global.vehicleGUI[VIndex];
 
-                TabControl_Outputs = CustomXtraTabPage.ClearTabPages(TabControl_Outputs, M1_Global.vehicleGUI[VIndex].TabPages_Vehicle);
-
-                ///<summary>Constructing the Output <see cref="CAD"/> usercontrol here to prevent overcrowding the memory by initializing the controls in the declaration itself</summary>
-                M1_Global.vehicleGUI[VIndex].CADVehicleOutputs = new CAD();
-
-                M1_Global.vehicleGUI[VIndex].TabPages_Vehicle = M1_Global.vehicleGUI[VIndex].CreateTabPages_For_Vehicle_Outputs(M1_Global.vehicleGUI[VIndex].TabPages_Vehicle, this, Vehicle.List_Vehicle[VIndex].VehicleID);
-
                 #region Reseting the corner weights, ride height and deflections inside the Assmebled Vehicle to the values that were calculated after the initial calculationd
                 for (int i_reset = 0; i_reset < Vehicle.Assembled_Vehicle.oc_FL.Count; i_reset++)
                 {
@@ -8627,10 +8675,14 @@ namespace Coding_Attempt_with_GUI
 
             Button_Recalculate_Enabler();
 
-            PopulateOutputDataTable(Vehicle.Assembled_Vehicle);
+            TabControl_Outputs = CustomXtraTabPage.ClearTabPages(TabControl_Outputs, M1_Global.vehicleGUI[VIndex].TabPages_Vehicle);
 
-            /////<summary>Constructing the Output <see cref="CAD"/> usercontrol here to prevent overcrowding the memory by initializing the controls in the declaration itself</summary>
-            //M1_Global.vehicleGUI[VIndex].CADVehicleOutputs = new CAD();
+            ///<summary>Constructing the Output <see cref="CAD"/> usercontrol here to prevent overcrowding the memory by initializing the controls in the declaration itself</summary>
+            M1_Global.vehicleGUI[VIndex].CADVehicleOutputs = new CAD();
+
+            M1_Global.vehicleGUI[VIndex].TabPages_Vehicle = M1_Global.vehicleGUI[VIndex].CreateTabPages_For_Vehicle_Outputs(M1_Global.vehicleGUI[VIndex].TabPages_Vehicle, this, Vehicle.List_Vehicle[VIndex].VehicleID);
+
+            PopulateOutputDataTable(Vehicle.Assembled_Vehicle);
 
             TabControl_Outputs = CustomXtraTabPage.AddTabPages(TabControl_Outputs, M1_Global.vehicleGUI[Vehicle.Assembled_Vehicle.VehicleID - 1].TabPages_Vehicle);
 
@@ -8654,7 +8706,7 @@ namespace Coding_Attempt_with_GUI
 
             if (M1_Global.vehicleGUI[VIndex].CadIsTobeImported)
             {
-                M1_Global.vehicleGUI[VIndex].CADVehicleOutputs.CloneOutputViewPort(M1_Global.vehicleGUI[VIndex].CADVehicleOutputs.viewportLayout1, M1_Global.vehicleGUI[VIndex].importCADForm.importCADViewport.viewportLayout1); 
+                M1_Global.vehicleGUI[VIndex].CADVehicleOutputs.CloneOutputViewPort(M1_Global.vehicleGUI[VIndex].CADVehicleOutputs.viewportLayout1, M1_Global.vehicleGUI[VIndex].importCADForm.importCADViewport.viewportLayout1);
             }
             else
             {
@@ -8751,13 +8803,13 @@ namespace Coding_Attempt_with_GUI
                 #endregion
 
             }
-            
+
             catch (Exception E)
             {
                 DialogResult result;
                 result = MessageBox.Show(E.Message);
                 Exception eee = E.InnerException;
-                
+
 
                 if (result == DialogResult.OK)
                 {
@@ -8832,7 +8884,7 @@ namespace Coding_Attempt_with_GUI
             ChangeTracker++;
 
             progressBar.Hide();
-        } 
+        }
         #endregion
 
         #region Translator invoker methods
@@ -8854,7 +8906,7 @@ namespace Coding_Attempt_with_GUI
                 Vehicle.List_Vehicle[Index].OutputOrigin_y = Convert.ToDouble(R1.OutputOriginY.Text);
                 Vehicle.List_Vehicle[Index].OutputOrigin_z = Convert.ToDouble(R1.OutputOriginZ.Text);
 
-                Vehicle.List_Vehicle[Index].InitializeTranslation(false, Vehicle.List_Vehicle[Index].Vehicle_MotionExists,0,0,0, Vehicle.List_Vehicle[Index].OutputOrigin_x, Vehicle.List_Vehicle[Index].OutputOrigin_y, Vehicle.List_Vehicle[Index].OutputOrigin_z);
+                Vehicle.List_Vehicle[Index].InitializeTranslation(false, Vehicle.List_Vehicle[Index].Vehicle_MotionExists, 0, 0, 0, Vehicle.List_Vehicle[Index].OutputOrigin_x, Vehicle.List_Vehicle[Index].OutputOrigin_y, Vehicle.List_Vehicle[Index].OutputOrigin_z);
 
                 Vehicle.List_Vehicle[Index].vehicle_Motion.Motion_MotionGUI.BandedGridView_Motion_FocusedRowChanged(sender, E);
 
@@ -8950,7 +9002,7 @@ namespace Coding_Attempt_with_GUI
             catch (Exception)
             {
 
-                
+
             }
 
         }
@@ -8960,7 +9012,7 @@ namespace Coding_Attempt_with_GUI
         private void barButtonDisplayResults_ItemClicked(object sender, ItemClickEventArgs e)
         {
             //OTKi.Hide();
-        } 
+        }
         #endregion
 
         #region Method to determine whether to Enable the Recalculate Button or not 
@@ -9004,7 +9056,7 @@ namespace Coding_Attempt_with_GUI
                 //}
             }
             catch (Exception) { }
-        } 
+        }
         #endregion
 
         #region Recalculate Methods
@@ -9022,7 +9074,7 @@ namespace Coding_Attempt_with_GUI
             {
                 MessageBox.Show("Initial Calculations have not been done. Please click the CALCULATE RESULTS button to perform the initial set of Calculations");
             }
-        } 
+        }
         #endregion
 
         #region GUI Operations
@@ -9082,7 +9134,7 @@ namespace Coding_Attempt_with_GUI
                 TabControl_Outputs.SelectedTabPage = M1_Global.vehicleGUI[local_VehicleID].TabPages_Vehicle[0];
             }
             catch (Exception) { }
-        } 
+        }
         #endregion
 
         #region Calculations
@@ -9103,7 +9155,7 @@ namespace Coding_Attempt_with_GUI
                     }
 
                     #region Reseting the corner weights, ride height and deflections inside the Assmebled Vehicle to the values that were calculated after the initial calculationd
-                    Vehicle.List_Vehicle[local_VehicleID].Reset_CornerWeights(Vehicle.List_Vehicle[local_VehicleID].oc_FL[0].CW_1, Vehicle.List_Vehicle[local_VehicleID].oc_FR[0].CW_1, Vehicle.List_Vehicle[local_VehicleID].oc_RL[0].CW_1, Vehicle.List_Vehicle[local_VehicleID].oc_RR[0].CW_1,0);
+                    Vehicle.List_Vehicle[local_VehicleID].Reset_CornerWeights(Vehicle.List_Vehicle[local_VehicleID].oc_FL[0].CW_1, Vehicle.List_Vehicle[local_VehicleID].oc_FR[0].CW_1, Vehicle.List_Vehicle[local_VehicleID].oc_RL[0].CW_1, Vehicle.List_Vehicle[local_VehicleID].oc_RR[0].CW_1, 0);
                     Vehicle.List_Vehicle[local_VehicleID].Reset_RideHeight();
                     Vehicle.List_Vehicle[local_VehicleID].Reset_Deflections();
                     Vehicle.List_Vehicle[local_VehicleID].Reset_RideRate();
@@ -9114,7 +9166,7 @@ namespace Coding_Attempt_with_GUI
                     M1_Global.vehicleGUI[local_VehicleID].CW_Def_WA.Visible = true;
                     TabControl_Outputs.SelectedTabPage = M1_Global.vehicleGUI[local_VehicleID].TabPages_Vehicle[3];
                     TabControl_Outputs.SelectedTabPage.PageVisible = true;
-                    
+
 
                     #region Declarations
                     double New_PushRodFL, New_PushRodFR, New_PushRodRL, New_PushRodRR;
@@ -9393,7 +9445,7 @@ namespace Coding_Attempt_with_GUI
             {
                 MessageBox.Show(" Initial Calculations have not been done. Please click the CALCULATE RESULTS button to perform the initial set of Calculations");
             }
-        } 
+        }
         #endregion
 
         #endregion
@@ -9415,7 +9467,7 @@ namespace Coding_Attempt_with_GUI
                 MessageBox.Show(" Initial Calculations have not been done. Please click the CALCULATE RESULTS button to perform the initial set of Calculations");
             }
 
-        } 
+        }
         #endregion
 
         #region GUI Operations
@@ -9471,12 +9523,12 @@ namespace Coding_Attempt_with_GUI
                 M1_Global.vehicleGUI[local_VehicleID].TabPages_Vehicle[0].PageVisible = true;
                 TabControl_Outputs.SelectedTabPage = M1_Global.vehicleGUI[local_VehicleID].TabPages_Vehicle[0];
 
-                Vehicle.List_Vehicle[local_VehicleID].Reset_CornerWeights(Vehicle.List_Vehicle[local_VehicleID].oc_FL[0].CW_1, Vehicle.List_Vehicle[local_VehicleID].oc_FR[0].CW_1, Vehicle.List_Vehicle[local_VehicleID].oc_RL[0].CW_1, Vehicle.List_Vehicle[local_VehicleID].oc_RR[0].CW_1,0);
+                Vehicle.List_Vehicle[local_VehicleID].Reset_CornerWeights(Vehicle.List_Vehicle[local_VehicleID].oc_FL[0].CW_1, Vehicle.List_Vehicle[local_VehicleID].oc_FR[0].CW_1, Vehicle.List_Vehicle[local_VehicleID].oc_RL[0].CW_1, Vehicle.List_Vehicle[local_VehicleID].oc_RR[0].CW_1, 0);
 
                 PopulateInputSheet(Vehicle.List_Vehicle[local_VehicleID]);
             }
             catch (Exception) { }
-        } 
+        }
         #endregion
 
         #region Calculations
@@ -9769,7 +9821,7 @@ namespace Coding_Attempt_with_GUI
         {
             R1 = R1.FormVariableUpdater();
 
-            
+
 
             R1.GCArrow.ArrowForce.Text = String.Format("{0:0.000}", (_arrowForce));
 
@@ -9840,7 +9892,7 @@ namespace Coding_Attempt_with_GUI
         Stream stream2;
         Stream stream_Suspension;
         Stream stream_Form;
-        Stream stream_Results; 
+        Stream stream_Results;
         Stream stream_Motion;
         Stream stream_LoadCase;
         BinaryFormatter bformatter = new BinaryFormatter();
@@ -10069,7 +10121,7 @@ namespace Coding_Attempt_with_GUI
                     return;
                 }
             }
-        } 
+        }
         #endregion
 
         #endregion
@@ -10088,9 +10140,9 @@ namespace Coding_Attempt_with_GUI
             {
                 for (int i_recreateFridView_Motion = 0; i_recreateFridView_Motion < Vehicle.List_Vehicle.Count; i_recreateFridView_Motion++)
                 {
-                    if (Vehicle.List_Vehicle[i_recreateFridView_Motion].vehicle_Motion is null) 
+                    if (Vehicle.List_Vehicle[i_recreateFridView_Motion].vehicle_Motion is null)
                     {
-                         
+
                     }
                     else Vehicle.List_Vehicle[i_recreateFridView_Motion].vehicle_Motion.Motion_MotionGUI.InitializeGridControl_MotionView(i_recreateFridView_Motion, this);
                 }
@@ -10150,7 +10202,7 @@ namespace Coding_Attempt_with_GUI
             }
 
             _streamMotion.Close();
-        } 
+        }
         #endregion
 
         #region Exclusive code for Suspension Opening and Importing 
@@ -10474,7 +10526,7 @@ namespace Coding_Attempt_with_GUI
                 IsBeingOpened = false;
 
             }
-        } 
+        }
         #endregion
 
         private void barButtonOpen_ItemClick(object sender, ItemClickEventArgs e)
@@ -10504,7 +10556,7 @@ namespace Coding_Attempt_with_GUI
                 openFileDialog1.Filter = "KS files (*.KS)|*.KS";
                 openFileDialog1.FilterIndex = 2;
                 openFileDialog1.RestoreDirectory = true;
-                
+
                 #endregion
 
                 bformatter = new BinaryFormatter();
@@ -10619,7 +10671,7 @@ namespace Coding_Attempt_with_GUI
             progressBar.Update();
 
             navBarControlDesign.Items.Clear();
-            
+
             for (int i_nv2 = 0; i_nv2 < navBarControlDesign.Groups.Count; i_nv2++)
             {
                 navBarControlDesign.Groups[i_nv2].ItemLinks.Clear();
@@ -11146,7 +11198,7 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
         #region Recreating Motion
-        private void  RecreateMotion(int i)
+        private void RecreateMotion(int i)
         {
             ///<remarks>
             ///The IF loop is necessary because if a motion is created but no points are created on the chart and the project is saved (Unless a point is created on the chart, the <c>ChartPoints_WheelDef_X</c> will not be initialized and if saved in this state then it will null 
@@ -11158,7 +11210,7 @@ namespace Coding_Attempt_with_GUI
                 for (int i_Def = 0; i_Def < MotionGUI.List_MotionGUI[i].ChartPoints_WheelDef_X.Length; i_Def++)
                 {
                     MotionGUI.List_MotionGUI[i].motionGUI_MotionChart.AddPointToChart(MotionGUI.List_MotionGUI[i].motionGUI_MotionChart.chartControl1, MotionGUI.List_MotionGUI[i].ChartPoints_WheelDef_X[i_Def], MotionGUI.List_MotionGUI[i].ChartPoints_WheelDef_Y[i_Def], 0);
-                } 
+                }
             }
 
             if (MotionGUI.List_MotionGUI[i].ChartPoints_Steering_X != null)
@@ -11166,7 +11218,7 @@ namespace Coding_Attempt_with_GUI
                 for (int i_steer = 0; i_steer < MotionGUI.List_MotionGUI[i].ChartPoints_Steering_X.Length; i_steer++)
                 {
                     MotionGUI.List_MotionGUI[i].motionGUI_MotionChart.AddPointToChart(MotionGUI.List_MotionGUI[i].motionGUI_MotionChart.chartControl2, MotionGUI.List_MotionGUI[i].ChartPoints_Steering_X[i_steer], MotionGUI.List_MotionGUI[i].ChartPoints_Steering_Y[i_steer], 0);
-                } 
+                }
             }
 
         }
@@ -11199,7 +11251,7 @@ namespace Coding_Attempt_with_GUI
                     ///<summary>
                     ///Re-importing the CAD items which were imported (if they were imported)
                     /// </summary>
-                    M1_Global.vehicleGUI[i_RecreateCAD].CADVehicleInputs.CloneImportedCAD(ref M1_Global.vehicleGUI[i_RecreateCAD].FileHasBeenImported, ref M1_Global.vehicleGUI[i_RecreateCAD].CadIsTobeImported, false, 
+                    M1_Global.vehicleGUI[i_RecreateCAD].CADVehicleInputs.CloneImportedCAD(ref M1_Global.vehicleGUI[i_RecreateCAD].FileHasBeenImported, ref M1_Global.vehicleGUI[i_RecreateCAD].CadIsTobeImported, false,
                                                                                         M1_Global.vehicleGUI[i_RecreateCAD].importCADForm.importCADViewport.igesEntities);
                     M1_Global.vehicleGUI[i_RecreateCAD].CADVehicleInputs.openFileDialog1 = new OpenFileDialog();
                     M1_Global.vehicleGUI[i_RecreateCAD].CADVehicleInputs.openFileDialog1.FileName = M1_Global.vehicleGUI[i_RecreateCAD].IGESFIleName;
@@ -11213,7 +11265,7 @@ namespace Coding_Attempt_with_GUI
         {
             for (int i_RecreareResults = 0; i_RecreareResults < Vehicle.List_Vehicle.Count; i_RecreareResults++)
             {
-                
+
 
                 if (Vehicle.List_Vehicle[i_RecreareResults].Vehicle_Results_Tracker == 1)
                 {
@@ -11240,7 +11292,7 @@ namespace Coding_Attempt_with_GUI
                         M1_Global.vehicleGUI[i_RecreareResults].CADVehicleOutputs.openFileDialog1.FileName = M1_Global.vehicleGUI[i_RecreareResults].IGESFIleName;
                     }
 
-                    M1_Global.vehicleGUI[i_RecreareResults].EditORCreateVehicleCAD(M1_Global.vehicleGUI[i_RecreareResults].CADVehicleOutputs, i_RecreareResults, false, M1_Global.vehicleGUI[i_RecreareResults].Vehicle_MotionExists, 0, false, 
+                    M1_Global.vehicleGUI[i_RecreareResults].EditORCreateVehicleCAD(M1_Global.vehicleGUI[i_RecreareResults].CADVehicleOutputs, i_RecreareResults, false, M1_Global.vehicleGUI[i_RecreareResults].Vehicle_MotionExists, 0, false,
                                                                                                                                     M1_Global.vehicleGUI[i_RecreareResults].CadIsTobeImported, M1_Global.vehicleGUI[i_RecreareResults].PlotWheel);
 
                     M1_Global.vehicleGUI[i_RecreareResults].IS.Kinematics_Software_New_ObjectInitializer(this);
@@ -11265,7 +11317,7 @@ namespace Coding_Attempt_with_GUI
                         navBarResultVehicleIndex.Insert(i_nVC, i_V);
                         break;
                     }
-                } 
+                }
             }
             navBarControlResults.Groups.Clear();
             for (int i_reAdd = 0; i_reAdd < navBarResultVehicleIndex.Count; i_reAdd++)
@@ -11282,10 +11334,10 @@ namespace Coding_Attempt_with_GUI
                 }
             }
             Button_Recalculate_Enabler();
-        } 
+        }
         #endregion
 
-        #endregion 
+        #endregion
         #endregion
 
         #region New Project event
@@ -11527,7 +11579,7 @@ namespace Coding_Attempt_with_GUI
             ribbon.Select();
 
             TabControl_Outputs.TabPages.Clear();
-        } 
+        }
         #endregion
 
         #region Button Click event. This is fired indirectly through the backstage view button
@@ -11557,43 +11609,43 @@ namespace Coding_Attempt_with_GUI
                     Application.Restart();
                 }
 
-                else if (result == DialogResult.Cancel){}
+                else if (result == DialogResult.Cancel) { }
             }
-            else if (ChangeTracker==0)
+            else if (ChangeTracker == 0)
             {
                 Application.Restart();
                 //ResetAllObjectAndControls();
             }
 
-            
+
 
             this.Text = "Kinematics Software ";
-        } 
+        }
         #endregion
 
         #endregion
 
         #region Form closing event
         private void Kinematics_Software_New_FormClosing(object sender, FormClosingEventArgs e)
-         {
-             if (ChangeTracker != 0)
-             {
-                 DialogResult result = MessageBox.Show("Save changes to file before closing?", "Save Prompt", MessageBoxButtons.YesNoCancel);
+        {
+            if (ChangeTracker != 0)
+            {
+                DialogResult result = MessageBox.Show("Save changes to file before closing?", "Save Prompt", MessageBoxButtons.YesNoCancel);
 
-                 if (result == DialogResult.Yes)
-                 {
-                     barButtonSave.PerformClick();
-                 }
-                 else if (result == DialogResult.No)
-                 {
-                     return;
-                 }
-                 else if (result == DialogResult.Cancel)
-                 {
-                     e.Cancel = true;
-                 }
-             }
-         } 
+                if (result == DialogResult.Yes)
+                {
+                    barButtonSave.PerformClick();
+                }
+                else if (result == DialogResult.No)
+                {
+                    return;
+                }
+                else if (result == DialogResult.Cancel)
+                {
+                    e.Cancel = true;
+                }
+            }
+        }
         #endregion
 
         #region Undo / Redo
@@ -11606,7 +11658,7 @@ namespace Coding_Attempt_with_GUI
 
         private void barButtonUndo_ItemClick(object sender, ItemClickEventArgs e)
         {
-            
+
 
             gridControl2.MainView.CloseEditor();
             gridControl2.MainView.UpdateCurrentRow();
@@ -11615,9 +11667,9 @@ namespace Coding_Attempt_with_GUI
 
         }
 
-   
 
- 
+
+
         #endregion
 
         #region Backstage View Operations
@@ -11638,11 +11690,11 @@ namespace Coding_Attempt_with_GUI
         }
         private void simpleButtonNew_Click(object sender, EventArgs e)
         {
-            
+
             barButtonNew.PerformClick();
             backstageViewControl1.Close();
 
-        } 
+        }
         #endregion
 
         #region Name Change of Input Items and Vehicle
@@ -11652,7 +11704,7 @@ namespace Coding_Attempt_with_GUI
         {
             #region Changing the Tire Name
             string NewName = toolStripTextBoxRenameInputItem.Text;
-            
+
             try
             {
                 for (int i = 0; i < Vehicle.List_Vehicle.Count; i++)
@@ -11660,29 +11712,29 @@ namespace Coding_Attempt_with_GUI
                     if (Vehicle.List_Vehicle[i].tire_FL._TireName == Tire.Assy_List_Tire[_index]._TireName)
                     {
 
-                            Vehicle.List_Vehicle[i].tire_FL._TireName = NewName;
-                        
+                        Vehicle.List_Vehicle[i].tire_FL._TireName = NewName;
+
                     }
 
                     if (Vehicle.List_Vehicle[i].tire_FR._TireName == Tire.Assy_List_Tire[_index]._TireName)
                     {
 
-                            Vehicle.List_Vehicle[i].tire_RR._TireName = NewName;
-                        
+                        Vehicle.List_Vehicle[i].tire_RR._TireName = NewName;
+
                     }
 
                     if (Vehicle.List_Vehicle[i].tire_RL._TireName == Tire.Assy_List_Tire[_index]._TireName)
                     {
 
-                            Vehicle.List_Vehicle[i].tire_RL._TireName = NewName;
-                        
+                        Vehicle.List_Vehicle[i].tire_RL._TireName = NewName;
+
                     }
 
                     if (Vehicle.List_Vehicle[i].tire_RR._TireName == Tire.Assy_List_Tire[_index]._TireName)
                     {
 
-                            Vehicle.List_Vehicle[i].tire_RR._TireName = NewName;
-                        
+                        Vehicle.List_Vehicle[i].tire_RR._TireName = NewName;
+
                     }
                 }
                 Tire.Assy_List_Tire[_index]._TireName = NewName;
@@ -11707,8 +11759,8 @@ namespace Coding_Attempt_with_GUI
                 {
                     if (Vehicle.List_Vehicle[i].sc_FL._SCName == SuspensionCoordinatesFront.Assy_List_SCFL[_index]._SCName)
                     {
-                        Vehicle.List_Vehicle[i].sc_FL._SCName = NewName; 
-                        
+                        Vehicle.List_Vehicle[i].sc_FL._SCName = NewName;
+
                     }
                 }
 
@@ -11733,7 +11785,7 @@ namespace Coding_Attempt_with_GUI
                 {
                     if (Vehicle.List_Vehicle[i].sc_FR._SCName == SuspensionCoordinatesFrontRight.Assy_List_SCFR[_index]._SCName)
                     {
-                        Vehicle.List_Vehicle[i].sc_FR._SCName = NewName; 
+                        Vehicle.List_Vehicle[i].sc_FR._SCName = NewName;
                     }
                 }
 
@@ -11756,7 +11808,7 @@ namespace Coding_Attempt_with_GUI
                 {
                     if (Vehicle.List_Vehicle[i].sc_RL._SCName == SuspensionCoordinatesRear.Assy_List_SCRL[_index]._SCName)
                     {
-                        Vehicle.List_Vehicle[i].sc_RL._SCName = NewName; 
+                        Vehicle.List_Vehicle[i].sc_RL._SCName = NewName;
                     }
                 }
 
@@ -11781,8 +11833,8 @@ namespace Coding_Attempt_with_GUI
                     if (Vehicle.List_Vehicle[i].sc_RR._SCName == SuspensionCoordinatesRearRight.Assy_List_SCRR[_index]._SCName)
                     {
 
-                            Vehicle.List_Vehicle[i].sc_RR._SCName = NewName; 
-                        
+                        Vehicle.List_Vehicle[i].sc_RR._SCName = NewName;
+
                     }
                 }
                 SuspensionCoordinatesRearRight.Assy_List_SCRR[_index]._SCName = NewName;
@@ -11804,8 +11856,8 @@ namespace Coding_Attempt_with_GUI
                     if (Vehicle.List_Vehicle[i].chassis_vehicle._ChassisName == Chassis.Assy_List_Chassis[_index]._ChassisName)
                     {
 
-                            Vehicle.List_Vehicle[i].chassis_vehicle._ChassisName = NewName; 
-                        
+                        Vehicle.List_Vehicle[i].chassis_vehicle._ChassisName = NewName;
+
                     }
                 }
                 Chassis.Assy_List_Chassis[_index]._ChassisName = NewName;
@@ -11826,30 +11878,30 @@ namespace Coding_Attempt_with_GUI
                 {
                     if (Vehicle.List_Vehicle[i].spring_FL._SpringName == Spring.Assy_List_Spring[_index]._SpringName)
                     {
-                            Vehicle.List_Vehicle[i].spring_FL._SpringName = NewName; 
-                        
+                        Vehicle.List_Vehicle[i].spring_FL._SpringName = NewName;
+
                     }
 
                     if (Vehicle.List_Vehicle[i].spring_FR._SpringName == Spring.Assy_List_Spring[_index]._SpringName)
                     {
 
-                            Vehicle.List_Vehicle[i].spring_FR._SpringName = NewName;
-                        
+                        Vehicle.List_Vehicle[i].spring_FR._SpringName = NewName;
+
                     }
 
                     if (Vehicle.List_Vehicle[i].spring_RL._SpringName == Spring.Assy_List_Spring[_index]._SpringName)
                     {
 
-    
-                            Vehicle.List_Vehicle[i].spring_RL._SpringName = NewName;
-                        
+
+                        Vehicle.List_Vehicle[i].spring_RL._SpringName = NewName;
+
                     }
 
                     if (Vehicle.List_Vehicle[i].spring_RR._SpringName == Spring.Assy_List_Spring[_index]._SpringName)
                     {
- 
-                            Vehicle.List_Vehicle[i].spring_RR._SpringName = NewName;
-                        
+
+                        Vehicle.List_Vehicle[i].spring_RR._SpringName = NewName;
+
                     }
                 }
                 Spring.Assy_List_Spring[_index]._SpringName = NewName;
@@ -11875,29 +11927,29 @@ namespace Coding_Attempt_with_GUI
                     if (Vehicle.List_Vehicle[i].damper_FL._DamperName == Damper.Assy_List_Damper[_index]._DamperName)
                     {
 
-                            Vehicle.List_Vehicle[i].damper_FL._DamperName = NewName; 
-                        
+                        Vehicle.List_Vehicle[i].damper_FL._DamperName = NewName;
+
                     }
 
                     if (Vehicle.List_Vehicle[i].damper_FR._DamperName == Damper.Assy_List_Damper[_index]._DamperName)
                     {
 
-                            Vehicle.List_Vehicle[i].damper_FR._DamperName = NewName;
-                        
+                        Vehicle.List_Vehicle[i].damper_FR._DamperName = NewName;
+
                     }
 
                     if (Vehicle.List_Vehicle[i].damper_RL._DamperName == Damper.Assy_List_Damper[_index]._DamperName)
                     {
 
-                            Vehicle.List_Vehicle[i].damper_RL._DamperName = NewName;
-                        
+                        Vehicle.List_Vehicle[i].damper_RL._DamperName = NewName;
+
                     }
 
                     if (Vehicle.List_Vehicle[i].damper_RR._DamperName == Damper.Assy_List_Damper[_index]._DamperName)
                     {
 
-                            Vehicle.List_Vehicle[i].damper_RR._DamperName = NewName;
-                        
+                        Vehicle.List_Vehicle[i].damper_RR._DamperName = NewName;
+
                     }
                 }
                 Damper.Assy_List_Damper[_index]._DamperName = NewName;
@@ -11923,29 +11975,29 @@ namespace Coding_Attempt_with_GUI
                     if (Vehicle.List_Vehicle[i].arb_FL._ARBName == AntiRollBar.Assy_List_ARB[_index]._ARBName)
                     {
 
-                            Vehicle.List_Vehicle[i].arb_FL._ARBName = NewName; 
-                        
+                        Vehicle.List_Vehicle[i].arb_FL._ARBName = NewName;
+
                     }
 
                     if (Vehicle.List_Vehicle[i].arb_FR._ARBName == AntiRollBar.Assy_List_ARB[_index]._ARBName)
                     {
 
-                            Vehicle.List_Vehicle[i].arb_FR._ARBName = NewName;
-                        
+                        Vehicle.List_Vehicle[i].arb_FR._ARBName = NewName;
+
                     }
 
                     if (Vehicle.List_Vehicle[i].arb_RL._ARBName == AntiRollBar.Assy_List_ARB[_index]._ARBName)
                     {
 
-                            Vehicle.List_Vehicle[i].arb_RL._ARBName = NewName;
-                        
+                        Vehicle.List_Vehicle[i].arb_RL._ARBName = NewName;
+
                     }
 
                     if (Vehicle.List_Vehicle[i].arb_RR._ARBName == AntiRollBar.Assy_List_ARB[_index]._ARBName)
                     {
 
-                            Vehicle.List_Vehicle[i].arb_RR._ARBName = NewName;
-                        
+                        Vehicle.List_Vehicle[i].arb_RR._ARBName = NewName;
+
                     }
                 }
                 AntiRollBar.Assy_List_ARB[_index]._ARBName = NewName;
@@ -11969,30 +12021,30 @@ namespace Coding_Attempt_with_GUI
                 {
                     if (Vehicle.List_Vehicle[i].wa_FL._WAName == WheelAlignment.Assy_List_WA[_index]._WAName)
                     {
-  
-                            Vehicle.List_Vehicle[i].wa_FL._WAName = NewName; 
-                        
+
+                        Vehicle.List_Vehicle[i].wa_FL._WAName = NewName;
+
                     }
 
                     if (Vehicle.List_Vehicle[i].wa_FR._WAName == WheelAlignment.Assy_List_WA[_index]._WAName)
                     {
 
-                            Vehicle.List_Vehicle[i].wa_FR._WAName = NewName;
-                        
+                        Vehicle.List_Vehicle[i].wa_FR._WAName = NewName;
+
                     }
 
                     if (Vehicle.List_Vehicle[i].wa_RL._WAName == WheelAlignment.Assy_List_WA[_index]._WAName)
                     {
 
-                            Vehicle.List_Vehicle[i].wa_RL._WAName = NewName;
-                        
+                        Vehicle.List_Vehicle[i].wa_RL._WAName = NewName;
+
                     }
 
                     if (Vehicle.List_Vehicle[i].wa_RR._WAName == WheelAlignment.Assy_List_WA[_index]._WAName)
                     {
 
-                            Vehicle.List_Vehicle[i].wa_RR._WAName = NewName;
-                        
+                        Vehicle.List_Vehicle[i].wa_RR._WAName = NewName;
+
                     }
                 }
                 WheelAlignment.Assy_List_WA[_index]._WAName = NewName;
@@ -12266,7 +12318,7 @@ namespace Coding_Attempt_with_GUI
             groupControl13.LookAndFeel.SkinName = "DevExpress Dark Style";
             accordionControlVehicleItem.LookAndFeel.SkinName = "DevExpress Dark Style";
             SkinName = "DevExpress Dark Style";
-        } 
+        }
         #endregion
 
         #region About Software

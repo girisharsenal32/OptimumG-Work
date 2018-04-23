@@ -3045,8 +3045,8 @@ namespace Coding_Attempt_with_GUI
                         viewportLayout1.Entities.Add(importedBlocks[i]);
                     }
 
-                    viewportLayout1.Update();
-                    viewportLayout1.Refresh();
+                    //viewportLayout1.Update();
+                    //viewportLayout1.Refresh();
                 }
             }
 
@@ -3200,105 +3200,111 @@ namespace Coding_Attempt_with_GUI
         #region Click events (To show the coordinates of the selected points) Still building
         private void viewportLayout1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            ///<summary>
-            ///Getting the Entity under the Mouse Cursor when the double click action was performed
-            /// </summary>
-            int entityIndex = viewportLayout1.GetEntityUnderMouseCursor(e.Location);
-            ///<summary>
-            ///Proceeding only if there was an entity under the mouse cursor
-            /// </summary>
-            if (entityIndex != -1)
+            if (e.Button != MouseButtons.Middle)
             {
-                Entity temp_Entity = viewportLayout1.Entities[entityIndex];
-                viewportLayout1.Cursor = viewportLayout1.CursorTypes[cursorType.Pick];
-                temp_Entity.Selected = true;
-
-                ///<summary>If the <see cref="ViewportLayout.ToolBar.Buttons"/> corresponding to the MakeTransparent BUtton is pushed then the method below is activated</summary>
-                if (viewportLayout1.ToolBars[0].Buttons[8].Pushed)
+                ///<summary>
+                ///Getting the Entity under the Mouse Cursor when the double click action was performed
+                /// </summary>
+                int entityIndex = viewportLayout1.GetEntityUnderMouseCursor(e.Location);
+                ///<summary>
+                ///Proceeding only if there was an entity under the mouse cursor
+                /// </summary>
+                if (entityIndex != -1)
                 {
-                    CustomData tempEntityData;
-                    if (temp_Entity.EntityData != null)
-                    {
-                        ///<summary>If the Entity has EntityData then casting that as <see cref="CustomData"/> and storing it into the temporary Object of the <see cref="CustomData"/></summary>
-                        tempEntityData = (CustomData)temp_Entity.EntityData;
+                    Entity temp_Entity = viewportLayout1.Entities[entityIndex];
+                    viewportLayout1.Cursor = viewportLayout1.CursorTypes[cursorType.Pick];
+                    temp_Entity.Selected = true;
 
-                        ///<summary>If the <see cref="CustomData"/> of the <see cref="Entity"/> has a Colour with the <see cref="Color.A"/> value as 75 then it means that is transparent and it is being reclicked and hence I want to restore its colour</summary>
-                        if (Color.Equals(temp_Entity.Color, Color.FromArgb(75, tempEntityData.EntityColor))) 
-                        {
-                            temp_Entity.Color = Color.FromArgb(255, tempEntityData.EntityColor);
-                            goto END;
-                        }
-
-                    }
-                    else
+                    ///<summary>If the <see cref="ViewportLayout.ToolBar.Buttons"/> corresponding to the MakeTransparent BUtton is pushed then the method below is activated</summary>
+                    if (viewportLayout1.ToolBars[0].Buttons[8].Pushed)
                     {
-                        ///<summary>If the Entity doesn't have Entity then initializing the <see cref="CustomData"/> object with the <see cref="Color"/> so that it can reused later to undo the transparency</summary>
-                        if (temp_Entity.LayerName == "Joints")
+                        CustomData tempEntityData = new CustomData();
+                        if (temp_Entity.EntityData != null)
                         {
-                            tempEntityData = new CustomData(temp_Entity.ToString(), 0, Color.White);
-                        }
-                        else if (temp_Entity.LayerName == "Bars")
-                        {
-                            tempEntityData = new CustomData(temp_Entity.ToString(), 0, Color.Orange);
-                        }
-                        else if (temp_Entity.LayerName == "Triangles")
-                        {
-                            tempEntityData = new CustomData(temp_Entity.ToString(), 0, Color.Orange);
+                            ///<summary>If the Entity has EntityData then casting that as <see cref="CustomData"/> and storing it into the temporary Object of the <see cref="CustomData"/></summary>
+                            if (temp_Entity.EntityData is CustomData)
+                            {
+                                tempEntityData = (CustomData)temp_Entity.EntityData;
+                            }
+
+                            ///<summary>If the <see cref="CustomData"/> of the <see cref="Entity"/> has a Colour with the <see cref="Color.A"/> value as 75 then it means that is transparent and it is being reclicked and hence I want to restore its colour</summary>
+                            if (Color.Equals(temp_Entity.Color, Color.FromArgb(75, tempEntityData.EntityColor)))
+                            {
+                                temp_Entity.Color = Color.FromArgb(255, tempEntityData.EntityColor);
+                                goto END;
+                            }
+
                         }
                         else
                         {
-                            ///<summary>To deal with Imported Entities of which you want to retain the Color</summary>
-                            tempEntityData = new CustomData(temp_Entity.ToString(), 0, temp_Entity.Color);
+                            ///<summary>If the Entity doesn't have Entity then initializing the <see cref="CustomData"/> object with the <see cref="Color"/> so that it can reused later to undo the transparency</summary>
+                            if (temp_Entity.LayerName == "Joints")
+                            {
+                                tempEntityData = new CustomData(temp_Entity.ToString(), 0, Color.White);
+                            }
+                            else if (temp_Entity.LayerName == "Bars")
+                            {
+                                tempEntityData = new CustomData(temp_Entity.ToString(), 0, Color.Orange);
+                            }
+                            else if (temp_Entity.LayerName == "Triangles")
+                            {
+                                tempEntityData = new CustomData(temp_Entity.ToString(), 0, Color.Orange);
+                            }
+                            else
+                            {
+                                ///<summary>To deal with Imported Entities of which you want to retain the Color</summary>
+                                tempEntityData = new CustomData(temp_Entity.ToString(), 0, temp_Entity.Color);
+                            }
+                        }
+                        ///<summary>Setting the <see cref="Entity.ColorMethod"/> is crucial. Without it the code doesn't function</summary>
+                        temp_Entity.ColorMethod = colorMethodType.byEntity;
+                        ///<summary>Setting the colour of the Entity as transparent</summary>
+                        //Color transparentColor = temp_Entity.Color;
+                        if (temp_Entity as BlockReference == null)
+                        {
+                            temp_Entity.Color = Color.FromArgb(75, tempEntityData.EntityColor);
+
+                        }
+                        else
+                        {
+                            temp_Entity.ColorMethod = colorMethodType.byParent;
+                            temp_Entity.Color = Color.Transparent;
+                            BlockReference f = temp_Entity as BlockReference;
+                            f.Color = Color.Transparent;
+
+                        }
+                        ///<summary>Re-storing the <see cref="CustomData"/> of the Entity into the Entity itself</summary>
+                        viewportLayout1.Entities[entityIndex].EntityData = tempEntityData;
+                    }
+
+                    else if (!viewportLayout1.ToolBars[0].Buttons[8].Pushed)
+                    {
+                        if (temp_Entity is Joint)
+                        {
+                            DisplayJointCoordinates(temp_Entity);
+                        }
+                        else if (temp_Entity is Bar)
+                        {
+                            DisplayBarCoordinates(temp_Entity);
+                        }
+                        else if (temp_Entity is Mesh)
+                        {
+                            DisplayArrowForce(temp_Entity);
                         }
                     }
-                    ///<summary>Setting the <see cref="Entity.ColorMethod"/> is crucial. Without it the code doesn't function</summary>
-                    temp_Entity.ColorMethod = colorMethodType.byEntity;
-                    ///<summary>Setting the colour of the Entity as transparent</summary>
-                    //Color transparentColor = temp_Entity.Color;
-                    if (temp_Entity as BlockReference == null)
-                    {
-                        temp_Entity.Color = Color.FromArgb(75, tempEntityData.EntityColor);
 
-                    }
-                    else
-                    {
-                        temp_Entity.ColorMethod = colorMethodType.byParent;
-                        temp_Entity.Color = Color.Transparent;
-                        BlockReference f = temp_Entity as BlockReference;
-                        f.Color = Color.Transparent;
+                    END:
+                    viewportLayout1.Invalidate();
+                    viewportLayout1.Update();
+                    viewportLayout1.Refresh();
 
-                    }
-                    ///<summary>Re-storing the <see cref="CustomData"/> of the Entity into the Entity itself</summary>
-                    viewportLayout1.Entities[entityIndex].EntityData = tempEntityData;
                 }
 
-                else if (!viewportLayout1.ToolBars[0].Buttons[8].Pushed)
+                else if (entityIndex == -1)
                 {
-                    if (temp_Entity is Joint)
-                    {
-                        DisplayJointCoordinates(temp_Entity);
-                    }
-                    else if (temp_Entity is Bar)
-                    {
-                        DisplayBarCoordinates(temp_Entity);
-                    }
-                    else if (temp_Entity is Mesh)
-                    {
-                        DisplayArrowForce(temp_Entity);
-                    }
-                }
-
-                END:
-                viewportLayout1.Invalidate();
-                viewportLayout1.Update();
-                viewportLayout1.Refresh();
-
-            }
-
-            else if (entityIndex == -1)
-            {
-                Kinematics_Software_New.GraphicsCoordinatesHide();
-                ClearSelection();
+                    Kinematics_Software_New.GraphicsCoordinatesHide();
+                    //ClearSelection();
+                } 
             }
         }
 
@@ -3365,26 +3371,6 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
         #region Transparency setter methods 
-        ///// <summary>
-        ///// Event which is fired when the push button of the Tool Bar at 8th index is pushed/unpuhed. If unpushed then all transparent entities are assigned with their colour
-        ///// </summary>
-        ///// <param name="sender"></param>
-        ///// <param name="e"></param>
-        //private void CAD_Click_MakeTransparent(object sender, EventArgs e)
-        //{
-
-        //    if (viewportLayout1.ToolBars[0].Buttons[8].Pushed)
-        //    {
-
-        //    }
-        //    ///<summary>If user is un-toggling the button then it means he/she wants to undo the transparency</summary>
-        //    else if (!viewportLayout1.ToolBars[0].Buttons[8].Pushed)
-        //    {
-
-        //    }
-
-        //}
-
         void CAD_Click_RestoreColours(object sender, EventArgs e)
         {
             for (int i = 0; i < viewportLayout1.Entities.Count; i++)
@@ -3396,9 +3382,6 @@ namespace Coding_Attempt_with_GUI
                     ///Restoring the Colours all the Transparent Entities
                     ///</summary>
                     RestoreEntityColour(i);
-
-
-
                 }
             }
             viewportLayout1.Invalidate();
@@ -3412,7 +3395,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_entityIndex"></param>
         private void RestoreEntityColour(int _entityIndex)
         {
-            try
+            if (viewportLayout1.Entities[_entityIndex].EntityData is CustomData)
             {
                 ///<summary>
                 ///Either the Entity has <see cref="CustomData"/> data defined or temporary <see cref="CustomData"/> defined with only Colour. Either way this data is used to restore the Colour of the Entity and undo the transparency
@@ -3421,14 +3404,7 @@ namespace Coding_Attempt_with_GUI
                 viewportLayout1.Entities[_entityIndex].ColorMethod = colorMethodType.byEntity;
                 viewportLayout1.Entities[_entityIndex].Color = tempEntityData.EntityColor;
             }
-            catch (Exception)
-            {
 
-                ///<summary>
-                /// <see cref="try"/> block is unavoidable here because the <see cref="Entity.EntityData"/> of the <see cref="Entity"/> is of type <see cref="object"/> and for all entities it would consist of the struct 
-                /// <see cref="CustomData"/> but since it is a struct, it is not possible to check whether the <see cref="Entity.EntityData"/> is ACTUALLY of the type <see cref="CustomData"/> hence we need this block 
-                /// </summary>
-            }
         } 
         #endregion
 
@@ -3441,7 +3417,6 @@ namespace Coding_Attempt_with_GUI
             Application.DoEvents();
             viewportLayout1.Size = mySize;
             viewportLayout1.Visible = true;
-
         }
 
 

@@ -423,8 +423,16 @@ namespace Coding_Attempt_with_GUI
             ///</summary>
             if (List_Vehicle[l_modify_vehicle].sc_FL != null)
             {
-                Kinematics_Software_New.EditVehicleCAD(Kinematics_Software_New.M1_Global.vehicleGUI[l_modify_vehicle].CADVehicleInputs, l_modify_vehicle, true, Kinematics_Software_New.M1_Global.vehicleGUI[l_modify_vehicle].CadIsTobeImported,
-                                                                                                                                                                    Kinematics_Software_New.M1_Global.vehicleGUI[l_modify_vehicle].PlotWheel); 
+                if (Kinematics_Software_New.M1_Global.vehicleGUI[l_modify_vehicle].VisualizationType == VehicleVisualizationType.Generic)
+                {
+                    Kinematics_Software_New.EditVehicleCAD(Kinematics_Software_New.M1_Global.vehicleGUI[l_modify_vehicle].CADVehicleInputs, l_modify_vehicle, true, Kinematics_Software_New.M1_Global.vehicleGUI[l_modify_vehicle].CadIsTobeImported,
+                                                                                                                                                                                Kinematics_Software_New.M1_Global.vehicleGUI[l_modify_vehicle].PlotWheel);  
+                }
+                else if (Kinematics_Software_New.M1_Global.vehicleGUI[l_modify_vehicle].VisualizationType == VehicleVisualizationType.ImportedCAD)
+                {
+                    Kinematics_Software_New.EditVehicleCAD(Kinematics_Software_New.M1_Global.vehicleGUI[l_modify_vehicle].importCADForm.importCADViewport, l_modify_vehicle, true, Kinematics_Software_New.M1_Global.vehicleGUI[l_modify_vehicle].CadIsTobeImported,
+                                                                                                                                                                                Kinematics_Software_New.M1_Global.vehicleGUI[l_modify_vehicle].PlotWheel);
+                }
             }
 
             Kinematics_Software_New.ComboboxVehicleOperationsInvoker();
@@ -456,7 +464,14 @@ namespace Coding_Attempt_with_GUI
 
                 VehicleGUI.DisplayVehicleItem(List_Vehicle[l_unexcute_vehicle]);
 
-                Kinematics_Software_New.EditVehicleCAD(Kinematics_Software_New.M1_Global.vehicleGUI[l_unexcute_vehicle].CADVehicleInputs, l_unexcute_vehicle, true, Kinematics_Software_New.M1_Global.vehicleGUI[l_unexcute_vehicle].CadIsTobeImported, Kinematics_Software_New.M1_Global.vehicleGUI[l_unexcute_vehicle].PlotWheel);
+                if (Kinematics_Software_New.M1_Global.vehicleGUI[l_unexcute_vehicle].VisualizationType == VehicleVisualizationType.Generic)
+                {
+                    Kinematics_Software_New.EditVehicleCAD(Kinematics_Software_New.M1_Global.vehicleGUI[l_unexcute_vehicle].CADVehicleInputs, l_unexcute_vehicle, true, Kinematics_Software_New.M1_Global.vehicleGUI[l_unexcute_vehicle].CadIsTobeImported, Kinematics_Software_New.M1_Global.vehicleGUI[l_unexcute_vehicle].PlotWheel);
+                }
+                else if (Kinematics_Software_New.M1_Global.vehicleGUI[l_unexcute_vehicle].VisualizationType == VehicleVisualizationType.ImportedCAD)
+                {
+                    Kinematics_Software_New.EditVehicleCAD(Kinematics_Software_New.M1_Global.vehicleGUI[l_unexcute_vehicle].importCADForm.importCADViewport, l_unexcute_vehicle, true, Kinematics_Software_New.M1_Global.vehicleGUI[l_unexcute_vehicle].CadIsTobeImported, Kinematics_Software_New.M1_Global.vehicleGUI[l_unexcute_vehicle].PlotWheel);
+                }
 
                 Kinematics_Software_New.ComboboxVehicleOperationsInvoker();
 

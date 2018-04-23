@@ -410,7 +410,16 @@ namespace Coding_Attempt_with_GUI
                 
                 if (_SuspensionIsCreated)
                 {
-                    EditORCreateVehicleCAD(_vehicleGUI.CADVehicleInputs, Vehicle.List_Vehicle[Index].VehicleID - 1, true, _vehicleGUI.Vehicle_MotionExists, 0, false, CadIsTobeImported, PlotWheel); 
+                    if (_vehicleGUI.VisualizationType== VehicleVisualizationType.Generic)
+                    {
+                        EditORCreateVehicleCAD(_vehicleGUI.CADVehicleInputs, Vehicle.List_Vehicle[Index].VehicleID - 1, true, _vehicleGUI.Vehicle_MotionExists, 0, false, CadIsTobeImported, PlotWheel);
+
+                    }
+                    else if (_vehicleGUI.VisualizationType == VehicleVisualizationType.ImportedCAD)
+                    {
+                        EditORCreateVehicleCAD(_vehicleGUI.importCADForm.importCADViewport, Vehicle.List_Vehicle[Index].VehicleID - 1, true, _vehicleGUI.Vehicle_MotionExists, 0, false, CadIsTobeImported, PlotWheel);
+
+                    }
                 }
                 _vehicleGUI.CADVehicleInputs.SetupViewPort();
                 _vehicleGUI.CADVehicleInputs.Visible = true;
