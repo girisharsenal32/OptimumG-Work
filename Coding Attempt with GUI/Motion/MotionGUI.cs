@@ -127,7 +127,7 @@ namespace Coding_Attempt_with_GUI
                         {
                             if (r1.navBarControlResults.ActiveGroup.Name == Kinematics_Software_New.M1_Global.vehicleGUI[i_Group].navBarGroup_Vehicle_Result.Name)
                             {
-                                indexOfVehicle = /*r1.navBarControlResults.Groups.IndexOf(Kinematics_Software_New.M1_Global.vehicleGUI[i_Group].navBarGroup_Vehicle_Result)*/ i_Group;
+                                indexOfVehicle = i_Group;
                                 goto A;
                             }
                         }
@@ -145,7 +145,7 @@ namespace Coding_Attempt_with_GUI
                     r1.PopulateInputSheet(Vehicle.List_Vehicle[indexOfVehicle]);
 
                     Kinematics_Software_New.M1_Global.vehicleGUI[indexOfVehicle].EditORCreateVehicleCAD(Kinematics_Software_New.M1_Global.vehicleGUI[indexOfVehicle].CADVehicleOutputs, indexOfVehicle, false, true, outputIndex, true,
-                        Kinematics_Software_New.M1_Global.vehicleGUI[indexOfVehicle].CadIsTobeImported, Kinematics_Software_New.M1_Global.vehicleGUI[indexOfVehicle].PlotWheel); 
+                    Kinematics_Software_New.M1_Global.vehicleGUI[indexOfVehicle].CadIsTobeImported, Kinematics_Software_New.M1_Global.vehicleGUI[indexOfVehicle].PlotWheel); 
                 }
 
 

@@ -451,16 +451,15 @@ namespace Coding_Attempt_with_GUI
                         importCADForm.importCADViewport.ClearViewPort(CadIsTobeImported, FileHasBeenImported, Kinematics_Software_New.M1_Global.vehicleGUI[Index].importCADForm.importCADViewport.igesEntities);
                         importCADForm.importCADViewport.InitializeLayers();
                         InputDrawer(importCADForm.importCADViewport, Index, _MotionExists, _importCAD, _PlotWheel);
-
                     }
                     else
                     {
                         vehicleCADDrawer.ClearViewPort(CadIsTobeImported, FileHasBeenImported, null);
                         vehicleCADDrawer.InitializeLayers();
                         InputDrawer(vehicleCADDrawer, Index, _MotionExists, _importCAD, _PlotWheel);
-
                     }
                 }
+
                 else if (!IsInput)
                 {
                     //vehicleCADDrawer.InitializeEntities();
@@ -478,8 +477,7 @@ namespace Coding_Attempt_with_GUI
             catch (Exception E)
             {
                 string error = E.Message;
-                // Keeping this code in try and catch block will help during Open operation. If the method is called without a Vehicle or VehicleGUI item being present, then the software won't crasha
-
+                // Keeping this code in try and catch block will help during Open operation. If the method is called without a Vehicle or VehicleGUI item being present, then the software won't crash
             }
         }
         #endregion
