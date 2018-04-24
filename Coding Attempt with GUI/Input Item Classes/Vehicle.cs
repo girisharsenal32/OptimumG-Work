@@ -348,7 +348,7 @@ namespace Coding_Attempt_with_GUI
 
             if (!ChassisIsAssembled)
             {
-                _ErrorMessage = "Chassis is assembled";
+                _ErrorMessage = "Chassis is not assembled";
                 return false;
             }
             else AssemblyChecker++;

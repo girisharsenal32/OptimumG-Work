@@ -71,8 +71,8 @@ namespace Coding_Attempt_with_GUI
         public XtraUserControl_WishboneForces WF /*= new XtraUserControl_WishboneForces()*/;
         public XtraUserControl_CW_Def_WA CW_Def_WA /*= new XtraUserControl_CW_Def_WA()*/;
         public XtraUserControl_LinkLengths LL /*= new XtraUserControl_LinkLengths()*/;
-        public XtraUserControl_VehicleOutputs /*VO = new XtraUserControl_VehicleOutputs()*/;
-        public XtraUserControl_InputSheet /*IS = new XtraUserControl_InputSheet(r1)*/;
+        public XtraUserControl_VehicleOutputs VO /*= new XtraUserControl_VehicleOutputs()*/;
+        public XtraUserControl_InputSheet IS /*= new XtraUserControl_InputSheet(r1)*/;
         public CAD CADVehicleInputs/* = new CAD()*/;
         public CAD CADVehicleOutputs/* = new CAD()*/;
         public LegendEditor LoadCaseLegend = new LegendEditor();
@@ -116,7 +116,7 @@ namespace Coding_Attempt_with_GUI
         {
 
             r1 = _r1;
-            IS.Kinematics_Software_New_ObjectInitializer(r1);
+            //IS.Kinematics_Software_New_ObjectInitializer(r1);
             ProgressBarVehicleGUI = r1.progressBar;
             //Vehicle_MotionExists = Vehicle.List_Vehicle[Vehicle.VehicleCounter].sc_FL.SuspensionMotionExists;
             IndexOfOutput = 0;
@@ -303,6 +303,7 @@ namespace Coding_Attempt_with_GUI
             LL = new XtraUserControl_LinkLengths();
             VO = new XtraUserControl_VehicleOutputs();
             IS = new XtraUserControl_InputSheet(r1);
+            IS.Kinematics_Software_New_ObjectInitializer(r1);
 
             IS.Dock = DockStyle.Fill;
 

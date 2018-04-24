@@ -5901,12 +5901,12 @@ namespace Coding_Attempt_with_GUI
 
         private void barButtonVehicleItem_ItemClick(object sender, ItemClickEventArgs e)
         {
-            CreateNewVehicleItem(/*false*/ VehicleVisualizationType.Generic);
+            CreateNewVehicleItem(VehicleVisualizationType.Generic);
         }
 
         private void barButtonImportVehicleModel_ItemClick(object sender, ItemClickEventArgs e)
         {
-            CreateNewVehicleItem(/*true*/ VehicleVisualizationType.ImportedCAD);
+            CreateNewVehicleItem(VehicleVisualizationType.ImportedCAD);
             VehicleGUI.InitializeImportCADForm(this);
         }
 
@@ -8570,22 +8570,6 @@ namespace Coding_Attempt_with_GUI
                 M1_Global.vehicleGUI[VIndex].ProgressBarVehicleGUI = progressBar;
                 M1_Global.vehicleGUI[VIndex].ProgressBarVehicleGUI.Show();
 
-                #region Coloring the Corner Weight and Pushrod Length Textboxes White
-                M1_Global.vehicleGUI[VIndex].LL.PushRodLinkLengthFL.BackColor = Color.White;
-                M1_Global.vehicleGUI[VIndex].CW_Def_WA.CWFL.BackColor = Color.White;
-
-                M1_Global.vehicleGUI[VIndex].LL.PushRodLinkLengthFR.BackColor = Color.White;
-                M1_Global.vehicleGUI[VIndex].CW_Def_WA.CWFR.BackColor = Color.White;
-
-                M1_Global.vehicleGUI[VIndex].LL.PushRodLinkLengthRL.BackColor = Color.White;
-                M1_Global.vehicleGUI[VIndex].CW_Def_WA.CWRL.BackColor = Color.White;
-
-
-                M1_Global.vehicleGUI[VIndex].LL.PushRodLinkLengthRR.BackColor = Color.White;
-                M1_Global.vehicleGUI[VIndex].CW_Def_WA.CWRR.BackColor = Color.White;
-                #endregion
-
-
                 Vehicle.Assembled_Vehicle.vehicleGUI = M1_Global.vehicleGUI[VIndex];
 
                 #region Reseting the corner weights, ride height and deflections inside the Assmebled Vehicle to the values that were calculated after the initial calculationd
@@ -8663,6 +8647,21 @@ namespace Coding_Attempt_with_GUI
             FindOutPutIndex(0);
 
             Button_Recalculate_Enabler();
+
+            #region ---NOT REALLY NEEDED NOW--- Coloring the Corner Weight and Pushrod Length Textboxes White. 
+            //M1_Global.vehicleGUI[VIndex].LL.PushRodLinkLengthFL.BackColor = Color.White;
+            //M1_Global.vehicleGUI[VIndex].CW_Def_WA.CWFL.BackColor = Color.White;
+
+            //M1_Global.vehicleGUI[VIndex].LL.PushRodLinkLengthFR.BackColor = Color.White;
+            //M1_Global.vehicleGUI[VIndex].CW_Def_WA.CWFR.BackColor = Color.White;
+
+            //M1_Global.vehicleGUI[VIndex].LL.PushRodLinkLengthRL.BackColor = Color.White;
+            //M1_Global.vehicleGUI[VIndex].CW_Def_WA.CWRL.BackColor = Color.White;
+
+
+            //M1_Global.vehicleGUI[VIndex].LL.PushRodLinkLengthRR.BackColor = Color.White;
+            //M1_Global.vehicleGUI[VIndex].CW_Def_WA.CWRR.BackColor = Color.White;
+            #endregion
 
             TabControl_Outputs = CustomXtraTabPage.ClearTabPages(TabControl_Outputs, M1_Global.vehicleGUI[VIndex].TabPages_Vehicle);
 

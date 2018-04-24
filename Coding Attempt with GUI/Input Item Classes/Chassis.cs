@@ -55,7 +55,7 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
         #region Declaration of the Global Array and Global List of the Chassis Object
-        public static Chassis Assy_Chassis = new Chassis();
+        public static Chassis Assy_Chassis/* = new Chassis()*/;
         public static List<Chassis> Assy_List_Chassis = new List<Chassis>();
         #endregion
 
