@@ -3232,7 +3232,7 @@ namespace Coding_Attempt_with_GUI
                             }
 
                             ///<summary>If the <see cref="CustomData"/> of the <see cref="Entity"/> has a Colour with the <see cref="Color.A"/> value as 75 then it means that is transparent and it is being reclicked and hence I want to restore its colour</summary>
-                            if (Color.Equals(temp_Entity.Color, Color.FromArgb(75, tempEntityData.EntityColor)))
+                            if (Color.Equals(temp_Entity.Color, Color.FromArgb(75, tempEntityData.EntityColor)) || Color.Equals(temp_Entity.Color, Color.FromArgb(40, tempEntityData.EntityColor)))
                             {
                                 temp_Entity.Color = Color.FromArgb(255, tempEntityData.EntityColor);
                                 goto END;
@@ -3260,12 +3260,12 @@ namespace Coding_Attempt_with_GUI
                                 tempEntityData = new CustomData(temp_Entity.ToString(), 0, temp_Entity.Color);
                             }
                         }
-                        ///<summary>Setting the <see cref="Entity.ColorMethod"/> is crucial. Without it the code doesn't function</summary>
-                        temp_Entity.ColorMethod = colorMethodType.byEntity;
+
                         ///<summary>Setting the colour of the Entity as transparent</summary>
-                        //Color transparentColor = temp_Entity.Color;
                         if (temp_Entity as BlockReference == null)
                         {
+                            ///<summary>Setting the <see cref="Entity.ColorMethod"/> is crucial. Without it the code doesn't function</summary>
+                            temp_Entity.ColorMethod = colorMethodType.byEntity;
                             temp_Entity.Color = Color.FromArgb(75, tempEntityData.EntityColor);
 
                         }
@@ -3274,13 +3274,13 @@ namespace Coding_Attempt_with_GUI
                             BlockReference tempRef = viewportLayout1.Entities[entityIndex] as BlockReference;
 
                             tempRef.ColorMethod = colorMethodType.byEntity;
+                            tempRef.Color = Color.FromArgb(40, tempRef.Color);
 
                             Block tempBlock = viewportLayout1.Blocks[tempRef.BlockName];
 
                             for (int i = 0; i < tempBlock.Entities.Count; i++)
                             {
                                 tempBlock.Entities[i].ColorMethod = colorMethodType.byParent;
-                                tempBlock.Entities[i].Color = Color.Transparent;
                             }
 
                         }
