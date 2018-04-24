@@ -5945,18 +5945,7 @@ namespace Coding_Attempt_with_GUI
             {
                 if (Vehicle.VehicleCounter == l_vehicle)
                 {
-                    M1_Global.vehicleGUI.Insert(l_vehicle, new VehicleGUI());
-                    M1_Global.vehicleGUI[l_vehicle] = new VehicleGUI(this, vVisualizationType);
-
-                    //if (/*_calledByImportVehicleButton*/vVisualizationType == VehicleVisualizationType.ImportedCAD)
-                    //{
-                    //    M1_Global.vehicleGUI[l_vehicle].CadIsTobeImported = true; 
-                    //}
-                    //else if (vVisualizationType == VehicleVisualizationType.Generic)
-                    //{
-                    //    M1_Global.vehicleGUI[l_vehicle].CadIsTobeImported = false;
-                    //}
-
+                    M1_Global.vehicleGUI.Insert(l_vehicle, new VehicleGUI(this, vVisualizationType));
                     try
                     {
                         #region Assembling the Vehicle and creating a Vehicle Item
@@ -8694,10 +8683,6 @@ namespace Coding_Attempt_with_GUI
 
             PopulateInputSheet(Vehicle.Assembled_Vehicle);
 
-            //M1_Global.vehicleGUI[VIndex].CADVehicleOutputs.openFileDialog1 = M1_Global.vehicleGUI[VIndex].CADVehicleInputs.openFileDialog1;
-            //M1_Global.vehicleGUI[VIndex].CADVehicleOutputs.igesEntities = M1_Global.vehicleGUI[VIndex].importCADForm.importCADViewport.igesEntities;
-            //M1_Global.vehicleGUI[VIndex].CADVehicleOutputs.openFileDialog1 = new OpenFileDialog();
-            //M1_Global.vehicleGUI[VIndex].CADVehicleOutputs.viewportLayout1.Clear();
             M1_Global.vehicleGUI[VIndex].OutputIGESPlotted = false;
             M1_Global.vehicleGUI[VIndex].TranslateChassisToGround = false;
             M1_Global.vehicleGUI[VIndex].ImportedCADTranslationHistory = new List<double>(new double[] { 0, 0 });
@@ -8715,12 +8700,6 @@ namespace Coding_Attempt_with_GUI
 
             M1_Global.vehicleGUI[VIndex].LoadCaseLegend.MaxValue = M1_Global.vehicleGUI[VIndex].LoadCaseLegend.MinValue = 0;
             M1_Global.vehicleGUI[VIndex].EditORCreateVehicleCAD(M1_Global.vehicleGUI[VIndex].CADVehicleOutputs, VIndex, false, M1_Global.vehicleGUI[VIndex].Vehicle_MotionExists, 0, false, M1_Global.vehicleGUI[VIndex].CadIsTobeImported, M1_Global.vehicleGUI[VIndex].PlotWheel);
-
-            //Vehicle temp_Vehicle = new Vehicle();
-
-            //temp_Vehicle = Vehicle.Assembled_Vehicle;
-
-            //Vehicle.List_Vehicle[VIndex] = temp_Vehicle;
 
             progressBar.Hide();
 

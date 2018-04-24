@@ -25,14 +25,14 @@ namespace Coding_Attempt_with_GUI
 
         #region Check Variables
         public int AssemblyChecker_GUI { get; set; }
-        public bool SuspensionIsAssembled_GUI = false;
-        public bool TireIsAssembled_GUI = false;
-        public bool SpringIsAssembled_GUI = false;
-        public bool DamperIsAssembled_GUI = false;
-        public bool ARBIsAssembled_GUI = false;
-        public bool ChassisIsAssembled_GUI = false;
-        public bool WAIsAssembled_GUI = false;
-        public bool VehicleHasBeenValidated_GUI = false;
+        public bool SuspensionIsAssembled_GUI /*= false*/;
+        public bool TireIsAssembled_GUI /*= false*/;
+        public bool SpringIsAssembled_GUI /*= false*/;
+        public bool DamperIsAssembled_GUI /*= false*/;
+        public bool ARBIsAssembled_GUI /*= false*/;
+        public bool ChassisIsAssembled_GUI /*= false*/;
+        public bool WAIsAssembled_GUI /*= false*/;
+        public bool VehicleHasBeenValidated_GUI /*= false*/;
         #endregion
 
         #region Coordinates of Vehicle Origin with respect to User Coordinates System for Input and Output
@@ -61,18 +61,18 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
         #region Vehicle Grid Controls
-        public GridControl GridControlOutputs_SCFL = new GridControl();
-        public GridControl GridControlOutputs_SCFR = new GridControl();
-        public GridControl GridControlOutputs_SCRL = new GridControl();
-        public GridControl GridControlOutputs_SCRR = new GridControl();
+        public GridControl GridControlOutputs_SCFL /*= new GridControl()*/;
+        public GridControl GridControlOutputs_SCFR /*= new GridControl()*/;
+        public GridControl GridControlOutputs_SCRL /*= new GridControl()*/;
+        public GridControl GridControlOutputs_SCRR /*= new GridControl()*/;
         #endregion
 
         #region Vehicle User Controls
-        public XtraUserControl_WishboneForces WF = new XtraUserControl_WishboneForces();
-        public XtraUserControl_CW_Def_WA CW_Def_WA = new XtraUserControl_CW_Def_WA();
-        public XtraUserControl_LinkLengths LL = new XtraUserControl_LinkLengths();
-        public XtraUserControl_VehicleOutputs VO = new XtraUserControl_VehicleOutputs();
-        public XtraUserControl_InputSheet IS = new XtraUserControl_InputSheet(r1);
+        public XtraUserControl_WishboneForces WF /*= new XtraUserControl_WishboneForces()*/;
+        public XtraUserControl_CW_Def_WA CW_Def_WA /*= new XtraUserControl_CW_Def_WA()*/;
+        public XtraUserControl_LinkLengths LL /*= new XtraUserControl_LinkLengths()*/;
+        public XtraUserControl_VehicleOutputs /*VO = new XtraUserControl_VehicleOutputs()*/;
+        public XtraUserControl_InputSheet /*IS = new XtraUserControl_InputSheet(r1)*/;
         public CAD CADVehicleInputs/* = new CAD()*/;
         public CAD CADVehicleOutputs/* = new CAD()*/;
         public LegendEditor LoadCaseLegend = new LegendEditor();
@@ -80,7 +80,7 @@ namespace Coding_Attempt_with_GUI
 
         #region ImportCAD Form
         public XUC_ImportCAD importCADForm/* = new XUC_ImportCAD()*/;
-        public bool ImportCADFormInvoked = false;
+        public bool ImportCADFormInvoked/* = false*/;
         public bool PlotWheel = true;
         #endregion
 
@@ -96,7 +96,6 @@ namespace Coding_Attempt_with_GUI
         public VehicleVisualizationType VisualizationType { get; set; }
         public bool FileHasBeenImported = false;
         public bool OutputIGESPlotted = false;
-        //public ReadFileAsync ImportedFile;
         public string IGESFIleName;
         public bool TranslateChassisToGround = false;
 
@@ -268,6 +267,8 @@ namespace Coding_Attempt_with_GUI
         #region Method to add the Suspension Grid Control to the Scrollable Control 
         public void AddSuspensionGridtoScrollableControl()
         {
+            InitiGridControl();
+
             xtraScrollableControl_OutputCoordinates.SendToBack();
             xtraScrollableControl_OutputCoordinates.Dock = DockStyle.Fill;
 
@@ -297,6 +298,12 @@ namespace Coding_Attempt_with_GUI
         #region Method to add the remaining User Controls to the TabPages
         public void AddUserControlToTabPage(List<CustomXtraTabPage> _xtraTabPageList)
         {
+            WF = new XtraUserControl_WishboneForces();
+            CW_Def_WA = new XtraUserControl_CW_Def_WA();
+            LL = new XtraUserControl_LinkLengths();
+            VO = new XtraUserControl_VehicleOutputs();
+            IS = new XtraUserControl_InputSheet(r1);
+
             IS.Dock = DockStyle.Fill;
 
             WF.Dock = DockStyle.Fill;
@@ -345,7 +352,6 @@ namespace Coding_Attempt_with_GUI
             _vehicleGUI.GridControlOutputs_SCFR.ForceInitialize();
             _vehicleGUI.GridControlOutputs_SCFR.MainView = _vehicleGUI.ocGUI_FR.bandedGridView_Outputs;
             GridControlDataSource(_vehicleGUI.GridControlOutputs_SCFR, _vehicleGridControlPopulation.oc_FR[OutputIndex].OC_SC_DataTable, _vehicleGUI.ocGUI_FR.bandedGridView_Outputs, _R1);
-            //_vehicleGUI.ocGUI_FR.bandedGridView_Outputs = CustomBandedGridColumn.ColumnEditor_ForSuspension(_vehicleGUI.ocGUI_FR.bandedGridView_Outputs, _R1);
 
             _vehicleGUI.ocGUI_RL.bandedGridView_Outputs = CustomBandedGridView.CreateNewBandedGridView(1, 4, "Rear Left Suspension Coordinates");
             _vehicleGUI.GridControlOutputs_SCRL.BindingContext = new BindingContext();
@@ -353,7 +359,6 @@ namespace Coding_Attempt_with_GUI
             _vehicleGUI.GridControlOutputs_SCRL.ForceInitialize();
             _vehicleGUI.GridControlOutputs_SCRL.MainView = _vehicleGUI.ocGUI_RL.bandedGridView_Outputs;
             GridControlDataSource(_vehicleGUI.GridControlOutputs_SCRL, _vehicleGridControlPopulation.oc_RL[OutputIndex].OC_SC_DataTable, _vehicleGUI.ocGUI_RL.bandedGridView_Outputs, _R1);
-            //_vehicleGUI.ocGUI_RL.bandedGridView_Outputs = CustomBandedGridColumn.ColumnEditor_ForSuspension(_vehicleGUI.ocGUI_RL.bandedGridView_Outputs, _R1);
 
             _vehicleGUI.ocGUI_RR.bandedGridView_Outputs = CustomBandedGridView.CreateNewBandedGridView(1, 4, "Rear Right Suspension Coordinates");
             _vehicleGUI.GridControlOutputs_SCRR.BindingContext = new BindingContext();
@@ -361,18 +366,17 @@ namespace Coding_Attempt_with_GUI
             _vehicleGUI.GridControlOutputs_SCRR.ForceInitialize();
             _vehicleGUI.GridControlOutputs_SCRR.MainView = _vehicleGUI.ocGUI_RR.bandedGridView_Outputs;
             GridControlDataSource(_vehicleGUI.GridControlOutputs_SCRR, _vehicleGridControlPopulation.oc_RR[OutputIndex].OC_SC_DataTable, _vehicleGUI.ocGUI_RR.bandedGridView_Outputs, _R1);
-            //_vehicleGUI.ocGUI_RR.bandedGridView_Outputs = CustomBandedGridColumn.ColumnEditor_ForSuspension(_vehicleGUI.ocGUI_RR.bandedGridView_Outputs, _R1);
 
         }
         #endregion
 
         #region Method to reset the GridCOntorl
-        public void ResetGridControl(VehicleGUI _vehicleGUI)
+        public void InitiGridControl()
         {
-            _vehicleGUI.GridControlOutputs_SCFL = new GridControl();
-            _vehicleGUI.GridControlOutputs_SCFR = new GridControl();
-            _vehicleGUI.GridControlOutputs_SCRL = new GridControl();
-            _vehicleGUI.GridControlOutputs_SCRR = new GridControl();
+            GridControlOutputs_SCFL = new GridControl();
+            GridControlOutputs_SCFR = new GridControl();
+            GridControlOutputs_SCRL = new GridControl();
+            GridControlOutputs_SCRR = new GridControl();
         }
         #endregion
 
@@ -462,8 +466,6 @@ namespace Coding_Attempt_with_GUI
 
                 else if (!IsInput)
                 {
-                    //vehicleCADDrawer.InitializeEntities();
-                    //vehicleCADDrawer.CloneOutputViewPort(vehicleCADDrawer.viewportLayout1,);
                     vehicleCADDrawer.ClearViewPort(CadIsTobeImported, FileHasBeenImported, null);
                     OutputDrawer(vehicleCADDrawer, Index, _IndexOfOutput, _importCAD, _PlotWheel);
                     if (!IsCreated)
@@ -483,6 +485,7 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
         #region Inpput Coordinates Plotter
+
         /// <summary>
         /// Gets the Contact Patch Forces calculated using the Load Case. IF the load case is not null
         /// </summary>
@@ -683,26 +686,14 @@ namespace Coding_Attempt_with_GUI
                 OutputClass MasterOC = new OutputClass();
                 MasterOC = MasterOC.PopulateForceLists(Vehicle.List_Vehicle[VehicleIndex].oc_FL[OutputIndex], Vehicle.List_Vehicle[VehicleIndex].oc_FR[OutputIndex], Vehicle.List_Vehicle[VehicleIndex].oc_RL[OutputIndex], Vehicle.List_Vehicle[VehicleIndex].oc_RR[OutputIndex]);
 
+                ///<summary>Calling the <see cref="LegendEditor"/> and initializing it and then calling the <see cref="CAD.PostProcessing(LegendEditor, OutputClass, Color, Color, GradientStyle, int, double)"/> method which draws the DataTable for the Legend and the Legend too </summary>
                 LoadCaseLegend.InitializeLegendEditor(MasterOC, CADVehicleOutputs);
 
+                ///<summary>Painting the Bars according to Force Range in between which they lie</summary>
                 CADVehicleOutputs.PaintBarForce();
 
+                ///<summary>Painting the Arrows according to Force Range in between which they lie</summary>
                 CADVehicleOutputs.PaintArrowForce();
-
-                ///<summary>This method exists to ensure that the Imported FIles are not recloned everytime the user selects a different Motion Percentage from the Motion View Grid</summary>
-                if (_importCAD && !OutputIGESPlotted)
-                {
-                    //try
-                    //{
-                    //    vehicleCADDrawer_Output.CloneImportedCAD(ref FileHasBeenImported, ref CadIsTobeImported, true, Kinematics_Software_New.M1_Global.vehicleGUI[VehicleIndex].importCADForm.importCADViewport.igesEntities);
-                    //    IGESFIleName = vehicleCADDrawer_Output.openFileDialog1.FileName;
-                    //    OutputIGESPlotted = true;
-                    //}
-                    //catch (Exception E)
-                    //{
-                    //    string error = E.Message;
-                    //}
-                }
 
                 ///<summary>This Loop exists to allow the imported files to be translated around the Suspension  </summary>
                 if (_importCAD && OutputIGESPlotted && TranslateChassisToGround)
