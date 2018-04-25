@@ -385,8 +385,6 @@ namespace Coding_Attempt_with_GUI
             PointOfRotation.X = _chassisCoG.SuspendedMassCoGx;
             PointOfRotation.Y = _chassisCoG.SuspendedMassCoGy;
             PointOfRotation.Z = _chassisCoG.SuspendedMassCoGz;
-
-
         }
 
         #region Translate Operations. Contains the method to rotate the selected Block and the Inboard or Outboard Points with it
@@ -3216,9 +3214,13 @@ namespace Coding_Attempt_with_GUI
                 if (entityIndex != -1)
                 {
                     Entity temp_Entity = viewportLayout1.Entities[entityIndex];
-                    viewportLayout1.Cursor = viewportLayout1.CursorTypes[cursorType.Pick];
-                    temp_Entity.Selected = true;
-
+                    ///<summary>
+                    /// ---IMPORTANT--- Don't do this. The reason is, if you set the selection here then it is not reflected in the <see cref="XUC_ImportCAD.listBoxSelectedParts"/> and then when you try to 
+                    /// <see cref="SetCurrent"/> it FAILS
+                    /// </summary>
+                    //viewportLayout1.Cursor = viewportLayout1.CursorTypes[cursorType.Pick];
+                    //temp_Entity.Selected = true;
+                    
                     ///<summary>If the <see cref="ViewportLayout.ToolBar.Buttons"/> corresponding to the MakeTransparent BUtton is pushed then the method below is activated</summary>
                     if (viewportLayout1.ToolBars[0].Buttons[8].Pushed)
                     {
@@ -3412,8 +3414,25 @@ namespace Coding_Attempt_with_GUI
                 ///Either the Entity has <see cref="CustomData"/> data defined or temporary <see cref="CustomData"/> defined with only Colour. Either way this data is used to restore the Colour of the Entity and undo the transparency
                 /// </summary>
                 CustomData tempEntityData = (CustomData)viewportLayout1.Entities[_entityIndex].EntityData;
-                viewportLayout1.Entities[_entityIndex].ColorMethod = colorMethodType.byEntity;
-                viewportLayout1.Entities[_entityIndex].Color = tempEntityData.EntityColor;
+                if (viewportLayout1.Entities[_entityIndex] as BlockReference == null)
+                {
+                    viewportLayout1.Entities[_entityIndex].ColorMethod = colorMethodType.byEntity;
+                    viewportLayout1.Entities[_entityIndex].Color = tempEntityData.EntityColor; 
+                }
+                else
+                {
+                    BlockReference tempRef = viewportLayout1.Entities[_entityIndex] as BlockReference;
+
+                    tempRef.ColorMethod = colorMethodType.byEntity;
+                    tempRef.Color = Color.FromArgb(255, tempRef.Color);
+
+                    Block tempBlock = viewportLayout1.Blocks[tempRef.BlockName];
+
+                    for (int i = 0; i < tempBlock.Entities.Count; i++)
+                    {
+                        tempBlock.Entities[i].ColorMethod = colorMethodType.byParent;
+                    }
+                }
             }
 
         } 
