@@ -297,9 +297,9 @@
             // 
             this.barDockControlBottom.CausesValidation = false;
             this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.barDockControlBottom.Location = new System.Drawing.Point(0, 985);
+            this.barDockControlBottom.Location = new System.Drawing.Point(0, 987);
             this.barDockControlBottom.Manager = this.barManager1;
-            this.barDockControlBottom.Size = new System.Drawing.Size(1369, 27);
+            this.barDockControlBottom.Size = new System.Drawing.Size(1369, 25);
             // 
             // barDockControlLeft
             // 
@@ -307,7 +307,7 @@
             this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.barDockControlLeft.Location = new System.Drawing.Point(0, 49);
             this.barDockControlLeft.Manager = this.barManager1;
-            this.barDockControlLeft.Size = new System.Drawing.Size(0, 936);
+            this.barDockControlLeft.Size = new System.Drawing.Size(0, 938);
             // 
             // barDockControlRight
             // 
@@ -315,7 +315,7 @@
             this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
             this.barDockControlRight.Location = new System.Drawing.Point(1369, 49);
             this.barDockControlRight.Manager = this.barManager1;
-            this.barDockControlRight.Size = new System.Drawing.Size(0, 936);
+            this.barDockControlRight.Size = new System.Drawing.Size(0, 938);
             // 
             // panelContainer1
             // 
@@ -330,7 +330,7 @@
             this.panelContainer1.Name = "panelContainer1";
             this.panelContainer1.Options.ShowCloseButton = false;
             this.panelContainer1.OriginalSize = new System.Drawing.Size(289, 200);
-            this.panelContainer1.Size = new System.Drawing.Size(289, 936);
+            this.panelContainer1.Size = new System.Drawing.Size(289, 938);
             this.panelContainer1.Tabbed = true;
             this.panelContainer1.Text = "panelContainer1";
             // 
@@ -339,11 +339,11 @@
             this.dockPanelImportSettings.Controls.Add(this.dockPanel1_Container);
             this.dockPanelImportSettings.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
             this.dockPanelImportSettings.ID = new System.Guid("24f4f95c-314b-4caa-87b7-9b249408ac15");
-            this.dockPanelImportSettings.Location = new System.Drawing.Point(3, 24);
+            this.dockPanelImportSettings.Location = new System.Drawing.Point(4, 23);
             this.dockPanelImportSettings.Name = "dockPanelImportSettings";
             this.dockPanelImportSettings.Options.ShowCloseButton = false;
             this.dockPanelImportSettings.OriginalSize = new System.Drawing.Size(282, 885);
-            this.dockPanelImportSettings.Size = new System.Drawing.Size(282, 885);
+            this.dockPanelImportSettings.Size = new System.Drawing.Size(280, 884);
             this.dockPanelImportSettings.Text = "Import Settings";
             // 
             // dockPanel1_Container
@@ -354,7 +354,7 @@
             this.dockPanel1_Container.Controls.Add(this.groupControlSuspension);
             this.dockPanel1_Container.Location = new System.Drawing.Point(0, 0);
             this.dockPanel1_Container.Name = "dockPanel1_Container";
-            this.dockPanel1_Container.Size = new System.Drawing.Size(282, 885);
+            this.dockPanel1_Container.Size = new System.Drawing.Size(280, 884);
             this.dockPanel1_Container.TabIndex = 0;
             // 
             // groupControlMap
@@ -374,9 +374,9 @@
             this.groupControlMap.Controls.Add(this.label1);
             this.groupControlMap.Controls.Add(this.groupControlMappedItems);
             this.groupControlMap.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupControlMap.Location = new System.Drawing.Point(0, 295);
+            this.groupControlMap.Location = new System.Drawing.Point(0, 300);
             this.groupControlMap.Name = "groupControlMap";
-            this.groupControlMap.Size = new System.Drawing.Size(282, 590);
+            this.groupControlMap.Size = new System.Drawing.Size(280, 584);
             this.groupControlMap.TabIndex = 9;
             this.groupControlMap.Text = "Map Imported Files";
             // 
@@ -547,9 +547,9 @@
             this.groupControlImportCAD.Controls.Add(this.comboBoxImportCAD);
             this.groupControlImportCAD.Controls.Add(this.labelImportCAD);
             this.groupControlImportCAD.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupControlImportCAD.Location = new System.Drawing.Point(0, 224);
+            this.groupControlImportCAD.Location = new System.Drawing.Point(0, 229);
             this.groupControlImportCAD.Name = "groupControlImportCAD";
-            this.groupControlImportCAD.Size = new System.Drawing.Size(282, 71);
+            this.groupControlImportCAD.Size = new System.Drawing.Size(280, 71);
             this.groupControlImportCAD.TabIndex = 8;
             this.groupControlImportCAD.Text = "Import";
             // 
@@ -600,9 +600,9 @@
             this.groupControlWA.Controls.Add(this.labelWA);
             this.groupControlWA.Controls.Add(this.groupControlVehicleEnds);
             this.groupControlWA.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupControlWA.Location = new System.Drawing.Point(0, 204);
+            this.groupControlWA.Location = new System.Drawing.Point(0, 209);
             this.groupControlWA.Name = "groupControlWA";
-            this.groupControlWA.Size = new System.Drawing.Size(282, 20);
+            this.groupControlWA.Size = new System.Drawing.Size(280, 20);
             this.groupControlWA.TabIndex = 7;
             this.groupControlWA.Text = "Wheel Alignment";
             this.groupControlWA.Visible = false;
@@ -686,7 +686,7 @@
             this.groupControlSuspension.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupControlSuspension.Location = new System.Drawing.Point(0, 0);
             this.groupControlSuspension.Name = "groupControlSuspension";
-            this.groupControlSuspension.Size = new System.Drawing.Size(282, 204);
+            this.groupControlSuspension.Size = new System.Drawing.Size(280, 209);
             this.groupControlSuspension.TabIndex = 8;
             this.groupControlSuspension.Text = "Suspension";
             // 
@@ -698,9 +698,9 @@
             this.simpleButtonPlotSuspension.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
             this.simpleButtonPlotSuspension.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
             this.simpleButtonPlotSuspension.Dock = System.Windows.Forms.DockStyle.Top;
-            this.simpleButtonPlotSuspension.Location = new System.Drawing.Point(2, 163);
+            this.simpleButtonPlotSuspension.Location = new System.Drawing.Point(2, 168);
             this.simpleButtonPlotSuspension.Name = "simpleButtonPlotSuspension";
-            this.simpleButtonPlotSuspension.Size = new System.Drawing.Size(278, 39);
+            this.simpleButtonPlotSuspension.Size = new System.Drawing.Size(276, 39);
             this.simpleButtonPlotSuspension.TabIndex = 2;
             this.simpleButtonPlotSuspension.Text = "Plot Suspension";
             this.simpleButtonPlotSuspension.Click += new System.EventHandler(this.simpleButtonPlotSuspension_Click);
@@ -716,9 +716,9 @@
             this.groupControlVehicleCorners.Controls.Add(this.labelSuspensionRL);
             this.groupControlVehicleCorners.Controls.Add(this.labelSuspensionFR);
             this.groupControlVehicleCorners.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupControlVehicleCorners.Location = new System.Drawing.Point(2, 36);
+            this.groupControlVehicleCorners.Location = new System.Drawing.Point(2, 41);
             this.groupControlVehicleCorners.Name = "groupControlVehicleCorners";
-            this.groupControlVehicleCorners.Size = new System.Drawing.Size(278, 127);
+            this.groupControlVehicleCorners.Size = new System.Drawing.Size(276, 127);
             this.groupControlVehicleCorners.TabIndex = 2;
             this.groupControlVehicleCorners.Text = "Vehicle Corners";
             this.groupControlVehicleCorners.Visible = false;
@@ -808,9 +808,9 @@
             this.comboBoxSuspension.Dock = System.Windows.Forms.DockStyle.Top;
             this.comboBoxSuspension.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSuspension.FormattingEnabled = true;
-            this.comboBoxSuspension.Location = new System.Drawing.Point(2, 15);
+            this.comboBoxSuspension.Location = new System.Drawing.Point(2, 20);
             this.comboBoxSuspension.Name = "comboBoxSuspension";
-            this.comboBoxSuspension.Size = new System.Drawing.Size(278, 21);
+            this.comboBoxSuspension.Size = new System.Drawing.Size(276, 21);
             this.comboBoxSuspension.TabIndex = 0;
             this.comboBoxSuspension.SelectedIndexChanged += new System.EventHandler(this.comboBoxSuspension_SelectedIndexChanged);
             // 
@@ -819,11 +819,11 @@
             this.dockPanelRotateObject.Controls.Add(this.dockPanel2_Container);
             this.dockPanelRotateObject.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
             this.dockPanelRotateObject.ID = new System.Guid("49722ac4-3596-4b6e-ac03-ced233569188");
-            this.dockPanelRotateObject.Location = new System.Drawing.Point(3, 24);
+            this.dockPanelRotateObject.Location = new System.Drawing.Point(4, 23);
             this.dockPanelRotateObject.Name = "dockPanelRotateObject";
             this.dockPanelRotateObject.Options.ShowCloseButton = false;
             this.dockPanelRotateObject.OriginalSize = new System.Drawing.Size(282, 885);
-            this.dockPanelRotateObject.Size = new System.Drawing.Size(282, 885);
+            this.dockPanelRotateObject.Size = new System.Drawing.Size(280, 884);
             this.dockPanelRotateObject.Text = "Rotate Object";
             // 
             // dockPanel2_Container
@@ -831,7 +831,7 @@
             this.dockPanel2_Container.Controls.Add(this.rotateObject);
             this.dockPanel2_Container.Location = new System.Drawing.Point(0, 0);
             this.dockPanel2_Container.Name = "dockPanel2_Container";
-            this.dockPanel2_Container.Size = new System.Drawing.Size(282, 885);
+            this.dockPanel2_Container.Size = new System.Drawing.Size(280, 884);
             this.dockPanel2_Container.TabIndex = 0;
             // 
             // rotateObject
@@ -840,7 +840,7 @@
             this.rotateObject.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rotateObject.Location = new System.Drawing.Point(0, 0);
             this.rotateObject.Name = "rotateObject";
-            this.rotateObject.Size = new System.Drawing.Size(282, 885);
+            this.rotateObject.Size = new System.Drawing.Size(280, 884);
             this.rotateObject.TabIndex = 7;
             // 
             // dockPanelTranslateObject
@@ -848,11 +848,11 @@
             this.dockPanelTranslateObject.Controls.Add(this.dockPanel3_Container);
             this.dockPanelTranslateObject.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
             this.dockPanelTranslateObject.ID = new System.Guid("56d12c51-381f-4454-b602-f9d627815c6a");
-            this.dockPanelTranslateObject.Location = new System.Drawing.Point(3, 24);
+            this.dockPanelTranslateObject.Location = new System.Drawing.Point(4, 23);
             this.dockPanelTranslateObject.Name = "dockPanelTranslateObject";
             this.dockPanelTranslateObject.Options.ShowCloseButton = false;
             this.dockPanelTranslateObject.OriginalSize = new System.Drawing.Size(282, 885);
-            this.dockPanelTranslateObject.Size = new System.Drawing.Size(282, 885);
+            this.dockPanelTranslateObject.Size = new System.Drawing.Size(280, 884);
             this.dockPanelTranslateObject.Text = "Translate Object";
             // 
             // dockPanel3_Container
@@ -860,7 +860,7 @@
             this.dockPanel3_Container.Controls.Add(this.translateObject);
             this.dockPanel3_Container.Location = new System.Drawing.Point(0, 0);
             this.dockPanel3_Container.Name = "dockPanel3_Container";
-            this.dockPanel3_Container.Size = new System.Drawing.Size(282, 885);
+            this.dockPanel3_Container.Size = new System.Drawing.Size(280, 884);
             this.dockPanel3_Container.TabIndex = 0;
             // 
             // translateObject
@@ -869,7 +869,7 @@
             this.translateObject.Dock = System.Windows.Forms.DockStyle.Fill;
             this.translateObject.Location = new System.Drawing.Point(0, 0);
             this.translateObject.Name = "translateObject";
-            this.translateObject.Size = new System.Drawing.Size(282, 885);
+            this.translateObject.Size = new System.Drawing.Size(280, 884);
             this.translateObject.TabIndex = 7;
             // 
             // dockPanelMapSuspensionCoordinates
@@ -877,10 +877,10 @@
             this.dockPanelMapSuspensionCoordinates.Controls.Add(this.controlContainer4);
             this.dockPanelMapSuspensionCoordinates.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
             this.dockPanelMapSuspensionCoordinates.ID = new System.Guid("f1cc3d99-04d0-4f5b-a2a0-007ec3f89aca");
-            this.dockPanelMapSuspensionCoordinates.Location = new System.Drawing.Point(3, 24);
+            this.dockPanelMapSuspensionCoordinates.Location = new System.Drawing.Point(4, 23);
             this.dockPanelMapSuspensionCoordinates.Name = "dockPanelMapSuspensionCoordinates";
             this.dockPanelMapSuspensionCoordinates.OriginalSize = new System.Drawing.Size(282, 885);
-            this.dockPanelMapSuspensionCoordinates.Size = new System.Drawing.Size(282, 885);
+            this.dockPanelMapSuspensionCoordinates.Size = new System.Drawing.Size(280, 884);
             this.dockPanelMapSuspensionCoordinates.Text = "Map Suspension Coordinates";
             // 
             // controlContainer4
@@ -888,7 +888,7 @@
             this.controlContainer4.Controls.Add(this.xuC_CoordinateMap1);
             this.controlContainer4.Location = new System.Drawing.Point(0, 0);
             this.controlContainer4.Name = "controlContainer4";
-            this.controlContainer4.Size = new System.Drawing.Size(282, 885);
+            this.controlContainer4.Size = new System.Drawing.Size(280, 884);
             this.controlContainer4.TabIndex = 0;
             // 
             // xuC_CoordinateMap1
@@ -897,7 +897,7 @@
             this.xuC_CoordinateMap1.Location = new System.Drawing.Point(0, 0);
             this.xuC_CoordinateMap1.LookAndFeel.SkinName = "VS2010";
             this.xuC_CoordinateMap1.Name = "xuC_CoordinateMap1";
-            this.xuC_CoordinateMap1.Size = new System.Drawing.Size(282, 885);
+            this.xuC_CoordinateMap1.Size = new System.Drawing.Size(280, 884);
             this.xuC_CoordinateMap1.TabIndex = 0;
             this.xuC_CoordinateMap1.Load += new System.EventHandler(this.xuC_CoordinateMap1_Load);
             // 

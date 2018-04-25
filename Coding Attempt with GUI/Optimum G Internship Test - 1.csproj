@@ -182,11 +182,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bruno Heat Map Code.cs" />
-    <Compile Include="LegendEditor.cs">
+    <Compile Include="GUI Elements\Graphics\CAD Auxillaries\LegendEditor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LegendEditor.Designer.cs">
+    <Compile Include="GUI Elements\Graphics\CAD Auxillaries\LegendEditor.Designer.cs">
       <DependentUpon>LegendEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Load Cases\Batch Runs\BatchRunForm.cs">
@@ -519,7 +518,7 @@
     <Compile Include="SetupChange\XUC_SetupChangeResults.Designer.cs">
       <DependentUpon>XUC_SetupChangeResults.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="LegendEditor.resx">
+    <EmbeddedResource Include="GUI Elements\Graphics\CAD Auxillaries\LegendEditor.resx">
       <DependentUpon>LegendEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Load Cases\Batch Runs\BatchRunForm.resx">
