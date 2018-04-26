@@ -40,6 +40,10 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         public Color UsersGradient2 { get; set; } = Color.Ivory;
         /// <summary>
+        /// User defined Colour for Bars without a Force Value
+        /// </summary>
+        public Color UserNoForceColour { get; set; } = Color.White;
+        /// <summary>
         /// Number of Steps in the Legend
         /// </summary>
         public int NoOfSteps { get; set; } = 0;
@@ -48,9 +52,33 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         public double StepSize { get; set; } = 0;
         /// <summary>
-        /// User defined <see cref="GradientStyle"/> 0f the Legend
+        /// User defined <see cref="GradientStyle"/> of the Legend
         /// </summary>
         public GradientStyle UsersGradientStyle { get; set; } = GradientStyle.StandardFEM;
+        /// <summary>
+        /// User defined <see cref="ForceArrowStyle"/>. 
+        /// </summary>
+        public ForceArrowStyle UserForceArrowStyle { get; set; } = ForceArrowStyle.Both;
+        /// <summary>
+        /// Length of the Arrow CYLINDER if the user opts for <see cref="ForceArrowStyle.ColourScaling"/>
+        /// </summary>
+        public double ArrowCylLength { get; set; } = 50;
+        /// <summary>
+        /// Length of the Arrow CONE if the user opts for <see cref="ForceArrowStyle.ColourScaling"/>
+        /// </summary>
+        public double ArrowConeLength { get; set; }
+        /// <summary>
+        /// Radius of the Arrow CYLINDER if the user opts for <see cref="ForceArrowStyle.ColourScaling"/>
+        /// </summary>
+        public double ArrowCylRadius { get; set; }
+        /// <summary>
+        /// Radius of the Arrow CONE if the user opts for <see cref="ForceArrowStyle.ColourScaling"/>
+        /// </summary>
+        public double ArrowConeRadius { get; set; }
+        /// <summary>
+        /// Color of the Arrow if the user opts for <see cref="ForceArrowStyle.LengthScaling"/>
+        /// </summary>
+        public Color ArrowColor { get; set; } = Color.FloralWhite;
         /// <summary>
         /// Base or Primary <see cref="OutputClass"/> which is used to populate the Legend in ONLY 2 conditions. First time (Initialization) and Reset or (Re-Initialization)
         /// </summary>
@@ -63,9 +91,11 @@ namespace Coding_Attempt_with_GUI
         {
             InitializeComponent();
 
-            radioGroup1.SelectedIndex = -1;
+            radioGroupGradientStyle.SelectedIndex = -1;
 
-            radioGroup2.SelectedIndex = -1;
+            radioGroupLegendParams.SelectedIndex = -1;
+
+            radioGroupForceArrowOptions.SelectedIndex = -1;
         }
 
         /// <summary>
@@ -171,18 +201,18 @@ namespace Coding_Attempt_with_GUI
         }
 
         /// <summary>
-        /// Event which is fired when the index of the <see cref="radioGroup1"/> is changed
+        /// Event which is fired when the index of the <see cref="radioGroupGradientStyle"/> is changed
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void radioGroup1_SelectedIndexChanged(object sender, EventArgs e)
+        private void radioGroupGradientStyle_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (radioGroup1.SelectedIndex == 0)
+            if (radioGroupGradientStyle.SelectedIndex == 0)
             {
                 groupControlCustomColours.Visible = false;
                 UsersGradientStyle = GradientStyle.StandardFEM;
             }
-            else if (radioGroup1.SelectedIndex == 1)
+            else if (radioGroupGradientStyle.SelectedIndex == 1)
             {
                 groupControlCustomColours.Visible = true;
                 UsersGradientStyle = GradientStyle.Monochromatic;
@@ -432,7 +462,7 @@ namespace Coding_Attempt_with_GUI
 
             ParentCAD.PaintBarForce();
 
-            ParentCAD.PaintArrowForce();
+            ParentCAD.ConditionArrowForce(UserForceArrowStyle, ArrowCylLength, ArrowColor);
 
             this.Hide();
 
@@ -444,28 +474,28 @@ namespace Coding_Attempt_with_GUI
         }
 
         /// <summary>
-        /// Event fired when the <see cref="radioGroup2"/>'s index is changed. This event determines whether the Legend is going to be Standard FEM or Monochrome
+        /// Event fired when the <see cref="radioGroupLegendParams"/>'s index is changed. This event determines whether the Legend is going to be Standard FEM or Monochrome
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void radioGroup2_SelectedIndexChanged(object sender, EventArgs e)
+        private void radioGroupLegendParams_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (radioGroup2.SelectedIndex == 0)
+            if (radioGroupLegendParams.SelectedIndex == 0)
             {
-                labelControl1.Enabled = true;
+                labelControlStepSize.Enabled = true;
                 textBoxStepSize.Enabled = true;
 
-                labelControl2.Enabled = false;
+                labelControlNoOfSteps.Enabled = false;
                 textBoxNoOfSteps.Enabled = false;
                 textBoxNoOfSteps.Clear();
             }
-            else if (radioGroup2.SelectedIndex == 1)
+            else if (radioGroupLegendParams.SelectedIndex == 1)
             {
-                labelControl1.Enabled = false;
+                labelControlStepSize.Enabled = false;
                 textBoxStepSize.Enabled = false;
                 textBoxStepSize.Clear();
 
-                labelControl2.Enabled = true;
+                labelControlNoOfSteps.Enabled = true;
                 textBoxNoOfSteps.Enabled = true;
             }
         }
@@ -493,13 +523,52 @@ namespace Coding_Attempt_with_GUI
             GetDataLegendDataSource(ParentCAD.LegendDataTable);
             tempOC.MaxForce = MaxValue;
             tempOC.MinForce = MinValue;
-            //ParentCAD.PostProcessing(this, tempOC, UsersGradient1, UsersGradient2, UsersGradientStyle, NoOfSteps, StepSize);
-            //GetDataLegendDataSource(ParentCAD.LegendDataTable);
-            //ParentCAD.GetLegendParams(tempOC, NoOfSteps, StepSize);
-            //ParentCAD.PaintLegendTableColorColumn(UsersGradient1,UsersGradient2);
             ParentCAD.AssignLegendColourTable();
             GridControlConditioning_SetDataSource();
         }
 
+        /// <summary>
+        /// Event fired when the user selects the <see cref="ForceArrowStyle"/> from the <see cref="radioGroupForceArrowOptions"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void radioGroupForceArrowOptions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ///<summary>Assigning the <see cref="ForceArrowStyle"/></summary>
+            if (radioGroupForceArrowOptions.SelectedIndex != -1)
+            {
+                UserForceArrowStyle = (ForceArrowStyle)radioGroupForceArrowOptions.SelectedIndex; 
+            }
+            else
+            {
+                UserForceArrowStyle = ForceArrowStyle.Both;
+            }
+
+            ///<summary>GUI Operations based on the which <see cref="RadioButton"/> the user selects from the <see cref="radioGroupForceArrowOptions"/></summary>
+            if (UserForceArrowStyle == ForceArrowStyle.Both)
+            {
+                labelControlArrowConstLength.Enabled = false;
+                textBoxArrowConstLength.Clear();
+                textBoxArrowConstLength.Enabled = false;
+
+                labelControlArrowConstColor.Enabled = false;
+                colorPickEditArrowConstColor.Color = Color.White;
+                colorPickEditArrowConstColor.Enabled = false;
+            }
+            else if (UserForceArrowStyle == ForceArrowStyle.ColourScaling)
+            {
+                labelControlArrowConstColor.Enabled = false;
+                colorPickEditArrowConstColor.Color = Color.White;
+                colorPickEditArrowConstColor.Enabled = false;
+
+            }
+            else if (UserForceArrowStyle == ForceArrowStyle.LengthScaling)
+            {
+                labelControlArrowConstLength.Enabled = false;
+                textBoxArrowConstLength.Clear();
+                textBoxArrowConstLength.Enabled = false;
+            }
+
+        }
     }
 }

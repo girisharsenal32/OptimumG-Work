@@ -694,7 +694,8 @@ namespace Coding_Attempt_with_GUI
                 CADVehicleOutputs.PaintBarForce();
 
                 ///<summary>Painting the Arrows according to Force Range in between which they lie</summary>
-                CADVehicleOutputs.PaintArrowForce();
+                ///<remarks>Since by default we have <see cref="ForceArrowStyle.Both"/> I can pass any random values for Length and Colour below</remarks>
+                CADVehicleOutputs.ConditionArrowForce(ForceArrowStyle.Both, 100, Color.White);
 
                 ///<summary>This Loop exists to allow the imported files to be translated around the Suspension  </summary>
                 if (_importCAD && OutputIGESPlotted && TranslateChassisToGround)

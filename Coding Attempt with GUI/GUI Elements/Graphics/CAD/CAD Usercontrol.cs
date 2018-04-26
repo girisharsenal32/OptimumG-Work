@@ -997,7 +997,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_forceX">X Component of the Force on Joint being considered</param>
         /// <param name="_forceY">Y Component of the Force on Joint being considered</param>
         /// <param name="_forceZ">Z Component of the Force on Joint being considered</param>
-        private void PlotArrows(double _startX, double _startY, double _startZ, double _forceX, double _forceY, double _forceZ, bool CPPassed/*, double _maxValueX, double _minValueX, double _maxValueY, double _minValueY, double _maxValueZ, double _minValueZ*/)
+        private void PlotArrows(double _startX, double _startY, double _startZ, double _forceX, double _forceY, double _forceZ, bool CPPassed)
         {
             Point3D arrowStart = new Point3D();
             if (!CPPassed)
@@ -1043,10 +1043,10 @@ namespace Coding_Attempt_with_GUI
             {
                 ///<summary>Creating an arrow to represent the X Force using its length value and its <see cref="CustomData"/></summary>
                 Mesh arrowX = Mesh.CreateArrow(arrowStart, directionX, cylinderRadius, Math.Abs(_forceX + 0.01) * 0.1, coneRadius, coneLength, 10, Mesh.natureType.Smooth, Mesh.edgeStyleType.Sharp);
-                ///<summary>Setting the <see cref="Entity.EntityData"/> using the <see cref="CustomData"/> <see cref="struct"/></summary>
-                arrowX.EntityData = new CustomData("arrowX", _forceX, Color.DarkMagenta);
+                ///<summary>Setting the <see cref="Entity.EntityData"/> using the <see cref="CustomData"/> <see cref="class"/></summary>
+                arrowX.EntityData = new CustomData("arrowX", _forceX, Color.DarkMagenta, arrowStart, directionX, Math.Abs(_forceX + 0.01), cylinderRadius, coneLength, coneRadius);
                 viewportLayout1.Entities.Add(arrowX, "Joints", Color.DarkMagenta);
-
+                
 
             }
 
@@ -1054,18 +1054,18 @@ namespace Coding_Attempt_with_GUI
             {
                 ///<summary>Creating an arrow to represent the X Force using its length value and its <see cref="CustomData"/></summary>
                 Mesh arrowY = Mesh.CreateArrow(arrowStart, directionY, cylinderRadius, Math.Abs(_forceY + 0.01) * 0.1, coneRadius, coneLength, 10, Mesh.natureType.Smooth, Mesh.edgeStyleType.Sharp);
-                ///<summary>Setting the <see cref="Entity.EntityData"/> using the <see cref="CustomData"/> <see cref="struct"/></summary>
-                arrowY.EntityData = new CustomData("arrowY", _forceY, Color.DarkMagenta);
+                ///<summary>Setting the <see cref="Entity.EntityData"/> using the <see cref="CustomData"/> <see cref="class"/></summary>
+                arrowY.EntityData = new CustomData("arrowY", _forceY, Color.DarkMagenta, arrowStart, directionY, Math.Abs(_forceY + 0.01), cylinderRadius, coneLength, coneRadius);
                 viewportLayout1.Entities.Add(arrowY, "Joints", Color.DarkMagenta);
-
+                
             }
 
             if (_forceZ != 0)
             {
                 ///<summary>Creating an arrow to represent the X Force using its length value and its <see cref="CustomData"/></summary>
                 Mesh arrowZ = Mesh.CreateArrow(arrowStart, directionZ, cylinderRadius, Math.Abs(_forceZ + 0.01) * 0.1, coneRadius, coneLength, 10, Mesh.natureType.Smooth, Mesh.edgeStyleType.Sharp);
-                ///<summary>Setting the <see cref="Entity.EntityData"/> using the <see cref="CustomData"/> <see cref="struct"/></summary
-                arrowZ.EntityData = new CustomData("arrowZ", _forceZ, Color.DarkMagenta);
+                ///<summary>Setting the <see cref="Entity.EntityData"/> using the <see cref="CustomData"/> <see cref="class"/></summary
+                arrowZ.EntityData = new CustomData("arrowZ", _forceZ, Color.DarkMagenta, arrowStart, directionZ, Math.Abs(_forceZ + 0.01), cylinderRadius, coneLength, coneRadius);
                 viewportLayout1.Entities.Add(arrowZ, "Joints", Color.DarkMagenta);
             }
 
@@ -2247,44 +2247,6 @@ namespace Coding_Attempt_with_GUI
         //    GradientColor2 = _gradientColor2;
         //}
 
-        ///// <summary>
-        ///// <para>Method to Plot the Force Arrows for the Force Decompositions</para>
-        ///// <para>Pass Individual Decomp Forces for each direction OR Overall Max/MinForces thrice</para>
-        ///// <para>THIS METHOD SHOULD BE CALLED AFTER PLOTTING ALL THE ARROWS. NOT BEFORE</para>
-        ///// </summary>
-        ///// <param name="_SCM"></param>
-        ///// <param name="_OCMaster">Pass a Temproary <see cref="OutputClass"/> variable here which will hold the Max and Min Forces from ALL THE CORNERS</param>
-        ///// <param name="_CPForceX"></param>
-        ///// <param name="_CPForceY"></param>
-        ///// <param name="_CPForceZ"></param>
-        //public void PaintForceDecompArrows(SuspensionCoordinatesMaster _SCM, OutputClass _OCCorner, OutputClass _OCMaster, double _CPForceX, double _CPForceY, double _CPForceZ)
-        //{
-        //    ///<summary>Plotting and Painting the Wishbone Joint Decomp Forces Common to McP and DW</summary>
-        //    PaintCommonForceDecmopArrows(_SCM, _OCCorner, _CPForceX, _CPForceY, _CPForceZ, _OCMaster.MaxForce, _OCMaster.MinForce, _OCMaster.MaxForce, _OCMaster.MinForce, _OCMaster.MaxForce, _OCMaster.MinForce);
-        //    ///<summary>Plotting and Painting the Wishbone Joint Decomp Forces of DW</summary>
-        //    PaintDWForceArrows(_SCM, _OCCorner, _CPForceX, _CPForceY, _CPForceZ, _OCMaster.MaxForce, _OCMaster.MinForce, _OCMaster.MaxForce, _OCMaster.MinForce, _OCMaster.MaxForce, _OCMaster.MinForce);
-        //}
-
-
-        ///// <summary>
-        ///// DELETE EVENTUALLY
-        ///// </summary>
-        ///// <param name="leftAttach"></param>
-        ///// <param name="rightAttach"></param>
-        ///// <param name="isInitializing"></param>
-        ///// <param name="sRack"></param>
-        ///// <param name="sColumn"></param>
-        ///// <param name="force_P_Left"></param>
-        ///// <param name="force_Q_Left"></param>
-        ///// <param name="force_P_Right"></param>
-        ///// <param name="force_Q_Right"></param>
-        ///// <param name="oc"></param>
-        //public void PaintForceBearingDecompArrows(double[,] leftAttach, double[,] rightAttach, bool isInitializing, bool sRack, bool sColumn, MathNet.Spatial.Euclidean.Vector3D force_P_Left, MathNet.Spatial.Euclidean.Vector3D force_Q_Left,
-        //                         MathNet.Spatial.Euclidean.Vector3D force_P_Right, MathNet.Spatial.Euclidean.Vector3D force_Q_Right, OutputClass oc)
-        //{
-        //    PaintLoadCaseArrows(leftAttach, rightAttach, isInitializing, sRack, sColumn, force_P_Left, force_Q_Right, force_P_Right, force_Q_Right, oc.MaxDecompForce_X, oc.MinDecompForce_X, oc.MaxDecompForce_Y, oc.MinDecompForce_Y, oc.MaxDecompForce_Z, oc.MinDecompForce_Z);
-        //}
-
         int NumberOfLegendDivisions;
 
         double StepSize;
@@ -2479,9 +2441,12 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Public invoker method to the Paint the Arrows based on their force value
         /// </summary>
-        public void PaintArrowForce()
+        /// <param name="_UserArrowStyle"> <see cref="ForceArrowStyle"/> selected by the user in the <see cref="LegendEditor"/></param>
+        /// <param name="_ArrowLength"> Length of the arrow. Only used if the user selects <see cref="ForceArrowStyle.ColourScaling"/></param>
+        /// <param name="_ArrowColor">Color of the arrow. Only used if the user selects <see cref="ForceArrowStyle.LengthScaling"/></param>
+        public void ConditionArrowForce(ForceArrowStyle _UserArrowStyle, double _ArrowLength, Color _ArrowColor)
         {
-            PaintArrows();
+            CondtionArrows(_UserArrowStyle, _ArrowLength, _ArrowColor);
         }
 
         /// <summary>
@@ -2534,7 +2499,10 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Method to Paint all the Arrows in the Viewport basd on the <see cref="CustomData.Force"/> value using a For Loop 
         /// </summary>
-        private void PaintArrows()
+        /// <param name="_userArrowStyle"> <see cref="ForceArrowStyle"/> selected by the user in the <see cref="LegendEditor"/></param>
+        /// <param name="_arrowLength"> Length of the arrow. Only used if the user selects <see cref="ForceArrowStyle.ColourScaling"/></param>
+        /// <param name="_arrowColor">Color of the arrow. Only used if the user selects <see cref="ForceArrowStyle.LengthScaling"/></param>
+        private void CondtionArrows(ForceArrowStyle _userArrowStyle, double _arrowLength, Color _arrowColor)
         {
             for (int i = 0; i < viewportLayout1.Entities.Count; i++)
             {
@@ -2542,8 +2510,6 @@ namespace Coding_Attempt_with_GUI
                 {
                     ///<summary>Check to see if the Entity is Arrow</summary>
                     CustomData arrowData = new CustomData();
-                    ///<summary>Setting the Colour Method of the Entity</summary>
-                    viewportLayout1.Entities[i].ColorMethod = colorMethodType.byEntity;
 
                     if (viewportLayout1.Entities[i].EntityData != null)
                     {
@@ -2555,23 +2521,67 @@ namespace Coding_Attempt_with_GUI
                         goto END;
                     }
 
+                    ///<summary>Painting and/or scaling Arrows based on the <see cref="ForceArrowStyle"/></summary>
 
-                    for (int j = 0; j < LegendDataTable.Rows.Count; j++)
-                    {
-                        ///<summary>Finding the Force Range to which the Bar Belongs to</summary>
-                        if (BelongsToForceRange(LegendDataTable.Rows[j].Field<double>("Force Start"), LegendDataTable.Rows[j].Field<double>("Force End"), arrowData.Force))
-                        {
-                            ///<summary>Painting the Bar with the Colour of the Force Range which it belongs to </summary>
-                            arrowData.EntityColor = LegendDataTable.Rows[j].Field<Color>("Colour");
-                            viewportLayout1.Entities[i].Color = LegendDataTable.Rows[j].Field<Color>("Colour");
-                            viewportLayout1.Entities[i].EntityData = arrowData;
-                            break;
-                        }
-                    }
+                    ScaleArrows(arrowData, i, _userArrowStyle);
+
+                    PaintArrows(arrowData, i, _userArrowStyle);
 
                     END:
                     viewportLayout1.Invalidate();
                 }
+            }
+        }
+
+        private void PaintArrows(CustomData _arrowData, int _entityIndex, ForceArrowStyle _userForceArrowStyle)
+        {
+            viewportLayout1.Entities[_entityIndex].ColorMethod = colorMethodType.byEntity;
+
+
+            if (_userForceArrowStyle == ForceArrowStyle.Both || _userForceArrowStyle == ForceArrowStyle.ColourScaling)
+            {
+                for (int j = 0; j < LegendDataTable.Rows.Count; j++)
+                {
+
+                    ///<summary>Finding the Force Range to which the Bar Belongs to</summary>
+                    if (BelongsToForceRange(LegendDataTable.Rows[j].Field<double>("Force Start"), LegendDataTable.Rows[j].Field<double>("Force End"), _arrowData.Force))
+                    {
+                        ///<summary>Painting the Bar with the Colour of the Force Range which it belongs to </summary>
+                        _arrowData.EntityColor = LegendDataTable.Rows[j].Field<Color>("Colour");
+                        ///<remarks>
+                        ///---IMPORTANT--- This can be done only here because in the <see cref="ScaleArrows(CustomData, int, ForceArrowStyle)"/> method you are RECREATING an Arrow. So if this code is added before the 
+                        /// Scale Arrows method then it will not affecct
+                        /// Setting the Colour Method of the Entity
+                        /// </remarks>
+                        /// <summary>Setting the Colour Method of the Entity</summary>
+                        viewportLayout1.Entities[_entityIndex].Color = LegendDataTable.Rows[j].Field<Color>("Colour");
+                        viewportLayout1.Entities[_entityIndex].EntityData = _arrowData;
+                        break;
+                    }
+                } 
+            }
+            else
+            {
+                ///<summary>Painting the Bar with the Colour of the Force Range which it belongs to </summary>
+                _arrowData.EntityColor = Color.White;
+                viewportLayout1.Entities[_entityIndex].Color = Color.White;
+                viewportLayout1.Entities[_entityIndex].EntityData = _arrowData;
+            }
+        }
+
+        /// <summary>
+        /// <para>  Method to set the Length of the arrows to a constant value or to a length based on its force value</para>
+        /// <para>Decided based on the <see cref="ForceArrowStyle"/> selected by the user using the <see cref="LegendEditor"/></para>
+        /// </summary>
+        private void ScaleArrows(CustomData _arrowData, int _entityIndex, ForceArrowStyle _userForceArrowStyle)
+        {
+            if (_userForceArrowStyle == ForceArrowStyle.Both || _userForceArrowStyle == ForceArrowStyle.LengthScaling)
+            {
+                viewportLayout1.Entities[_entityIndex] = Mesh.CreateArrow(_arrowData.StartPoint, _arrowData.Direction, _arrowData.CylRadius, Math.Abs(_arrowData.Force + 0.01) * 0.1, _arrowData.ConeRadius, _arrowData.ConeLength, 10, Mesh.natureType.Smooth, Mesh.edgeStyleType.Sharp); 
+            }
+            else
+            {
+                viewportLayout1.Entities[_entityIndex] = Mesh.CreateArrow(_arrowData.StartPoint, _arrowData.Direction, _arrowData.CylRadius, 100, _arrowData.ConeRadius, _arrowData.ConeLength, 10, Mesh.natureType.Smooth, Mesh.edgeStyleType.Sharp);
             }
         }
 
@@ -3466,20 +3476,107 @@ namespace Coding_Attempt_with_GUI
         }
     }
 
-    struct CustomData
+    class CustomData
     {
+        /// <summary>
+        /// Name of the Entity
+        /// </summary>
         public string Name { get; set; }
+        /// <summary>
+        /// Force Represented by the Entity
+        /// </summary>
         public double Force { get; set; }
+        /// <summary>
+        /// Colour borne by the Entity
+        /// </summary>
         public Color EntityColor { get; set; }
+        /// <summary>
+        /// <para>Start Point of the Entity</para>
+        /// <para>Needed only for Arrows</para>
+        /// </summary>
+        public Point3D StartPoint { get; set; }
+        /// <summary>
+        /// <para>Direction of the Entity</para>
+        /// <para>Needed only for Arrows</para>
+        /// </summary>
+        public Vector3D Direction { get; set; }
+        /// <summary>
+        /// <para>Cylinder Length of the Entity</para>
+        /// <para>Needed only for Arrows</para>
+        /// </summary>
+        public double CylLength { get; set; }
+        /// <summary>
+        /// <para>Cylinder Radius of the Entity</para>
+        /// <para>Needed only for Arrows</para>
+        /// </summary>
+        public double CylRadius { get; set; }
+        /// <summary>
+        /// <para>Cone Length of the Entity</para>
+        /// <para>Needed only for Arrows</para>
+        /// </summary>
+        public double ConeLength { get; set; }
+        /// <summary>
+        /// <para>COne Radius of the Entity</para>
+        /// <para>Needed only for Arrows</para>
+        /// </summary>
+        public double ConeRadius { get; set; }
 
+        /// <summary>
+        /// Base Constructor
+        /// </summary>
+        public CustomData() { }
+
+        /// <summary>
+        /// <para>Overloaded Constructor #1</para>
+        /// <para>Used for <see cref="Bar"/>s</para>
+        /// </summary>
+        /// <param name="_name"></param>
+        /// <param name="_force"></param>
+        /// <param name="_entityColor"></param>
         public CustomData(string _name, double _force,Color _entityColor)
         {
             Name = _name;
             Force = _force;
             EntityColor = _entityColor;
+            StartPoint = new Point3D();
+            CylLength = 0;
+            CylRadius = 0;
+            ConeLength = 0;
+            ConeRadius = 0;
         }
+
+        /// <summary>
+        /// <para>Overloaded Constructor #2</para>
+        /// <para>Used for <see cref="Arrow"/>s</para>
+        /// </summary>
+        /// <param name="_name"></param>
+        /// <param name="_force"></param>
+        /// <param name="_entityColor"></param>
+        /// <param name="_startPoint"></param>
+        /// <param name="_endPoint"></param>
+        /// <param name="_cylLength"></param>
+        /// <param name="_cylRadius"></param>
+        public CustomData(string _name, double _force, Color _entityColor, Point3D _startPoint, Vector3D _direction, double _cylLength, double _cylRadius, double _coneLength, double _conelRadius)
+        {
+            Name = _name;
+            Force = _force;
+            EntityColor = _entityColor;
+            StartPoint = _startPoint;
+            Direction = _direction;
+            CylLength = _cylLength;
+            CylRadius = _cylRadius;
+            ConeLength = _coneLength;
+            ConeRadius = _conelRadius;
+        }
+
     }
 
+
+
+
+    /// <summary>
+    /// Enum which decides the Gradient Style which the user wants the Legend and the Force Components to be Colored in 
+    /// </summary>
     public enum GradientStyle
     {
         /// <summary>
@@ -3493,8 +3590,26 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// User selects a Custom Color for each Range of Forces
         /// </summary>
-        CustomColor,
-    }
+        CustomColor
+    };
 
+    /// <summary>
+    /// Enum which decides the style in which the user wants to see the Force Decomposition Arrows in XYZ Direction
+    /// </summary>
+    public enum ForceArrowStyle
+    {
+        /// <summary>
+        /// ONLY the Colour of the Force Arrow will be scaled. The length will be constant
+        /// </summary>
+        ColourScaling = 0,
+        /// <summary>
+        /// ONLY the Length of the Force Arrow will be scaled. The colour will be constant
+        /// </summary>
+        LengthScaling = 1,
+        /// <summary>
+        /// Both the Length and Colour will be scaled. 
+        /// </summary>
+        Both = 2
+    };
 
 }
