@@ -261,9 +261,7 @@ namespace Coding_Attempt_with_GUI
             InitializeLegendDataTable();
         }
         #endregion
-
-
-
+        
         #region Usercontrol Load Event
 
         private void CAD_Load(object sender, EventArgs e)
