@@ -2247,44 +2247,7 @@ namespace Coding_Attempt_with_GUI
         //    GradientColor2 = _gradientColor2;
         //}
 
-        ///// <summary>
-        ///// <para>Method to Plot the Force Arrows for the Force Decompositions</para>
-        ///// <para>Pass Individual Decomp Forces for each direction OR Overall Max/MinForces thrice</para>
-        ///// <para>THIS METHOD SHOULD BE CALLED AFTER PLOTTING ALL THE ARROWS. NOT BEFORE</para>
-        ///// </summary>
-        ///// <param name="_SCM"></param>
-        ///// <param name="_OCMaster">Pass a Temproary <see cref="OutputClass"/> variable here which will hold the Max and Min Forces from ALL THE CORNERS</param>
-        ///// <param name="_CPForceX"></param>
-        ///// <param name="_CPForceY"></param>
-        ///// <param name="_CPForceZ"></param>
-        //public void PaintForceDecompArrows(SuspensionCoordinatesMaster _SCM, OutputClass _OCCorner, OutputClass _OCMaster, double _CPForceX, double _CPForceY, double _CPForceZ)
-        //{
-        //    ///<summary>Plotting and Painting the Wishbone Joint Decomp Forces Common to McP and DW</summary>
-        //    PaintCommonForceDecmopArrows(_SCM, _OCCorner, _CPForceX, _CPForceY, _CPForceZ, _OCMaster.MaxForce, _OCMaster.MinForce, _OCMaster.MaxForce, _OCMaster.MinForce, _OCMaster.MaxForce, _OCMaster.MinForce);
-        //    ///<summary>Plotting and Painting the Wishbone Joint Decomp Forces of DW</summary>
-        //    PaintDWForceArrows(_SCM, _OCCorner, _CPForceX, _CPForceY, _CPForceZ, _OCMaster.MaxForce, _OCMaster.MinForce, _OCMaster.MaxForce, _OCMaster.MinForce, _OCMaster.MaxForce, _OCMaster.MinForce);
-        //}
-
-
-        ///// <summary>
-        ///// DELETE EVENTUALLY
-        ///// </summary>
-        ///// <param name="leftAttach"></param>
-        ///// <param name="rightAttach"></param>
-        ///// <param name="isInitializing"></param>
-        ///// <param name="sRack"></param>
-        ///// <param name="sColumn"></param>
-        ///// <param name="force_P_Left"></param>
-        ///// <param name="force_Q_Left"></param>
-        ///// <param name="force_P_Right"></param>
-        ///// <param name="force_Q_Right"></param>
-        ///// <param name="oc"></param>
-        //public void PaintForceBearingDecompArrows(double[,] leftAttach, double[,] rightAttach, bool isInitializing, bool sRack, bool sColumn, MathNet.Spatial.Euclidean.Vector3D force_P_Left, MathNet.Spatial.Euclidean.Vector3D force_Q_Left,
-        //                         MathNet.Spatial.Euclidean.Vector3D force_P_Right, MathNet.Spatial.Euclidean.Vector3D force_Q_Right, OutputClass oc)
-        //{
-        //    PaintLoadCaseArrows(leftAttach, rightAttach, isInitializing, sRack, sColumn, force_P_Left, force_Q_Right, force_P_Right, force_Q_Right, oc.MaxDecompForce_X, oc.MinDecompForce_X, oc.MaxDecompForce_Y, oc.MinDecompForce_Y, oc.MaxDecompForce_Z, oc.MinDecompForce_Z);
-        //}
-
+      
         int NumberOfLegendDivisions;
 
         double StepSize;
@@ -2433,6 +2396,7 @@ namespace Coding_Attempt_with_GUI
             viewportLayout1.Legends[0].Max = LegendDataTable.Rows[0].Field<double>("Force Start");
             viewportLayout1.Legends[0].Min = LegendDataTable.Rows[LegendDataTable.Rows.Count - 1].Field<double>("Force End");
             viewportLayout1.Legends[0].ColorTable = LegendDataTable.AsEnumerable().Select(legend => legend.Field<Color>("Colour")).Reverse().ToArray();
+
         }
 
         /// <summary>
@@ -2507,7 +2471,7 @@ namespace Coding_Attempt_with_GUI
                     else
                     {
                         ///<summary>If there is no <see cref="CustomData"/> (like for Bars representing Pushrod point to Bell-Crank Pivot) then setting their colour to Purple </summary>
-                        viewportLayout1.Entities[i].Color = Color.MediumPurple;
+                        viewportLayout1.Entities[i].Color = Color.GhostWhite;
                         goto END;
                     }
 
@@ -3446,9 +3410,6 @@ namespace Coding_Attempt_with_GUI
             viewportLayout1.Size = mySize;
             viewportLayout1.Visible = true;
         }
-
-
-
 
         public CAD(SerializationInfo info, StreamingContext context)
         {
