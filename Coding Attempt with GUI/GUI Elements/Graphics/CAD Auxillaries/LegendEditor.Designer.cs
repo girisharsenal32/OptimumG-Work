@@ -58,7 +58,12 @@
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.groupControlArrowOptions = new DevExpress.XtraEditors.GroupControl();
+            this.colorPickEditArrowConstColor = new DevExpress.XtraEditors.ColorPickEdit();
             this.radioGroupForceArrowOptions = new DevExpress.XtraEditors.RadioGroup();
+            this.labelControl7 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControlArrowConstColor = new DevExpress.XtraEditors.LabelControl();
+            this.textBoxArrowConstLength = new System.Windows.Forms.TextBox();
+            this.labelControlArrowConstLength = new DevExpress.XtraEditors.LabelControl();
             this.groupControlLegendParams = new DevExpress.XtraEditors.GroupControl();
             this.radioGroupLegendParams = new DevExpress.XtraEditors.RadioGroup();
             this.textBoxNoOfSteps = new System.Windows.Forms.TextBox();
@@ -67,11 +72,8 @@
             this.labelControlStepSize = new DevExpress.XtraEditors.LabelControl();
             this.simpleButtonCanel = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButtonOK = new DevExpress.XtraEditors.SimpleButton();
-            this.labelControlArrowConstLength = new DevExpress.XtraEditors.LabelControl();
-            this.textBoxArrowConstLength = new System.Windows.Forms.TextBox();
-            this.labelControlArrowConstColor = new DevExpress.XtraEditors.LabelControl();
-            this.colorPickEditArrowConstColor = new DevExpress.XtraEditors.ColorPickEdit();
-            this.labelControl7 = new DevExpress.XtraEditors.LabelControl();
+            this.colorPickEditForcelessArrowColor = new DevExpress.XtraEditors.ColorPickEdit();
+            this.labelControlForcelessArrowColor = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.groupControlCustomColours)).BeginInit();
             this.groupControlCustomColours.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.colorPickEdit2.Properties)).BeginInit();
@@ -100,11 +102,12 @@
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControlArrowOptions)).BeginInit();
             this.groupControlArrowOptions.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.colorPickEditArrowConstColor.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radioGroupForceArrowOptions.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControlLegendParams)).BeginInit();
             this.groupControlLegendParams.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radioGroupLegendParams.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.colorPickEditArrowConstColor.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorPickEditForcelessArrowColor.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // groupControlCustomColours
@@ -114,7 +117,7 @@
             this.groupControlCustomColours.Controls.Add(this.labelControlGradient2);
             this.groupControlCustomColours.Controls.Add(this.labelControlGradient1);
             this.groupControlCustomColours.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupControlCustomColours.Location = new System.Drawing.Point(2, 198);
+            this.groupControlCustomColours.Location = new System.Drawing.Point(2, 232);
             this.groupControlCustomColours.Name = "groupControlCustomColours";
             this.groupControlCustomColours.Size = new System.Drawing.Size(225, 91);
             this.groupControlCustomColours.TabIndex = 1;
@@ -126,7 +129,6 @@
             this.colorPickEdit2.EditValue = System.Drawing.Color.White;
             this.colorPickEdit2.Location = new System.Drawing.Point(104, 51);
             this.colorPickEdit2.Name = "colorPickEdit2";
-            this.colorPickEdit2.Properties.AutomaticColor = System.Drawing.Color.Black;
             this.colorPickEdit2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.colorPickEdit2.Properties.ColorDialogOptions.FormIcon = ((System.Drawing.Icon)(resources.GetObject("resource.FormIcon")));
@@ -141,7 +143,6 @@
             this.colorPickEdit1.EditValue = System.Drawing.Color.Maroon;
             this.colorPickEdit1.Location = new System.Drawing.Point(104, 23);
             this.colorPickEdit1.Name = "colorPickEdit1";
-            this.colorPickEdit1.Properties.AutomaticColor = System.Drawing.Color.Black;
             this.colorPickEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.colorPickEdit1.Properties.ColorDialogOptions.FormIcon = ((System.Drawing.Icon)(resources.GetObject("resource.FormIcon1")));
@@ -169,17 +170,19 @@
             // 
             // groupControlGradientStyle
             // 
+            this.groupControlGradientStyle.Controls.Add(this.labelControlForcelessArrowColor);
+            this.groupControlGradientStyle.Controls.Add(this.colorPickEditForcelessArrowColor);
             this.groupControlGradientStyle.Controls.Add(this.radioGroupGradientStyle);
             this.groupControlGradientStyle.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupControlGradientStyle.Location = new System.Drawing.Point(2, 2);
             this.groupControlGradientStyle.Name = "groupControlGradientStyle";
-            this.groupControlGradientStyle.Size = new System.Drawing.Size(225, 70);
+            this.groupControlGradientStyle.Size = new System.Drawing.Size(225, 104);
             this.groupControlGradientStyle.TabIndex = 0;
             this.groupControlGradientStyle.Text = "Gradient Style";
             // 
             // radioGroupGradientStyle
             // 
-            this.radioGroupGradientStyle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radioGroupGradientStyle.Dock = System.Windows.Forms.DockStyle.Top;
             this.radioGroupGradientStyle.Location = new System.Drawing.Point(2, 20);
             this.radioGroupGradientStyle.Name = "radioGroupGradientStyle";
             this.radioGroupGradientStyle.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
@@ -405,11 +408,27 @@
             this.groupControlArrowOptions.Controls.Add(this.textBoxArrowConstLength);
             this.groupControlArrowOptions.Controls.Add(this.labelControlArrowConstLength);
             this.groupControlArrowOptions.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupControlArrowOptions.Location = new System.Drawing.Point(2, 289);
+            this.groupControlArrowOptions.Location = new System.Drawing.Point(2, 323);
             this.groupControlArrowOptions.Name = "groupControlArrowOptions";
             this.groupControlArrowOptions.Size = new System.Drawing.Size(225, 166);
             this.groupControlArrowOptions.TabIndex = 4;
             this.groupControlArrowOptions.Text = "Force Arrow Options";
+            // 
+            // colorPickEditArrowConstColor
+            // 
+            this.colorPickEditArrowConstColor.EditValue = System.Drawing.Color.White;
+            this.colorPickEditArrowConstColor.Enabled = false;
+            this.colorPickEditArrowConstColor.Location = new System.Drawing.Point(123, 122);
+            this.colorPickEditArrowConstColor.Name = "colorPickEditArrowConstColor";
+            this.colorPickEditArrowConstColor.Properties.AutomaticColor = System.Drawing.Color.Black;
+            this.colorPickEditArrowConstColor.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.colorPickEditArrowConstColor.Properties.ColorDialogOptions.FormIcon = ((System.Drawing.Icon)(resources.GetObject("resource.FormIcon2")));
+            this.colorPickEditArrowConstColor.Properties.ColorDialogOptions.ShowArrows = DevExpress.XtraEditors.ShowArrows.True;
+            this.colorPickEditArrowConstColor.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
+            this.colorPickEditArrowConstColor.Size = new System.Drawing.Size(100, 20);
+            this.colorPickEditArrowConstColor.TabIndex = 7;
+            this.colorPickEditArrowConstColor.ColorChanged += new System.EventHandler(this.colorPickEditArrowConstColor_ColorChanged);
             // 
             // radioGroupForceArrowOptions
             // 
@@ -424,6 +443,42 @@
             this.radioGroupForceArrowOptions.TabIndex = 0;
             this.radioGroupForceArrowOptions.SelectedIndexChanged += new System.EventHandler(this.radioGroupForceArrowOptions_SelectedIndexChanged);
             // 
+            // labelControl7
+            // 
+            this.labelControl7.Location = new System.Drawing.Point(14, -68);
+            this.labelControl7.Name = "labelControl7";
+            this.labelControl7.Size = new System.Drawing.Size(84, 13);
+            this.labelControl7.TabIndex = 0;
+            this.labelControl7.Text = "Gradient Colour 2";
+            // 
+            // labelControlArrowConstColor
+            // 
+            this.labelControlArrowConstColor.Enabled = false;
+            this.labelControlArrowConstColor.Location = new System.Drawing.Point(4, 126);
+            this.labelControlArrowConstColor.Name = "labelControlArrowConstColor";
+            this.labelControlArrowConstColor.Size = new System.Drawing.Size(104, 13);
+            this.labelControlArrowConstColor.TabIndex = 0;
+            this.labelControlArrowConstColor.Text = "Arrow Constant Color";
+            // 
+            // textBoxArrowConstLength
+            // 
+            this.textBoxArrowConstLength.Enabled = false;
+            this.textBoxArrowConstLength.Location = new System.Drawing.Point(123, 95);
+            this.textBoxArrowConstLength.Name = "textBoxArrowConstLength";
+            this.textBoxArrowConstLength.Size = new System.Drawing.Size(100, 21);
+            this.textBoxArrowConstLength.TabIndex = 1;
+            this.textBoxArrowConstLength.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxArrowConstLength_KeyDown);
+            this.textBoxArrowConstLength.Leave += new System.EventHandler(this.textBoxArrowConstLength_Leave);
+            // 
+            // labelControlArrowConstLength
+            // 
+            this.labelControlArrowConstLength.Enabled = false;
+            this.labelControlArrowConstLength.Location = new System.Drawing.Point(4, 99);
+            this.labelControlArrowConstLength.Name = "labelControlArrowConstLength";
+            this.labelControlArrowConstLength.Size = new System.Drawing.Size(112, 13);
+            this.labelControlArrowConstLength.TabIndex = 0;
+            this.labelControlArrowConstLength.Text = "Arrow Constant Length";
+            // 
             // groupControlLegendParams
             // 
             this.groupControlLegendParams.Controls.Add(this.radioGroupLegendParams);
@@ -432,7 +487,7 @@
             this.groupControlLegendParams.Controls.Add(this.labelControlNoOfSteps);
             this.groupControlLegendParams.Controls.Add(this.labelControlStepSize);
             this.groupControlLegendParams.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupControlLegendParams.Location = new System.Drawing.Point(2, 72);
+            this.groupControlLegendParams.Location = new System.Drawing.Point(2, 106);
             this.groupControlLegendParams.Name = "groupControlLegendParams";
             this.groupControlLegendParams.Size = new System.Drawing.Size(225, 126);
             this.groupControlLegendParams.TabIndex = 3;
@@ -456,6 +511,7 @@
             this.textBoxNoOfSteps.Name = "textBoxNoOfSteps";
             this.textBoxNoOfSteps.Size = new System.Drawing.Size(100, 21);
             this.textBoxNoOfSteps.TabIndex = 1;
+            this.textBoxNoOfSteps.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxNoOfSteps_KeyDown);
             this.textBoxNoOfSteps.Leave += new System.EventHandler(this.textBoxNoOfSteps_Leave);
             // 
             // textBoxStepSize
@@ -465,6 +521,7 @@
             this.textBoxStepSize.Name = "textBoxStepSize";
             this.textBoxStepSize.Size = new System.Drawing.Size(100, 21);
             this.textBoxStepSize.TabIndex = 1;
+            this.textBoxStepSize.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxStepSize_KeyDown);
             this.textBoxStepSize.Leave += new System.EventHandler(this.textBoxStepSize_Leave);
             // 
             // labelControlNoOfSteps
@@ -505,55 +562,25 @@
             this.simpleButtonOK.Text = "OK";
             this.simpleButtonOK.Click += new System.EventHandler(this.simpleButtonOK_Click);
             // 
-            // labelControlArrowConstLength
+            // colorPickEditForcelessArrowColor
             // 
-            this.labelControlArrowConstLength.Enabled = false;
-            this.labelControlArrowConstLength.Location = new System.Drawing.Point(4, 99);
-            this.labelControlArrowConstLength.Name = "labelControlArrowConstLength";
-            this.labelControlArrowConstLength.Size = new System.Drawing.Size(112, 13);
-            this.labelControlArrowConstLength.TabIndex = 0;
-            this.labelControlArrowConstLength.Text = "Arrow Constant Length";
-            // 
-            // textBoxArrowConstLength
-            // 
-            this.textBoxArrowConstLength.Enabled = false;
-            this.textBoxArrowConstLength.Location = new System.Drawing.Point(123, 95);
-            this.textBoxArrowConstLength.Name = "textBoxArrowConstLength";
-            this.textBoxArrowConstLength.Size = new System.Drawing.Size(100, 21);
-            this.textBoxArrowConstLength.TabIndex = 1;
-            this.textBoxArrowConstLength.Leave += new System.EventHandler(this.textBoxStepSize_Leave);
-            // 
-            // labelControlArrowConstColor
-            // 
-            this.labelControlArrowConstColor.Enabled = false;
-            this.labelControlArrowConstColor.Location = new System.Drawing.Point(4, 126);
-            this.labelControlArrowConstColor.Name = "labelControlArrowConstColor";
-            this.labelControlArrowConstColor.Size = new System.Drawing.Size(104, 13);
-            this.labelControlArrowConstColor.TabIndex = 0;
-            this.labelControlArrowConstColor.Text = "Arrow Constant Color";
-            // 
-            // colorPickEditArrowConstColor
-            // 
-            this.colorPickEditArrowConstColor.EditValue = System.Drawing.Color.White;
-            this.colorPickEditArrowConstColor.Enabled = false;
-            this.colorPickEditArrowConstColor.Location = new System.Drawing.Point(123, 122);
-            this.colorPickEditArrowConstColor.Name = "colorPickEditArrowConstColor";
-            this.colorPickEditArrowConstColor.Properties.AutomaticColor = System.Drawing.Color.Black;
-            this.colorPickEditArrowConstColor.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.colorPickEditForcelessArrowColor.EditValue = System.Drawing.Color.White;
+            this.colorPickEditForcelessArrowColor.Location = new System.Drawing.Point(123, 74);
+            this.colorPickEditForcelessArrowColor.Name = "colorPickEditForcelessArrowColor";
+            this.colorPickEditForcelessArrowColor.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.colorPickEditArrowConstColor.Properties.ColorDialogOptions.FormIcon = ((System.Drawing.Icon)(resources.GetObject("resource.FormIcon2")));
-            this.colorPickEditArrowConstColor.Properties.ColorDialogOptions.ShowArrows = DevExpress.XtraEditors.ShowArrows.True;
-            this.colorPickEditArrowConstColor.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
-            this.colorPickEditArrowConstColor.Size = new System.Drawing.Size(100, 20);
-            this.colorPickEditArrowConstColor.TabIndex = 7;
+            this.colorPickEditForcelessArrowColor.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
+            this.colorPickEditForcelessArrowColor.Size = new System.Drawing.Size(100, 20);
+            this.colorPickEditForcelessArrowColor.TabIndex = 1;
+            this.colorPickEditForcelessArrowColor.ColorChanged += new System.EventHandler(this.colorPickEditForcelessArrowColor_ColorChanged);
             // 
-            // labelControl7
+            // labelControlForcelessArrowColor
             // 
-            this.labelControl7.Location = new System.Drawing.Point(14, -68);
-            this.labelControl7.Name = "labelControl7";
-            this.labelControl7.Size = new System.Drawing.Size(84, 13);
-            this.labelControl7.TabIndex = 0;
-            this.labelControl7.Text = "Gradient Colour 2";
+            this.labelControlForcelessArrowColor.Location = new System.Drawing.Point(5, 78);
+            this.labelControlForcelessArrowColor.Name = "labelControlForcelessArrowColor";
+            this.labelControlForcelessArrowColor.Size = new System.Drawing.Size(105, 13);
+            this.labelControlForcelessArrowColor.TabIndex = 2;
+            this.labelControlForcelessArrowColor.Text = "Forceless Arrow Color";
             // 
             // LegendEditor
             // 
@@ -574,6 +601,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.colorPickEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControlGradientStyle)).EndInit();
             this.groupControlGradientStyle.ResumeLayout(false);
+            this.groupControlGradientStyle.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radioGroupGradientStyle.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControlLegendPreview)).EndInit();
             this.groupControlLegendPreview.ResumeLayout(false);
@@ -597,12 +625,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControlArrowOptions)).EndInit();
             this.groupControlArrowOptions.ResumeLayout(false);
             this.groupControlArrowOptions.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.colorPickEditArrowConstColor.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radioGroupForceArrowOptions.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControlLegendParams)).EndInit();
             this.groupControlLegendParams.ResumeLayout(false);
             this.groupControlLegendParams.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radioGroupLegendParams.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.colorPickEditArrowConstColor.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorPickEditForcelessArrowColor.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -651,5 +680,7 @@
         private DevExpress.XtraEditors.LabelControl labelControlArrowConstColor;
         private System.Windows.Forms.TextBox textBoxArrowConstLength;
         private DevExpress.XtraEditors.LabelControl labelControlArrowConstLength;
+        private DevExpress.XtraEditors.LabelControl labelControlForcelessArrowColor;
+        private DevExpress.XtraEditors.ColorPickEdit colorPickEditForcelessArrowColor;
     }
 }

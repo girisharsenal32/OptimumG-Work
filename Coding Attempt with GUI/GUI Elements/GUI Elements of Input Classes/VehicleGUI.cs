@@ -690,8 +690,8 @@ namespace Coding_Attempt_with_GUI
                 ///<summary>Calling the <see cref="LegendEditor"/> and initializing it and then calling the <see cref="CAD.PostProcessing(LegendEditor, OutputClass, Color, Color, GradientStyle, int, double)"/> method which draws the DataTable for the Legend and the Legend too </summary>
                 LoadCaseLegend.InitializeLegendEditor(MasterOC, CADVehicleOutputs);
 
-                ///<summary>Painting the Bars according to Force Range in between which they lie</summary>
-                CADVehicleOutputs.PaintBarForce();
+                ///<summary>Painting the Bars according to Force Range in between which they lie. <see cref="LegendEditor.UserNoForceColour"/> value passed as <see cref="Color.White"/></summary>
+                CADVehicleOutputs.PaintBarForce(Color.White);
 
                 ///<summary>Painting the Arrows according to Force Range in between which they lie</summary>
                 ///<remarks>Since by default we have <see cref="ForceArrowStyle.Both"/> I can pass any random values for Length and Colour below</remarks>

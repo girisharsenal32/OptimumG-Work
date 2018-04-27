@@ -26,31 +26,31 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// User defined Maximum Value of the Legend 
         /// </summary>
-        public double MaxValue { get; set; } = 0;
+        public double MaxValue { get; set; }
         /// <summary>
         /// User defined Minimum Value of the Legend 
         /// </summary>
-        public double MinValue { get; set; } = 0;
+        public double MinValue { get; set; }
         /// <summary>
         /// User defined Colour Upper Colour Gradient of the Legend 
         /// </summary>
         public Color UsersGradient1 { get; set; } = Color.Maroon;
         /// <summary>
-        /// User defined Colour Lower Colour Gradient of the Legend 
+        /// User defined Colour Lower Colour Gradient of the Legend. Default <see cref="Color.White"/> which is auto-selected 
         /// </summary>
-        public Color UsersGradient2 { get; set; } = Color.Ivory;
+        public Color UsersGradient2 { get; set; } = Color.White;
         /// <summary>
-        /// User defined Colour for Bars without a Force Value
+        /// User defined Colour for Bars without a Force Value. Default <see cref="Color.White"/> which is auto-selected
         /// </summary>
-        public Color UserNoForceColour { get; set; } = Color.White;
+        public Color UserNoForceColour { get; set; }
         /// <summary>
         /// Number of Steps in the Legend
         /// </summary>
-        public int NoOfSteps { get; set; } = 0;
+        public int NoOfSteps { get; set; }
         /// <summary>
         /// Step Size of the Steps in the Legned
         /// </summary>
-        public double StepSize { get; set; } = 0;
+        public double StepSize { get; set; }
         /// <summary>
         /// User defined <see cref="GradientStyle"/> of the Legend
         /// </summary>
@@ -78,7 +78,7 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Color of the Arrow if the user opts for <see cref="ForceArrowStyle.LengthScaling"/>
         /// </summary>
-        public Color ArrowColor { get; set; } = Color.FloralWhite;
+        public Color ArrowColor { get; set; }
         /// <summary>
         /// Base or Primary <see cref="OutputClass"/> which is used to populate the Legend in ONLY 2 conditions. First time (Initialization) and Reset or (Re-Initialization)
         /// </summary>
@@ -341,6 +341,22 @@ namespace Coding_Attempt_with_GUI
         }
 
         /// <summary>
+        /// Event fired when the <see cref="Keys.Enter"/> is pressed when the control is inside the <see cref="textBoxStepSize"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBoxStepSize_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                CustomStepSize();
+                ///<summary>Random code to remove the focus from the <see cref="TextBox"/> to give the user a feel that the value has been changed</summary>
+                ActiveControl = labelControl7; 
+            }
+
+        }
+
+        /// <summary>
         /// Method to assign custom or user defined step size to the legend and redraw the legend based on this input. 
         /// </summary>
         private void CustomStepSize()
@@ -384,6 +400,17 @@ namespace Coding_Attempt_with_GUI
             CustomNoOfSteps();
         }
 
+        private void textBoxNoOfSteps_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                CustomNoOfSteps();
+                ///<summary>Random code to remove the focus from the <see cref="TextBox"/> to give the user a feel that the value has been changed</summary>
+                ActiveControl = labelControl7;
+            }
+
+        }
+
         /// <summary>
         /// Method to assign a custom or user degined number of steps of the legend and redraw the legend based on this input
         /// </summary>
@@ -400,8 +427,6 @@ namespace Coding_Attempt_with_GUI
 
                     ///<summary>Redrawing the entire <see cref="LegendDataTable"/> and then <see cref="bandedGridView1"/> and then the <see cref="gridControl1"/></summary>
                     ReDoEntireLegend();
-
-                    //EditEntireLegend();
                 }
                 else if (checker == 0)
                 {
@@ -416,6 +441,101 @@ namespace Coding_Attempt_with_GUI
             {
                 MessageBox.Show("Please Enter Reasonable Whole Numbers");
             }
+        }
+
+        private void textBoxArrowConstLength_Leave(object sender, EventArgs e)
+        {
+            ConstantArrowLength();
+        }
+
+        private void textBoxArrowConstLength_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                ConstantArrowLength();
+                ///<summary>Random code to remove the focus from the <see cref="TextBox"/> to give the user a feel that the value has been changed</summary>
+                ActiveControl = labelControl7;
+            }
+        }
+
+        /// <summary>
+        /// Method to assign the <see cref="ArrowCylLength"/>
+        /// </summary>
+        private void ConstantArrowLength()
+        {
+            bool proceed = ParamValidator(textBoxArrowConstLength.Text, TypeToBeValidated.Double, true, out string Error);
+
+            if (proceed)
+            {
+                ArrowCylLength = Convert.ToDouble(textBoxArrowConstLength.Text);
+            }
+            else
+            {
+                MessageBox.Show(Error);
+            }
+
+        }
+
+        /// <summary>
+        /// Method to Validate the content of a <see cref="TextBox.Text"/> based on whether user expects a <see cref="Double"/> or a <see cref="Int32"/> and also based on whether the user can accept Negative Values
+        /// </summary>
+        /// <param name="_paramFromTextBox"><see cref="TextBox.Text"/> value from the concerned <see cref="TextBox"/></param>
+        /// <param name="_type">Enum to devide the <see cref="Type"/> of end result after validation</param>
+        /// <param name="_noNegativeValues"><see cref="Boolean"/> to decide whther the end result can be negative</param>
+        /// <param name="_errorMessage">Error Message if Parsing fails</param>
+        /// <returns></returns>
+        private bool ParamValidator(string _paramFromTextBox, TypeToBeValidated _type, bool _noNegativeValues, out string _errorMessage)
+        {
+            _errorMessage = null;
+            if (_type == TypeToBeValidated.Double)
+            {
+                if (Double.TryParse(_paramFromTextBox,out double checker))
+                {
+                    if (_noNegativeValues)
+                    {
+                        if (checker > 0)
+                        {
+                            return true;
+                        }
+                        else if (checker == 0)
+                        {
+                            _errorMessage = "Zero Not Allowed";
+                            return false;
+                        }
+                        else
+                        {
+                            _errorMessage = "Negative Values Not Allowed";
+                            return false;
+                        } 
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    _errorMessage = "Please Enter Numeric Values";
+                    return false;
+                }
+            }
+
+            else if (_type == TypeToBeValidated.Integer)
+            {
+
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Event fired when the color of the <see cref="colorPickEditForcelessArrowColor"/> is changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void colorPickEditForcelessArrowColor_ColorChanged(object sender, EventArgs e)
+        {
+            UserNoForceColour = colorPickEditForcelessArrowColor.Color;
         }
 
         /// <summary>
@@ -442,13 +562,23 @@ namespace Coding_Attempt_with_GUI
         private void colorPickEdit2_ColorChanged(object sender, EventArgs e)
         {
             ///<summary>Assinging the <see cref="UsersGradient1"/> property of this form</summary>
-
             UsersGradient2 = colorPickEdit2.Color;
             ParentCAD.GradientColor2 = UsersGradient2;
             ///<summary>Re-Painting the Colour Column of the <see cref="CAD.LegendDataTable"/></summary>
             ParentCAD.PaintLegendTableColorColumn(UsersGradient1, UsersGradient2);
             ///<summary>Reconditionring the Legend</summary>
             ReConditionLegend();
+        }
+
+        /// <summary>
+        /// Event fires when the <see cref="colorPickEditArrowConstColor"/>'s selected color is changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void colorPickEditArrowConstColor_ColorChanged(object sender, EventArgs e)
+        {
+            ///<summary>Assigning the <see cref="ArrowColor"/> property</summary>
+            ArrowColor = colorPickEditArrowConstColor.Color;
         }
 
         /// <summary>
@@ -460,7 +590,7 @@ namespace Coding_Attempt_with_GUI
         {
             ReConditionLegend();
 
-            ParentCAD.PaintBarForce();
+            ParentCAD.PaintBarForce(UserNoForceColour);
 
             ParentCAD.ConditionArrowForce(UserForceArrowStyle, ArrowCylLength, ArrowColor);
 
@@ -480,6 +610,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="e"></param>
         private void radioGroupLegendParams_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ///<summary>GUI Operations based on whether the user wants to edit the <see cref="StepSize"/> or the <see cref="NoOfSteps"/></summary>
             if (radioGroupLegendParams.SelectedIndex == 0)
             {
                 labelControlStepSize.Enabled = true;
@@ -557,6 +688,9 @@ namespace Coding_Attempt_with_GUI
             }
             else if (UserForceArrowStyle == ForceArrowStyle.ColourScaling)
             {
+                labelControlArrowConstLength.Enabled = true;
+                textBoxArrowConstLength.Enabled = true;
+
                 labelControlArrowConstColor.Enabled = false;
                 colorPickEditArrowConstColor.Color = Color.White;
                 colorPickEditArrowConstColor.Enabled = false;
@@ -567,8 +701,19 @@ namespace Coding_Attempt_with_GUI
                 labelControlArrowConstLength.Enabled = false;
                 textBoxArrowConstLength.Clear();
                 textBoxArrowConstLength.Enabled = false;
+
+                labelControlArrowConstColor.Enabled = true;
+                colorPickEditArrowConstColor.Enabled = true;
             }
 
         }
     }
+
+    enum TypeToBeValidated
+    {
+        Double,
+        Integer,
+        String
+    }
+
 }
