@@ -2433,27 +2433,27 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Public Invoker Method to Paint the Bars based on their Force Value
         /// </summary>
-        public void PaintBarForce()
+        public void PaintBarForce(Color _ForceLessArrowColor)
         {
-            PaintBars();
+            PaintBars(_ForceLessArrowColor);
         }
 
         /// <summary>
         /// Public invoker method to the Paint the Arrows based on their force value
         /// </summary>
-        /// <param name="_UserArrowStyle"> <see cref="ForceArrowStyle"/> selected by the user in the <see cref="LegendEditor"/></param>
-        /// <param name="_ArrowLength"> Length of the arrow. Only used if the user selects <see cref="ForceArrowStyle.ColourScaling"/></param>
-        /// <param name="_ArrowColor">Color of the arrow. Only used if the user selects <see cref="ForceArrowStyle.LengthScaling"/></param>
-        public void ConditionArrowForce(ForceArrowStyle _UserArrowStyle, double _ArrowLength, Color _ArrowColor)
+        /// <param name="UserArrowStyle"> <see cref="ForceArrowStyle"/> selected by the user in the <see cref="LegendEditor"/></param>
+        /// <param name="ArrowLength"> Length of the arrow. Only used if the user selects <see cref="ForceArrowStyle.ColourScaling"/></param>
+        /// <param name="ArrowColor">Color of the arrow. Only used if the user selects <see cref="ForceArrowStyle.LengthScaling"/></param>
+        public void ConditionArrowForce(ForceArrowStyle UserArrowStyle, double ArrowLength, Color ArrowColor)
         {
-            CondtionArrows(_UserArrowStyle, _ArrowLength, _ArrowColor);
+            CondtionArrows(UserArrowStyle, ArrowLength, ArrowColor);
         }
 
         /// <summary>
         /// Method to Paint all the Bars in the Viewport basd on the <see cref="CustomData.Force"/> value using a For Loop 
         /// </summary>
         /// <param name="_masterOC"></param>
-        private void PaintBars()
+        private void PaintBars(Color _forceLessArowColor)
         {
             for (int i = 0; i < viewportLayout1.Entities.Count; i++)
             {
@@ -2468,11 +2468,18 @@ namespace Coding_Attempt_with_GUI
                     if (viewportLayout1.Entities[i].EntityData != null)
                     {
                         barData = (CustomData)viewportLayout1.Entities[i].EntityData;
+
+                        if (barData.Force == 0)
+                        {
+                            ///<summary>If the <see cref="CustomData.Force"/> (like for Bars representing Pushrod point to Bell-Crank Pivot) then setting their colour to <see cref="LegendEditor.UserNoForceColour"/> </summary>
+                            viewportLayout1.Entities[i].Color = _forceLessArowColor;
+                            goto END;
+                        }
                     }
                     else
                     {
-                        ///<summary>If there is no <see cref="CustomData"/> (like for Bars representing Pushrod point to Bell-Crank Pivot) then setting their colour to Purple </summary>
-                        viewportLayout1.Entities[i].Color = Color.MediumPurple;
+                        ///<summary>If there is no <see cref="CustomData"/> (like for Bars representing the Steering Rack) then setting their colour to <see cref="LegendEditor.UserNoForceColour"/> </summary>
+                        viewportLayout1.Entities[i].Color = _forceLessArowColor;
                         goto END;
                     }
 
@@ -2499,10 +2506,10 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Method to Paint all the Arrows in the Viewport basd on the <see cref="CustomData.Force"/> value using a For Loop 
         /// </summary>
-        /// <param name="_userArrowStyle"> <see cref="ForceArrowStyle"/> selected by the user in the <see cref="LegendEditor"/></param>
-        /// <param name="_arrowLength"> Length of the arrow. Only used if the user selects <see cref="ForceArrowStyle.ColourScaling"/></param>
-        /// <param name="_arrowColor">Color of the arrow. Only used if the user selects <see cref="ForceArrowStyle.LengthScaling"/></param>
-        private void CondtionArrows(ForceArrowStyle _userArrowStyle, double _arrowLength, Color _arrowColor)
+        /// <param name="_UserArrowStyle"> <see cref="ForceArrowStyle"/> selected by the user in the <see cref="LegendEditor"/></param>
+        /// <param name="_ArrowLength"> Length of the arrow. Only used if the user selects <see cref="ForceArrowStyle.ColourScaling"/></param>
+        /// <param name="_ArrowColor">Color of the arrow. Only used if the user selects <see cref="ForceArrowStyle.LengthScaling"/></param>
+        private void CondtionArrows(ForceArrowStyle _UserArrowStyle, double _ArrowLength, Color _ArrowColor)
         {
             for (int i = 0; i < viewportLayout1.Entities.Count; i++)
             {
@@ -2522,10 +2529,13 @@ namespace Coding_Attempt_with_GUI
                     }
 
                     ///<summary>Painting and/or scaling Arrows based on the <see cref="ForceArrowStyle"/></summary>
+                    ///<remarks>
+                    ///Order of the below 2 statments is CRUCIAL. Because the <see cref="ScaleArrows(CustomData, int, ForceArrowStyle, double)"/> method creates a new arrow so any colour or property you assign in the <see cref="PaintArrows(CustomData, int, ForceArrowStyle)"/>
+                    ///will wiped out if it is done before <see cref="ScaleArrows(CustomData, int, ForceArrowStyle, double)"/>
+                    /// </remarks>
+                    ScaleArrows(arrowData, i, _UserArrowStyle, _ArrowLength);
 
-                    ScaleArrows(arrowData, i, _userArrowStyle);
-
-                    PaintArrows(arrowData, i, _userArrowStyle);
+                    PaintArrows(arrowData, i, _UserArrowStyle, _ArrowColor);
 
                     END:
                     viewportLayout1.Invalidate();
@@ -2533,7 +2543,7 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
-        private void PaintArrows(CustomData _arrowData, int _entityIndex, ForceArrowStyle _userForceArrowStyle)
+        private void PaintArrows(CustomData _arrowData, int _entityIndex, ForceArrowStyle _userForceArrowStyle, Color _arrowColor)
         {
             viewportLayout1.Entities[_entityIndex].ColorMethod = colorMethodType.byEntity;
 
@@ -2563,8 +2573,8 @@ namespace Coding_Attempt_with_GUI
             else
             {
                 ///<summary>Painting the Bar with the Colour of the Force Range which it belongs to </summary>
-                _arrowData.EntityColor = Color.White;
-                viewportLayout1.Entities[_entityIndex].Color = Color.White;
+                _arrowData.EntityColor = _arrowColor;
+                viewportLayout1.Entities[_entityIndex].Color = _arrowColor;
                 viewportLayout1.Entities[_entityIndex].EntityData = _arrowData;
             }
         }
@@ -2573,7 +2583,7 @@ namespace Coding_Attempt_with_GUI
         /// <para>  Method to set the Length of the arrows to a constant value or to a length based on its force value</para>
         /// <para>Decided based on the <see cref="ForceArrowStyle"/> selected by the user using the <see cref="LegendEditor"/></para>
         /// </summary>
-        private void ScaleArrows(CustomData _arrowData, int _entityIndex, ForceArrowStyle _userForceArrowStyle)
+        private void ScaleArrows(CustomData _arrowData, int _entityIndex, ForceArrowStyle _userForceArrowStyle, double _arrowLength)
         {
             if (_userForceArrowStyle == ForceArrowStyle.Both || _userForceArrowStyle == ForceArrowStyle.LengthScaling)
             {
@@ -2581,7 +2591,7 @@ namespace Coding_Attempt_with_GUI
             }
             else
             {
-                viewportLayout1.Entities[_entityIndex] = Mesh.CreateArrow(_arrowData.StartPoint, _arrowData.Direction, _arrowData.CylRadius, 100, _arrowData.ConeRadius, _arrowData.ConeLength, 10, Mesh.natureType.Smooth, Mesh.edgeStyleType.Sharp);
+                viewportLayout1.Entities[_entityIndex] = Mesh.CreateArrow(_arrowData.StartPoint, _arrowData.Direction, _arrowData.CylRadius, _arrowLength, _arrowData.ConeRadius, _arrowData.ConeLength, 10, Mesh.natureType.Smooth, Mesh.edgeStyleType.Sharp);
             }
         }
 
@@ -3476,6 +3486,9 @@ namespace Coding_Attempt_with_GUI
         }
     }
 
+    /// <summary>
+    /// Class containing <see cref="CustomData"/> of the Entities
+    /// </summary>
     class CustomData
     {
         /// <summary>
