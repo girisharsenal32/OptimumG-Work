@@ -8638,14 +8638,16 @@ namespace Coding_Attempt_with_GUI
             }
 
         }
-
+         
         /// <summary>
         /// Method to carry out the GUI operations required to display the Vehicle's Outputs
         /// </summary>
         private void OutputGUIOperations()
         {
+            ///<summary></summary>
             FindOutPutIndex(0);
 
+            ///<summary></summary>
             Button_Recalculate_Enabler();
 
             #region ---NOT REALLY NEEDED NOW--- Coloring the Corner Weight and Pushrod Length Textboxes White. 
@@ -8663,31 +8665,45 @@ namespace Coding_Attempt_with_GUI
             //M1_Global.vehicleGUI[VIndex].CW_Def_WA.CWRR.BackColor = Color.White;
             #endregion
 
+            ///<summary></summary>
             TabControl_Outputs = CustomXtraTabPage.ClearTabPages(TabControl_Outputs, M1_Global.vehicleGUI[VIndex].TabPages_Vehicle);
 
             ///<summary>Constructing the Output <see cref="CAD"/> usercontrol here to prevent overcrowding the memory by initializing the controls in the declaration itself</summary>
             M1_Global.vehicleGUI[VIndex].CADVehicleOutputs = new CAD();
 
+            ///<summary></summary>
             M1_Global.vehicleGUI[VIndex].TabPages_Vehicle = M1_Global.vehicleGUI[VIndex].CreateTabPages_For_Vehicle_Outputs(M1_Global.vehicleGUI[VIndex].TabPages_Vehicle, this, Vehicle.List_Vehicle[VIndex].VehicleID);
 
+            ///<summary></summary>
             PopulateOutputDataTable(Vehicle.Assembled_Vehicle);
 
+            ///<summary></summary>
             TabControl_Outputs = CustomXtraTabPage.AddTabPages(TabControl_Outputs, M1_Global.vehicleGUI[Vehicle.Assembled_Vehicle.VehicleID - 1].TabPages_Vehicle);
 
+            ///<summary></summary>
             DisplayOutputs(Vehicle.Assembled_Vehicle);
 
+            ///<summary></summary>
             M1_Global.vehicleGUI[VIndex].PopulateSuspensionGridControl(this, M1_Global.vehicleGUI[VIndex], Vehicle.Assembled_Vehicle, OutputIndex);
 
+            ///<summary></summary>
             Results_NavBarOerations(Vehicle.Assembled_Vehicle);
 
+            ///<summary></summary>
             PopulateInputSheet(Vehicle.Assembled_Vehicle);
 
+
+            ///<summary></summary>
             M1_Global.vehicleGUI[VIndex].OutputIGESPlotted = false;
+            ///<summary></summary>
             M1_Global.vehicleGUI[VIndex].TranslateChassisToGround = false;
+            ///<summary></summary>
             M1_Global.vehicleGUI[VIndex].ImportedCADTranslationHistory = new List<double>(new double[] { 0, 0 });
 
-            //M1_Global.vehicleGUI[VIndex].CadIsTobeImported = true;
+            ///<summary>Initializing the <see cref="VehicleGUI.LoadCaseLegend"/></summary>
+            M1_Global.vehicleGUI[VIndex].LoadCaseLegend = new LegendEditor();
 
+            ///<summary>Cloning everything (<see cref="devDept.Eyeshot.Block"/> <see cref="devDept.Eyeshot.Layer"/> Imported Files) from the Input CAD</summary>
             if (M1_Global.vehicleGUI[VIndex].CadIsTobeImported)
             {
                 M1_Global.vehicleGUI[VIndex].CADVehicleOutputs.CloneOutputViewPort(M1_Global.vehicleGUI[VIndex].CADVehicleOutputs.viewportLayout1, M1_Global.vehicleGUI[VIndex].importCADForm.importCADViewport.viewportLayout1);

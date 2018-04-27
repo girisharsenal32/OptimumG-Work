@@ -75,7 +75,7 @@ namespace Coding_Attempt_with_GUI
         public XtraUserControl_InputSheet IS /*= new XtraUserControl_InputSheet(r1)*/;
         public CAD CADVehicleInputs/* = new CAD()*/;
         public CAD CADVehicleOutputs/* = new CAD()*/;
-        public LegendEditor LoadCaseLegend = new LegendEditor();
+        public LegendEditor LoadCaseLegend /*= new LegendEditor()*/;
         #endregion
 
         #region ImportCAD Form
@@ -640,6 +640,8 @@ namespace Coding_Attempt_with_GUI
 
                 vehicleCADDrawer_Output.GetCoG(Vehicle.List_Vehicle[VehicleIndex].chassis_vehicle);
 
+                
+
                 ///<remarks> Plotting the Front Left Outputs. CP Forces which are calculated are passed so that the arrows can be plotted for them <seealso cref="CAD.PlotArrows(double, double, double, double, double, double, bool)"/></remarks>
                 vehicleCADDrawer_Output.SuspensionPlotterInvoker(Vehicle.List_Vehicle[VehicleIndex].oc_FL[OutputIndex].scmOP, 1, Vehicle.List_Vehicle[VehicleIndex].oc_FL[OutputIndex].waOP, false, _plotWheel, Vehicle.List_Vehicle[VehicleIndex].oc_FL[OutputIndex],
                     Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_FL_Fx, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_FL_Fy + Vehicle.List_Vehicle[VehicleIndex].oc_FL[OutputIndex].CW, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.TotalLoad_FL_Fz);
@@ -682,6 +684,8 @@ namespace Coding_Attempt_with_GUI
                 GetAttachmentPointForces(Vehicle.List_Vehicle[VehicleIndex].oc_FL[OutputIndex], Vehicle.List_Vehicle[VehicleIndex].oc_FR[OutputIndex], out ForcePLeft, out ForceQLeft, out ForcePRight, out ForceQRight, false, true);
                 CADVehicleOutputs.PlotLoadCase(Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.SteeringColumnBearing, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.SteeringColumnBearing, false, true, true, ForcePLeft, new Vector3D(), ForcePRight, new Vector3D());
 
+                vehicleCADDrawer_Output.PlotLoadCaseInputForces(Vehicle.List_Vehicle[this._VehicleID - 1].chassis_vehicle, Vehicle.List_Vehicle[this._VehicleID - 1].vehicleLoadCase);
+
                 ///<remarks>Order of Painting is Important</remarks>
                 ///<summary>Creating a temporary Output Class Variable which will hold the Max and Min Values collated from ALL THE 4 CORNERS</summary>
                 OutputClass MasterOC = new OutputClass();
@@ -690,12 +694,12 @@ namespace Coding_Attempt_with_GUI
                 ///<summary>Calling the <see cref="LegendEditor"/> and initializing it and then calling the <see cref="CAD.PostProcessing(LegendEditor, OutputClass, Color, Color, GradientStyle, int, double)"/> method which draws the DataTable for the Legend and the Legend too </summary>
                 LoadCaseLegend.InitializeLegendEditor(MasterOC, CADVehicleOutputs);
 
-                ///<summary>Painting the Bars according to Force Range in between which they lie. <see cref="LegendEditor.UserNoForceColour"/> value passed as <see cref="Color.White"/></summary>
-                CADVehicleOutputs.PaintBarForce(Color.White);
+                /////<summary>Painting the Bars according to Force Range in between which they lie. <see cref="LegendEditor.UserNoForceColour"/> value passed as <see cref="Color.White"/></summary>
+                //CADVehicleOutputs.PaintBarForce(Color.White);
 
-                ///<summary>Painting the Arrows according to Force Range in between which they lie</summary>
-                ///<remarks>Since by default we have <see cref="ForceArrowStyle.Both"/> I can pass any random values for Length and Colour below</remarks>
-                CADVehicleOutputs.ConditionArrowForce(ForceArrowStyle.Both, 100, Color.White);
+                /////<summary>Painting the Arrows according to Force Range in between which they lie</summary>
+                /////<remarks>Since by default we have <see cref="ForceArrowStyle.Both"/> I can pass any random values for Length and Colour below</remarks>
+                //CADVehicleOutputs.ConditionArrowForce(ForceArrowStyle.Both, 100, Color.White);
 
                 ///<summary>This Loop exists to allow the imported files to be translated around the Suspension  </summary>
                 if (_importCAD && OutputIGESPlotted && TranslateChassisToGround)

@@ -42,7 +42,7 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// User defined Colour for Bars without a Force Value. Default <see cref="Color.White"/> which is auto-selected
         /// </summary>
-        public Color UserNoForceColour { get; set; }
+        public Color UserNoForceWishboneColour { get; set; } = Color.White;
         /// <summary>
         /// Number of Steps in the Legend
         /// </summary>
@@ -62,23 +62,31 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Length of the Arrow CYLINDER if the user opts for <see cref="ForceArrowStyle.ColourScaling"/>
         /// </summary>
-        public double ArrowCylLength { get; set; } = 50;
+        public double ArrowNoForceCylLength { get; set; } = 50;
         /// <summary>
-        /// Length of the Arrow CONE if the user opts for <see cref="ForceArrowStyle.ColourScaling"/>
+        /// Length of the Arrow CONE. This will be constant and no scaling will be done on this. 
         /// </summary>
-        public double ArrowConeLength { get; set; }
+        public double ArrowConstantConeLength { get; set; }
         /// <summary>
-        /// Radius of the Arrow CYLINDER if the user opts for <see cref="ForceArrowStyle.ColourScaling"/>
+        /// Radius of the Arrow CYLINDER. This will be constant and no scaling will be done on this. 
         /// </summary>
-        public double ArrowCylRadius { get; set; }
+        public double ArrowConstantCylRadius { get; set; }
         /// <summary>
-        /// Radius of the Arrow CONE if the user opts for <see cref="ForceArrowStyle.ColourScaling"/>
+        /// Radius of the Arrow CONE. This will be constant and no scaling will be done on this. 
         /// </summary>
         public double ArrowConeRadius { get; set; }
         /// <summary>
         /// Color of the Arrow if the user opts for <see cref="ForceArrowStyle.LengthScaling"/>
         /// </summary>
-        public Color ArrowColor { get; set; }
+        public Color ArrowNoForceColor { get; set; }
+        /// <summary>
+        /// <see cref="Boolean"/> which determine whether the Eyeshot Control will colour the Wishbones according to their Force
+        /// </summary> 
+        public bool DisplayWishboneForces { get; set; } = true;
+        /// <summary>
+        /// <see cref="String"/> of Force Categories to be displayed. If there is a Category Name inside this list then it means the user has it from the <see cref="checkedListBoxControlDisplayOptions"/>
+        /// </summary>
+        public List<string> ForcesToBeDisplayed { get; set; }
         /// <summary>
         /// Base or Primary <see cref="OutputClass"/> which is used to populate the Legend in ONLY 2 conditions. First time (Initialization) and Reset or (Re-Initialization)
         /// </summary>
@@ -96,6 +104,9 @@ namespace Coding_Attempt_with_GUI
             radioGroupLegendParams.SelectedIndex = -1;
 
             radioGroupForceArrowOptions.SelectedIndex = -1;
+
+            ForcesToBeDisplayed = new List<string>(new string[] { "Wishbone Force", "Wishbone Decomposition Forces", "Bearing Cap Forces" });
+
         }
 
         /// <summary>
@@ -133,6 +144,17 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Method to initialize the <see cref="CellValueChangedEventArgs"/> </summary>
             InitializeGridControlEvents();
 
+            ///<remarks>
+            ///It is best if the below lines of code are inside THIS Class and not the <see cref="VehicleGUI"/> class's <see cref="VehicleGUI.OutputDrawer(CAD, int, int, bool, bool)"/> method because this way, when the 
+            ///user wants to see the Forces of a different Motion Percentage, the options chosen by the user through the <see cref="LegendEditor"/> will be retained. 
+            /// </remarks>
+            ///<summary>Painting the Bars according to Force Range in between which they lie. <see cref="LegendEditor.UserNoForceWishboneColour"/> value passed as <see cref="Color.White"/></summary>
+            ParentCAD.PaintBarForce(UserNoForceWishboneColour, DisplayWishboneForces);
+
+            ///<summary>Painting the Arrows according to Force Range in between which they lie</summary>
+            ///<remarks>Since by default we have <see cref="ForceArrowStyle.Both"/> I can pass any random values for Length and Colour below</remarks>
+            ParentCAD.ConditionArrowForce(UserForceArrowStyle, ArrowNoForceCylLength, ArrowNoForceColor, ForcesToBeDisplayed);
+
         }
 
         /// <summary>
@@ -162,7 +184,7 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Method to initialize the <see cref="bandedGridView1"/>, set the <see cref="GridControl.DataSource"/> and perform some conditioning for the <see cref="GridControl.MainView"/> (which is the <see cref="bandedGridView1"/>)
         /// </summary>
-        /// <param name="_legendDataTable"><see cref="DataTable"/> of the Legend</param>
+        /// <param name="_legendDataTable"><see cref="DataTable"/> of the Legend</param> 
         private void GridControlConditioning(DataTable _legendDataTable)
         {
             ///<summary> Initializing the <see cref="bandedGridView1"/> </summary>
@@ -198,6 +220,41 @@ namespace Coding_Attempt_with_GUI
             gridControl1.DataSource = LegendDataTable;
 
             gridControl1.MainView = bandedGridView1;
+        }
+
+
+        /// <summary>
+        /// Event which is fired when the 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void checkedListBoxControlDisplayOptions_ItemCheck(object sender, DevExpress.XtraEditors.Controls.ItemCheckEventArgs e)
+        {
+            if (checkedListBoxControlDisplayOptions.Items[0].CheckState == CheckState.Checked)
+            {
+                DisplayWishboneForces = true;
+            }
+            else 
+            {
+                DisplayWishboneForces = false;
+            }
+            
+            
+            //DisplayWishboneDecomp = (bool)checkedListBoxControlDisplayOptions.Items[1].Value;
+            //DisplayBearingCapForces = (bool)checkedListBoxControlDisplayOptions.Items[2].Value;
+            //DisplaySuspendedMassForces = (bool)checkedListBoxControlDisplayOptions.Items[3].Value;
+            //DisplayNonSuspendedMassForces = (bool)checkedListBoxControlDisplayOptions.Items[4].Value;
+
+            ForcesToBeDisplayed.Clear();
+
+            for (int i = 0; i < checkedListBoxControlDisplayOptions.Items.Count; i++)
+            {
+                if (checkedListBoxControlDisplayOptions.Items[i].CheckState == CheckState.Checked)
+                {
+                    ForcesToBeDisplayed.Add(checkedListBoxControlDisplayOptions.Items[i].Description);
+                }
+            }
+
         }
 
         /// <summary>
@@ -459,7 +516,7 @@ namespace Coding_Attempt_with_GUI
         }
 
         /// <summary>
-        /// Method to assign the <see cref="ArrowCylLength"/>
+        /// Method to assign the <see cref="ArrowNoForceCylLength"/>
         /// </summary>
         private void ConstantArrowLength()
         {
@@ -467,7 +524,7 @@ namespace Coding_Attempt_with_GUI
 
             if (proceed)
             {
-                ArrowCylLength = Convert.ToDouble(textBoxArrowConstLength.Text);
+                ArrowNoForceCylLength = Convert.ToDouble(textBoxArrowConstLength.Text);
             }
             else
             {
@@ -535,7 +592,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="e"></param>
         private void colorPickEditForcelessArrowColor_ColorChanged(object sender, EventArgs e)
         {
-            UserNoForceColour = colorPickEditForcelessArrowColor.Color;
+            UserNoForceWishboneColour = colorPickEditForcelessArrowColor.Color;
         }
 
         /// <summary>
@@ -577,31 +634,11 @@ namespace Coding_Attempt_with_GUI
         /// <param name="e"></param>
         private void colorPickEditArrowConstColor_ColorChanged(object sender, EventArgs e)
         {
-            ///<summary>Assigning the <see cref="ArrowColor"/> property</summary>
-            ArrowColor = colorPickEditArrowConstColor.Color;
+            ///<summary>Assigning the <see cref="ArrowNoForceColor"/> property</summary>
+            ArrowNoForceColor = colorPickEditArrowConstColor.Color;
         }
 
-        /// <summary>
-        /// Event fired when the <see cref="simpleButtonOK"/> is clicked. This method repaints ALL the Arrows and Bars of the <see cref="CAD.viewportLayout1"/>
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void simpleButtonOK_Click(object sender, EventArgs e)
-        {
-            ReConditionLegend();
 
-            ParentCAD.PaintBarForce(UserNoForceColour);
-
-            ParentCAD.ConditionArrowForce(UserForceArrowStyle, ArrowCylLength, ArrowColor);
-
-            this.Hide();
-
-        }
-
-        private void simpleButtonCanel_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-        }
 
         /// <summary>
         /// Event fired when the <see cref="radioGroupLegendParams"/>'s index is changed. This event determines whether the Legend is going to be Standard FEM or Monochrome
@@ -707,6 +744,30 @@ namespace Coding_Attempt_with_GUI
             }
 
         }
+
+        /// <summary>
+        /// Event fired when the <see cref="simpleButtonOK"/> is clicked. This method repaints ALL the Arrows and Bars of the <see cref="CAD.viewportLayout1"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void simpleButtonOK_Click(object sender, EventArgs e)
+        {
+            ReConditionLegend();
+
+            ParentCAD.PaintBarForce(UserNoForceWishboneColour, DisplayWishboneForces);
+
+            ParentCAD.ConditionArrowForce(UserForceArrowStyle, ArrowNoForceCylLength, ArrowNoForceColor, ForcesToBeDisplayed);
+
+            this.Hide();
+
+        }
+
+        private void simpleButtonCanel_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
+
+
     }
 
     enum TypeToBeValidated

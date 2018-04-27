@@ -50,24 +50,27 @@ namespace Coding_Attempt_with_GUI
 
         #region Variables to hold the Load Case Values
         /// <summary>
-        /// Represents Accelerations at the Suspended Mass CoG. Will be translated to each tire
+        /// Represents Accelerations at the Suspended Mass CoG. Will be translated to each tire. Public because they will plotted in Eyeshot Control 
         /// </summary>
-        private double SM_Ay, SM_Ax, SM_Az;
+        public double SM_Ay, SM_Ax, SM_Az;
 
         /// <summary>
         /// Represents the Lateral Accelerations at each of the Non Suspended Masses. The force due to these accelerations will be added to the Force that is caused by the Lateral Acceleration at the CoG
+        /// Public because they will plotted in Eyeshot Control 
         /// </summary>
-        private double NSM_FL_Ay, NSM_FR_Ay, NSM_RL_Ay, NSM_RR_Ay;
+        public double NSM_FL_Ay, NSM_FR_Ay, NSM_RL_Ay, NSM_RR_Ay;
 
         /// <summary>
         /// Represents the Longitudinal Accelerations at each of the Non Suspended Masses. The force due to these accelerations will be added to the Force that is caused by the Longitudinal Acceleration at the CoG
+        /// Public because they will plotted in Eyeshot Control 
         /// </summary>
-        private double NSM_FL_Ax, NSM_FR_Ax, NSM_RL_Ax, NSM_RR_Ax;
+        public double NSM_FL_Ax, NSM_FR_Ax, NSM_RL_Ax, NSM_RR_Ax;
 
         /// <summary>
         /// Represents the Vertical Accelerations at each of the Non Suspended Masses. The force due to these accelerations will be added to the Force that is caused by the Vertical Acceleration at the CoG
+        /// Public because they will plotted in Eyeshot Control 
         /// </summary>
-        private double NSM_FL_Az, NSM_FR_Az, NSM_RL_Az, NSM_RR_Az;
+        public double NSM_FL_Az, NSM_FR_Az, NSM_RL_Az, NSM_RR_Az;
 
         /// <summary>
         /// Represents the Lateral Grip Distribution. This parameter will be used to determine how much of the Lateral Force at the CG is reacted at the tire. 

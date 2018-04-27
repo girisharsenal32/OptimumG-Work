@@ -808,7 +808,7 @@ namespace Coding_Attempt_with_GUI
             ///Plotting arrows for the Front Left and Front Right
             ///The notation "P" stands for front in the TOP VIEW of the Bolted system <seealso cref="VehicleModel.InitializeBoltedJointVariables(double[,], double[,], OutputClass, OutputClass, bool)"/>
             /// </summary>
-            if (!_isInitializing) { PlotArrows(_leftAttach[0, pos], _leftAttach[1, pos], _leftAttach[2, pos], _force_P_Left.X, _force_P_Left.Y, _force_P_Left.Z, false); }
+            if (!_isInitializing) { PlotArrows(_leftAttach[0, pos], _leftAttach[1, pos], _leftAttach[2, pos], _force_P_Left.X, _force_P_Left.Y, _force_P_Left.Z, false, "Bearing Cap Forces"); }
             viewportLayout1.Entities.Add(new Joint(_leftAttach[0, pos], _leftAttach[1, pos], _leftAttach[2, pos], 2, 2), "Joints");
 
             if (_sColumn)
@@ -818,12 +818,12 @@ namespace Coding_Attempt_with_GUI
                 ///So I need to increment pos by 1 so that the position 1 of the 3x2 array which is passed is accessed. 
                 /// </summary>
                 pos += 1;
-                if (!_isInitializing) { PlotArrows(_rightAttach[0, pos], _rightAttach[1, pos], _rightAttach[2, pos], _force_P_Right.X, _force_P_Right.Y, _force_P_Right.Z, false); }
+                if (!_isInitializing) { PlotArrows(_rightAttach[0, pos], _rightAttach[1, pos], _rightAttach[2, pos], _force_P_Right.X, _force_P_Right.Y, _force_P_Right.Z, false, "Bearing Cap Forces"); }
                 viewportLayout1.Entities.Add(new Joint(_rightAttach[0, pos], _rightAttach[1, pos], _rightAttach[2, pos], 2, 2), "Joints");
             }
             else
             {
-                if (!_isInitializing) { PlotArrows(_rightAttach[0, pos], _rightAttach[1, pos], _rightAttach[2, pos], _force_P_Right.X, _force_P_Right.Y, _force_P_Right.Z, false); }
+                if (!_isInitializing) { PlotArrows(_rightAttach[0, pos], _rightAttach[1, pos], _rightAttach[2, pos], _force_P_Right.X, _force_P_Right.Y, _force_P_Right.Z, false, "Bearing Cap Forces"); }
                 viewportLayout1.Entities.Add(new Joint(_rightAttach[0, pos], _rightAttach[1, pos], _rightAttach[2, pos], 2, 2), "Joints");
             }
 
@@ -834,11 +834,11 @@ namespace Coding_Attempt_with_GUI
                 ///Plotting arrows for the REAR Left and Front Right
                 ///The notation "Q" stands for rear in the TOP VIEW of the Bolted system <seealso cref="VehicleModel.InitializeBoltedJointVariables(double[,], double[,], OutputClass, OutputClass, bool)"/>
                 /// </summary>
-                if (!_isInitializing) { PlotArrows(_leftAttach[0, pos + 1], _leftAttach[1, pos + 1], _leftAttach[2, pos + 1], _force_Q_Left.X, _force_Q_Left.Y, _force_Q_Left.Z, false); }
+                if (!_isInitializing) { PlotArrows(_leftAttach[0, pos + 1], _leftAttach[1, pos + 1], _leftAttach[2, pos + 1], _force_Q_Left.X, _force_Q_Left.Y, _force_Q_Left.Z, false, "Bearing Cap Forces"); }
                 viewportLayout1.Entities.Add(new Joint(_leftAttach[0, pos + 1], _leftAttach[1, pos + 1], _leftAttach[2, pos + 1], 2, 2), "Joints");
 
 
-                if (!_isInitializing) { PlotArrows(_rightAttach[0, pos + 1], _rightAttach[1, pos + 1], _rightAttach[2, pos + 1], _force_Q_Right.X, _force_Q_Right.Y, _force_Q_Right.Z, false); }
+                if (!_isInitializing) { PlotArrows(_rightAttach[0, pos + 1], _rightAttach[1, pos + 1], _rightAttach[2, pos + 1], _force_Q_Right.X, _force_Q_Right.Y, _force_Q_Right.Z, false, "Bearing Cap Forces"); }
                 viewportLayout1.Entities.Add(new Joint(_rightAttach[0, pos + 1], _rightAttach[1, pos + 1], _rightAttach[2, pos + 1], 2, 2), "Joints");
             }
         }
@@ -881,6 +881,28 @@ namespace Coding_Attempt_with_GUI
         }
 
 
+        #endregion
+
+        #region Method to Plot the Input Load Case Forces
+        /// <summary>
+        /// Method to Plot the <see cref="Vehicle.vehicleLoadCase"/>'s Input Forces and colour them according to the Legend
+        /// </summary>
+        /// <param name="VChassis"></param>
+        /// <param name="LC"></param>
+        public void PlotLoadCaseInputForces(Chassis VChassis, LoadCase LC)
+        {
+            InputForcePassed = true;
+            PlotArrows(VChassis.SuspendedMassCoGx, VChassis.SuspendedMassCoGy, VChassis.SuspendedMassCoGz, LC.SM_Ax * VChassis.SuspendedMass, LC.SM_Ay * VChassis.SuspendedMass, LC.SM_Az * VChassis.SuspendedMass, false, "Suspended Mass Forces");
+
+            PlotArrows(VChassis.NonSuspendedMassFLCoGx, VChassis.NonSuspendedMassFLCoGy, VChassis.NonSuspendedMassFLCoGz, LC.NSM_FL_Ax * VChassis.NonSuspendedMassFL, LC.NSM_FL_Ay * VChassis.NonSuspendedMassFL, LC.NSM_FL_Az * VChassis.NonSuspendedMassFL, false, "Non-Suspended Mass Forces");
+
+            PlotArrows(VChassis.NonSuspendedMassFRCoGx, VChassis.NonSuspendedMassFRCoGy, VChassis.NonSuspendedMassFRCoGz, LC.NSM_FR_Ax * VChassis.NonSuspendedMassFR, LC.NSM_FR_Ay * VChassis.NonSuspendedMassFR, LC.NSM_FR_Az * VChassis.NonSuspendedMassFR, false, "Non-Suspended Mass Forces");
+
+            PlotArrows(VChassis.NonSuspendedMassRLCoGx, VChassis.NonSuspendedMassRLCoGy, VChassis.NonSuspendedMassRLCoGz, LC.NSM_RL_Ax * VChassis.NonSuspendedMassRL, LC.NSM_RL_Ay * VChassis.NonSuspendedMassRL, LC.NSM_RL_Az * VChassis.NonSuspendedMassRL, false, "Non-Suspended Mass Forces");
+
+            PlotArrows(VChassis.NonSuspendedMassRRCoGx, VChassis.NonSuspendedMassRRCoGy, VChassis.NonSuspendedMassRRCoGz, LC.NSM_RR_Ax * VChassis.NonSuspendedMassRR, LC.NSM_RR_Ay * VChassis.NonSuspendedMassRR, LC.NSM_RR_Az * VChassis.NonSuspendedMassRR, false, "Non-Suspended Mass Forces");
+            InputForcePassed = false;
+        } 
         #endregion
 
         #region Arrow Plotter to represent Forces
@@ -987,7 +1009,7 @@ namespace Coding_Attempt_with_GUI
             return Color.FromArgb(255, Convert.ToInt32(red), Convert.ToInt32(green), Convert.ToInt32(blue));
         }
 
-
+        bool InputForcePassed = false;
         /// <summary>
         /// Method to Plot Arrows which will represent the XYZ forces acting at a particular Joint of interest. 
         /// </summary>
@@ -997,7 +1019,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_forceX">X Component of the Force on Joint being considered</param>
         /// <param name="_forceY">Y Component of the Force on Joint being considered</param>
         /// <param name="_forceZ">Z Component of the Force on Joint being considered</param>
-        private void PlotArrows(double _startX, double _startY, double _startZ, double _forceX, double _forceY, double _forceZ, bool CPPassed)
+        private void PlotArrows(double _startX, double _startY, double _startZ, double _forceX, double _forceY, double _forceZ, bool CPPassed, string _categoryName)
         {
             Point3D arrowStart = new Point3D();
             if (!CPPassed)
@@ -1029,7 +1051,10 @@ namespace Coding_Attempt_with_GUI
             if (CPPassed)
             {
                 coneRadius = 10; coneLength = 30; cylinderRadius = 8;
-
+            }
+            if (InputForcePassed)
+            {
+                coneRadius = 5; coneLength = 15; cylinderRadius = 4;
             }
 
             ///<summary>
@@ -1044,7 +1069,7 @@ namespace Coding_Attempt_with_GUI
                 ///<summary>Creating an arrow to represent the X Force using its length value and its <see cref="CustomData"/></summary>
                 Mesh arrowX = Mesh.CreateArrow(arrowStart, directionX, cylinderRadius, Math.Abs(_forceX + 0.01) * 0.1, coneRadius, coneLength, 10, Mesh.natureType.Smooth, Mesh.edgeStyleType.Sharp);
                 ///<summary>Setting the <see cref="Entity.EntityData"/> using the <see cref="CustomData"/> <see cref="class"/></summary>
-                arrowX.EntityData = new CustomData("arrowX", _forceX, Color.DarkMagenta, arrowStart, directionX, Math.Abs(_forceX + 0.01), cylinderRadius, coneLength, coneRadius);
+                arrowX.EntityData = new CustomData("arrowX", _forceX, _categoryName, Color.DarkMagenta, arrowStart, directionX, Math.Abs(_forceX + 0.01), cylinderRadius, coneLength, coneRadius);
                 viewportLayout1.Entities.Add(arrowX, "Joints", Color.DarkMagenta);
                 
 
@@ -1055,7 +1080,7 @@ namespace Coding_Attempt_with_GUI
                 ///<summary>Creating an arrow to represent the X Force using its length value and its <see cref="CustomData"/></summary>
                 Mesh arrowY = Mesh.CreateArrow(arrowStart, directionY, cylinderRadius, Math.Abs(_forceY + 0.01) * 0.1, coneRadius, coneLength, 10, Mesh.natureType.Smooth, Mesh.edgeStyleType.Sharp);
                 ///<summary>Setting the <see cref="Entity.EntityData"/> using the <see cref="CustomData"/> <see cref="class"/></summary>
-                arrowY.EntityData = new CustomData("arrowY", _forceY, Color.DarkMagenta, arrowStart, directionY, Math.Abs(_forceY + 0.01), cylinderRadius, coneLength, coneRadius);
+                arrowY.EntityData = new CustomData("arrowY", _forceY, _categoryName, Color.DarkMagenta, arrowStart, directionY, Math.Abs(_forceY + 0.01), cylinderRadius, coneLength, coneRadius);
                 viewportLayout1.Entities.Add(arrowY, "Joints", Color.DarkMagenta);
                 
             }
@@ -1065,7 +1090,7 @@ namespace Coding_Attempt_with_GUI
                 ///<summary>Creating an arrow to represent the X Force using its length value and its <see cref="CustomData"/></summary>
                 Mesh arrowZ = Mesh.CreateArrow(arrowStart, directionZ, cylinderRadius, Math.Abs(_forceZ + 0.01) * 0.1, coneRadius, coneLength, 10, Mesh.natureType.Smooth, Mesh.edgeStyleType.Sharp);
                 ///<summary>Setting the <see cref="Entity.EntityData"/> using the <see cref="CustomData"/> <see cref="class"/></summary
-                arrowZ.EntityData = new CustomData("arrowZ", _forceZ, Color.DarkMagenta, arrowStart, directionZ, Math.Abs(_forceZ + 0.01), cylinderRadius, coneLength, coneRadius);
+                arrowZ.EntityData = new CustomData("arrowZ", _forceZ, _categoryName, Color.DarkMagenta, arrowStart, directionZ, Math.Abs(_forceZ + 0.01), cylinderRadius, coneLength, coneRadius);
                 viewportLayout1.Entities.Add(arrowZ, "Joints", Color.DarkMagenta);
             }
 
@@ -1087,19 +1112,19 @@ namespace Coding_Attempt_with_GUI
 
             #region Common Joints
 
-            if (!_isInitializing) { PlotArrows(_scmPlotCommon.C1x, _scmPlotCommon.C1y, _scmPlotCommon.C1z, _ocColor.LowerRear_x, _ocColor.LowerRear_y, _ocColor.LowerRear_z, false); }
+            if (!_isInitializing) { PlotArrows(_scmPlotCommon.C1x, _scmPlotCommon.C1y, _scmPlotCommon.C1z, _ocColor.LowerRear_x, _ocColor.LowerRear_y, _ocColor.LowerRear_z, false, "Wishbone Decomposition Forces"); }
             CoordinatesTemp.InboardPickUp.Add("Lower Rear Chassis", (new Joint(_scmPlotCommon.C1x, _scmPlotCommon.C1y, _scmPlotCommon.C1z, 5, 2)));
             viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp["Lower Rear Chassis"], "Joints");
 
-            if (!_isInitializing) { PlotArrows(_scmPlotCommon.D1x, _scmPlotCommon.D1y, _scmPlotCommon.D1z, _ocColor.LowerFront_x, _ocColor.LowerFront_y, _ocColor.LowerFront_z, false); }
+            if (!_isInitializing) { PlotArrows(_scmPlotCommon.D1x, _scmPlotCommon.D1y, _scmPlotCommon.D1z, _ocColor.LowerFront_x, _ocColor.LowerFront_y, _ocColor.LowerFront_z, false, "Wishbone Decomposition Forces"); }
             CoordinatesTemp.InboardPickUp.Add("Lower Front Chassis", (new Joint(_scmPlotCommon.D1x, _scmPlotCommon.D1y, _scmPlotCommon.D1z, 5, 2)));
             viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp["Lower Front Chassis"], "Joints");
 
-            if (!_isInitializing) { PlotArrows(_scmPlotCommon.E1x, _scmPlotCommon.E1y, _scmPlotCommon.E1z, _ocColor.LBJ_x, _ocColor.LBJ_y, _ocColor.LBJ_z, false); }
+            if (!_isInitializing) { PlotArrows(_scmPlotCommon.E1x, _scmPlotCommon.E1y, _scmPlotCommon.E1z, _ocColor.LBJ_x, _ocColor.LBJ_y, _ocColor.LBJ_z, false, "Wishbone Decomposition Forces"); }
             CoordinatesTemp.OutboardPickUp.Add("Lower Ball Joint", (new Joint(_scmPlotCommon.E1x, _scmPlotCommon.E1y, _scmPlotCommon.E1z, 5, 2)));
             viewportLayout1.Entities.Add(CoordinatesTemp.OutboardPickUp["Lower Ball Joint"], "Joints");
 
-            if (!_isInitializing) { PlotArrows(_scmPlotCommon.J1x, _scmPlotCommon.J1y, _scmPlotCommon.J1z, _ocColor.DamperForce_x, _ocColor.DamperForce_y, _ocColor.DamperForce_z, false); }
+            if (!_isInitializing) { PlotArrows(_scmPlotCommon.J1x, _scmPlotCommon.J1y, _scmPlotCommon.J1z, _ocColor.DamperForce_x, _ocColor.DamperForce_y, _ocColor.DamperForce_z, false, "Wishbone Decomposition Forces"); }
             if (_mcPhersonIdentifier == 1)
             {
                 damperName = "Damper Upright";
@@ -1112,29 +1137,29 @@ namespace Coding_Attempt_with_GUI
             CoordinatesTemp.InboardPickUp.Add(damperName, new Joint(_scmPlotCommon.J1x, _scmPlotCommon.J1y, _scmPlotCommon.J1z, 5, 2));
             viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp[damperName], "Joints");
 
-            if (!_isInitializing) { PlotArrows(_scmPlotCommon.JO1x, _scmPlotCommon.JO1y, _scmPlotCommon.JO1z, _ocColor.DamperForce_x, _ocColor.DamperForce_y, _ocColor.DamperForce_z, false); }
+            if (!_isInitializing) { PlotArrows(_scmPlotCommon.JO1x, _scmPlotCommon.JO1y, _scmPlotCommon.JO1z, _ocColor.DamperForce_x, _ocColor.DamperForce_y, _ocColor.DamperForce_z, false, "Wishbone Decomposition Forces"); }
             CoordinatesTemp.InboardPickUp.Add("Damper Shock Mount", new Joint(_scmPlotCommon.JO1x, _scmPlotCommon.JO1y, _scmPlotCommon.JO1z, 5, 2));
             viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp["Damper Shock Mount"], "Joints");
 
             CoordinatesTemp.OutboardPickUp.Add("Wheel Centre", new Joint(_scmPlotCommon.K1x, _scmPlotCommon.K1y, _scmPlotCommon.K1z, 5, 2));
             viewportLayout1.Entities.Add(CoordinatesTemp.OutboardPickUp["Wheel Centre"], "Joints");
 
-            if (!_isInitializing) { PlotArrows(_scmPlotCommon.M1x, _scmPlotCommon.M1y, _scmPlotCommon.M1z, _ocColor.ToeLink_x, _ocColor.ToeLink_y, _ocColor.ToeLink_z, false); }
+            if (!_isInitializing) { PlotArrows(_scmPlotCommon.M1x, _scmPlotCommon.M1y, _scmPlotCommon.M1z, _ocColor.ToeLink_x, _ocColor.ToeLink_y, _ocColor.ToeLink_z, false, "Wishbone Decomposition Forces"); }
             CoordinatesTemp.OutboardPickUp.Add("Steering Link Upright", new Joint(_scmPlotCommon.M1x, _scmPlotCommon.M1y, _scmPlotCommon.M1z, 5, 2));
             viewportLayout1.Entities.Add(CoordinatesTemp.OutboardPickUp["Steering Link Upright"], "Joints");
 
-            if (!_isInitializing) { PlotArrows(_scmPlotCommon.N1x, _scmPlotCommon.N1y, _scmPlotCommon.N1z, _ocColor.ToeLink_x, _ocColor.ToeLink_y, _ocColor.ToeLink_z, false); }
+            if (!_isInitializing) { PlotArrows(_scmPlotCommon.N1x, _scmPlotCommon.N1y, _scmPlotCommon.N1z, _ocColor.ToeLink_x, _ocColor.ToeLink_y, _ocColor.ToeLink_z, false, "Wishbone Decomposition Forces"); }
             CoordinatesTemp.InboardPickUp.Add("Steering Link Chassis", new Joint(_scmPlotCommon.N1x, _scmPlotCommon.N1y, _scmPlotCommon.N1z, 5, 2));
             viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp["Steering Link Chassis"], "Joints");
 
-            if (!_isInitializing) { PlotArrows(_scmPlotCommon.P1x, _scmPlotCommon.P1y, _scmPlotCommon.P1z, _ocColor.ARBDroopLink_x, _ocColor.ARBDroopLink_y, _ocColor.ARBDroopLink_z, false); }
+            if (!_isInitializing) { PlotArrows(_scmPlotCommon.P1x, _scmPlotCommon.P1y, _scmPlotCommon.P1z, _ocColor.ARBDroopLink_x, _ocColor.ARBDroopLink_y, _ocColor.ARBDroopLink_z, false, "Wishbone Decomposition Forces"); }
             CoordinatesTemp.InboardPickUp.Add("Anti-Roll Bar Link", new Joint(_scmPlotCommon.P1x, _scmPlotCommon.P1y, _scmPlotCommon.P1z, 5, 2));
             viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp["Anti-Roll Bar Link"], "Joints");
 
             CoordinatesTemp.InboardPickUp.Add("Anti-Roll Bar Chassis", new Joint(_scmPlotCommon.Q1x, _scmPlotCommon.Q1y, _scmPlotCommon.Q1z, 5, 2));
             viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp["Anti-Roll Bar Chassis"], "Joints");
 
-            if (!_isInitializing) { PlotArrows(_scmPlotCommon.W1x, _scmPlotCommon.W1y, _scmPlotCommon.W1z, _cPForcex, _cPForcey, _cPForcez, true); }
+            if (!_isInitializing) { PlotArrows(_scmPlotCommon.W1x, _scmPlotCommon.W1y, _scmPlotCommon.W1z, _cPForcex, _cPForcey, _cPForcez, true, "Wishbone Decomposition Forces"); }
             CoordinatesTemp.OutboardPickUp.Add("Contact Patch", new Joint(_scmPlotCommon.W1x, _scmPlotCommon.W1y, _scmPlotCommon.W1z, 5, 2));
             viewportLayout1.Entities.Add(CoordinatesTemp.OutboardPickUp["Contact Patch"], "Joints");
             #endregion
@@ -1157,7 +1182,7 @@ namespace Coding_Attempt_with_GUI
             viewportLayout1.Entities.Add(LowerRearArm, "Bars");
             if (_ocColor != null)
             {
-                LowerRearArm.EntityData = new CustomData("LowerRearArm", _ocColor.LowerRear, Color.Orange);
+                LowerRearArm.EntityData = new CustomData("LowerRearArm", "Wishbone Force", _ocColor.LowerRear, Color.Orange);
             }
 
 
@@ -1169,7 +1194,7 @@ namespace Coding_Attempt_with_GUI
             viewportLayout1.Entities.Add(LowerFrontArm, "Bars");
             if (_ocColor != null)
             {
-                LowerFrontArm.EntityData = new CustomData("LowerFrontArm", _ocColor.LowerFront, Color.Orange);
+                LowerFrontArm.EntityData = new CustomData("LowerFrontArm", "Wishbone Force", _ocColor.LowerFront, Color.Orange);
             }
 
             ///<summary>
@@ -1180,7 +1205,7 @@ namespace Coding_Attempt_with_GUI
             viewportLayout1.Entities.Add(ToeLink, "Bars");
             if (_ocColor != null)
             {
-                ToeLink.EntityData = new CustomData("ToeLink", _ocColor.ToeLink, Color.Orange);
+                ToeLink.EntityData = new CustomData("ToeLink", "Wishbone Force", _ocColor.ToeLink, Color.Orange);
             }
 
             ///<summary>
@@ -1191,7 +1216,7 @@ namespace Coding_Attempt_with_GUI
             viewportLayout1.Entities.Add(Damper, "Bars");
             if (_ocColor != null)
             {
-                Damper.EntityData = new CustomData("Damper", _ocColor.DamperForce, Color.Orange);
+                Damper.EntityData = new CustomData("Damper", "Wishbone Force", _ocColor.DamperForce, Color.Orange);
             }
 
             ///<summary>
@@ -1202,7 +1227,7 @@ namespace Coding_Attempt_with_GUI
             viewportLayout1.Entities.Add(ARBLever, "Bars");
             if (_ocColor != null)
             {
-                ARBLever.EntityData = new CustomData("ARBLever", _ocColor.ARBDroopLink, Color.Orange);
+                ARBLever.EntityData = new CustomData("ARBLever", "Wishbone Force", _ocColor.ARBDroopLink, Color.Orange);
             }
             #endregion
         }
@@ -1306,19 +1331,19 @@ namespace Coding_Attempt_with_GUI
 
             #region Double Wishbone Joints
 
-            if (!_isInitializing) { PlotArrows(_scmPlot.A1x, _scmPlot.A1y, _scmPlot.A1z, _ocColor.UpperFront_x, _ocColor.UpperFront_y, _ocColor.UpperFront_z, false); }
+            if (!_isInitializing) { PlotArrows(_scmPlot.A1x, _scmPlot.A1y, _scmPlot.A1z, _ocColor.UpperFront_x, _ocColor.UpperFront_y, _ocColor.UpperFront_z, false, "Wishbone Decomposition Forces"); }
             CoordinatesTemp.InboardPickUp.Add("Upper Front Chassis", new Joint(_scmPlot.A1x, _scmPlot.A1y, _scmPlot.A1z, 5, 2));
             viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp["Upper Front Chassis"], "Joints");
 
-            if (!_isInitializing) { PlotArrows(_scmPlot.B1x, _scmPlot.B1y, _scmPlot.B1z, _ocColor.UpperRear_x, _ocColor.UpperRear_y, _ocColor.UpperRear_z, false); }
+            if (!_isInitializing) { PlotArrows(_scmPlot.B1x, _scmPlot.B1y, _scmPlot.B1z, _ocColor.UpperRear_x, _ocColor.UpperRear_y, _ocColor.UpperRear_z, false, "Wishbone Decomposition Forces"); }
             CoordinatesTemp.InboardPickUp.Add("Upper Rear Chassis", new Joint(_scmPlot.B1x, _scmPlot.B1y, _scmPlot.B1z, 5, 2));
             viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp["Upper Rear Chassis"], "Joints");
 
-            if (!_isInitializing) { PlotArrows(_scmPlot.F1x, _scmPlot.F1y, _scmPlot.F1z, _ocColor.UBJ_x, _ocColor.UBJ_y, _ocColor.UBJ_z, false); }
+            if (!_isInitializing) { PlotArrows(_scmPlot.F1x, _scmPlot.F1y, _scmPlot.F1z, _ocColor.UBJ_x, _ocColor.UBJ_y, _ocColor.UBJ_z, false, "Wishbone Decomposition Forces"); }
             CoordinatesTemp.OutboardPickUp.Add("Upper Ball Joint", new Joint(_scmPlot.F1x, _scmPlot.F1y, _scmPlot.F1z, 5, 2));
             viewportLayout1.Entities.Add(CoordinatesTemp.OutboardPickUp["Upper Ball Joint"], "Joints");
 
-            if (!_isInitializing) { PlotArrows(_scmPlot.G1x, _scmPlot.G1y, _scmPlot.G1z, _ocColor.PushRod_x, _ocColor.PushRod_y, _ocColor.PushRod_z, false); }
+            if (!_isInitializing) { PlotArrows(_scmPlot.G1x, _scmPlot.G1y, _scmPlot.G1z, _ocColor.PushRod_x, _ocColor.PushRod_y, _ocColor.PushRod_z, false, "Wishbone Decomposition Forces"); }
             if (pushrodIdentifier == 1)
             {
                 pushPullName = "Pushrod";
@@ -1330,14 +1355,14 @@ namespace Coding_Attempt_with_GUI
             CoordinatesTemp.OutboardPickUp.Add(pushPullName + " Upright", new Joint(_scmPlot.G1x, _scmPlot.G1y, _scmPlot.G1z, 5, 2));
             viewportLayout1.Entities.Add(CoordinatesTemp.OutboardPickUp[pushPullName + " Upright"], "Joints");
 
-            if (!_isInitializing) { PlotArrows(_scmPlot.H1x, _scmPlot.H1y, _scmPlot.H1z, _ocColor.PushRod_x, _ocColor.PushRod_y, _ocColor.PushRod_z, false); }
+            if (!_isInitializing) { PlotArrows(_scmPlot.H1x, _scmPlot.H1y, _scmPlot.H1z, _ocColor.PushRod_x, _ocColor.PushRod_y, _ocColor.PushRod_z, false, "Wishbone Decomposition Forces"); }
             CoordinatesTemp.InboardPickUp.Add(pushPullName + " Bell-Crank", new Joint(_scmPlot.H1x, _scmPlot.H1y, _scmPlot.H1z, 5, 2));
             viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp[pushPullName + " Bell-Crank"], "Joints");
 
             CoordinatesTemp.InboardPickUp.Add("Bell Crank Pivot", new Joint(_scmPlot.I1x, _scmPlot.I1y, _scmPlot.I1z, 5, 2));
             viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp["Bell Crank Pivot"], "Joints");
 
-            if (!_isInitializing) { PlotArrows(_scmPlot.O1x, _scmPlot.O1y, _scmPlot.O1z, _ocColor.ARBDroopLink_x, _ocColor.ARBDroopLink_y, _ocColor.ARBDroopLink_z, false); }
+            if (!_isInitializing) { PlotArrows(_scmPlot.O1x, _scmPlot.O1y, _scmPlot.O1z, _ocColor.ARBDroopLink_x, _ocColor.ARBDroopLink_y, _ocColor.ARBDroopLink_z, false, "Wishbone Decomposition Forces"); }
             CoordinatesTemp.InboardPickUp.Add("Anti-Roll Bar Bell-Crank", new Joint(_scmPlot.O1x, _scmPlot.O1y, _scmPlot.O1z, 5, 2));
             viewportLayout1.Entities.Add(CoordinatesTemp.InboardPickUp["Anti-Roll Bar Bell-Crank"], "Joints");
 
@@ -1360,7 +1385,7 @@ namespace Coding_Attempt_with_GUI
             viewportLayout1.Entities.Add(UpperFrontArm, "Bars"/*, color*/);
             if (_ocColor != null)
             {
-                UpperFrontArm.EntityData = new CustomData("UpperFrontArm", _ocColor.UpperFront, Color.Orange);
+                UpperFrontArm.EntityData = new CustomData("UpperFrontArm", "Wishbone Force", _ocColor.UpperFront, Color.Orange);
             }
 
             ///<summary>
@@ -1371,7 +1396,7 @@ namespace Coding_Attempt_with_GUI
             viewportLayout1.Entities.Add(UpperRearArm, "Bars");
             if (_ocColor != null)
             {
-                UpperRearArm.EntityData = new CustomData("UpperRearArm", _ocColor.UpperRear, Color.Orange);
+                UpperRearArm.EntityData = new CustomData("UpperRearArm", "Wishbone Force", _ocColor.UpperRear, Color.Orange);
             }
 
             ///<summary>
@@ -1382,7 +1407,7 @@ namespace Coding_Attempt_with_GUI
             viewportLayout1.Entities.Add(Pushrod, "Bars");
             if (_ocColor != null)
             {
-                Pushrod.EntityData = new CustomData("Pushrod", _ocColor.PushRod, Color.Orange);
+                Pushrod.EntityData = new CustomData("Pushrod", "Wishbone Force", _ocColor.PushRod, Color.Orange);
 
             }
 
@@ -1392,19 +1417,19 @@ namespace Coding_Attempt_with_GUI
             Bar DamperBellcrankToPivot = new Bar(CoordinatesTemp.InboardPickUp["Damper Bell-Crank"].Position, CoordinatesTemp.InboardPickUp["Bell Crank Pivot"].Position, 4.5, 8);
             CoordinatesTemp.SuspensionLinks.Add("DamperBellcrankToPivot", DamperBellcrankToPivot);
             viewportLayout1.Entities.Add(DamperBellcrankToPivot, "Bars");
-            DamperBellcrankToPivot.EntityData = new CustomData("DamperBellCrankToPivot", 0, Color.Orange);
+            DamperBellcrankToPivot.EntityData = new CustomData("DamperBellCrankToPivot", "Dummy", 0, Color.Orange);
             
             ///<remarks>Point I comes before H while going from centre of the Vehicle towards thr wheel </remarks>
             Bar PushrodBellcrankToPivot = new Bar(CoordinatesTemp.InboardPickUp["Bell Crank Pivot"].Position, CoordinatesTemp.InboardPickUp[pushPullName + " Bell-Crank"].Position, 4.5, 8);
             CoordinatesTemp.SuspensionLinks.Add("PushrodBellcrankToPivot", PushrodBellcrankToPivot);
             viewportLayout1.Entities.Add(PushrodBellcrankToPivot, "Bars");
-            PushrodBellcrankToPivot.EntityData = new CustomData("PushrodBellcrankToPivot", 0, Color.Orange);
+            PushrodBellcrankToPivot.EntityData = new CustomData("PushrodBellcrankToPivot", "Dummy", 0, Color.Orange);
             
             ///<remarks>Point I comes before O while going from the Centre of the Vehicle towards the Wheel </remarks>
             Bar ARBDroopLinkBellcrankToPivot = new Bar(CoordinatesTemp.InboardPickUp["Bell Crank Pivot"].Position, CoordinatesTemp.InboardPickUp["Anti-Roll Bar Bell-Crank"].Position, 4.5, 8);
             CoordinatesTemp.SuspensionLinks.Add("ARBDroopLinkBellcrankToPivot", ARBDroopLinkBellcrankToPivot);
             viewportLayout1.Entities.Add(ARBDroopLinkBellcrankToPivot, "Bars");
-            ARBDroopLinkBellcrankToPivot.EntityData = new CustomData("ARBDroopLinkBellcrankToPivot", 0, Color.Orange);
+            ARBDroopLinkBellcrankToPivot.EntityData = new CustomData("ARBDroopLinkBellcrankToPivot", "Dummy", 0, Color.Orange);
 
             ///<summary>
             ///Points to form the triangles joining the Bell-Crank vectors
@@ -1428,7 +1453,7 @@ namespace Coding_Attempt_with_GUI
             viewportLayout1.Entities.Add(ARBDroopLink, "Bars");
             if (_ocColor != null)
             {
-                ARBDroopLink.EntityData = new CustomData("ARBDroopLink", _ocColor.ARBDroopLink, Color.Orange);
+                ARBDroopLink.EntityData = new CustomData("ARBDroopLink", "Wishbone Force", _ocColor.ARBDroopLink, Color.Orange);
             }
             #endregion
         }
@@ -2237,15 +2262,15 @@ namespace Coding_Attempt_with_GUI
 
         #region Gradient Painter Methods
         /// <summary>
-        /// Method to Assign the Gradient Colours as Selected by the User
+        /// -------COULD BE USEFUL IF PARAMS INCREASE A LOT---------Method to Assign the Gradient Colours as Selected by the User
         /// </summary>
         /// <param name="_gradientColor1"></param>
         /// <param name="_gradientColor2"></param>
-        //public void GetGradientColors(Color _gradientColor1, Color _gradientColor2)
-        //{
-        //    GradientColor1 = _gradientColor1;
-        //    GradientColor2 = _gradientColor2;
-        //}
+        public void GetGradientColors(Color _gradientColor1, Color _gradientColor2)
+        {
+            GradientColor1 = _gradientColor1;
+            GradientColor2 = _gradientColor2;
+        }
 
         int NumberOfLegendDivisions;
 
@@ -2433,9 +2458,9 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Public Invoker Method to Paint the Bars based on their Force Value
         /// </summary>
-        public void PaintBarForce(Color _ForceLessArrowColor)
+        public void PaintBarForce(Color _ForceLessWishboneColor, bool _DisplayWishboneForces)
         {
-            PaintBars(_ForceLessArrowColor);
+            PaintBars(_ForceLessWishboneColor, _DisplayWishboneForces);
         }
 
         /// <summary>
@@ -2444,16 +2469,16 @@ namespace Coding_Attempt_with_GUI
         /// <param name="UserArrowStyle"> <see cref="ForceArrowStyle"/> selected by the user in the <see cref="LegendEditor"/></param>
         /// <param name="ArrowLength"> Length of the arrow. Only used if the user selects <see cref="ForceArrowStyle.ColourScaling"/></param>
         /// <param name="ArrowColor">Color of the arrow. Only used if the user selects <see cref="ForceArrowStyle.LengthScaling"/></param>
-        public void ConditionArrowForce(ForceArrowStyle UserArrowStyle, double ArrowLength, Color ArrowColor)
+        public void ConditionArrowForce(ForceArrowStyle UserArrowStyle, double ArrowLength, Color ArrowColor, List<string> ForcesToBeDisplayed)
         {
-            CondtionArrows(UserArrowStyle, ArrowLength, ArrowColor);
+            CondtionArrows(UserArrowStyle, ArrowLength, ArrowColor, ForcesToBeDisplayed);
         }
 
         /// <summary>
         /// Method to Paint all the Bars in the Viewport basd on the <see cref="CustomData.Force"/> value using a For Loop 
         /// </summary>
         /// <param name="_masterOC"></param>
-        private void PaintBars(Color _forceLessArowColor)
+        private void PaintBars(Color _forceLessWishboneColor, bool _displayWishboneForcs)
         {
             for (int i = 0; i < viewportLayout1.Entities.Count; i++)
             {
@@ -2469,17 +2494,17 @@ namespace Coding_Attempt_with_GUI
                     {
                         barData = (CustomData)viewportLayout1.Entities[i].EntityData;
 
-                        if (barData.Force == 0)
+                        if (barData.Force == 0 || !_displayWishboneForcs)
                         {
-                            ///<summary>If the <see cref="CustomData.Force"/> (like for Bars representing Pushrod point to Bell-Crank Pivot) then setting their colour to <see cref="LegendEditor.UserNoForceColour"/> </summary>
-                            viewportLayout1.Entities[i].Color = _forceLessArowColor;
+                            ///<summary>If the <see cref="CustomData.Force"/> (like for Bars representing Pushrod point to Bell-Crank Pivot) then setting their colour to <see cref="LegendEditor.UserNoForceWishboneColour"/> </summary>
+                            viewportLayout1.Entities[i].Color = _forceLessWishboneColor;
                             goto END;
                         }
                     }
                     else
                     {
-                        ///<summary>If there is no <see cref="CustomData"/> (like for Bars representing the Steering Rack) then setting their colour to <see cref="LegendEditor.UserNoForceColour"/> </summary>
-                        viewportLayout1.Entities[i].Color = _forceLessArowColor;
+                        ///<summary>If there is no <see cref="CustomData"/> (like for Bars representing the Steering Rack) then setting their colour to <see cref="LegendEditor.UserNoForceWishboneColour"/> </summary>
+                        viewportLayout1.Entities[i].Color = _forceLessWishboneColor;
                         goto END;
                     }
 
@@ -2500,6 +2525,13 @@ namespace Coding_Attempt_with_GUI
                     END:
                     viewportLayout1.Invalidate();
                 }
+
+                ///<summary>Squeezing in the Triangle Colouring Part in here.</summary>
+                if (viewportLayout1.Entities[i] as Triangle != null)
+                {
+                    viewportLayout1.Entities[i].ColorMethod = colorMethodType.byEntity;
+                    viewportLayout1.Entities[i].Color = _forceLessWishboneColor;
+                }
             }
         }
 
@@ -2509,7 +2541,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_UserArrowStyle"> <see cref="ForceArrowStyle"/> selected by the user in the <see cref="LegendEditor"/></param>
         /// <param name="_ArrowLength"> Length of the arrow. Only used if the user selects <see cref="ForceArrowStyle.ColourScaling"/></param>
         /// <param name="_ArrowColor">Color of the arrow. Only used if the user selects <see cref="ForceArrowStyle.LengthScaling"/></param>
-        private void CondtionArrows(ForceArrowStyle _UserArrowStyle, double _ArrowLength, Color _ArrowColor)
+        private void CondtionArrows(ForceArrowStyle _UserArrowStyle, double _ArrowLength, Color _ArrowColor, List<string> _ForcesToBeDisplayed)
         {
             for (int i = 0; i < viewportLayout1.Entities.Count; i++)
             {
@@ -2537,12 +2569,21 @@ namespace Coding_Attempt_with_GUI
 
                     PaintArrows(arrowData, i, _UserArrowStyle, _ArrowColor);
 
+                    DecideArrowVisibility(arrowData, i, _ForcesToBeDisplayed);
+
                     END:
                     viewportLayout1.Invalidate();
                 }
             }
         }
 
+        /// <summary>
+        /// Method to Paint the Arrows depending upon whther the user wants to. Determined by <see cref="ForceArrowStyle"/>
+        /// </summary>
+        /// <param name="_arrowData"><see cref="CustomData"/> of the Arrow</param>
+        /// <param name="_entityIndex">Entity Index of the Arrow in the <see cref="EntityList"/></param>
+        /// <param name="_userForceArrowStyle"><see cref="ForceArrowStyle"/> selected by the user using the <see cref="LegendEditor"/></param>
+        /// <param name="_arrowColor"><see cref="Color"/> of the Arrow selected by the arow using the <see cref="LegendEditor"/></param>
         private void PaintArrows(CustomData _arrowData, int _entityIndex, ForceArrowStyle _userForceArrowStyle, Color _arrowColor)
         {
             viewportLayout1.Entities[_entityIndex].ColorMethod = colorMethodType.byEntity;
@@ -2583,6 +2624,10 @@ namespace Coding_Attempt_with_GUI
         /// <para>  Method to set the Length of the arrows to a constant value or to a length based on its force value</para>
         /// <para>Decided based on the <see cref="ForceArrowStyle"/> selected by the user using the <see cref="LegendEditor"/></para>
         /// </summary>
+        /// <param name="_arrowData"><see cref="CustomData"/> of the Arrow</param>
+        /// <param name="_entityIndex">Entity Index of the Arrow in the <see cref="EntityList"/></param>
+        /// <param name="_userForceArrowStyle"><see cref="ForceArrowStyle"/> selected by the user using the <see cref="LegendEditor"/></param>
+        /// <param name="_arrowColor"><see cref="Color"/> of the Arrow selected by the arow using the <see cref="LegendEditor"/></param>
         private void ScaleArrows(CustomData _arrowData, int _entityIndex, ForceArrowStyle _userForceArrowStyle, double _arrowLength)
         {
             if (_userForceArrowStyle == ForceArrowStyle.Both || _userForceArrowStyle == ForceArrowStyle.LengthScaling)
@@ -2592,6 +2637,38 @@ namespace Coding_Attempt_with_GUI
             else
             {
                 viewportLayout1.Entities[_entityIndex] = Mesh.CreateArrow(_arrowData.StartPoint, _arrowData.Direction, _arrowData.CylRadius, _arrowLength, _arrowData.ConeRadius, _arrowData.ConeLength, 10, Mesh.natureType.Smooth, Mesh.edgeStyleType.Sharp);
+            }
+        }
+
+        /// <summary>
+        /// Method to decide the Visibility of the Arrows. Based on whether the user wants to see them which he will select using the <see cref="LegendEditor.checkedListBoxControlDisplayOptions"/>
+        /// </summary>
+        /// <param name="_arrowData"><see cref="CustomData"/> of the Arrow</param>
+        /// <param name="_entityIndex">Entity Index of the Arrow in the <see cref="EntityList"/></param>
+        /// <param name="_forcesToBeDisplayed">String of Force Categories which need to be displayed</param>
+        private void DecideArrowVisibility(CustomData _arrowData, int _entityIndex, List<string> _forcesToBeDisplayed /*bool _displayWisboneDecomp, bool _displayBearingCap, bool _displaySM, bool _displayNSM*/)
+        {
+            //for (int i = 0; i < _forcesToBeDisplayed.Count; i++)
+            //{
+            //    if (_arrowData.CategoryNamne == _forcesToBeDisplayed[i])
+            //    {
+            //        viewportLayout1.Entities[_entityIndex].Visible = true;
+            //        break;
+            //    }
+            //    else if (_arrowData.CategoryNamne != _forcesToBeDisplayed[i])
+            //    {
+            //        viewportLayout1.Entities[_entityIndex].Visible = false;
+                    
+            //    }
+            //}
+
+            if (_forcesToBeDisplayed.Contains(_arrowData.CategoryNamne))
+            {
+                viewportLayout1.Entities[_entityIndex].Visible = true;
+            }
+            else
+            {
+                viewportLayout1.Entities[_entityIndex].Visible = false;
             }
         }
 
@@ -2616,7 +2693,7 @@ namespace Coding_Attempt_with_GUI
         {
             //legendEdit.InitializeLegendEditor(,this);
 
-            legendEdit.Show();
+            legendEdit.ShowDialog();
         }
 
         #endregion
@@ -3264,20 +3341,20 @@ namespace Coding_Attempt_with_GUI
                             ///<summary>If the Entity doesn't have Entity then initializing the <see cref="CustomData"/> object with the <see cref="Color"/> so that it can reused later to undo the transparency</summary>
                             if (temp_Entity.LayerName == "Joints")
                             {
-                                tempEntityData = new CustomData(temp_Entity.ToString(), 0, Color.White);
+                                tempEntityData = new CustomData(temp_Entity.ToString(), tempEntityData.CategoryNamne, 0, Color.White);
                             }
                             else if (temp_Entity.LayerName == "Bars")
                             {
-                                tempEntityData = new CustomData(temp_Entity.ToString(), 0, Color.Orange);
+                                tempEntityData = new CustomData(temp_Entity.ToString(), tempEntityData.CategoryNamne, 0, Color.Orange);
                             }
                             else if (temp_Entity.LayerName == "Triangles")
                             {
-                                tempEntityData = new CustomData(temp_Entity.ToString(), 0, Color.Orange);
+                                tempEntityData = new CustomData(temp_Entity.ToString(), tempEntityData.CategoryNamne, 0, Color.Orange);
                             }
                             else
                             {
                                 ///<summary>To deal with Imported Entities of which you want to retain the Color</summary>
-                                tempEntityData = new CustomData(temp_Entity.ToString(), 0, temp_Entity.Color);
+                                tempEntityData = new CustomData(temp_Entity.ToString(), tempEntityData.CategoryNamne, 0, temp_Entity.Color);
                             }
                         }
 
@@ -3496,6 +3573,10 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         public string Name { get; set; }
         /// <summary>
+        /// Category which this Entity belongs to. Example: Wishbon, Wishbone Decomp, SM Forces, NSM Forces
+        /// </summary>
+        public string CategoryNamne { get; set; }
+        /// <summary>
         /// Force Represented by the Entity
         /// </summary>
         public double Force { get; set; }
@@ -3546,9 +3627,10 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_name"></param>
         /// <param name="_force"></param>
         /// <param name="_entityColor"></param>
-        public CustomData(string _name, double _force,Color _entityColor)
+        public CustomData(string _name, string _catName, double _force, Color _entityColor)
         {
             Name = _name;
+            CategoryNamne = _catName;
             Force = _force;
             EntityColor = _entityColor;
             StartPoint = new Point3D();
@@ -3569,9 +3651,10 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_endPoint"></param>
         /// <param name="_cylLength"></param>
         /// <param name="_cylRadius"></param>
-        public CustomData(string _name, double _force, Color _entityColor, Point3D _startPoint, Vector3D _direction, double _cylLength, double _cylRadius, double _coneLength, double _conelRadius)
+        public CustomData(string _name, double _force, string _catName, Color _entityColor, Point3D _startPoint, Vector3D _direction, double _cylLength, double _cylRadius, double _coneLength, double _conelRadius)
         {
             Name = _name;
+            CategoryNamne = _catName;
             Force = _force;
             EntityColor = _entityColor;
             StartPoint = _startPoint;
