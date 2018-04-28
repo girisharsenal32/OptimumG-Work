@@ -151,28 +151,28 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Block of the Suspended Mass
         /// </summary>
-        public Block SuspendedMass = new Block();
+        public Block SuspendedMass = new Block("Suspended Mass");
         public BlockReference SuspendedMass_BR;
         /// <summary>
         /// Block of the Front Left Non Suspended Mass 
         /// </summary>
-        public Block NSM_FL = new Block();
-        public BlockReference NSM_FL_BR = new BlockReference("Non Suspended Mass Front Left");
+        public Block NSM_FL = new Block("Front Left Non Suspended Mass");
+        public BlockReference NSM_FL_BR = new BlockReference("Front Left Non Suspended Mass");
         /// <summary>
         /// Block of the Front Right Non Suspended Mass 
         /// </summary>
-        public Block NSM_FR = new Block();
-        public BlockReference NSM_FR_BR = new BlockReference("Non Suspended Mass Front Right");
+        public Block NSM_FR = new Block("Front Right Non Suspended Mass");
+        public BlockReference NSM_FR_BR = new BlockReference("Front Right Non Suspended Mass");
         /// <summary>
         /// Block of the Rear Left Non Suspended Mass 
         /// </summary>
-        public Block NSM_RL = new Block();
-        public BlockReference NSM_RL_BR = new BlockReference("Non Suspended Mass Rear Left");
+        public Block NSM_RL = new Block("Rear Left Non Suspended Mass");
+        public BlockReference NSM_RL_BR = new BlockReference("Rear Left Non Suspended Mass");
         /// <summary>
         /// Block of the Rear Right Non Suspended Mass 
         /// </summary>
-        public Block NSM_RR = new Block();
-        public BlockReference NSM_RR_BR = new BlockReference("Non Suspended Mass Rear Right");
+        public Block NSM_RR = new Block("Rear Right Non Suspended Mass");
+        public BlockReference NSM_RR_BR = new BlockReference("Rear Right Non Suspended Mass");
         /// <summary>
         /// Object of the ImportCAD Form.
         /// </summary>
@@ -475,6 +475,7 @@ namespace Coding_Attempt_with_GUI
 
         public void GetTranslationXYZ(double _translationX, double _translationY, double _translationZ, string _blockToBeTranslated)
         {
+            viewportLayout1.Entities.SetCurrent(null);
             /////<summary>List of Integers to store the indices of the Selected Entities in the Vieewport</summary>
             //List<int> SelectedEntityIndex = new List<int>();
 
@@ -494,8 +495,8 @@ namespace Coding_Attempt_with_GUI
             {
                 viewportLayout1.Entities[i].RegenMode = regenType.RegenAndCompile;
             }
-
-            viewportLayout1.Entities.Regen();
+            RegenOptions ro = new RegenOptions();
+            viewportLayout1.Entities.Regen(ro);
             viewportLayout1.Invalidate();
             viewportLayout1.UpdateViewportLayout();
             viewportLayout1.Refresh();
@@ -626,6 +627,7 @@ namespace Coding_Attempt_with_GUI
 
         public void GetRotationAngleAndAxisOfRotation(double _rotationAngle, Vector3D _axisOfRotation, Point3D _pointOfRotation, string _blockToBeRotated)
         {
+            viewportLayout1.Entities.SetCurrent(null);
             /////<summary>List of Integers to store the indices of the Selected Entities in the Vieewport</summary>
             //List<int> SelectedEntityIndex = new List<int>();
             ///<summary>Assiging the Rotation Angle and the Axis of Rotation</summary>
@@ -647,7 +649,8 @@ namespace Coding_Attempt_with_GUI
                 viewportLayout1.Entities[i].RegenMode = regenType.RegenAndCompile;
             }
 
-            viewportLayout1.Entities.Regen();
+            RegenOptions ro = new RegenOptions();
+            viewportLayout1.Entities.Regen(ro);
             viewportLayout1.Invalidate();
             viewportLayout1.UpdateViewportLayout();
             viewportLayout1.Refresh();
@@ -3222,6 +3225,10 @@ namespace Coding_Attempt_with_GUI
             {
                 if (SelectedEntityList[i].Item.Selected)
                 {
+                    ///<summary>
+                    ///<see cref="break"/> Statement used at last because you can SetCurrent() only 1 Block.
+                    ///<see cref="for"/> Loop used so that you can find the First Entity which is Selected!
+                    /// </summary>
                     if (SelectedEntityList[i].Item as BlockReference != null)
                     {
                         BlockReference tempBlock = SelectedEntityList[i].Item as BlockReference;
@@ -3230,6 +3237,7 @@ namespace Coding_Attempt_with_GUI
 
                         viewportLayout1.Update();
                         viewportLayout1.Refresh();
+                        break;
                     }
                 }
             }

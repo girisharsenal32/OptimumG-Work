@@ -720,18 +720,21 @@ namespace Coding_Attempt_with_GUI
             }
 
             string vehicleName = Vehicle.List_Vehicle[indexVehicle]._VehicleName;
+
+            #region ---DELETE---Eventually
             ///<summary>Saving Imported File so it can be exported into the VehicleGUI CAD's Viewport</summary>
-            importCADViewport.viewportLayout1.SaveScene(vehicleName);
+            //importCADViewport.viewportLayout1.SaveScene(vehicleName); ;
 
             ///<summary>Passing the ImportedCAD information to the VehicleGUI Object</summary>
             ///<remarks> NOT REALLY USEFUL. NEED TO EVALUATE </remarks>
-            R1.AssignIgesEntities(this, indexVehicle);
+            //R1.AssignIgesEntities(this, indexVehicle);
             //this.Dispose();
             ////Kinematics_Software_New.M1_Global.vehicleGUI[indexVehicle].CADVehicleInputs.viewportLayout1.Clear();
             //Kinematics_Software_New.EditVehicleCAD(Kinematics_Software_New.M1_Global.vehicleGUI[indexVehicle].CADVehicleInputs, indexVehicle, true, Kinematics_Software_New.M1_Global.vehicleGUI[indexVehicle].CadIsTobeImported, PlotWheel_Form);
             //Kinematics_Software_New.M1_Global.vehicleGUI[indexVehicle].CADVehicleInputs.viewportLayout1.LoadScene(vehicleName);
 
-            //R1.CreateNewVehicleItem();
+            //R1.CreateNewVehicleItem(); 
+            #endregion
 
         }
         #endregion
@@ -886,6 +889,7 @@ namespace Coding_Attempt_with_GUI
         private void simpleButtonClearCurrent_Click(object sender, EventArgs e)
         {
             importCADViewport.ClearCurrent();
+            importCADViewport.ClearSelection();
         }
 
 
@@ -921,19 +925,42 @@ namespace Coding_Attempt_with_GUI
 
             if (selectedEntities != null && selectedEntities.Count != 0)
             {
+                ///<summary></summary>
+                _mapToThisBlock.Entities.Clear();
+
                 ///<summary>Adding the selected items into the Block</summary>
                 for (int i = 0; i < importCADViewport.SelectedEntityList.Count; i++)
                 {
+                    BlockReference safeteyRef = new BlockReference("safetyRef");
+                    if (selectedEntities[i] is BlockReference)
+                    {
+                        safeteyRef = selectedEntities[i] as BlockReference;
+                    }
                     ///<remarks>
                     ///The IF Loop is employed to check if the Suspended Mass Block already contains the selected Entities
                     ///This is necessary to ensure if the MAP button is clicked more than once with the same entities selected a "Key already exists" error doesn't come 
                     ///</remarks>
                     if (!_mapToThisBlock.Entities.Contains(importCADViewport.viewportLayout1.Entities[importCADViewport.viewportLayout1.Entities.IndexOf(selectedEntities[i])]))
                     {
-                        _mapToThisBlock.Entities.Add(importCADViewport.viewportLayout1.Entities[importCADViewport.viewportLayout1.Entities.IndexOf(selectedEntities[i])]);
+                        ///<summary>
+                        ///---IMPORTANT---
+                        ///The IF Loop is crucial for a special case .
+                        ///If the user incorrectly maps (FOR EX)the NSMFL as Suspended Mass and then clears selection and again selects the Front Left Wheel, then the selected items will contain (apart from the entities) a Block Reference referencing the SM, BECAUSE
+                        ///the user had incorrectly mapped the FL Wheel as SM. SO Suspended Mass will be mapped into the NSMFL Block. The IF statement below prevents that
+                        /// </summary>
+                        if (safeteyRef.BlockName!= "Suspended Mass" && safeteyRef.BlockName != "Front Left Non Suspended Mass" && safeteyRef.BlockName != "Front Right Non Suspended Mass" && safeteyRef.BlockName != "Rear Left Non Suspended Mass" && safeteyRef.BlockName != "Rear Right Non Suspended Mass")
+                        {
+                            _mapToThisBlock.Entities.Add((Entity)importCADViewport.viewportLayout1.Entities[importCADViewport.viewportLayout1.Entities.IndexOf(selectedEntities[i])]); 
+                        }
+                        else
+                        {
+                            ///<summary>Else statement only to study when debugger hits </summary>
+                        }
+
                     }
                     else
-                    {
+                    {///<remarks>Debugger here to check if this ELSE block is ever entered. Ideally it should never enter</remarks>
+                        ///<summary>In the current Scenario (Re or Un Mapping something clears out ALL the entities inside that Block but does not remove that Block ) this ELSE block should never be entered</summary>
                         _mapToThisBlock.Entities = selectedEntities;
                         break;
                     }
@@ -945,21 +972,30 @@ namespace Coding_Attempt_with_GUI
                 ///<summary>Adding the Blocck and the Block Reference into the Viewport</summary>
                 if (!importCADViewport.viewportLayout1.Blocks.Contains(_nameOfBlock))
                 {
-                    importCADViewport.viewportLayout1.Blocks.Add(_nameOfBlock, _mapToThisBlock);
+                    importCADViewport.viewportLayout1.Blocks.Add(/*_nameOfBlock, */_mapToThisBlock);
                     _mapToThisBlockReference = new BlockReference(_nameOfBlock);
                     _mapToThisBlockReference.Attributes.Add(_nameOfBlock, _nameOfBlock);
                     importCADViewport.viewportLayout1.Blocks.Reverse();
-                    //importCADViewport.viewportLayout1.Entities.Add(_mapToThisBlockReference);
+                    importCADViewport.viewportLayout1.Entities.Add(_mapToThisBlockReference);
                 }
                 else
                 {
+                    ///<summary>
+                    ///---IMPORTANT---
+                    ///Don't uncomment the below lines of code. If you use them then the Block disappears from the Viewport. No IDea why. The above lines of code (945) works fine because in case of Re or Un Map, you don't remove the block, you just clear it out. 
+                    ///---IMPORTANT---
+                    ///I think in the new version of Eyeshot, the Blocks are acting as "passed by reference". Or maybe its because of the fact that I use AddToSceneAsSingleObject. DOn't know. 
+                    /// </summary>
+
                     //importCADViewport.viewportLayout1.Blocks[_nameOfBlock] = _mapToThisBlock;
-                    importCADViewport.viewportLayout1.Blocks.ReplaceItem(_mapToThisBlock);
+                    //importCADViewport.viewportLayout1.Blocks.ReplaceItem(_mapToThisBlock);
                 }
 
 
                 ///<summary>Viewport Operations</summary>
-                importCADViewport.viewportLayout1.Entities.Regen();
+                ///<remarks>Below line of REGEN not neeeded for Version 11.0.577 of Eyeshot according to descirption given for the Methodd</remarks>
+                importCADViewport.viewportLayout1.Invalidate();
+                importCADViewport.viewportLayout1.Update();
                 importCADViewport.viewportLayout1.Refresh();
                 importCADViewport.viewportLayout1.ActionMode = actionType.None;
             }
@@ -1017,7 +1053,7 @@ namespace Coding_Attempt_with_GUI
                     }
                     barStaticItemMapInfo.Caption = _blockName + "Mapped";
                 }
-            }
+             }
 
             else if (_blockName == "Front Right Non Suspended Mass")
             {
@@ -1116,7 +1152,20 @@ namespace Coding_Attempt_with_GUI
             {
                 if (importCADViewport.viewportLayout1.Blocks.Contains(_blockName))
                 {
-                    importCADViewport.viewportLayout1.Blocks.Remove(_blockName);
+                    ///<remarks>Commented lines of code not working. They re-add the entities in the block into the viewport and the end result is even when CurrentBlock is zero, the entities which were re-added
+                    ///using the code below are stand along entities
+                    /// </remarks>
+                    
+                    ///<summary>
+                    ///With the new approach I have taken (AddToSceneAsSingleObjecc)the commented lines of code(which was my old way of Removing a Block) are not working because they remove away all the entities inside the block from the viewport too! 
+                    ///No Idea why. 
+                    ///Leaving the Block as it is and Clearing out it's entities seems to be working 
+                    /// </summary>
+
+                    //tempEntities = importCADViewport.viewportLayout1.Blocks[_blockName].Entities;
+                    importCADViewport.viewportLayout1.Blocks[_blockName].Entities.Clear();
+                    //importCADViewport.viewportLayout1.Blocks.Remove(_blockName);
+                    //importCADViewport.viewportLayout1.Entities.AddRange(tempEntities);
                     return true;
                 }
                 else
@@ -1152,6 +1201,8 @@ namespace Coding_Attempt_with_GUI
         /// <param name="e"></param>
         private void simpleButtonUnMap_Click(object sender, EventArgs e)
         {
+            importCADViewport.ClearCurrent();
+            importCADViewport.ClearSelection();
             ///<summary>Finding the Name of the Block using the Mapped Parts Listbox</summary>
             string blockName = (string)listBoxControlMappedParts.SelectedItem;
             ///<summary>Removing that block from the Viewport</summary>

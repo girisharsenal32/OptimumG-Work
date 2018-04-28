@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer2 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
+            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
             this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(this.components);
             this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager(this.components);
@@ -50,6 +50,7 @@
             this.panelContainer1 = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanelMapSuspensionCoordinates = new DevExpress.XtraBars.Docking.DockPanel();
             this.controlContainer4 = new DevExpress.XtraBars.Docking.ControlContainer();
+            this.xuC_CoordinateMap2 = new Coding_Attempt_with_GUI.XUC_CoordinateMap();
             this.dockPanelImportSettings = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel1_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.groupControlMap = new DevExpress.XtraEditors.GroupControl();
@@ -78,8 +79,10 @@
             this.comboBoxSuspension = new System.Windows.Forms.ComboBox();
             this.dockPanelRotateObject = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel2_Container = new DevExpress.XtraBars.Docking.ControlContainer();
+            this.rotateObject = new Coding_Attempt_with_GUI.XUC_RotateObject();
             this.dockPanelTranslateObject = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel3_Container = new DevExpress.XtraBars.Docking.ControlContainer();
+            this.translateObject = new Coding_Attempt_with_GUI.XUC_TranslateObject();
             this.dockPanelPreviewCAD = new DevExpress.XtraBars.Docking.DockPanel();
             this.controlContainer3 = new DevExpress.XtraBars.Docking.ControlContainer();
             this.controlContainer2 = new DevExpress.XtraBars.Docking.ControlContainer();
@@ -88,9 +91,6 @@
             this.tabbedView2 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
             this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager(this.components);
             this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
-            this.rotateObject = new Coding_Attempt_with_GUI.XUC_RotateObject();
-            this.translateObject = new Coding_Attempt_with_GUI.XUC_TranslateObject();
-            this.xuC_CoordinateMap2 = new Coding_Attempt_with_GUI.XUC_CoordinateMap();
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
@@ -296,7 +296,7 @@
             // 
             // panelContainer1
             // 
-            this.panelContainer1.ActiveChild = this.dockPanelMapSuspensionCoordinates;
+            this.panelContainer1.ActiveChild = this.dockPanelImportSettings;
             this.panelContainer1.Controls.Add(this.dockPanelImportSettings);
             this.panelContainer1.Controls.Add(this.dockPanelRotateObject);
             this.panelContainer1.Controls.Add(this.dockPanelTranslateObject);
@@ -329,6 +329,15 @@
             this.controlContainer4.Name = "controlContainer4";
             this.controlContainer4.Size = new System.Drawing.Size(280, 884);
             this.controlContainer4.TabIndex = 0;
+            // 
+            // xuC_CoordinateMap2
+            // 
+            this.xuC_CoordinateMap2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.xuC_CoordinateMap2.Location = new System.Drawing.Point(0, 0);
+            this.xuC_CoordinateMap2.LookAndFeel.SkinName = "VS2010";
+            this.xuC_CoordinateMap2.Name = "xuC_CoordinateMap2";
+            this.xuC_CoordinateMap2.Size = new System.Drawing.Size(280, 884);
+            this.xuC_CoordinateMap2.TabIndex = 0;
             // 
             // dockPanelImportSettings
             // 
@@ -647,6 +656,14 @@
             this.dockPanel2_Container.Size = new System.Drawing.Size(280, 884);
             this.dockPanel2_Container.TabIndex = 0;
             // 
+            // rotateObject
+            // 
+            this.rotateObject.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rotateObject.Location = new System.Drawing.Point(0, 0);
+            this.rotateObject.Name = "rotateObject";
+            this.rotateObject.Size = new System.Drawing.Size(280, 884);
+            this.rotateObject.TabIndex = 0;
+            // 
             // dockPanelTranslateObject
             // 
             this.dockPanelTranslateObject.Controls.Add(this.dockPanel3_Container);
@@ -666,6 +683,14 @@
             this.dockPanel3_Container.Name = "dockPanel3_Container";
             this.dockPanel3_Container.Size = new System.Drawing.Size(280, 884);
             this.dockPanel3_Container.TabIndex = 0;
+            // 
+            // translateObject
+            // 
+            this.translateObject.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.translateObject.Location = new System.Drawing.Point(0, 0);
+            this.translateObject.Name = "translateObject";
+            this.translateObject.Size = new System.Drawing.Size(280, 884);
+            this.translateObject.TabIndex = 0;
             // 
             // dockPanelPreviewCAD
             // 
@@ -726,36 +751,11 @@
             this.tabbedView1.Documents.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseDocument[] {
             this.document1});
             this.tabbedView1.RootContainer.Element = null;
-            dockingContainer2.Element = this.documentGroup1;
+            dockingContainer1.Element = this.documentGroup1;
             this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
-            dockingContainer2});
+            dockingContainer1});
             this.tabbedView1.Paint += new System.Windows.Forms.PaintEventHandler(this.tabbedView1_Paint);
             this.tabbedView1.DocumentActivated += new DevExpress.XtraBars.Docking2010.Views.DocumentEventHandler(this.tabbedView1_DocumentActivated);
-            // 
-            // rotateObject
-            // 
-            this.rotateObject.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rotateObject.Location = new System.Drawing.Point(0, 0);
-            this.rotateObject.Name = "rotateObject";
-            this.rotateObject.Size = new System.Drawing.Size(280, 884);
-            this.rotateObject.TabIndex = 0;
-            // 
-            // translateObject
-            // 
-            this.translateObject.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.translateObject.Location = new System.Drawing.Point(0, 0);
-            this.translateObject.Name = "translateObject";
-            this.translateObject.Size = new System.Drawing.Size(280, 884);
-            this.translateObject.TabIndex = 0;
-            // 
-            // xuC_CoordinateMap2
-            // 
-            this.xuC_CoordinateMap2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.xuC_CoordinateMap2.Location = new System.Drawing.Point(0, 0);
-            this.xuC_CoordinateMap2.LookAndFeel.SkinName = "VS2010";
-            this.xuC_CoordinateMap2.Name = "xuC_CoordinateMap2";
-            this.xuC_CoordinateMap2.Size = new System.Drawing.Size(280, 884);
-            this.xuC_CoordinateMap2.TabIndex = 0;
             // 
             // XUC_ImportCAD
             // 
