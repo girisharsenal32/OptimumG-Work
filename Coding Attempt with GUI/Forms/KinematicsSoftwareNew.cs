@@ -6709,10 +6709,10 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_importCAD">Object of the ImportCADForm</param>
         public void AssignSuspensionComboboxIndex(/*ImportCADForm*/ XUC_ImportCAD _importCAD)
         {
-            comboBoxSCFL.SelectedIndex = _importCAD.comboBoxSuspensionFL.SelectedIndex;
-            comboBoxSCFR.SelectedIndex = _importCAD.comboBoxSuspensionFR.SelectedIndex;
-            comboBoxSCRL.SelectedIndex = _importCAD.comboBoxSuspensionRL.SelectedIndex;
-            comboBoxSCRR.SelectedIndex = _importCAD.comboBoxSuspensionRR.SelectedIndex;
+            //comboBoxSCFL.SelectedIndex = _importCAD.comboBoxSuspensionFL.SelectedIndex;
+            //comboBoxSCFR.SelectedIndex = _importCAD.comboBoxSuspensionFR.SelectedIndex;
+            //comboBoxSCRL.SelectedIndex = _importCAD.comboBoxSuspensionRL.SelectedIndex;
+            //comboBoxSCRR.SelectedIndex = _importCAD.comboBoxSuspensionRR.SelectedIndex;
         }
 
         /// <summary>

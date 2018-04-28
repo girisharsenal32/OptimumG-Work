@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
+            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer2 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
             this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(this.components);
             this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager(this.components);
@@ -48,6 +48,8 @@
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
             this.panelContainer1 = new DevExpress.XtraBars.Docking.DockPanel();
+            this.dockPanelMapSuspensionCoordinates = new DevExpress.XtraBars.Docking.DockPanel();
+            this.controlContainer4 = new DevExpress.XtraBars.Docking.ControlContainer();
             this.dockPanelImportSettings = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel1_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.groupControlMap = new DevExpress.XtraEditors.GroupControl();
@@ -71,35 +73,13 @@
             this.simpleButtonImport = new DevExpress.XtraEditors.SimpleButton();
             this.comboBoxImportCAD = new System.Windows.Forms.ComboBox();
             this.labelImportCAD = new System.Windows.Forms.Label();
-            this.groupControlWA = new DevExpress.XtraEditors.GroupControl();
-            this.comboBoxWA = new System.Windows.Forms.ComboBox();
-            this.labelWA = new System.Windows.Forms.Label();
-            this.groupControlVehicleEnds = new DevExpress.XtraEditors.GroupControl();
-            this.comboBoxWARear = new System.Windows.Forms.ComboBox();
-            this.labelWARear = new System.Windows.Forms.Label();
-            this.labelWAFront = new System.Windows.Forms.Label();
-            this.comboBoxWAFront = new System.Windows.Forms.ComboBox();
             this.groupControlSuspension = new DevExpress.XtraEditors.GroupControl();
             this.simpleButtonPlotSuspension = new DevExpress.XtraEditors.SimpleButton();
-            this.groupControlVehicleCorners = new DevExpress.XtraEditors.GroupControl();
-            this.comboBoxSuspensionRR = new System.Windows.Forms.ComboBox();
-            this.comboBoxSuspensionFR = new System.Windows.Forms.ComboBox();
-            this.labelSuspensionRR = new System.Windows.Forms.Label();
-            this.labelSuspensionFL = new System.Windows.Forms.Label();
-            this.comboBoxSuspensionRL = new System.Windows.Forms.ComboBox();
-            this.comboBoxSuspensionFL = new System.Windows.Forms.ComboBox();
-            this.labelSuspensionRL = new System.Windows.Forms.Label();
-            this.labelSuspensionFR = new System.Windows.Forms.Label();
             this.comboBoxSuspension = new System.Windows.Forms.ComboBox();
             this.dockPanelRotateObject = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel2_Container = new DevExpress.XtraBars.Docking.ControlContainer();
-            this.rotateObject = new Coding_Attempt_with_GUI.XUC_RotateObject();
             this.dockPanelTranslateObject = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel3_Container = new DevExpress.XtraBars.Docking.ControlContainer();
-            this.translateObject = new Coding_Attempt_with_GUI.XUC_TranslateObject();
-            this.dockPanelMapSuspensionCoordinates = new DevExpress.XtraBars.Docking.DockPanel();
-            this.controlContainer4 = new DevExpress.XtraBars.Docking.ControlContainer();
-            this.xuC_CoordinateMap1 = new Coding_Attempt_with_GUI.XUC_CoordinateMap();
             this.dockPanelPreviewCAD = new DevExpress.XtraBars.Docking.DockPanel();
             this.controlContainer3 = new DevExpress.XtraBars.Docking.ControlContainer();
             this.controlContainer2 = new DevExpress.XtraBars.Docking.ControlContainer();
@@ -108,11 +88,16 @@
             this.tabbedView2 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
             this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager(this.components);
             this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
+            this.rotateObject = new Coding_Attempt_with_GUI.XUC_RotateObject();
+            this.translateObject = new Coding_Attempt_with_GUI.XUC_TranslateObject();
+            this.xuC_CoordinateMap2 = new Coding_Attempt_with_GUI.XUC_CoordinateMap();
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
             this.panelContainer1.SuspendLayout();
+            this.dockPanelMapSuspensionCoordinates.SuspendLayout();
+            this.controlContainer4.SuspendLayout();
             this.dockPanelImportSettings.SuspendLayout();
             this.dockPanel1_Container.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControlMap)).BeginInit();
@@ -125,20 +110,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.listBoxControlMappedParts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControlImportCAD)).BeginInit();
             this.groupControlImportCAD.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControlWA)).BeginInit();
-            this.groupControlWA.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControlVehicleEnds)).BeginInit();
-            this.groupControlVehicleEnds.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControlSuspension)).BeginInit();
             this.groupControlSuspension.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControlVehicleCorners)).BeginInit();
-            this.groupControlVehicleCorners.SuspendLayout();
             this.dockPanelRotateObject.SuspendLayout();
             this.dockPanel2_Container.SuspendLayout();
             this.dockPanelTranslateObject.SuspendLayout();
             this.dockPanel3_Container.SuspendLayout();
-            this.dockPanelMapSuspensionCoordinates.SuspendLayout();
-            this.controlContainer4.SuspendLayout();
             this.dockPanelPreviewCAD.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.document2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView2)).BeginInit();
@@ -319,7 +296,7 @@
             // 
             // panelContainer1
             // 
-            this.panelContainer1.ActiveChild = this.dockPanelImportSettings;
+            this.panelContainer1.ActiveChild = this.dockPanelMapSuspensionCoordinates;
             this.panelContainer1.Controls.Add(this.dockPanelImportSettings);
             this.panelContainer1.Controls.Add(this.dockPanelRotateObject);
             this.panelContainer1.Controls.Add(this.dockPanelTranslateObject);
@@ -333,6 +310,25 @@
             this.panelContainer1.Size = new System.Drawing.Size(289, 938);
             this.panelContainer1.Tabbed = true;
             this.panelContainer1.Text = "panelContainer1";
+            // 
+            // dockPanelMapSuspensionCoordinates
+            // 
+            this.dockPanelMapSuspensionCoordinates.Controls.Add(this.controlContainer4);
+            this.dockPanelMapSuspensionCoordinates.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
+            this.dockPanelMapSuspensionCoordinates.ID = new System.Guid("f1cc3d99-04d0-4f5b-a2a0-007ec3f89aca");
+            this.dockPanelMapSuspensionCoordinates.Location = new System.Drawing.Point(4, 23);
+            this.dockPanelMapSuspensionCoordinates.Name = "dockPanelMapSuspensionCoordinates";
+            this.dockPanelMapSuspensionCoordinates.OriginalSize = new System.Drawing.Size(282, 885);
+            this.dockPanelMapSuspensionCoordinates.Size = new System.Drawing.Size(280, 884);
+            this.dockPanelMapSuspensionCoordinates.Text = "Map Suspension Coordinates";
+            // 
+            // controlContainer4
+            // 
+            this.controlContainer4.Controls.Add(this.xuC_CoordinateMap2);
+            this.controlContainer4.Location = new System.Drawing.Point(0, 0);
+            this.controlContainer4.Name = "controlContainer4";
+            this.controlContainer4.Size = new System.Drawing.Size(280, 884);
+            this.controlContainer4.TabIndex = 0;
             // 
             // dockPanelImportSettings
             // 
@@ -350,7 +346,6 @@
             // 
             this.dockPanel1_Container.Controls.Add(this.groupControlMap);
             this.dockPanel1_Container.Controls.Add(this.groupControlImportCAD);
-            this.dockPanel1_Container.Controls.Add(this.groupControlWA);
             this.dockPanel1_Container.Controls.Add(this.groupControlSuspension);
             this.dockPanel1_Container.Location = new System.Drawing.Point(0, 0);
             this.dockPanel1_Container.Name = "dockPanel1_Container";
@@ -374,9 +369,9 @@
             this.groupControlMap.Controls.Add(this.label1);
             this.groupControlMap.Controls.Add(this.groupControlMappedItems);
             this.groupControlMap.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupControlMap.Location = new System.Drawing.Point(0, 300);
+            this.groupControlMap.Location = new System.Drawing.Point(0, 153);
             this.groupControlMap.Name = "groupControlMap";
-            this.groupControlMap.Size = new System.Drawing.Size(280, 584);
+            this.groupControlMap.Size = new System.Drawing.Size(280, 731);
             this.groupControlMap.TabIndex = 9;
             this.groupControlMap.Text = "Map Imported Files";
             // 
@@ -514,7 +509,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(6, 8);
+            this.label1.Location = new System.Drawing.Point(6, 23);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(76, 14);
             this.label1.TabIndex = 1;
@@ -547,7 +542,7 @@
             this.groupControlImportCAD.Controls.Add(this.comboBoxImportCAD);
             this.groupControlImportCAD.Controls.Add(this.labelImportCAD);
             this.groupControlImportCAD.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupControlImportCAD.Location = new System.Drawing.Point(0, 229);
+            this.groupControlImportCAD.Location = new System.Drawing.Point(0, 82);
             this.groupControlImportCAD.Name = "groupControlImportCAD";
             this.groupControlImportCAD.Size = new System.Drawing.Size(280, 71);
             this.groupControlImportCAD.TabIndex = 8;
@@ -587,106 +582,22 @@
             // 
             this.labelImportCAD.AutoSize = true;
             this.labelImportCAD.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelImportCAD.Location = new System.Drawing.Point(6, 7);
+            this.labelImportCAD.Location = new System.Drawing.Point(6, 22);
             this.labelImportCAD.Name = "labelImportCAD";
             this.labelImportCAD.Size = new System.Drawing.Size(67, 14);
             this.labelImportCAD.TabIndex = 1;
             this.labelImportCAD.Text = "ImportCAD";
-            // 
-            // groupControlWA
-            // 
-            this.groupControlWA.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.groupControlWA.Controls.Add(this.comboBoxWA);
-            this.groupControlWA.Controls.Add(this.labelWA);
-            this.groupControlWA.Controls.Add(this.groupControlVehicleEnds);
-            this.groupControlWA.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupControlWA.Location = new System.Drawing.Point(0, 209);
-            this.groupControlWA.Name = "groupControlWA";
-            this.groupControlWA.Size = new System.Drawing.Size(280, 20);
-            this.groupControlWA.TabIndex = 7;
-            this.groupControlWA.Text = "Wheel Alignment";
-            this.groupControlWA.Visible = false;
-            // 
-            // comboBoxWA
-            // 
-            this.comboBoxWA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxWA.FormattingEnabled = true;
-            this.comboBoxWA.Location = new System.Drawing.Point(133, 20);
-            this.comboBoxWA.Name = "comboBoxWA";
-            this.comboBoxWA.Size = new System.Drawing.Size(149, 21);
-            this.comboBoxWA.TabIndex = 0;
-            // 
-            // labelWA
-            // 
-            this.labelWA.AutoSize = true;
-            this.labelWA.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelWA.Location = new System.Drawing.Point(22, -3);
-            this.labelWA.Name = "labelWA";
-            this.labelWA.Size = new System.Drawing.Size(105, 14);
-            this.labelWA.TabIndex = 1;
-            this.labelWA.Text = "Wheel Alignment ";
-            // 
-            // groupControlVehicleEnds
-            // 
-            this.groupControlVehicleEnds.Controls.Add(this.comboBoxWARear);
-            this.groupControlVehicleEnds.Controls.Add(this.labelWARear);
-            this.groupControlVehicleEnds.Controls.Add(this.labelWAFront);
-            this.groupControlVehicleEnds.Controls.Add(this.comboBoxWAFront);
-            this.groupControlVehicleEnds.Location = new System.Drawing.Point(59, 45);
-            this.groupControlVehicleEnds.Name = "groupControlVehicleEnds";
-            this.groupControlVehicleEnds.Size = new System.Drawing.Size(223, 78);
-            this.groupControlVehicleEnds.TabIndex = 2;
-            this.groupControlVehicleEnds.Text = "Vehicle Ends";
-            // 
-            // comboBoxWARear
-            // 
-            this.comboBoxWARear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxWARear.FormattingEnabled = true;
-            this.comboBoxWARear.Location = new System.Drawing.Point(58, 46);
-            this.comboBoxWARear.Name = "comboBoxWARear";
-            this.comboBoxWARear.Size = new System.Drawing.Size(160, 21);
-            this.comboBoxWARear.TabIndex = 0;
-            // 
-            // labelWARear
-            // 
-            this.labelWARear.AutoSize = true;
-            this.labelWARear.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelWARear.Location = new System.Drawing.Point(17, 49);
-            this.labelWARear.Name = "labelWARear";
-            this.labelWARear.Size = new System.Drawing.Size(30, 13);
-            this.labelWARear.TabIndex = 1;
-            this.labelWARear.Text = "Rear";
-            // 
-            // labelWAFront
-            // 
-            this.labelWAFront.AutoSize = true;
-            this.labelWAFront.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelWAFront.Location = new System.Drawing.Point(17, 22);
-            this.labelWAFront.Name = "labelWAFront";
-            this.labelWAFront.Size = new System.Drawing.Size(36, 13);
-            this.labelWAFront.TabIndex = 1;
-            this.labelWAFront.Text = "Front ";
-            // 
-            // comboBoxWAFront
-            // 
-            this.comboBoxWAFront.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxWAFront.FormattingEnabled = true;
-            this.comboBoxWAFront.Location = new System.Drawing.Point(58, 19);
-            this.comboBoxWAFront.Name = "comboBoxWAFront";
-            this.comboBoxWAFront.Size = new System.Drawing.Size(160, 21);
-            this.comboBoxWAFront.TabIndex = 0;
             // 
             // groupControlSuspension
             // 
             this.groupControlSuspension.AutoSize = true;
             this.groupControlSuspension.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.groupControlSuspension.Controls.Add(this.simpleButtonPlotSuspension);
-            this.groupControlSuspension.Controls.Add(this.groupControlVehicleCorners);
             this.groupControlSuspension.Controls.Add(this.comboBoxSuspension);
             this.groupControlSuspension.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupControlSuspension.Location = new System.Drawing.Point(0, 0);
             this.groupControlSuspension.Name = "groupControlSuspension";
-            this.groupControlSuspension.Size = new System.Drawing.Size(280, 209);
+            this.groupControlSuspension.Size = new System.Drawing.Size(280, 82);
             this.groupControlSuspension.TabIndex = 8;
             this.groupControlSuspension.Text = "Suspension";
             // 
@@ -698,110 +609,12 @@
             this.simpleButtonPlotSuspension.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
             this.simpleButtonPlotSuspension.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
             this.simpleButtonPlotSuspension.Dock = System.Windows.Forms.DockStyle.Top;
-            this.simpleButtonPlotSuspension.Location = new System.Drawing.Point(2, 168);
+            this.simpleButtonPlotSuspension.Location = new System.Drawing.Point(2, 41);
             this.simpleButtonPlotSuspension.Name = "simpleButtonPlotSuspension";
             this.simpleButtonPlotSuspension.Size = new System.Drawing.Size(276, 39);
             this.simpleButtonPlotSuspension.TabIndex = 2;
             this.simpleButtonPlotSuspension.Text = "Plot Suspension";
             this.simpleButtonPlotSuspension.Click += new System.EventHandler(this.simpleButtonPlotSuspension_Click);
-            // 
-            // groupControlVehicleCorners
-            // 
-            this.groupControlVehicleCorners.Controls.Add(this.comboBoxSuspensionRR);
-            this.groupControlVehicleCorners.Controls.Add(this.comboBoxSuspensionFR);
-            this.groupControlVehicleCorners.Controls.Add(this.labelSuspensionRR);
-            this.groupControlVehicleCorners.Controls.Add(this.labelSuspensionFL);
-            this.groupControlVehicleCorners.Controls.Add(this.comboBoxSuspensionRL);
-            this.groupControlVehicleCorners.Controls.Add(this.comboBoxSuspensionFL);
-            this.groupControlVehicleCorners.Controls.Add(this.labelSuspensionRL);
-            this.groupControlVehicleCorners.Controls.Add(this.labelSuspensionFR);
-            this.groupControlVehicleCorners.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupControlVehicleCorners.Location = new System.Drawing.Point(2, 41);
-            this.groupControlVehicleCorners.Name = "groupControlVehicleCorners";
-            this.groupControlVehicleCorners.Size = new System.Drawing.Size(276, 127);
-            this.groupControlVehicleCorners.TabIndex = 2;
-            this.groupControlVehicleCorners.Text = "Vehicle Corners";
-            this.groupControlVehicleCorners.Visible = false;
-            // 
-            // comboBoxSuspensionRR
-            // 
-            this.comboBoxSuspensionRR.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxSuspensionRR.FormattingEnabled = true;
-            this.comboBoxSuspensionRR.Location = new System.Drawing.Point(69, 102);
-            this.comboBoxSuspensionRR.Name = "comboBoxSuspensionRR";
-            this.comboBoxSuspensionRR.Size = new System.Drawing.Size(149, 21);
-            this.comboBoxSuspensionRR.TabIndex = 0;
-            this.comboBoxSuspensionRR.SelectedIndexChanged += new System.EventHandler(this.VehicleCornerSuspension_Right_Changed);
-            // 
-            // comboBoxSuspensionFR
-            // 
-            this.comboBoxSuspensionFR.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxSuspensionFR.FormattingEnabled = true;
-            this.comboBoxSuspensionFR.Location = new System.Drawing.Point(69, 48);
-            this.comboBoxSuspensionFR.Name = "comboBoxSuspensionFR";
-            this.comboBoxSuspensionFR.Size = new System.Drawing.Size(149, 21);
-            this.comboBoxSuspensionFR.TabIndex = 0;
-            this.comboBoxSuspensionFR.SelectedIndexChanged += new System.EventHandler(this.VehicleCornerSuspension_Right_Changed);
-            // 
-            // labelSuspensionRR
-            // 
-            this.labelSuspensionRR.AutoSize = true;
-            this.labelSuspensionRR.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSuspensionRR.Location = new System.Drawing.Point(5, 80);
-            this.labelSuspensionRR.Name = "labelSuspensionRR";
-            this.labelSuspensionRR.Size = new System.Drawing.Size(58, 13);
-            this.labelSuspensionRR.TabIndex = 1;
-            this.labelSuspensionRR.Text = "Rear Right";
-            // 
-            // labelSuspensionFL
-            // 
-            this.labelSuspensionFL.AutoSize = true;
-            this.labelSuspensionFL.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSuspensionFL.Location = new System.Drawing.Point(5, -1);
-            this.labelSuspensionFL.Name = "labelSuspensionFL";
-            this.labelSuspensionFL.Size = new System.Drawing.Size(55, 13);
-            this.labelSuspensionFL.TabIndex = 1;
-            this.labelSuspensionFL.Text = "Front Left";
-            // 
-            // comboBoxSuspensionRL
-            // 
-            this.comboBoxSuspensionRL.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxSuspensionRL.FormattingEnabled = true;
-            this.comboBoxSuspensionRL.Location = new System.Drawing.Point(69, 75);
-            this.comboBoxSuspensionRL.Name = "comboBoxSuspensionRL";
-            this.comboBoxSuspensionRL.Size = new System.Drawing.Size(149, 21);
-            this.comboBoxSuspensionRL.TabIndex = 0;
-            this.comboBoxSuspensionRL.SelectedIndexChanged += new System.EventHandler(this.VehicleCornerSuspension_Left_Changed);
-            // 
-            // comboBoxSuspensionFL
-            // 
-            this.comboBoxSuspensionFL.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxSuspensionFL.FormattingEnabled = true;
-            this.comboBoxSuspensionFL.Location = new System.Drawing.Point(69, 21);
-            this.comboBoxSuspensionFL.Name = "comboBoxSuspensionFL";
-            this.comboBoxSuspensionFL.Size = new System.Drawing.Size(149, 21);
-            this.comboBoxSuspensionFL.TabIndex = 0;
-            this.comboBoxSuspensionFL.SelectedIndexChanged += new System.EventHandler(this.VehicleCornerSuspension_Left_Changed);
-            // 
-            // labelSuspensionRL
-            // 
-            this.labelSuspensionRL.AutoSize = true;
-            this.labelSuspensionRL.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSuspensionRL.Location = new System.Drawing.Point(5, 53);
-            this.labelSuspensionRL.Name = "labelSuspensionRL";
-            this.labelSuspensionRL.Size = new System.Drawing.Size(52, 13);
-            this.labelSuspensionRL.TabIndex = 1;
-            this.labelSuspensionRL.Text = "Rear Left";
-            // 
-            // labelSuspensionFR
-            // 
-            this.labelSuspensionFR.AutoSize = true;
-            this.labelSuspensionFR.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSuspensionFR.Location = new System.Drawing.Point(5, 26);
-            this.labelSuspensionFR.Name = "labelSuspensionFR";
-            this.labelSuspensionFR.Size = new System.Drawing.Size(61, 13);
-            this.labelSuspensionFR.TabIndex = 1;
-            this.labelSuspensionFR.Text = "Front Right";
             // 
             // comboBoxSuspension
             // 
@@ -834,15 +647,6 @@
             this.dockPanel2_Container.Size = new System.Drawing.Size(280, 884);
             this.dockPanel2_Container.TabIndex = 0;
             // 
-            // rotateObject
-            // 
-            this.rotateObject.AutoScroll = true;
-            this.rotateObject.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rotateObject.Location = new System.Drawing.Point(0, 0);
-            this.rotateObject.Name = "rotateObject";
-            this.rotateObject.Size = new System.Drawing.Size(280, 884);
-            this.rotateObject.TabIndex = 7;
-            // 
             // dockPanelTranslateObject
             // 
             this.dockPanelTranslateObject.Controls.Add(this.dockPanel3_Container);
@@ -862,44 +666,6 @@
             this.dockPanel3_Container.Name = "dockPanel3_Container";
             this.dockPanel3_Container.Size = new System.Drawing.Size(280, 884);
             this.dockPanel3_Container.TabIndex = 0;
-            // 
-            // translateObject
-            // 
-            this.translateObject.AutoScroll = true;
-            this.translateObject.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.translateObject.Location = new System.Drawing.Point(0, 0);
-            this.translateObject.Name = "translateObject";
-            this.translateObject.Size = new System.Drawing.Size(280, 884);
-            this.translateObject.TabIndex = 7;
-            // 
-            // dockPanelMapSuspensionCoordinates
-            // 
-            this.dockPanelMapSuspensionCoordinates.Controls.Add(this.controlContainer4);
-            this.dockPanelMapSuspensionCoordinates.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
-            this.dockPanelMapSuspensionCoordinates.ID = new System.Guid("f1cc3d99-04d0-4f5b-a2a0-007ec3f89aca");
-            this.dockPanelMapSuspensionCoordinates.Location = new System.Drawing.Point(4, 23);
-            this.dockPanelMapSuspensionCoordinates.Name = "dockPanelMapSuspensionCoordinates";
-            this.dockPanelMapSuspensionCoordinates.OriginalSize = new System.Drawing.Size(282, 885);
-            this.dockPanelMapSuspensionCoordinates.Size = new System.Drawing.Size(280, 884);
-            this.dockPanelMapSuspensionCoordinates.Text = "Map Suspension Coordinates";
-            // 
-            // controlContainer4
-            // 
-            this.controlContainer4.Controls.Add(this.xuC_CoordinateMap1);
-            this.controlContainer4.Location = new System.Drawing.Point(0, 0);
-            this.controlContainer4.Name = "controlContainer4";
-            this.controlContainer4.Size = new System.Drawing.Size(280, 884);
-            this.controlContainer4.TabIndex = 0;
-            // 
-            // xuC_CoordinateMap1
-            // 
-            this.xuC_CoordinateMap1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.xuC_CoordinateMap1.Location = new System.Drawing.Point(0, 0);
-            this.xuC_CoordinateMap1.LookAndFeel.SkinName = "VS2010";
-            this.xuC_CoordinateMap1.Name = "xuC_CoordinateMap1";
-            this.xuC_CoordinateMap1.Size = new System.Drawing.Size(280, 884);
-            this.xuC_CoordinateMap1.TabIndex = 0;
-            this.xuC_CoordinateMap1.Load += new System.EventHandler(this.xuC_CoordinateMap1_Load);
             // 
             // dockPanelPreviewCAD
             // 
@@ -960,11 +726,36 @@
             this.tabbedView1.Documents.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseDocument[] {
             this.document1});
             this.tabbedView1.RootContainer.Element = null;
-            dockingContainer1.Element = this.documentGroup1;
+            dockingContainer2.Element = this.documentGroup1;
             this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
-            dockingContainer1});
+            dockingContainer2});
             this.tabbedView1.Paint += new System.Windows.Forms.PaintEventHandler(this.tabbedView1_Paint);
             this.tabbedView1.DocumentActivated += new DevExpress.XtraBars.Docking2010.Views.DocumentEventHandler(this.tabbedView1_DocumentActivated);
+            // 
+            // rotateObject
+            // 
+            this.rotateObject.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rotateObject.Location = new System.Drawing.Point(0, 0);
+            this.rotateObject.Name = "rotateObject";
+            this.rotateObject.Size = new System.Drawing.Size(280, 884);
+            this.rotateObject.TabIndex = 0;
+            // 
+            // translateObject
+            // 
+            this.translateObject.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.translateObject.Location = new System.Drawing.Point(0, 0);
+            this.translateObject.Name = "translateObject";
+            this.translateObject.Size = new System.Drawing.Size(280, 884);
+            this.translateObject.TabIndex = 0;
+            // 
+            // xuC_CoordinateMap2
+            // 
+            this.xuC_CoordinateMap2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.xuC_CoordinateMap2.Location = new System.Drawing.Point(0, 0);
+            this.xuC_CoordinateMap2.LookAndFeel.SkinName = "VS2010";
+            this.xuC_CoordinateMap2.Name = "xuC_CoordinateMap2";
+            this.xuC_CoordinateMap2.Size = new System.Drawing.Size(280, 884);
+            this.xuC_CoordinateMap2.TabIndex = 0;
             // 
             // XUC_ImportCAD
             // 
@@ -983,6 +774,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
             this.panelContainer1.ResumeLayout(false);
+            this.dockPanelMapSuspensionCoordinates.ResumeLayout(false);
+            this.controlContainer4.ResumeLayout(false);
             this.dockPanelImportSettings.ResumeLayout(false);
             this.dockPanel1_Container.ResumeLayout(false);
             this.dockPanel1_Container.PerformLayout();
@@ -998,23 +791,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControlImportCAD)).EndInit();
             this.groupControlImportCAD.ResumeLayout(false);
             this.groupControlImportCAD.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControlWA)).EndInit();
-            this.groupControlWA.ResumeLayout(false);
-            this.groupControlWA.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControlVehicleEnds)).EndInit();
-            this.groupControlVehicleEnds.ResumeLayout(false);
-            this.groupControlVehicleEnds.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControlSuspension)).EndInit();
             this.groupControlSuspension.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.groupControlVehicleCorners)).EndInit();
-            this.groupControlVehicleCorners.ResumeLayout(false);
-            this.groupControlVehicleCorners.PerformLayout();
             this.dockPanelRotateObject.ResumeLayout(false);
             this.dockPanel2_Container.ResumeLayout(false);
             this.dockPanelTranslateObject.ResumeLayout(false);
             this.dockPanel3_Container.ResumeLayout(false);
-            this.dockPanelMapSuspensionCoordinates.ResumeLayout(false);
-            this.controlContainer4.ResumeLayout(false);
             this.dockPanelPreviewCAD.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.document2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView2)).EndInit();
@@ -1047,23 +829,6 @@
         private DevExpress.XtraEditors.GroupControl groupControlSuspension;
         private System.Windows.Forms.ComboBox comboBoxSuspension;
         private DevExpress.XtraEditors.SimpleButton simpleButtonPlotSuspension;
-        private DevExpress.XtraEditors.GroupControl groupControlVehicleCorners;
-        public System.Windows.Forms.ComboBox comboBoxSuspensionRR;
-        public System.Windows.Forms.ComboBox comboBoxSuspensionFR;
-        private System.Windows.Forms.Label labelSuspensionRR;
-        private System.Windows.Forms.Label labelSuspensionFL;
-        public System.Windows.Forms.ComboBox comboBoxSuspensionRL;
-        public System.Windows.Forms.ComboBox comboBoxSuspensionFL;
-        private System.Windows.Forms.Label labelSuspensionRL;
-        private System.Windows.Forms.Label labelSuspensionFR;
-        private DevExpress.XtraEditors.GroupControl groupControlWA;
-        public System.Windows.Forms.ComboBox comboBoxWA;
-        private System.Windows.Forms.Label labelWA;
-        private DevExpress.XtraEditors.GroupControl groupControlVehicleEnds;
-        public System.Windows.Forms.ComboBox comboBoxWARear;
-        private System.Windows.Forms.Label labelWARear;
-        private System.Windows.Forms.Label labelWAFront;
-        public System.Windows.Forms.ComboBox comboBoxWAFront;
         private DevExpress.XtraEditors.GroupControl groupControlImportCAD;
         private DevExpress.XtraEditors.SimpleButton simpleButtonExportToVehicle;
         private DevExpress.XtraEditors.SimpleButton simpleButtonUndoImport;
@@ -1083,8 +848,8 @@
         private System.Windows.Forms.Label label1;
         private DevExpress.XtraEditors.GroupControl groupControlMappedItems;
         public DevExpress.XtraEditors.ListBoxControl listBoxControlMappedParts;
-        public XUC_RotateObject rotateObject;
-        public XUC_TranslateObject translateObject;
+        //public XUC_RotateObject rotateObject;
+        //public XUC_TranslateObject translateObject;
         public DevExpress.XtraBars.Docking.DockPanel panelContainer1;
         public DevExpress.XtraBars.Docking.DockPanel dockPanelRotateObject;
         public DevExpress.XtraBars.Docking.DockPanel dockPanelTranslateObject;
@@ -1101,11 +866,14 @@
         private DevExpress.XtraBars.Docking2010.Views.Tabbed.Document document1;
         private DevExpress.XtraBars.Docking.DockPanel dockPanelMapSuspensionCoordinates;
         private DevExpress.XtraBars.Docking.ControlContainer controlContainer4;
-        public XUC_CoordinateMap xuC_CoordinateMap1;
+        //public XUC_CoordinateMap xuC_CoordinateMap1;
         private DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup documentGroup1;
         private DevExpress.XtraEditors.SimpleButton simpleButtonSetCurrent;
         private DevExpress.XtraEditors.SimpleButton simpleButtonClearCurrent;
         public DevExpress.XtraBars.BarStaticItem barStaticItemMapInfo;
+        public XUC_RotateObject rotateObject;
+        public XUC_TranslateObject translateObject;
+        public XUC_CoordinateMap xuC_CoordinateMap2;
         //private XUC_CoordinateMap xuC_CoordinateMap1;
     }
 }

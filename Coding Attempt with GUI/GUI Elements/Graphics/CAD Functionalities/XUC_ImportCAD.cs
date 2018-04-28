@@ -24,16 +24,9 @@ namespace Coding_Attempt_with_GUI
             ///<remarks>Viewport Control initalized here in this way so that the viewport User control has an instance of this form. The instance of this form is needed to pass information of items which are selected in the viewport</remarks>
             importCADViewport = new CAD(this);
             importCADViewport.viewportLayout1.WorkCompleted += ViewportLayout1_WorkCompleted;
-            xuC_CoordinateMap1.GetParentObject(this);
-            /////<summary>
-            /////Plotting the Vehicle's Suspension. This will be the first thing to happen 
-            /////This will happen ONLY if a Suspension is created
-            /////</summary>
-            //PlotPreviewCAD();
+            xuC_CoordinateMap2.GetParentObject(this);
+            ///<summary>Adding this statement below ONLY to solve an issue which occues with Eyeshot Control when it is placed inside a Dockable Document and then docked</summary>
             dockPanelPreviewCAD.ActiveChildChanged += DockPanelPreviewCAD_ActiveChildChanged;
-            ///<summary>Don't need this now because if the user wants a different choice of Suspension then he will do it from the Vehicle Comboboxes</summary>
-            groupControlVehicleCorners.Hide();
-            //simpleButtonPlotSuspension.Hide();
         }
 
 
@@ -239,20 +232,11 @@ namespace Coding_Attempt_with_GUI
             if ((string)comboBoxSuspension.SelectedItem == "Suspension not created" || (string)comboBoxSuspension.SelectedItem == "Create New Suspension Using Mapping")
             {
                 UseCreatedSuspnsion_Form = false;
-                groupControlVehicleCorners.Hide();
             }
             else if ((string)comboBoxSuspension.SelectedItem == "Use Created Suspension")
             {
                 UseCreatedSuspnsion_Form = true;
-                ///<summary>Don't need this now because if the user wants a different choice of Suspension then he will do it from the Vehicle Comboboxes</summary>
-                //groupControlVehicleCorners.Show();
                 simpleButtonPlotSuspension.Show();
-
-                SuspensionComboboxOperations_Children_Helper(ref comboBoxSuspensionFL, 1);
-                SuspensionComboboxOperations_Children_Helper(ref comboBoxSuspensionFR, 2);
-                SuspensionComboboxOperations_Children_Helper(ref comboBoxSuspensionRL, 3);
-                SuspensionComboboxOperations_Children_Helper(ref comboBoxSuspensionRR, 4);
-
             }
         }
 
@@ -344,7 +328,6 @@ namespace Coding_Attempt_with_GUI
             if ((string)comboBoxSuspension.SelectedItem == "Create New Suspension Using Mapping")
             {
                 UseCreatedSuspnsion_Form = false;
-                groupControlVehicleCorners.Hide();
                 simpleButtonPlotSuspension.Hide();
                 dockPanelMapSuspensionCoordinates.Visibility = DevExpress.XtraBars.Docking.DockVisibility.Visible;
                 DialogResult dialogResult =  MessageBox.Show("Clear Viewport?", "Clear Viewpot Command", MessageBoxButtons.YesNo);
@@ -359,162 +342,12 @@ namespace Coding_Attempt_with_GUI
             else if ((string)comboBoxSuspension.SelectedItem == "Use Created Suspension")
             {
                 UseCreatedSuspnsion_Form = true;
-                ///<summary>Don't need this now because if the user wants a different choice of Suspension then he will do it from the Vehicle Comboboxes</summary>
-                //groupControlVehicleCorners.Show();
                 simpleButtonPlotSuspension.Show();
                 //dockPanelMapSuspensionCoordinates.Visibility = DevExpress.XtraBars.Docking.DockVisibility.Hidden;
             }
         }
 
         bool FLIsChanged = false, FRIsChanged = false, RLIsChanged = false, RRIsChanged = false;
-        /// <summary>
-        /// Fired when the index any of the 4 comboBoxes of the Suspension Corners is changed
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void VehicleCornerSuspension_Left_Changed(object sender, EventArgs e)
-        {
-
-            if (!IsInitializing)
-            {
-
-                ComboBox temp_CB = (ComboBox)sender;
-                int index = temp_CB.SelectedIndex;
-
-                if (temp_CB.SelectedItem as SuspensionCoordinatesFront != null)
-                {
-                    indexSusFL_Form = temp_CB.SelectedIndex;
-                    comboBoxSuspensionFR.SelectedIndex = indexSusFL_Form;
-                    comboBoxSuspensionFR.Refresh();
-                    indexSusFR_Form = indexSusFL_Form;
-                    FLIsChanged = true;
-                    FRIsChanged = false;
-
-                }
-
-                if (temp_CB.SelectedItem as SuspensionCoordinatesRear != null)
-                {
-                    indexSusRL_Form = temp_CB.SelectedIndex;
-                }
-                PlotPreviewCAD();
-            }
-
-        }
-
-        private void VehicleCornerSuspension_Right_Changed(object sender, EventArgs e)
-        {
-
-            if (!IsInitializing)
-            {
-                ComboBox temp_CB = (ComboBox)sender;
-                int index = temp_CB.SelectedIndex;
-
-                if ((temp_CB.SelectedItem as SuspensionCoordinatesFrontRight != null /*&& !FLIsChanged*/))
-                {
-                    indexSusFR_Form = temp_CB.SelectedIndex;
-                    comboBoxSuspensionFL.SelectedIndex = indexSusFR_Form;
-                    comboBoxSuspensionFL.Refresh();
-                    indexSusFL_Form = indexSusFR_Form;
-                    FRIsChanged = true;
-                    FLIsChanged = false;
-                }
-
-                if (temp_CB.SelectedItem as SuspensionCoordinatesRearRight != null)
-                {
-                    indexSusRR_Form = temp_CB.SelectedIndex;
-                }
-            }
-        }
-        #endregion
-
-        #region Wheel Alignment Combobox Operations
-        /// <summary>
-        /// Based on whether Wheel Alignment Objects are created, this method adds strings to the comboBoxWA
-        /// </summary>
-        private void WAComboboxOperations_Parent()
-        {
-            if (WAIsCreated_Form)
-            {
-                UseCreatedWA_Form = true;
-                comboBoxWA.Items.AddRange(new string[] { "Use Created Alignment", "Do Not use created Alignment" });
-                comboBoxWA.SelectedIndex = 0;
-            }
-            else
-            {
-                UseCreatedWA_Form = false;
-                comboBoxWA.Items.Add("Alignment not created");
-                comboBoxWA.SelectedIndex = 0;
-            }
-
-        }
-
-
-
-        /// <summary>
-        /// Adds the Wheel Alignment items to the corresponding Comboboxes of the ImportCAD Form
-        /// </summary>
-        private void WAComboboxOperations_Children()
-        {
-            if ((string)comboBoxWA.SelectedItem == "Alignment not created" || (string)comboBoxWA.SelectedItem == "Do Not use created Alignment")
-            {
-                UseCreatedWA_Form = false;
-                groupControlVehicleEnds.Hide();
-            }
-            else if ((string)comboBoxWA.SelectedItem == "Use Created Alignment")
-            {
-                UseCreatedWA_Form = false;
-                groupControlVehicleEnds.Show();
-                for (int i = 0; i < WheelAlignment.Assy_List_WA.Count; i++)
-                {
-                    WAComboboxOperations_Children_Helper(ref comboBoxWAFront, WheelAlignment.Assy_List_WA[i]);
-                    WAComboboxOperations_Children_Helper(ref comboBoxWARear, WheelAlignment.Assy_List_WA[i]);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Helper Class to initialize the Wheel Alignment Comboboxes
-        /// </summary>
-        /// <param name="temp_Combobox">Combobox Object passed by reference</param>
-        /// <param name="_waCB">Object of the Wheel Alignment Class</param>
-        private void WAComboboxOperations_Children_Helper(ref ComboBox temp_Combobox, WheelAlignment _waCB)
-        {
-            temp_Combobox.Items.Add(_waCB);
-            temp_Combobox.DisplayMember = "_WAName";
-
-            temp_Combobox.SelectedIndex = 0;
-        }
-        #endregion
-
-        #region Wheel Alignment Combobox Events
-        /// <summary>
-        /// Fired when the index of any of the 2 comboboxes of the Wheel Alignment Ends is changed
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void comboBoxWA_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ComboBox temp_CB = (ComboBox)sender;
-            int index = temp_CB.SelectedIndex;
-
-            if ((string)temp_CB.SelectedItem == "Do Not use created Alignment")
-            {
-                UseCreatedWA_Form = false;
-                groupControlVehicleEnds.Hide();
-            }
-            else if ((string)temp_CB.SelectedItem == "Use Created Alignment")
-            {
-                UseCreatedWA_Form = true;
-                groupControlVehicleEnds.Show();
-            }
-        }
-
-        private void VehicleEndWA_Changed(object sender, EventArgs e)
-        {
-            ComboBox temp_CB = (ComboBox)sender;
-            int index = temp_CB.SelectedIndex;
-        }
-
         #endregion
 
         #region ImportCAD Combobox Operations
@@ -610,8 +443,6 @@ namespace Coding_Attempt_with_GUI
         {
             SuspensionComboboxOperations_Parent();
             SuspensionComboboxOperations_Children();
-            WAComboboxOperations_Parent();
-            WAComboboxOperations_Children();
             ImportCADComboboxOperations();
             MapComboboxOperations();
             IsInitializing = false;
@@ -1266,9 +1097,9 @@ namespace Coding_Attempt_with_GUI
             ///Shifting this to the Constructor of the CoordinatesMap UserControl because it doesn't make much sense to put this here. The user will be able to create the Suspension Points regardless of whether the Parts are mapped or not
             ///The only thing is that, if the parts are not mapped, the Software will not show the coordinates in the textboxes.
             /// </remarks>
-            //xuC_CoordinateMap1.VehicleCornerComboboxes_Parent();
+            //xuC_CoordinateMap2.VehicleCornerComboboxes_Parent();
 
-            //xuC_CoordinateMap1.SuspensionCoordinatesCombobox_Parent();
+            //xuC_CoordinateMap2.SuspensionCoordinatesCombobox_Parent();
 
         }
         #endregion
