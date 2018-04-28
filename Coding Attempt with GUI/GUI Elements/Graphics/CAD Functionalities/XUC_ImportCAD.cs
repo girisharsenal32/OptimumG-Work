@@ -1309,6 +1309,8 @@ namespace Coding_Attempt_with_GUI
 
         }
 
+
+
         #region Method to De-select all the Suspension Entiies so mapping is easier
         /// <summary>
         /// Fires when teh Deselect Suspension Button is clicked
@@ -1384,9 +1386,63 @@ namespace Coding_Attempt_with_GUI
         }
 
 
+        private void listBoxControlMappedParts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ///<summary>
+            /// Need to invest some time in this
+            /// </summary>
+
+
+            //string _blockName = listBoxControlMappedParts.SelectedItem as string;
+            
+            //importCADViewport.ClearSelection();
+            //importCADViewport.viewportLayout1.Entities.SetCurrent(null);
+            //importCADViewport.viewportLayout1.Entities.SetParentAsCurrent(false);
+
+            //if (importCADViewport.viewportLayout1.Blocks.Contains(_blockName))
+            //{
+
+            //    for (int i = 0; i < importCADViewport.viewportLayout1.Entities.Count; i++)
+            //    {
+            //        if (importCADViewport.viewportLayout1.Entities[i] is BlockReference)
+            //        {
+            //            BlockReference blockRefToBeSelected = importCADViewport.viewportLayout1.Entities[i] as BlockReference;
+            //            if (blockRefToBeSelected.BlockName == _blockName)
+            //            {
+            //                blockRefToBeSelected.Selected = true;
+            //            }
+            //        }
+            //    }
+
+
+            //    //for (int i = 0; i < importCADViewport.viewportLayout1.Blocks[_blockName].Entities.Count; i++)
+            //    //{
+            //    //    importCADViewport.viewportLayout1.Blocks[_blockName].Entities[i].SetSelection(true,importCADViewport.viewportLayout1.Entities.Parents);
+            //    //}
+            //    importCADViewport.viewportLayout1.Update();
+            //    importCADViewport.viewportLayout1.Refresh();
+
+            //}
+        }
+
+        private void listBoxSelectedParts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ///<summary>
+            /// Need to invest some time in this
+            /// </summary>
 
 
 
+            //string enitytName = listBoxSelectedParts.SelectedItem as string;
+
+            //for (int i = 0; i < importCADViewport.viewportLayout1.Entities.Count; i++)
+            //{
+            //    if (importCADViewport.viewportLayout1.Entities[i].ToString() == enitytName)
+            //    {
+            //        importCADViewport.viewportLayout1.Entities[i].Selected = true;
+            //    }
+            //}
+        }
 
 
 

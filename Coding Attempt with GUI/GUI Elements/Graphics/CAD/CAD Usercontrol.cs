@@ -291,7 +291,12 @@ namespace Coding_Attempt_with_GUI
 
                     for (int i = 0; i < SelectedEntityList.Count; i++)
                     {
-                        importCADForm.listBoxSelectedParts.Items.Add(SelectedEntityList[i]);
+                        Entity tempEntity = (Entity)SelectedEntityList[i].Item;
+                        ///<summary>Safety to prevent repetitions</summary>
+                        if (!importCADForm.listBoxSelectedParts.Items.Contains(SelectedEntityList[i].Item.ToString()))
+                        {
+                            importCADForm.listBoxSelectedParts.Items.Add(SelectedEntityList[i].Item.ToString()); 
+                        }
                     }
 
                 }
@@ -303,14 +308,23 @@ namespace Coding_Attempt_with_GUI
                     if (SelectedEntityList.Count == 0)
                     {
                         SelectedEntityList.Add(_addedItems[0]);
-                        importCADForm.listBoxSelectedParts.Items.Add(_addedItems[0]);
+                        ///<summary>Safety to prevent repetitions</summary>
+                        if (!importCADForm.listBoxSelectedParts.Items.Contains(_addedItems[0].Item.ToString()))
+                        {
+                            importCADForm.listBoxSelectedParts.Items.Add(_addedItems[0].Item.ToString());
+
+                        }
                     }
                     else
                     {
                         if (!SelectedEntityList.Contains(_addedItems[0]))
                         {
                             SelectedEntityList.Add(_addedItems[0]);
-                            importCADForm.listBoxSelectedParts.Items.Add(_addedItems[0]);
+                            ///<summary>Safety to prevent repetitions</summary>
+                            if (!importCADForm.listBoxSelectedParts.Items.Contains(_addedItems[0].Item.ToString()))
+                            {
+                                importCADForm.listBoxSelectedParts.Items.Add(_addedItems[0].Item.ToString());
+                            }
                         }
 
                     }
@@ -325,14 +339,37 @@ namespace Coding_Attempt_with_GUI
         {
             if (_removedItems.Count != 0)
             {
-                if (viewportLayout1.ActionMode != actionType.SelectVisibleByBox)
+                if (viewportLayout1.ActionMode != actionType.SelectVisibleByBox && viewportLayout1.ActionMode != actionType.SelectByBox)
                 {
                     if (SelectedEntityList.Count != 0)
                     {
                         if (SelectedEntityList.Contains(_removedItems[0]))
                         {
                             SelectedEntityList.Remove(_removedItems[0]);
-                            importCADForm.listBoxSelectedParts.Items.Remove(_removedItems[0]);
+                            ///<summary>Safety to prevent deleting something which doesn't exist</summary>
+                            if (importCADForm.listBoxSelectedParts.Items.Contains(_removedItems[0].Item.ToString()))
+                            {
+                                importCADForm.listBoxSelectedParts.Items.Remove(_removedItems[0].Item.ToString());
+
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < _removedItems.Count; i++)
+                    {
+                        if (SelectedEntityList.Count != 0)
+                        {
+                            if (SelectedEntityList.Contains(_removedItems[i]))
+                            {
+                                SelectedEntityList.Remove(_removedItems[i]);
+                                ///<summary>Safety to prevent deleting something which doesn't exist</summary>
+                                if (importCADForm.listBoxSelectedParts.Items.Contains(_removedItems[i].Item.ToString()))
+                                {
+                                    importCADForm.listBoxSelectedParts.Items.Remove(_removedItems[i].Item.ToString()); 
+                                }
+                            }
                         }
                     }
                 }

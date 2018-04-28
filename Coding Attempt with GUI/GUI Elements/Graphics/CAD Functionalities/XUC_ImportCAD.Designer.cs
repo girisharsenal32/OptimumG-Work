@@ -48,9 +48,6 @@
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
             this.panelContainer1 = new DevExpress.XtraBars.Docking.DockPanel();
-            this.dockPanelMapSuspensionCoordinates = new DevExpress.XtraBars.Docking.DockPanel();
-            this.controlContainer4 = new DevExpress.XtraBars.Docking.ControlContainer();
-            this.xuC_CoordinateMap2 = new Coding_Attempt_with_GUI.XUC_CoordinateMap();
             this.dockPanelImportSettings = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel1_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.groupControlMap = new DevExpress.XtraEditors.GroupControl();
@@ -83,6 +80,9 @@
             this.dockPanelTranslateObject = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel3_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.translateObject = new Coding_Attempt_with_GUI.XUC_TranslateObject();
+            this.dockPanelMapSuspensionCoordinates = new DevExpress.XtraBars.Docking.DockPanel();
+            this.controlContainer4 = new DevExpress.XtraBars.Docking.ControlContainer();
+            this.xuC_CoordinateMap2 = new Coding_Attempt_with_GUI.XUC_CoordinateMap();
             this.dockPanelPreviewCAD = new DevExpress.XtraBars.Docking.DockPanel();
             this.controlContainer3 = new DevExpress.XtraBars.Docking.ControlContainer();
             this.controlContainer2 = new DevExpress.XtraBars.Docking.ControlContainer();
@@ -96,8 +96,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
             this.panelContainer1.SuspendLayout();
-            this.dockPanelMapSuspensionCoordinates.SuspendLayout();
-            this.controlContainer4.SuspendLayout();
             this.dockPanelImportSettings.SuspendLayout();
             this.dockPanel1_Container.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControlMap)).BeginInit();
@@ -116,6 +114,8 @@
             this.dockPanel2_Container.SuspendLayout();
             this.dockPanelTranslateObject.SuspendLayout();
             this.dockPanel3_Container.SuspendLayout();
+            this.dockPanelMapSuspensionCoordinates.SuspendLayout();
+            this.controlContainer4.SuspendLayout();
             this.dockPanelPreviewCAD.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.document2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView2)).BeginInit();
@@ -311,34 +311,6 @@
             this.panelContainer1.Tabbed = true;
             this.panelContainer1.Text = "panelContainer1";
             // 
-            // dockPanelMapSuspensionCoordinates
-            // 
-            this.dockPanelMapSuspensionCoordinates.Controls.Add(this.controlContainer4);
-            this.dockPanelMapSuspensionCoordinates.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
-            this.dockPanelMapSuspensionCoordinates.ID = new System.Guid("f1cc3d99-04d0-4f5b-a2a0-007ec3f89aca");
-            this.dockPanelMapSuspensionCoordinates.Location = new System.Drawing.Point(4, 23);
-            this.dockPanelMapSuspensionCoordinates.Name = "dockPanelMapSuspensionCoordinates";
-            this.dockPanelMapSuspensionCoordinates.OriginalSize = new System.Drawing.Size(282, 885);
-            this.dockPanelMapSuspensionCoordinates.Size = new System.Drawing.Size(280, 884);
-            this.dockPanelMapSuspensionCoordinates.Text = "Map Suspension Coordinates";
-            // 
-            // controlContainer4
-            // 
-            this.controlContainer4.Controls.Add(this.xuC_CoordinateMap2);
-            this.controlContainer4.Location = new System.Drawing.Point(0, 0);
-            this.controlContainer4.Name = "controlContainer4";
-            this.controlContainer4.Size = new System.Drawing.Size(280, 884);
-            this.controlContainer4.TabIndex = 0;
-            // 
-            // xuC_CoordinateMap2
-            // 
-            this.xuC_CoordinateMap2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.xuC_CoordinateMap2.Location = new System.Drawing.Point(0, 0);
-            this.xuC_CoordinateMap2.LookAndFeel.SkinName = "VS2010";
-            this.xuC_CoordinateMap2.Name = "xuC_CoordinateMap2";
-            this.xuC_CoordinateMap2.Size = new System.Drawing.Size(280, 884);
-            this.xuC_CoordinateMap2.TabIndex = 0;
-            // 
             // dockPanelImportSettings
             // 
             this.dockPanelImportSettings.Controls.Add(this.dockPanel1_Container);
@@ -440,6 +412,7 @@
             this.listBoxSelectedParts.Name = "listBoxSelectedParts";
             this.listBoxSelectedParts.Size = new System.Drawing.Size(185, 282);
             this.listBoxSelectedParts.TabIndex = 0;
+            this.listBoxSelectedParts.SelectedIndexChanged += new System.EventHandler(this.listBoxSelectedParts_SelectedIndexChanged);
             // 
             // simpleButtonDeselectSuspension
             // 
@@ -542,6 +515,7 @@
             this.listBoxControlMappedParts.Name = "listBoxControlMappedParts";
             this.listBoxControlMappedParts.Size = new System.Drawing.Size(183, 119);
             this.listBoxControlMappedParts.TabIndex = 10;
+            this.listBoxControlMappedParts.SelectedIndexChanged += new System.EventHandler(this.listBoxControlMappedParts_SelectedIndexChanged);
             // 
             // groupControlImportCAD
             // 
@@ -692,6 +666,34 @@
             this.translateObject.Size = new System.Drawing.Size(280, 884);
             this.translateObject.TabIndex = 0;
             // 
+            // dockPanelMapSuspensionCoordinates
+            // 
+            this.dockPanelMapSuspensionCoordinates.Controls.Add(this.controlContainer4);
+            this.dockPanelMapSuspensionCoordinates.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
+            this.dockPanelMapSuspensionCoordinates.ID = new System.Guid("f1cc3d99-04d0-4f5b-a2a0-007ec3f89aca");
+            this.dockPanelMapSuspensionCoordinates.Location = new System.Drawing.Point(4, 23);
+            this.dockPanelMapSuspensionCoordinates.Name = "dockPanelMapSuspensionCoordinates";
+            this.dockPanelMapSuspensionCoordinates.OriginalSize = new System.Drawing.Size(282, 885);
+            this.dockPanelMapSuspensionCoordinates.Size = new System.Drawing.Size(280, 884);
+            this.dockPanelMapSuspensionCoordinates.Text = "Map Suspension Coordinates";
+            // 
+            // controlContainer4
+            // 
+            this.controlContainer4.Controls.Add(this.xuC_CoordinateMap2);
+            this.controlContainer4.Location = new System.Drawing.Point(0, 0);
+            this.controlContainer4.Name = "controlContainer4";
+            this.controlContainer4.Size = new System.Drawing.Size(280, 884);
+            this.controlContainer4.TabIndex = 0;
+            // 
+            // xuC_CoordinateMap2
+            // 
+            this.xuC_CoordinateMap2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.xuC_CoordinateMap2.Location = new System.Drawing.Point(0, 0);
+            this.xuC_CoordinateMap2.LookAndFeel.SkinName = "VS2010";
+            this.xuC_CoordinateMap2.Name = "xuC_CoordinateMap2";
+            this.xuC_CoordinateMap2.Size = new System.Drawing.Size(280, 884);
+            this.xuC_CoordinateMap2.TabIndex = 0;
+            // 
             // dockPanelPreviewCAD
             // 
             this.dockPanelPreviewCAD.Controls.Add(this.controlContainer3);
@@ -774,8 +776,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
             this.panelContainer1.ResumeLayout(false);
-            this.dockPanelMapSuspensionCoordinates.ResumeLayout(false);
-            this.controlContainer4.ResumeLayout(false);
             this.dockPanelImportSettings.ResumeLayout(false);
             this.dockPanel1_Container.ResumeLayout(false);
             this.dockPanel1_Container.PerformLayout();
@@ -797,6 +797,8 @@
             this.dockPanel2_Container.ResumeLayout(false);
             this.dockPanelTranslateObject.ResumeLayout(false);
             this.dockPanel3_Container.ResumeLayout(false);
+            this.dockPanelMapSuspensionCoordinates.ResumeLayout(false);
+            this.controlContainer4.ResumeLayout(false);
             this.dockPanelPreviewCAD.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.document2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView2)).EndInit();
