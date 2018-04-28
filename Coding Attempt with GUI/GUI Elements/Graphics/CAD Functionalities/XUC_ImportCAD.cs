@@ -995,6 +995,7 @@ namespace Coding_Attempt_with_GUI
                 ///<summary>Viewport Operations</summary>
                 ///<remarks>Below line of REGEN not neeeded for Version 11.0.577 of Eyeshot according to descirption given for the Methodd</remarks>
                 importCADViewport.viewportLayout1.Invalidate();
+                importCADViewport.ClearSelection();
                 importCADViewport.viewportLayout1.Update();
                 importCADViewport.viewportLayout1.Refresh();
                 importCADViewport.viewportLayout1.ActionMode = actionType.None;
