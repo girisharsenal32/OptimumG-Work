@@ -261,7 +261,7 @@ namespace Coding_Attempt_with_GUI
             InitializeLegendDataTable();
         }
         #endregion
-        
+
         #region Usercontrol Load Event
 
         private void CAD_Load(object sender, EventArgs e)
@@ -295,7 +295,7 @@ namespace Coding_Attempt_with_GUI
                         ///<summary>Safety to prevent repetitions</summary>
                         if (!importCADForm.listBoxSelectedParts.Items.Contains(SelectedEntityList[i].Item.ToString()))
                         {
-                            importCADForm.listBoxSelectedParts.Items.Add(SelectedEntityList[i].Item.ToString()); 
+                            importCADForm.listBoxSelectedParts.Items.Add(SelectedEntityList[i].Item.ToString());
                         }
                     }
 
@@ -367,7 +367,7 @@ namespace Coding_Attempt_with_GUI
                                 ///<summary>Safety to prevent deleting something which doesn't exist</summary>
                                 if (importCADForm.listBoxSelectedParts.Items.Contains(_removedItems[i].Item.ToString()))
                                 {
-                                    importCADForm.listBoxSelectedParts.Items.Remove(_removedItems[i].Item.ToString()); 
+                                    importCADForm.listBoxSelectedParts.Items.Remove(_removedItems[i].Item.ToString());
                                 }
                             }
                         }
@@ -810,7 +810,7 @@ namespace Coding_Attempt_with_GUI
             {
                 _outputViewPort.Blocks.Add((Block)_inputViewport.Blocks[i].Clone());
             }
-            
+
             for (int i = 0; i < _inputViewport.Entities.Count; i++)
             {
                 if (_inputViewport.Entities[i] is BlockReference)
@@ -942,7 +942,7 @@ namespace Coding_Attempt_with_GUI
 
             PlotArrows(VChassis.NonSuspendedMassRRCoGx, VChassis.NonSuspendedMassRRCoGy, VChassis.NonSuspendedMassRRCoGz, LC.NSM_RR_Ax * VChassis.NonSuspendedMassRR, LC.NSM_RR_Ay * VChassis.NonSuspendedMassRR, LC.NSM_RR_Az * VChassis.NonSuspendedMassRR, false, "Non-Suspended Mass Forces");
             InputForcePassed = false;
-        } 
+        }
         #endregion
 
         #region Arrow Plotter to represent Forces
@@ -1111,7 +1111,7 @@ namespace Coding_Attempt_with_GUI
                 ///<summary>Setting the <see cref="Entity.EntityData"/> using the <see cref="CustomData"/> <see cref="class"/></summary>
                 arrowX.EntityData = new CustomData("arrowX", _forceX, _categoryName, Color.DarkMagenta, arrowStart, directionX, Math.Abs(_forceX + 0.01), cylinderRadius, coneLength, coneRadius);
                 viewportLayout1.Entities.Add(arrowX, "Joints", Color.DarkMagenta);
-                
+
 
             }
 
@@ -1122,7 +1122,7 @@ namespace Coding_Attempt_with_GUI
                 ///<summary>Setting the <see cref="Entity.EntityData"/> using the <see cref="CustomData"/> <see cref="class"/></summary>
                 arrowY.EntityData = new CustomData("arrowY", _forceY, _categoryName, Color.DarkMagenta, arrowStart, directionY, Math.Abs(_forceY + 0.01), cylinderRadius, coneLength, coneRadius);
                 viewportLayout1.Entities.Add(arrowY, "Joints", Color.DarkMagenta);
-                
+
             }
 
             if (_forceZ != 0)
@@ -1458,13 +1458,13 @@ namespace Coding_Attempt_with_GUI
             CoordinatesTemp.SuspensionLinks.Add("DamperBellcrankToPivot", DamperBellcrankToPivot);
             viewportLayout1.Entities.Add(DamperBellcrankToPivot, "Bars");
             DamperBellcrankToPivot.EntityData = new CustomData("DamperBellCrankToPivot", "Dummy", 0, Color.Orange);
-            
+
             ///<remarks>Point I comes before H while going from centre of the Vehicle towards thr wheel </remarks>
             Bar PushrodBellcrankToPivot = new Bar(CoordinatesTemp.InboardPickUp["Bell Crank Pivot"].Position, CoordinatesTemp.InboardPickUp[pushPullName + " Bell-Crank"].Position, 4.5, 8);
             CoordinatesTemp.SuspensionLinks.Add("PushrodBellcrankToPivot", PushrodBellcrankToPivot);
             viewportLayout1.Entities.Add(PushrodBellcrankToPivot, "Bars");
             PushrodBellcrankToPivot.EntityData = new CustomData("PushrodBellcrankToPivot", "Dummy", 0, Color.Orange);
-            
+
             ///<remarks>Point I comes before O while going from the Centre of the Vehicle towards the Wheel </remarks>
             Bar ARBDroopLinkBellcrankToPivot = new Bar(CoordinatesTemp.InboardPickUp["Bell Crank Pivot"].Position, CoordinatesTemp.InboardPickUp["Anti-Roll Bar Bell-Crank"].Position, 4.5, 8);
             CoordinatesTemp.SuspensionLinks.Add("ARBDroopLinkBellcrankToPivot", ARBDroopLinkBellcrankToPivot);
@@ -2649,7 +2649,7 @@ namespace Coding_Attempt_with_GUI
                         viewportLayout1.Entities[_entityIndex].EntityData = _arrowData;
                         break;
                     }
-                } 
+                }
             }
             else
             {
@@ -2672,7 +2672,7 @@ namespace Coding_Attempt_with_GUI
         {
             if (_userForceArrowStyle == ForceArrowStyle.Both || _userForceArrowStyle == ForceArrowStyle.LengthScaling)
             {
-                viewportLayout1.Entities[_entityIndex] = Mesh.CreateArrow(_arrowData.StartPoint, _arrowData.Direction, _arrowData.CylRadius, Math.Abs(_arrowData.Force + 0.01) * 0.1, _arrowData.ConeRadius, _arrowData.ConeLength, 10, Mesh.natureType.Smooth, Mesh.edgeStyleType.Sharp); 
+                viewportLayout1.Entities[_entityIndex] = Mesh.CreateArrow(_arrowData.StartPoint, _arrowData.Direction, _arrowData.CylRadius, Math.Abs(_arrowData.Force + 0.01) * 0.1, _arrowData.ConeRadius, _arrowData.ConeLength, 10, Mesh.natureType.Smooth, Mesh.edgeStyleType.Sharp);
             }
             else
             {
@@ -2698,7 +2698,7 @@ namespace Coding_Attempt_with_GUI
             //    else if (_arrowData.CategoryNamne != _forcesToBeDisplayed[i])
             //    {
             //        viewportLayout1.Entities[_entityIndex].Visible = false;
-                    
+
             //    }
             //}
 
@@ -3360,7 +3360,7 @@ namespace Coding_Attempt_with_GUI
                     /// </summary>
                     //viewportLayout1.Cursor = viewportLayout1.CursorTypes[cursorType.Pick];
                     //temp_Entity.Selected = true;
-                    
+
                     ///<summary>If the <see cref="ViewportLayout.ToolBar.Buttons"/> corresponding to the MakeTransparent BUtton is pushed then the method below is activated</summary>
                     if (viewportLayout1.ToolBars[0].Buttons[8].Pushed)
                     {
@@ -3376,7 +3376,20 @@ namespace Coding_Attempt_with_GUI
                             ///<summary>If the <see cref="CustomData"/> of the <see cref="Entity"/> has a Colour with the <see cref="Color.A"/> value as 75 then it means that is transparent and it is being reclicked and hence I want to restore its colour</summary>
                             if (Color.Equals(temp_Entity.Color, Color.FromArgb(75, tempEntityData.EntityColor)) || Color.Equals(temp_Entity.Color, Color.FromArgb(40, tempEntityData.EntityColor)))
                             {
-                                temp_Entity.Color = Color.FromArgb(255, tempEntityData.EntityColor);
+                                BlockReference restoreBlockRef = new BlockReference("Restore Block Reference");
+
+                                if (temp_Entity as BlockReference == null)
+                                {
+                                    temp_Entity.ColorMethod = colorMethodType.byEntity;
+                                    temp_Entity.Color = Color.FromArgb(255, tempEntityData.EntityColor);
+                                }
+                                else
+                                {
+                                    restoreBlockRef = temp_Entity as BlockReference;
+                                    ChangeColour(restoreBlockRef, colorMethodType.byEntity);
+                                    temp_Entity.Color = Color.FromArgb(255, tempEntityData.EntityColor);
+                                }
+
                                 goto END;
                             }
 
@@ -3417,7 +3430,7 @@ namespace Coding_Attempt_with_GUI
 
                             tempRef.ColorMethod = colorMethodType.byEntity;
                             tempRef.Color = Color.FromArgb(40, tempRef.Color);
-
+                            ChangeColour(tempRef, colorMethodType.byParent);
                             Block tempBlock = viewportLayout1.Blocks[tempRef.BlockName];
 
                             for (int i = 0; i < tempBlock.Entities.Count; i++)
@@ -3457,7 +3470,23 @@ namespace Coding_Attempt_with_GUI
                 {
                     Kinematics_Software_New.GraphicsCoordinatesHide();
                     ClearSelection();
-                } 
+                }
+            }
+        }
+
+        private void ChangeColour(BlockReference _tempBlock, colorMethodType colorMethodType)
+        {
+            Block tempBlock = viewportLayout1.Blocks[_tempBlock.BlockName];
+
+           
+            for (int i = 0; i < tempBlock.Entities.Count; i++)
+            {
+                tempBlock.Entities[i].ColorMethod = colorMethodType;
+
+                if (tempBlock.Entities[i] is BlockReference)
+                {
+                    ChangeColour((BlockReference)tempBlock.Entities[i], colorMethodType);
+                }
             }
         }
 
@@ -3553,25 +3582,18 @@ namespace Coding_Attempt_with_GUI
                 ///<summary>
                 ///Either the Entity has <see cref="CustomData"/> data defined or temporary <see cref="CustomData"/> defined with only Colour. Either way this data is used to restore the Colour of the Entity and undo the transparency
                 /// </summary>
-                CustomData tempEntityData = (CustomData)viewportLayout1.Entities[_entityIndex].EntityData;
+                CustomData restoreEntityData = (CustomData)viewportLayout1.Entities[_entityIndex].EntityData;
                 if (viewportLayout1.Entities[_entityIndex] as BlockReference == null)
                 {
                     viewportLayout1.Entities[_entityIndex].ColorMethod = colorMethodType.byEntity;
-                    viewportLayout1.Entities[_entityIndex].Color = tempEntityData.EntityColor; 
+                    viewportLayout1.Entities[_entityIndex].Color = restoreEntityData.EntityColor; 
                 }
                 else
                 {
-                    BlockReference tempRef = viewportLayout1.Entities[_entityIndex] as BlockReference;
+                    BlockReference restoreBlockRef = viewportLayout1.Entities[_entityIndex] as BlockReference;
+                    ChangeColour(restoreBlockRef, colorMethodType.byEntity);
+                    restoreBlockRef.Color = Color.FromArgb(255, restoreBlockRef.Color);
 
-                    tempRef.ColorMethod = colorMethodType.byEntity;
-                    tempRef.Color = Color.FromArgb(255, tempRef.Color);
-
-                    Block tempBlock = viewportLayout1.Blocks[tempRef.BlockName];
-
-                    for (int i = 0; i < tempBlock.Entities.Count; i++)
-                    {
-                        tempBlock.Entities[i].ColorMethod = colorMethodType.byParent;
-                    }
                 }
             }
 
