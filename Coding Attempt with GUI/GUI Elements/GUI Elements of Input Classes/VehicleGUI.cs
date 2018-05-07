@@ -686,6 +686,9 @@ namespace Coding_Attempt_with_GUI
 
                 vehicleCADDrawer_Output.PlotLoadCaseInputForces(Vehicle.List_Vehicle[this._VehicleID - 1].chassis_vehicle, Vehicle.List_Vehicle[this._VehicleID - 1].vehicleLoadCase);
 
+                vehicleCADDrawer_Output.PlotMomentArrows(Vehicle.List_Vehicle[VehicleIndex].oc_FL[OutputIndex].scmOP.W1x, Vehicle.List_Vehicle[VehicleIndex].oc_FL[OutputIndex].scmOP.W1y, Vehicle.List_Vehicle[VehicleIndex].oc_FL[OutputIndex].scmOP.W1z,
+                                                         Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.NSM_FL_Mx, Vehicle.List_Vehicle[VehicleIndex].vehicleLoadCase.NSM_FL_Mz);
+
                 ///<remarks>Order of Painting is Important</remarks>
                 ///<summary>Creating a temporary Output Class Variable which will hold the Max and Min Values collated from ALL THE 4 CORNERS</summary>
                 OutputClass MasterOC = new OutputClass();

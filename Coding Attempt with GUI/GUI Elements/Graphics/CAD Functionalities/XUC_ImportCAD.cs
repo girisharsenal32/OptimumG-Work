@@ -972,7 +972,7 @@ namespace Coding_Attempt_with_GUI
                 ///<summary>Adding the Blocck and the Block Reference into the Viewport</summary>
                 if (!importCADViewport.viewportLayout1.Blocks.Contains(_nameOfBlock))
                 {
-                    importCADViewport.viewportLayout1.Blocks.Add(/*_nameOfBlock, */_mapToThisBlock);
+                    importCADViewport.viewportLayout1.Blocks.Add(_mapToThisBlock);
                     _mapToThisBlockReference = new BlockReference(_nameOfBlock);
                     _mapToThisBlockReference.Attributes.Add(_nameOfBlock, _nameOfBlock);
                     importCADViewport.viewportLayout1.Blocks.Reverse();

@@ -886,12 +886,14 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
         #region Moment Arrow Plotter to represent Moments - NON FUNCTIONAL
-        public void PlotMomentArrows(double _startX, double _startY, double _startZ, double _mx, double _my, double _mz)
+        public void PlotMomentArrows(double _startX, double _startY, double _startZ, double _mx,/* double _my,*/ double _mz)
         {
             ///<summary>
             ///Wheel CP Coordinates of the Wheel being considered
             /// </summary>
-            Point3D momentArrowStart = new Point3D(_startX, _startY, _startZ);
+            Point3D momentArrowStart =  new Point3D(_startX, _startY, _startZ);
+            Point3D momentArrowEnd_Mx = new Point3D(_startX, _startY, _startZ + 100);
+            Point3D momentArrowEnd_My = new Point3D(_startX + 100, _startY, _startZ);
 
             ///<summary>
             ///Vectors to allign the arrows in along the Axes
@@ -903,11 +905,13 @@ namespace Coding_Attempt_with_GUI
             ///<summary> Rolling Resistance Moment </summary>
             if (_mx < 0) { directionX.X *= -1; }
             ///<summary> Self Aligning Moment </summary>
-            if (_my < 0) { directionY.Y *= -1; }
+            //if (_my < 0) { directionY.Y *= -1; }
             ///<summary> Over turning Moment </summary>
             if (_mz < 0) { directionZ.Z *= -1; }
 
             double coneRadius = 10, coneLength = 18, cylinderRadius = 4;
+
+            Mesh momentArrowHead = Mesh.CreateCone(coneRadius * 2, 0.5, coneLength, 100);
 
             if (_mx != 0)
             {
@@ -916,6 +920,21 @@ namespace Coding_Attempt_with_GUI
                 ///Putting same type arrows for Moment is not right and I'm not able to change the Arrow Head TYpe. 
                 ///Labels are not workig because it says that the LABEL Class is abstract
                 /// </summary>
+                //Mesh arrowMx = Mesh.CreateArrow(momentArrowStart, directionX, cylinderRadius, Math.Abs(_mx + 0.01) * 0.1, coneRadius, coneLength, 10, Mesh.natureType.Smooth, Mesh.edgeStyleType.Sharp);
+                devDept.Eyeshot.Entities.Region arrowMxBody_Region = devDept.Eyeshot.Entities.Region.CreateCircle(momentArrowStart.X, momentArrowStart.Y, 1);
+                arrowMxBody_Region.Translate(momentArrowStart.X, momentArrowStart.Y, momentArrowStart.Z);
+
+                //Mesh arrowMxBody = arrowMxBody_Region.revolve(0, 4.71239, momentArrowStart, momentArrowEnd_Mx, 50, 0.5, Mesh.natureType.Smooth);
+                Solid3D arrowMxBody = arrowMxBody_Region.RevolveAsSolid3D(0, 4.71239, momentArrowStart, momentArrowEnd_Mx, 0.001);
+
+                //arrowMxBody.Translate(momentArrowStart.X, momentArrowStart.Y, momentArrowStart.Z);
+
+                momentArrowHead.Translate(momentArrowStart.X, momentArrowStart.Y, momentArrowStart.Z);
+                momentArrowHead.Rotate(1.57, momentArrowStart, momentArrowEnd_My);
+                //arrowMxBody.MergeWith(momentArrowHead);
+                viewportLayout1.Entities.Add(arrowMxBody, "Joints", Color.DarkMagenta);
+
+
             }
 
         }
@@ -947,6 +966,7 @@ namespace Coding_Attempt_with_GUI
 
         #region Arrow Plotter to represent Forces
 
+        #region Method to Paint the Arrows in Gradient according to their colour and the User's Gradent Style choice
         /// <summary>
         /// Decides which color 'value' represents. Scales the colour based ont he Ratio of Cell Value to (Max-Min) Value
         /// </summary>
@@ -1047,7 +1067,8 @@ namespace Coding_Attempt_with_GUI
             }
 
             return Color.FromArgb(255, Convert.ToInt32(red), Convert.ToInt32(green), Convert.ToInt32(blue));
-        }
+        } 
+        #endregion
 
         bool InputForcePassed = false;
         /// <summary>
@@ -1686,6 +1707,7 @@ namespace Coding_Attempt_with_GUI
 
             devDept.Eyeshot.Entities.Region tireRegion = new devDept.Eyeshot.Entities.Region(wheelCircleOuter, wheelCircleInner);
             Solid3D Tire = tireRegion.ExtrudeAsSolid3D((sign * 157.48), 0);
+            
 
             if (_waPlotWheel != null)
             {
