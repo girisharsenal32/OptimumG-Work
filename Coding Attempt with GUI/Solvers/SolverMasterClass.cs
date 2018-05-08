@@ -17,7 +17,7 @@ namespace Coding_Attempt_with_GUI
     public class SolverMasterClass
     {
 
-        #region Declarations
+        #region ---DECLARATIONS---
 
         #region Loop Variables
         public int i, j, k, dummy1, dummy2;
@@ -199,14 +199,8 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
         #region Common Methods
-
-        //public void DeclareMatrices()
-        //{
-        //    var M = Matrix<double>.Build;
-        //    var m = M.Dense(6, 6);
-        //}
-
-        #region Initializer Methods
+        
+        #region ---INITIALIZER METHODS---
 
         #region Initializing the Local Coordinate Variables
         public void AssignLocalCoordinateVariables_FixesPoints(SuspensionCoordinatesMaster _scmAssign)
@@ -761,8 +755,9 @@ namespace Coding_Attempt_with_GUI
 
         #endregion
 
+        #region ---KINEMATIC SOLVER METHODS---
         #region Calculating the Wheel and Spring Deflections for Static force or for Motion
-        public void CalculateWheelAndSpringDeflection(SuspensionCoordinatesMaster _scmDef, Spring _springDef, Damper _damperDef, Vehicle _vehicleDef, List<double> _WheelDeflection, OutputClass _ocDef, Tire _tireDef, int Identifier, double arb_Rate_Nmm, bool MotionExists,bool _recalSteering, int Index)
+        public void CalculateWheelAndSpringDeflection(SuspensionCoordinatesMaster _scmDef, Spring _springDef, Damper _damperDef, Vehicle _vehicleDef, List<double> _WheelDeflection, OutputClass _ocDef, Tire _tireDef, int Identifier, double arb_Rate_Nmm, bool MotionExists, bool _recalSteering, int Index)
         {
             _ocDef.WheelRate = (_springDef.SpringRate * Math.Pow(_scmDef.InitialMR, 2)) + (arb_Rate_Nmm * Math.Pow(_scmDef.Initial_ARB_MR, 2));
             _ocDef.WheelRate_WO_ARB = (_springDef.SpringRate * Math.Pow(_scmDef.InitialMR, 2));
@@ -779,7 +774,7 @@ namespace Coding_Attempt_with_GUI
             // Will need to put a logic here to make sure that Wheel deflection is +ve for bump and -ve for rebound. THIS -VE IS ADDED SO THAT WHEEL DEFLECTION REFLECTS BUMP IN THIS CASE AS WHEN CAR IS DROPPED ONLY BUMP WILL 
             if (!MotionExists)
             {
-                if (SimType != SimulationType.SetupChange )
+                if (SimType != SimulationType.SetupChange)
                 {
                     Fy_Wheel = ((_ocDef.CW));
 
@@ -825,7 +820,7 @@ namespace Coding_Attempt_with_GUI
 
                 SpringDeflection = (Fy_Spring / _springDef.SpringRate) - Preload_mm;
 
-                if (Index != 0 )
+                if (Index != 0)
                 {
                     //if (!_recalSteering)
                     //{
@@ -861,22 +856,17 @@ namespace Coding_Attempt_with_GUI
 
             if (index == 0)
             {
-                WheelDeflection = _springDeflection*_motionRatio;
+                WheelDeflection = _springDeflection * _motionRatio;
             }
             else if (index != 0)
             {
-                WheelDeflection +=  _springDeflection*_motionRatio;
+                WheelDeflection += _springDeflection * _motionRatio;
             }
 
             //_oc[index].Corrected_WheelDeflection += WheelDeflection;
             //_oc[index].Corrected_SpringDeflection += SpringDeflection_Delta;
         }
         #endregion
-
-        //public void CalculateSpringDeflection_ForSteering_Rear()
-        //{
-
-        //}
 
         public void CalculateSpringDeflection_DiagonalWT_Steering_Rear(List<OutputClass> _oc, int _identiier, int Index)
         {
@@ -885,9 +875,9 @@ namespace Coding_Attempt_with_GUI
             /// </remarks>
         }
         #region Calculating the Spring Deflection in small steps 
-        public void CalculateAngleOfRotationOrDamperLength(OutputClass _ocSteps, bool MotionExists, int _springPrevIndex, Damper _damperSteps,bool _recalculateSteering)
+        public void CalculateAngleOfRotationOrDamperLength(OutputClass _ocSteps, bool MotionExists, int _springPrevIndex, Damper _damperSteps, bool _recalculateSteering)
         {
-            
+
             J1I = Math.Sqrt(Math.Pow((l_I1x - l_J1x), 2) + (Math.Pow((l_I1y - l_J1y), 2)) + (Math.Pow((l_I1z - l_J1z), 2)));
             JoI = Math.Sqrt(Math.Pow((l_I1x - l_JO1x), 2) + (Math.Pow((l_I1y - l_JO1y), 2)) + (Math.Pow((l_I1z - l_JO1z), 2)));
             J1Jo = Math.Sqrt(Math.Pow((l_J1x - l_JO1x), 2) + (Math.Pow((l_J1y - l_JO1y), 2)) + (Math.Pow((l_J1z - l_JO1z), 2)));
@@ -932,7 +922,7 @@ namespace Coding_Attempt_with_GUI
                 J1Jo = J2Jo = J2Jo_Loop = _damperSteps.DamperFreeLength;
 
             }
-            else if ((J2Jo < (_damperSteps.DamperFreeLength - _damperSteps.DamperStroke)) && (!IsStillinRebound)) 
+            else if ((J2Jo < (_damperSteps.DamperFreeLength - _damperSteps.DamperStroke)) && (!IsStillinRebound))
             {
                 J1Jo = J2Jo = J2Jo_Loop = (_damperSteps.DamperFreeLength - _damperSteps.DamperStroke);
             }
@@ -945,7 +935,7 @@ namespace Coding_Attempt_with_GUI
             //}
             //else
             //{
-                _ocSteps.AngleOfRotation = Math.Acos(((Math.Pow(J1I, 2) + Math.Pow(JoI, 2) - Math.Pow(J1Jo, 2)) / (2 * J1I * JoI))) - Math.Acos(((Math.Pow(J1I, 2) + Math.Pow(JoI, 2) - Math.Pow(J2Jo_Loop, 2)) / (2 * J1I * JoI)));
+            _ocSteps.AngleOfRotation = Math.Acos(((Math.Pow(J1I, 2) + Math.Pow(JoI, 2) - Math.Pow(J1Jo, 2)) / (2 * J1I * JoI))) - Math.Acos(((Math.Pow(J1I, 2) + Math.Pow(JoI, 2) - Math.Pow(J2Jo_Loop, 2)) / (2 * J1I * JoI)));
             //}
 
             if (Double.IsNaN(_ocSteps.AngleOfRotation) || Double.IsInfinity(_ocSteps.AngleOfRotation))
@@ -975,13 +965,13 @@ namespace Coding_Attempt_with_GUI
             _ocNewCamberToe[index].waOP.StaticCamber = dCamber_Steering + _ocNewCamberToe[index - 1].waOP.StaticCamber;
 
             _ocNewCamberToe[index].waOP.StaticToe = dToe_Steering + _ocNewCamberToe[index - 1].waOP.StaticToe;
-        } 
+        }
         #endregion
 
         #region Calculating the Camber and Toe for the Rear OR for the front if there is no Steering Input
         private double AssignDirection_Toe(double _toe, int _identifier, double Check1z, double Check2Z)
         {
-            
+
             if (Double.IsNaN(_toe) || Double.IsInfinity(_toe))
             {
                 _toe = 0;
@@ -1086,7 +1076,7 @@ namespace Coding_Attempt_with_GUI
                 _ocNewCamberToe[dummy2].waOP.StaticCamber = /*-*/ dCamber + _ocNewCamberToe[dummy2].waOP.StaticCamber;
                 _ocNewCamberToe[dummy2].waOP.StaticToe = /*-*/ dToe + _ocNewCamberToe[dummy2].waOP.StaticToe;
 
-             }
+            }
 
 
         }
@@ -1281,7 +1271,7 @@ namespace Coding_Attempt_with_GUI
             _ocW.scmOP.W1y = YW1;
             _ocW.scmOP.W1z = ZW1;
         }
-        
+
 
         /// <summary>
         /// This method is used to calculate the Wheel Centre Coordinates after the Steering has been performed.
@@ -1304,7 +1294,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_ocEF">Object of the Output Class</param>
         public void UBJandLBJ_Steering(List<OutputClass> _ocEF, int i)
         {
-            
+
             double XE1, YE1, ZE1;
             QuadraticEquationSolver.Solver(_ocEF[i - 1].scmOP.E1x, _ocEF[i - 1].scmOP.E1y, _ocEF[i - 1].scmOP.E1z, _ocEF[i - 1].scmOP.L1x, _ocEF[i - 1].scmOP.L1y, _ocEF[i - 1].scmOP.L1z, 0,
                                            _ocEF[i - 1].scmOP.K1x, _ocEF[i - 1].scmOP.K1y, _ocEF[i - 1].scmOP.K1z,
@@ -1318,7 +1308,7 @@ namespace Coding_Attempt_with_GUI
             double XF1, YF1, ZF1;
             QuadraticEquationSolver.Solver(_ocEF[i - 1].scmOP.F1x, _ocEF[i - 1].scmOP.F1y, _ocEF[i - 1].scmOP.F1z, _ocEF[i - 1].scmOP.L1x, _ocEF[i - 1].scmOP.L1y, _ocEF[i - 1].scmOP.L1z, 0,
                                            _ocEF[i - 1].scmOP.K1x, _ocEF[i - 1].scmOP.K1y, _ocEF[i - 1].scmOP.K1z,
-                                           _ocEF[i - 1].scmOP.E1x, _ocEF[i - 1].scmOP.E1y, _ocEF[i - 1].scmOP.E1z, _ocEF[i].scmOP.L1x, _ocEF[i].scmOP.L1y, _ocEF[i].scmOP.L1z, 
+                                           _ocEF[i - 1].scmOP.E1x, _ocEF[i - 1].scmOP.E1y, _ocEF[i - 1].scmOP.E1z, _ocEF[i].scmOP.L1x, _ocEF[i].scmOP.L1y, _ocEF[i].scmOP.L1z,
                                            _ocEF[i].scmOP.K1x, _ocEF[i].scmOP.K1y, _ocEF[i].scmOP.K1z,
                                            _ocEF[i].scmOP.E1x, _ocEF[i].scmOP.E1y, _ocEF[i].scmOP.E1z, _ocEF[i].scmOP.W1y, false, out XF1, out YF1, out ZF1);
 
@@ -1342,9 +1332,10 @@ namespace Coding_Attempt_with_GUI
             _ocG[i].scmOP.G1z = ZG1;
 
         }
+        #endregion 
         #endregion
 
-
+        #region ---SETUP CHANGE METHODS---
         /// <summary>
         /// Primary and only public entry point method for the Setup Change methods. 
         /// </summary>
@@ -1354,7 +1345,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_RrCV">Rear Right corner Setup Change values requested by the user</param>
         /// <param name="_Vehicle"Object of the <see cref="Vehicle"/> class</param>
         public void SetupChange_PrimaryInvoker(SetupChange_CornerVariables _FlCV, SetupChange_CornerVariables _FrCV, SetupChange_CornerVariables _RlCV, SetupChange_CornerVariables _RrCV, Vehicle _Vehicle)
-         {
+        {
             Identifier = 0;
 
             ///<summary>Assinging the <see cref="SetupChange_CornerVariables"/> class objects of each corner</summary>
@@ -1400,7 +1391,7 @@ namespace Coding_Attempt_with_GUI
             {
                 Identifier = 1;
                 SetupChange_PrimaryInitializeMethod(_FlCV, _Vehicle.oc_FL, FinalCamberFL, FinalToeFL, FinalCasterFL, FinalKPIFL);
-                FinalRideHeight_FL = SetupChange_GetRideHeightChange(_FlCV, SetupChange_DB_Master.AdjOptions.PushrodLine, SetupChange_DB_Master.AdjOptions.PushrodVector, _FlCV.rideheightAdjustmentType, _FlCV.rideheightAdjustmentTool, 1,out FinalPushrod_FL);
+                FinalRideHeight_FL = SetupChange_GetRideHeightChange(_FlCV, SetupChange_DB_Master.AdjOptions.PushrodLine, SetupChange_DB_Master.AdjOptions.PushrodVector, _FlCV.rideheightAdjustmentType, _FlCV.rideheightAdjustmentTool, 1, out FinalPushrod_FL);
 
                 Identifier = 2;
                 SetupChange_PrimaryInitializeMethod(_FrCV, _Vehicle.oc_FR, FinalCamberFR, FinalToeFR, FinalCasterFR, FinalKPIFR);
@@ -1512,7 +1503,7 @@ namespace Coding_Attempt_with_GUI
             Angle deltaKPI = new Angle(_requestedChanges.deltaKPI, AngleUnit.Degrees);
             //_oc[0].KPI += deltaKPI.Radians;
             _finalKPI = new Angle(_oc[0].KPI + deltaKPI.Radians, AngleUnit.Radians);
-            
+
             ///<summary>Calculating the Final Value of Ride Height that is requested by the User. No change in parameter's value if requested change is 0</summary>
             _oc[0].FinalRideHeight += _requestedChanges.deltaRideHeight;
 
@@ -1536,12 +1527,12 @@ namespace Coding_Attempt_with_GUI
             int tempRandom = 0;
 
             AdjustmentTools kpiTool = new AdjustmentTools();
-            
+
             /////<summary>Using the Index Numbers of the <see cref="SetupChange_CornerVariables.LinkLengthsWhichHaveNotChanged"/> to generate and store 2 Random Numbers</summary>
             //tempRandom = AxisAndAdjusterSelecter.Next(0, _requestedChange.LinkLengthsWhichHaveNotChanged.Count - 1);
             //randomIndexSelecter.Add(tempRandom);
-            
-            
+
+
             ///<summary>Assinging the <see cref="AdjustmentTools"/> using their integer counterparts as descibred in the <see cref="AdjustmentTools"/> Enum</summary>
             if (_requestedChange.LinkLengthsWhichHaveNotChanged.Count != 0)
             {
@@ -1567,7 +1558,7 @@ namespace Coding_Attempt_with_GUI
             {
                 ///Add Convergence String here
             }
-            
+
         }
 
         /// <summary>
@@ -1592,7 +1583,7 @@ namespace Coding_Attempt_with_GUI
                     if (casterTool != _requestedChanges.kpiAdjustmentTool)
                     {
                         break;
-                    } 
+                    }
                 }
 
                 ///<summary>Assigning the Axis and Mater Adjuster for the Caster and KPI Adjustments</summary>
@@ -1605,7 +1596,7 @@ namespace Coding_Attempt_with_GUI
                 ///Add Convergence String here
             }
 
-            
+
 
         }
 
@@ -1940,9 +1931,9 @@ namespace Coding_Attempt_with_GUI
                 _dRideHeight = _reqChanges.deltaRideHeight;
                 PushrodDelta = _dRideHeight / Math.Sin((Math.PI) - Math.Abs(PushrodAngleWithHorz.Radians));
                 SetupChange_DB_Master.AdjOptions.NoOfShims_OR_ShimsVectorLengthChanged(_line, _vector, PushrodDelta);
-                
+
             }
-            
+
             else
             {
                 if (_adjTools == AdjustmentTools.PushrodLength)
@@ -1987,7 +1978,7 @@ namespace Coding_Attempt_with_GUI
 
             ///<summary>Link Length Changed Operations</summary>
             SetupChange_LinkLengthChange(AngleToBeRotated.Degrees, _deltaLinkLength, _deltaCounterLinklength, _ocLink[0], _axisRot, _linkLine, _linkVector, _colinkLine, _colinkVector, _finalLinkLengthList, _fincoDList, _upVertex, _plane, _adjTool, sccv);
-             
+
         }
 
         /// <summary>
@@ -1997,7 +1988,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_counterLinkLine">Counter Arm which is TO BE Edited</param>
         /// <param name="_counterLinkVector">Counter Arm Vecctor which is to be edited</param>
         /// <param name="_finalCounterLinkLength">Final List of Deltas off the Counter Arm </param>
-        private void SetupChange_LinkLengthChange_Helper_EditCounterWishbone(double _counterDeltaLength,List<Line> _primaryLinkLine, List<Line> _counterLinkLine, List<Vector3D> _counterLinkVector, List<double> _finalPrimaryLinkLength, List<double> _finalCounterLinkLength)
+        private void SetupChange_LinkLengthChange_Helper_EditCounterWishbone(double _counterDeltaLength, List<Line> _primaryLinkLine, List<Line> _counterLinkLine, List<Vector3D> _counterLinkVector, List<double> _finalPrimaryLinkLength, List<double> _finalCounterLinkLength)
         {
             ///<summary>Adding the a Line and Vector to the Counter Wishbone Arm</summary>
             SetupChange_DB_Master.AdjOptions.AddAdjusterToMasterAdjusterList(_counterLinkLine, _counterLinkVector);
@@ -2019,7 +2010,7 @@ namespace Coding_Attempt_with_GUI
 
             double checker = _counterDeltaLength - _finalCounterLinkLength[_finalCounterLinkLength.Count - 1];
 
-            if (Math.Abs(checker) > 0.25) 
+            if (Math.Abs(checker) > 0.25)
             {
                 SetupChange_DB_Master.AdjOptions.NoOfShims_OR_ShimsVectorLengthChanged(_counterLinkLine, _counterLinkVector, /*-*/checker);
                 _primaryLinkLine[_primaryLinkLine.Count - 1].EndPoint = _counterLinkLine[_counterLinkLine.Count - 1].EndPoint;
@@ -2057,7 +2048,7 @@ namespace Coding_Attempt_with_GUI
                 _v2 = SetupChange_DB_Master.AdjOptions.MCamberAdjusterLine[SetupChange_DB_Master.AdjOptions.MCamberAdjusterLine.Count - 1].EndPoint /*SetupChange_DB_Master.UprightTriangle[SetupChange_DB_Master.UprightTriangle.Count - 1].Vertices[1]*/;
             }
 
-            
+
             angleToBeRotated = SetupChange_DB_Master.AdjOptions.GetNewUprightTrianglePosition(ref SetupChange_DB_Master.UprightTriangle, _v1, _v2, SetupChange_DB_Master.UprightTriangle[SetupChange_DB_Master.UprightTriangle.Count - 1].Vertices[2], SetupChange_DB_Master,
                                                                                               SetupChange_DB_Master.AdjOptions.AxisRotation_Camber[SetupChange_DB_Master.AdjOptions.AxisRotation_Camber.Count - 1]);
 
@@ -2170,14 +2161,14 @@ namespace Coding_Attempt_with_GUI
                 return _checkAngleOfConcern.Degrees - _deltaRequiredDegrees;
             }
         }
-        
+
         /// <summary>
         /// Method to return the valu of the Internal Iterator check variable when the Setup Change is done indirectly
         /// </summary>
         /// <param name="_checkLengthChange"></param>
         /// <param name="_requiredLengthChange"></param>
         /// <returns></returns>
-        private double GetInternalIterationChecker_IndirectChange(double _checkLengthChange,double _requiredLengthChange)
+        private double GetInternalIterationChecker_IndirectChange(double _checkLengthChange, double _requiredLengthChange)
         {
             return _requiredLengthChange - _checkLengthChange;
         }
@@ -2212,7 +2203,7 @@ namespace Coding_Attempt_with_GUI
                 //}
                 //else
                 //{
-                    return new Angle(_historyOfDeltaOfConcernedAngle[_historyOfDeltaOfConcernedAngle.Count - 1].Degrees - _historyOfDeltaOfConcernedAngle[_historyOfDeltaOfConcernedAngle.Count - 1 - 1].Degrees, AngleUnit.Degrees);
+                return new Angle(_historyOfDeltaOfConcernedAngle[_historyOfDeltaOfConcernedAngle.Count - 1].Degrees - _historyOfDeltaOfConcernedAngle[_historyOfDeltaOfConcernedAngle.Count - 1 - 1].Degrees, AngleUnit.Degrees);
                 //}
 
                 return /*_rotatedAngle*/ /*+*//*-*/ checkCamber;
@@ -2248,7 +2239,7 @@ namespace Coding_Attempt_with_GUI
             KPIRotation = false;
             CasterRotation = false;
 
-            SetupChange_CLS_Master.LinkLengthConvergence= Convergence.InProgress;
+            SetupChange_CLS_Master.LinkLengthConvergence = Convergence.InProgress;
 
             for (int i_LinkLength = 0; i_LinkLength < _sccv.iterationsLinkLength; i_LinkLength++)
             {
@@ -2449,7 +2440,7 @@ namespace Coding_Attempt_with_GUI
                         break;
                     }
 
-                } 
+                }
             }
 
             reRotateForCamber = false;
@@ -2564,16 +2555,16 @@ namespace Coding_Attempt_with_GUI
                         break;
                     }
 
-                } 
+                }
             }
-            
+
 
             ///<summary>Calculating the change in Ride Height</summary>
             GetNewRideHeight();
 
             ///<summary>Calculating the change in Camber</summary>
             RecordInadvertantCamberChange(_ocSetupToe);
-            
+
             ///<summary>Calculating the change in Caster</summary>
             RecordInadvertantCasterChange(_ocSetupToe);
 
@@ -2683,7 +2674,7 @@ namespace Coding_Attempt_with_GUI
                         //reRotateForCaster = true;
                         //goto Start;
                     }
-                } 
+                }
             }
 
             reRotateForCaster = false;
@@ -2729,7 +2720,7 @@ namespace Coding_Attempt_with_GUI
             ///<remarks>Adding a Label here so I can create a Loop without using a For Statement. Label placed in the 2nd line so that the <see cref="dCamber"/> Angle gets the user requested OR reversal value only once. All other rotations should be by angle <see cref="ReCheckCamber()"/></remarks>
             //Start:
 
-            for (int i_KPI = 0; i_KPI < _sccv.iterationsKPI; i_KPI++) 
+            for (int i_KPI = 0; i_KPI < _sccv.iterationsKPI; i_KPI++)
             {
                 SetupChange_DB_Master.SetupChangeOPDictionary["KPI"] = dKPI.Radians;
 
@@ -2803,7 +2794,7 @@ namespace Coding_Attempt_with_GUI
                         //goto Start;
                     }
 
-                } 
+                }
             }
 
             ///<remarks>This code should ideally be inside the <see cref="SetupChange_ClosedLoopSolver"/> checks </remarks>
@@ -2813,7 +2804,7 @@ namespace Coding_Attempt_with_GUI
             //}
 
             reRotateKPI = false;
-            
+
             ///<summary>Calculating the change in Ride Height</summary>
             GetNewRideHeight();
 
@@ -2862,8 +2853,8 @@ namespace Coding_Attempt_with_GUI
             /// </remarks>
 
             ///<summary>Adding a new Line to the List of <see cref="ChildLine_VariableLine.DeltaLine"/></summary>
-            SetupChange_DB_Master.ContactPatch.DeltaPoint.Add(new Point3D(SetupChange_DB_Master.ContactPatch.DeltaPoint[SetupChange_DB_Master.ContactPatch.DeltaPoint.Count - 1].X, 
-                                                                          SetupChange_DB_Master.ContactPatch.DeltaPoint[SetupChange_DB_Master.ContactPatch.DeltaPoint.Count - 1].Y, 
+            SetupChange_DB_Master.ContactPatch.DeltaPoint.Add(new Point3D(SetupChange_DB_Master.ContactPatch.DeltaPoint[SetupChange_DB_Master.ContactPatch.DeltaPoint.Count - 1].X,
+                                                                          SetupChange_DB_Master.ContactPatch.DeltaPoint[SetupChange_DB_Master.ContactPatch.DeltaPoint.Count - 1].Y,
                                                                           SetupChange_DB_Master.ContactPatch.DeltaPoint[SetupChange_DB_Master.ContactPatch.DeltaPoint.Count - 1].Z));
 
 
@@ -2883,7 +2874,7 @@ namespace Coding_Attempt_with_GUI
 
             ///<summary>Rotating the Contact Patch</summary>
             SetupChange_DB_Master.ContactPatch.DeltaPoint[SetupChange_DB_Master.ContactPatch.DeltaPoint.Count - 1] = SetupChange_DB_Master.ContactPatch.RotatePoint(SetupChange_DB_Master.ContactPatch.DeltaPoint[SetupChange_DB_Master.ContactPatch.DeltaPoint.Count - 1],
-                                                                                                                                                                    SetupChange_DB_Master.WheelSpindle.Line.DeltaLine[SetupChange_DB_Master.WheelSpindle.Line.DeltaLine.Count - 1].StartPoint, 
+                                                                                                                                                                    SetupChange_DB_Master.WheelSpindle.Line.DeltaLine[SetupChange_DB_Master.WheelSpindle.Line.DeltaLine.Count - 1].StartPoint,
                                                                                                                                                                     _rotationLine, _rotationAngle);
 
             AssignPoint3D(SetupChange_DB_Master.ContactPatch.DeltaPoint[SetupChange_DB_Master.ContactPatch.DeltaPoint.Count - 1], ref _ocRotate.scmOP.W1x, ref _ocRotate.scmOP.W1y, ref _ocRotate.scmOP.W1z);
@@ -2936,7 +2927,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_rotationAngle"></param>
         private void RotateUprightTriangle(Line _rotationLine, Angle _rotationAngle, AdjustmentType _adjType, CurrentChange _currChange)
         {
-            if (_adjType == AdjustmentType.Direct) 
+            if (_adjType == AdjustmentType.Direct)
             {
                 Point3D V1 = new Point3D(SetupChange_DB_Master.UprightTriangle[SetupChange_DB_Master.UprightTriangle.Count - 1].Vertices[0].X, SetupChange_DB_Master.UprightTriangle[SetupChange_DB_Master.UprightTriangle.Count - 1].Vertices[0].Y,
                                          SetupChange_DB_Master.UprightTriangle[SetupChange_DB_Master.UprightTriangle.Count - 1].Vertices[0].Z);
@@ -2983,7 +2974,7 @@ namespace Coding_Attempt_with_GUI
                     else
                     {
                         return _angleRotation;
-                    }  
+                    }
                 }
                 else if (/*CasterRotation*/ _currentChange == CurrentChange.Caster)
                 {
@@ -3077,7 +3068,7 @@ namespace Coding_Attempt_with_GUI
         /// This method is the parent method which calls the sub method involved in recording a Camber change due to change in any other parameter
         /// </summary>
         /// <param name="_oc"></param>
-        private void RecordInadvertantCamberChange(OutputClass _oc) 
+        private void RecordInadvertantCamberChange(OutputClass _oc)
         {
             ///<summary>Calculating the change in Camber</summary>
             ///<remarks>
@@ -3130,12 +3121,12 @@ namespace Coding_Attempt_with_GUI
         {
             if (rotatedAngle.Degrees != 0)
             {
-                SetupChange_CLS_Master.RotationsAbout_LBJToToeLinkAxis.Add(rotatedAngle); 
+                SetupChange_CLS_Master.RotationsAbout_LBJToToeLinkAxis.Add(rotatedAngle);
             }
 
             if (actualCamberChange.Degrees != 0)
             {
-                SetupChange_CLS_Master.Final_Camber.Add(SetupChange_CLS_Master.Final_Camber[ 0] + actualCamberChange); 
+                SetupChange_CLS_Master.Final_Camber.Add(SetupChange_CLS_Master.Final_Camber[0] + actualCamberChange);
             }
         }
 
@@ -3179,7 +3170,7 @@ namespace Coding_Attempt_with_GUI
             //SetupChange_DB_Master.SetupChangeOPDictionary["Toe"] = dToe_New.Radians;
 
             //SetupChange_CLS.ListHelper(SetupChange_CLS.Summ_dToe, SetupChange_CLS.Final_Toe, "Toe");
-            
+
             ///<remarks>
             ///Why I need negative for Toe is mentioned in my OneNote section called "Epiphanies!" 
             ///In short; All the while I was imagining myself to be sitting in the car and hence in MY front view, CW was positive. But for C#, MathNet.Spatial and EYESHOT, FRONT VIEW is same as that of SolidWorks and hence for their Front View, positive rotation is CCW
@@ -3227,13 +3218,13 @@ namespace Coding_Attempt_with_GUI
             ///arrive at the required Caster.
             ///</remarks>
             Angle checkCaster = ReCheckCaster();
-           
+
             ///<summary>Recording the change of caster in the <see cref="SetupChange_ClosedLoopSolver.Summ_dCaster"/> list of Caster Changes</summary>
             SetupChange_CLS_Master.Summ_dCaster.Add(new Angle(checkCaster.Degrees /*- _oc.sccvOP.deltaCaster*/, AngleUnit.Degrees));
-            
+
             ///<summary>Assigning the rotated angle and change in caster to the <see cref="SetupChange_ClosedLoopSolver.AngleToBeRotatedForCaster"/> and <see cref="SetupChange_ClosedLoopSolver.Final_Caster"/> lists</summary>
             AssignCasterDelta(new Angle(0, AngleUnit.Degrees), new Angle(checkCaster.Degrees /*- _oc.sccvOP.deltaCaster*/, AngleUnit.Degrees));
-            
+
             ///<summary>Assigning the rotated angle and change in caster to the <see cref="SetupChange_ClosedLoopSolver.AngleToBeRotatedForCaster"/> </summary>
             AssignAngleToBeRotatedForCaster(new Angle(-(checkCaster.Degrees - _oc.sccvOP.deltaCaster), AngleUnit.Degrees));
         }
@@ -3243,7 +3234,7 @@ namespace Coding_Attempt_with_GUI
         private Angle ReCheckCaster()
         {
             Angle dCaster_New = SetupChangeDatabase.AngleInRequiredView(Custom3DGeometry.GetMathNetVector3D(SetupChange_DB_Master.SteeringAxis.ViewLines.SideView.DeltaLine[SetupChange_DB_Master.SteeringAxis.ViewLines.SideView.DeltaLine.Count - 1]),
-                                                                        Custom3DGeometry.GetMathNetVector3D(SetupChange_DB_Master.SteeringAxis.ViewLines.SideView.DeltaLine[0]), 
+                                                                        Custom3DGeometry.GetMathNetVector3D(SetupChange_DB_Master.SteeringAxis.ViewLines.SideView.DeltaLine[0]),
                                                                         Custom3DGeometry.GetMathNetVector3D(SetupChange_DB_Master.WheelCentreAxis.Lateral));
 
             //SetupChange_DB_Master.SetupChangeOPDictionary["Caster"] = dCaster_New.Radians;
@@ -3306,14 +3297,14 @@ namespace Coding_Attempt_with_GUI
         private Angle ReCheckKPI()
         {
             Angle dKPI_New = SetupChangeDatabase.AngleInRequiredView(Custom3DGeometry.GetMathNetVector3D(SetupChange_DB_Master.SteeringAxis.ViewLines.FrontView.DeltaLine[SetupChange_DB_Master.SteeringAxis.ViewLines.FrontView.DeltaLine.Count - 1]),
-                                                                     Custom3DGeometry.GetMathNetVector3D(SetupChange_DB_Master.SteeringAxis.ViewLines.FrontView.DeltaLine[0]), 
+                                                                     Custom3DGeometry.GetMathNetVector3D(SetupChange_DB_Master.SteeringAxis.ViewLines.FrontView.DeltaLine[0]),
                                                                      Custom3DGeometry.GetMathNetVector3D(SetupChange_DB_Master.WheelCentreAxis.Longitudinal));
 
             //SetupChange_DB_Master.SetupChangeOPDictionary["KPI"] = dKPI_New.Radians;
             //SetupChange_DB_Master.InitializeSteeringAxis(1);
 
             return dKPI_New;
-            
+
         }
         /// <summary>
         /// Method to add the next angle through which the Steering Axis Should be rotated to get the required caster Change
@@ -3391,7 +3382,7 @@ namespace Coding_Attempt_with_GUI
                 else if (_sccvOut.kpiAdjustmentTool == AdjustmentTools.BottomRearArm)
                 {
                     SetupChange_CLS_Master.Final_BottomRearArm.Add(SetupChange_DB_Master.AdjOptions.MKPIAdjusterLine[SetupChange_DB_Master.AdjOptions.MKPIAdjusterLine.Count - 1].Length());
-                } 
+                }
             }
 
             if (_sccvOut.KPIChangeRequested)
@@ -3412,7 +3403,7 @@ namespace Coding_Attempt_with_GUI
                 else if (_sccvOut.casterAdjustmentTool == AdjustmentTools.BottomRearArm)
                 {
                     SetupChange_CLS_Master.Final_BottomRearArm.Add(SetupChange_DB_Master.AdjOptions.MCasterAdjustmenterLine[SetupChange_DB_Master.AdjOptions.MCasterAdjustmenterLine.Count - 1].Length());
-                } 
+                }
             }
 
             ///<summary>Ride Height Adjustment </summary>
@@ -3479,23 +3470,8 @@ namespace Coding_Attempt_with_GUI
                 SetupChange_CLS_RR = SetupChange_CLS_Master;
             }
 
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        } 
+        #endregion
 
         #endregion
     }
