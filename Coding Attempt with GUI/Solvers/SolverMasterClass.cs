@@ -1517,6 +1517,7 @@ namespace Coding_Attempt_with_GUI
         /// 
         /// </summary>
         List<int> randomIndexSelecter = new List<int>();
+        
         /// <summary>
         /// Method to assign the <see cref="AdjustmentTools"/> and Axis of Rotation to the <see cref="AdjustmentOptions.MCasterAdjustmenterLine"/> and <see cref="AdjustmentOptions.MKPIAdjusterLine"/>.
         /// This method uses a Random Assigner in sync with <see cref="SetupChange_CornerVariables.LinkLengthsWhichHaveNotChanged"/> List to decide the Master Adjuster and Axis of Rotation based on which Links have been left free of any Change
@@ -2818,8 +2819,6 @@ namespace Coding_Attempt_with_GUI
             RecordInadvertantCasterChange(_ocSetupKPI);
 
         }
-
-
 
         /// <summary>
         /// Method to assign a point to the corresponding Output Class SuspensionCoordinateMaster Variables
