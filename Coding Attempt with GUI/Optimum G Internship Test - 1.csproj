@@ -518,6 +518,12 @@
     <Compile Include="SetupChange\XUC_SetupChangeResults.Designer.cs">
       <DependentUpon>XUC_SetupChangeResults.cs</DependentUpon>
     </Compile>
+    <Compile Include="Temp_BobillierMethod.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Temp_BobillierMethod.Designer.cs">
+      <DependentUpon>Temp_BobillierMethod.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="GUI Elements\Graphics\CAD Auxillaries\LegendEditor.resx">
       <DependentUpon>LegendEditor.cs</DependentUpon>
     </EmbeddedResource>
@@ -614,6 +620,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SetupChange\XUC_SetupChangeResults.resx">
       <DependentUpon>XUC_SetupChangeResults.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Temp_BobillierMethod.resx">
+      <DependentUpon>Temp_BobillierMethod.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config">
       <SubType>Designer</SubType>

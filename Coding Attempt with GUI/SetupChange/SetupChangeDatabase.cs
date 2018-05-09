@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using MathNet.Spatial.Units;
 using devDept.Geometry;
 using devDept.Eyeshot.Entities;
+using devDept.Eyeshot;
 
 namespace Coding_Attempt_with_GUI
 {
@@ -126,6 +127,8 @@ namespace Coding_Attempt_with_GUI
 
         }
 
+
+        #region ---DELETE---
         public void AddLineAndPoint(Line prevWheelSpindle, Point3D preContactPatch, Line prevSteeringAxis)
         {
 
@@ -139,8 +142,16 @@ namespace Coding_Attempt_with_GUI
 
         }
 
+        #endregion
 
+        Block WheelAssembly = new Block("Wheel Assembly");
+        private void AddToBlock()
+        {
+            WheelAssembly.Entities.Add(WheelSpindle.Line.DeltaLine[WheelSpindle.Line.DeltaLine.Count - 1]);
+            WheelAssembly.Entities.Add(SteeringAxis.Line.DeltaLine[SteeringAxis.Line.DeltaLine.Count - 1]);
+            WheelAssembly.Entities.Add(UprightTriangle[UprightTriangle.Count - 1]);
 
+        }
 
         /// <summary>
         /// Method to initialize the steering axis and ALL of its components
@@ -218,13 +229,11 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_z"></param>
         public void TranslateWheelAssembly(double _x, double _y, double _z, int _i)
         {
-
             WheelSpindle.Line.DeltaLine[_i].Translate(_x, _y, _z);
 
-
-
             SteeringAxis.Line.DeltaLine[SteeringAxis.Line.DeltaLine.Count - 1].Translate(_x, _y, _z);
-            
+
+            UprightTriangle[UprightTriangle.Count - 1].Translate(_x, _y, _z); 
 
         }
 
