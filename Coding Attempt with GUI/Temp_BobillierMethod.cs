@@ -21,7 +21,7 @@ namespace Coding_Attempt_with_GUI
             InitializeComponent();
         }
 
-        private void AssignLocalSuspensionObject(SuspensionCoordinatesMaster _scm)
+        public void AssignLocalSuspensionObject(SuspensionCoordinatesMaster _scm)
         {
             if (_scm != null)
             {
@@ -29,9 +29,14 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
-        private void Execute()
+        public void Execute()
         {
             AssignBasePointstPoints();
+            AssignBasePlanes();
+            GetInstantCentreLine();
+            GetBisector1();
+            DrawSteeringAxisINFLine();
+            DrawPlane1AndPointA();
         }
 
         SuspensionCoordinatesMaster SCM;
@@ -45,31 +50,34 @@ namespace Coding_Attempt_with_GUI
         Joint ToeLinkupright;
         private void AssignBasePointstPoints()
         {
-            UBJ = new Joint(new Point3D(SCM.F1x, SCM.F1y, SCM.F1z), 5, 8);
-            
-            LBJ = new Joint(new Point3D(SCM.E1x, SCM.E1y, SCM.E1z), 5, 8);
+            UBJ = new Joint(new Point3D(SCM.F1x, SCM.F1y, SCM.F1z), 5, 2);
 
-            ToeLinkupright = new Joint(new Point3D(SCM.M1x, SCM.M1y, SCM.M1z), 5, 8);
+            LBJ = new Joint(new Point3D(SCM.E1x, SCM.E1y, SCM.E1z), 5, 2);
 
-            TopFrontInboard = new Joint(new Point3D(SCM.A1x, SCM.A1y, SCM.A1z), 5, 8);
+            ToeLinkupright = new Joint(new Point3D(SCM.M1x, SCM.M1y, SCM.M1z), 5, 2);
 
-            TopRearInboard = new Joint(new Point3D(SCM.B1x, SCM.B1y, SCM.B1z), 5, 8);
+            TopFrontInboard = new Joint(new Point3D(SCM.A1x, SCM.A1y, SCM.A1z), 5, 2);
 
-            BottomFrontInboard = new Joint(new Point3D(SCM.D1x, SCM.D1y, SCM.D1z), 5, 8);
+            TopRearInboard = new Joint(new Point3D(SCM.B1x, SCM.B1y, SCM.B1z), 5, 2);
 
-            BottomRearInboard = new Joint(new Point3D(SCM.C1x, SCM.C1y, SCM.C1z), 5, 8);
+            BottomFrontInboard = new Joint(new Point3D(SCM.D1x, SCM.D1y, SCM.D1z), 5, 2);
+
+            BottomRearInboard = new Joint(new Point3D(SCM.C1x, SCM.C1y, SCM.C1z), 5, 2);
 
             cad1.viewportLayout1.Entities.AddRange(new Entity[] { UBJ, LBJ, ToeLinkupright, TopFrontInboard, TopRearInboard, BottomFrontInboard, BottomRearInboard });
         }
 
         Plane TopWishbonePlane;
         Plane BottomWishbonePlane;
+        Transformation scalePlane = new Transformation(20);
+
         private void AssignBasePlanes()
         {
             TopWishbonePlane = new Plane(UBJ.Position, TopFrontInboard.Position, TopRearInboard.Position);
             BottomWishbonePlane = new Plane(LBJ.Position, BottomFrontInboard.Position, BottomRearInboard.Position);
 
-            
+            //TopWishbonePlane.TransformBy(scalePlane);
+            //BottomWishbonePlane.TransformBy(scalePlane);
         }
 
         Line ICLine;
@@ -77,6 +85,7 @@ namespace Coding_Attempt_with_GUI
         private void GetInstantCentreLine()
         {
             Plane.Intersection(TopWishbonePlane, BottomWishbonePlane, out Segment3D ICSegment);
+            
             ICLine = new Line(ICSegment);
             cad1.viewportLayout1.Entities.Add(ICLine);
             
@@ -84,7 +93,7 @@ namespace Coding_Attempt_with_GUI
 
             double ICDistance = ICSegment.MidPoint.DistanceTo(new Point3D());
 
-            if (halfTrack > ICDistance) 
+            if (halfTrack > ICDistance)
             {
                 ICPosition = InstntCentrePosition.Inboard;
             }
@@ -95,20 +104,39 @@ namespace Coding_Attempt_with_GUI
         }
 
         Line Bisector1;
-        private void GetBisector1(VehicleCorner _vCorner)
+        private void GetBisector1()
         {
-            if (_vCorner == VehicleCorner.FrontLeft || _vCorner == VehicleCorner.RearLeft)
-            {
-                if (ICPosition == InstntCentrePosition.Inboard)
-                {
-                    Bisector1 = new Line(ICLine.MidPoint, LBJ.Position);
-                }
-            }
-            else
-            {
-                
-            }
+            Vector3D tempLineForAngle = new Vector3D(ICLine.MidPoint, UBJ.Position);
+            Vector3D tempBisecVector = new Vector3D(ICLine.MidPoint, LBJ.Position);
+            //MathNet.Spatial.Units.Angle angle = new MathNet.Spatial.Units.Angle(Vector3D.AngleBetween(tempBisecVector, tempLineForAngle), MathNet.Spatial.Units.AngleUnit.Radians);
+
+            MathNet.Spatial.Units.Angle angle = (SetupChangeDatabase.AngleInRequiredView(Custom3DGeometry.GetMathNetVector3D(new Line(ICLine.MidPoint, UBJ.Position)), 
+                                                                                                                        Custom3DGeometry.GetMathNetVector3D(new Line(ICLine.MidPoint, LBJ.Position)),
+                                                                                                                        Custom3DGeometry.GetMathNetVector3D(new Line(ICLine.MidPoint,
+                                                                                                                        new Point3D(ICLine.MidPoint.X,ICLine.MidPoint.Y,ICLine.MidPoint.Z+100)))));
+            Bisector1 = new Line(ICLine.MidPoint, LBJ.Position);
+            Bisector1.Rotate(angle.Radians / 2, new Vector3D(ICLine.StartPoint, ICLine.EndPoint));
+            cad1.viewportLayout1.Entities.Add(Bisector1);
         }
+
+        Line SteeringAxis;
+        private void DrawSteeringAxisINFLine()
+        {
+            SteeringAxis = new Line(UBJ.Position, LBJ.Position);
+            //InfiniteLine.DrawInfiniteLine(SteeringAxis.StartPoint, SteeringAxis.EndPoint, cad1.viewportLayout1.Viewports[0]);
+            cad1.viewportLayout1.Entities.Add(SteeringAxis);
+        }
+
+        Plane Plane1;
+        Point3D PointA;
+        private void DrawPlane1AndPointA()
+        {
+            Plane1 = new Plane(BottomFrontInboard.Position, BottomRearInboard.Position, TopFrontInboard.Position);
+            Plane1.TransformBy(scalePlane);
+            Segment3D tempSeg = new Segment3D(SteeringAxis.StartPoint, SteeringAxis.EndPoint);
+            tempSeg.IntersectWith(Plane1, out PointA);
+        }
+
 
     }
 

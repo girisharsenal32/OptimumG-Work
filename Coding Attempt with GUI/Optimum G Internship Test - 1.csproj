@@ -188,6 +188,7 @@
     <Compile Include="GUI Elements\Graphics\CAD Auxillaries\LegendEditor.Designer.cs">
       <DependentUpon>LegendEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="InfiniteLine.cs" />
     <Compile Include="Load Cases\Batch Runs\BatchRunForm.cs">
       <SubType>Form</SubType>
     </Compile>

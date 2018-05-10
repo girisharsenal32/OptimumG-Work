@@ -31,85 +31,85 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Kinematics_Software_New));
-            DevExpress.Utils.SuperToolTip superToolTip33 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem18 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem31 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip34 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem19 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem32 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip35 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem20 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem33 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip36 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipItem toolTipItem34 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip37 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem21 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem35 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip38 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem22 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem36 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip39 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem23 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem37 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip40 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem24 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem38 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip41 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipItem toolTipItem39 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip42 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem25 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem40 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip43 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem26 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem41 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip44 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem27 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem42 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip45 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem28 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem43 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip46 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem29 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem44 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip47 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem30 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem45 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip48 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipItem toolTipItem46 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip49 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem31 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem47 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip50 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipItem toolTipItem48 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip51 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipItem toolTipItem49 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip52 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem32 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.SuperToolTip superToolTip53 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem33 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.SuperToolTip superToolTip54 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipItem toolTipItem50 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip55 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipItem toolTipItem51 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip56 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipItem toolTipItem52 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip57 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipItem toolTipItem53 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip58 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipItem toolTipItem54 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip59 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipItem toolTipItem55 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip60 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipItem toolTipItem56 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip61 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipItem toolTipItem57 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip62 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipItem toolTipItem58 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip63 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipItem toolTipItem59 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip64 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem34 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem60 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip2 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem2 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem2 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip3 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem3 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem3 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip4 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipItem toolTipItem4 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip5 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem4 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem5 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip6 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem5 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem6 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip7 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem6 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem7 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip8 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem7 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem8 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip9 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipItem toolTipItem9 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip10 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem8 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem10 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip11 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem9 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem11 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip12 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem10 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem12 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip13 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem11 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem13 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip14 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem12 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem14 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip15 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem13 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem15 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip16 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipItem toolTipItem16 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip17 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem14 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem17 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip18 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipItem toolTipItem18 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip19 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipItem toolTipItem19 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip20 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem15 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.SuperToolTip superToolTip21 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem16 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.SuperToolTip superToolTip22 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipItem toolTipItem20 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip23 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipItem toolTipItem21 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip24 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipItem toolTipItem22 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip25 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipItem toolTipItem23 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip26 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipItem toolTipItem24 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip27 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipItem toolTipItem25 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip28 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipItem toolTipItem26 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip29 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipItem toolTipItem27 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip30 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipItem toolTipItem28 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip31 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipItem toolTipItem29 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip32 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem17 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem30 = new DevExpress.Utils.ToolTipItem();
             this.splashScreenManager2 = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(global::Coding_Attempt_with_GUI.Forms.WaitForm1), true, true);
             this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
@@ -235,6 +235,7 @@
             this.barButtonItemCreateBatchRun = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItemCreateWorksheet = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItemModifyHeatMap = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItem9 = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageDesign = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageSimulationType = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.RibbonPageGroupTire = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -243,6 +244,7 @@
             this.RibbonPageGroupWeights = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup7 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageSimulation = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupSelectVehicle = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupMotion = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -560,10 +562,11 @@
             this.barButtonPureAyNeg,
             this.barButtonNSMAyNeg,
             this.barButtonItemAyNegAxPos,
-            this.barButtonItemAyNegAxNeg});
+            this.barButtonItemAyNegAxNeg,
+            this.barButtonItem9});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
             this.ribbon.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.ribbon.MaxItemId = 105;
+            this.ribbon.MaxItemId = 106;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageDesign,
@@ -733,14 +736,14 @@
             this.BarButtonDamper.Id = 2;
             this.BarButtonDamper.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("BarButtonDamper.ImageOptions.LargeImage")));
             this.BarButtonDamper.Name = "BarButtonDamper";
-            toolTipTitleItem18.Text = "Adds New Damper Item ";
-            toolTipItem31.LeftIndent = 6;
-            toolTipItem31.Text = "The Properties of the Damper  need to be entered in the Inputs Panel. After enter" +
+            toolTipTitleItem1.Text = "Adds New Damper Item ";
+            toolTipItem1.LeftIndent = 6;
+            toolTipItem1.Text = "The Properties of the Damper  need to be entered in the Inputs Panel. After enter" +
     "ing the properties click the \"Create New Damper \" button in the Inputs Page or p" +
     "ress ENTER to create New Damper Item.";
-            superToolTip33.Items.Add(toolTipTitleItem18);
-            superToolTip33.Items.Add(toolTipItem31);
-            this.BarButtonDamper.SuperTip = superToolTip33;
+            superToolTip1.Items.Add(toolTipTitleItem1);
+            superToolTip1.Items.Add(toolTipItem1);
+            this.BarButtonDamper.SuperTip = superToolTip1;
             this.BarButtonDamper.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.BarButtonDamper_ItemClick);
             // 
             // BarButtonARB
@@ -749,11 +752,11 @@
             this.BarButtonARB.Id = 3;
             this.BarButtonARB.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("BarButtonARB.ImageOptions.LargeImage")));
             this.BarButtonARB.Name = "BarButtonARB";
-            toolTipTitleItem19.Text = "Adds New Anti-Roll Bar Item";
-            toolTipItem32.LeftIndent = 6;
-            superToolTip34.Items.Add(toolTipTitleItem19);
-            superToolTip34.Items.Add(toolTipItem32);
-            this.BarButtonARB.SuperTip = superToolTip34;
+            toolTipTitleItem2.Text = "Adds New Anti-Roll Bar Item";
+            toolTipItem2.LeftIndent = 6;
+            superToolTip2.Items.Add(toolTipTitleItem2);
+            superToolTip2.Items.Add(toolTipItem2);
+            this.BarButtonARB.SuperTip = superToolTip2;
             this.BarButtonARB.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.BarButtonARB_ItemClick);
             // 
             // BarButtonTireItem
@@ -769,15 +772,15 @@
             this.BarButtonTireItem.Name = "BarButtonTireItem";
             this.BarButtonTireItem.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
             this.BarButtonTireItem.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            superToolTip35.DistanceBetweenItems = 2;
-            toolTipTitleItem20.Text = "Adds a New Tire Item ";
-            toolTipItem33.LeftIndent = 6;
-            toolTipItem33.Text = "The Properties of the Tire need to be entered in the Inputs Panel. After entering" +
+            superToolTip3.DistanceBetweenItems = 2;
+            toolTipTitleItem3.Text = "Adds a New Tire Item ";
+            toolTipItem3.LeftIndent = 6;
+            toolTipItem3.Text = "The Properties of the Tire need to be entered in the Inputs Panel. After entering" +
     " the properties click the \"Create New Tire\" button in the Inputs Page or press E" +
     "NTER to create New Tire Item.";
-            superToolTip35.Items.Add(toolTipTitleItem20);
-            superToolTip35.Items.Add(toolTipItem33);
-            this.BarButtonTireItem.SuperTip = superToolTip35;
+            superToolTip3.Items.Add(toolTipTitleItem3);
+            superToolTip3.Items.Add(toolTipItem3);
+            this.BarButtonTireItem.SuperTip = superToolTip3;
             this.BarButtonTireItem.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.BarButtonTireRate_ItemClick);
             // 
             // BarButtonNonSuspendedMass
@@ -816,9 +819,9 @@
             this.BarButtonMovingPoints.Caption = "Create New Front Right Suspension";
             this.BarButtonMovingPoints.Id = 13;
             this.BarButtonMovingPoints.Name = "BarButtonMovingPoints";
-            toolTipItem34.Text = "Creates New Front Right Suspension";
-            superToolTip36.Items.Add(toolTipItem34);
-            this.BarButtonMovingPoints.SuperTip = superToolTip36;
+            toolTipItem4.Text = "Creates New Front Right Suspension";
+            superToolTip4.Items.Add(toolTipItem4);
+            this.BarButtonMovingPoints.SuperTip = superToolTip4;
             // 
             // BarButtonSpring
             // 
@@ -826,14 +829,14 @@
             this.BarButtonSpring.Id = 14;
             this.BarButtonSpring.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("BarButtonSpring.ImageOptions.LargeImage")));
             this.BarButtonSpring.Name = "BarButtonSpring";
-            toolTipTitleItem21.Text = "Adds a New Spring Item";
-            toolTipItem35.LeftIndent = 6;
-            toolTipItem35.Text = "The Properties of the Spring need to be entered in the Inputs Panel. After enteri" +
+            toolTipTitleItem4.Text = "Adds a New Spring Item";
+            toolTipItem5.LeftIndent = 6;
+            toolTipItem5.Text = "The Properties of the Spring need to be entered in the Inputs Panel. After enteri" +
     "ng the properties click the \"Create New Springbutton in the Inputs Page or press" +
     " ENTER to create New Spring Item.";
-            superToolTip37.Items.Add(toolTipTitleItem21);
-            superToolTip37.Items.Add(toolTipItem35);
-            this.BarButtonSpring.SuperTip = superToolTip37;
+            superToolTip5.Items.Add(toolTipTitleItem4);
+            superToolTip5.Items.Add(toolTipItem5);
+            this.BarButtonSpring.SuperTip = superToolTip5;
             this.BarButtonSpring.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.BarButtonSpring_ItemClick);
             // 
             // barButtonCreateNewChassis
@@ -842,14 +845,14 @@
             this.barButtonCreateNewChassis.Id = 18;
             this.barButtonCreateNewChassis.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonCreateNewChassis.ImageOptions.LargeImage")));
             this.barButtonCreateNewChassis.Name = "barButtonCreateNewChassis";
-            toolTipTitleItem22.Text = "Adds New Chassis Item";
-            toolTipItem36.LeftIndent = 6;
-            toolTipItem36.Text = "The Properties of the Chassis need to be entered in the Inputs Panel. After enter" +
+            toolTipTitleItem5.Text = "Adds New Chassis Item";
+            toolTipItem6.LeftIndent = 6;
+            toolTipItem6.Text = "The Properties of the Chassis need to be entered in the Inputs Panel. After enter" +
     "ing the properties click the \"Create New Chassis\" button in the Inputs Page or p" +
     "ress ENTER to create New Chassis Item.";
-            superToolTip38.Items.Add(toolTipTitleItem22);
-            superToolTip38.Items.Add(toolTipItem36);
-            this.barButtonCreateNewChassis.SuperTip = superToolTip38;
+            superToolTip6.Items.Add(toolTipTitleItem5);
+            superToolTip6.Items.Add(toolTipItem6);
+            this.barButtonCreateNewChassis.SuperTip = superToolTip6;
             this.barButtonCreateNewChassis.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.BarButtonChassis_ItemClick);
             // 
             // barButtonWA
@@ -858,11 +861,11 @@
             this.barButtonWA.Id = 20;
             this.barButtonWA.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonWA.ImageOptions.LargeImage")));
             this.barButtonWA.Name = "barButtonWA";
-            toolTipTitleItem23.Text = "Adds New Wheel Alignment Item";
-            toolTipItem37.LeftIndent = 6;
-            superToolTip39.Items.Add(toolTipTitleItem23);
-            superToolTip39.Items.Add(toolTipItem37);
-            this.barButtonWA.SuperTip = superToolTip39;
+            toolTipTitleItem6.Text = "Adds New Wheel Alignment Item";
+            toolTipItem7.LeftIndent = 6;
+            superToolTip7.Items.Add(toolTipTitleItem6);
+            superToolTip7.Items.Add(toolTipItem7);
+            this.barButtonWA.SuperTip = superToolTip7;
             this.barButtonWA.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.BarButtonWA_ItemClick);
             // 
             // barButtonVehicleItem
@@ -871,14 +874,14 @@
             this.barButtonVehicleItem.Id = 1;
             this.barButtonVehicleItem.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonVehicleItem.ImageOptions.LargeImage")));
             this.barButtonVehicleItem.Name = "barButtonVehicleItem";
-            toolTipTitleItem24.Text = "Adds a Vehicle Item";
-            toolTipItem38.LeftIndent = 6;
-            toolTipItem38.Text = "Select the inputs you wish to assmeble onto each corner of the Vehicle and then c" +
+            toolTipTitleItem7.Text = "Adds a Vehicle Item";
+            toolTipItem8.LeftIndent = 6;
+            toolTipItem8.Text = "Select the inputs you wish to assmeble onto each corner of the Vehicle and then c" +
     "lick the ASSEMBLE NEW VEHICLE BUTTON to assembly the Vehicle you wish to Simulat" +
     "e\r\n";
-            superToolTip40.Items.Add(toolTipTitleItem24);
-            superToolTip40.Items.Add(toolTipItem38);
-            this.barButtonVehicleItem.SuperTip = superToolTip40;
+            superToolTip8.Items.Add(toolTipTitleItem7);
+            superToolTip8.Items.Add(toolTipItem8);
+            this.barButtonVehicleItem.SuperTip = superToolTip8;
             this.barButtonVehicleItem.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonVehicleItem_ItemClick);
             // 
             // barButtonItem1
@@ -889,10 +892,10 @@
             this.barButtonItem1.DropDownControl = this.popupControlContainerInputSheet;
             this.barButtonItem1.Id = 14;
             this.barButtonItem1.Name = "barButtonItem1";
-            toolTipItem39.Text = "Creates an Input Sheet which displays all the Inputs that the user has selected w" +
+            toolTipItem9.Text = "Creates an Input Sheet which displays all the Inputs that the user has selected w" +
     "hile Assembling the Vehicle";
-            superToolTip41.Items.Add(toolTipItem39);
-            this.barButtonItem1.SuperTip = superToolTip41;
+            superToolTip9.Items.Add(toolTipItem9);
+            this.barButtonItem1.SuperTip = superToolTip9;
             // 
             // popupControlContainerInputSheet
             // 
@@ -942,11 +945,11 @@
             this.barButtonItemSCRRItem.Caption = "Dummy";
             this.barButtonItemSCRRItem.Id = 26;
             this.barButtonItemSCRRItem.Name = "barButtonItemSCRRItem";
-            toolTipTitleItem25.Text = "Adds New Rear Right Suspension";
-            toolTipItem40.LeftIndent = 6;
-            superToolTip42.Items.Add(toolTipTitleItem25);
-            superToolTip42.Items.Add(toolTipItem40);
-            this.barButtonItemSCRRItem.SuperTip = superToolTip42;
+            toolTipTitleItem8.Text = "Adds New Rear Right Suspension";
+            toolTipItem10.LeftIndent = 6;
+            superToolTip10.Items.Add(toolTipTitleItem8);
+            superToolTip10.Items.Add(toolTipItem10);
+            this.barButtonItemSCRRItem.SuperTip = superToolTip10;
             this.barButtonItemSCRRItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             this.barButtonItemSCRRItem.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.BarButtonSCRR_ItemClick);
             // 
@@ -955,11 +958,11 @@
             this.barButtonSCFLItem.Caption = "Dummy";
             this.barButtonSCFLItem.Id = 27;
             this.barButtonSCFLItem.Name = "barButtonSCFLItem";
-            toolTipTitleItem26.Text = "Adds New Front Left Coordinate Set";
-            toolTipItem41.LeftIndent = 6;
-            superToolTip43.Items.Add(toolTipTitleItem26);
-            superToolTip43.Items.Add(toolTipItem41);
-            this.barButtonSCFLItem.SuperTip = superToolTip43;
+            toolTipTitleItem9.Text = "Adds New Front Left Coordinate Set";
+            toolTipItem11.LeftIndent = 6;
+            superToolTip11.Items.Add(toolTipTitleItem9);
+            superToolTip11.Items.Add(toolTipItem11);
+            this.barButtonSCFLItem.SuperTip = superToolTip11;
             this.barButtonSCFLItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             this.barButtonSCFLItem.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.BarButtonSCFL_ItemClick);
             // 
@@ -968,11 +971,11 @@
             this.barButtonItemSCRLItem.Caption = "Dummy";
             this.barButtonItemSCRLItem.Id = 28;
             this.barButtonItemSCRLItem.Name = "barButtonItemSCRLItem";
-            toolTipTitleItem27.Text = "Adds New Rear Left Suspension";
-            toolTipItem42.LeftIndent = 6;
-            superToolTip44.Items.Add(toolTipTitleItem27);
-            superToolTip44.Items.Add(toolTipItem42);
-            this.barButtonItemSCRLItem.SuperTip = superToolTip44;
+            toolTipTitleItem10.Text = "Adds New Rear Left Suspension";
+            toolTipItem12.LeftIndent = 6;
+            superToolTip12.Items.Add(toolTipTitleItem10);
+            superToolTip12.Items.Add(toolTipItem12);
+            this.barButtonItemSCRLItem.SuperTip = superToolTip12;
             this.barButtonItemSCRLItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             this.barButtonItemSCRLItem.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.BarButtonSCRL_ItemClick);
             // 
@@ -981,11 +984,11 @@
             this.barButtonItemSCFRItem.Caption = "Dummy";
             this.barButtonItemSCFRItem.Id = 29;
             this.barButtonItemSCFRItem.Name = "barButtonItemSCFRItem";
-            toolTipTitleItem28.Text = "Adds New Front Right Suspension";
-            toolTipItem43.LeftIndent = 6;
-            superToolTip45.Items.Add(toolTipTitleItem28);
-            superToolTip45.Items.Add(toolTipItem43);
-            this.barButtonItemSCFRItem.SuperTip = superToolTip45;
+            toolTipTitleItem11.Text = "Adds New Front Right Suspension";
+            toolTipItem13.LeftIndent = 6;
+            superToolTip13.Items.Add(toolTipTitleItem11);
+            superToolTip13.Items.Add(toolTipItem13);
+            this.barButtonItemSCFRItem.SuperTip = superToolTip13;
             this.barButtonItemSCFRItem.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             this.barButtonItemSCFRItem.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.BarButtonSCFR_ItemClick);
             // 
@@ -1016,23 +1019,23 @@
             this.barButtonInputOrigin.ButtonStyle = DevExpress.XtraBars.BarButtonStyle.DropDown;
             this.barButtonInputOrigin.Caption = "Input Origin";
             this.barButtonInputOrigin.DropDownControl = this.popupControlContainerInputOrigin;
-            toolTipTitleItem29.Text = "Coordinates of Vehicle\'s Origin";
-            toolTipItem44.LeftIndent = 6;
-            toolTipItem44.Text = "Input the coordinates of the Vehicle\'s Origin with respect to the User\'s Origin ";
-            superToolTip46.Items.Add(toolTipTitleItem29);
-            superToolTip46.Items.Add(toolTipItem44);
-            this.barButtonInputOrigin.DropDownSuperTip = superToolTip46;
+            toolTipTitleItem12.Text = "Coordinates of Vehicle\'s Origin";
+            toolTipItem14.LeftIndent = 6;
+            toolTipItem14.Text = "Input the coordinates of the Vehicle\'s Origin with respect to the User\'s Origin ";
+            superToolTip14.Items.Add(toolTipTitleItem12);
+            superToolTip14.Items.Add(toolTipItem14);
+            this.barButtonInputOrigin.DropDownSuperTip = superToolTip14;
             this.barButtonInputOrigin.Id = 34;
             this.barButtonInputOrigin.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonInputOrigin.ImageOptions.LargeImage")));
             this.barButtonInputOrigin.ItemClickFireMode = DevExpress.XtraBars.BarItemEventFireMode.Immediate;
             this.barButtonInputOrigin.Name = "barButtonInputOrigin";
-            toolTipTitleItem30.Text = "Coordinates of Vehicle Origin";
-            toolTipItem45.LeftIndent = 6;
-            toolTipItem45.Text = "Input the Coordinates of the Vehicle\'s Origin System with respect to the World/Us" +
+            toolTipTitleItem13.Text = "Coordinates of Vehicle Origin";
+            toolTipItem15.LeftIndent = 6;
+            toolTipItem15.Text = "Input the Coordinates of the Vehicle\'s Origin System with respect to the World/Us" +
     "er Origin System";
-            superToolTip47.Items.Add(toolTipTitleItem30);
-            superToolTip47.Items.Add(toolTipItem45);
-            this.barButtonInputOrigin.SuperTip = superToolTip47;
+            superToolTip15.Items.Add(toolTipTitleItem13);
+            superToolTip15.Items.Add(toolTipItem15);
+            this.barButtonInputOrigin.SuperTip = superToolTip15;
             // 
             // popupControlContainerInputOrigin
             // 
@@ -1125,10 +1128,10 @@
             this.barButtonSuspensionType.Caption = "Suspension Type";
             this.barButtonSuspensionType.Id = 36;
             this.barButtonSuspensionType.Name = "barButtonSuspensionType";
-            toolTipItem46.Text = "Select the Type of Suspension, Type of Actuation and Type of Anti-Roll Bar you wi" +
+            toolTipItem16.Text = "Select the Type of Suspension, Type of Actuation and Type of Anti-Roll Bar you wi" +
     "sh to work with";
-            superToolTip48.Items.Add(toolTipItem46);
-            this.barButtonSuspensionType.SuperTip = superToolTip48;
+            superToolTip16.Items.Add(toolTipItem16);
+            this.barButtonSuspensionType.SuperTip = superToolTip16;
             // 
             // barButtonCalculateResults
             // 
@@ -1144,22 +1147,22 @@
             this.delete.Caption = "Output Origin";
             this.delete.Id = 38;
             this.delete.Name = "delete";
-            toolTipTitleItem31.Text = "Coordinates of Vehicle\'s Orign";
-            toolTipItem47.LeftIndent = 6;
-            toolTipItem47.Text = "Enter the coordinates of the Vehicle\'s Origin with respect the Origin of the Worl" +
+            toolTipTitleItem14.Text = "Coordinates of Vehicle\'s Orign";
+            toolTipItem17.LeftIndent = 6;
+            toolTipItem17.Text = "Enter the coordinates of the Vehicle\'s Origin with respect the Origin of the Worl" +
     "d/User Coordinate System in which you wish to view the Outputs";
-            superToolTip49.Items.Add(toolTipTitleItem31);
-            superToolTip49.Items.Add(toolTipItem47);
-            this.delete.SuperTip = superToolTip49;
+            superToolTip17.Items.Add(toolTipTitleItem14);
+            superToolTip17.Items.Add(toolTipItem17);
+            this.delete.SuperTip = superToolTip17;
             // 
             // barButtonDisplayResults
             // 
             this.barButtonDisplayResults.Caption = "View Results";
             this.barButtonDisplayResults.Id = 39;
             this.barButtonDisplayResults.Name = "barButtonDisplayResults";
-            toolTipItem48.Text = "Allows the user to view only the results ";
-            superToolTip50.Items.Add(toolTipItem48);
-            this.barButtonDisplayResults.SuperTip = superToolTip50;
+            toolTipItem18.Text = "Allows the user to view only the results ";
+            superToolTip18.Items.Add(toolTipItem18);
+            this.barButtonDisplayResults.SuperTip = superToolTip18;
             this.barButtonDisplayResults.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonDisplayResults_ItemClicked);
             // 
             // barButtonRecalculateResults
@@ -1170,9 +1173,9 @@
             this.barButtonRecalculateResults.DropDownControl = this.popupControlContainerRecalculateResults;
             this.barButtonRecalculateResults.Id = 40;
             this.barButtonRecalculateResults.Name = "barButtonRecalculateResults";
-            toolTipItem49.Text = "Recalculate the results using the two options available\r\n";
-            superToolTip51.Items.Add(toolTipItem49);
-            this.barButtonRecalculateResults.SuperTip = superToolTip51;
+            toolTipItem19.Text = "Recalculate the results using the two options available\r\n";
+            superToolTip19.Items.Add(toolTipItem19);
+            this.barButtonRecalculateResults.SuperTip = superToolTip19;
             // 
             // popupControlContainerRecalculateResults
             // 
@@ -1350,9 +1353,9 @@
             this.barButtonUndo.Id = 64;
             this.barButtonUndo.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonUndo.ImageOptions.Image")));
             this.barButtonUndo.Name = "barButtonUndo";
-            toolTipTitleItem32.Text = "Undo";
-            superToolTip52.Items.Add(toolTipTitleItem32);
-            this.barButtonUndo.SuperTip = superToolTip52;
+            toolTipTitleItem15.Text = "Undo";
+            superToolTip20.Items.Add(toolTipTitleItem15);
+            this.barButtonUndo.SuperTip = superToolTip20;
             this.barButtonUndo.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonUndo_ItemClick);
             // 
             // barButtonRedo
@@ -1362,9 +1365,9 @@
             this.barButtonRedo.Id = 65;
             this.barButtonRedo.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonRedo.ImageOptions.Image")));
             this.barButtonRedo.Name = "barButtonRedo";
-            toolTipTitleItem33.Text = "Redo";
-            superToolTip53.Items.Add(toolTipTitleItem33);
-            this.barButtonRedo.SuperTip = superToolTip53;
+            toolTipTitleItem16.Text = "Redo";
+            superToolTip21.Items.Add(toolTipTitleItem16);
+            this.barButtonRedo.SuperTip = superToolTip21;
             this.barButtonRedo.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonRedo_ItemClick);
             // 
             // barButtonItem11
@@ -1757,6 +1760,13 @@
             this.barButtonItemModifyHeatMap.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             this.barButtonItemModifyHeatMap.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemCreateHeatMap_ItemClick);
             // 
+            // barButtonItem9
+            // 
+            this.barButtonItem9.Caption = "barButtonItem9";
+            this.barButtonItem9.Id = 105;
+            this.barButtonItem9.Name = "barButtonItem9";
+            this.barButtonItem9.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem9_ItemClick);
+            // 
             // ribbonPageDesign
             // 
             this.ribbonPageDesign.Appearance.BackColor = System.Drawing.Color.White;
@@ -1768,7 +1778,8 @@
             this.RibbonPageGroupSuspensionStiffness,
             this.RibbonPageGroupWeights,
             this.ribbonPageGroup1,
-            this.ribbonPageGroup7});
+            this.ribbonPageGroup7,
+            this.ribbonPageGroup2});
             this.ribbonPageDesign.Name = "ribbonPageDesign";
             this.ribbonPageDesign.Text = "Design";
             // 
@@ -1830,6 +1841,12 @@
             this.ribbonPageGroup7.ItemsLayout = DevExpress.XtraBars.Ribbon.RibbonPageGroupItemsLayout.OneRow;
             this.ribbonPageGroup7.Name = "ribbonPageGroup7";
             this.ribbonPageGroup7.Text = "Vehicle ";
+            // 
+            // ribbonPageGroup2
+            // 
+            this.ribbonPageGroup2.ItemLinks.Add(this.barButtonItem9);
+            this.ribbonPageGroup2.Name = "ribbonPageGroup2";
+            this.ribbonPageGroup2.Text = "ribbonPageGroup2";
             // 
             // ribbonPageSimulation
             // 
@@ -2061,10 +2078,10 @@
             this.navBarGroupTireStiffness.Expanded = true;
             this.navBarGroupTireStiffness.Name = "navBarGroupTireStiffness";
             this.navBarGroupTireStiffness.SelectedLinkIndex = 0;
-            superToolTip54.DistanceBetweenItems = 0;
-            toolTipItem50.Text = "View Properties of created Tire Items";
-            superToolTip54.Items.Add(toolTipItem50);
-            this.navBarGroupTireStiffness.SuperTip = superToolTip54;
+            superToolTip22.DistanceBetweenItems = 0;
+            toolTipItem20.Text = "View Properties of created Tire Items";
+            superToolTip22.Items.Add(toolTipItem20);
+            this.navBarGroupTireStiffness.SuperTip = superToolTip22;
             // 
             // contextMenuStripRenameInputItem
             // 
@@ -2092,73 +2109,73 @@
             // 
             this.navBarGroupSuspensionFL.Caption = "Suspension Front Left";
             this.navBarGroupSuspensionFL.Name = "navBarGroupSuspensionFL";
-            toolTipItem51.Text = "View Coordinates of Created Front Left Suspensions";
-            superToolTip55.Items.Add(toolTipItem51);
-            this.navBarGroupSuspensionFL.SuperTip = superToolTip55;
+            toolTipItem21.Text = "View Coordinates of Created Front Left Suspensions";
+            superToolTip23.Items.Add(toolTipItem21);
+            this.navBarGroupSuspensionFL.SuperTip = superToolTip23;
             // 
             // navBarGroupSuspensionFR
             // 
             this.navBarGroupSuspensionFR.Caption = "Suspension Front Right";
             this.navBarGroupSuspensionFR.Name = "navBarGroupSuspensionFR";
-            toolTipItem52.Text = "View Coordinates of Created Front Right Suspensions";
-            superToolTip56.Items.Add(toolTipItem52);
-            this.navBarGroupSuspensionFR.SuperTip = superToolTip56;
+            toolTipItem22.Text = "View Coordinates of Created Front Right Suspensions";
+            superToolTip24.Items.Add(toolTipItem22);
+            this.navBarGroupSuspensionFR.SuperTip = superToolTip24;
             // 
             // navBarGroupSuspensionRL
             // 
             this.navBarGroupSuspensionRL.Caption = "Suspension Rear Left";
             this.navBarGroupSuspensionRL.Name = "navBarGroupSuspensionRL";
-            toolTipItem53.Text = "View Coordinates of Created Rear Left Suspensions";
-            superToolTip57.Items.Add(toolTipItem53);
-            this.navBarGroupSuspensionRL.SuperTip = superToolTip57;
+            toolTipItem23.Text = "View Coordinates of Created Rear Left Suspensions";
+            superToolTip25.Items.Add(toolTipItem23);
+            this.navBarGroupSuspensionRL.SuperTip = superToolTip25;
             // 
             // navBarGroupSuspensionRR
             // 
             this.navBarGroupSuspensionRR.Caption = "Suspension Rear Right";
             this.navBarGroupSuspensionRR.Name = "navBarGroupSuspensionRR";
-            toolTipItem54.Text = "View Coordinates of Created Rear Right Suspensions";
-            superToolTip58.Items.Add(toolTipItem54);
-            this.navBarGroupSuspensionRR.SuperTip = superToolTip58;
+            toolTipItem24.Text = "View Coordinates of Created Rear Right Suspensions";
+            superToolTip26.Items.Add(toolTipItem24);
+            this.navBarGroupSuspensionRR.SuperTip = superToolTip26;
             // 
             // navBarGroupSprings
             // 
             this.navBarGroupSprings.Caption = "Springs";
             this.navBarGroupSprings.Name = "navBarGroupSprings";
-            toolTipItem55.Text = "View Properties of created Spring Items";
-            superToolTip59.Items.Add(toolTipItem55);
-            this.navBarGroupSprings.SuperTip = superToolTip59;
+            toolTipItem25.Text = "View Properties of created Spring Items";
+            superToolTip27.Items.Add(toolTipItem25);
+            this.navBarGroupSprings.SuperTip = superToolTip27;
             // 
             // navBarGroupAntiRollBar
             // 
             this.navBarGroupAntiRollBar.Caption = "Anti-Roll Bar";
             this.navBarGroupAntiRollBar.Name = "navBarGroupAntiRollBar";
-            toolTipItem56.Text = "View Properties of created Anti-Roll Bar";
-            superToolTip60.Items.Add(toolTipItem56);
-            this.navBarGroupAntiRollBar.SuperTip = superToolTip60;
+            toolTipItem26.Text = "View Properties of created Anti-Roll Bar";
+            superToolTip28.Items.Add(toolTipItem26);
+            this.navBarGroupAntiRollBar.SuperTip = superToolTip28;
             // 
             // navBarGroupDamper
             // 
             this.navBarGroupDamper.Caption = "Damper";
             this.navBarGroupDamper.Name = "navBarGroupDamper";
-            toolTipItem57.Text = "View Properties of created Damper Items";
-            superToolTip61.Items.Add(toolTipItem57);
-            this.navBarGroupDamper.SuperTip = superToolTip61;
+            toolTipItem27.Text = "View Properties of created Damper Items";
+            superToolTip29.Items.Add(toolTipItem27);
+            this.navBarGroupDamper.SuperTip = superToolTip29;
             // 
             // navBarGroupChassis
             // 
             this.navBarGroupChassis.Caption = "Chassis";
             this.navBarGroupChassis.Name = "navBarGroupChassis";
-            toolTipItem58.Text = "View Properites of created Chassis Items ";
-            superToolTip62.Items.Add(toolTipItem58);
-            this.navBarGroupChassis.SuperTip = superToolTip62;
+            toolTipItem28.Text = "View Properites of created Chassis Items ";
+            superToolTip30.Items.Add(toolTipItem28);
+            this.navBarGroupChassis.SuperTip = superToolTip30;
             // 
             // navBarGroupWheelAlignment
             // 
             this.navBarGroupWheelAlignment.Caption = "Wheel Alignment";
             this.navBarGroupWheelAlignment.Name = "navBarGroupWheelAlignment";
-            toolTipItem59.Text = "View Properties of created Wheel Alignment Items ";
-            superToolTip63.Items.Add(toolTipItem59);
-            this.navBarGroupWheelAlignment.SuperTip = superToolTip63;
+            toolTipItem29.Text = "View Properties of created Wheel Alignment Items ";
+            superToolTip31.Items.Add(toolTipItem29);
+            this.navBarGroupWheelAlignment.SuperTip = superToolTip31;
             // 
             // navBarGroupVehicle
             // 
@@ -3322,13 +3339,13 @@
             this.barButtonItem13.DropDownControl = this.popupControlContainerOutputOrigin;
             this.barButtonItem13.Id = 38;
             this.barButtonItem13.Name = "barButtonItem13";
-            toolTipTitleItem34.Text = "Coordinates of Vehicle\'s Orign";
-            toolTipItem60.LeftIndent = 6;
-            toolTipItem60.Text = "Enter the coordinates of the Vehicle\'s Origin with respect the Origin of the Worl" +
+            toolTipTitleItem17.Text = "Coordinates of Vehicle\'s Orign";
+            toolTipItem30.LeftIndent = 6;
+            toolTipItem30.Text = "Enter the coordinates of the Vehicle\'s Origin with respect the Origin of the Worl" +
     "d/User Coordinate System in which you wish to view the Outputs";
-            superToolTip64.Items.Add(toolTipTitleItem34);
-            superToolTip64.Items.Add(toolTipItem60);
-            this.barButtonItem13.SuperTip = superToolTip64;
+            superToolTip32.Items.Add(toolTipTitleItem17);
+            superToolTip32.Items.Add(toolTipItem30);
+            this.barButtonItem13.SuperTip = superToolTip32;
             // 
             // GC
             // 
@@ -3748,5 +3765,7 @@
         private DevExpress.XtraBars.BarButtonItem barButtonItemAyNegAxNeg;
         private Arrow_Force GCArrow;
         private GraphicsCoorsdinatesBar GCBar;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem9;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
     }
 }

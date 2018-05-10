@@ -12226,6 +12226,7 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
+
         private void NavBarItemResults_NameChanged(int _index)
         {
             try
@@ -12347,6 +12348,22 @@ namespace Coding_Attempt_with_GUI
             //    MessageBox.Show("File not found");
             //}
         }
+
+
+        private void barButtonItem9_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            Temp_BobillierMethod tempBob = new Temp_BobillierMethod();
+            if (SuspensionCoordinatesFront.Assy_List_SCFL != null)
+            {
+                if (SuspensionCoordinatesFront.Assy_List_SCFL.Count != 0) 
+                {
+                    tempBob.AssignLocalSuspensionObject(SuspensionCoordinatesFront.Assy_List_SCFL[0]);
+                    tempBob.Execute();
+                    tempBob.Show();
+                }
+            }
+        }
+
 
     }
 }
