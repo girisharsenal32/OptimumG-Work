@@ -2962,9 +2962,9 @@ namespace Coding_Attempt_with_GUI
         private Angle AssignRotationAngleSign(Point3D _axisStart, Point3D _axisEnd, Angle _angleRotation, CurrentChange _currentChange)
         {
             ///<summary>---IMPORTANT--- FOR EXPLANATION ON WHY THIS IS DONE SEE YOUR NOTES. "EPIPHANIES" SECTION IN ORANGE HIGHLIGHT INSIDE THE ANGLE REALISATION SECTION</summary>
-            if (/*!SteeringAxisISRotationAxis*/ _currentChange != CurrentChange.Toe)
+            if (_currentChange != CurrentChange.Toe)
             {
-                if (/*KPIRotation*/ _currentChange == CurrentChange.KPI || _currentChange == CurrentChange.Camber)
+                if (_currentChange == CurrentChange.KPI || _currentChange == CurrentChange.Camber)
                 {
                     if (_axisStart.Z > _axisEnd.Z)
                     {
@@ -2975,7 +2975,7 @@ namespace Coding_Attempt_with_GUI
                         return _angleRotation;
                     }
                 }
-                else if (/*CasterRotation*/ _currentChange == CurrentChange.Caster)
+                else if (_currentChange == CurrentChange.Caster)
                 {
                     if (Identifier == 1 || Identifier == 3)
                     {
