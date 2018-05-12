@@ -182,13 +182,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomInfiniteLine.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="GUI Elements\Graphics\CAD Auxillaries\LegendEditor.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GUI Elements\Graphics\CAD Auxillaries\LegendEditor.Designer.cs">
       <DependentUpon>LegendEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="InfiniteLine.cs" />
+    <Compile Include="InfiniteLineFromEyeshotSupport.cs" />
     <Compile Include="Load Cases\Batch Runs\BatchRunForm.cs">
       <SubType>Form</SubType>
     </Compile>

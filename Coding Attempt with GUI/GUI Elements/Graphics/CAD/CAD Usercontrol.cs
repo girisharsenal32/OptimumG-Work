@@ -3169,6 +3169,9 @@ namespace Coding_Attempt_with_GUI
             ////viewportLayout1.ZoomFit();
 
             //viewportLayout1.Refresh();
+
+            
+
             #endregion
         }
         #endregion
@@ -3315,6 +3318,9 @@ namespace Coding_Attempt_with_GUI
 
             viewportLayout1.Update();
             viewportLayout1.Refresh();
+            
+            
+
         }
 
         public void RefreshViewPort() => viewportLayout1.Refresh();
@@ -3650,6 +3656,7 @@ namespace Coding_Attempt_with_GUI
             
 
         }
+
     }
 
     /// <summary>
@@ -3756,9 +3763,6 @@ namespace Coding_Attempt_with_GUI
 
     }
 
-
-
-
     /// <summary>
     /// Enum which decides the Gradient Style which the user wants the Legend and the Force Components to be Colored in 
     /// </summary>
@@ -3796,5 +3800,4 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         Both = 2
     };
-
 }

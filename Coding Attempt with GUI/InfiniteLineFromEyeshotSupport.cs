@@ -7,10 +7,11 @@ using devDept.Eyeshot;
 using devDept.Eyeshot.Entities;
 using devDept.Geometry;
 using System.Drawing;
+using devDept.Graphics;
 
 namespace Coding_Attempt_with_GUI
 {
-    class InfiniteLine
+    class InfiniteLineFromEyeshotSupport
     {
         public static void DrawInfiniteLine(Point3D pt1, Point3D pt2, Viewport viewport)
         {
@@ -99,12 +100,12 @@ namespace Coding_Attempt_with_GUI
             base.DrawViewportBackground(data);
 
             ComputeNearFarIntersections(data.Viewport);
-
+            
             var rc = data.RenderContext;
             rc.PushDepthStencilState();
 
-            //rc.SetState(depthStencilStateType.DepthTestOff);
-            //rc.SetShader(shaderType.NoLights);
+            rc.SetState(depthStencilStateType.DepthTestOff);
+            rc.SetShader(shaderType.NoLights);
 
             // Draw in 2D the parts of the lines beyond the far camera plane
 
@@ -149,7 +150,7 @@ namespace Coding_Attempt_with_GUI
 
             var rc = myParams.RenderContext;
 
-            //rc.SetShader(shaderType.NoLights);
+            rc.SetShader(shaderType.NoLights);
 
             // Draw the 3D lines between the camera planes
 
@@ -176,7 +177,7 @@ namespace Coding_Attempt_with_GUI
         protected override void DrawOverlay(DrawSceneParams data)
         {
             // Draw in 2D the parts of the lines before the near camera plane
-            //renderContext.SetShader(shaderType.NoLights);
+            renderContext.SetShader(shaderType.NoLights);
 
             for (int i = 0; i < Viewports.Count; i++)
             {

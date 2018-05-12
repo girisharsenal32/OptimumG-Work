@@ -12357,8 +12357,8 @@ namespace Coding_Attempt_with_GUI
             {
                 if (SuspensionCoordinatesFront.Assy_List_SCFL.Count != 0) 
                 {
-                    tempBob.AssignLocalSuspensionObject(SuspensionCoordinatesFront.Assy_List_SCFL[0]);
-                    tempBob.Execute();
+                    tempBob.AssignLocalSuspensionObject(SuspensionCoordinatesFront.Assy_List_SCFL[0], 1);
+                    tempBob.ConstructBobilierLine();
                     tempBob.Show();
                 }
             }

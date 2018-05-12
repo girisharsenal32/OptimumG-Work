@@ -14,31 +14,54 @@ using MathNet.Spatial.Units;
 
 namespace Coding_Attempt_with_GUI
 {
+    /// <summary>
+    /// This Class creates the Bobillier Line for Minimum Bump Ster using pure Geometry. 
+    /// The Class uses <see cref="devDept.Eyeshot"/> for the operations. However, <see cref="MathNet.Spatial"/> can be used instead.
+    /// </summary>
     public partial class Temp_BobillierMethod : Form
     {
+        /// <summary>
+        /// <see cref="SuspensionCoordinatesMaster"/> object used to perform the Bobillier operations
+        /// </summary>
+        public SuspensionCoordinatesMaster SCM { get; set; }
+
+        public VehicleCorner Corner { get; set; }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public Temp_BobillierMethod()
         {
             InitializeComponent();
-            
         }
 
-        public void AssignLocalSuspensionObject(SuspensionCoordinatesMaster _scm)
+        /// <summary>
+        /// Method to obtain the Suspension Coordinates of the corner for which wre want to plot the Bobillier Line
+        /// </summary>
+        /// <param name="_scm"></param>
+        public void AssignLocalSuspensionObject(SuspensionCoordinatesMaster _scm, int _identifier)
         {
             if (_scm != null)
             {
                 SCM = _scm;
             }
+
+            Corner = (VehicleCorner)_identifier;
         }
 
-        public void Execute()
+        /// <summary>
+        /// Method to execute all the geometry operations required to construct the Bobillier Line in a sequential manner
+        /// Calling this method creates the Bobillier's Line for the corner which calls it. 
+        /// </summary>
+        public void ConstructBobilierLine()
         {
             AssignBasePoints();
-            AssignBasePlanes();
+            ConstructWishbonePlanes();
             ConstructInstantCentreLine();
             ConstructBisector1();
             ConstructSteeringAxisINFLine();
             ConstructPlaneRedPlane1AndPointA();
-            ConstructPlaneRED();
+            ConstructPlaneREDs();
             ConstructPlaneSTEERING();
             ConstructBisector2();
             ConstructPlaneBAndPointB();
@@ -52,16 +75,42 @@ namespace Coding_Attempt_with_GUI
 
         }
 
-        SuspensionCoordinatesMaster SCM;
-
+        /// <summary>
+        /// Upper Ball Joint
+        /// </summary>
         Joint UBJ;
+        /// <summary>
+        /// Lower Ball Joint
+        /// </summary>
         Joint LBJ;
+        /// <summary>
+        /// Top Front Inboard Pick-Up Point
+        /// </summary>
         Joint TopFrontInboard;
+        /// <summary>
+        /// Toe Rear Inboard Pick-Up Point 
+        /// </summary>
         Joint TopRearInboard;
+        /// <summary>
+        /// Bottom Front Inboard Pick-Up Point
+        /// </summary>
         Joint BottomFrontInboard;
+        /// <summary>
+        /// Bottom Rear Inboard Pick-Up Point
+        /// </summary>
         Joint BottomRearInboard;
+        /// <summary>
+        /// Toe Link Upright Attachment Point
+        /// </summary>
         Joint ToeLinkupright;
+        /// <summary>
+        /// Toe Link Inboard Pick-Up Point
+        /// </summary>
         Joint ToeLinkInboard;
+
+        /// <summary>
+        /// Method to Assign all the Joints required to constrcut the Bobillier's Line
+        /// </summary>
         private void AssignBasePoints()
         {
             UBJ = new Joint(new Point3D(SCM.F1x, SCM.F1y, SCM.F1z), 5, 2);
@@ -83,85 +132,152 @@ namespace Coding_Attempt_with_GUI
             cad1.viewportLayout1.Entities.AddRange(new Entity[] { UBJ, LBJ, ToeLinkupright, TopFrontInboard, TopRearInboard, BottomFrontInboard, BottomRearInboard });
         }
 
+        /// <summary>
+        /// <see cref="Plane"/> containing the 3 points of the Top Wishbone
+        /// </summary>
         Plane TopWishbonePlane;
+        /// <summary>
+        /// <see cref="Plane"/> containing the 3 points of the Bottom Wishbone
+        /// </summary>
         Plane BottomWishbonePlane;
-        Transformation scalePlane = new Transformation(20);
 
-        private void AssignBasePlanes()
+        /// <summary>
+        /// Method to construct the Wishbone Planes
+        /// </summary>
+        private void ConstructWishbonePlanes()
         {
             TopWishbonePlane = new Plane(UBJ.Position, TopFrontInboard.Position, TopRearInboard.Position);
+
             BottomWishbonePlane = new Plane(LBJ.Position, BottomFrontInboard.Position, BottomRearInboard.Position);
         }
 
-        Line ICLine;
+        /// <summary>
+        /// <see cref="Line"/> representing the Instant Axis
+        /// </summary>
+        Line InstantAxis;
+        /// <summary>
+        /// Object of the <see cref="InstntCentrePosition"/> to determine whether the instant center is inboard or outboad
+        /// </summary>
         InstntCentrePosition ICPosition;
+
+        /// <summary>
+        /// Method to Construct the Instant Axis
+        /// </summary>
         private void ConstructInstantCentreLine()
         {
+            ///<summary>Calculating the Intersection of the Top and Bottom Wishbone Planes. The result of this calculation is the Instant Axis Line</summary>
             Plane.Intersection(TopWishbonePlane, BottomWishbonePlane, out Segment3D ICSegment);
-            Plane.Intersection(TopWishbonePlane, BottomWishbonePlane, 0, out Segment3D ICSegment2);
             
-            ICLine = new Line(ICSegment);
-            cad1.viewportLayout1.Entities.Add(ICLine);
+            ///<summary>Creating the Instant Axis Line using the result of the Intersection calculation above</summary>
+            InstantAxis = new Line(ICSegment);
+            ///<summary>Extending the Line along both ends by an amount of 500 each</summary>
+            CustomInfiniteLine.DrawInfiniteLine(InstantAxis, 500);
             
-            double halfTrack = SCM.W1x;
-
+            cad1.viewportLayout1.Entities.Add(InstantAxis);
+            
+            ///<summary>Determining the Instant Axis is Inoard or Outboard using the Contact Patch Coordinate and the Instant Axis Mid Point</summary>
             double ICDistance = ICSegment.MidPoint.DistanceTo(new Point3D());
-
-            if (halfTrack > ICDistance)
+            if (Corner == VehicleCorner.FrontLeft || Corner == VehicleCorner.FrontRight) 
             {
-                ICPosition = InstntCentrePosition.Inboard;
+                if ((SCM.W1x) - (InstantAxis.MidPoint.X) > 0)
+                {
+                    ICPosition = InstntCentrePosition.Inboard;
+                }
+                else
+                {
+                    ICPosition = InstntCentrePosition.Outboard;
+                } 
             }
             else
             {
-                ICPosition = InstntCentrePosition.Outboard;
+                if ((SCM.W1x - InstantAxis.MidPoint.X) < 0)
+                {
+                    ICPosition = InstntCentrePosition.Inboard;
+                }
+                else ICPosition = InstntCentrePosition.Outboard;
             }
         }
 
+        /// <summary>
+        /// <see cref="Line"/> representing the Bisector 1. This is the bisector of the TOP and Bottom Wishbone Planes
+        /// </summary>
         Line Bisector1;
+
+        /// <summary>
+        /// Method to construct the <see cref="Bisector1"/>
+        /// </summary>
         private void ConstructBisector1()
         {
-            Line tempLineForAngle = new Line(ICLine.MidPoint.Clone() as Point3D, UBJ.Position.Clone() as Point3D);
-            Line tempBisecVector = new Line(ICLine.MidPoint.Clone() as Point3D, LBJ.Position.Clone() as Point3D);
+            ///<summary>Creating 2 temporay Lines to represent the Top and Bottom Wishbones. Need this to find the angle between the Top and Bottom Wishbone Planes</summary>
+            Line LineForAngle_TopWishbone = new Line(InstantAxis.MidPoint.Clone() as Point3D, UBJ.Position.Clone() as Point3D);
+            Line LineForAngle_BottomWishbone = new Line(InstantAxis.MidPoint.Clone() as Point3D, LBJ.Position.Clone() as Point3D);
 
-            Angle angle = (SetupChangeDatabase.AngleInRequiredView(Custom3DGeometry.GetMathNetVector3D(new Line(ICLine.MidPoint, UBJ.Position)), Custom3DGeometry.GetMathNetVector3D(new Line(ICLine.MidPoint, LBJ.Position)),
-                                                                   Custom3DGeometry.GetMathNetVector3D(new Line(ICLine.StartPoint, ICLine.EndPoint))));
+            ///<summary>Calculating the Line between the Top and Bottom Wishbone Planes by calculating the angle between the Lines created above</summary>
+            Angle angle = (SetupChangeDatabase.AngleInRequiredView(Custom3DGeometry.GetMathNetVector3D(new Line(InstantAxis.MidPoint, UBJ.Position)), Custom3DGeometry.GetMathNetVector3D(new Line(InstantAxis.MidPoint, LBJ.Position)),
+                                                                   Custom3DGeometry.GetMathNetVector3D(new Line(InstantAxis.StartPoint, InstantAxis.EndPoint))));
 
-            angle = AssignAngleSignBasedOnVectorDirection(angle, Custom3DGeometry.GetMathNetVector3D(new Line(ICLine.StartPoint, ICLine.EndPoint)));
-
-            Bisector1 = new Line(ICLine.MidPoint.Clone() as Point3D, LBJ.Position.Clone() as Point3D);
-            Bisector1.Rotate(angle.Radians / 2, new Vector3D(ICLine.StartPoint.Clone() as Point3D, ICLine.EndPoint.Clone() as Point3D), ICLine.MidPoint);
+            ///<summary>Drawing a line alonge the LBJ Line </summary>
+            Bisector1 = new Line(InstantAxis.MidPoint.Clone() as Point3D, LBJ.Position.Clone() as Point3D);
+            ///<summary>Rotating the Bisector Line by twice the amount of half the angle of the angle between the Top and Bottom Wishbone Planes</summary>
+            Bisector1.Rotate(angle.Radians / 2, new Vector3D(InstantAxis.StartPoint.Clone() as Point3D, InstantAxis.EndPoint.Clone() as Point3D), InstantAxis.MidPoint);
             cad1.viewportLayout1.Entities.Add(Bisector1);
         }
 
-        private Angle AssignAngleSignBasedOnVectorDirection(Angle _angleRotation, MathNet.Spatial.Euclidean.Vector3D _rotationAxisVector)
-        {
-            if (_rotationAxisVector.Z < 0)
-            {
-                return _angleRotation;
-            }
-            else
-            {
-                return -_angleRotation;
-            }
-        }
+        #region Delete IF not needed
+        //private Angle AssignAngleSignBasedOnVectorDirection(Angle _angleRotation, MathNet.Spatial.Euclidean.Vector3D _rotationAxisVector)
+        //{
+        //    if (_rotationAxisVector.Z < 0)
+        //    {
+        //        return _angleRotation;
+        //    }
+        //    else
+        //    {
+        //        return -_angleRotation;
+        //    }
+        //} 
+        #endregion
 
+        /// <summary>
+        /// <see cref="Line"/> representing the Steering Axis
+        /// </summary>
         Line SteeringAxis;
+
+        /// <summary>
+        /// Method to construct the <see cref="SteeringAxis"/>
+        /// </summary>
         private void ConstructSteeringAxisINFLine()
         {
             SteeringAxis = new Line(UBJ.Position.Clone() as Point3D, LBJ.Position.Clone() as Point3D);
-            //InfiniteLine.DrawInfiniteLine(SteeringAxis.StartPoint, SteeringAxis.EndPoint, cad1.viewportLayout1.Viewports[0]);
             cad1.viewportLayout1.Entities.Add(SteeringAxis);
         }
 
+        /// <summary>
+        /// <see cref="Plane"/> representing the Plane 1
+        /// </summary>
         Plane Plane1;
+        /// <summary>
+        /// Point A
+        /// </summary>
         Point3D PointA;
+        /// <summary>
+        /// Object of the <see cref="PositionOfPointA"/> Enum which determines whether the PointA is above or below the Wishbones
+        /// </summary>
         PositionOfPointA PointAPos;
+        
+        /// <summary>
+        /// Method to constrcut the Plane 1 and Point A
+        /// </summary>
         private void ConstructPlaneRedPlane1AndPointA()
         {
+            ///Constructing Plane1 from Bottom Wishbone Points and the Top Front Pick-Up Point
+            ///<remarks>Right now selection of these 3 points is random. Need to figure out how to select them properly</remarks>
             Plane1 = new Plane(BottomFrontInboard.Position.Clone() as Point3D, BottomRearInboard.Position.Clone() as Point3D, TopFrontInboard.Position.Clone() as Point3D);
+            ///<summary>Creating a <see cref="Segment3D"/> using the <see cref="SteeringAxis"/> so that I can use the <see cref="Segment3D.IntersectWith(Plane, bool, out Point3D)"/> to compute the intersection of the Plane1 and Steering Axis</summary>
             Segment3D SteeringAxisSegment = new Segment3D(SteeringAxis.StartPoint.Clone() as Point3D, SteeringAxis.EndPoint.Clone() as Point3D);
+            ///<summary>Computing the Intersection of the <see cref="SteeringAxis"/> with the <see cref="Plane1"/> which results in <see cref="PointA"/></summary>
             SteeringAxisSegment.IntersectWith(Plane1, true, out PointA);
 
+            ///<summary>Determining the whether the <see cref="PointA"/> is above or below the Wishbones</summary>
             if (PointA.Y > UBJ.Position.Y && PointA.Y > TopFrontInboard.Position.Y && PointA.Y > TopRearInboard.Position.Y) 
             {
                 PointAPos = PositionOfPointA.AboveWishbones;
@@ -171,42 +287,76 @@ namespace Coding_Attempt_with_GUI
                 PointAPos = PositionOfPointA.BelowWishbones;
             }
 
+            ///<summary>Adding them to the VIewport as a Planar Entity</summary>
             PlanarEntity Plane1_Ent = new PlanarEntity(Plane1);
             Joint PointA_Ent = new Joint(PointA, 10, 2);
             PointA_Ent.Color = Color.AntiqueWhite;
             cad1.viewportLayout1.Entities.AddRange(new Entity[] { Plane1_Ent, PointA_Ent });
         }
 
-        Plane PlaneRED, PlaneRED2;
+        /// <summary>
+        /// The Plane formed using the <see cref="InstantAxis"/> and the <see cref="PointA"/>
+        /// </summary>
+        Plane PlaneRED;
+        /// <summary>
+        /// The equiangled counterpart of <see cref="PlaneRED"/>
+        /// </summary>
+        Plane PlaneRED2;
+        /// <summary>
+        /// Angle which the <see cref="PlaneRED"/> makes with the <see cref="Bisector1"/>
+        /// </summary>
         Angle Angle_Bis1_PlaneRED;
+        /// <summary>
+        /// The Lines representing the <see cref="PlaneRED"/> and the <see cref="PlaneRED2"/>. Needed to compute the angles.
+        /// </summary>
         Line LineForAngle_PlaneRED, LineForAngle_PlaneRed2;
-        private void ConstructPlaneRED()
+
+        /// <summary>
+        /// Method to construct the <see cref="PlaneRED"/> and the <see cref="PlaneRED2"/>
+        /// </summary>
+        private void ConstructPlaneREDs()
         {
-            PlaneRED = new Plane(ICLine.StartPoint.Clone() as Point3D, ICLine.EndPoint.Clone() as Point3D, PointA.Clone() as Point3D);
-            LineForAngle_PlaneRED = new Line(ICLine.MidPoint.Clone() as Point3D, PointA.Clone() as Point3D);
+            ///<summary>Constructing the <see cref="PlaneRED"/> using the <see cref="InstantAxis"/> and the <see cref="PointA"/></summary>
+            PlaneRED = new Plane(InstantAxis.StartPoint.Clone() as Point3D, InstantAxis.EndPoint.Clone() as Point3D, PointA.Clone() as Point3D);
+            ///<summary>Constructing the Line of the <see cref=PlaneRED"/> needed for the angle</summary>
+            LineForAngle_PlaneRED = new Line(InstantAxis.MidPoint.Clone() as Point3D, PointA.Clone() as Point3D);
 
+            ///<summary>Computing the <see cref="Angle"/> between the <see cref="PlaneRED"/> and the <see cref="Bisector1"/></summary>
             Angle_Bis1_PlaneRED = SetupChangeDatabase.AngleInRequiredView(Custom3DGeometry.GetMathNetVector3D(LineForAngle_PlaneRED), Custom3DGeometry.GetMathNetVector3D(Bisector1),
-                                                                           Custom3DGeometry.GetMathNetVector3D(new Line(ICLine.StartPoint, ICLine.EndPoint)));
+                                                                           Custom3DGeometry.GetMathNetVector3D(new Line(InstantAxis.StartPoint, InstantAxis.EndPoint)));
 
-
+            ///<summary>Cloning <see cref="PlaneRED"/> onto <see cref="PlaneRED2"/> and creating its line</summary>
             PlaneRED2 = PlaneRED.Clone() as Plane;
             LineForAngle_PlaneRed2 = LineForAngle_PlaneRED.Clone() as Line;
 
-            PlaneRED2.Rotate(-Angle_Bis1_PlaneRED.Radians * 2, new Vector3D(ICLine.StartPoint.Clone() as Point3D, ICLine.EndPoint.Clone() as Point3D),ICLine.MidPoint);
-            LineForAngle_PlaneRed2.Rotate(-Angle_Bis1_PlaneRED.Radians * 2, new Vector3D(ICLine.StartPoint.Clone() as Point3D, ICLine.EndPoint.Clone() as Point3D),ICLine.StartPoint);
+            ///<summary>Rotating the <see cref="PlaneRED2"/> and its <see cref="LineForAngle_PlaneRed2"/> by an amount equal to twice the Angle b/w <see cref="Bisector1"/> and <see cref="PlaneRED"/></summary>
+            PlaneRED2.Rotate(-Angle_Bis1_PlaneRED.Radians * 2, new Vector3D(InstantAxis.StartPoint.Clone() as Point3D, InstantAxis.EndPoint.Clone() as Point3D),InstantAxis.MidPoint);
+            LineForAngle_PlaneRed2.Rotate(-Angle_Bis1_PlaneRED.Radians * 2, new Vector3D(InstantAxis.StartPoint.Clone() as Point3D, InstantAxis.EndPoint.Clone() as Point3D),InstantAxis.StartPoint);
 
             PlanarEntity PlaneRED_Ent = new PlanarEntity(PlaneRED);
             PlanarEntity PlaneRED2_Ent = new PlanarEntity(PlaneRED2);
             cad1.viewportLayout1.Entities.AddRange(new Entity[] { PlaneRED_Ent, PlaneRED2_Ent });
         }
 
-
+        /// <summary>
+        /// <see cref="Plane"/> representing the Steering
+        /// </summary>
         Plane PlaneSTEERING;
+        /// <summary>
+        /// M
+        /// </summary>
         ToeLinkUprightPosition ToeLinkUprightPos;
+        /// <summary>
+        /// Object of the <see cref="BobillierPair"/> to decide which Wishbone Plane will be coupled with the <see cref="PlaneSTEERING"/>
+        /// </summary>
         BobillierPair LinkagePair;
+
+        /// <summary>
+        /// Mthod to construct the <see cref="PlaneSTEERING"/>
+        /// </summary>
         private void ConstructPlaneSTEERING()
         {
-            PlaneSTEERING = new Plane(ICLine.StartPoint.Clone() as Point3D, ICLine.EndPoint.Clone() as Point3D, ToeLinkupright.Position.Clone() as Point3D);
+            PlaneSTEERING = new Plane(InstantAxis.StartPoint.Clone() as Point3D, InstantAxis.EndPoint.Clone() as Point3D, ToeLinkupright.Position.Clone() as Point3D);
 
             if (ToeLinkupright.Position.Y > Bisector1.MidPoint.Y && ToeLinkupright.Position.Y > Bisector1.EndPoint.Y) 
             {
@@ -224,49 +374,79 @@ namespace Coding_Attempt_with_GUI
 
         }
 
+        /// <summary>
+        /// <see cref="Line"/ representing the Bisector2
+        /// </summary>
         Line Bisector2;
+
+        /// <summary>
+        /// Method to construct the Bisector 2
+        /// </summary>
         private void ConstructBisector2()
         {
-            Line tempLineForAngle_PlaneSTEERING = new Line(ICLine.MidPoint.Clone() as Point3D, ToeLinkupright.Position.Clone() as Point3D);
-            Line tempLineForAngle_PlaneWISHBONE = new Line(0, 0, 0, 1, 1, 1);
+            ///<summary>Drawing the Line of the <see cref="PlaneSTEERING"/></summary>
+            Line LineForAngle_PlaneSTEERING = new Line(InstantAxis.MidPoint.Clone() as Point3D, ToeLinkupright.Position.Clone() as Point3D);
+
+            ///<summary>Drawing the Line of the Wishbone Plane depending upon the <see cref="LinkagePair"/></summary>
+            Line LineForAngle_PlaneWISHBONE = new Line(0, 0, 0, 1, 1, 1);
             if (LinkagePair == BobillierPair.BottomWishboneAndSteering)
             {
-                tempLineForAngle_PlaneWISHBONE = new Line(ICLine.MidPoint.Clone() as Point3D, LBJ.Position.Clone() as Point3D);
+                LineForAngle_PlaneWISHBONE = new Line(InstantAxis.MidPoint.Clone() as Point3D, LBJ.Position.Clone() as Point3D);
             }
             else if (LinkagePair == BobillierPair.TopWishboneAndSteering)
             {
-                tempLineForAngle_PlaneWISHBONE = new Line(ICLine.MidPoint.Clone() as Point3D, UBJ.Position.Clone() as Point3D);
+                LineForAngle_PlaneWISHBONE = new Line(InstantAxis.MidPoint.Clone() as Point3D, UBJ.Position.Clone() as Point3D);
             }
 
             ///<summary>Finding the Angle of the Steering Plane with the selected Wishbone Plane </summary>
-            Angle Angle_PlaneSTEERING_PlaneWISHBONE = SetupChangeDatabase.AngleInRequiredView(_vAngleOfThis: Custom3DGeometry.GetMathNetVector3D(tempLineForAngle_PlaneSTEERING),
-                                                                                              _vAngleWithThis: Custom3DGeometry.GetMathNetVector3D(tempLineForAngle_PlaneWISHBONE),
-                                                                                              _vNormalToViewPlane: Custom3DGeometry.GetMathNetVector3D(new Line(ICLine.StartPoint, ICLine.EndPoint)));
+            Angle Angle_PlaneSTEERING_PlaneWISHBONE = SetupChangeDatabase.AngleInRequiredView(_vAngleOfThis: Custom3DGeometry.GetMathNetVector3D(LineForAngle_PlaneSTEERING),
+                                                                                              _vAngleWithThis: Custom3DGeometry.GetMathNetVector3D(LineForAngle_PlaneWISHBONE),
+                                                                                              _vNormalToViewPlane: Custom3DGeometry.GetMathNetVector3D(new Line(InstantAxis.StartPoint, InstantAxis.EndPoint)));
 
             //Angle_PlaneSTEERING_PlaneWISHBONE = AssignAngleSignBasedOnVectorDirection(Angle_PlaneSTEERING_PlaneWISHBONE, Custom3DGeometry.GetMathNetVector3D(new Line(ICLine.StartPoint, ICLine.EndPoint)));
             ///<summary>Creating a Bisector Line</summary>
-            Bisector2 = tempLineForAngle_PlaneWISHBONE.Clone() as Line;
-            Bisector2.Rotate(angleInRadians: Angle_PlaneSTEERING_PlaneWISHBONE.Radians / 2, axis: new Vector3D(ICLine.StartPoint.Clone() as Point3D, ICLine.EndPoint.Clone() as Point3D),center: ICLine.MidPoint);
+            Bisector2 = LineForAngle_PlaneWISHBONE.Clone() as Line;
+            Bisector2.Rotate(angleInRadians: Angle_PlaneSTEERING_PlaneWISHBONE.Radians / 2, axis: new Vector3D(InstantAxis.StartPoint.Clone() as Point3D, InstantAxis.EndPoint.Clone() as Point3D),center: InstantAxis.MidPoint);
             cad1.viewportLayout1.Entities.Add(Bisector2);
         }
 
+        /// <summary>
+        /// PointB
+        /// </summary>
         Point3D PointB = new Point3D();
         /// <summary>
         /// <see cref="Angle"/> between the Bisector 2 and wither of the PlaneREDs. Which ever angle is smaller
         /// </summary>
         Angle Angle_Bis2_Final_PlaneREDs;
-        Plane PlaneToConstructPlaneB, PlaneB;
+        /// <summary>
+        /// <see cref="Plane"/> required for the construction of <see cref="PlaneB"/>
+        /// </summary>
+        Plane PlaneToConstructPlaneB;
+        /// <summary>
+        /// <see cref="Plane"/>B
+        /// </summary>
+        Plane PlaneB;
+        /// <summary>
+        /// <see cref="Segment3D"/> representing the PointB. Used to compute the Intersection of the PointB
+        /// </summary>
         Segment3D SegmentForPointB;
+
+        /// <summary>
+        /// Method to Construct the <see cref="PlaneB"/> and <see cref="PointB"/>
+        /// </summary>
         private void ConstructPlaneBAndPointB()
         {
+            ///<summary>Calculating the angle between the <see cref="PlaneRED"/> and the <see cref="Bisector2"/></summary>
             Angle Angle_Bis2_PlaneRED = SetupChangeDatabase.AngleInRequiredView(Custom3DGeometry.GetMathNetVector3D(LineForAngle_PlaneRED),
                                                                                 Custom3DGeometry.GetMathNetVector3D(Bisector2),
-                                                                                Custom3DGeometry.GetMathNetVector3D(new Line(ICLine.StartPoint, ICLine.EndPoint)));
+                                                                                Custom3DGeometry.GetMathNetVector3D(new Line(InstantAxis.StartPoint, InstantAxis.EndPoint)));
 
+            ///<summary>Calculating the angle between the <see cref="PlaneRED2"/> and the <see cref="Bisector2"/></summary>
             Angle Angle_Bis2_PlaneRED2 = SetupChangeDatabase.AngleInRequiredView(Custom3DGeometry.GetMathNetVector3D(LineForAngle_PlaneRed2),
                                                                                  Custom3DGeometry.GetMathNetVector3D(Bisector2),
-                                                                                 Custom3DGeometry.GetMathNetVector3D(new Line(ICLine.StartPoint, ICLine.EndPoint)));
+                                                                                 Custom3DGeometry.GetMathNetVector3D(new Line(InstantAxis.StartPoint, InstantAxis.EndPoint)));
 
+            ///<summary>Depending on which of the above 2 angles is smaller the final angle called <see cref="Angle_Bis2_Final_PlaneREDs"/> is assigned</summary>
             if (Math.Abs(Angle_Bis2_PlaneRED.Degrees) < Math.Abs(Angle_Bis1_PlaneRED.Degrees)) 
             {
                 Angle_Bis2_Final_PlaneREDs = Angle_Bis2_PlaneRED;
@@ -278,8 +458,10 @@ namespace Coding_Attempt_with_GUI
                 PlaneToConstructPlaneB = PlaneRED2.Clone() as Plane;
             }
 
-            PlaneToConstructPlaneB.Rotate(-Angle_Bis2_Final_PlaneREDs.Radians * 2, new Vector3D(ICLine.StartPoint, ICLine.EndPoint), ICLine.MidPoint);
+            ///<summary>Rotating the <see cref="PlaneToConstructPlaneB"/> by an amount equal to twice the final angle calculated above</summary>
+            PlaneToConstructPlaneB.Rotate(-Angle_Bis2_Final_PlaneREDs.Radians * 2, new Vector3D(InstantAxis.StartPoint, InstantAxis.EndPoint), InstantAxis.MidPoint);
 
+            ///<summary>Depending upon the Position of <see cref="PointA"/> the <see cref="SegmentForPointB"/> is decided</summary>
             if (PointAPos == PositionOfPointA.AboveWishbones)
             {
                 SegmentForPointB = new Segment3D(LBJ.Position, ToeLinkupright.Position);
@@ -291,8 +473,10 @@ namespace Coding_Attempt_with_GUI
 
             }
 
+            ///<summary>Computing the Intersection between the <see cref="SegmentForPointB"/> and the <see cref="PlaneToConstructPlaneB"/> which results in the <see cref="PointB"/></summary>
             SegmentForPointB.IntersectWith(PlaneToConstructPlaneB, true, out PointB);
 
+            ///<summary>Depending upon whether the <<see cref="PointA"/> is above or below the Wishbones, the Points to draw <see cref="PlaneB"/> (apart from <see cref="PointB"/>!!!) are chosen</summary>
             if (PointAPos == PositionOfPointA.AboveWishbones)
             {
                 PlaneB = new Plane(BottomRearInboard.Position, BottomFrontInboard.Position, PointB);
@@ -308,17 +492,31 @@ namespace Coding_Attempt_with_GUI
             cad1.viewportLayout1.Entities.AddRange(new Entity[] { PlaneB_Ent, PointB_Ent });
         }
 
+        /// <summary>
+        /// The FINAL <see cref="Line"/> representing the Bobilier's Line for Minimum Bump Steer
+        /// </summary>
         Line BobillierLine;
+
+        /// <summary>
+        /// Method to construct the Bobillier Line
+        /// </summary>
         private void ConstructBobillierLine()
         {
+            ///<summary>Computing the intersection of the <see cref="PlaneSTEERING"/> and the <see cref="PlaneB"/> which results in the <see cref="BobillierLine"/></summary>
             Plane.Intersection(PlaneB, PlaneSTEERING, out Segment3D BobillierSegment);
             BobillierLine = new Line(BobillierSegment);
 
-            Bar BobillierLine_Ent = new Bar(BobillierLine.StartPoint, BobillierLine.EndPoint, 100, 8);
+            ///<summary>Extending the <see cref="BobillierLine"/> by 500mm on each side</summary>
+            CustomInfiniteLine.DrawInfiniteLine(BobillierLine, 500);
+
+            Bar BobillierLine_Ent = new Bar(BobillierLine.StartPoint, BobillierLine.EndPoint, 4.5, 8);
             BobillierLine_Ent.Color = Color.AliceBlue;
             cad1.viewportLayout1.Entities.Add(BobillierLine_Ent);
         }
 
+        /// <summary>
+        /// Checking the <see cref="ToeLinkInboard"/> is close to the Bump Steer Line. This would be an indication of how much Bump Steer is there
+        /// </summary>
         private void CheckForBumpSteer()
         {
             Segment3D tempBobillierSegment = new Segment3D(BobillierLine.StartPoint, BobillierLine.EndPoint);
@@ -328,7 +526,10 @@ namespace Coding_Attempt_with_GUI
         }
     }
 
-    enum VehicleCorner
+    /// <summary>
+    /// Enum to determine which Corner of the Vehicle is calling this class
+    /// </summary>
+    public enum VehicleCorner
     {
         FrontLeft,
         FrontRight,
@@ -336,12 +537,18 @@ namespace Coding_Attempt_with_GUI
         RearRight
     }
 
+    /// <summary>
+    /// Enum to determine whether the Instant Axis is Inboard or Outboard
+    /// </summary>
     enum InstntCentrePosition
     {
         Inboard,
         Outboard
     }
 
+    /// <summary>
+    /// Enum to determine whether the PointA is above or below the Wishbones
+    /// </summary>
     enum PositionOfPointA
     {
         AboveWishbones, 
@@ -354,6 +561,9 @@ namespace Coding_Attempt_with_GUI
         BelowBisector1
     }
 
+    /// <summary>
+    /// Enum to determine which Wishbone (Top or Bottom) is going to be coupled with the Steeering Plane
+    /// </summary>
     enum BobillierPair
     {
         TopWishboneAndSteering,
