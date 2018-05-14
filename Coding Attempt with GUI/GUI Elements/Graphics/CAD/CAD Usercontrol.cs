@@ -3393,13 +3393,19 @@ namespace Coding_Attempt_with_GUI
                     if (viewportLayout1.ToolBars[0].Buttons[8].Pushed)
                     {
                         CustomData tempEntityData = new CustomData();
-                        if (temp_Entity.EntityData != null)
+
+                        ///<summary>
+                        ///---IMPORTANT---  Fine bug spotted by Eyeshot which caused restoration of Imported ENTITY(planar surface, cyl surface) colour (after it was set to transparent) as pitch black 
+                        ///---IMPORTANT--- If you don't add "&& temp_Entity.EntityData is CustomData" right below in the IF loop, then you will NOT generate <see cref="CustomData"/> for the Imported Entity which you are setting transparent. So it will have a default colour as black always. 
+                        ///                This will cause the entity to get a pitck black colour when it's colour is being restored from the Transparent State. 
+                        ///If the <see cref="Entity.EntityData"/> is not Null AND if the <see cref="Entity.EntityData"/> is <see cref="CustomData"/> proceeding
+                        ///Otherwise, assigning the <see cref="Entity.EntityData"/> in the ELSE Loop Below
+                        /// </summary>
+                        if (temp_Entity.EntityData != null && temp_Entity.EntityData is CustomData) 
                         {
-                            ///<summary>If the Entity has EntityData then casting that as <see cref="CustomData"/> and storing it into the temporary Object of the <see cref="CustomData"/></summary>
-                            if (temp_Entity.EntityData is CustomData)
-                            {
-                                tempEntityData = (CustomData)temp_Entity.EntityData;
-                            }
+                            ///<summary>Casting the Entity Data as <see cref="CustomData"/> and storing it into the temporary Object of the <see cref="CustomData"/></summary>
+
+                            tempEntityData = (CustomData)temp_Entity.EntityData;
 
                             ///<summary>If the <see cref="CustomData"/> of the <see cref="Entity"/> has a Colour with the <see cref="Color.A"/> value as 75 then it means that is transparent and it is being reclicked and hence I want to restore its colour</summary>
                             if (Color.Equals(temp_Entity.Color, Color.FromArgb(75, tempEntityData.EntityColor)) || Color.Equals(temp_Entity.Color, Color.FromArgb(40, tempEntityData.EntityColor)))
