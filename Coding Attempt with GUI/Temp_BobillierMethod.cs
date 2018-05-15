@@ -12,6 +12,7 @@ using devDept.Eyeshot.Entities;
 using devDept.Geometry;
 using MathNet.Spatial.Units;
 
+
 namespace Coding_Attempt_with_GUI
 {
     /// <summary>
@@ -21,21 +22,32 @@ namespace Coding_Attempt_with_GUI
     public partial class Temp_BobillierMethod : Form
     {
         /// <summary>
-        /// <see cref="SuspensionCoordinatesMaster"/> object used to perform the Bobillier operations
-        /// </summary>
-        public SuspensionCoordinatesMaster SCM { get; set; }
-
-        public VehicleCorner Corner { get; set; }
-
-        public SuspensionConfiguration Config { get; set; } 
-
-        /// <summary>
         /// Constructor
         /// </summary>
         public Temp_BobillierMethod()
         {
             InitializeComponent();
         }
+
+        /// <summary>
+        /// <see cref="SuspensionCoordinatesMaster"/> object used to perform the Bobillier operations
+        /// </summary>
+        public SuspensionCoordinatesMaster SCM { get; set; }
+        /// <summary>
+        /// Object of the <see cref="VehicleCorner"/> to determine the corner that is calling this method
+        /// </summary>
+        public VehicleCorner Corner { get; set; }
+        /// <summary>
+        /// Object of the <see cref="SuspensionConfiguration"/> enum to  determine the Configuration of the Suspension calling this method. 
+        /// </summary>
+        public SuspensionConfiguration Config { get; set; }
+
+        /// <summary>
+        /// <para>This variable is used to determine the King Pin Axis in case of a 5 link Suspension</para> 
+        /// <para>Used to translate the Point <see cref="SuspensionCoordinatesMaster.M1x"/> (Steering Link Upright)
+        /// to simulate the a Steering Input needed to generate the King Pin Axis of a 5Link Suspension</para>
+        /// </summary>
+        double RackDisplacement = 0.5;
 
         /// <summary>
         /// Method to obtain the Suspension Coordinates of the corner for which wre want to plot the Bobillier Line
@@ -138,11 +150,12 @@ namespace Coding_Attempt_with_GUI
         {
             UBJ_Rear = new Joint(new Point3D(SCM.F1x, SCM.F1y, SCM.F1z), 5, 2);
 
-            ///<remarks>Arbitrarily Assigning this point for now</remarks>
+            ///<remarks>Arbitrarily Assigning this point for now. Depending on whether a solver is created for the 5 Links this code could be changed. </remarks>
             UBJ_Front = new Joint(new Point3D(SCM.F1x, SCM.F1y, SCM.F1z + 25), 5, 2);
 
             LBJ_Rear = new Joint(new Point3D(SCM.E1x, SCM.E1y, SCM.E1z), 5, 2);
 
+            ///<remarks>Arbitrarily Assigning this point for now. Depending on whether a solver is created for the 5 Links this code could be changed. </remarks>
             LBJ_Front = new Joint(new Point3D(SCM.E1x, SCM.E1y, SCM.E1z + 25), 5, 2);
 
             ToeLinkupright = new Joint(new Point3D(SCM.M1x, SCM.M1y, SCM.M1z), 5, 2);
@@ -200,7 +213,7 @@ namespace Coding_Attempt_with_GUI
             InstantAxis = new Line(ICSegment);
             ///<summary>Extending the Line along both ends by an amount of 500 each</summary>
             CustomInfiniteLine.DrawInfiniteLine(InstantAxis, 500);
-            
+            Plane f = new Plane();
             cad1.viewportLayout1.Entities.Add(InstantAxis);
             
             ///<summary>Determining the Instant Axis is Inoard or Outboard using the Contact Patch Coordinate and the Instant Axis Mid Point</summary>
