@@ -27,6 +27,8 @@ namespace Coding_Attempt_with_GUI
 
         public VehicleCorner Corner { get; set; }
 
+        public SuspensionConfiguration Config { get; set; } 
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -76,13 +78,34 @@ namespace Coding_Attempt_with_GUI
         }
 
         /// <summary>
-        /// Upper Ball Joint
+        /// Method to assign the Configuration of the Suspension
         /// </summary>
-        Joint UBJ;
+        /// <param name="_config"></param>
+        private void AssignSuspensionConfiguration(SuspensionConfiguration _config)
+        {
+            Config = _config;
+        }
+
         /// <summary>
-        /// Lower Ball Joint
+        /// <para>Rear Upper Ball Joint</para>
+        /// <para>Front and Rear are same for Double Wishbone</para>
         /// </summary>
-        Joint LBJ;
+        Joint UBJ_Rear;
+        /// <summary>
+        /// <para>Front Upper Ball Joint</para>
+        /// <para>Front and Rear are same  for Double Wishbone</para>
+        /// </summary>
+        Joint UBJ_Front;
+        /// <summary>
+        /// <para>Rear Lower Ball Joint</para>
+        /// <para>Front and Rear are same for Double Wishbone</para>
+        /// </summary>
+        Joint LBJ_Rear;
+        /// <summary>
+        /// <para>Rear Lower Ball Joint</para>
+        /// <para>Front and Rear are same for Double Wishbone</para>
+        /// </summary>
+        Joint LBJ_Front;
         /// <summary>
         /// Top Front Inboard Pick-Up Point
         /// </summary>
@@ -113,9 +136,14 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         private void AssignBasePoints()
         {
-            UBJ = new Joint(new Point3D(SCM.F1x, SCM.F1y, SCM.F1z), 5, 2);
+            UBJ_Rear = new Joint(new Point3D(SCM.F1x, SCM.F1y, SCM.F1z), 5, 2);
 
-            LBJ = new Joint(new Point3D(SCM.E1x, SCM.E1y, SCM.E1z), 5, 2);
+            ///<remarks>Arbitrarily Assigning this point for now</remarks>
+            UBJ_Front = new Joint(new Point3D(SCM.F1x, SCM.F1y, SCM.F1z + 25), 5, 2);
+
+            LBJ_Rear = new Joint(new Point3D(SCM.E1x, SCM.E1y, SCM.E1z), 5, 2);
+
+            LBJ_Front = new Joint(new Point3D(SCM.E1x, SCM.E1y, SCM.E1z + 25), 5, 2);
 
             ToeLinkupright = new Joint(new Point3D(SCM.M1x, SCM.M1y, SCM.M1z), 5, 2);
 
@@ -129,7 +157,7 @@ namespace Coding_Attempt_with_GUI
 
             ToeLinkInboard = new Joint(new Point3D(SCM.N1x, SCM.N1y, SCM.N1z), 5, 2);
 
-            cad1.viewportLayout1.Entities.AddRange(new Entity[] { UBJ, LBJ, ToeLinkupright, TopFrontInboard, TopRearInboard, BottomFrontInboard, BottomRearInboard });
+            cad1.viewportLayout1.Entities.AddRange(new Entity[] { UBJ_Rear, LBJ_Rear, ToeLinkupright, TopFrontInboard, TopRearInboard, BottomFrontInboard, BottomRearInboard });
         }
 
         /// <summary>
@@ -146,9 +174,9 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         private void ConstructWishbonePlanes()
         {
-            TopWishbonePlane = new Plane(UBJ.Position, TopFrontInboard.Position, TopRearInboard.Position);
+            TopWishbonePlane = new Plane(UBJ_Rear.Position, TopFrontInboard.Position, TopRearInboard.Position);
 
-            BottomWishbonePlane = new Plane(LBJ.Position, BottomFrontInboard.Position, BottomRearInboard.Position);
+            BottomWishbonePlane = new Plane(LBJ_Rear.Position, BottomFrontInboard.Position, BottomRearInboard.Position);
         }
 
         /// <summary>
@@ -209,15 +237,15 @@ namespace Coding_Attempt_with_GUI
         private void ConstructBisector1()
         {
             ///<summary>Creating 2 temporay Lines to represent the Top and Bottom Wishbones. Need this to find the angle between the Top and Bottom Wishbone Planes</summary>
-            Line LineForAngle_TopWishbone = new Line(InstantAxis.MidPoint.Clone() as Point3D, UBJ.Position.Clone() as Point3D);
-            Line LineForAngle_BottomWishbone = new Line(InstantAxis.MidPoint.Clone() as Point3D, LBJ.Position.Clone() as Point3D);
+            Line LineForAngle_TopWishbone = new Line(InstantAxis.MidPoint.Clone() as Point3D, UBJ_Rear.Position.Clone() as Point3D);
+            Line LineForAngle_BottomWishbone = new Line(InstantAxis.MidPoint.Clone() as Point3D, LBJ_Rear.Position.Clone() as Point3D);
 
             ///<summary>Calculating the Line between the Top and Bottom Wishbone Planes by calculating the angle between the Lines created above</summary>
-            Angle angle = (SetupChangeDatabase.AngleInRequiredView(Custom3DGeometry.GetMathNetVector3D(new Line(InstantAxis.MidPoint, UBJ.Position)), Custom3DGeometry.GetMathNetVector3D(new Line(InstantAxis.MidPoint, LBJ.Position)),
+            Angle angle = (SetupChangeDatabase.AngleInRequiredView(Custom3DGeometry.GetMathNetVector3D(new Line(InstantAxis.MidPoint, UBJ_Rear.Position)), Custom3DGeometry.GetMathNetVector3D(new Line(InstantAxis.MidPoint, LBJ_Rear.Position)),
                                                                    Custom3DGeometry.GetMathNetVector3D(new Line(InstantAxis.StartPoint, InstantAxis.EndPoint))));
 
             ///<summary>Drawing a line alonge the LBJ Line </summary>
-            Bisector1 = new Line(InstantAxis.MidPoint.Clone() as Point3D, LBJ.Position.Clone() as Point3D);
+            Bisector1 = new Line(InstantAxis.MidPoint.Clone() as Point3D, LBJ_Rear.Position.Clone() as Point3D);
             ///<summary>Rotating the Bisector Line by twice the amount of half the angle of the angle between the Top and Bottom Wishbone Planes</summary>
             Bisector1.Rotate(angle.Radians / 2, new Vector3D(InstantAxis.StartPoint.Clone() as Point3D, InstantAxis.EndPoint.Clone() as Point3D), InstantAxis.MidPoint);
             cad1.viewportLayout1.Entities.Add(Bisector1);
@@ -247,7 +275,7 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         private void ConstructSteeringAxisINFLine()
         {
-            SteeringAxis = new Line(UBJ.Position.Clone() as Point3D, LBJ.Position.Clone() as Point3D);
+            SteeringAxis = new Line(UBJ_Rear.Position.Clone() as Point3D, LBJ_Rear.Position.Clone() as Point3D);
             cad1.viewportLayout1.Entities.Add(SteeringAxis);
         }
 
@@ -278,11 +306,11 @@ namespace Coding_Attempt_with_GUI
             SteeringAxisSegment.IntersectWith(Plane1, true, out PointA);
 
             ///<summary>Determining the whether the <see cref="PointA"/> is above or below the Wishbones</summary>
-            if (PointA.Y > UBJ.Position.Y && PointA.Y > TopFrontInboard.Position.Y && PointA.Y > TopRearInboard.Position.Y) 
+            if (PointA.Y > UBJ_Rear.Position.Y && PointA.Y > TopFrontInboard.Position.Y && PointA.Y > TopRearInboard.Position.Y) 
             {
                 PointAPos = PositionOfPointA.AboveWishbones;
             }
-            else if (PointA.Y < LBJ.Position.Y && PointA.Y < BottomFrontInboard.Position.Y && PointA.Y < BottomRearInboard.Position.Y)
+            else if (PointA.Y < LBJ_Rear.Position.Y && PointA.Y < BottomFrontInboard.Position.Y && PointA.Y < BottomRearInboard.Position.Y)
             {
                 PointAPos = PositionOfPointA.BelowWishbones;
             }
@@ -391,11 +419,11 @@ namespace Coding_Attempt_with_GUI
             Line LineForAngle_PlaneWISHBONE = new Line(0, 0, 0, 1, 1, 1);
             if (LinkagePair == BobillierPair.BottomWishboneAndSteering)
             {
-                LineForAngle_PlaneWISHBONE = new Line(InstantAxis.MidPoint.Clone() as Point3D, LBJ.Position.Clone() as Point3D);
+                LineForAngle_PlaneWISHBONE = new Line(InstantAxis.MidPoint.Clone() as Point3D, LBJ_Rear.Position.Clone() as Point3D);
             }
             else if (LinkagePair == BobillierPair.TopWishboneAndSteering)
             {
-                LineForAngle_PlaneWISHBONE = new Line(InstantAxis.MidPoint.Clone() as Point3D, UBJ.Position.Clone() as Point3D);
+                LineForAngle_PlaneWISHBONE = new Line(InstantAxis.MidPoint.Clone() as Point3D, UBJ_Rear.Position.Clone() as Point3D);
             }
 
             ///<summary>Finding the Angle of the Steering Plane with the selected Wishbone Plane </summary>
@@ -464,12 +492,12 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Depending upon the Position of <see cref="PointA"/> the <see cref="SegmentForPointB"/> is decided</summary>
             if (PointAPos == PositionOfPointA.AboveWishbones)
             {
-                SegmentForPointB = new Segment3D(LBJ.Position, ToeLinkupright.Position);
+                SegmentForPointB = new Segment3D(LBJ_Rear.Position, ToeLinkupright.Position);
 
             }
             else if (PointAPos == PositionOfPointA.BelowWishbones)
             {
-                SegmentForPointB = new Segment3D(UBJ.Position, ToeLinkupright.Position);
+                SegmentForPointB = new Segment3D(UBJ_Rear.Position, ToeLinkupright.Position);
 
             }
 

@@ -1142,27 +1142,7 @@ namespace Coding_Attempt_with_GUI
             #endregion
         }
 
-        //private BatchRunResults AssignSingleBatchRunResultsObject(int _identifier,Vehicle _vLoadCase)
-        //{
-        //    if (_identifier == 1)
-        //    {
-        //        return _vLoadCase.vehicleLoadCase.runResults_FL;
-        //    }
-        //    else if (_identifier == 2)
-        //    {
-        //        return _vLoadCase.vehicleLoadCase.runResults_FR;
-        //    }
-        //    else if (_identifier == 3)
-        //    {
-        //        return _vLoadCase.vehicleLoadCase.runResults_RL;
-        //    }
-        //    else
-        //    {
-        //        return _vLoadCase.vehicleLoadCase.runResults_RR;
-        //    }
-
-
-        //}
+        
 
 
         public void CalculateSuspensionForces(List<OutputClass> _oc, SuspensionCoordinatesMaster _scm, Spring spring, int _dummy2)
@@ -1395,8 +1375,8 @@ namespace Coding_Attempt_with_GUI
             ArbDroopLinkForce(_oc[_dummy2]);
         }
 
-
         #endregion 
+
         #endregion
 
 

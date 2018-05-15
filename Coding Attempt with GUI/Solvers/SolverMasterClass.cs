@@ -756,6 +756,7 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
         #region ---KINEMATIC SOLVER METHODS---
+
         #region Calculating the Wheel and Spring Deflections for Static force or for Motion
         public void CalculateWheelAndSpringDeflection(SuspensionCoordinatesMaster _scmDef, Spring _springDef, Damper _damperDef, Vehicle _vehicleDef, List<double> _WheelDeflection, OutputClass _ocDef, Tire _tireDef, int Identifier, double arb_Rate_Nmm, bool MotionExists, bool _recalSteering, int Index)
         {
@@ -874,6 +875,7 @@ namespace Coding_Attempt_with_GUI
             ///Might need this class 
             /// </remarks>
         }
+
         #region Calculating the Spring Deflection in small steps 
         public void CalculateAngleOfRotationOrDamperLength(OutputClass _ocSteps, bool MotionExists, int _springPrevIndex, Damper _damperSteps, bool _recalculateSteering)
         {
@@ -1333,6 +1335,7 @@ namespace Coding_Attempt_with_GUI
 
         }
         #endregion 
+
         #endregion
 
         #region ---SETUP CHANGE METHODS---

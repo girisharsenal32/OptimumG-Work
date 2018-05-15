@@ -189,7 +189,33 @@ namespace Coding_Attempt_with_GUI
             return InitialMR;
         }
         #endregion
-
-
     }
+
+    #region Enums to determine the Suepension Type
+    public enum SuspensionConfiguration
+    {
+        DoubleWishbone,
+        McPherson,
+        FiveLinks
+    }
+    public enum ActuationType
+    {
+        Pushrod,
+        Pullrod,
+        DirectActuation
+    }
+    public enum AntiRollbarType
+    {
+        NoARB,
+        UARB,
+        TARB
+    }
+    public enum SteeringType
+    {
+        SingleUV,
+        DoubleUV,
+        NoUV
+    } 
+    #endregion
+
 }
