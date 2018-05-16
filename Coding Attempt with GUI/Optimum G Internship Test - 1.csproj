@@ -532,6 +532,8 @@
     <Compile Include="Temp_BobillierMethod.Designer.cs">
       <DependentUpon>Temp_BobillierMethod.cs</DependentUpon>
     </Compile>
+    <Compile Include="Optimizer-GeneticAlgorithm.cs" />
+    <Compile Include="VehicleParamsAssigner.cs" />
     <EmbeddedResource Include="GUI Elements\Graphics\CAD Auxillaries\LegendEditor.resx">
       <DependentUpon>LegendEditor.cs</DependentUpon>
     </EmbeddedResource>

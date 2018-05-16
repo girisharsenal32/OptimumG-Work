@@ -802,15 +802,6 @@ namespace Coding_Attempt_with_GUI
                     _ocDef.Corrected_WheelDeflection = WheelDeflection;
                     #endregion
                 }
-                //Fy_Spring = Fy_Wheel / _scmDef.InitialMR;
-
-                //WheelDeflection = ((_vehicleDef.CW[Identifier - 1]) / _ocDef.RideRate);
-                //SpringDeflection = (Fy_Spring / _springDef.SpringRate)/* - Preload_mm*/;
-
-                //#region Calculating the Preload load due to _springDef and _damperDef
-                //_ocDef.Corrected_SpringDeflection = SpringDeflection - Preload_mm;
-                //_ocDef.Corrected_WheelDeflection = _ocDef.Corrected_SpringDeflection / _scmDef.InitialMR;
-                //#endregion
 
             }
             else if (MotionExists)
@@ -1046,7 +1037,7 @@ namespace Coding_Attempt_with_GUI
             K2L2_Toe = Math.Sqrt(Math.Pow((_ocNewCamberToe[dummy2].scmOP.L1x - _ocNewCamberToe[dummy2].scmOP.K1x), 2) + Math.Pow((_ocNewCamberToe[dummy2].scmOP.L1z - _ocNewCamberToe[dummy2].scmOP.K1z), 2));
             K2L2_Camber = Math.Sqrt(Math.Pow((_ocNewCamberToe[dummy2].scmOP.L1x - _ocNewCamberToe[dummy2].scmOP.K1x), 2) + Math.Pow((_ocNewCamberToe[dummy2].scmOP.L1y - _ocNewCamberToe[dummy2].scmOP.K1y), 2));
 
-            if (_vehicleCamberToe.sc_FL.SuspensionMotionExists)
+            if (_vehicleCamberToe.sc_FL.SuspensionMotionExists || SimType == SimulationType.Optimization)
             {
                 K2L2_ToePrev = Math.Sqrt(Math.Pow((_ocNewCamberToe[dummy2 - 1].scmOP.L1x - _ocNewCamberToe[dummy2 - 1].scmOP.K1x), 2) + Math.Pow((_ocNewCamberToe[dummy2 - 1].scmOP.L1z - _ocNewCamberToe[dummy2 - 1].scmOP.K1z), 2));
                 K2L2_CamberPrev = Math.Sqrt(Math.Pow((_ocNewCamberToe[dummy2 - 1].scmOP.L1x - _ocNewCamberToe[dummy2 - 1].scmOP.K1x), 2) + Math.Pow((_ocNewCamberToe[dummy2 - 1].scmOP.L1y - _ocNewCamberToe[dummy2 - 1].scmOP.K1y), 2));

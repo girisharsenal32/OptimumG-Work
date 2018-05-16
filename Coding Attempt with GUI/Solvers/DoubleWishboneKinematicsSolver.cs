@@ -27,10 +27,9 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         private double Mx, Mz;
 
-        ///// <summary>
-        ///// Temp <see cref="BatchRunResults"/> object. This is to be used ONLY during a regular Simulation Run to enable coloring of Forces arrows in <see cref="devDept.Eyeshot"/>
-        ///// </summary>
-        //BatchRunResults singleLoadCaseResults = new BatchRunResults();
+        private SimulationType SimulationType;
+
+        public devDept.Geometry.Point3D OptimizedSteeringPoint;
 
         #region Methods
 
@@ -724,9 +723,21 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
         #region Kinematics - Double Wishbone
+
+
+        public void AssignOptimizedSteeringPoints()
+        {
+            l_N1x = OptimizedSteeringPoint.X;
+            l_N1y = OptimizedSteeringPoint.Y;
+            l_N1z = OptimizedSteeringPoint.Z;
+
+            SolverMasterClass.SimType = SimulationType.Optimization;
+
+        }
+
         //Kinmetics Solver for Double Wishbone Suspenion
         public void Kinematics(int Identifier, SuspensionCoordinatesMaster scm, WheelAlignment wa, Tire tire, AntiRollBar arb, double ARB_Rate_Nmm, Spring spring, Damper damper, List<OutputClass> oc, Vehicle _vehicleKinematicsDWSolver, 
-                               List<double> WheelOrSpringDeflections, bool MotionExists, bool RecalculateSteering/*, bool FirstIteration*/)
+                               List<double> WheelOrSpringDeflections, bool MotionExists, bool RecalculateSteering)
         {
             
             dummy1 = 0; dummy2 = 0;
@@ -741,11 +752,16 @@ namespace Coding_Attempt_with_GUI
             {
                 AssignLocalCoordinateVariables_FixesPoints(scm);
                 AssignLocalCoordinateVariables_MovingPoints(scm); 
+
             }
             else if (RecalculateSteering)
             {
                 AssignLocalCoordinateVariables_FixesPoints(oc[dummy1].scmOP);
                 AssignLocalCoordinateVariables_MovingPoints(oc[dummy1].scmOP);
+                if (SimulationType == SimulationType.Optimization)
+                {
+                    AssignOptimizedSteeringPoints();
+                }
                 L1x = oc[dummy1].scmOP.L1x; L1y = oc[dummy1].scmOP.L1y; L1z = oc[dummy1].scmOP.L1z;
             }
 
@@ -1141,10 +1157,8 @@ namespace Coding_Attempt_with_GUI
 
             #endregion
         }
-
         
-
-
+        #region Wishbone Force Calculator
         public void CalculateSuspensionForces(List<OutputClass> _oc, SuspensionCoordinatesMaster _scm, Spring spring, int _dummy2)
         {
             //Calculating the Suspension Wishbone Forces
@@ -1373,15 +1387,13 @@ namespace Coding_Attempt_with_GUI
             _oc[_dummy2].LBJ_z = (_oc[_dummy2].LowerFront_z + _oc[_dummy2].LowerRear_z);
 
             ArbDroopLinkForce(_oc[_dummy2]);
-        }
-
-        #endregion 
+        } 
+        #endregion
 
         #endregion
 
-
-
-
-
+        #endregion
     }
+
+
 }

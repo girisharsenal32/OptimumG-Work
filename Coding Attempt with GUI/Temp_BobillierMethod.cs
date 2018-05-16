@@ -81,6 +81,7 @@ namespace Coding_Attempt_with_GUI
             ConstructPlaneBAndPointB();
             ConstructBobillierLine();
             CheckForBumpSteer();
+            OptimizePoints();
 
             for (int i = 0; i < cad1.viewportLayout1.Entities.Count; i++)
             {
@@ -88,6 +89,8 @@ namespace Coding_Attempt_with_GUI
             }
 
         }
+
+        
 
         /// <summary>
         /// Method to assign the Configuration of the Suspension
@@ -553,6 +556,9 @@ namespace Coding_Attempt_with_GUI
             Bar BobillierLine_Ent = new Bar(BobillierLine.StartPoint, BobillierLine.EndPoint, 4.5, 8);
             BobillierLine_Ent.Color = Color.AliceBlue;
             cad1.viewportLayout1.Entities.Add(BobillierLine_Ent);
+
+            BobillierLine.GetPointsByLength(1);
+
         }
 
         /// <summary>
@@ -565,17 +571,17 @@ namespace Coding_Attempt_with_GUI
             double bumpSteerError = ToeLinkInboard.Position.DistanceTo(tempBobillierSegment);
 
         }
-    }
 
-    /// <summary>
-    /// Enum to determine which Corner of the Vehicle is calling this class
-    /// </summary>
-    public enum VehicleCorner
-    {
-        FrontLeft,
-        FrontRight,
-        RearLeft,
-        RearRight
+
+
+        private void OptimizePoints()
+        {
+            OptimizerGeneticAlgorithm CoordinateOptimizer = new OptimizerGeneticAlgorithm(0.85, 0.05, 5, 200, 60);
+            CoordinateOptimizer.ConstructGeneticAlgorithm();
+           
+        }
+
+
     }
 
     /// <summary>

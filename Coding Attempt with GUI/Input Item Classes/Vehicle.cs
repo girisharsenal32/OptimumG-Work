@@ -1651,6 +1651,17 @@ namespace Coding_Attempt_with_GUI
 
     }
 
+    /// <summary>
+    /// Enum to determine which Corner of the Vehicle is calling this class
+    /// </summary>
+    public enum VehicleCorner
+    {
+        FrontLeft,
+        FrontRight,
+        RearLeft,
+        RearRight
+    }
+
     public enum SimulationType
     {
         MotionAnalysis = 1,
@@ -1658,7 +1669,8 @@ namespace Coding_Attempt_with_GUI
         StandToGround = 3,
         SetupChange = 4,
         BatchRun = 5,
-        Dummy = 6
+        Optimization = 6,
+        Dummy = 7
     };
 
 }
