@@ -42,6 +42,9 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         public SuspensionConfiguration Config { get; set; }
 
+        public Vehicle Vehicle { get; set; }
+
+
         /// <summary>
         /// <para>This variable is used to determine the King Pin Axis in case of a 5 link Suspension</para> 
         /// <para>Used to translate the Point <see cref="SuspensionCoordinatesMaster.M1x"/> (Steering Link Upright)
@@ -53,11 +56,15 @@ namespace Coding_Attempt_with_GUI
         /// Method to obtain the Suspension Coordinates of the corner for which wre want to plot the Bobillier Line
         /// </summary>
         /// <param name="_scm"></param>
-        public void AssignLocalSuspensionObject(SuspensionCoordinatesMaster _scm, int _identifier)
+        public void AssignLocalSuspensionObject(Vehicle _vehicle, SuspensionCoordinatesMaster _scm, int _identifier)
         {
             if (_scm != null)
             {
                 SCM = _scm;
+            }
+            if (_vehicle != null)
+            {
+                Vehicle = _vehicle;
             }
 
             Corner = (VehicleCorner)_identifier;
@@ -576,8 +583,18 @@ namespace Coding_Attempt_with_GUI
 
         private void OptimizePoints()
         {
-            OptimizerGeneticAlgorithm CoordinateOptimizer = new OptimizerGeneticAlgorithm(0.85, 0.05, 5, 200, 60);
-            CoordinateOptimizer.ConstructGeneticAlgorithm();
+            if (Vehicle != null)
+            {
+                OptimizerGeneticAlgorithm Optimizer = new OptimizerGeneticAlgorithm(0.85, 0.05, 5, 200, 60);
+
+                Optimizer.InitializeVehicleParams(Corner, Vehicle);
+
+                Optimizer.ConstructGeneticAlgorithm(); 
+            }
+            else
+            {
+                MessageBox.Show("HRHRRMRMHRHRHKHKKKHH");
+            }
            
         }
 

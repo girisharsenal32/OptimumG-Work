@@ -14,8 +14,17 @@ namespace Coding_Attempt_with_GUI
     {
         static Dictionary<string, object> VehicleParams = new Dictionary<string, object>();
 
-        public static Dictionary<string, object> AssignVehicleParams(VehicleCorner _vCorner, Vehicle _vehicle)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_vCorner"></param>
+        /// <param name="_vehicle"></param>
+        /// <param name="noOfOCSteps">Number of Steps that the <see cref="OutputClass"/> List is going have </param>
+        /// <returns></returns>
+        public static Dictionary<string, object> AssignVehicleParams(VehicleCorner _vCorner, Vehicle _vehicle, int noOfOCSteps)
         {
+            _vehicle.InitializeOutputClass(noOfOCSteps);
+
             if (_vCorner == VehicleCorner.FrontLeft)
             {
                 VehicleParams.Add("SuspensionCoordinateMaster", _vehicle.sc_FL);

@@ -96,7 +96,7 @@ namespace Coding_Attempt_with_GUI
 
             VCorner = _vCorner;
 
-            Dictionary<string, object> tempVehicleParams = VehicleParamsAssigner.AssignVehicleParams(_vCorner, _vehicle);
+            Dictionary<string, object> tempVehicleParams = VehicleParamsAssigner.AssignVehicleParams(_vCorner, _vehicle, 100);
 
             SCM = tempVehicleParams["SuspensionCoordinateMaster"] as SuspensionCoordinatesMaster;
 
@@ -148,7 +148,7 @@ namespace Coding_Attempt_with_GUI
 
         private double EvaluateBumpSteerFitness(Chromosome chromosome)
         {
-            double bsFitness = -1;
+            double Fitness = -1;
 
             if (chromosome != null)
             {
@@ -174,17 +174,12 @@ namespace Coding_Attempt_with_GUI
                 double y = (y1 * rcy) + 59.4;
                 double z = (y1 * rcz) + 70.8;
 
+                double BumpSteerResult = EvaluateBumpSteer(x, y, z);
 
-                //using binary F6 for fitness.
-                var temp1 = System.Math.Sin(System.Math.Sqrt(x * x + y * y));
-                var temp2 = 1 + 0.001 * (x * x + y * y);
-                var result = 0.5 + (temp1 * temp1 - 0.5) / (temp2 * temp2);
-
-
-                bsFitness = 1 - result;
+                Fitness = 1 - BumpSteerResult;
             }
 
-            return bsFitness;
+            return Fitness;
         }
 
         private bool TerminateAlgorithm(Population _population, int _currGeneration, long currEvaluation)
@@ -198,20 +193,24 @@ namespace Coding_Attempt_with_GUI
                 return false;
             }
         }
-
-
-
-
-
-        private void EvaluateBumpSteer(double _xCoord, double _yCoord, double _zCoord)
+        
+        private double EvaluateBumpSteer(double _xCoord, double _yCoord, double _zCoord)
         {
+            double bumpSteer = 1;
+
             Point3D InboardPickUpPoint = new Point3D(_xCoord, _yCoord, _zCoord);
 
             DoubleWishboneKinematicsSolver dwSolver = new DoubleWishboneKinematicsSolver();
 
+            dwSolver.SimulationType = SimulationType.Optimization;
+
             dwSolver.OptimizedSteeringPoint = InboardPickUpPoint;
 
             dwSolver.Kinematics(Identifier, SCM, WA, Tire, ARB, ARBRate_Nmm, Spring, Damper, OC, Vehicle, CalculateWheelDeflections(), true, false);
+
+            bumpSteer = CalculateAverageBumpSteer(OC);
+
+            return bumpSteer;
 
         }
 
@@ -225,9 +224,11 @@ namespace Coding_Attempt_with_GUI
 
             List<double> wheelDeflections = new List<double>();
 
-            for (int i = 0; i < NoOfIterations; i++)
+            wheelDeflections.Add(UpperWheelDeflectionLimit);
+
+            for (int i = 0; i < NoOfIterations-1; i++)
             {
-                wheelDeflections.Add(LowerWheelDeflectionLimit + StepSize);
+                wheelDeflections.Add(wheelDeflections[i] - StepSize);
             }
 
             return wheelDeflections;

@@ -27,7 +27,7 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         private double Mx, Mz;
 
-        private SimulationType SimulationType;
+        public SimulationType SimulationType;
 
         public devDept.Geometry.Point3D OptimizedSteeringPoint;
 
@@ -751,29 +751,46 @@ namespace Coding_Attempt_with_GUI
             if (!RecalculateSteering)
             {
                 AssignLocalCoordinateVariables_FixesPoints(scm);
-                AssignLocalCoordinateVariables_MovingPoints(scm); 
+                AssignLocalCoordinateVariables_MovingPoints(scm);
+                if (SimType == SimulationType.Optimization)
+                {
+                    AssignOptimizedSteeringPoints();
+                }
 
             }
             else if (RecalculateSteering)
             {
                 AssignLocalCoordinateVariables_FixesPoints(oc[dummy1].scmOP);
                 AssignLocalCoordinateVariables_MovingPoints(oc[dummy1].scmOP);
-                if (SimulationType == SimulationType.Optimization)
-                {
-                    AssignOptimizedSteeringPoints();
-                }
                 L1x = oc[dummy1].scmOP.L1x; L1y = oc[dummy1].scmOP.L1y; L1z = oc[dummy1].scmOP.L1z;
             }
 
             if (MotionExists)
             {
-                N = _vehicleKinematicsDWSolver.vehicle_Motion.Final_WheelDeflectionsX.Count;
+                if (SimType!= SimulationType.Optimization)
+                {
+                    N = _vehicleKinematicsDWSolver.vehicle_Motion.Final_WheelDeflectionsX.Count;
 
-                /// Initializating the Local Wheel Alignment variables
-                InitializeWheelAlignmentVariables(wa, oc[dummy1], Identifier, _vehicleKinematicsDWSolver.vehicle_Motion.SteeringExists);
+                    /// Initializating the Local Wheel Alignment variables
+                    InitializeWheelAlignmentVariables(wa, oc[dummy1], Identifier, _vehicleKinematicsDWSolver.vehicle_Motion.SteeringExists);
 
-                /// Initialize array which holds the previous value of spring deflection
-                SpringDeflection_Prev = new double[_vehicleKinematicsDWSolver.vehicle_Motion.Final_WheelDeflectionsX.Count];
+                    /// Initialize array which holds the previous value of spring deflection
+                    SpringDeflection_Prev = new double[_vehicleKinematicsDWSolver.vehicle_Motion.Final_WheelDeflectionsX.Count];
+                }
+                else if (SimType == SimulationType.Optimization)
+                {
+                    N = 100;
+
+                    /// Initializating the Local Wheel Alignment variables
+                    InitializeWheelAlignmentVariables(wa, oc[dummy1], Identifier, false);
+
+                    /// Initialize array which holds the previous value of spring deflection
+                    SpringDeflection_Prev = new double[N];
+                }
+
+
+
+
             }
             else if (SolverMasterClass.SimType == SimulationType.SetupChange)
             {

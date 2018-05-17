@@ -1656,10 +1656,10 @@ namespace Coding_Attempt_with_GUI
     /// </summary>
     public enum VehicleCorner
     {
-        FrontLeft,
-        FrontRight,
-        RearLeft,
-        RearRight
+        FrontLeft = 1,
+        FrontRight = 2,
+        RearLeft = 3,
+        RearRight = 4
     }
 
     public enum SimulationType
