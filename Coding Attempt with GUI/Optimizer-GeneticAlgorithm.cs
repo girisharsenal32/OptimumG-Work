@@ -579,7 +579,7 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Generating an arbitrary Bump Steer Curve. This will be later on obtained from the user using a Chart</summary>
             for (int i = 0; i < SuspensionEvalIterations + 1; i++) 
             {
-                UserBumpSteerCurve.Add(new Angle(/*_staticToe.Degrees + (i * 0.12)*/ _staticToe.Degrees, AngleUnit.Degrees));
+                UserBumpSteerCurve.Add(new Angle(/*_staticToe.Degrees + (i * 0.12)*/  _staticToe.Degrees, AngleUnit.Degrees));
             }
 
             List<Angle> ErrorCalc_Step1 = new List<Angle>();
