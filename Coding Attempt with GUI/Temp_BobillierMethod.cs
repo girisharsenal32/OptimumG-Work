@@ -556,7 +556,7 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Computing the intersection of the <see cref="PlaneSTEERING"/> and the <see cref="PlaneB"/> which results in the <see cref="BobillierLine"/></summary>
             Plane.Intersection(PlaneB, PlaneSTEERING, out Segment3D BobillierSegment);
             BobillierLine = new Line(BobillierSegment);
-
+            cad1.viewportLayout1.SetView(viewType.Isometric);
             ///<summary>Extending the <see cref="BobillierLine"/> by 500mm on each side</summary>
             CustomInfiniteLine.DrawInfiniteLine(BobillierLine, 500);
 
@@ -587,7 +587,7 @@ namespace Coding_Attempt_with_GUI
             {
                 OptimizerGeneticAlgorithm Optimizer = new OptimizerGeneticAlgorithm(0.85, 0.05, 5, 200, 60);
 
-                Optimizer.InitializeVehicleParams(Corner, Vehicle);
+                Optimizer.InitializeVehicleParams(Corner, Vehicle, 1, 25, -25);
 
                 Optimizer.ConstructGeneticAlgorithm(); 
             }

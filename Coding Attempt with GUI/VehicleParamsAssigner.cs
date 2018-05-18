@@ -23,6 +23,8 @@ namespace Coding_Attempt_with_GUI
         /// <returns></returns>
         public static Dictionary<string, object> AssignVehicleParams(VehicleCorner _vCorner, Vehicle _vehicle, int noOfOCSteps)
         {
+            VehicleParams.Clear();
+
             _vehicle.InitializeOutputClass(noOfOCSteps);
 
             if (_vCorner == VehicleCorner.FrontLeft)
@@ -78,6 +80,7 @@ namespace Coding_Attempt_with_GUI
 
             return VehicleParams;
         }
+
 
     }
 }

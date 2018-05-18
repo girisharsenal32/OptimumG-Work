@@ -186,6 +186,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BumpSteerCurve.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BumpSteerCurve.Designer.cs">
+      <DependentUpon>BumpSteerCurve.cs</DependentUpon>
+    </Compile>
     <Compile Include="CustomInfiniteLine.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -534,6 +540,9 @@
     </Compile>
     <Compile Include="Optimizer-GeneticAlgorithm.cs" />
     <Compile Include="VehicleParamsAssigner.cs" />
+    <EmbeddedResource Include="BumpSteerCurve.resx">
+      <DependentUpon>BumpSteerCurve.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI Elements\Graphics\CAD Auxillaries\LegendEditor.resx">
       <DependentUpon>LegendEditor.cs</DependentUpon>
     </EmbeddedResource>

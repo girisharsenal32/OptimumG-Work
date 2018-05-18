@@ -392,7 +392,7 @@ namespace Coding_Attempt_with_GUI
             }
             else if (!MotionExists)
             {
-                N = 2;
+                N = 200;
                 dummy2 = 0;
             }
             #endregion
