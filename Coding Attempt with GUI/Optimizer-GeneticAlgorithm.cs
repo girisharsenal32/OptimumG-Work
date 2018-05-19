@@ -372,19 +372,19 @@ namespace Coding_Attempt_with_GUI
             double lowerDeltaZ = -2;
 
             // range constant for x
-            var rcx = GAF.Math.GetRangeConstant(upperDeltaX - lowerDeltaX, 20);
+            var rcx = GAF.Math.GetRangeConstant(upperDeltaX - lowerDeltaX, 10);
 
             // range constant for y
-            var rcy = GAF.Math.GetRangeConstant(upperDeltaY - lowerDeltaY, 20);
+            var rcy = GAF.Math.GetRangeConstant(upperDeltaY - lowerDeltaY, 10);
 
             // range constant for z
-            var rcz = GAF.Math.GetRangeConstant(upperDeltaZ - lowerDeltaZ, 20);
+            var rcz = GAF.Math.GetRangeConstant(upperDeltaZ - lowerDeltaZ, 10);
 
             // when evaluating the fitness simply retrieve the 20 bit values as integers 
             // from the chromosome e.g.
-            var x1 = Convert.ToInt32(chromosome.ToBinaryString(0, 20), 2);
-            var y1 = Convert.ToInt32(chromosome.ToBinaryString(20, 20), 2);
-            var z1 = Convert.ToInt32(chromosome.ToBinaryString(40, 20), 2);
+            var x1 = Convert.ToInt32(chromosome.ToBinaryString(0, 10), 2);
+            var y1 = Convert.ToInt32(chromosome.ToBinaryString(10, 10), 2);
+            var z1 = Convert.ToInt32(chromosome.ToBinaryString(20, 10), 2);
 
             // multiply by the appropriate range constant and adjust for any offset 
             // in the range to get the real values
