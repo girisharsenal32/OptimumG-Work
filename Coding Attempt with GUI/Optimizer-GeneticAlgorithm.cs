@@ -340,10 +340,10 @@ namespace Coding_Attempt_with_GUI
             }
         }
         #endregion
-        
 
 
-        //---HELPER METHODS---
+        #region --HELPER METHODS--
+        //--HELPER METHODS--
 
         /// <summary>
         /// <para>Method to Extract the values out of the <see cref="Chromosome"/></para>
@@ -358,7 +358,7 @@ namespace Coding_Attempt_with_GUI
             ///<summary>
             ///Assigning the Nominal,Upper and Lower Values of the X/Y/Z Coordinates. This will be later on obtained from the User
             /// </summary>
-            
+
             double nominalX = 232.12;
             double upperDeltaX = 100;
             double lowerDeltaX = -100;
@@ -439,7 +439,7 @@ namespace Coding_Attempt_with_GUI
             SolverMasterClass.SimType = SimulationType.Dummy;
 
             return bumpSteer;
-            
+
         }
 
         /// <summary>
@@ -480,7 +480,7 @@ namespace Coding_Attempt_with_GUI
             {
                 wheelDeflections0ToUpper.Add(wheelDeflections0ToUpper[i] + _StepSize);
             }
-            for (int i = 0; i < SuspensionEvalIterations_UpperLimit - 1; i++) 
+            for (int i = 0; i < SuspensionEvalIterations_UpperLimit - 1; i++)
             {
                 wheelDeflections0ToUpper.Add(wheelDeflections0ToUpper[SuspensionEvalIterations_UpperLimit - 1 - i] - _StepSize);
             }
@@ -495,11 +495,11 @@ namespace Coding_Attempt_with_GUI
 
             WheelDeflections0ToLower.Add(-_StepSize);
 
-            for (int i = 0; i < SuspensionEvalIterations_LowerLimit-1; i++)
+            for (int i = 0; i < SuspensionEvalIterations_LowerLimit - 1; i++)
             {
                 WheelDeflections0ToLower.Add(WheelDeflections0ToLower[i] - _StepSize);
             }
-            for (int i = 0; i < SuspensionEvalIterations_LowerLimit-1; i++)
+            for (int i = 0; i < SuspensionEvalIterations_LowerLimit - 1; i++)
             {
                 WheelDeflections0ToLower.Add(WheelDeflections0ToLower[SuspensionEvalIterations_LowerLimit - 1 - i] + _StepSize);
             }
@@ -509,7 +509,7 @@ namespace Coding_Attempt_with_GUI
             WheelDefelctions.Insert(SuspensionEvalIterations_UpperLimit * 2, 0);
             WheelDefelctions.Insert(WheelDefelctions.Count, 0);
 
-            if (WheelDefelctions.Count != _dwSolver.NoOfIterationsOptimization) 
+            if (WheelDefelctions.Count != _dwSolver.NoOfIterationsOptimization)
             {
                 int diff = _dwSolver.NoOfIterationsOptimization - WheelDefelctions.Count - 1;
 
@@ -577,7 +577,7 @@ namespace Coding_Attempt_with_GUI
             List<Angle> UserBumpSteerCurve = new List<Angle>();
 
             ///<summary>Generating an arbitrary Bump Steer Curve. This will be later on obtained from the user using a Chart</summary>
-            for (int i = 0; i < SuspensionEvalIterations + 1; i++) 
+            for (int i = 0; i < SuspensionEvalIterations + 1; i++)
             {
                 UserBumpSteerCurve.Add(new Angle(/*_staticToe.Degrees + (i * 0.12)*/  _staticToe.Degrees, AngleUnit.Degrees));
             }
@@ -585,15 +585,15 @@ namespace Coding_Attempt_with_GUI
             List<Angle> ErrorCalc_Step1 = new List<Angle>();
 
             ///<summary>Finding the distance between each pair of Points</summary>
-            for (int i = 0; i < SuspensionEvalIterations + 1; i++) 
+            for (int i = 0; i < SuspensionEvalIterations + 1; i++)
             {
                 if (i != SuspensionEvalIterations - 1)
                 {
 
                     ErrorCalc_Step1.Add(UserBumpSteerCurve[i] - _toeAngle[i]);
-                    
+
                     //ErrorCalc_Step1.Add(new Angle(((UserBumpSteerCurve[i].Degrees - _toeAngle[i].Degrees) / UserBumpSteerCurve[i].Degrees), AngleUnit.Degrees));
-                    
+
                 }
                 else
                 {
@@ -604,7 +604,7 @@ namespace Coding_Attempt_with_GUI
             List<Angle> ErrorCalc_Step2 = new List<Angle>();
 
             ///<summary>Finiding the square of the Distance</summary>
-            for (int i = 0; i < SuspensionEvalIterations + 1; i++) 
+            for (int i = 0; i < SuspensionEvalIterations + 1; i++)
             {
                 ErrorCalc_Step2.Add(new Angle(ErrorCalc_Step1[i].Degrees * ErrorCalc_Step1[i].Degrees, AngleUnit.Degrees));
             }
@@ -612,7 +612,7 @@ namespace Coding_Attempt_with_GUI
             double ErrorCalc_Step3 = 0;
 
             ///<summary>Summing the squares of the distances</summary>
-            for (int i = 0; i < SuspensionEvalIterations + 1; i++) 
+            for (int i = 0; i < SuspensionEvalIterations + 1; i++)
             {
                 ErrorCalc_Step3 += ErrorCalc_Step2[i].Degrees;
             }
@@ -626,14 +626,9 @@ namespace Coding_Attempt_with_GUI
             }
 
             return FinalError;
-        }
+        } 
+        #endregion
 
-
-
-
-
-
-        
     }
 
     enum WheelDeflectionType

@@ -194,11 +194,7 @@ namespace Coding_Attempt_with_GUI
 
         double XW1 = 0, YW1 = 0, ZW1 = 0, XW2 = 0, YW2 = 0, ZW2 = 0;
 
-
-
         #endregion
-
-        #region Common Methods
         
         #region ---INITIALIZER METHODS---
 
@@ -1405,9 +1401,6 @@ namespace Coding_Attempt_with_GUI
                 SetupChange_EditSetupValues(_Vehicle.oc_FR[0], FinalCamberFR, FinalToeFR, FinalCasterFR, FinalKPIFR);
                 SetupChange_EditSetupValues(_Vehicle.oc_RL[0], FinalCamberRL, FinalToeRL, FinalCasterRL, FinalKPIRL);
                 SetupChange_EditSetupValues(_Vehicle.oc_RR[0], FinalCamberRR, FinalToeRR, FinalCasterRR, FinalKPIRR);
-
-
-
             }
 
             Identifier = 1;
@@ -1830,53 +1823,6 @@ namespace Coding_Attempt_with_GUI
                 SetupChange_CLS_Master.ClosedLoop_Solver(CurrentChange.Toe);
 
             }
-
-            //else if (_RequestedChanges.deltaCaster != 0 || _RequestedChanges.deltaBottmFrontArm != 0)
-            //{
-            //    if (_RequestedChanges.casterAdjustmentType == AdjustmentType.Indirect)
-            //    {
-            //        /////<summary>
-            //        /////Calculating the Angle to be rotated for a given Adjuster(wishbone) Length Increase. Achieved by extending the <see cref="AdjustmentOptions.MCasterAdjusterLine"/>, taking the <see cref="SetupChangeDatabase.UprightTriangle"/>'s UBJ or LBJ Point to the new
-            //        /////Point created by the <see cref="AdjustmentOptions.MCamberAdjusterLine"/> and then finding the angle between the 2 Upright positions
-            //        /////</summary>
-            //        //Angle AngleToBeRotated = SetupChange_CamberShims_OR_ShimsVectorLengthChanged(_RequestedChanges.deltaBottmFrontArm);
-            //        /////<summary>Invoking the Actual Camber Change Method by passing the Angle calculated above for a requested change in Camber Shims </summary>
-            //        //SetupChange_CasterChange(AngleToBeRotated.Degrees, _Oc[0], false, _RequestedChanges, SetupChange_DB_Master.AdjOptions.MCasterAdjustmenterLine, SetupChange_DB_Master.AdjOptions.MCasterAdjusterVector, 
-            //        //                         SetupChange_DB_Master.AdjOptions.AxisRotation_Caster[SetupChange_DB_Master.AdjOptions.AxisRotation_Caster.Count - 1], SetupChange_DB_Master.AdjOptions.UprightIndexForCaster);
-            //    }
-            //    else
-            //    {
-            //        SetupChange_CasterChange(_RequestedChanges.deltaCaster, _Oc[0], false, _RequestedChanges, SetupChange_DB_Master.AdjOptions.MCasterAdjustmenterLine, SetupChange_DB_Master.AdjOptions.MCasterAdjusterVector,
-            //             SetupChange_DB_Master.AdjOptions.AxisRotation_Caster[SetupChange_DB_Master.AdjOptions.AxisRotation_Caster.Count - 1], SetupChange_DB_Master.AdjOptions.UprightIndexForCaster);
-            //    }
-
-            //    SetupChange_CLS_Master.ClosedLoop_Solver(CurrentChange.Caster);
-
-            //}
-
-            //else if (_RequestedChanges.deltaKPI != 0 || _RequestedChanges.deltaTopFrontArm != 0)
-            //{
-            //    if (_RequestedChanges.kpiAdjustmentType == AdjustmentType.Indirect)
-            //    {
-            //        /////<summary>
-            //        /////Calculating the Angle to be rotated for a given Adjuster(wishbone) Length Increase. Achieved by extending the <see cref="AdjustmentOptions.MKPIAdjusterLine"/>, taking the <see cref="SetupChangeDatabase.UprightTriangle"/>'s UBJ or LBJ Point to the new
-            //        /////Point created by the <see cref="AdjustmentOptions.MKPIAdjusterLine"/> and then finding the angle between the 2 Upright positions
-            //        /////</summary>
-            //        //Angle AngleToBeRotated = SetupChange_CamberShims_OR_ShimsVectorLengthChanged(_RequestedChanges.deltaTopFrontArm);
-            //        /////<summary>Invoking the Actual Camber Change Method by passing the Angle calculated above for a requested change in Camber Shims </summary>
-            //        //SetupChange_KPIChange(AngleToBeRotated.Degrees, _Oc[0], false, _RequestedChanges, SetupChange_DB_Master.AdjOptions.MKPIAdjusterLine, SetupChange_DB_Master.AdjOptions.MKPIAdjusterVector,
-            //        //                      SetupChange_DB_Master.AdjOptions.AxisRotation_KPI[SetupChange_DB_Master.AdjOptions.AxisRotation_KPI.Count - 1], SetupChange_DB_Master.AdjOptions.UprightIndexForKPI);
-            //    }
-            //    else
-            //    {
-            //        SetupChange_KPIChange(_RequestedChanges.deltaKPI, _Oc[0], false, _RequestedChanges, SetupChange_DB_Master.AdjOptions.MKPIAdjusterLine, SetupChange_DB_Master.AdjOptions.MKPIAdjusterVector,
-            //          SetupChange_DB_Master.AdjOptions.AxisRotation_KPI[SetupChange_DB_Master.AdjOptions.AxisRotation_KPI.Count - 1], SetupChange_DB_Master.AdjOptions.UprightIndexForKPI);
-            //    }
-
-            //    SetupChange_CLS_Master.ClosedLoop_Solver(CurrentChange.KPI);
-            //}
-
-
 
             SetupChange_AssignSetupChangeDatabase(_Identifier);
 
@@ -3466,7 +3412,7 @@ namespace Coding_Attempt_with_GUI
         } 
         #endregion
 
-        #endregion
+        
     }
 }
     
