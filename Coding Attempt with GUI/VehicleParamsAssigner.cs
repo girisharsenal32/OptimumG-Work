@@ -81,6 +81,29 @@ namespace Coding_Attempt_with_GUI
             return VehicleParams;
         }
 
+        public static List<OutputClass> OverrideOutputClassInitialization(VehicleCorner _vCorner, Vehicle _vehicle, int NoOfSteps)
+        {
+            _vehicle.InitializeOutputClass(NoOfSteps);
+
+            if (_vCorner == VehicleCorner.FrontLeft)
+            {
+                return _vehicle.oc_FL;
+            }
+            else if (_vCorner == VehicleCorner.FrontRight)
+            {
+                return _vehicle.oc_FR;
+            }
+            else if (_vCorner == VehicleCorner.RearLeft)
+            {
+                return _vehicle.oc_RL;
+            }
+            else 
+            {
+                return _vehicle.oc_RR;
+            }
+        }
+
+
 
     }
 }

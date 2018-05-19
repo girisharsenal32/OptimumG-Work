@@ -217,7 +217,7 @@ namespace Coding_Attempt_with_GUI
             VCorner = _vCorner;
 
             ///<summary>Invoking the <see cref="VehicleParamsAssigner.AssignVehicleParams(VehicleCorner, Vehicle, int)"/> method to assign the right Vehicle's Params (based on the Vehicle Corner) into a Dictionary</summary>
-            Dictionary<string, object> tempVehicleParams = VehicleParamsAssigner.AssignVehicleParams(_vCorner, _vehicle, (SuspensionEvalIterations * 2) + 1);
+            Dictionary<string, object> tempVehicleParams = VehicleParamsAssigner.AssignVehicleParams(_vCorner, _vehicle, (SuspensionEvalIterations) + 1);
 
             ///<summary>Passing the <see cref="Dictionary{TKey, TValue}"/> of Vehicle Params's objects into the right Parameter</summary>
             SCM = tempVehicleParams["SuspensionCoordinateMaster"] as SuspensionCoordinatesMaster;
@@ -235,7 +235,8 @@ namespace Coding_Attempt_with_GUI
 
             Chassis = tempVehicleParams["Chassis"] as Chassis;
 
-            OC = tempVehicleParams["OutputClass"] as List<OutputClass>;
+            ///<remarks>OutputClass object needs to be initialized twice. Once for Bump and Once for Rebound. Hence this is done later</remarks>
+            //OC = tempVehicleParams["OutputClass"] as List<OutputClass>;
 
             Identifier = (int)tempVehicleParams["Identifier"];
 
@@ -340,10 +341,27 @@ namespace Coding_Attempt_with_GUI
             }
         }
         #endregion
-        
+
 
 
         //---HELPER METHODS---
+
+        /// <summary>
+        /// Method to calculate the Number of Iterations to be performed
+        /// </summary>
+        /// <param name="_upperLimitWheelDeflection">Upper Limit of th Wheel Defelction</param>
+        /// <param name="_lowerLimitWheelDeflection">Lower Limit of the Wheel Deflection</param>
+        /// <param name="_stepSize">Step Size </param>
+        /// <returns></returns>
+        private int GetNoOfIterations(int _upperLimitWheelDeflection, int _lowerLimitWheelDeflection, int _stepSize)
+        {
+            double Range = _upperLimitWheelDeflection - _lowerLimitWheelDeflection;
+
+            return Convert.ToInt32(Range) / _stepSize;
+
+        }
+
+
 
         /// <summary>
         /// <para>Method to Extract the values out of the <see cref="Chromosome"/></para>
@@ -408,7 +426,11 @@ namespace Coding_Attempt_with_GUI
         /// <returns>Returns Error of the computed Bump Steer Curve with the Curve that the user wants</returns>
         private double EvaluateBumpSteer(double _xCoord, double _yCoord, double _zCoord)
         {
-            double bumpSteer = 1;
+            double bumpSteerInBump = 1;
+
+            double bumpSteerInRebound = 1;
+
+            double BumpSteerCombined = 1;
 
             int StepSize = 1;
 
@@ -424,36 +446,55 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Assigning the Optimized Inboard Pick Up Point in the <see cref="DoubleWishboneKinematicsSolver"/></summary>
             dwSolver.OptimizedSteeringPoint = InboardPickUpPoint;
 
-            ///<summary>
-            ///Invoking the <see cref="DoubleWishboneKinematicsSolver.Kinematics(int, SuspensionCoordinatesMaster, WheelAlignment, Tire, AntiRollBar, double, Spring, Damper, List{OutputClass}, Vehicle, List{double}, bool, bool)"/>
-            ///Class to compute the Kinematics and calculate the Bump Steer at each interval of Wheel Deflection
-            /// </summary>
-            dwSolver.Kinematics(Identifier, SCM, WA, Tire, ARB, ARBRate_Nmm, Spring, Damper, OC, Vehicle, CalculateWheelDeflections(StepSize, dwSolver), true, false);
+            bumpSteerInBump = EvaluateBumpSteerInBump(dwSolver, StepSize);
 
-            ///<summary>Invoking the <see cref="GetResultValues(List{OutputClass})"/> to extract the Bump Steer Data</summary>
-            bumpSteer = GetResultValues(OC);
+            bumpSteerInRebound = EvaluateBumpSteerInRebound(dwSolver, StepSize);
 
             ///<summary>Reassigning the Simulation type to Dummy so to prevent confusion if any other simulation is run after this one</summary>
             dwSolver.SimulationType = SimulationType.Dummy;
 
             SolverMasterClass.SimType = SimulationType.Dummy;
 
-            return bumpSteer;
+            BumpSteerCombined = System.Math.Sqrt(System.Math.Pow(bumpSteerInBump, 2) + System.Math.Pow(bumpSteerInRebound, 2));
+
+            return bumpSteerInBump;
             
         }
 
-        /// <summary>
-        /// Method to calculate the Number of Iterations to be performed
-        /// </summary>
-        /// <param name="_upperLimitWheelDeflection">Upper Limit of th Wheel Defelction</param>
-        /// <param name="_lowerLimitWheelDeflection">Lower Limit of the Wheel Deflection</param>
-        /// <param name="_stepSize">Step Size </param>
-        /// <returns></returns>
-        private int GetNoOfIterations(int _upperLimitWheelDeflection, int _lowerLimitWheelDeflection, int _stepSize)
+        private double EvaluateBumpSteerInBump(DoubleWishboneKinematicsSolver _DWSolver, int _StepSize)
         {
-            double Range = _upperLimitWheelDeflection - _lowerLimitWheelDeflection;
+            double BumpSteerErrorInBump = 0;
 
-            return Convert.ToInt32(Range) / _stepSize;
+            OC = VehicleParamsAssigner.OverrideOutputClassInitialization(VCorner, Vehicle, SuspensionEvalIterations_UpperLimit);
+
+            ///<summary>
+            ///Invoking the <see cref="DoubleWishboneKinematicsSolver.Kinematics(int, SuspensionCoordinatesMaster, WheelAlignment, Tire, AntiRollBar, double, Spring, Damper, List{OutputClass}, Vehicle, List{double}, bool, bool)"/>
+            ///Class to compute the Kinematics and calculate the Bump Steer at each interval of Wheel Deflection
+            /// </summary>
+            _DWSolver.Kinematics(Identifier, SCM, WA, Tire, ARB, ARBRate_Nmm, Spring, Damper, OC, Vehicle, CalculateWheelDeflections(_StepSize, _DWSolver, WheelDeflectionType.Bump), true, false);
+
+            ///<summary>Invoking the <see cref="GetResultValues(List{OutputClass})"/> to extract the Bump Steer Data</summary>
+            BumpSteerErrorInBump = GetResultValues(OC, SuspensionEvalIterations_UpperLimit);
+
+            return BumpSteerErrorInBump;
+        }
+
+        private double EvaluateBumpSteerInRebound(DoubleWishboneKinematicsSolver _DWSolver, int _StepSize)
+        {
+            double BumpSteerErrorInRebound = 0;
+
+            OC = VehicleParamsAssigner.OverrideOutputClassInitialization(VCorner, Vehicle, SuspensionEvalIterations_LowerLimit);
+
+            ///<summary>
+            ///Invoking the <see cref="DoubleWishboneKinematicsSolver.Kinematics(int, SuspensionCoordinatesMaster, WheelAlignment, Tire, AntiRollBar, double, Spring, Damper, List{OutputClass}, Vehicle, List{double}, bool, bool)"/>
+            ///Class to compute the Kinematics and calculate the Bump Steer at each interval of Wheel Deflection
+            /// </summary>
+            _DWSolver.Kinematics(Identifier, SCM, WA, Tire, ARB, ARBRate_Nmm, Spring, Damper, OC, Vehicle, CalculateWheelDeflections(_StepSize, _DWSolver, WheelDeflectionType.Rebound), true, false);
+
+            ///<summary>Invoking the <see cref="GetResultValues(List{OutputClass})"/> to extract the Bump Steer Data</summary>
+            BumpSteerErrorInRebound = GetResultValues(OC, SuspensionEvalIterations_LowerLimit);
+
+            return BumpSteerErrorInRebound;
 
         }
 
@@ -463,62 +504,47 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_StepSize">Step Size </param>
         /// <param name="_dwSolver">Object of the <see cref="DoubleWishboneKinematicsSolver"/></param>
         /// <returns><see cref="List{T}"/> of Wheel Deflections which define a Wheel Deflection Curve</returns>
-        private List<double> CalculateWheelDeflections(int _StepSize, DoubleWishboneKinematicsSolver _dwSolver)
+        private List<double> CalculateWheelDeflections(int _StepSize, DoubleWishboneKinematicsSolver _dwSolver, WheelDeflectionType _wdType)
         {
-            _dwSolver.NoOfIterationsOptimization = (SuspensionEvalIterations * 2) + 1;
-
             List<double> WheelDefelctions = new List<double>();
 
             WheelDefelctions.Add(0);
 
 
-            List<double> wheelDeflections0ToUpper = new List<double>();
-
-            wheelDeflections0ToUpper.Add(_StepSize);
-
-            for (int i = 0; i < SuspensionEvalIterations_UpperLimit - 1; i++)
+            if (_wdType == WheelDeflectionType.Bump)
             {
-                wheelDeflections0ToUpper.Add(wheelDeflections0ToUpper[i] + _StepSize);
-            }
-            for (int i = 0; i < SuspensionEvalIterations_UpperLimit - 1; i++) 
-            {
-                wheelDeflections0ToUpper.Add(wheelDeflections0ToUpper[SuspensionEvalIterations_UpperLimit - 1 - i] - _StepSize);
-            }
+                _dwSolver.NoOfIterationsOptimization = (SuspensionEvalIterations_UpperLimit) + 1;
 
-            WheelDefelctions.AddRange(wheelDeflections0ToUpper.ToArray());
+                List<double> wheelDeflections0ToUpper = new List<double>();
 
+                wheelDeflections0ToUpper.Add(_StepSize);
 
-
-
-
-            List<double> WheelDeflections0ToLower = new List<double>();
-
-            WheelDeflections0ToLower.Add(-_StepSize);
-
-            for (int i = 0; i < SuspensionEvalIterations_LowerLimit-1; i++)
-            {
-                WheelDeflections0ToLower.Add(WheelDeflections0ToLower[i] - _StepSize);
-            }
-            for (int i = 0; i < SuspensionEvalIterations_LowerLimit-1; i++)
-            {
-                WheelDeflections0ToLower.Add(WheelDeflections0ToLower[SuspensionEvalIterations_LowerLimit - 1 - i] + _StepSize);
-            }
-
-            WheelDefelctions.AddRange(WheelDeflections0ToLower.ToArray());
-
-            WheelDefelctions.Insert(SuspensionEvalIterations_UpperLimit * 2, 0);
-            WheelDefelctions.Insert(WheelDefelctions.Count, 0);
-
-            if (WheelDefelctions.Count != _dwSolver.NoOfIterationsOptimization) 
-            {
-                int diff = _dwSolver.NoOfIterationsOptimization - WheelDefelctions.Count - 1;
-
-                for (int i = 0; i < diff; i++)
+                for (int i = 0; i < SuspensionEvalIterations_UpperLimit - 1; i++)
                 {
-                    WheelDefelctions.Insert(WheelDefelctions.Count - 1, 1);
+                    wheelDeflections0ToUpper.Add(wheelDeflections0ToUpper[i] + _StepSize);
                 }
+
+                WheelDefelctions.AddRange(wheelDeflections0ToUpper.ToArray()); 
+            }
+            
+
+            if (_wdType == WheelDeflectionType.Rebound)
+            {
+                _dwSolver.NoOfIterationsOptimization = (SuspensionEvalIterations_LowerLimit) + 1;
+
+                List<double> WheelDeflections0ToLower = new List<double>();
+
+                WheelDeflections0ToLower.Add(-_StepSize);
+
+                for (int i = 0; i < SuspensionEvalIterations_LowerLimit - 1; i++)
+                {
+                    WheelDeflections0ToLower.Add(WheelDeflections0ToLower[i] - _StepSize);
+                }
+
+                WheelDefelctions.AddRange(WheelDeflections0ToLower.ToArray()); 
             }
 
+            
             return WheelDefelctions;
         }
 
@@ -526,9 +552,9 @@ namespace Coding_Attempt_with_GUI
         /// <para>Method to extract the Results
         /// <para>In this case the Toe Angle Varation per Step Size of Wheel Deflectin</para>
         /// </summary>
-        /// <param name="_oc"> <see cref="List{T}"/> of <see cref="OutputClass"/> objects</param>
+        /// <param name="_Oc"> <see cref="List{T}"/> of <see cref="OutputClass"/> objects</param>
         /// <returns></returns>
-        private double GetResultValues(List<OutputClass> _oc)
+        private double GetResultValues(List<OutputClass> _Oc, int _NoOfIterations)
         {
             double averageBS = 1;
 
@@ -536,31 +562,15 @@ namespace Coding_Attempt_with_GUI
 
             List<Angle> ToeAngles = new List<Angle>();
 
-            List<Angle> ToeAngles_Bump = new List<Angle>();
-
-            List<Angle> ToeAngle_Rebound = new List<Angle>();
-
-            List<Angle> ToeAngleRelevant = new List<Angle>();
-
-            for (int i = 0; i < _oc.Count; i++)
+            for (int i = 0; i < _Oc.Count; i++)
             {
-                ToeAngles.Add(new Angle(_oc[i].waOP.StaticToe, AngleUnit.Radians));
+                ToeAngles.Add(new Angle(_Oc[i].waOP.StaticToe, AngleUnit.Radians));
             }
-
-            ToeAngles_Bump.AddRange(ToeAngles.GetRange(0, SuspensionEvalIterations_UpperLimit + 1));
-
-            ToeAngle_Rebound.AddRange(ToeAngles.GetRange((SuspensionEvalIterations_UpperLimit * 2) + 1, SuspensionEvalIterations_LowerLimit));
-
-            ToeAngleRelevant.AddRange(ToeAngle_Rebound);
-
-            ToeAngleRelevant.AddRange(ToeAngles_Bump);
-
-            ToeAngleRelevant.Sort();
 
             Angle StaticToe = new Angle(WA.StaticToe, AngleUnit.Degrees);
 
             ///<summary>Invoking the <see cref="EvaluateDeviation(List{Angle}, Angle)"/> method to compute the Eucledian Ditance between the User's Bump Steer Curve and the computed Bump Steer Curve. The output is the Error which needs to be minimized</summary>
-            double Error = EvaluateDeviation(ToeAngleRelevant, StaticToe);
+            double Error = EvaluateDeviation(ToeAngles, StaticToe, _NoOfIterations);
 
             return Error;
 
@@ -572,12 +582,12 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_toeAngle"><see cref="List{T}"/> of Toe Angles</param>
         /// <param name="_staticToe">The Static Toe Angle</param>
         /// <returns>Returns the error based on the Eucledian Distance</returns>
-        private double EvaluateDeviation(List<Angle> _toeAngle, Angle _staticToe)
+        private double EvaluateDeviation(List<Angle> _toeAngle, Angle _staticToe, int _notOfIterations)
         {
             List<Angle> UserBumpSteerCurve = new List<Angle>();
 
             ///<summary>Generating an arbitrary Bump Steer Curve. This will be later on obtained from the user using a Chart</summary>
-            for (int i = 0; i < SuspensionEvalIterations + 1; i++) 
+            for (int i = 0; i < _notOfIterations; i++) 
             {
                 UserBumpSteerCurve.Add(new Angle(/*_staticToe.Degrees + (i * 0.12)*/  _staticToe.Degrees, AngleUnit.Degrees));
             }
@@ -585,26 +595,18 @@ namespace Coding_Attempt_with_GUI
             List<Angle> ErrorCalc_Step1 = new List<Angle>();
 
             ///<summary>Finding the distance between each pair of Points</summary>
-            for (int i = 0; i < SuspensionEvalIterations + 1; i++) 
+            for (int i = 0; i < _notOfIterations; i++)
             {
-                if (i != SuspensionEvalIterations - 1)
-                {
+                
+                ErrorCalc_Step1.Add(UserBumpSteerCurve[i] - _toeAngle[i]);
 
-                    ErrorCalc_Step1.Add(UserBumpSteerCurve[i] - _toeAngle[i]);
-                    
-                    //ErrorCalc_Step1.Add(new Angle(((UserBumpSteerCurve[i].Degrees - _toeAngle[i].Degrees) / UserBumpSteerCurve[i].Degrees), AngleUnit.Degrees));
-                    
-                }
-                else
-                {
-                    ErrorCalc_Step1.Add(ErrorCalc_Step1[i - 1]);
-                }
+                //ErrorCalc_Step1.Add(new Angle(((UserBumpSteerCurve[i].Degrees - _toeAngle[i].Degrees) / UserBumpSteerCurve[i].Degrees), AngleUnit.Degrees));
             }
 
             List<Angle> ErrorCalc_Step2 = new List<Angle>();
 
             ///<summary>Finiding the square of the Distance</summary>
-            for (int i = 0; i < SuspensionEvalIterations + 1; i++) 
+            for (int i = 0; i < _notOfIterations; i++) 
             {
                 ErrorCalc_Step2.Add(new Angle(ErrorCalc_Step1[i].Degrees * ErrorCalc_Step1[i].Degrees, AngleUnit.Degrees));
             }
@@ -612,13 +614,13 @@ namespace Coding_Attempt_with_GUI
             double ErrorCalc_Step3 = 0;
 
             ///<summary>Summing the squares of the distances</summary>
-            for (int i = 0; i < SuspensionEvalIterations + 1; i++) 
+            for (int i = 0; i < _notOfIterations; i++) 
             {
                 ErrorCalc_Step3 += ErrorCalc_Step2[i].Degrees;
             }
 
             ///<summary>Computing the Final Error by finding the Square Root of the Squares of the distances and dividing it by the No. of Iterations</summary>
-            double FinalError = System.Math.Sqrt(ErrorCalc_Step3) / SuspensionEvalIterations;
+            double FinalError = System.Math.Sqrt(ErrorCalc_Step3) / _notOfIterations;
 
             if (FinalError > 1)
             {
