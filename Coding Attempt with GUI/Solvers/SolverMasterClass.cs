@@ -1321,11 +1321,13 @@ namespace Coding_Attempt_with_GUI
             _ocG[i].scmOP.G1z = ZG1;
 
         }
-        #endregion 
+        #endregion
 
         #endregion
 
         #region ---SETUP CHANGE METHODS---
+
+        #region --Base Public Invoker Method--
         /// <summary>
         /// Primary and only public entry point method for the Setup Change methods. 
         /// </summary>
@@ -1421,7 +1423,9 @@ namespace Coding_Attempt_with_GUI
             SetupChange_InvokeChangeSolvers(_Vehicle.oc_RR[0].sccvOP, _Vehicle.oc_RR, 4, FinalCamberRR, FinalToeRR, FinalCasterRR, FinalKPIRR, FinalRideHeight_RR, FinalPushrod_RR);
             AssignAllFinalValues(4, _Vehicle.oc_RR[0].sccvOP, FinalRideHeight_RR, FinalPushrod_RR);
         }
+        #endregion
 
+        #region --Initializer Methods
         /// <summary>
         /// Public method to initialize the <see cref="SetupChangeDatabase"/> object of this class and assign the <see cref="OutputClass.scmOP"/>'s coordinate values to the local variables of this class
         /// This method will also need to be called by the <seealso cref="SetupChange_ClosedLoopSolver"/> Class while performing the Closed Loop Simulation
@@ -1504,7 +1508,7 @@ namespace Coding_Attempt_with_GUI
         /// 
         /// </summary>
         List<int> randomIndexSelecter = new List<int>();
-        
+
         /// <summary>
         /// Method to assign the <see cref="AdjustmentTools"/> and Axis of Rotation to the <see cref="AdjustmentOptions.MCasterAdjustmenterLine"/> and <see cref="AdjustmentOptions.MKPIAdjusterLine"/>.
         /// This method uses a Random Assigner in sync with <see cref="SetupChange_CornerVariables.LinkLengthsWhichHaveNotChanged"/> List to decide the Master Adjuster and Axis of Rotation based on which Links have been left free of any Change
@@ -1614,18 +1618,6 @@ namespace Coding_Attempt_with_GUI
         {
             SetupChange_PrimaryInitializeMethod(_RequestedChanges, _Oc, _FinalCamber, _FinalToe, _FinalCaster, _FinalKPI);
 
-            /////<summary>Initializing the <see cref="SetupChangeDatabase"/> object of this class and assigning the <see cref="OutputClass.scmOP"/>'s coordinate values to the local variables of this class</summary>
-            //SetupChange_InitializeSetupChange(_RequestedChanges, _Oc[0], _RequestedChanges.AdjToolsDictionary);
-
-            /////<remarks>Constructing the <see cref="SetupChange_ClosedLoopSolver"/> object before calling the <see cref="SetupChange_AssignNewSetupValues(List{OutputClass}, SetupChange_CornerVariables)"/> so that the static values of Camber, Caster, Toe etc are stored in the 
-            /////first posotion of the <see cref="SetupChange_ClosedLoopSolver.Final_Camber"/> and other lists. This way the minute I make the first pass through the <see cref="SetupChange_CamberChange(double, OutputClass, int, int, bool)"/> or any other Setup Change Method, the 2nd position 
-            /////of the lists have the delta values 
-            ///// </remarks>
-            //SetupChange_CLS = new SetupChange_ClosedLoopSolver(this, _Oc, ref SetupChange_DB_Master.SetupChangeOPDictionary);
-
-            /////<summary>Finding the final values of the Setup Parameters by adding the changes in the corresponding parameters which the user has requested</summary>
-            //SetupChange_AssignNewSetupValues(_Oc, _RequestedChanges);
-
             ///<summary>Selecting the Links for KPI and Caster Changes in case the user has not selected them from the combobox provided AND Caster/KPI const or change is requested</summary>
             if (!_RequestedChanges.OverrideRandomSelectorForKPI)
             {
@@ -1645,12 +1637,9 @@ namespace Coding_Attempt_with_GUI
                     SetupChange_LinkLengthChange_Helper_ChangeLinkLength(_RequestedChanges.deltaTopFrontArm, _RequestedChanges.deltaTopRearArm, SetupChange_DB_Master.LBJToToeLink.Line.DeltaLine[SetupChange_DB_Master.LBJToToeLink.Line.DeltaLine.Count - 1],
                                                                          SetupChange_DB_Master.AdjOptions.TopFrontArm, SetupChange_DB_Master.AdjOptions.TopFrontVector, SetupChange_DB_Master.AdjOptions.TopRearArm, SetupChange_DB_Master.AdjOptions.TopRearVector,
                                                                          AdjustmentTools.TopFrontArm, SetupChange_CLS_Master.Final_TopFrontArm, SetupChange_CLS_Master.Final_TopRearArm, _Oc, 0, SetupChange_DB_Master.AdjOptions.TopWishbonePlane, _RequestedChanges);
-                    //SetupChange_LinkLengthChange_Helper_EditCounterWishbone(SetupChange_DB_Master.AdjOptions.TopFrontArm, SetupChange_DB_Master.AdjOptions.TopRearArm, SetupChange_DB_Master.AdjOptions.TopRearVector, SetupChange_CLS.Final_TopRearArm);
                 }
                 if (_RequestedChanges.deltaTopRearArm != 0/*true*/)
                 {
-                    //SetupChange_LinkLengthChange_Helper_ChangeLinkLength(_RequestedChanges.deltaTopRearArm, SetupChange_DB_Master.AdjOptions.TopRearArm, SetupChange_DB_Master.AdjOptions.TopRearVector, AdjustmentTools.TopRearArm, SetupChange_CLS.Final_TopRearArm, _Oc);
-
                     SetupChange_LinkLengthChange_Helper_ChangeLinkLength(_RequestedChanges.deltaTopRearArm, _RequestedChanges.deltaTopFrontArm, SetupChange_DB_Master.LBJToToeLink.Line.DeltaLine[SetupChange_DB_Master.LBJToToeLink.Line.DeltaLine.Count - 1],
                                                                          SetupChange_DB_Master.AdjOptions.TopRearArm, SetupChange_DB_Master.AdjOptions.TopRearVector, SetupChange_DB_Master.AdjOptions.TopFrontArm, SetupChange_DB_Master.AdjOptions.TopFrontVector,
                                                                          AdjustmentTools.TopRearArm, SetupChange_CLS_Master.Final_TopRearArm, SetupChange_CLS_Master.Final_TopFrontArm, _Oc, 0, SetupChange_DB_Master.AdjOptions.TopWishbonePlane, _RequestedChanges);
@@ -1658,8 +1647,6 @@ namespace Coding_Attempt_with_GUI
                 }
                 if (_RequestedChanges.deltaBottmFrontArm != 0 /*true*/)
                 {
-                    //SetupChange_LinkLengthChange_Helper_ChangeLinkLength(_RequestedChanges.deltaBottmFrontArm, SetupChange_DB_Master.AdjOptions.BottomFrontArm, SetupChange_DB_Master.AdjOptions.BottomFrontArmVector, AdjustmentTools.BottomFrontArm, SetupChange_CLS.Final_BottomFrontArm, _Oc);
-
 
                     SetupChange_LinkLengthChange_Helper_ChangeLinkLength(_RequestedChanges.deltaBottmFrontArm, _RequestedChanges.deltaBottomRearArm, SetupChange_DB_Master.UBJToToeLink.Line.DeltaLine[SetupChange_DB_Master.UBJToToeLink.Line.DeltaLine.Count - 1],
                                                                          SetupChange_DB_Master.AdjOptions.BottomFrontArm, SetupChange_DB_Master.AdjOptions.BottomFrontArmVector, SetupChange_DB_Master.AdjOptions.BottomRearArm, SetupChange_DB_Master.AdjOptions.BottomRearArmVector,
@@ -1668,8 +1655,6 @@ namespace Coding_Attempt_with_GUI
                 }
                 if (_RequestedChanges.deltaBottomRearArm != 0 /*true*/)
                 {
-                    //SetupChange_LinkLengthChange_Helper_ChangeLinkLength(_RequestedChanges.deltaBottomRearArm, SetupChange_DB_Master.AdjOptions.BottomRearArm, SetupChange_DB_Master.AdjOptions.BottomRearArmVector, AdjustmentTools.BottomRearArm, SetupChange_CLS.Final_BottomRearArm, _Oc);
-
                     SetupChange_LinkLengthChange_Helper_ChangeLinkLength(_RequestedChanges.deltaBottomRearArm, _RequestedChanges.deltaBottmFrontArm, SetupChange_DB_Master.UBJToToeLink.Line.DeltaLine[SetupChange_DB_Master.UBJToToeLink.Line.DeltaLine.Count - 1],
                                                                          SetupChange_DB_Master.AdjOptions.BottomRearArm, SetupChange_DB_Master.AdjOptions.BottomRearArmVector, SetupChange_DB_Master.AdjOptions.BottomFrontArm, SetupChange_DB_Master.AdjOptions.BottomFrontArmVector,
                                                                          AdjustmentTools.BottomRearArm, SetupChange_CLS_Master.Final_BottomRearArm, SetupChange_CLS_Master.Final_BottomFrontArm, _Oc, 1, SetupChange_DB_Master.AdjOptions.BottomWishbonePlane, _RequestedChanges);
@@ -2072,7 +2057,9 @@ namespace Coding_Attempt_with_GUI
                 SetupChange_DB_RR = SetupChange_DB_Master;
             }
         }
+        #endregion
 
+        #region --Actual Setup Change Methods & Helper Methods 
         /// <summary>
         /// Method to return the value of the Internal Iterator check variable. This variable can be considered as a tolerance check variable. If it is lesser than the allowed tolerance, then the Loop which is calling this will terminate.
         /// </summary>
@@ -3291,7 +3278,8 @@ namespace Coding_Attempt_with_GUI
             SetupChange_CLS_Master.Summ_RideHeight.Add(dRideHeight_New);
 
             return dRideHeight_New;
-        }
+        } 
+        #endregion
 
 
         /// <summary>

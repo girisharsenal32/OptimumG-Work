@@ -69,12 +69,14 @@ namespace Coding_Attempt_with_GUI
         /// Maximium Error in a particular Generation
         /// </summary>
         double MaximumErrorOfGeneration { get; set; }
+
+        Dictionary<string, OptimizationCoordinate> CoordParams { get; set; }
         #endregion
 
         #region --FITNESS FUNCTION EVALUATION PARAMETERS--
-        
+
         //--FITNESS FUNCTION EVALUATION PARAMETERS--
-    
+
 
         //---IMPORTANT--- These are not Parameters of the Genetic Algorithm. These are parameters which the FITNESS FUCNTION will use to determine the Fitness. 
         /// <summary>
@@ -190,6 +192,7 @@ namespace Coding_Attempt_with_GUI
 
             Population = new Population(_popSize, _chromoseLength, false, false);
 
+
         }
 
         /// <summary>
@@ -238,6 +241,9 @@ namespace Coding_Attempt_with_GUI
             OC = tempVehicleParams["OutputClass"] as List<OutputClass>;
 
             Identifier = (int)tempVehicleParams["Identifier"];
+
+            PopulateDictionaryTrial();
+
 
         }
 
@@ -342,6 +348,30 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
 
+        private void PopulateDictionaryTrial()
+        {
+            Point3D ToeLinkInboard = new Point3D(232.12 + SCM.InputOriginX, 64.4 + SCM.InputOriginY, 60.8 + SCM.InputOriginZ);
+
+            Point3D ToelinkUpper = new Point3D(100, 100, 100);
+
+            Point3D ToeLinkLower = new Point3D(-100, -100, -100);
+
+
+            Point3D ToeLinkOutboard = new Point3D(586.92 + SCM.InputOriginX, 93.3 + SCM.InputOriginY, 70.8 + SCM.InputOriginZ);
+
+            Point3D ToelinOutkUpper = new Point3D(100, 100, 100);
+
+            Point3D ToeLinkOutLower = new Point3D(-100, -100, -100);
+
+
+            CoordParams = new Dictionary<string, OptimizationCoordinate>();
+
+            CoordParams.Add("ToeLinkeInboard", new OptimizationCoordinate("ToeLink", ToeLinkInboard, ToelinkUpper, ToeLinkLower, 10));
+
+            CoordParams.Add("ToeLinkOutboard", new OptimizationCoordinate("ToeLinkOutboard", ToeLinkOutboard, ToelinOutkUpper, ToeLinkOutLower, 10));
+
+        }
+
         #region --HELPER METHODS--
         //--HELPER METHODS--
 
@@ -355,6 +385,8 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_z">Z Coordinate Output of the Extraction</param>
         private void ExtractOptimizedValues(Chromosome chromosome, out double _x, out double _y, out double _z)
         {
+            
+
             ///<summary>
             ///Assigning the Nominal,Upper and Lower Values of the X/Y/Z Coordinates. This will be later on obtained from the User
             /// </summary>
@@ -395,6 +427,41 @@ namespace Coding_Attempt_with_GUI
             _x = System.Math.Round((x1 * rcx) + (nominalX + lowerDeltaX) + SCM.InputOriginX, 3);
             _y = System.Math.Round((y1 * rcy) + (nominalY + lowerDeltaY) + SCM.InputOriginY, 3);
             _z = System.Math.Round((z1 * rcz) + (nominalZ + lowerDeltaZ) + SCM.InputOriginZ, 3);
+
+            int coordinateNumber = 0;
+
+            foreach (string coodinateName in CoordParams.Keys)
+            {
+                var rangeX = GAF.Math.GetRangeConstant((CoordParams[coodinateName].UpperCoordinateLimit.X - CoordParams[coodinateName].LowerCoordinateLimit.X), CoordParams[coodinateName].BitSize);
+
+                var rangeY = GAF.Math.GetRangeConstant((CoordParams[coodinateName].UpperCoordinateLimit.Y - CoordParams[coodinateName].LowerCoordinateLimit.Y), CoordParams[coodinateName].BitSize);
+
+                var rangeZ = GAF.Math.GetRangeConstant((CoordParams[coodinateName].UpperCoordinateLimit.Z - CoordParams[coodinateName].LowerCoordinateLimit.Z), CoordParams[coodinateName].BitSize);
+
+                var X1 = Convert.ToInt32(chromosome.ToBinaryString(coordinateNumber * CoordParams[coodinateName].BitSize, CoordParams[coodinateName].BitSize), 2);
+
+                coordinateNumber++;
+
+                var Y1 = Convert.ToInt32(chromosome.ToBinaryString(coordinateNumber * CoordParams[coodinateName].BitSize, CoordParams[coodinateName].BitSize), 2);
+
+                coordinateNumber++;
+
+                var Z1 = Convert.ToInt32(chromosome.ToBinaryString(coordinateNumber * CoordParams[coodinateName].BitSize, CoordParams[coodinateName].BitSize), 2);
+
+                coordinateNumber++;
+
+                CoordParams[coodinateName].OptimizedCoordinates = new Point3D();
+
+                CoordParams[coodinateName].OptimizedCoordinates.X = System.Math.Round((X1 * rangeX) + (CoordParams[coodinateName].NominalCoordinates.X + CoordParams[coodinateName].LowerCoordinateLimit.X) + SCM.InputOriginX, 3);
+
+                CoordParams[coodinateName].OptimizedCoordinates.Y = System.Math.Round((Y1 * rangeY) + (CoordParams[coodinateName].NominalCoordinates.Y + CoordParams[coodinateName].LowerCoordinateLimit.Y) + SCM.InputOriginY, 3);
+
+                CoordParams[coodinateName].OptimizedCoordinates.Z = System.Math.Round((Z1 * rangeZ) + (CoordParams[coodinateName].NominalCoordinates.Z + CoordParams[coodinateName].LowerCoordinateLimit.Z) + SCM.InputOriginZ, 3);
+                
+            }
+
+
+
 
         }
 
@@ -636,5 +703,35 @@ namespace Coding_Attempt_with_GUI
         Bump,
         Rebound
     }
+
+    public class OptimizationCoordinate
+    {
+        public string PointName;
+
+        public Point3D OptimizedCoordinates;
+
+        public Point3D NominalCoordinates;
+
+        public Point3D UpperCoordinateLimit;
+
+        public Point3D LowerCoordinateLimit;
+
+        public int BitSize;
+
+        public OptimizationCoordinate(string _pointName, Point3D _nominalCoord, Point3D _upperLimit, Point3D _lowerLimit, int _bitSize)
+        {
+            PointName = _pointName;
+
+            NominalCoordinates = _nominalCoord;
+
+            UpperCoordinateLimit = _upperLimit;
+
+            LowerCoordinateLimit = _lowerLimit;
+
+            BitSize = _bitSize;
+
+        }
+    }
+
 
 }

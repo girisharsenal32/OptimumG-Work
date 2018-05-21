@@ -585,7 +585,7 @@ namespace Coding_Attempt_with_GUI
         {
             if (Vehicle != null)
             {
-                OptimizerGeneticAlgorithm Optimizer = new OptimizerGeneticAlgorithm(0.85, 0.05, 5, 200, 30);
+                OptimizerGeneticAlgorithm Optimizer = new OptimizerGeneticAlgorithm(0.85, 0.05, 5, 200, 60);
 
                 Optimizer.InitializeVehicleParams(Corner, Vehicle, 1, 25, -25);
 
