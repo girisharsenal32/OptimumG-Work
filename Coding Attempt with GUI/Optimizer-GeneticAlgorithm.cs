@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GAF;
 using GAF.Operators;
+using devDept.Eyeshot.Entities;
 using devDept.Geometry;
 using MathNet.Spatial.Units;
 
@@ -103,7 +104,7 @@ namespace Coding_Attempt_with_GUI
         int SuspensionEvalIterations_LowerLimit;
         #endregion
 
-        #region --VEHICLE COMPONENTS--
+        #region --VEHICLE & SUSPENSION PARAMETERS--
         
         //--VEHICLE PARAMETERS--
         
@@ -155,6 +156,46 @@ namespace Coding_Attempt_with_GUI
         /// The object of the Vehicle itself which is calling this class
         /// </summary>
         Vehicle Vehicle;
+
+        //-RELEVANT COORDINATES-
+        
+        /// <summary>
+        /// Upper Ball Joint
+        /// </summary>
+        Point3D UBJ;
+        /// <summary>
+        /// 2nd Upper Ball Joint incase 5 Link Suspension
+        /// </summary>
+        Point3D UBJ_2;
+        /// <summary>
+        /// Lower Ball Joint
+        /// </summary>
+        Point3D LBJ;
+        /// <summary>
+        /// 2nd Lower Ball Joint incase 5 Link Suspension
+        /// </summary>
+        Point3D LBJ_2;
+        /// <summary>
+        /// Inboard Toe Link Joint
+        /// </summary>
+        Point3D ToeLinkInboard;
+        /// <summary>
+        /// Outboard Toe Link Joint
+        /// </summary>
+        Point3D ToeLinkOutboard;
+        /// <summary>
+        /// Wheel Center Start
+        /// </summary>
+        Point3D WcStart;
+        /// <summary>
+        /// Wheel Center End
+        /// </summary>
+        Point3D WcEnd;
+        /// <summary>
+        /// Contact Patch 
+        /// </summary>
+        Point3D ContactPatch;
+
         #endregion
 
         #endregion
@@ -245,6 +286,11 @@ namespace Coding_Attempt_with_GUI
             PopulateDictionaryTrial();
 
 
+        }
+
+        private void InitializeUprightConstraints()
+        {
+            
         }
 
         /// <summary>
@@ -366,14 +412,32 @@ namespace Coding_Attempt_with_GUI
 
             CoordParams = new Dictionary<string, OptimizationCoordinate>();
 
-            CoordParams.Add("ToeLinkeInboard", new OptimizationCoordinate("ToeLink", ToeLinkInboard, ToelinkUpper, ToeLinkLower, 10));
+            CoordParams.Add("ToeLinkeInboard", new OptimizationCoordinate(ToeLinkInboard, ToelinkUpper, ToeLinkLower, 10));
 
-            CoordParams.Add("ToeLinkOutboard", new OptimizationCoordinate("ToeLinkOutboard", ToeLinkOutboard, ToelinOutkUpper, ToeLinkOutLower, 10));
+            CoordParams.Add("ToeLinkOutboard", new OptimizationCoordinate(ToeLinkOutboard, ToelinOutkUpper, ToeLinkOutLower, 10));
 
         }
 
         #region --HELPER METHODS--
         //--HELPER METHODS--
+
+
+
+        /// <summary>
+        /// Method to calculate the Number of Iterations to be performed
+        /// </summary>
+        /// <param name="_upperLimitWheelDeflection">Upper Limit of th Wheel Defelction</param>
+        /// <param name="_lowerLimitWheelDeflection">Lower Limit of the Wheel Deflection</param>
+        /// <param name="_stepSize">Step Size </param>
+        /// <returns></returns>
+        private int GetNoOfIterations(int _upperLimitWheelDeflection, int _lowerLimitWheelDeflection, int _stepSize)
+        {
+            double Range = _upperLimitWheelDeflection - _lowerLimitWheelDeflection;
+
+            return Convert.ToInt32(Range) / _stepSize;
+
+        }
+
 
         /// <summary>
         /// <para>Method to Extract the values out of the <see cref="Chromosome"/></para>
@@ -460,9 +524,6 @@ namespace Coding_Attempt_with_GUI
                 
             }
 
-
-
-
         }
 
         /// <summary>
@@ -506,21 +567,6 @@ namespace Coding_Attempt_with_GUI
             SolverMasterClass.SimType = SimulationType.Dummy;
 
             return bumpSteer;
-
-        }
-
-        /// <summary>
-        /// Method to calculate the Number of Iterations to be performed
-        /// </summary>
-        /// <param name="_upperLimitWheelDeflection">Upper Limit of th Wheel Defelction</param>
-        /// <param name="_lowerLimitWheelDeflection">Lower Limit of the Wheel Deflection</param>
-        /// <param name="_stepSize">Step Size </param>
-        /// <returns></returns>
-        private int GetNoOfIterations(int _upperLimitWheelDeflection, int _lowerLimitWheelDeflection, int _stepSize)
-        {
-            double Range = _upperLimitWheelDeflection - _lowerLimitWheelDeflection;
-
-            return Convert.ToInt32(Range) / _stepSize;
 
         }
 
@@ -693,7 +739,58 @@ namespace Coding_Attempt_with_GUI
             }
 
             return FinalError;
-        } 
+        }
+
+        private void EvaluateUprightConstraints_Caster_KPI_LinkLength(Dictionary<string, OptimizationCoordinate> _Coordinates)
+        {
+
+
+        }
+
+        private void SetUprightCoordinates(Dictionary<string, OptimizationCoordinate> _coordinates)
+        {
+            UBJ = _coordinates["UBJ"].OptimizedCoordinates;
+
+            if (_coordinates.Keys.Contains("UBJ_2"))
+            {
+                UBJ_2 = _coordinates["UBJ_2"].OptimizedCoordinates;
+            }
+
+            LBJ = _coordinates["LBJ"].OptimizedCoordinates;
+
+            if (_coordinates.Keys.Contains("LBJ_2"))
+            {
+                LBJ_2 = _coordinates["LBJ_2"].OptimizedCoordinates;
+            }
+
+            ToeLinkInboard = _coordinates["ToeLinkInboard"].OptimizedCoordinates;
+
+            ToeLinkOutboard = _coordinates["ToeLinkOutboard"].OptimizedCoordinates;
+
+            WcStart = _coordinates["WcStart"].OptimizedCoordinates;
+
+            WcEnd = _coordinates["WcEnd"].OptimizedCoordinates;
+
+            ContactPatch = _coordinates["ContactPatch"].OptimizedCoordinates;
+        }
+
+        private void CheckUprightDimensions()
+        {
+            double UBJ_LBJ =  UBJ.DistanceTo(LBJ);
+
+            double UBJ_Wc = UBJ.DistanceTo(WcStart);
+
+            double UBJ_ToeLinnkOutboard = UBJ.DistanceTo(ToeLinkOutboard);
+
+            double LBJ_Wc = LBJ.DistanceTo(WcStart);
+
+            double LBJ_ToeLinkOutboard = LBJ.DistanceTo(ToeLinkOutboard);
+
+        }
+
+
+
+
         #endregion
 
     }
@@ -702,6 +799,13 @@ namespace Coding_Attempt_with_GUI
     {
         Bump,
         Rebound
+    }
+
+    public enum OptimizationParameter
+    {
+        CasterKPILinkLength,
+        Toe,
+        CasterKPILinkLengthToe
     }
 
     public class OptimizationCoordinate
@@ -716,12 +820,18 @@ namespace Coding_Attempt_with_GUI
 
         public Point3D LowerCoordinateLimit;
 
+        public double UpperLinkLengthLimit_Front;
+
+        public double LowerLinkengthLimit_Front;
+
+        public double UpperLinkLengthLimit_Rear;
+
+        public double LowerLinkLengthLimit_Rear;
+
         public int BitSize;
 
-        public OptimizationCoordinate(string _pointName, Point3D _nominalCoord, Point3D _upperLimit, Point3D _lowerLimit, int _bitSize)
+        public OptimizationCoordinate(Point3D _nominalCoord, Point3D _upperLimit, Point3D _lowerLimit, int _bitSize)
         {
-            PointName = _pointName;
-
             NominalCoordinates = _nominalCoord;
 
             UpperCoordinateLimit = _upperLimit;
@@ -729,8 +839,29 @@ namespace Coding_Attempt_with_GUI
             LowerCoordinateLimit = _lowerLimit;
 
             BitSize = _bitSize;
-
         }
+
+        public OptimizationCoordinate(Point3D _nominalCoord, Point3D _upperLimit, Point3D _lowerLimit, int _bitSize, double _upperLinkLimitFront, double _lowerLinkLimitFront, double _upperLinkLimitRear, double _lowerLinkLimitRear)
+        {
+            NominalCoordinates = _nominalCoord;
+
+            UpperCoordinateLimit = _upperLimit;
+
+            LowerCoordinateLimit = _lowerLimit;
+
+            UpperLinkLengthLimit_Front = _upperLinkLimitFront;
+
+            LowerLinkengthLimit_Front = _lowerLinkLimitFront;
+
+            UpperLinkLengthLimit_Rear = _upperLinkLimitRear;
+
+            LowerLinkLengthLimit_Rear = _lowerLinkLimitRear;
+
+            BitSize = _bitSize;
+        }
+
+
+
     }
 
 

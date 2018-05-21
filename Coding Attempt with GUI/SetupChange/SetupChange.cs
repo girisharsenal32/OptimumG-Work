@@ -53,34 +53,6 @@ namespace Coding_Attempt_with_GUI
 
             setupChange_CV_Master = new SetupChange_CornerVariables();
 
-            //setupChangeMaster.cornerName = _setupChangeMaster_GUI.cornerName;
-
-            //setupChangeMaster.deltaCamber = _setupChangeMaster_GUI.deltaCamber;
-
-            //setupChangeMaster.deltaCamberShims = _setupChangeMaster_GUI.deltaCamberShims;
-
-            //setupChangeMaster.camberShimThickness = _setupChangeMaster_GUI.camberShimThickness;
-
-            //setupChangeMaster.deltaCaster = _setupChangeMaster_GUI.deltaCaster;
-
-            //setupChangeMaster.deltaRideHeight = _setupChangeMaster_GUI.deltaRideHeight;
-
-            //setupChangeMaster.deltaKPI = _setupChangeMaster_GUI.deltaKPI;
-
-            //setupChangeMaster.deltaToe = _setupChangeMaster_GUI.deltaToe;
-
-            //setupChangeMaster.constCamber = _setupChangeMaster_GUI.constCamber;
-
-            //setupChangeMaster.constCaster = _setupChangeMaster_GUI.constCaster;
-
-            //setupChangeMaster.constRideHeight = _setupChangeMaster_GUI.constRideHeight;
-
-            //setupChangeMaster.constKPI = _setupChangeMaster_GUI.constKPI;
-
-            //setupChangeMaster.constToe = _setupChangeMaster_GUI.constToe;
-
-            //setupChangeMaster.AdjToolsDictionary = _setupChangeMaster_GUI.AdjToolsDictionary;
-
             setupChange_CV_Master = _setupChange_CV_Master_GUI;
 
             if (identifier == 1)
