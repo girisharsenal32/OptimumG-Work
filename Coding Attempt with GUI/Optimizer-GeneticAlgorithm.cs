@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
 using GAF;
 using GAF.Operators;
 using devDept.Eyeshot.Entities;
@@ -44,6 +45,10 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         Elite Elites { get; set; }
         /// <summary>
+        /// Size of the Population
+        /// </summary>
+        int PopulationSize { get; set; }
+        /// <summary>
         /// Population which will be passed to the <see cref="GA"/> during its initialization
         /// </summary>
         Population Population { get; set; }
@@ -71,11 +76,39 @@ namespace Coding_Attempt_with_GUI
         /// Maximium Error in a particular Generation
         /// </summary>
         double MaximumErrorOfGeneration { get; set; }
-
+        /// <summary>
+        /// Dictionary of <see cref="OptimizedOrientation"/> into the which the Genetic Algorithm passes it's iteration vales
+        /// </summary>
         Dictionary<string, OptimizedOrientation> GAOrientation { get; set; }
 
-        int BitSize = 5;
+        double WishboneLinkLength;
 
+        double UpperWishboneLinkLength;
+
+        double LowerWishboneLinkLength;
+
+        DataTable Ga_Values { get; set; }
+
+        List<object> GA_Values_Params;
+
+        /// <summary>
+        /// Integer to determine the Bit Size of each of the <see cref="Gene"/>s inside the <see cref="Chromosome"/>
+        /// </summary>
+        int BitSize;
+
+        SolverPass Pass { get; set; }
+
+        OptimizedOrientation BestFit_CurrGen_UprightOrientation;
+
+        Point3D BestFit_CurrGen_ToeLinkInboard;
+
+        double BestFitness_CurrGen;
+
+        Dictionary<string, double[,]> Fitness_Individual_Objectives;
+
+        int SolutionCounter { get; set; }
+
+        int No_GaOutputs { get; set; }
         #endregion
 
         #region --FITNESS FUNCTION EVALUATION PARAMETERS--
@@ -238,8 +271,12 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_chromoseLength"> <para>Chromosome Length of the <see cref="Population"/></para>
                                        /// <para>Decided based on 2 things: The number of Genes and the bit size required for each Gene</para>
                                        /// <para>https://gaframework.org/wiki/index.php/How_to_Encode_Parameters for more information</para> </param>
-        public OptimizerGeneticAlgorithm(double _crossover, double _mutation, int _elites, int _popSize, int _chromoseLength)
+        public OptimizerGeneticAlgorithm(double _crossover, double _mutation, int _elites, int _popSize, int _chromoseLength, List<string> _adjustLinks)
         {
+            BitSize = 10;
+
+            BestFitness_CurrGen = 0;
+
             CrossOverProbability = _crossover;
 
             MutationProbability = _mutation;
@@ -253,9 +290,74 @@ namespace Coding_Attempt_with_GUI
 
             Mutations = new BinaryMutate(MutationProbability, false);
 
+            PopulationSize = _popSize;
+
             Population = new Population(_popSize, _chromoseLength, false, true, ParentSelectionMethod.TournamentSelection);
 
+            Pass = SolverPass.FirstPass;
 
+
+            Fitness_Individual_Objectives = new Dictionary<string, double[,]>();
+
+            BestFit_CurrGen_ToeLinkInboard = new Point3D();
+
+            BestFit_CurrGen_UprightOrientation = new OptimizedOrientation();
+
+            InitializeDataTable(_adjustLinks);
+
+            No_GaOutputs = _chromoseLength / BitSize;
+
+            UpperWishboneLinkLength = 10;
+
+            LowerWishboneLinkLength = -10;
+
+
+        }
+
+        private void InitializeDataTable(List<string> _adjustLinkNames)
+        {
+            Ga_Values = new DataTable();
+
+            GA_Values_Params = new List<object>();
+
+
+            Ga_Values.Columns.Add("Solution Name", typeof(string));
+            GA_Values_Params.Add("SolutionName");
+
+
+            Ga_Values.Columns.Add("Orientation", typeof(OptimizedOrientation));
+            GA_Values_Params.Add(new OptimizedOrientation());
+
+
+            Ga_Values.Columns.Add("Orientation Fitness", typeof(double));
+            GA_Values_Params.Add(0);
+
+
+            Ga_Values.Columns.Add("Toe Link Inboard", typeof(OptimizedCoordinate));
+            GA_Values_Params.Add(new Point3D());
+
+
+            Ga_Values.Columns.Add("Bump Steer Fitness", typeof(double));
+            GA_Values_Params.Add(0);
+
+
+            for (int i = 0; i < _adjustLinkNames.Count; i++)
+            {
+                Ga_Values.Columns.Add(_adjustLinkNames[i], typeof(double));
+                GA_Values_Params.Add(0);
+            }
+
+            Ga_Values.Columns.Add("Pareto Rank", typeof(double));
+
+            Ga_Values.Columns.Add("Pareto Optimal", typeof(bool));
+            GA_Values_Params.Add(false);
+
+            Ga_Values.Columns.Add("RMS Fitness", typeof(double));
+
+            for (int i = 0; i < Ga_Values.Columns.Count; i++)
+            {
+                Ga_Values.Columns[0].ReadOnly = true;
+            }
         }
 
         /// <summary>
@@ -331,8 +433,7 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Assigning an Event for the <see cref="GeneticAlgorithm"/></summary>
             GA.OnGenerationComplete += GA_OnGenerationComplete;
             GA.OnRunComplete += GA_OnRunComplete;
-            GA.OnInitialEvaluationComplete += GA_OnInitialEvaluationComplete;
-            GA.Population.OnEvaluationBegin += Population_OnEvaluationBegin;
+
 
             ///<summary>Adding the <see cref="Elites"/> <see cref="Crossovers"/> and the <see cref="Mutations"/> operator to the <see cref="GA"/></summary>
             GA.Operators.Add(Elites);
@@ -344,20 +445,10 @@ namespace Coding_Attempt_with_GUI
 
         }
 
-        private void Population_OnEvaluationBegin(object sender, EvaluationEventArgs e)
-        {
-            
-        }
-
-        private void GA_OnInitialEvaluationComplete(object sender, GaEventArgs e)
-        {
-        }
-
         private void GA_OnRunComplete(object sender, GaEventArgs e)
         {
         }
         #endregion
-
 
         #region ---GENETIC ALGORITHM METHODS
 
@@ -377,20 +468,21 @@ namespace Coding_Attempt_with_GUI
                 ///<summary>Invokinig the <see cref="ExtractOptimizedValues(Chromosome, out double, out double, out double)"/> which extracts the coordinates </summary>
                 //ExtractOptimizedValues(chromosome, out double x, out double y, out double z);
                 ExtractOptimizedValues(chromosome);
+                Update_GADataTable("Solution" + SolutionCounter);
 
                 ///<summary>Invoking the <see cref="EvaluateBumpSteer(double, double, double)"/> method to check the error of the calcualted Bump Steer Curve with the Curve that the user wants</summary>
-                double resultError = /*EvaluateBumpSteer(x, y, z);*/ EvaluateRMSError();
+                double resultError = EvaluateRMSError(SolutionCounter);
 
                 ///<summary>Calculating the Fitness based on the Error</summary>
                 Fitness = 1 - (resultError);
+
+                SolutionCounter++;
             }
 
             return Fitness;
         }
 
-        MathNet.Spatial.Euclidean.EulerAngles BestFitEulerAngle;
-        Point3D BestFitOrigin;
-        double BestFitness = 0;
+
 
         /// <summary>
         /// Event which is fired when the Creation and Fitness Evaluation of a particular <see cref="Population"/> is complete.
@@ -399,116 +491,34 @@ namespace Coding_Attempt_with_GUI
         /// <param name="e"></param>
         private void GA_OnGenerationComplete(object sender, GaEventArgs e)
         {
-
-
             ///<summary>Extracting the BEST <see cref="Chromosome"/> from the <see cref="Population"/></summary>
             var chromosome = e.Population.GetTop(1)[0];
 
 
             ///<summary>
             ///Invokinig the <see cref="ExtractOptimizedValues(Chromosome, out double, out double, out double)"/> which extracts the coordinates 
-            /// of the BEST FIT of this Generation
+            ///of the BEST FIT of this Generation
             /// </summary>
-            //ExtractOptimizedValues(chromosome, out double x, out double y, out double z);
             ExtractOptimizedValues(chromosome);
+
+            Ga_Values.DefaultView.Sort = "RMS Fitness";
 
             ///<summary>Extracting the Max Fitness</summary>
             double Fitness = e.Population.MaximumFitness;
 
-            double resultError = /*EvaluateBumpSteer(x, y, z);*/ EvaluateRMSError();
+            double resultError = EvaluateRMSError(GetMaxIndex());
 
             int Generations = e.Generation;
             
             long Evaluations = e.Evaluations;
 
-            if (Fitness > 0.994 && Fitness < 0.998 && Fitness < 0.999)
-            {
-                if (Fitness > BestFitness)
-                {
-                    BestFitness = Fitness;
+            Anneal(Fitness);
 
+            EvaluateParetoOptimial();
 
-                    BestFitEulerAngle = GAOrientation["NewOrientation1"].OptimizedEulerAngles;
+            SolutionCounter = 0;
 
-                    BestFitOrigin = GAOrientation["NewOrientation1"].OptimizedOrigin;
-
-                    ModfiyStepSize(0.5);
-                }
-                
-            }
-            else if (Fitness > 0.998 && Fitness < 0.999)
-            {
-
-                if (Fitness > BestFitness)
-                {
-                    BestFitness = Fitness;
-
-
-                    BestFitEulerAngle = GAOrientation["NewOrientation1"].OptimizedEulerAngles;
-
-                    BestFitOrigin = GAOrientation["NewOrientation1"].OptimizedOrigin;
-
-                    ModfiyStepSize(0.3);
-                }
-                
-            }
-            else if (Fitness > 0.999 && Fitness < 0.9999)
-            {
-
-                if (Fitness > BestFitness)
-                {
-                    BestFitness = Fitness;
-
-
-                    BestFitEulerAngle = GAOrientation["NewOrientation1"].OptimizedEulerAngles;
-
-                    BestFitOrigin = GAOrientation["NewOrientation1"].OptimizedOrigin;
-
-                    ModfiyStepSize(0.15);
-                }
-                
-            }
-            else if (Fitness > 0.9999)
-            {
-                if (Fitness > BestFitness)
-                {
-                    BestFitness = Fitness;
-
-
-                    BestFitEulerAngle = GAOrientation["NewOrientation1"].OptimizedEulerAngles;
-
-                    BestFitOrigin = GAOrientation["NewOrientation1"].OptimizedOrigin;
-
-                    ModfiyStepSize(0.05);
-                }
-            }
-
-
-            e.Population.Solutions[3].Evaluate(EvaluateFitnessOfGeneticAlforithm);
-            CurrGen++;
-        }
-
-
-        int CurrGen = 2;
-        private void ModfiyStepSize(double _range)
-        {
-            GAOrientation["NewOrientation1"].Upper_Orientation = new MathNet.Spatial.Euclidean.EulerAngles(GAOrientation["NewOrientation1"].OptimizedEulerAngles.Alpha + new Angle(_range, AngleUnit.Degrees),
-                                                                                                           GAOrientation["NewOrientation1"].OptimizedEulerAngles.Beta + new Angle(_range, AngleUnit.Degrees),
-                                                                                                           GAOrientation["NewOrientation1"].OptimizedEulerAngles.Gamma + new Angle(_range, AngleUnit.Degrees));
-
-            GAOrientation["NewOrientation1"].Lower_Orientation = new MathNet.Spatial.Euclidean.EulerAngles(GAOrientation["NewOrientation1"].OptimizedEulerAngles.Alpha - new Angle(_range, AngleUnit.Degrees),
-                                                                                                           GAOrientation["NewOrientation1"].OptimizedEulerAngles.Beta - new Angle(_range, AngleUnit.Degrees),
-                                                                                                           GAOrientation["NewOrientation1"].OptimizedEulerAngles.Gamma - new Angle(_range, AngleUnit.Degrees));
-
-            GAOrientation["NewOrientation1"].Upper_Origin = new Point3D(GAOrientation["NewOrientation1"].OptimizedOrigin.X + _range,
-                                                                        GAOrientation["NewOrientation1"].OptimizedOrigin.Y + _range,
-                                                                        GAOrientation["NewOrientation1"].OptimizedOrigin.Z + _range);
-
-            GAOrientation["NewOrientation1"].Lower_Origin = new Point3D(GAOrientation["NewOrientation1"].OptimizedOrigin.X - _range,
-                                                                        GAOrientation["NewOrientation1"].OptimizedOrigin.Y - _range,
-                                                                        GAOrientation["NewOrientation1"].OptimizedOrigin.Z - _range);
-
-
+            Ga_Values.Rows.Clear();
         }
 
         /// <summary>
@@ -520,7 +530,7 @@ namespace Coding_Attempt_with_GUI
         /// <returns>Returns <see cref=Boolean"/> to determine if the Algoritm should termine or not </returns>
         private bool TerminateAlgorithm(Population _population, int _currGeneration, long currEvaluation)
         {
-            if (_currGeneration > 2)
+            if (_currGeneration > 50)
             {
                 ///<summary>Extracting the BEST <see cref="Chromosome"/> from the <see cref="Population"/></summary>
                 var chromosome = _population.GetTop(1)[0];
@@ -535,7 +545,7 @@ namespace Coding_Attempt_with_GUI
                 ///<summary>Extracting the Max Fitness</summary>
                 double Fitness = _population.MaximumFitness;
 
-                double resultError = /*EvaluateBumpSteer(x, y, z);*/ EvaluateRMSError();
+                //double resultError =  EvaluateRMSError();
 
                 return true;
 
@@ -548,7 +558,8 @@ namespace Coding_Attempt_with_GUI
         }
         #endregion
 
-
+        #region ---TEMP--- METHOD TO POPULATE THE DICTIONARIES LOCALLY 
+        //---TEMP---
         private void PopulateDictionaryTrial()
         {
             GAOrientation = new Dictionary<string, OptimizedOrientation>();
@@ -564,9 +575,9 @@ namespace Coding_Attempt_with_GUI
             GAOrientation.Add("NewOrientation1", new OptimizedOrientation(upperLimit, LowerLimit, upperEuler, lowerEuler, BitSize));
 
             PopulateDictionaryTrial_2();
-            
-        }
 
+        }
+        //---TEMP--
         private void PopulateDictionaryTrial_2()
         {
             Point3D Upper = new Point3D(100, 100, 100);
@@ -580,7 +591,7 @@ namespace Coding_Attempt_with_GUI
 
             ToeLinkInboard = new Point3D(SCM.N1x, SCM.N1y, SCM.N1z);
 
-            InboardPoints.Add("ToeLinkInboard",new OptimizedCoordinate(ToeLinkInboard, Upper, Lower, BitSize));
+            InboardPoints.Add("ToeLinkInboard", new OptimizedCoordinate(ToeLinkInboard, Upper, Lower, BitSize));
 
             TopFront = new Point3D(SCM.A1x, SCM.A1y, SCM.A1z);
 
@@ -626,10 +637,30 @@ namespace Coding_Attempt_with_GUI
             UnsprungAssembly.Add("ContactPatch", new OptimizedCoordinate(ContactPatch, Upper, Lower, BitSize));
 
         }
+        #endregion
 
         #region --HELPER METHODS--
+
+
         //--HELPER METHODS--
 
+        private int GetMaxIndex()
+        {
+            int maxRowIndex = 0;
+
+            double rmsFitness = 0;
+
+            for (int i = 0; i < Ga_Values.Rows.Count - 1; i++)
+            {
+                if (rmsFitness > Ga_Values.Rows[i].Field<double>("RMS Fitness"))
+                {
+                    rmsFitness = Ga_Values.Rows[i].Field<double>("RMS Fitness");
+                    maxRowIndex = i;
+                }
+            }
+
+            return maxRowIndex;
+        }
 
 
         /// <summary>
@@ -647,6 +678,116 @@ namespace Coding_Attempt_with_GUI
 
         }
 
+        private void Anneal(double Fitness)
+        {
+            if (Fitness > 0.994 && Fitness < 0.998 && Fitness < 0.999)
+            {
+                if (Fitness > BestFitness_CurrGen)
+                {
+                    BestFitness_CurrGen = Fitness;
+
+
+                    BestFit_CurrGen_UprightOrientation.OptimizedEulerAngles = GAOrientation["NewOrientation1"].OptimizedEulerAngles;
+
+                    BestFit_CurrGen_UprightOrientation .OptimizedOrigin = GAOrientation["NewOrientation1"].OptimizedOrigin;
+
+                    BestFit_CurrGen_ToeLinkInboard = InboardPoints["ToeLinkInboard"].OptimizedCoordinates;
+
+                    ///-----ADD WISHBONE and TOE LINK INBOARD Limits here Too
+
+                    ModfiyStepSize(0.5, 10, 8);
+                }
+
+            }
+            else if (Fitness > 0.998 && Fitness < 0.999)
+            {
+
+                if (Fitness > BestFitness_CurrGen)
+                {
+                    BestFitness_CurrGen = Fitness;
+
+
+                    BestFit_CurrGen_UprightOrientation.OptimizedEulerAngles = GAOrientation["NewOrientation1"].OptimizedEulerAngles;
+
+                    BestFit_CurrGen_UprightOrientation.OptimizedOrigin = GAOrientation["NewOrientation1"].OptimizedOrigin;
+
+                    ModfiyStepSize(0.3, 5, 4);
+                }
+
+            }
+            else if (Fitness > 0.999 && Fitness < 0.9999)
+            {
+
+                if (Fitness > BestFitness_CurrGen)
+                {
+                    BestFitness_CurrGen = Fitness;
+
+
+                    BestFit_CurrGen_UprightOrientation.OptimizedEulerAngles = GAOrientation["NewOrientation1"].OptimizedEulerAngles;
+
+                    BestFit_CurrGen_UprightOrientation.OptimizedOrigin = GAOrientation["NewOrientation1"].OptimizedOrigin;
+
+                    ModfiyStepSize(0.15, 3, 2);
+                }
+
+            }
+            else if (Fitness > 0.9999)
+            {
+                if (Fitness > BestFitness_CurrGen)
+                {
+                    BestFitness_CurrGen = Fitness;
+
+
+                    BestFit_CurrGen_UprightOrientation.OptimizedEulerAngles = GAOrientation["NewOrientation1"].OptimizedEulerAngles;
+
+                    BestFit_CurrGen_UprightOrientation.OptimizedOrigin = GAOrientation["NewOrientation1"].OptimizedOrigin;
+
+                    ModfiyStepSize(0.05, 1, 1);
+                }
+            }
+        }
+
+        private void ModfiyStepSize(double _range, double _coordinateRange,double _linkLengthRange)
+        {
+
+            ///-----ADD WISHBONE and TOE LINK INBOARD Limits here Too
+
+            GAOrientation["NewOrientation1"].Upper_Orientation = new MathNet.Spatial.Euclidean.EulerAngles(GAOrientation["NewOrientation1"].OptimizedEulerAngles.Alpha + new Angle(_range, AngleUnit.Degrees),
+                                                                                                           GAOrientation["NewOrientation1"].OptimizedEulerAngles.Beta + new Angle(_range, AngleUnit.Degrees),
+                                                                                                           GAOrientation["NewOrientation1"].OptimizedEulerAngles.Gamma + new Angle(_range, AngleUnit.Degrees));
+
+            GAOrientation["NewOrientation1"].Lower_Orientation = new MathNet.Spatial.Euclidean.EulerAngles(GAOrientation["NewOrientation1"].OptimizedEulerAngles.Alpha - new Angle(_range, AngleUnit.Degrees),
+                                                                                                           GAOrientation["NewOrientation1"].OptimizedEulerAngles.Beta - new Angle(_range, AngleUnit.Degrees),
+                                                                                                           GAOrientation["NewOrientation1"].OptimizedEulerAngles.Gamma - new Angle(_range, AngleUnit.Degrees));
+
+
+            GAOrientation["NewOrientation1"].Upper_Origin = new Point3D(GAOrientation["NewOrientation1"].OptimizedOrigin.X + _range,
+                                                                        GAOrientation["NewOrientation1"].OptimizedOrigin.Y + _range,
+                                                                        GAOrientation["NewOrientation1"].OptimizedOrigin.Z + _range);
+
+            GAOrientation["NewOrientation1"].Lower_Origin = new Point3D(GAOrientation["NewOrientation1"].OptimizedOrigin.X - _range,
+                                                                        GAOrientation["NewOrientation1"].OptimizedOrigin.Y - _range,
+                                                                        GAOrientation["NewOrientation1"].OptimizedOrigin.Z - _range);
+
+
+            InboardPoints["ToeLinkInboard"].UpperCoordinateLimit = new Point3D(InboardPoints["ToeLinkInboard"].OptimizedCoordinates.X + _coordinateRange,
+                                                                               InboardPoints["ToeLinkInboard"].OptimizedCoordinates.Y + _coordinateRange,
+                                                                               InboardPoints["ToeLinkInboard"].OptimizedCoordinates.Z + _coordinateRange);
+
+            InboardPoints["ToeLinkInboard"].LowerCoordinateLimit = new Point3D(InboardPoints["ToeLinkInboard"].OptimizedCoordinates.X - _coordinateRange,
+                                                                               InboardPoints["ToeLinkInboard"].OptimizedCoordinates.Y - _coordinateRange,
+                                                                               InboardPoints["ToeLinkInboard"].OptimizedCoordinates.Z - _coordinateRange);
+
+            UpperWishboneLinkLength = WishboneLinkLength + _linkLengthRange;
+
+            LowerWishboneLinkLength = WishboneLinkLength - _linkLengthRange;
+
+        }
+
+        private void Update_OptimizationDictionary(int _solutionNumber)
+        {
+            GAOrientation.Add("NewSolution" + _solutionNumber, new OptimizedOrientation());
+        }
 
         /// <summary>
         /// <para>Method to Extract the values out of the <see cref="Chromosome"/></para>
@@ -709,7 +850,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="chromosome"></param>
         /// <param name="_OptimizedOrigin"></param>
         /// <param name="_OptimizerOrientation"></param>
-        private void ExtractOptimizedValues(Chromosome chromosome/*,out Point3D _OptimizedOrigin, out MathNet.Spatial.Euclidean.EulerAngles _OptimizerOrientation, out Point3D _OptimizedInboardToeLink*/)
+        private void ExtractOptimizedValues(Chromosome chromosome)
         {
             int geneNumber = 0;
 
@@ -812,35 +953,42 @@ namespace Coding_Attempt_with_GUI
             InboardPoints["ToeLinkInboard"].OptimizedCoordinates.Z = System.Math.Round((z1 * rcz) + (InboardPoints["ToeLinkInboard"].NominalCoordinates.Z + InboardPoints["ToeLinkInboard"].LowerCoordinateLimit.Z) + SCM.InputOriginZ, 3);
 
 
-            var rWishboneLength = GAF.Math.GetRangeConstant(20, BitSize);
+            var rWishboneLength = GAF.Math.GetRangeConstant(UpperWishboneLinkLength - LowerWishboneLinkLength, BitSize);
 
-            var WishboneLength_1 = Convert.ToInt32(chromosome.ToBinaryString(95, BitSize),2);
+            var WishboneLength_1 = Convert.ToInt32(chromosome.ToBinaryString(140, BitSize),2);
 
             WishboneLinkLength = System.Math.Round((WishboneLength_1 * rWishboneLength) + (-10), 3);
 
         }
 
-        double WishboneLinkLength;
-
-        private double EvaluateRMSError()
+        private void Update_GADataTable(string _solutionName)
         {
-            double BumpSteerError = EvaluateBumpSteer(InboardPoints["ToeLinkInboard"].OptimizedCoordinates.X, InboardPoints["ToeLinkInboard"].OptimizedCoordinates.Y, InboardPoints["ToeLinkInboard"].OptimizedCoordinates.Z);
+            Ga_Values.Rows.Add(_solutionName, GAOrientation["NewOrientation1"], 0, InboardPoints["ToeLinkInboard"], 0, WishboneLinkLength, 0, false, 0);
+        }
 
-            double WishboneLengthError = EvaluateUpdatedOrientation(GAOrientation["NewOrientation1"]);
-            
-            if (BumpSteerError >= 1)
+        private double EvaluateRMSError(int rowIndex)
+        {
+            double bumpSteerError = EvaluateBumpSteer(InboardPoints["ToeLinkInboard"].OptimizedCoordinates.X, InboardPoints["ToeLinkInboard"].OptimizedCoordinates.Y, InboardPoints["ToeLinkInboard"].OptimizedCoordinates.Z);
+
+            double orientationError = EvaluateUpdatedOrientation(GAOrientation["NewOrientation1"]);
+
+            if (bumpSteerError >= 1)
             {
                 return 1;
             }
-            if (WishboneLengthError >= 1)
+            if (orientationError >= 1)
             {
                 return 1;
             }
 
             //BumpSteerError = 0;
 
-            double rmsError = System.Math.Sqrt((System.Math.Pow(BumpSteerError, 2) + System.Math.Pow(WishboneLengthError, 2)) / 1);
+            double rmsError = System.Math.Sqrt((System.Math.Pow(bumpSteerError, 2) + System.Math.Pow(orientationError, 2)));
 
+            Ga_Values.Rows[rowIndex].SetField<double>("Orientation Fitness", orientationError);
+            Ga_Values.Rows[rowIndex].SetField<double>("Bump Steer Fitness", bumpSteerError);
+            Ga_Values.Rows[rowIndex].SetField<double>("RMS Fitness", 1 - rmsError);
+            
             return rmsError;
         }
 
@@ -1021,9 +1169,9 @@ namespace Coding_Attempt_with_GUI
                 if (i != SuspensionEvalIterations - 1)
                 {
 
-                    //ErrorCalc_Step1.Add(UserBumpSteerCurve[i] - _toeAngle[i]);
+                    ErrorCalc_Step1.Add(UserBumpSteerCurve[i] - _toeAngle[i]);
 
-                    ErrorCalc_Step1.Add(new Angle(((UserBumpSteerCurve[i].Degrees - _toeAngle[i].Degrees) / UserBumpSteerCurve[i].Degrees), AngleUnit.Degrees));
+                    //ErrorCalc_Step1.Add(new Angle(((UserBumpSteerCurve[i].Degrees - _toeAngle[i].Degrees) / UserBumpSteerCurve[i].Degrees), AngleUnit.Degrees));
 
                 }
                 else
@@ -1235,11 +1383,106 @@ namespace Coding_Attempt_with_GUI
             return scaledError;
         }
 
+        private void EvaluateParetoOptimial()
+        {
+            double[,] Fitness_MultipleObjective = ConstructParetoArray();
+
+            FindDominatingSolutions(Fitness_MultipleObjective);
+
+            FindScaledRanks();
+        }
+
+        private double[,] ConstructParetoArray()
+        {
+            double[,] multipleObjectiveFitness = new double[Ga_Values.Rows.Count, 2];
+
+            for (int i = 0; i < Ga_Values.Rows.Count - 1; i++) 
+            {
+                multipleObjectiveFitness[i, 0] = Ga_Values.Rows[i].Field<double>("Orientation Fitness");
+                multipleObjectiveFitness[i, 1] = Ga_Values.Rows[i].Field<double>("Bump Steer Fitness");
+            }
+            return multipleObjectiveFitness;
+        }
+
+        private void FindDominatingSolutions(double[,] _moopFitnesses)
+        {
+
+            for (int i = 0; i < Ga_Values.Rows.Count - 1; i++) 
+            {
+                bool dominatingSolution = true;
+                int dominatedSolIndex = 0;
+                for (int j = 0; j < Ga_Values.Rows.Count - 1; j++) 
+                {
+                    if ((_moopFitnesses[i, 0] < _moopFitnesses[j, 0] && _moopFitnesses[i, 1] < _moopFitnesses[j, 1]) && (_moopFitnesses[j, 0] != 0 && _moopFitnesses[j, 1] != 0)) 
+                    {
+                        if (i != j)
+                        {
+                            Ga_Values.Rows[j].SetField<double>("Pareto Rank", Ga_Values.Rows[j].Field<double>("Pareto Rank") + 1);
+                        }
+
+
+                        //dominatedSolIndex = j;
+                        //dominatingSolution = false;
+
+                        //break;
+                    }
+                    else if ((_moopFitnesses[i, 0] > _moopFitnesses[j, 0] && _moopFitnesses[i, 1] > _moopFitnesses[j, 1]) && (_moopFitnesses[j, 0] != 0 && _moopFitnesses[j, 1] != 0))
+                    {
+                        dominatingSolution = false;
+
+                        break;
+
+                    }
+
+                    //else
+                    //{
+                    //    //if (i != j)
+                    //    //{
+                    //    //    Ga_Values.Rows[j].SetField<double>("Pareto Rank", Ga_Values.Rows[j].Field<double>("Pareto Rank") + 1); 
+                    //    //}
+                    //    if (i != j)
+                    //    {
+                    //        dominatedSolIndex = j;
+                    //                                }
+
+                    //}
+                }
+
+                if (dominatingSolution && (_moopFitnesses[i, 0] != 0 && _moopFitnesses[i, 1] != 0)) 
+                {
+                    Ga_Values.Rows[i].SetField<bool>("Pareto Optimal", true);
+                    //Ga_Values.Rows[dominatedSolIndex].SetField<double>("Pareto Rank", Ga_Values.Rows[dominatedSolIndex].Field<double>("Pareto Rank") + 1);
+                }
+
+            }
+        }
+
+        private void FindScaledRanks()
+        {
+            int mostDominated = 0;
+
+            for (int i = 0; i < Ga_Values.Rows.Count - 1; i++) 
+            {
+                double tempRank = Ga_Values.Rows[i].Field<double>("Pareto Rank");
+
+                if (Convert.ToInt32(tempRank) > mostDominated) 
+                {
+                    mostDominated = Convert.ToInt32(tempRank);
+                }
+            }
+
+            for (int i = 0; i < Ga_Values.Rows.Count - 1; i++) 
+            {
+                Ga_Values.Rows[i].SetField<double>("Pareto Rank", Ga_Values.Rows[i].Field<double>("Pareto Rank") / mostDominated);
+            }
+
+        }
 
         #endregion
 
     }
 
+    #region Auxillary Enums and Classes
     enum WheelDeflectionType
     {
         Bump,
@@ -1252,6 +1495,12 @@ namespace Coding_Attempt_with_GUI
         Toe,
         CasterKPILinkLengthToe
     }
+
+    enum SolverPass
+    {
+        FirstPass,
+        SecondPass
+    };
 
     public class OptimizedCoordinate
     {
@@ -1305,6 +1554,8 @@ namespace Coding_Attempt_with_GUI
 
         public int BitSize;
 
+        public OptimizedOrientation() { }
+
         public OptimizedOrientation(Point3D _upperOrigin, Point3D _lowerOrigin, MathNet.Spatial.Euclidean.EulerAngles _upperOrientation, MathNet.Spatial.Euclidean.EulerAngles _lowerOrientation, int _bitSize)
         {
 
@@ -1323,9 +1574,10 @@ namespace Coding_Attempt_with_GUI
             BitSize = _bitSize;
 
         }
+    } 
+    #endregion
 
 
-    }
 
 
 

@@ -420,6 +420,8 @@ namespace Coding_Attempt_with_GUI
             PointOfRotation.X = _chassisCoG.SuspendedMassCoGx;
             PointOfRotation.Y = _chassisCoG.SuspendedMassCoGy;
             PointOfRotation.Z = _chassisCoG.SuspendedMassCoGz;
+
+            
         }
 
         #region Translate Operations. Contains the method to rotate the selected Block and the Inboard or Outboard Points with it
@@ -1713,6 +1715,8 @@ namespace Coding_Attempt_with_GUI
 
             ///<summary>Creating a Circular Region with an Inner and Outer Circle</summary>
             devDept.Eyeshot.Entities.Region tireRegion = new devDept.Eyeshot.Entities.Region(wheelCircleOuter, wheelCircleInner);
+            
+
             ///<summary>Extruding the Circular Region</summary>
             Solid3D Tire = tireRegion.ExtrudeAsSolid3D((sign * 157.48), 0);
             
