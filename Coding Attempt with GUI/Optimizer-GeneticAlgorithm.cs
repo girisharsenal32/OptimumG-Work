@@ -253,7 +253,7 @@ namespace Coding_Attempt_with_GUI
 
             Mutations = new BinaryMutate(MutationProbability, false);
 
-            Population = new Population(_popSize, _chromoseLength, false, true);
+            Population = new Population(_popSize, _chromoseLength, false, true, ParentSelectionMethod.TournamentSelection);
 
 
         }
@@ -417,9 +417,8 @@ namespace Coding_Attempt_with_GUI
 
             double resultError = /*EvaluateBumpSteer(x, y, z);*/ EvaluateRMSError();
 
-
             int Generations = e.Generation;
-
+            
             long Evaluations = e.Evaluations;
 
             if (Fitness > 0.994 && Fitness < 0.998 && Fitness < 0.999)
@@ -484,8 +483,13 @@ namespace Coding_Attempt_with_GUI
                 }
             }
 
+
+            e.Population.Solutions[3].Evaluate(EvaluateFitnessOfGeneticAlforithm);
+            CurrGen++;
         }
 
+
+        int CurrGen = 2;
         private void ModfiyStepSize(double _range)
         {
             GAOrientation["NewOrientation1"].Upper_Orientation = new MathNet.Spatial.Euclidean.EulerAngles(GAOrientation["NewOrientation1"].OptimizedEulerAngles.Alpha + new Angle(_range, AngleUnit.Degrees),
@@ -516,7 +520,7 @@ namespace Coding_Attempt_with_GUI
         /// <returns>Returns <see cref=Boolean"/> to determine if the Algoritm should termine or not </returns>
         private bool TerminateAlgorithm(Population _population, int _currGeneration, long currEvaluation)
         {
-            if (_currGeneration > 100)
+            if (_currGeneration > 2)
             {
                 ///<summary>Extracting the BEST <see cref="Chromosome"/> from the <see cref="Population"/></summary>
                 var chromosome = _population.GetTop(1)[0];
@@ -823,7 +827,7 @@ namespace Coding_Attempt_with_GUI
             double BumpSteerError = EvaluateBumpSteer(InboardPoints["ToeLinkInboard"].OptimizedCoordinates.X, InboardPoints["ToeLinkInboard"].OptimizedCoordinates.Y, InboardPoints["ToeLinkInboard"].OptimizedCoordinates.Z);
 
             double WishboneLengthError = EvaluateUpdatedOrientation(GAOrientation["NewOrientation1"]);
-
+            
             if (BumpSteerError >= 1)
             {
                 return 1;
