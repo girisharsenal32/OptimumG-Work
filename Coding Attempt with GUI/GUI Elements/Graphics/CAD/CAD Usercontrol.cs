@@ -1650,12 +1650,14 @@ namespace Coding_Attempt_with_GUI
             _tire.Translate(-_wheelCentre.X, -_wheelCentre.Y, -_wheelCentre.Z);
             if (_isInitialzing)
             {
-
+                ///<summary>Rotating the Wheel according to the corner in which it exists to display its Camber and Toe
+                ///Need IF loop to convert the Camber and Toe from the User's Convention to Eyeshot Convention
+                /// </summary>
                 if ((_identifierRotate == 1 || _identifierRotate == 3))
                 {
 
                     _tire.Rotate(-(_waRotate.StaticCamber * (Math.PI / 180)), Vector3D.AxisZ);
-                    _tire.Rotate(/*-*/(_waRotate.StaticToe * (Math.PI / 180)), Vector3D.AxisY);
+                    _tire.Rotate((_waRotate.StaticToe * (Math.PI / 180)), Vector3D.AxisY);
                 }
                 else if (_identifierRotate == 2 || _identifierRotate == 4)
                 {
@@ -1683,34 +1685,44 @@ namespace Coding_Attempt_with_GUI
 
         Line wheelAxis; Circle wheelCircleOuter, wheelCircleInner;
 
-        #region Drawing the Wheel
+         #region Drawing the Wheel
         private void PlotWheel(SuspensionCoordinatesMaster _scmPlotWheel, WheelAlignment _waPlotWheel, int _identifierPlotWheel, bool _isInitializing)
         {
+            ///<summary>
+            ///This variable is used to position the <see cref="wheelCircleInner"/> and <see cref="wheelCircleOuter"/> at the start point of the Wheel. The extrusion needs to happen from the Start Point (which is behind the Wheel Center)
+            /// </summary>
             int sign = 1;
             if (_identifierPlotWheel == 1 || _identifierPlotWheel == 3)
             { sign = -1; }
             else sign = 1;
 
             #region Drawing the Wheel
+            ///<summary>Plotting the Wheel Center point</summary>
             Point3D wheelCentrePoint = new Point3D(_scmPlotWheel.K1x - (-sign * 78.784), _scmPlotWheel.K1y, _scmPlotWheel.K1z);
+            ///<summary>Plotting the Plane of the Wheel Center</summary>
             Plane wheelPlane = new Plane(wheelCentrePoint, Vector3D.AxisZ, Vector3D.AxisY);
+            ///<summary>Using the Plane and Point created above to Plit the Inner and Outer Circles which represent the Wheel. </summary>
             wheelCircleOuter = new Circle(wheelPlane, wheelCentrePoint, 223.8);
             wheelCircleInner = new Circle(wheelPlane, wheelCentrePoint, 125);
 
-            //wheel = Solid.CreateTorus(223.8, 75, 100, 100);
-
+            ///<summary>
+            ///Start Point of the Tire
+            ///Need to use a Vector here instead of a Point because this will be used to translate the Extrusion from the Origin to the Location of the Tire
+            /// </summary>
             wTV = new Vector3D(_scmPlotWheel.K1x, _scmPlotWheel.K1y, _scmPlotWheel.K1z);
 
-            //wheel.Rotate(Math.PI / 2, YAxis); // Making it parallel to the vehicle
-
-            //wheel.Translate(wTV);
-
+            ///<summary>Creating a Circular Region with an Inner and Outer Circle</summary>
             devDept.Eyeshot.Entities.Region tireRegion = new devDept.Eyeshot.Entities.Region(wheelCircleOuter, wheelCircleInner);
+            ///<summary>Extruding the Circular Region</summary>
             Solid3D Tire = tireRegion.ExtrudeAsSolid3D((sign * 157.48), 0);
             
 
             if (_waPlotWheel != null)
             {
+                ///<summary>
+                ///Rotatinng the Tire IF a <see cref="WheelAlignment"/> object is passed. 
+                ///Hence this method is called only when you Plot an Assembled Vehicle 
+                /// </summary>
                 Tire = RotateWheel(Tire, _waPlotWheel, wTV, _identifierPlotWheel, _isInitializing);
             }
 

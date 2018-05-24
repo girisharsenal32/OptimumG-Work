@@ -74,7 +74,7 @@ namespace Coding_Attempt_with_GUI
 
         Dictionary<string, OptimizedOrientation> GAOrientation { get; set; }
 
-        int BitSize = 10;
+        int BitSize = 5;
 
         #endregion
 
@@ -172,6 +172,10 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         Point3D UBJ_2;
         /// <summary>
+        /// Pushrod
+        /// </summary>
+        Point3D Pushrod;
+        /// <summary>
         /// Lower Ball Joint
         /// </summary>
         Point3D LBJ;
@@ -209,6 +213,7 @@ namespace Coding_Attempt_with_GUI
 
         Point3D BottomRear;
 
+        Point3D PushrodShockMount;
 
         Dictionary<string, OptimizedCoordinate> UnsprungAssembly;
 
@@ -248,7 +253,7 @@ namespace Coding_Attempt_with_GUI
 
             Mutations = new BinaryMutate(MutationProbability, false);
 
-            Population = new Population(_popSize, _chromoseLength, false, false);
+            Population = new Population(_popSize, _chromoseLength, false, true);
 
 
         }
@@ -325,6 +330,9 @@ namespace Coding_Attempt_with_GUI
 
             ///<summary>Assigning an Event for the <see cref="GeneticAlgorithm"/></summary>
             GA.OnGenerationComplete += GA_OnGenerationComplete;
+            GA.OnRunComplete += GA_OnRunComplete;
+            GA.OnInitialEvaluationComplete += GA_OnInitialEvaluationComplete;
+            GA.Population.OnEvaluationBegin += Population_OnEvaluationBegin;
 
             ///<summary>Adding the <see cref="Elites"/> <see cref="Crossovers"/> and the <see cref="Mutations"/> operator to the <see cref="GA"/></summary>
             GA.Operators.Add(Elites);
@@ -334,6 +342,19 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Running the Algorithm</summary>
             GA.Run(Terminate);
 
+        }
+
+        private void Population_OnEvaluationBegin(object sender, EvaluationEventArgs e)
+        {
+            
+        }
+
+        private void GA_OnInitialEvaluationComplete(object sender, GaEventArgs e)
+        {
+        }
+
+        private void GA_OnRunComplete(object sender, GaEventArgs e)
+        {
         }
         #endregion
 
@@ -367,6 +388,10 @@ namespace Coding_Attempt_with_GUI
             return Fitness;
         }
 
+        MathNet.Spatial.Euclidean.EulerAngles BestFitEulerAngle;
+        Point3D BestFitOrigin;
+        double BestFitness = 0;
+
         /// <summary>
         /// Event which is fired when the Creation and Fitness Evaluation of a particular <see cref="Population"/> is complete.
         /// </summary>
@@ -374,8 +399,11 @@ namespace Coding_Attempt_with_GUI
         /// <param name="e"></param>
         private void GA_OnGenerationComplete(object sender, GaEventArgs e)
         {
+
+
             ///<summary>Extracting the BEST <see cref="Chromosome"/> from the <see cref="Population"/></summary>
             var chromosome = e.Population.GetTop(1)[0];
+
 
             ///<summary>
             ///Invokinig the <see cref="ExtractOptimizedValues(Chromosome, out double, out double, out double)"/> which extracts the coordinates 
@@ -393,6 +421,90 @@ namespace Coding_Attempt_with_GUI
             int Generations = e.Generation;
 
             long Evaluations = e.Evaluations;
+
+            if (Fitness > 0.994 && Fitness < 0.998 && Fitness < 0.999)
+            {
+                if (Fitness > BestFitness)
+                {
+                    BestFitness = Fitness;
+
+
+                    BestFitEulerAngle = GAOrientation["NewOrientation1"].OptimizedEulerAngles;
+
+                    BestFitOrigin = GAOrientation["NewOrientation1"].OptimizedOrigin;
+
+                    ModfiyStepSize(0.5);
+                }
+                
+            }
+            else if (Fitness > 0.998 && Fitness < 0.999)
+            {
+
+                if (Fitness > BestFitness)
+                {
+                    BestFitness = Fitness;
+
+
+                    BestFitEulerAngle = GAOrientation["NewOrientation1"].OptimizedEulerAngles;
+
+                    BestFitOrigin = GAOrientation["NewOrientation1"].OptimizedOrigin;
+
+                    ModfiyStepSize(0.3);
+                }
+                
+            }
+            else if (Fitness > 0.999 && Fitness < 0.9999)
+            {
+
+                if (Fitness > BestFitness)
+                {
+                    BestFitness = Fitness;
+
+
+                    BestFitEulerAngle = GAOrientation["NewOrientation1"].OptimizedEulerAngles;
+
+                    BestFitOrigin = GAOrientation["NewOrientation1"].OptimizedOrigin;
+
+                    ModfiyStepSize(0.15);
+                }
+                
+            }
+            else if (Fitness > 0.9999)
+            {
+                if (Fitness > BestFitness)
+                {
+                    BestFitness = Fitness;
+
+
+                    BestFitEulerAngle = GAOrientation["NewOrientation1"].OptimizedEulerAngles;
+
+                    BestFitOrigin = GAOrientation["NewOrientation1"].OptimizedOrigin;
+
+                    ModfiyStepSize(0.05);
+                }
+            }
+
+        }
+
+        private void ModfiyStepSize(double _range)
+        {
+            GAOrientation["NewOrientation1"].Upper_Orientation = new MathNet.Spatial.Euclidean.EulerAngles(GAOrientation["NewOrientation1"].OptimizedEulerAngles.Alpha + new Angle(_range, AngleUnit.Degrees),
+                                                                                                           GAOrientation["NewOrientation1"].OptimizedEulerAngles.Beta + new Angle(_range, AngleUnit.Degrees),
+                                                                                                           GAOrientation["NewOrientation1"].OptimizedEulerAngles.Gamma + new Angle(_range, AngleUnit.Degrees));
+
+            GAOrientation["NewOrientation1"].Lower_Orientation = new MathNet.Spatial.Euclidean.EulerAngles(GAOrientation["NewOrientation1"].OptimizedEulerAngles.Alpha - new Angle(_range, AngleUnit.Degrees),
+                                                                                                           GAOrientation["NewOrientation1"].OptimizedEulerAngles.Beta - new Angle(_range, AngleUnit.Degrees),
+                                                                                                           GAOrientation["NewOrientation1"].OptimizedEulerAngles.Gamma - new Angle(_range, AngleUnit.Degrees));
+
+            GAOrientation["NewOrientation1"].Upper_Origin = new Point3D(GAOrientation["NewOrientation1"].OptimizedOrigin.X + _range,
+                                                                        GAOrientation["NewOrientation1"].OptimizedOrigin.Y + _range,
+                                                                        GAOrientation["NewOrientation1"].OptimizedOrigin.Z + _range);
+
+            GAOrientation["NewOrientation1"].Lower_Origin = new Point3D(GAOrientation["NewOrientation1"].OptimizedOrigin.X - _range,
+                                                                        GAOrientation["NewOrientation1"].OptimizedOrigin.Y - _range,
+                                                                        GAOrientation["NewOrientation1"].OptimizedOrigin.Z - _range);
+
+
         }
 
         /// <summary>
@@ -404,7 +516,7 @@ namespace Coding_Attempt_with_GUI
         /// <returns>Returns <see cref=Boolean"/> to determine if the Algoritm should termine or not </returns>
         private bool TerminateAlgorithm(Population _population, int _currGeneration, long currEvaluation)
         {
-            if (_currGeneration > 200)
+            if (_currGeneration > 100)
             {
                 ///<summary>Extracting the BEST <see cref="Chromosome"/> from the <see cref="Population"/></summary>
                 var chromosome = _population.GetTop(1)[0];
@@ -437,13 +549,13 @@ namespace Coding_Attempt_with_GUI
         {
             GAOrientation = new Dictionary<string, OptimizedOrientation>();
 
-            Point3D upperLimit = new Point3D(50, 50, 50);
+            Point3D upperLimit = new Point3D(10, 10, 10);
 
-            Point3D LowerLimit = new Point3D(-50, -50, -50);
+            Point3D LowerLimit = new Point3D(-10, -10, -10);
 
-            MathNet.Spatial.Euclidean.EulerAngles upperEuler = new MathNet.Spatial.Euclidean.EulerAngles(new Angle(2, AngleUnit.Degrees), new Angle(4, AngleUnit.Degrees), new Angle(4, AngleUnit.Degrees));
+            MathNet.Spatial.Euclidean.EulerAngles upperEuler = new MathNet.Spatial.Euclidean.EulerAngles(new Angle(2.5, AngleUnit.Degrees), new Angle(6, AngleUnit.Degrees), new Angle(6, AngleUnit.Degrees));
 
-            MathNet.Spatial.Euclidean.EulerAngles lowerEuler = new MathNet.Spatial.Euclidean.EulerAngles(new Angle(1, AngleUnit.Degrees), new Angle(-4, AngleUnit.Degrees), new Angle(-4, AngleUnit.Degrees));
+            MathNet.Spatial.Euclidean.EulerAngles lowerEuler = new MathNet.Spatial.Euclidean.EulerAngles(new Angle(0, AngleUnit.Degrees), new Angle(0, AngleUnit.Degrees), new Angle(0, AngleUnit.Degrees));
 
             GAOrientation.Add("NewOrientation1", new OptimizedOrientation(upperLimit, LowerLimit, upperEuler, lowerEuler, BitSize));
 
@@ -479,7 +591,17 @@ namespace Coding_Attempt_with_GUI
 
             UnsprungAssembly.Add("UBJ", new OptimizedCoordinate(UBJ, Upper, Lower, BitSize));
 
+            UnsprungAssembly.Add("TopCamberPoint", new OptimizedCoordinate(UBJ.Clone() as Point3D, Upper, Lower, BitSize));
+
+            Pushrod = new Point3D(SCM.G1x, SCM.G1y, SCM.G1z);
+
+            UnsprungAssembly.Add("Pushrod", new OptimizedCoordinate(Pushrod, Upper, Lower, BitSize));
+
+            PushrodShockMount = new Point3D(SCM.H1x, SCM.H1y, SCM.H1z);
+
             LBJ = new Point3D(SCM.E1x, SCM.E1y, SCM.E1z);
+
+            UnsprungAssembly.Add("BottomCamberMount", new OptimizedCoordinate(LBJ.Clone() as Point3D, Upper, Lower, BitSize));
 
             UnsprungAssembly.Add("LBJ", new OptimizedCoordinate(LBJ, Upper, Lower, BitSize));
 
@@ -686,7 +808,15 @@ namespace Coding_Attempt_with_GUI
             InboardPoints["ToeLinkInboard"].OptimizedCoordinates.Z = System.Math.Round((z1 * rcz) + (InboardPoints["ToeLinkInboard"].NominalCoordinates.Z + InboardPoints["ToeLinkInboard"].LowerCoordinateLimit.Z) + SCM.InputOriginZ, 3);
 
 
+            var rWishboneLength = GAF.Math.GetRangeConstant(20, BitSize);
+
+            var WishboneLength_1 = Convert.ToInt32(chromosome.ToBinaryString(95, BitSize),2);
+
+            WishboneLinkLength = System.Math.Round((WishboneLength_1 * rWishboneLength) + (-10), 3);
+
         }
+
+        double WishboneLinkLength;
 
         private double EvaluateRMSError()
         {
@@ -703,7 +833,7 @@ namespace Coding_Attempt_with_GUI
                 return 1;
             }
 
-            BumpSteerError = 0;
+            //BumpSteerError = 0;
 
             double rmsError = System.Math.Sqrt((System.Math.Pow(BumpSteerError, 2) + System.Math.Pow(WishboneLengthError, 2)) / 1);
 
@@ -887,9 +1017,9 @@ namespace Coding_Attempt_with_GUI
                 if (i != SuspensionEvalIterations - 1)
                 {
 
-                    ErrorCalc_Step1.Add(UserBumpSteerCurve[i] - _toeAngle[i]);
+                    //ErrorCalc_Step1.Add(UserBumpSteerCurve[i] - _toeAngle[i]);
 
-                    //ErrorCalc_Step1.Add(new Angle(((UserBumpSteerCurve[i].Degrees - _toeAngle[i].Degrees) / UserBumpSteerCurve[i].Degrees), AngleUnit.Degrees));
+                    ErrorCalc_Step1.Add(new Angle(((UserBumpSteerCurve[i].Degrees - _toeAngle[i].Degrees) / UserBumpSteerCurve[i].Degrees), AngleUnit.Degrees));
 
                 }
                 else
@@ -965,34 +1095,6 @@ namespace Coding_Attempt_with_GUI
 
             double C3 = System.Math.Cos(g.Radians);
 
-
-
-            //var EulerRotationMatrix_ZXY = Matrix<double>.Build.DenseOfArray(new double[,]
-            //{
-            //    { ((C1 * C3) - (C2 * S1 * S3))   ,   (-(C1 * S3) - (C2 * C3 * S1))   ,   (S1 * S2)   ,   0},
-            //    { ((C3 * S1) + (C1 * C2 * S3))   ,   (-(S1 * S3) + (C1 * C2 * C3))   ,   (-C1 * S2)  ,   0},
-            //    { (S2 * S3)                      ,   (C3 * S2)                       ,   (C2)        ,   0},
-            //    { (0)                            ,   (0)                             ,   (0)         ,   1}
-
-            //});
-            //var EulerRotationMatrix_YZX = Matrix<double>.Build.DenseOfArray(new double[,]
-            //{
-            //    { ((C1 * C3) - (C2 * S1 * S3))   ,   (-(C1 * S3) - (C2 * C3 * S1))   ,   (S1 * S2)   ,   0},
-            //    { ((C3 * S1) + (C1 * C2 * S3))   ,   (-(S1 * S3) + (C1 * C2 * C3))   ,   (-C1 * S2)  ,   0},
-            //    { (S2 * S3)                      ,   (C3 * S2)                       ,   (C2)        ,   0},
-            //    { (0)                            ,   (0)                             ,   (0)         ,   1}
-
-            //});
-
-
-            //var TaitRotationMatrix_ZXY = Matrix<double>.Build.DenseOfArray(new double[,]
-            //{
-            //    { ((C1 * C3) - (S1 * S2 * S3))   ,   (-(C2 * S1))   ,   ((C1 * S3) + (C3 * S1 * S2 ))  ,   0},
-            //    { ((C3 * S1) + (C1 * S2 * S3))   ,   ((C1 * C2))    ,   ((S1 * S3) - (C1 * C3 * S2))   ,   0},
-            //    { (-C2 * S3)                     ,   (S2 )          ,   (C2 * S3)                      ,   0},
-            //    { (0)                            ,   (0)            ,   (0)                            ,   1}
-
-            //});
             var TaitRotationMatrix_YZX = Matrix<double>.Build.DenseOfArray(new double[,]
             {
                 { ((C1 * C2))               ,   ((S1 * S3) - (C1 * C3 * S2))   ,   ((C3 * S1) + (C1 * S2 * S3 ))  ,   0},
@@ -1026,9 +1128,6 @@ namespace Coding_Attempt_with_GUI
                     { (0) , (0) , (1) , (-UnsprungAssembly["WcStart"].NominalCoordinates.Z)},
                     { (0) , (0) , (0) , (1)},
                 });
-
-            //Matrix<double> Transformation = EulerRotationMatrix.Solve(TranslationMatrix);
-
 
             Matrix<double> Transformation_1 = UprightCSTranslation.Multiply(TaitRotationMatrix_YZX);
 
@@ -1083,6 +1182,10 @@ namespace Coding_Attempt_with_GUI
 
             double ToeLinkLength_UpdatedOrientation = System.Math.Round(UnsprungAssembly["ToeLinkOutboard"].OptimizedCoordinates.DistanceTo(ToeLinkInboard), 3);
 
+            double PushrodLength = System.Math.Round(SCM.PushRodLength);
+
+            double PushrodLength_UpdatedOrientation = System.Math.Round(UnsprungAssembly["Pushrod"].OptimizedCoordinates.DistanceTo(PushrodShockMount), 3);
+
             ///<remarks>TopFrontLength not checked because it is a degree of freedom required for Caster Chnge</remarks>
             //if (System.Math.Abs(TopFrontLength)-System.Math.Abs(TopFrontLength_UpdatedOrientation)>0.0009)
             //{
@@ -1091,7 +1194,7 @@ namespace Coding_Attempt_with_GUI
 
             linkLengthError += System.Math.Pow(CalculateScaledError(TopFrontLength, TopFrontLength_UpdatedOrientation), 2);
 
-            //linkLengthError += System.Math.Pow(CalculateScaledError(TopRearLength, TopRearLength_UpdatedOrientation), 2);
+            linkLengthError += System.Math.Pow(CalculateScaledError(TopRearLength + WishboneLinkLength, TopRearLength_UpdatedOrientation), 2);
 
             linkLengthError += System.Math.Pow(CalculateScaledError(BottomFrontLength, BottomFrontLength_UpdatedOrientation), 2);
 
@@ -1099,7 +1202,9 @@ namespace Coding_Attempt_with_GUI
 
             linkLengthError += System.Math.Pow(CalculateScaledError(ToeLinkLength, ToeLinkLength_UpdatedOrientation), 2);
 
-            linkLengthError /= 4;
+            linkLengthError += System.Math.Pow(CalculateScaledError(PushrodLength, PushrodLength_UpdatedOrientation), 2);
+
+            linkLengthError /= 6;
 
             linkLengthError = System.Math.Sqrt(linkLengthError);
 
