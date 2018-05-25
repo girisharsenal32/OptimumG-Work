@@ -5,7 +5,7 @@ using System.Text;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-
+using devDept.Geometry;
 
 namespace Coding_Attempt_with_GUI
 {
@@ -189,6 +189,38 @@ namespace Coding_Attempt_with_GUI
             return InitialMR;
         }
         #endregion
+
+        public void CloneSuspensionData(Dictionary<string, Point3D> _outboard)
+        {
+            G1x = _outboard["Pushrod"].X;
+            G1y = _outboard["Pushrod"].Y;
+            G1z = _outboard["Pushrod"].Z;
+
+            F1x = _outboard["UBJ"].X;
+            F1y = _outboard["UBJ"].Y;
+            F1z = _outboard["UBJ"].Z;
+
+            E1x = _outboard["LBJ"].X;
+            E1y = _outboard["LBJ"].Y;
+            E1z = _outboard["LBJ"].Z;
+
+            M1x = _outboard["ToeLinkOutboard"].X;
+            M1y = _outboard["ToeLinkOutboard"].Y;
+            M1z = _outboard["ToeLinkOutboard"].Z;
+
+            K1x = _outboard["WcStart"].X;
+            K1y = _outboard["WcStart"].Y;
+            K1z = _outboard["WcStart"].Z;
+
+            L1x = _outboard["WcEnd"].X;
+            L1y = _outboard["WcEnd"].Y;
+            L1z = _outboard["WcEnd"].Z;
+
+            W1x = _outboard["ContactPatch"].X;
+            W1y = _outboard["ContactPatch"].Y;
+            W1z = _outboard["ContactPatch"].Z;
+
+        }
     }
 
     #region Enums to determine the Suepension Type

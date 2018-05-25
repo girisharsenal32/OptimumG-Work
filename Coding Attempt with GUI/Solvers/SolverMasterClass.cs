@@ -2134,7 +2134,6 @@ namespace Coding_Attempt_with_GUI
                 return new Angle(_historyOfDeltaOfConcernedAngle[_historyOfDeltaOfConcernedAngle.Count - 1].Degrees - _historyOfDeltaOfConcernedAngle[_historyOfDeltaOfConcernedAngle.Count - 1 - 1].Degrees, AngleUnit.Degrees);
                 //}
 
-                return /*_rotatedAngle*/ /*+*//*-*/ checkCamber;
             }
         }
 
@@ -3281,7 +3280,6 @@ namespace Coding_Attempt_with_GUI
         } 
         #endregion
 
-
         /// <summary>
         /// Method to Assign All the Final Values of the correct <see cref="SetupChange_ClosedLoopSolver"/> Object which have not been assigned during Operations.
         /// </summary>
@@ -3398,6 +3396,7 @@ namespace Coding_Attempt_with_GUI
             }
 
         } 
+
         #endregion
 
         
