@@ -598,7 +598,7 @@ namespace Coding_Attempt_with_GUI
 
             MathNet.Spatial.Euclidean.EulerAngles upperEuler = new MathNet.Spatial.Euclidean.EulerAngles(new Angle(5, AngleUnit.Degrees), new Angle(5, AngleUnit.Degrees), new Angle(5, AngleUnit.Degrees));
 
-            MathNet.Spatial.Euclidean.EulerAngles lowerEuler = new MathNet.Spatial.Euclidean.EulerAngles(new Angle(-5, AngleUnit.Degrees), new Angle(-5, AngleUnit.Degrees), new Angle(-5, AngleUnit.Degrees));
+            MathNet.Spatial.Euclidean.EulerAngles lowerEuler = new MathNet.Spatial.Euclidean.EulerAngles(new Angle(0, AngleUnit.Degrees), new Angle(-5, AngleUnit.Degrees), new Angle(-5, AngleUnit.Degrees));
 
             GAOrientation.Add("NewOrientation1", new OptimizedOrientation(upperLimit, LowerLimit, upperEuler, lowerEuler, BitSize));
 
@@ -947,7 +947,7 @@ namespace Coding_Attempt_with_GUI
 
         private double EvaluateRMSError(int rowIndex)
         {
-            double orientationError = EvaluateUpdatedOrientation(GAOrientation["NewOrientation1"]) ;
+            double orientationError = EvaluateUpdatedOrientation(GAOrientation["NewOrientation1"]) * 0.65;
 
             Update_SuspensionCoordinateData();
 
@@ -955,24 +955,12 @@ namespace Coding_Attempt_with_GUI
 
             double casterError = ComputeCasterError();
 
-            if (bumpSteerError >= 1)
-            {
-                return 1;
-            }
-            if (orientationError >= 1)
-            {
-                return 1;
-            }
-            //if (casterError>1)
-            //{
-            //    return 1;
-            //}
 
             //bumpSteerError = 0;
 
+            //orientationError = 0;
 
-
-            double rmsError = System.Math.Sqrt((System.Math.Pow(bumpSteerError, 2) + System.Math.Pow(orientationError, 2) /*+ System.Math.Pow(casterError, 2)*/) / /*2*/ 1 /*3*/);
+            double rmsError = System.Math.Sqrt((System.Math.Pow(bumpSteerError, 2) + System.Math.Pow(orientationError, 2) + System.Math.Pow(casterError, 2)) / /*2*/ 1 /*3*/);
 
             Ga_Values.Rows[rowIndex].SetField<double>("Orientation Fitness", orientationError);
             Ga_Values.Rows[rowIndex].SetField<double>("Bump Steer Fitness", bumpSteerError);
@@ -980,7 +968,11 @@ namespace Coding_Attempt_with_GUI
 
             //GetParetoSolutions();
 
-            return rmsError;
+            if (rmsError > 1 )
+            {
+                return 1;
+            }
+            else return rmsError;
         }
 
         private void GetParetoSolutions()
@@ -1137,7 +1129,7 @@ namespace Coding_Attempt_with_GUI
 
             linkLengthError += System.Math.Pow(CalculateScaledError(TopFrontLength, TopFrontLength_UpdatedOrientation), 2);
 
-            linkLengthError += System.Math.Pow(CalculateScaledError(TopRearLength + -5 /*WishboneLinkLength*/, TopRearLength_UpdatedOrientation), 2);
+            //linkLengthError += System.Math.Pow(CalculateScaledError(TopRearLength + -5 /*WishboneLinkLength*/, TopRearLength_UpdatedOrientation), 2);
 
             linkLengthError += System.Math.Pow(CalculateScaledError(BottomFrontLength, BottomFrontLength_UpdatedOrientation), 2);
 
@@ -1147,7 +1139,7 @@ namespace Coding_Attempt_with_GUI
 
             linkLengthError += System.Math.Pow(CalculateScaledError(PushrodLength, PushrodLength_UpdatedOrientation), 2);
 
-            linkLengthError /= 6 ;
+            linkLengthError /= /*6*/1 ;
 
             linkLengthError = System.Math.Sqrt(linkLengthError);
 
@@ -1202,9 +1194,21 @@ namespace Coding_Attempt_with_GUI
 
             //double casterError = /*CalculateScaledError*/System.Math.Abs(((staticCaster.Degrees - 2) - dCaster_New.Degrees - 2) / staticCaster.Degrees);
 
-            double casterError = CalculateScaledError((staticCaster.Degrees - 2) , (dCaster_New.Degrees - 2));
+            //double casterError = CalculateScaledError((staticCaster.Degrees - 2) , (dCaster_New.Degrees - 2));
 
-            return (casterError);
+            double casterError = ((staticCaster.Degrees - 2) - (dCaster_New.Degrees - 2)) / staticCaster.Degrees;
+
+            if (casterError > 1)
+            {
+                return 0.99;
+            }
+            else if (casterError < 0)
+            {
+                return 0.99;
+            }
+            else return (casterError);
+
+
         }
 
         /// <summary>
