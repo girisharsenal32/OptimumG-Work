@@ -947,7 +947,7 @@ namespace Coding_Attempt_with_GUI
 
         private double EvaluateRMSError(int rowIndex)
         {
-            double orientationError = EvaluateUpdatedOrientation(GAOrientation["NewOrientation1"]) * 0.65;
+            double orientationError = EvaluateUpdatedOrientation(GAOrientation["NewOrientation1"]) * 1.7;
 
             Update_SuspensionCoordinateData();
 
@@ -955,6 +955,7 @@ namespace Coding_Attempt_with_GUI
 
             double casterError = ComputeCasterError();
 
+            //double variableLinkLengthError = EvaluateVariableLinkLengthError();
 
             //bumpSteerError = 0;
 
@@ -970,7 +971,11 @@ namespace Coding_Attempt_with_GUI
 
             if (rmsError > 1 )
             {
-                return 1;
+                return 0.99;
+            }
+            else if (rmsError < 0)
+            {
+                return 0.99;
             }
             else return rmsError;
         }
@@ -1106,9 +1111,9 @@ namespace Coding_Attempt_with_GUI
 
             double TopFrontLength_UpdatedOrientation = System.Math.Round(UnsprungAssembly["UBJ"].OptimizedCoordinates.DistanceTo(TopFront),3);
 
-            double TopRearLength = System.Math.Round(SCM.UpperRearLength,3);
+            double TopRearLength = System.Math.Round(SCM.UpperRearLength, 3);
 
-            double TopRearLength_UpdatedOrientation = System.Math.Round(UnsprungAssembly["UBJ"].OptimizedCoordinates.DistanceTo(TopRear),3);
+            double TopRearLength_UpdatedOrientation = System.Math.Round(UnsprungAssembly["UBJ"].OptimizedCoordinates.DistanceTo(TopRear), 3);
 
             double BottomFrontLength = System.Math.Round(SCM.LowerFrontLength,3);
 
@@ -1129,7 +1134,7 @@ namespace Coding_Attempt_with_GUI
 
             linkLengthError += System.Math.Pow(CalculateScaledError(TopFrontLength, TopFrontLength_UpdatedOrientation), 2);
 
-            //linkLengthError += System.Math.Pow(CalculateScaledError(TopRearLength + -5 /*WishboneLinkLength*/, TopRearLength_UpdatedOrientation), 2);
+            //linkLengthError += System.Math.Pow(CalculateScaledError(TopRearLength + -5.5 /*WishboneLinkLength*/, TopRearLength_UpdatedOrientation), 2);
 
             linkLengthError += System.Math.Pow(CalculateScaledError(BottomFrontLength, BottomFrontLength_UpdatedOrientation), 2);
 
@@ -1148,22 +1153,30 @@ namespace Coding_Attempt_with_GUI
 
         private double CalculateScaledError(double _original, double _calculated)
         {
-            double scalingFactor = 1;
+            //double scalingFactor = 1;
 
-            if (System.Math.Abs(_original) > System.Math.Abs(_calculated)) 
+            //if (System.Math.Abs(_original) > System.Math.Abs(_calculated)) 
+            //{
+            //    scalingFactor = _calculated / _original;
+            //}
+            //else
+            //{
+            //    scalingFactor = _original / _calculated;
+            //}
+
+            double difference = /*System.Math.Abs*/((_original - _calculated));
+
+            double scaledError = /*System.Math.Abs*/((difference / _original)/* * scalingFactor*/);
+
+            if (scaledError > 1)
             {
-                scalingFactor = _calculated / _original;
+                return 0.99;
             }
-            else
+            else if (scaledError < 0)
             {
-                scalingFactor = _original / _calculated;
+                return 0.99;
             }
-
-            double difference = System.Math.Abs((_original - _calculated));
-
-            double scaledError = System.Math.Abs((difference / _original) * scalingFactor);
-
-            return scaledError;
+            else return scaledError;
         }
 
         private void Update_SuspensionCoordinateData()
@@ -1191,10 +1204,6 @@ namespace Coding_Attempt_with_GUI
                                                                         Custom3DGeometry.GetMathNetVector3D(tempAxisLines["SteeringAxis_Ref"]),
                                                                         Custom3DGeometry.GetMathNetVector3D(tempAxisLines["LateralAxis_WheelCenter"]));
             Angle staticCaster = new Angle(-2.36, AngleUnit.Degrees);
-
-            //double casterError = /*CalculateScaledError*/System.Math.Abs(((staticCaster.Degrees - 2) - dCaster_New.Degrees - 2) / staticCaster.Degrees);
-
-            //double casterError = CalculateScaledError((staticCaster.Degrees - 2) , (dCaster_New.Degrees - 2));
 
             double casterError = ((staticCaster.Degrees - 2) - (dCaster_New.Degrees - 2)) / staticCaster.Degrees;
 
@@ -1388,7 +1397,7 @@ namespace Coding_Attempt_with_GUI
                 if (i != SuspensionEvalIterations - 1)
                 {
 
-                    ErrorCalc_Step1.Add(new Angle(CalculateScaledError(UserBumpSteerCurve[i].Degrees, _toeAngle[i].Degrees), AngleUnit.Degrees));
+                    ErrorCalc_Step1.Add(new Angle(/*CalculateScaledError*/(UserBumpSteerCurve[i].Degrees - _toeAngle[i].Degrees), AngleUnit.Degrees));
 
                     //ErrorCalc_Step1.Add(new Angle(((UserBumpSteerCurve[i].Degrees - _toeAngle[i].Degrees) / UserBumpSteerCurve[i].Degrees), AngleUnit.Degrees));
 
@@ -1418,12 +1427,15 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Computing the Final Error by finding the Square Root of the Squares of the distances and dividing it by the No. of Iterations</summary>
             double FinalError = System.Math.Sqrt(ErrorCalc_Step3) / SuspensionEvalIterations;
 
-            //if (FinalError > 1)
-            //{
-            //    FinalError = 1;
-            //}
-
-            return FinalError;
+            if (FinalError > 1)
+            {
+                return 0.99;
+            }
+            else if (FinalError < 0)
+            {
+                return 0.99;
+            }
+            else return FinalError;
         }
 
         private void EvaluateParetoOptimial()
