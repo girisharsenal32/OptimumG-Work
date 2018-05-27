@@ -947,7 +947,7 @@ namespace Coding_Attempt_with_GUI
 
         private double EvaluateRMSError(int rowIndex)
         {
-            double orientationError = EvaluateUpdatedOrientation(GAOrientation["NewOrientation1"]) * 1.7;
+            List<double> orientationError_1 = EvaluateUpdatedOrientation(GAOrientation["NewOrientation1"]);
 
             Update_SuspensionCoordinateData();
 
@@ -955,15 +955,24 @@ namespace Coding_Attempt_with_GUI
 
             double casterError = ComputeCasterError();
 
+            double orientationError = 0;
+
+            for (int i = 0; i < orientationError_1.Count; i++)
+            {
+                orientationError += (orientationError_1[i] * orientationError_1[i]);
+            }
+
             //double variableLinkLengthError = EvaluateVariableLinkLengthError();
 
             //bumpSteerError = 0;
 
             //orientationError = 0;
 
-            double rmsError = System.Math.Sqrt((System.Math.Pow(bumpSteerError, 2) + System.Math.Pow(orientationError, 2) + System.Math.Pow(casterError, 2)) / /*2*/ 1 /*3*/);
+            double rmsError = System.Math.Sqrt((/*System.Math.Pow(bumpSteerError, 2) +*/ orientationError /*+ System.Math.Pow(casterError, 2)*/));
+            //double rmsError = bumpSteerError;
 
-            Ga_Values.Rows[rowIndex].SetField<double>("Orientation Fitness", orientationError);
+
+            //Ga_Values.Rows[rowIndex].SetField<double>("Orientation Fitness", orientationError);
             Ga_Values.Rows[rowIndex].SetField<double>("Bump Steer Fitness", bumpSteerError);
             Ga_Values.Rows[rowIndex].SetField<double>("RMS Fitness", 1 - rmsError);
 
@@ -998,7 +1007,7 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
-        private double EvaluateUpdatedOrientation(OptimizedOrientation _OptimizationOrientation)
+        private List<double> EvaluateUpdatedOrientation(OptimizedOrientation _OptimizationOrientation)
         {
             Transformation TransformationMatrix = GenerateTransformationMatrix(_OptimizationOrientation.OptimizedEulerAngles, _OptimizationOrientation.OptimizedOrigin);
 
@@ -1101,11 +1110,9 @@ namespace Coding_Attempt_with_GUI
         }
 
         //Trial for Caster Change with Toe Constant Constraint
-        private double EvaluateWishboneConstraints()
+        private List<double> EvaluateWishboneConstraints()
         {
             double linkLengthError = 0;
-
-            double casterError = 0;
 
             double TopFrontLength = System.Math.Round(SCM.UpperFrontLength, 3);
 
@@ -1132,51 +1139,37 @@ namespace Coding_Attempt_with_GUI
             double PushrodLength_UpdatedOrientation = System.Math.Round(UnsprungAssembly["Pushrod"].OptimizedCoordinates.DistanceTo(PushrodShockMount), 3);
 
 
-            linkLengthError += System.Math.Pow(CalculateScaledError(TopFrontLength, TopFrontLength_UpdatedOrientation), 2);
+            linkLengthError += System.Math.Pow(CalculateLinkLengthError(TopFrontLength, TopFrontLength_UpdatedOrientation), 2);
 
             //linkLengthError += System.Math.Pow(CalculateScaledError(TopRearLength + -5.5 /*WishboneLinkLength*/, TopRearLength_UpdatedOrientation), 2);
 
-            linkLengthError += System.Math.Pow(CalculateScaledError(BottomFrontLength, BottomFrontLength_UpdatedOrientation), 2);
+            linkLengthError += System.Math.Pow(CalculateLinkLengthError(BottomFrontLength, BottomFrontLength_UpdatedOrientation), 2);
 
-            linkLengthError += System.Math.Pow(CalculateScaledError(BottomRearLength, BottomRearLength_UpdatedOrientation), 2);
+            linkLengthError += System.Math.Pow(CalculateLinkLengthError(BottomRearLength, BottomRearLength_UpdatedOrientation), 2);
 
-            linkLengthError += System.Math.Pow(CalculateScaledError(ToeLinkLength, ToeLinkLength_UpdatedOrientation), 2);
+            linkLengthError += System.Math.Pow(CalculateLinkLengthError(ToeLinkLength, ToeLinkLength_UpdatedOrientation), 2);
 
-            linkLengthError += System.Math.Pow(CalculateScaledError(PushrodLength, PushrodLength_UpdatedOrientation), 2);
+            linkLengthError += System.Math.Pow(CalculateLinkLengthError(PushrodLength, PushrodLength_UpdatedOrientation), 2);
 
             linkLengthError /= /*6*/1 ;
 
             linkLengthError = System.Math.Sqrt(linkLengthError);
 
-            return linkLengthError;
+            List<double> error = new List<double>(new double[] { CalculateLinkLengthError(TopFrontLength, TopFrontLength_UpdatedOrientation) , CalculateLinkLengthError(BottomFrontLength, BottomFrontLength_UpdatedOrientation),
+                                                                 CalculateLinkLengthError(TopRearLength + -5.5 /*WishboneLinkLength*/, TopRearLength_UpdatedOrientation),
+                                                                 CalculateLinkLengthError(BottomRearLength, BottomRearLength_UpdatedOrientation),CalculateLinkLengthError(ToeLinkLength, ToeLinkLength_UpdatedOrientation),
+                                                                 CalculateLinkLengthError(PushrodLength, PushrodLength_UpdatedOrientation)});
+
+            return error;
         }
 
-        private double CalculateScaledError(double _original, double _calculated)
+        private double CalculateLinkLengthError(double _original, double _calculated)
         {
-            //double scalingFactor = 1;
+            double difference = ((_original - _calculated));
 
-            //if (System.Math.Abs(_original) > System.Math.Abs(_calculated)) 
-            //{
-            //    scalingFactor = _calculated / _original;
-            //}
-            //else
-            //{
-            //    scalingFactor = _original / _calculated;
-            //}
-
-            double difference = /*System.Math.Abs*/((_original - _calculated));
-
-            double scaledError = /*System.Math.Abs*/((difference / _original)/* * scalingFactor*/);
-
-            if (scaledError > 1)
-            {
-                return 0.99;
-            }
-            else if (scaledError < 0)
-            {
-                return 0.99;
-            }
-            else return scaledError;
+            double error = ((difference / /*_original*/10));
+             
+            return error;
         }
 
         private void Update_SuspensionCoordinateData()
@@ -1207,15 +1200,16 @@ namespace Coding_Attempt_with_GUI
 
             double casterError = ((staticCaster.Degrees - 2) - (dCaster_New.Degrees - 2)) / staticCaster.Degrees;
 
-            if (casterError > 1)
-            {
-                return 0.99;
-            }
-            else if (casterError < 0)
-            {
-                return 0.99;
-            }
-            else return (casterError);
+            //if (casterError > 1)
+            //{
+            //    return 0.99;
+            //}
+            //else if (casterError < 0)
+            //{
+            //    return 0.99;
+            //}
+            //else
+                return (casterError);
 
 
         }
@@ -1383,12 +1377,37 @@ namespace Coding_Attempt_with_GUI
         {
             List<Angle> UserBumpSteerCurve = new List<Angle>();
 
-            ///<summary>Generating an arbitrary Bump Steer Curve. This will be later on obtained from the user using a Chart</summary>
-            for (int i = 0; i < SuspensionEvalIterations + 1; i++)
+            /////<summary>Generating an arbitrary Bump Steer Curve. This will be later on obtained from the user using a Chart</summary>
+            //for (int i = 0; i < SuspensionEvalIterations + 1; i++)
+            //{
+            //    if (i < SuspensionEvalIterations / 2) 
+            //    {
+            //        UserBumpSteerCurve.Add(new Angle(_staticToe.Degrees + (-2.5 + (i * 0.1)) /*_statictoe.degrees*/, AngleUnit.Degrees));
+            //    }
+            //    else
+            //    {
+            //        UserBumpSteerCurve.Add(new Angle(_staticToe.Degrees , AngleUnit.Degrees));
+
+            //    }
+            //    //else
+            //    //{
+            //    //    UserBumpSteerCurve.Add(new Angle(_staticToe.Degrees + (0 + (i * 0.1)) /*_statictoe.degrees*/, AngleUnit.Degrees));
+            //    //}
+            //}
+
+            double reverse = 2.5;
+            for (int i = 0; i < SuspensionEvalIterations / 2; i++)
             {
-                UserBumpSteerCurve.Add(new Angle(/*_staticToe.Degrees + (i * 0.12)*/  _staticToe.Degrees, AngleUnit.Degrees));
+                UserBumpSteerCurve.Add(new Angle(-reverse + _staticToe.Degrees, AngleUnit.Degrees));
+                reverse -= 0.1;
             }
 
+            for (int i = 0; i < SuspensionEvalIterations / 2; i++) 
+            {
+                UserBumpSteerCurve.Add(new Angle(_staticToe.Degrees + (i * 0.1) , AngleUnit.Degrees));
+            }
+
+            UserBumpSteerCurve.Insert(UserBumpSteerCurve.Count, new Angle(2, AngleUnit.Degrees));
             List<Angle> ErrorCalc_Step1 = new List<Angle>();
 
             ///<summary>Finding the distance between each pair of Points</summary>
@@ -1427,15 +1446,16 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Computing the Final Error by finding the Square Root of the Squares of the distances and dividing it by the No. of Iterations</summary>
             double FinalError = System.Math.Sqrt(ErrorCalc_Step3) / SuspensionEvalIterations;
 
-            if (FinalError > 1)
-            {
-                return 0.99;
-            }
-            else if (FinalError < 0)
-            {
-                return 0.99;
-            }
-            else return FinalError;
+            //if (FinalError > 1)
+            //{
+            //    return 0.99;
+            //}
+            //else if (FinalError < 0)
+            //{
+            //    return 0.99;
+            //}
+            //else
+                return FinalError;
         }
 
         private void EvaluateParetoOptimial()
