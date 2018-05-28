@@ -587,7 +587,7 @@ namespace Coding_Attempt_with_GUI
             {
                 List<string> adjusterLinks = new List<string>(new string[] { "Top Rear" });
 
-                OptimizerGeneticAlgorithm Optimizer = new OptimizerGeneticAlgorithm(0.85, 0.05, 5, 150, 200, adjusterLinks);
+                OptimizerGeneticAlgorithm Optimizer = new OptimizerGeneticAlgorithm(0.85, 0.05, 5, 150, 180, adjusterLinks);
 
                 Optimizer.InitializeVehicleParams(Corner, Vehicle, 1, 25, -25);
 

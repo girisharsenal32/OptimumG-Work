@@ -932,11 +932,11 @@ namespace Coding_Attempt_with_GUI
             InboardPoints["ToeLinkInboard"].OptimizedCoordinates.Z = System.Math.Round((z1 * rcz) + (InboardPoints["ToeLinkInboard"].NominalCoordinates.Z + InboardPoints["ToeLinkInboard"].LowerCoordinateLimit.Z) + SCM.InputOriginZ, 3);
 
 
-            var rWishboneLength = GAF.Math.GetRangeConstant(UpperWishboneLinkLength - LowerWishboneLinkLength, BitSize);
+            //var rWishboneLength = GAF.Math.GetRangeConstant(UpperWishboneLinkLength - LowerWishboneLinkLength, BitSize);
 
-            var WishboneLength_1 = Convert.ToInt32(chromosome.ToBinaryString(140, BitSize),2);
+            //var WishboneLength_1 = Convert.ToInt32(chromosome.ToBinaryString(190, BitSize),2);
 
-            WishboneLinkLength = System.Math.Round((WishboneLength_1 * rWishboneLength) + (LowerWishboneLinkLength), 3);
+            //WishboneLinkLength = System.Math.Round((WishboneLength_1 * rWishboneLength) + (LowerWishboneLinkLength), 3);
 
         }
 
@@ -968,11 +968,11 @@ namespace Coding_Attempt_with_GUI
 
             //orientationError = 0;
 
-            double rmsError = System.Math.Sqrt((/*System.Math.Pow(bumpSteerError, 2) +*/ orientationError /*+ System.Math.Pow(casterError, 2)*/));
+            double rmsError = System.Math.Sqrt((System.Math.Pow(bumpSteerError, 2) + orientationError + System.Math.Pow(casterError, 2)));
             //double rmsError = bumpSteerError;
 
 
-            //Ga_Values.Rows[rowIndex].SetField<double>("Orientation Fitness", orientationError);
+            Ga_Values.Rows[rowIndex].SetField<double>("Orientation Fitness", orientationError);
             Ga_Values.Rows[rowIndex].SetField<double>("Bump Steer Fitness", bumpSteerError);
             Ga_Values.Rows[rowIndex].SetField<double>("RMS Fitness", 1 - rmsError);
 
@@ -1156,7 +1156,7 @@ namespace Coding_Attempt_with_GUI
             linkLengthError = System.Math.Sqrt(linkLengthError);
 
             List<double> error = new List<double>(new double[] { CalculateLinkLengthError(TopFrontLength, TopFrontLength_UpdatedOrientation) , CalculateLinkLengthError(BottomFrontLength, BottomFrontLength_UpdatedOrientation),
-                                                                 CalculateLinkLengthError(TopRearLength + -5.5 /*WishboneLinkLength*/, TopRearLength_UpdatedOrientation)*2,
+                                                                 //CalculateLinkLengthError(TopRearLength + -5.5 /*WishboneLinkLength*/, TopRearLength_UpdatedOrientation)*2,
                                                                  CalculateLinkLengthError(BottomRearLength, BottomRearLength_UpdatedOrientation),CalculateLinkLengthError(ToeLinkLength, ToeLinkLength_UpdatedOrientation),
                                                                  CalculateLinkLengthError(PushrodLength, PushrodLength_UpdatedOrientation)});
 
@@ -1165,10 +1165,10 @@ namespace Coding_Attempt_with_GUI
 
         private double CalculateLinkLengthError(double _original, double _calculated)
         {
-            double difference = ((_original - _calculated));
+            double difference = ((_calculated - _original));
 
-            double error = ((difference / /*_original*/10));
-             
+            double error = ((difference / _original/*10*/));
+            
             return error;
         }
 
@@ -1477,39 +1477,18 @@ namespace Coding_Attempt_with_GUI
                         {
                             Ga_Values.Rows[j].SetField<double>("Pareto Rank", Ga_Values.Rows[j].Field<double>("Pareto Rank") + 1);
                         }
-
-
-                        //dominatedSolIndex = j;
-                        //dominatingSolution = false;
-
-                        //break;
                     }
                     else if ((_moopFitnesses[i, 0] > _moopFitnesses[j, 0] && _moopFitnesses[i, 1] > _moopFitnesses[j, 1]) && (_moopFitnesses[j, 0] != 0 && _moopFitnesses[j, 1] != 0))
                     {
                         dominatingSolution = false;
 
                         break;
-
                     }
-
-                    //else
-                    //{
-                    //    //if (i != j)
-                    //    //{
-                    //    //    Ga_Values.Rows[j].SetField<double>("Pareto Rank", Ga_Values.Rows[j].Field<double>("Pareto Rank") + 1); 
-                    //    //}
-                    //    if (i != j)
-                    //    {
-                    //        dominatedSolIndex = j;
-                    //                                }
-
-                    //}
                 }
 
                 if (dominatingSolution && (_moopFitnesses[i, 0] != 0 && _moopFitnesses[i, 1] != 0)) 
                 {
                     Ga_Values.Rows[i].SetField<bool>("Pareto Optimal", true);
-                    //Ga_Values.Rows[dominatedSolIndex].SetField<double>("Pareto Rank", Ga_Values.Rows[dominatedSolIndex].Field<double>("Pareto Rank") + 1);
                 }
 
             }
