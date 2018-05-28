@@ -557,7 +557,7 @@ namespace Coding_Attempt_with_GUI
         private bool TerminateAlgorithm(Population _population, int _currGeneration, long currEvaluation)
         {
             if (_currGeneration > 100)
-            {
+           {
                 ///<summary>Extracting the BEST <see cref="Chromosome"/> from the <see cref="Population"/></summary>
                 var chromosome = _population.GetTop(1)[0];
 
@@ -1141,7 +1141,7 @@ namespace Coding_Attempt_with_GUI
 
             linkLengthError += System.Math.Pow(CalculateLinkLengthError(TopFrontLength, TopFrontLength_UpdatedOrientation), 2);
 
-            //linkLengthError += System.Math.Pow(CalculateScaledError(TopRearLength + -5.5 /*WishboneLinkLength*/, TopRearLength_UpdatedOrientation), 2);
+            linkLengthError += System.Math.Pow(CalculateLinkLengthError(TopRearLength + -5.5 /*WishboneLinkLength*/, TopRearLength_UpdatedOrientation), 2);
 
             linkLengthError += System.Math.Pow(CalculateLinkLengthError(BottomFrontLength, BottomFrontLength_UpdatedOrientation), 2);
 
@@ -1156,7 +1156,7 @@ namespace Coding_Attempt_with_GUI
             linkLengthError = System.Math.Sqrt(linkLengthError);
 
             List<double> error = new List<double>(new double[] { CalculateLinkLengthError(TopFrontLength, TopFrontLength_UpdatedOrientation) , CalculateLinkLengthError(BottomFrontLength, BottomFrontLength_UpdatedOrientation),
-                                                                 CalculateLinkLengthError(TopRearLength + -5.5 /*WishboneLinkLength*/, TopRearLength_UpdatedOrientation),
+                                                                 CalculateLinkLengthError(TopRearLength + -5.5 /*WishboneLinkLength*/, TopRearLength_UpdatedOrientation)*2,
                                                                  CalculateLinkLengthError(BottomRearLength, BottomRearLength_UpdatedOrientation),CalculateLinkLengthError(ToeLinkLength, ToeLinkLength_UpdatedOrientation),
                                                                  CalculateLinkLengthError(PushrodLength, PushrodLength_UpdatedOrientation)});
 
@@ -1377,37 +1377,28 @@ namespace Coding_Attempt_with_GUI
         {
             List<Angle> UserBumpSteerCurve = new List<Angle>();
 
-            /////<summary>Generating an arbitrary Bump Steer Curve. This will be later on obtained from the user using a Chart</summary>
-            //for (int i = 0; i < SuspensionEvalIterations + 1; i++)
-            //{
-            //    if (i < SuspensionEvalIterations / 2) 
-            //    {
-            //        UserBumpSteerCurve.Add(new Angle(_staticToe.Degrees + (-2.5 + (i * 0.1)) /*_statictoe.degrees*/, AngleUnit.Degrees));
-            //    }
-            //    else
-            //    {
-            //        UserBumpSteerCurve.Add(new Angle(_staticToe.Degrees , AngleUnit.Degrees));
+            ///<summary>Generating an arbitrary Bump Steer Curve. This will be later on obtained from the user using a Chart</summary>
+            for (int i = 0; i < SuspensionEvalIterations + 1; i++)
+            {
 
-            //    }
-            //    //else
-            //    //{
-            //    //    UserBumpSteerCurve.Add(new Angle(_staticToe.Degrees + (0 + (i * 0.1)) /*_statictoe.degrees*/, AngleUnit.Degrees));
-            //    //}
+                UserBumpSteerCurve.Add(new Angle(_staticToe.Degrees, AngleUnit.Degrees));
+
+            }
+
+            //double reverse = 2.5;
+            //for (int i = 0; i < SuspensionEvalIterations / 2; i++)
+            //{
+            //    UserBumpSteerCurve.Add(new Angle(-reverse + _staticToe.Degrees, AngleUnit.Degrees));
+            //    reverse -= 0.1;
             //}
 
-            double reverse = 2.5;
-            for (int i = 0; i < SuspensionEvalIterations / 2; i++)
-            {
-                UserBumpSteerCurve.Add(new Angle(-reverse + _staticToe.Degrees, AngleUnit.Degrees));
-                reverse -= 0.1;
-            }
+            //for (int i = 0; i < SuspensionEvalIterations / 2; i++) 
+            //{
+            //    UserBumpSteerCurve.Add(new Angle(_staticToe.Degrees + (i * 0.1) , AngleUnit.Degrees));
+            //}
+            //UserBumpSteerCurve.Insert(UserBumpSteerCurve.Count, new Angle(2, AngleUnit.Degrees));
 
-            for (int i = 0; i < SuspensionEvalIterations / 2; i++) 
-            {
-                UserBumpSteerCurve.Add(new Angle(_staticToe.Degrees + (i * 0.1) , AngleUnit.Degrees));
-            }
 
-            UserBumpSteerCurve.Insert(UserBumpSteerCurve.Count, new Angle(2, AngleUnit.Degrees));
             List<Angle> ErrorCalc_Step1 = new List<Angle>();
 
             ///<summary>Finding the distance between each pair of Points</summary>
@@ -1446,16 +1437,8 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Computing the Final Error by finding the Square Root of the Squares of the distances and dividing it by the No. of Iterations</summary>
             double FinalError = System.Math.Sqrt(ErrorCalc_Step3) / SuspensionEvalIterations;
 
-            //if (FinalError > 1)
-            //{
-            //    return 0.99;
-            //}
-            //else if (FinalError < 0)
-            //{
-            //    return 0.99;
-            //}
-            //else
-                return FinalError;
+
+            return FinalError;
         }
 
         private void EvaluateParetoOptimial()
