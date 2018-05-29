@@ -1507,7 +1507,7 @@ namespace Coding_Attempt_with_GUI
     {
         Bump,
         Rebound
-    }
+    };
 
     public enum OptimizationParameter
     {
