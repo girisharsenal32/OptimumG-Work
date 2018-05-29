@@ -30,6 +30,35 @@ namespace Coding_Attempt_with_GUI
         }
 
         /// <summary>
+        /// Method to obtain the Suspension Coordinates of the corner for which wre want to plot the Bobillier Line
+        /// </summary>
+        /// <param name="_scm"></param>
+        public void AssignLocalSuspensionObject(Vehicle _vehicle, SuspensionCoordinatesMaster _scm, int _identifier)
+        {
+            if (_scm != null)
+            {
+                SCM = _scm;
+            }
+            if (_vehicle != null)
+            {
+                Vehicle = _vehicle;
+            }
+
+            Corner = (VehicleCorner)_identifier;
+        }
+
+
+        /// <summary>
+        /// Method to assign the Configuration of the Suspension
+        /// </summary>
+        /// <param name="_config"></param>
+        private void AssignSuspensionConfiguration(SuspensionConfiguration _config)
+        {
+            Config = _config;
+        }
+
+        #region Geometrical Methods to Find the Bobilier's Line of Minimum Bump Steer
+        /// <summary>
         /// <see cref="SuspensionCoordinatesMaster"/> object used to perform the Bobillier operations
         /// </summary>
         public SuspensionCoordinatesMaster SCM { get; set; }
@@ -52,23 +81,7 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         double RackDisplacement = 0.5;
 
-        /// <summary>
-        /// Method to obtain the Suspension Coordinates of the corner for which wre want to plot the Bobillier Line
-        /// </summary>
-        /// <param name="_scm"></param>
-        public void AssignLocalSuspensionObject(Vehicle _vehicle, SuspensionCoordinatesMaster _scm, int _identifier)
-        {
-            if (_scm != null)
-            {
-                SCM = _scm;
-            }
-            if (_vehicle != null)
-            {
-                Vehicle = _vehicle;
-            }
 
-            Corner = (VehicleCorner)_identifier;
-        }
 
         /// <summary>
         /// Method to execute all the geometry operations required to construct the Bobillier Line in a sequential manner
@@ -97,16 +110,9 @@ namespace Coding_Attempt_with_GUI
 
         }
 
-        
 
-        /// <summary>
-        /// Method to assign the Configuration of the Suspension
-        /// </summary>
-        /// <param name="_config"></param>
-        private void AssignSuspensionConfiguration(SuspensionConfiguration _config)
-        {
-            Config = _config;
-        }
+
+
 
         /// <summary>
         /// <para>Rear Upper Ball Joint</para>
@@ -218,17 +224,17 @@ namespace Coding_Attempt_with_GUI
         {
             ///<summary>Calculating the Intersection of the Top and Bottom Wishbone Planes. The result of this calculation is the Instant Axis Line</summary>
             Plane.Intersection(TopWishbonePlane, BottomWishbonePlane, out Segment3D ICSegment);
-            
+
             ///<summary>Creating the Instant Axis Line using the result of the Intersection calculation above</summary>
             InstantAxis = new Line(ICSegment);
             ///<summary>Extending the Line along both ends by an amount of 500 each</summary>
             CustomInfiniteLine.DrawInfiniteLine(InstantAxis, 500);
             Plane f = new Plane();
             cad1.viewportLayout1.Entities.Add(InstantAxis);
-            
+
             ///<summary>Determining the Instant Axis is Inoard or Outboard using the Contact Patch Coordinate and the Instant Axis Mid Point</summary>
             double ICDistance = ICSegment.MidPoint.DistanceTo(new Point3D());
-            if (Corner == VehicleCorner.FrontLeft || Corner == VehicleCorner.FrontRight) 
+            if (Corner == VehicleCorner.FrontLeft || Corner == VehicleCorner.FrontRight)
             {
                 if ((SCM.W1x) - (InstantAxis.MidPoint.X) > 0)
                 {
@@ -237,7 +243,7 @@ namespace Coding_Attempt_with_GUI
                 else
                 {
                     ICPosition = InstntCentrePosition.Outboard;
-                } 
+                }
             }
             else
             {
@@ -314,7 +320,7 @@ namespace Coding_Attempt_with_GUI
         /// Object of the <see cref="PositionOfPointA"/> Enum which determines whether the PointA is above or below the Wishbones
         /// </summary>
         PositionOfPointA PointAPos;
-        
+
         /// <summary>
         /// Method to constrcut the Plane 1 and Point A
         /// </summary>
@@ -329,7 +335,7 @@ namespace Coding_Attempt_with_GUI
             SteeringAxisSegment.IntersectWith(Plane1, true, out PointA);
 
             ///<summary>Determining the whether the <see cref="PointA"/> is above or below the Wishbones</summary>
-            if (PointA.Y > UBJ_Rear.Position.Y && PointA.Y > TopFrontInboard.Position.Y && PointA.Y > TopRearInboard.Position.Y) 
+            if (PointA.Y > UBJ_Rear.Position.Y && PointA.Y > TopFrontInboard.Position.Y && PointA.Y > TopRearInboard.Position.Y)
             {
                 PointAPos = PositionOfPointA.AboveWishbones;
             }
@@ -381,8 +387,8 @@ namespace Coding_Attempt_with_GUI
             LineForAngle_PlaneRed2 = LineForAngle_PlaneRED.Clone() as Line;
 
             ///<summary>Rotating the <see cref="PlaneRED2"/> and its <see cref="LineForAngle_PlaneRed2"/> by an amount equal to twice the Angle b/w <see cref="Bisector1"/> and <see cref="PlaneRED"/></summary>
-            PlaneRED2.Rotate(-Angle_Bis1_PlaneRED.Radians * 2, new Vector3D(InstantAxis.StartPoint.Clone() as Point3D, InstantAxis.EndPoint.Clone() as Point3D),InstantAxis.MidPoint);
-            LineForAngle_PlaneRed2.Rotate(-Angle_Bis1_PlaneRED.Radians * 2, new Vector3D(InstantAxis.StartPoint.Clone() as Point3D, InstantAxis.EndPoint.Clone() as Point3D),InstantAxis.StartPoint);
+            PlaneRED2.Rotate(-Angle_Bis1_PlaneRED.Radians * 2, new Vector3D(InstantAxis.StartPoint.Clone() as Point3D, InstantAxis.EndPoint.Clone() as Point3D), InstantAxis.MidPoint);
+            LineForAngle_PlaneRed2.Rotate(-Angle_Bis1_PlaneRED.Radians * 2, new Vector3D(InstantAxis.StartPoint.Clone() as Point3D, InstantAxis.EndPoint.Clone() as Point3D), InstantAxis.StartPoint);
 
             PlanarEntity PlaneRED_Ent = new PlanarEntity(PlaneRED);
             PlanarEntity PlaneRED2_Ent = new PlanarEntity(PlaneRED2);
@@ -409,10 +415,10 @@ namespace Coding_Attempt_with_GUI
         {
             PlaneSTEERING = new Plane(InstantAxis.StartPoint.Clone() as Point3D, InstantAxis.EndPoint.Clone() as Point3D, ToeLinkupright.Position.Clone() as Point3D);
 
-            if (ToeLinkupright.Position.Y > Bisector1.MidPoint.Y && ToeLinkupright.Position.Y > Bisector1.EndPoint.Y) 
+            if (ToeLinkupright.Position.Y > Bisector1.MidPoint.Y && ToeLinkupright.Position.Y > Bisector1.EndPoint.Y)
             {
                 ToeLinkUprightPos = ToeLinkUprightPosition.AboveBisector1;
-                LinkagePair = BobillierPair.BottomWishboneAndSteering;                
+                LinkagePair = BobillierPair.BottomWishboneAndSteering;
             }
             else if (ToeLinkupright.Position.Y < Bisector1.MidPoint.Y && ToeLinkupright.Position.Y < Bisector1.EndPoint.Y)
             {
@@ -457,7 +463,7 @@ namespace Coding_Attempt_with_GUI
             //Angle_PlaneSTEERING_PlaneWISHBONE = AssignAngleSignBasedOnVectorDirection(Angle_PlaneSTEERING_PlaneWISHBONE, Custom3DGeometry.GetMathNetVector3D(new Line(ICLine.StartPoint, ICLine.EndPoint)));
             ///<summary>Creating a Bisector Line</summary>
             Bisector2 = LineForAngle_PlaneWISHBONE.Clone() as Line;
-            Bisector2.Rotate(angleInRadians: Angle_PlaneSTEERING_PlaneWISHBONE.Radians / 2, axis: new Vector3D(InstantAxis.StartPoint.Clone() as Point3D, InstantAxis.EndPoint.Clone() as Point3D),center: InstantAxis.MidPoint);
+            Bisector2.Rotate(angleInRadians: Angle_PlaneSTEERING_PlaneWISHBONE.Radians / 2, axis: new Vector3D(InstantAxis.StartPoint.Clone() as Point3D, InstantAxis.EndPoint.Clone() as Point3D), center: InstantAxis.MidPoint);
             cad1.viewportLayout1.Entities.Add(Bisector2);
         }
 
@@ -498,10 +504,10 @@ namespace Coding_Attempt_with_GUI
                                                                                  Custom3DGeometry.GetMathNetVector3D(new Line(InstantAxis.StartPoint, InstantAxis.EndPoint)));
 
             ///<summary>Depending on which of the above 2 angles is smaller the final angle called <see cref="Angle_Bis2_Final_PlaneREDs"/> is assigned</summary>
-            if (Math.Abs(Angle_Bis2_PlaneRED.Degrees) < Math.Abs(Angle_Bis1_PlaneRED.Degrees)) 
+            if (Math.Abs(Angle_Bis2_PlaneRED.Degrees) < Math.Abs(Angle_Bis1_PlaneRED.Degrees))
             {
                 Angle_Bis2_Final_PlaneREDs = Angle_Bis2_PlaneRED;
-                PlaneToConstructPlaneB = PlaneRED.Clone() as Plane; 
+                PlaneToConstructPlaneB = PlaneRED.Clone() as Plane;
             }
             else
             {
@@ -577,11 +583,12 @@ namespace Coding_Attempt_with_GUI
             ToeLinkInboard.Position.DistanceTo(tempBobillierSegment);
             double bumpSteerError = ToeLinkInboard.Position.DistanceTo(tempBobillierSegment);
 
-        }
+        } 
+        #endregion
 
 
 
-        private void OptimizePoints()
+        public void OptimizePoints()
         {
             if (Vehicle != null)
             {
@@ -598,6 +605,23 @@ namespace Coding_Attempt_with_GUI
                 MessageBox.Show("HRHRRMRMHRHRHKHKKKHH");
             }
            
+        }
+
+        Dictionary<string, OptimizedParams> casterParams = new Dictionary<string, OptimizedParams>();
+
+        Dictionary<string, OptimizedParams> toeParams = new Dictionary<string, OptimizedParams>();
+
+        Dictionary<string, OptimizedParams> BumpSteerParams = new Dictionary<string, OptimizedParams>();
+
+        private void ParamsToOptimize()
+        {
+            casterParams.Add("Param1", new OptimizedParams("WishboneLength", 0, 10, -10, 30));
+
+            toeParams.Add("Param1", new OptimizedParams("ToeLinkLength", 0, 10, -10, 30));
+
+            BumpSteerParams.Add("Param1", new OptimizedParams("ToeLinkInboard_X", 232.12, 2, -2, 30));
+            BumpSteerParams.Add("Param2", new OptimizedParams("ToeLinkInboard_Y", 124.4, 2, -2, 30));
+            BumpSteerParams.Add("Param3", new OptimizedParams("ToeLinkInboard_Z", 60.8, 2, -2, 30));
         }
 
 

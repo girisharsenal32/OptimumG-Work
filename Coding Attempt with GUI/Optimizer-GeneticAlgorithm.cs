@@ -102,10 +102,8 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         int BitSize;
 
-        SolverPass Pass { get; set; }
-
-        OptimizedOrientation BestFit_CurrGen_UprightOrientation;
-
+        OptimizerPass Pass { get; set; }
+        
         Point3D BestFit_CurrGen_ToeLinkInboard;
 
         double BestFitness_CurrGen;
@@ -317,14 +315,12 @@ namespace Coding_Attempt_with_GUI
 
             Population = new Population(_popSize, _chromoseLength, false, true, ParentSelectionMethod.TournamentSelection);
 
-            Pass = SolverPass.FirstPass;
+            Pass = OptimizerPass.FirstPass;
 
 
             Fitness_Individual_Objectives = new Dictionary<string, double[,]>();
 
             BestFit_CurrGen_ToeLinkInboard = new Point3D();
-
-            BestFit_CurrGen_UprightOrientation = new OptimizedOrientation();
 
             InitializeDataTable(_adjustLinks);
 
@@ -352,8 +348,8 @@ namespace Coding_Attempt_with_GUI
             GA_Values_Params.Add("SolutionName");
 
 
-            Ga_Values.Columns.Add("Orientation", typeof(OptimizedOrientation));
-            GA_Values_Params.Add(new OptimizedOrientation());
+            //Ga_Values.Columns.Add("Orientation", typeof(OptimizedOrientation));
+            //GA_Values_Params.Add(new OptimizedOrientation());
 
 
             Ga_Values.Columns.Add("Orientation Fitness", typeof(double));
@@ -604,17 +600,6 @@ namespace Coding_Attempt_with_GUI
         //---TEMP---
         private void PopulateDictionaryTrial()
         {
-            //GAOrientation = new Dictionary<string, OptimizedOrientation>();
-
-            //Point3D upperLimit = new Point3D(10, 10, 10);
-
-            //Point3D LowerLimit = new Point3D(-10, -10, -10);
-
-            //MathNet.Spatial.Euclidean.EulerAngles upperEuler = new MathNet.Spatial.Euclidean.EulerAngles(new Angle(5, AngleUnit.Degrees), new Angle(5, AngleUnit.Degrees), new Angle(5, AngleUnit.Degrees));
-
-            //MathNet.Spatial.Euclidean.EulerAngles lowerEuler = new MathNet.Spatial.Euclidean.EulerAngles(new Angle(0, AngleUnit.Degrees), new Angle(-5, AngleUnit.Degrees), new Angle(-5, AngleUnit.Degrees));
-
-            //GAOrientation.Add("NewOrientation1", new OptimizedOrientation(upperLimit, LowerLimit, upperEuler, lowerEuler, BitSize));
 
             PopulateDictionaryTrial_2();
 
@@ -894,8 +879,6 @@ namespace Coding_Attempt_with_GUI
             double toeError = ComputeToeError();
 
             double rmsError = System.Math.Sqrt((System.Math.Pow(bumpSteerError, 2) + System.Math.Pow(casterError, 2) + System.Math.Pow(toeError, 2)));
-            //double rmsError = bumpSteerError;
-
 
             //Ga_Values.Rows[rowIndex].SetField<double>("Orientation Fitness", orientationError);
             //Ga_Values.Rows[rowIndex].SetField<double>("Bump Steer Fitness", bumpSteerError);
@@ -916,125 +899,24 @@ namespace Coding_Attempt_with_GUI
 
         private void GetParetoSolutions()
         {
-            Dictionary<string,OptimizedOrientation> paretoOrientations = new Dictionary<string, OptimizedOrientation>();
+            //Dictionary<string,OptimizedOrientation> paretoOrientations = new Dictionary<string, OptimizedOrientation>();
 
-            Dictionary<string, Point3D> paretoToeLink = new Dictionary<string, Point3D>();
+            //Dictionary<string, Point3D> paretoToeLink = new Dictionary<string, Point3D>();
 
-            for (int i = 0; i < Ga_Values.Rows.Count; i++)
-            {
-                if (Ga_Values.Rows[i].Field<bool>("Pareto Optimal"))
-                {
-                    paretoOrientations.Add(Ga_Values.Rows[i].Field<double>("Orientation Fitness").ToString() + i, Ga_Values.Rows[i].Field<OptimizedOrientation>("Orientation"));
-                    paretoToeLink.Add(Ga_Values.Rows[i].Field<double>("Bump Steer Fitness").ToString() + i, Ga_Values.Rows[i].Field<OptimizedCoordinate>("Toe Link Inboard").OptimizedCoordinates);
-                }
-            }
+            //for (int i = 0; i < Ga_Values.Rows.Count; i++)
+            //{
+            //    if (Ga_Values.Rows[i].Field<bool>("Pareto Optimal"))
+            //    {
+            //        paretoOrientations.Add(Ga_Values.Rows[i].Field<double>("Orientation Fitness").ToString() + i, Ga_Values.Rows[i].Field<OptimizedOrientation>("Orientation"));
+            //        paretoToeLink.Add(Ga_Values.Rows[i].Field<double>("Bump Steer Fitness").ToString() + i, Ga_Values.Rows[i].Field<OptimizedCoordinate>("Toe Link Inboard").OptimizedCoordinates);
+            //    }
+            //}
         }
 
-        #region --- NOT NEEDED IN THIS ITERATION---
-        private List<double> EvaluateUpdatedOrientation(OptimizedOrientation _OptimizationOrientation)
-        {
-            Transformation TransformationMatrix = GenerateTransformationMatrix(_OptimizationOrientation.OptimizedEulerAngles, _OptimizationOrientation.OptimizedOrigin);
-
-            UpdateOrientation(TransformationMatrix);
-
-            return EvaluateWishboneConstraints();
-        }
-
-        private Transformation GenerateTransformationMatrix(MathNet.Spatial.Euclidean.EulerAngles _optimizedOrientation, Point3D _optimizedOrigin)
-        {
-
-            var UprightCSTranslation = Matrix<double>.Build.DenseOfArray(new double[,]
-                {
-                    { (1) , (0) , (0) , (UnsprungAssembly["WcStart"].NominalCoordinates.X)},
-                    { (0) , (1) , (0) , (UnsprungAssembly["WcStart"].NominalCoordinates.Y)},
-                    { (0) , (0) , (1) , (UnsprungAssembly["WcStart"].NominalCoordinates.Z)},
-                    { (0) , (0) , (0) , (1)},
-                });
-
-
-            Angle a = _optimizedOrientation.Alpha;
-
-            Angle b = _optimizedOrientation.Beta;
-
-            Angle g = _optimizedOrientation.Gamma;
-
-            double S1 = System.Math.Sin(a.Radians);
-
-            double S2 = System.Math.Sin(b.Radians);
-
-            double S3 = System.Math.Sin(g.Radians);
-
-
-            double C1 = System.Math.Cos(a.Radians);
-
-            double C2 = System.Math.Cos(b.Radians);
-
-            double C3 = System.Math.Cos(g.Radians);
-
-            var TaitRotationMatrix_YZX = Matrix<double>.Build.DenseOfArray(new double[,]
-            {
-                { ((C1 * C2))               ,   ((S1 * S3) - (C1 * C3 * S2))   ,   ((C3 * S1) + (C1 * S2 * S3 ))  ,   0},
-                { (S2)                      ,   ((C2 * C3))                    ,   (-(C2 * S3))                   ,   0},
-                { (-C2 * S1)                ,   ((C1 * S3) + (C3 * S1 * S2) )  ,   ((C1 * C3) - (S1 * S2 * S3))   ,   0},
-                { (0)                       ,   (0)                            ,   (0)                            ,   1}
-
-            });
-
-
-            double dx = -_optimizedOrigin.X;
-
-            double dy = -_optimizedOrigin.Y;
-
-            double dz = -_optimizedOrigin.Z;
-
-
-
-            var OrientationTranslationMatrix = Matrix<double>.Build.DenseOfArray(new double[,]
-            {
-                { (1) , (0) , (0) , (dx)},
-                { (0) , (1) , (0) , (dy)},
-                { (0) , (0) , (1) , (dz)},
-                { (0) , (0) , (0) , (1)}
-            });
-
-            var UprightCSInverseTranslation = Matrix<double>.Build.DenseOfArray(new double[,]
-                {
-                    { (1) , (0) , (0) , (-UnsprungAssembly["WcStart"].NominalCoordinates.X)},
-                    { (0) , (1) , (0) , (-UnsprungAssembly["WcStart"].NominalCoordinates.Y)},
-                    { (0) , (0) , (1) , (-UnsprungAssembly["WcStart"].NominalCoordinates.Z)},
-                    { (0) , (0) , (0) , (1)},
-                });
-
-            Matrix<double> Transformation_1 = UprightCSTranslation.Multiply(TaitRotationMatrix_YZX);
-
-            Matrix<double> Transformation_2 = Transformation_1.Solve(OrientationTranslationMatrix);
-
-            Matrix<double> Transformation_3 = Transformation_2.Solve(UprightCSInverseTranslation);
-
-            Matrix<double> FinalTransformation = Transformation_3;
-
-
-            Transformation TransformationMatrix = new Transformation(FinalTransformation.ToArray());
-
-            return TransformationMatrix;
-
-        }
-
-        private void UpdateOrientation(Transformation _transformationMatrix)
-        {
-            foreach (string point in UnsprungAssembly.Keys)
-            {
-                Point3D tempPoint = UnsprungAssembly[point].NominalCoordinates.Clone() as Point3D;
-                tempPoint.TransformBy(_transformationMatrix);
-                UnsprungAssembly[point].OptimizedCoordinates = tempPoint.Clone() as Point3D;
-            }
-
-            tempAxisLines["SteeringAxis"] = new Line(UnsprungAssembly["UBJ"].OptimizedCoordinates, UnsprungAssembly["LBJ"].OptimizedCoordinates);
-
-        }
+        
 
         //Trial for Caster Change with Toe Constant Constraint
-        private List<double> EvaluateWishboneConstraints()
+        private void EvaluateWishboneConstraints()
         {
             double linkLengthError = 0;
 
@@ -1075,27 +957,18 @@ namespace Coding_Attempt_with_GUI
 
             linkLengthError += System.Math.Pow(CalculateLinkLengthError(PushrodLength, PushrodLength_UpdatedOrientation), 2);
 
-            linkLengthError /= /*6*/1;
-
             linkLengthError = System.Math.Sqrt(linkLengthError);
 
-            List<double> error = new List<double>(new double[] { CalculateLinkLengthError(TopFrontLength, TopFrontLength_UpdatedOrientation) , CalculateLinkLengthError(BottomFrontLength, BottomFrontLength_UpdatedOrientation),
-                                                                 //CalculateLinkLengthError(TopRearLength + -5.5 /*WishboneLinkLength*/, TopRearLength_UpdatedOrientation)*2,
-                                                                 CalculateLinkLengthError(BottomRearLength, BottomRearLength_UpdatedOrientation),CalculateLinkLengthError(ToeLinkLength, ToeLinkLength_UpdatedOrientation),
-                                                                 CalculateLinkLengthError(PushrodLength, PushrodLength_UpdatedOrientation)});
-
-            return error;
         }
 
         private double CalculateLinkLengthError(double _original, double _calculated)
         {
             double difference = ((_calculated - _original));
 
-            double error = ((difference / _original/*10*/));
+            double error = ((difference / _original));
 
             return error;
         }
-        #endregion
 
         private void Update_SuspensionCoordinateData()
         {
@@ -1509,14 +1382,14 @@ namespace Coding_Attempt_with_GUI
         Rebound
     }
 
-    public enum OptimizationParameter
-    {
-        CasterKPILinkLength,
-        Toe,
-        CasterKPILinkLengthToe
-    }
+    //public enum OptimizationParameter
+    //{
+    //    CasterKPILinkLength,
+    //    Toe,
+    //    CasterKPILinkLengthToe
+    //}
 
-    enum SolverPass
+    enum OptimizerPass
     {
         FirstPass,
         SecondPass
@@ -1558,43 +1431,73 @@ namespace Coding_Attempt_with_GUI
         }
     }
 
-    public class OptimizedOrientation
+    //public class OptimizedOrientation
+    //{
+    //    public Point3D Upper_Origin;
+
+    //    public Point3D Lower_Origin;
+
+    //    public MathNet.Spatial.Euclidean.EulerAngles Upper_Orientation;
+
+    //    public MathNet.Spatial.Euclidean.EulerAngles Lower_Orientation;
+
+    //    public Point3D OptimizedOrigin;
+
+    //    public MathNet.Spatial.Euclidean.EulerAngles OptimizedEulerAngles;
+
+    //    public int BitSize;
+
+    //    public OptimizedOrientation() { }
+
+    //    public OptimizedOrientation(Point3D _upperOrigin, Point3D _lowerOrigin, MathNet.Spatial.Euclidean.EulerAngles _upperOrientation, MathNet.Spatial.Euclidean.EulerAngles _lowerOrientation, int _bitSize)
+    //    {
+
+    //        Upper_Origin = _upperOrigin;
+
+    //        Lower_Origin = _lowerOrigin;
+
+    //        OptimizedOrigin = new Point3D();
+
+    //        Upper_Orientation = _upperOrientation;
+
+    //        Lower_Orientation = _lowerOrientation;
+
+    //        OptimizedEulerAngles = new MathNet.Spatial.Euclidean.EulerAngles();
+
+    //        BitSize = _bitSize;
+
+    //    }
+    //} 
+
+    public class OptimizedParams
     {
-        public Point3D Upper_Origin;
+        public string ParamName { get; set; }
 
-        public Point3D Lower_Origin;
+        public double Nominal { get; set; }
 
-        public MathNet.Spatial.Euclidean.EulerAngles Upper_Orientation;
+        public double Upper { get; set; }
 
-        public MathNet.Spatial.Euclidean.EulerAngles Lower_Orientation;
+        public double Lower { get; set; }
 
-        public Point3D OptimizedOrigin;
+        public int BitSize { get; set; }
 
-        public MathNet.Spatial.Euclidean.EulerAngles OptimizedEulerAngles;
 
-        public int BitSize;
+        public OptimizedParams() {}
 
-        public OptimizedOrientation() { }
-
-        public OptimizedOrientation(Point3D _upperOrigin, Point3D _lowerOrigin, MathNet.Spatial.Euclidean.EulerAngles _upperOrientation, MathNet.Spatial.Euclidean.EulerAngles _lowerOrientation, int _bitSize)
+        public OptimizedParams(string _paramName, double _nominal, double _upper, double _lower, int _bitSize)
         {
+            ParamName = _paramName;
 
-            Upper_Origin = _upperOrigin;
+            _nominal = Nominal;
 
-            Lower_Origin = _lowerOrigin;
+            Upper = _upper;
 
-            OptimizedOrigin = new Point3D();
-
-            Upper_Orientation = _upperOrientation;
-
-            Lower_Orientation = _lowerOrientation;
-
-            OptimizedEulerAngles = new MathNet.Spatial.Euclidean.EulerAngles();
+            Lower = _lower;
 
             BitSize = _bitSize;
-
         }
-    } 
+    }
+
     #endregion
 
 

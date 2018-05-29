@@ -222,6 +222,7 @@ namespace Coding_Attempt_with_GUI
 
         }
 
+        #region Method to Clone the Suspension Data
         public void Clone(SuspensionCoordinatesMaster _scMajor)
         {
             A1x = _scMajor.A1x;
@@ -324,7 +325,8 @@ namespace Coding_Attempt_with_GUI
             RideHeightRefx = _scMajor.RideHeightRefx;
             RideHeightRefy = _scMajor.RideHeightRefy;
             RideHeightRefz = _scMajor.RideHeightRefz;
-        }
+        } 
+        #endregion
     }
 
     #region Enums to determine the Suepension Type
