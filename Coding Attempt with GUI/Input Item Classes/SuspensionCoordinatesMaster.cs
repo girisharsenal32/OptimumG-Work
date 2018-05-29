@@ -190,7 +190,7 @@ namespace Coding_Attempt_with_GUI
         }
         #endregion
 
-        public void CloneSuspensionData(Dictionary<string, Point3D> _outboard)
+        public void Clone_Outboard_FromDictionary(Dictionary<string, Point3D> _outboard)
         {
             G1x = _outboard["Pushrod"].X;
             G1y = _outboard["Pushrod"].Y;
@@ -220,6 +220,110 @@ namespace Coding_Attempt_with_GUI
             W1y = _outboard["ContactPatch"].Y;
             W1z = _outboard["ContactPatch"].Z;
 
+        }
+
+        public void Clone(SuspensionCoordinatesMaster _scMajor)
+        {
+            A1x = _scMajor.A1x;
+            A1y = _scMajor.A1y;
+            A1z = _scMajor.A1z;
+
+            B1x = _scMajor.B1x;
+            B1y = _scMajor.B1y;
+            B1z = _scMajor.B1z;
+
+            C1x = _scMajor.C1x;
+            C1y = _scMajor.C1y;
+            C1z = _scMajor.C1z;
+
+            D1x = _scMajor.D1x;
+            D1y = _scMajor.D1y;
+            D1z = _scMajor.D1z;
+
+            E1x = _scMajor.E1x;
+            E1y = _scMajor.E1y;
+            E1z = _scMajor.E1z;
+
+            F1x = _scMajor.F1x;
+            F1y = _scMajor.F1y;
+            F1z = _scMajor.F1z;
+
+            G1x = _scMajor.G1x;
+            G1y = _scMajor.G1y;
+            G1z = _scMajor.G1z;
+
+            H1x = _scMajor.H1x;
+            H1y = _scMajor.H1y;
+            H1z = _scMajor.H1z;
+
+            I1x = _scMajor.I1x;
+            I1y = _scMajor.I1y;
+            I1z = _scMajor.I1z;
+
+            JO1x = _scMajor.JO1x;
+            JO1y = _scMajor.JO1y;
+            JO1z = _scMajor.JO1z;
+
+            J1x = _scMajor.J1x;
+            J1y = _scMajor.J1y;
+            J1z = _scMajor.J1z;
+
+            K1x = _scMajor.K1x;
+            K1y = _scMajor.K1y;
+            K1z = _scMajor.K1z;
+
+            L1x = _scMajor.L1x;
+            L1y = _scMajor.L1y;
+            L1z = _scMajor.L1z;
+
+            M1x = _scMajor.M1x;
+            M1y = _scMajor.M1y;
+            M1z = _scMajor.M1z;
+
+            N1x = _scMajor.N1x;
+            N1y = _scMajor.N1y;
+            N1z = _scMajor.N1z;
+
+            O1x = _scMajor.O1x;
+            O1y = _scMajor.O1y;
+            O1z = _scMajor.O1z;
+
+            P1x = _scMajor.P1x;
+            P1y = _scMajor.P1y;
+            P1z = _scMajor.P1z;
+
+            Q1x = _scMajor.Q1x;
+            Q1y = _scMajor.Q1y;
+            Q1z = _scMajor.Q1z;
+
+            R1x = _scMajor.R1x;
+            R1y = _scMajor.R1y;
+            R1z = _scMajor.R1z;
+
+            W1x = _scMajor.W1x;
+            W1y = _scMajor.W1y;
+            W1z = _scMajor.W1z;
+
+            Pin1x = _scMajor.Pin1x;
+            Pin1y = _scMajor.Pin1y;
+            Pin1z = _scMajor.Pin1z;
+
+            UV1x = _scMajor.UV1x;
+            UV1y = _scMajor.UV1y;
+            UV1z = _scMajor.UV1z;
+
+
+            UV2x = _scMajor.UV2x;
+            UV2y = _scMajor.UV2y;
+            UV2z = _scMajor.UV2z;
+
+            STC1x = _scMajor.STC1x;
+            STC1y = _scMajor.STC1y;
+            STC1z = _scMajor.STC1z;
+
+            RideHeightRefx = _scMajor.RideHeightRefx;
+            RideHeightRefy = _scMajor.RideHeightRefy;
+            RideHeightRefz = _scMajor.RideHeightRefz;
         }
     }
 

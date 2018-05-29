@@ -5,27 +5,30 @@ using System.Text;
 
 namespace Coding_Attempt_with_GUI
 {
+
+    ///<summary
+    ///
+    /// This is the solver method which is used purely calculate the Kinematic Points of Interest as they move
+    ///
+    /// The Code below makes use of the coeffecients of the three variables x,y and z. The final quadratic equation is developed by manipulating the coefficients of the variables. The manipulation follows the course
+    /// of the Vector Geometry Analysis which is explained in the Documentation
+    ///
+    /// S is the vector which is moving and hence is represented as S'. T, U and V may be moveable (and hence KNOWN) or non moveable points.
+    /// They are not represented with a dash.
+    /// Strut Deflection has been passed ONLY to handle the calculation of the lower end of the damper in case of McPherson Strut
+    /// Magnitude and Coordinates of Vector S'T = ST 
+    ///
+    ///</summary>
     public static class QuadraticEquationSolver
     {
-
-        ///<summary
-        ///
-        ///This is the solver method which is used purely calculate the Kinematic Points of Interest as they move
-        ///
-        ///The Code below makes use of the coeffecients of the three variables x,y and z. The final quadratic equation is developed by manipulating the coefficients of the variables. The manipulation follows the course
-        ///of the Vector Geometry Analysis which is explained in the Documentation
-        ///
-        /// S is the vector which is moving and hence is represented as S'. T, U and V may be moveable (and hence KNOWN) or non moveable points.
-        ///They are not represented with a dash.
-        /// Strut Deflection has been passed ONLY to handle the calculation of the lower end of the damper in case of McPherson Strut
-        ///Magnitude and Coordinates of Vector S'T = ST 
-        ///
-        ///</summary>
-
         #region Solver
 
         //Solver 
-        
+
+        public static SimulationType simType;
+
+        public static double WishboneLengthChange = 0;
+
         public static void Solver(double Sx, double Sy, double Sz, double T1x, double T1y, double T1z, double StrutDeflection, double U1x, double U1y, double U1z, double V1x, double V1y, double V1z, double T2x, double T2y, double T2z, double U2x, double U2y, double U2z, 
                                   double V2x, double V2y, double V2z, double check1Y, bool GreaterThan, out double X, out double Y, out double Z )
         {
@@ -48,6 +51,7 @@ namespace Coding_Attempt_with_GUI
             //Magnitudeand and Coordinates of Vector S'U = SU
             double SU;
             SU = Math.Sqrt(Math.Pow((Sx - U1x), 2) + (Math.Pow((Sy - U1y), 2)) + (Math.Pow((Sz - U1z), 2)));
+            SU = SU + WishboneLengthChange;
             //Equation B --> BLHS = (Sx^2+ (BCSx)Sx) + (Sy^2 + (BCSy)Sy) + (Sz^2 + (BCSz)Sz)
             double BSLHS, BCSx, BCSy, BCSz;
             BSLHS = ((Math.Pow(SU, 2)) - ((Math.Pow(U2x, 2)) + (Math.Pow(U2y, 2)) + (Math.Pow(U2z, 2)))); //Eq B's LHS

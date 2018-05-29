@@ -1425,7 +1425,7 @@ namespace Coding_Attempt_with_GUI
         }
         #endregion
 
-        #region --Initializer Methods
+        #region --Initializer Methods--
         /// <summary>
         /// Public method to initialize the <see cref="SetupChangeDatabase"/> object of this class and assign the <see cref="OutputClass.scmOP"/>'s coordinate values to the local variables of this class
         /// This method will also need to be called by the <seealso cref="SetupChange_ClosedLoopSolver"/> Class while performing the Closed Loop Simulation
@@ -2059,7 +2059,7 @@ namespace Coding_Attempt_with_GUI
         }
         #endregion
 
-        #region --Actual Setup Change Methods & Helper Methods 
+        #region --Actual Setup Change Methods & Helper Methods-- 
         /// <summary>
         /// Method to return the value of the Internal Iterator check variable. This variable can be considered as a tolerance check variable. If it is lesser than the allowed tolerance, then the Loop which is calling this will terminate.
         /// </summary>

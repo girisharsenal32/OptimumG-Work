@@ -79,7 +79,7 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Dictionary of <see cref="OptimizedOrientation"/> into the which the Genetic Algorithm passes it's iteration vales
         /// </summary>
-        Dictionary<string, OptimizedOrientation> GAOrientation { get; set; }
+        //Dictionary<string, OptimizedOrientation> GAOrientation { get; set; }
 
         double WishboneLinkLength;
 
@@ -153,6 +153,7 @@ namespace Coding_Attempt_with_GUI
         /// Suspension Coordiantes of the corner of the Vehicle calling this class
         /// </summary>
         SuspensionCoordinatesMaster SCM;
+        SuspensionCoordinatesMaster SCM_Clone;
         /// <summary>
         /// Spring of the corner of the Vehicle calling this class
         /// </summary>
@@ -289,7 +290,7 @@ namespace Coding_Attempt_with_GUI
                                        /// <para>https://gaframework.org/wiki/index.php/How_to_Encode_Parameters for more information</para> </param>
         public OptimizerGeneticAlgorithm(double _crossover, double _mutation, int _elites, int _popSize, int _chromoseLength, List<string> _adjustLinks)
         {
-            BitSize = 10;
+            BitSize = 30;
 
             BestFitness_CurrGen = 0;
 
@@ -323,9 +324,9 @@ namespace Coding_Attempt_with_GUI
 
             No_GaOutputs = _chromoseLength / BitSize;
 
-            UpperWishboneLinkLength = 0;
+            UpperWishboneLinkLength = 10;
 
-            LowerWishboneLinkLength = -5.5;
+            LowerWishboneLinkLength = -10;
 
 
         }
@@ -406,6 +407,9 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Passing the <see cref="Dictionary{TKey, TValue}"/> of Vehicle Params's objects into the right Parameter</summary>
             SCM = tempVehicleParams["SuspensionCoordinateMaster"] as SuspensionCoordinatesMaster;
 
+            SCM_Clone = new SuspensionCoordinatesMaster();
+            SCM_Clone.Clone(SCM);
+
             Tire = tempVehicleParams["Tire"] as Tire;
 
             Spring = tempVehicleParams["Spring"] as Spring;
@@ -484,7 +488,7 @@ namespace Coding_Attempt_with_GUI
                 ///<summary>Invokinig the <see cref="ExtractOptimizedValues(Chromosome, out double, out double, out double)"/> which extracts the coordinates </summary>
                 //ExtractOptimizedValues(chromosome, out double x, out double y, out double z);
                 ExtractOptimizedValues(chromosome);
-                Update_GADataTable("Solution" + SolutionCounter);
+                //Update_GADataTable("Solution" + SolutionCounter);
 
                 ///<summary>Invoking the <see cref="EvaluateBumpSteer(double, double, double)"/> method to check the error of the calcualted Bump Steer Curve with the Curve that the user wants</summary>
                 double resultError = EvaluateRMSError(SolutionCounter);
@@ -517,7 +521,7 @@ namespace Coding_Attempt_with_GUI
             /// </summary>
             ExtractOptimizedValues(chromosome);
 
-            Ga_Values.DefaultView.Sort = "RMS Fitness";
+            //Ga_Values.DefaultView.Sort = "RMS Fitness";
 
             ///<summary>Extracting the Max Fitness</summary>
             double Fitness = e.Population.MaximumFitness;
@@ -538,7 +542,7 @@ namespace Coding_Attempt_with_GUI
 
             DataTable clone = Ga_Values.Copy();
 
-            GetParetoSolutions();
+            //GetParetoSolutions();
 
             SolutionCounter = 0;
 
@@ -556,7 +560,7 @@ namespace Coding_Attempt_with_GUI
         /// <returns>Returns <see cref=Boolean"/> to determine if the Algoritm should termine or not </returns>
         private bool TerminateAlgorithm(Population _population, int _currGeneration, long currEvaluation)
         {
-            if (_currGeneration > 100)
+            if (_currGeneration > 40)
            {
                 ///<summary>Extracting the BEST <see cref="Chromosome"/> from the <see cref="Population"/></summary>
                 var chromosome = _population.GetTop(1)[0];
@@ -590,17 +594,17 @@ namespace Coding_Attempt_with_GUI
         //---TEMP---
         private void PopulateDictionaryTrial()
         {
-            GAOrientation = new Dictionary<string, OptimizedOrientation>();
+            //GAOrientation = new Dictionary<string, OptimizedOrientation>();
 
-            Point3D upperLimit = new Point3D(10, 10, 10);
+            //Point3D upperLimit = new Point3D(10, 10, 10);
 
-            Point3D LowerLimit = new Point3D(-10, -10, -10);
+            //Point3D LowerLimit = new Point3D(-10, -10, -10);
 
-            MathNet.Spatial.Euclidean.EulerAngles upperEuler = new MathNet.Spatial.Euclidean.EulerAngles(new Angle(5, AngleUnit.Degrees), new Angle(5, AngleUnit.Degrees), new Angle(5, AngleUnit.Degrees));
+            //MathNet.Spatial.Euclidean.EulerAngles upperEuler = new MathNet.Spatial.Euclidean.EulerAngles(new Angle(5, AngleUnit.Degrees), new Angle(5, AngleUnit.Degrees), new Angle(5, AngleUnit.Degrees));
 
-            MathNet.Spatial.Euclidean.EulerAngles lowerEuler = new MathNet.Spatial.Euclidean.EulerAngles(new Angle(0, AngleUnit.Degrees), new Angle(-5, AngleUnit.Degrees), new Angle(-5, AngleUnit.Degrees));
+            //MathNet.Spatial.Euclidean.EulerAngles lowerEuler = new MathNet.Spatial.Euclidean.EulerAngles(new Angle(0, AngleUnit.Degrees), new Angle(-5, AngleUnit.Degrees), new Angle(-5, AngleUnit.Degrees));
 
-            GAOrientation.Add("NewOrientation1", new OptimizedOrientation(upperLimit, LowerLimit, upperEuler, lowerEuler, BitSize));
+            //GAOrientation.Add("NewOrientation1", new OptimizedOrientation(upperLimit, LowerLimit, upperEuler, lowerEuler, BitSize));
 
             PopulateDictionaryTrial_2();
 
@@ -723,13 +727,6 @@ namespace Coding_Attempt_with_GUI
                 {
                     BestFitness_CurrGen = Fitness;
 
-
-                    BestFit_CurrGen_UprightOrientation.OptimizedEulerAngles = GAOrientation["NewOrientation1"].OptimizedEulerAngles;
-
-                    BestFit_CurrGen_UprightOrientation .OptimizedOrigin = GAOrientation["NewOrientation1"].OptimizedOrigin;
-
-                    BestFit_CurrGen_ToeLinkInboard = Ga_Values.Rows[GetMaxIndex()].Field<OptimizedCoordinate>("Toe Link Inboard").OptimizedCoordinates;
-
                     ModfiyStepSize(0.5, 20, 8);
                 }
 
@@ -740,11 +737,6 @@ namespace Coding_Attempt_with_GUI
                 if (Fitness > BestFitness_CurrGen)
                 {
                     BestFitness_CurrGen = Fitness;
-
-
-                    BestFit_CurrGen_UprightOrientation.OptimizedEulerAngles = GAOrientation["NewOrientation1"].OptimizedEulerAngles;
-
-                    BestFit_CurrGen_UprightOrientation.OptimizedOrigin = GAOrientation["NewOrientation1"].OptimizedOrigin;
 
                     ModfiyStepSize(0.3, 10, 4);
                 }
@@ -757,11 +749,6 @@ namespace Coding_Attempt_with_GUI
                 {
                     BestFitness_CurrGen = Fitness;
 
-
-                    BestFit_CurrGen_UprightOrientation.OptimizedEulerAngles = GAOrientation["NewOrientation1"].OptimizedEulerAngles;
-
-                    BestFit_CurrGen_UprightOrientation.OptimizedOrigin = GAOrientation["NewOrientation1"].OptimizedOrigin;
-
                     ModfiyStepSize(0.15, 5, 2);
                 }
 
@@ -771,11 +758,6 @@ namespace Coding_Attempt_with_GUI
                 if (Fitness > BestFitness_CurrGen)
                 {
                     BestFitness_CurrGen = Fitness;
-
-
-                    BestFit_CurrGen_UprightOrientation.OptimizedEulerAngles = GAOrientation["NewOrientation1"].OptimizedEulerAngles;
-
-                    BestFit_CurrGen_UprightOrientation.OptimizedOrigin = GAOrientation["NewOrientation1"].OptimizedOrigin;
 
                     ModfiyStepSize(0.05, 2, 1);
                 }
@@ -818,10 +800,6 @@ namespace Coding_Attempt_with_GUI
 
         }
 
-        private void Update_OptimizationDictionary(int _solutionNumber)
-        {
-            GAOrientation.Add("NewSolution" + _solutionNumber, new OptimizedOrientation());
-        }
 
         /// <summary>
         /// Overloaded Method to 
@@ -833,59 +811,16 @@ namespace Coding_Attempt_with_GUI
         {
             int geneNumber = 0;
 
-            string coordinateName = GAOrientation.Keys.ElementAt(GAOrientation.Keys.Count - 1);
-
-
-
-
-
-
-            var rOriginX = GAF.Math.GetRangeConstant((GAOrientation[coordinateName].Upper_Origin.X - GAOrientation[coordinateName].Lower_Origin.X), GAOrientation[coordinateName].BitSize);
-
-            var rOriginY = GAF.Math.GetRangeConstant((GAOrientation[coordinateName].Upper_Origin.Y - GAOrientation[coordinateName].Lower_Origin.Y), GAOrientation[coordinateName].BitSize);
-
-            var rOriginZ = GAF.Math.GetRangeConstant((GAOrientation[coordinateName].Upper_Origin.Z - GAOrientation[coordinateName].Lower_Origin.Z), GAOrientation[coordinateName].BitSize);
-
-            var rEulerAlpha = GAF.Math.GetRangeConstant((GAOrientation[coordinateName].Upper_Orientation.Alpha.Degrees - GAOrientation[coordinateName].Lower_Orientation.Alpha.Degrees), GAOrientation[coordinateName].BitSize);
-
-            var rEulerBeta = GAF.Math.GetRangeConstant((GAOrientation[coordinateName].Upper_Orientation.Beta.Degrees - GAOrientation[coordinateName].Lower_Orientation.Beta.Degrees), GAOrientation[coordinateName].BitSize);
-
-            var rEulerGamma = GAF.Math.GetRangeConstant((GAOrientation[coordinateName].Upper_Orientation.Gamma.Degrees - GAOrientation[coordinateName].Lower_Orientation.Gamma.Degrees), GAOrientation[coordinateName].BitSize);
-
             var rcx = GAF.Math.GetRangeConstant(InboardPoints["ToeLinkInboard"].UpperCoordinateLimit.X - InboardPoints["ToeLinkInboard"].LowerCoordinateLimit.X, InboardPoints["ToeLinkInboard"].BitSize);
 
             var rcy = GAF.Math.GetRangeConstant(InboardPoints["ToeLinkInboard"].UpperCoordinateLimit.Y - InboardPoints["ToeLinkInboard"].LowerCoordinateLimit.Y, InboardPoints["ToeLinkInboard"].BitSize);
 
             var rcz = GAF.Math.GetRangeConstant(InboardPoints["ToeLinkInboard"].UpperCoordinateLimit.Z - InboardPoints["ToeLinkInboard"].LowerCoordinateLimit.Z, InboardPoints["ToeLinkInboard"].BitSize);
 
+            var rWishboneLength = GAF.Math.GetRangeConstant(UpperWishboneLinkLength - LowerWishboneLinkLength, BitSize);
 
 
 
-
-
-            var OriginX1 = Convert.ToInt32(chromosome.ToBinaryString(geneNumber * GAOrientation[coordinateName].BitSize, GAOrientation[coordinateName].BitSize), 2);
-
-            geneNumber++;
-
-            var OriginY1 = Convert.ToInt32(chromosome.ToBinaryString(geneNumber * GAOrientation[coordinateName].BitSize, GAOrientation[coordinateName].BitSize), 2);
-
-            geneNumber++;
-
-            var OriginZ1 = Convert.ToInt32(chromosome.ToBinaryString(geneNumber * GAOrientation[coordinateName].BitSize, GAOrientation[coordinateName].BitSize), 2);
-
-            geneNumber++;
-
-            var EulerAlpha1 = Convert.ToInt32(chromosome.ToBinaryString(geneNumber * GAOrientation[coordinateName].BitSize, GAOrientation[coordinateName].BitSize), 2);
-
-            geneNumber++;
-
-            var EulerBeta1 = Convert.ToInt32(chromosome.ToBinaryString(geneNumber * GAOrientation[coordinateName].BitSize, GAOrientation[coordinateName].BitSize), 2);
-
-            geneNumber++;
-
-            var EulerGamma1 = Convert.ToInt32(chromosome.ToBinaryString(geneNumber * GAOrientation[coordinateName].BitSize, GAOrientation[coordinateName].BitSize), 2);
-
-            geneNumber++;
 
             var x1 = Convert.ToInt32(chromosome.ToBinaryString(geneNumber* InboardPoints["ToeLinkInboard"].BitSize, InboardPoints["ToeLinkInboard"].BitSize), 2);
 
@@ -897,27 +832,11 @@ namespace Coding_Attempt_with_GUI
 
             var z1 = Convert.ToInt32(chromosome.ToBinaryString(geneNumber * InboardPoints["ToeLinkInboard"].BitSize, InboardPoints["ToeLinkInboard"].BitSize), 2);
 
+            geneNumber++;
+
+            var WishboneLength_1 = Convert.ToInt32(chromosome.ToBinaryString(geneNumber * BitSize, BitSize), 2);
 
 
-
-
-
-            GAOrientation["NewOrientation1"].OptimizedOrigin = new Point3D();
-
-            GAOrientation["NewOrientation1"].OptimizedOrigin.X = System.Math.Round((OriginX1 * rOriginX) + (0 + GAOrientation[coordinateName].Lower_Origin.X) /*+ SCM.InputOriginX*/, 3);
-
-            GAOrientation["NewOrientation1"].OptimizedOrigin.Y = System.Math.Round((OriginY1 * rOriginY) + (0 + GAOrientation[coordinateName].Lower_Origin.Y) /*+ SCM.InputOriginY*/, 3);
-
-            GAOrientation["NewOrientation1"].OptimizedOrigin.Z = System.Math.Round((OriginZ1 * rOriginZ) + (0 + GAOrientation[coordinateName].Lower_Origin.Z) /*+ SCM.InputOriginZ*/, 3);
-
-
-            Angle OptimizedAlpha = new Angle(System.Math.Round((EulerAlpha1 * rEulerAlpha) + (0 + GAOrientation[coordinateName].Lower_Orientation.Alpha.Degrees), 3), AngleUnit.Degrees);
-
-            Angle OptimizedBeta = new Angle(System.Math.Round((EulerBeta1 * rEulerBeta) + (0 + GAOrientation[coordinateName].Lower_Orientation.Beta.Degrees), 3), AngleUnit.Degrees);
-
-            Angle OptimizedGamma = new Angle(System.Math.Round((EulerGamma1 * rEulerGamma) + (0 + GAOrientation[coordinateName].Lower_Orientation.Gamma.Degrees), 3), AngleUnit.Degrees);
-
-            GAOrientation["NewOrientation1"].OptimizedEulerAngles = new MathNet.Spatial.Euclidean.EulerAngles(OptimizedAlpha, OptimizedBeta, OptimizedGamma);
 
 
             // multiply by the appropriate range constant and adjust for any offset 
@@ -931,53 +850,35 @@ namespace Coding_Attempt_with_GUI
             InboardPoints["ToeLinkInboard"].OptimizedCoordinates.Y = System.Math.Round((y1 * rcy) + (InboardPoints["ToeLinkInboard"].NominalCoordinates.Y + InboardPoints["ToeLinkInboard"].LowerCoordinateLimit.Y) + SCM.InputOriginY, 3);
             InboardPoints["ToeLinkInboard"].OptimizedCoordinates.Z = System.Math.Round((z1 * rcz) + (InboardPoints["ToeLinkInboard"].NominalCoordinates.Z + InboardPoints["ToeLinkInboard"].LowerCoordinateLimit.Z) + SCM.InputOriginZ, 3);
 
-
-            //var rWishboneLength = GAF.Math.GetRangeConstant(UpperWishboneLinkLength - LowerWishboneLinkLength, BitSize);
-
-            //var WishboneLength_1 = Convert.ToInt32(chromosome.ToBinaryString(190, BitSize),2);
-
-            //WishboneLinkLength = System.Math.Round((WishboneLength_1 * rWishboneLength) + (LowerWishboneLinkLength), 3);
+            WishboneLinkLength = System.Math.Round((WishboneLength_1 * rWishboneLength) + (LowerWishboneLinkLength), 3);
 
         }
 
         private void Update_GADataTable(string _solutionName)
         {
-            Ga_Values.Rows.Add(_solutionName, GAOrientation["NewOrientation1"], 0, InboardPoints["ToeLinkInboard"], 0, WishboneLinkLength, 0, false, 0);
+            //Ga_Values.Rows.Add(_solutionName, GAOrientation["NewOrientation1"], 0, InboardPoints["ToeLinkInboard"], 0, WishboneLinkLength, 0, false, 0);
         }
 
         private double EvaluateRMSError(int rowIndex)
         {
-            List<double> orientationError_1 = EvaluateUpdatedOrientation(GAOrientation["NewOrientation1"]);
-
+            SolveKinematics();
+            
             Update_SuspensionCoordinateData();
 
             double bumpSteerError = EvaluateBumpSteer(InboardPoints["ToeLinkInboard"].OptimizedCoordinates.X, InboardPoints["ToeLinkInboard"].OptimizedCoordinates.Y, InboardPoints["ToeLinkInboard"].OptimizedCoordinates.Z);
 
             double casterError = ComputeCasterError();
 
-            double orientationError = 0;
-
-            for (int i = 0; i < orientationError_1.Count; i++)
-            {
-                orientationError += (orientationError_1[i] * orientationError_1[i]);
-            }
-
-            //double variableLinkLengthError = EvaluateVariableLinkLengthError();
-
-            //bumpSteerError = 0;
-
-            //orientationError = 0;
-
-            double rmsError = System.Math.Sqrt((System.Math.Pow(bumpSteerError, 2) + orientationError + System.Math.Pow(casterError, 2)));
+            double rmsError = System.Math.Sqrt((System.Math.Pow(bumpSteerError, 2) + System.Math.Pow(casterError, 2)));
             //double rmsError = bumpSteerError;
 
 
-            Ga_Values.Rows[rowIndex].SetField<double>("Orientation Fitness", orientationError);
-            Ga_Values.Rows[rowIndex].SetField<double>("Bump Steer Fitness", bumpSteerError);
-            Ga_Values.Rows[rowIndex].SetField<double>("RMS Fitness", 1 - rmsError);
+            //Ga_Values.Rows[rowIndex].SetField<double>("Orientation Fitness", orientationError);
+            //Ga_Values.Rows[rowIndex].SetField<double>("Bump Steer Fitness", bumpSteerError);
+            //Ga_Values.Rows[rowIndex].SetField<double>("RMS Fitness", 1 - rmsError);
 
-            //GetParetoSolutions();
-
+            EvaluateWishboneConstraints();
+            
             if (rmsError > 1 )
             {
                 return 0.99;
@@ -1001,12 +902,11 @@ namespace Coding_Attempt_with_GUI
                 {
                     paretoOrientations.Add(Ga_Values.Rows[i].Field<double>("Orientation Fitness").ToString() + i, Ga_Values.Rows[i].Field<OptimizedOrientation>("Orientation"));
                     paretoToeLink.Add(Ga_Values.Rows[i].Field<double>("Bump Steer Fitness").ToString() + i, Ga_Values.Rows[i].Field<OptimizedCoordinate>("Toe Link Inboard").OptimizedCoordinates);
-
                 }
-
             }
         }
 
+        #region --- NOT NEEDED IN THIS ITERATION---
         private List<double> EvaluateUpdatedOrientation(OptimizedOrientation _OptimizationOrientation)
         {
             Transformation TransformationMatrix = GenerateTransformationMatrix(_OptimizationOrientation.OptimizedEulerAngles, _OptimizationOrientation.OptimizedOrigin);
@@ -1093,7 +993,7 @@ namespace Coding_Attempt_with_GUI
             Transformation TransformationMatrix = new Transformation(FinalTransformation.ToArray());
 
             return TransformationMatrix;
-            
+
         }
 
         private void UpdateOrientation(Transformation _transformationMatrix)
@@ -1116,19 +1016,19 @@ namespace Coding_Attempt_with_GUI
 
             double TopFrontLength = System.Math.Round(SCM.UpperFrontLength, 3);
 
-            double TopFrontLength_UpdatedOrientation = System.Math.Round(UnsprungAssembly["UBJ"].OptimizedCoordinates.DistanceTo(TopFront),3);
+            double TopFrontLength_UpdatedOrientation = System.Math.Round(UnsprungAssembly["UBJ"].OptimizedCoordinates.DistanceTo(TopFront), 3);
 
             double TopRearLength = System.Math.Round(SCM.UpperRearLength, 3);
 
             double TopRearLength_UpdatedOrientation = System.Math.Round(UnsprungAssembly["UBJ"].OptimizedCoordinates.DistanceTo(TopRear), 3);
 
-            double BottomFrontLength = System.Math.Round(SCM.LowerFrontLength,3);
+            double BottomFrontLength = System.Math.Round(SCM.LowerFrontLength, 3);
 
-            double BottomFrontLength_UpdatedOrientation = System.Math.Round(UnsprungAssembly["LBJ"].OptimizedCoordinates.DistanceTo(BottomFront),3);
+            double BottomFrontLength_UpdatedOrientation = System.Math.Round(UnsprungAssembly["LBJ"].OptimizedCoordinates.DistanceTo(BottomFront), 3);
 
-            double BottomRearLength = System.Math.Round(SCM.LowerRearLength,3);
+            double BottomRearLength = System.Math.Round(SCM.LowerRearLength, 3);
 
-            double BottomRearLength_UpdatedOrientation = System.Math.Round(UnsprungAssembly["LBJ"].OptimizedCoordinates.DistanceTo(BottomRear),3);
+            double BottomRearLength_UpdatedOrientation = System.Math.Round(UnsprungAssembly["LBJ"].OptimizedCoordinates.DistanceTo(BottomRear), 3);
 
             double ToeLinkLength = System.Math.Round(SCM.ToeLinkLength, 3);
 
@@ -1151,7 +1051,7 @@ namespace Coding_Attempt_with_GUI
 
             linkLengthError += System.Math.Pow(CalculateLinkLengthError(PushrodLength, PushrodLength_UpdatedOrientation), 2);
 
-            linkLengthError /= /*6*/1 ;
+            linkLengthError /= /*6*/1;
 
             linkLengthError = System.Math.Sqrt(linkLengthError);
 
@@ -1168,18 +1068,22 @@ namespace Coding_Attempt_with_GUI
             double difference = ((_calculated - _original));
 
             double error = ((difference / _original/*10*/));
-            
+
             return error;
         }
+        #endregion
 
         private void Update_SuspensionCoordinateData()
         {
             Dictionary<string, Point3D> SuspensionCoordintes = ConvertTo_PointDictionary();
 
-            SCM.CloneSuspensionData(SuspensionCoordintes);
+            SCM.Clone_Outboard_FromDictionary(SuspensionCoordintes);
+
+            tempAxisLines["SteeringAxis"] = new Line(UnsprungAssembly["UBJ"].OptimizedCoordinates, UnsprungAssembly["LBJ"].OptimizedCoordinates);
+
         }
 
-        private Dictionary<string,Point3D> ConvertTo_PointDictionary()
+        private Dictionary<string, Point3D> ConvertTo_PointDictionary()
         {
             Dictionary<string, Point3D> suspCoordinates = new Dictionary<string, Point3D>();
 
@@ -1191,6 +1095,45 @@ namespace Coding_Attempt_with_GUI
             return suspCoordinates;
         }
 
+        private void SolveKinematics()
+        {
+            dwSolver.AssignLocalCoordinateVariables_FixesPoints(SCM_Clone);
+            dwSolver.AssignLocalCoordinateVariables_MovingPoints(SCM_Clone);
+
+            OutputClass tempOC = new OutputClass();
+            //QuadraticEquationSolver.simType = SimulationType.Optimization;
+
+            dwSolver.CalculateSteeringAxis_Outboard(WishboneLinkLength, Vehicle, Identifier, tempOC, out double fx, out double fy, out double fz, out double ex, out double ey, out double ez);
+
+            dwSolver.CalculatePushrod_Outboard(Vehicle, Identifier, tempOC, out double gx, out double gy, out double gz);
+
+            dwSolver.CalculateToeLink_Outboard(Vehicle, Identifier, tempOC, out double mx, out double my, out double mz);
+
+            dwSolver.CalculateWheelSpindle_Outboard(Vehicle, Identifier, tempOC, out double kx, out double ky, out double kz, out double lx, out double ly, out double lz);
+
+            dwSolver.CalculateContactPatch_Outboard(Vehicle, Identifier, tempOC, out double wx, out double wy, out double wz);
+
+            UnsprungAssembly["UBJ"].OptimizedCoordinates = new Point3D(fx, fy, fz);
+
+            UnsprungAssembly["LBJ"].OptimizedCoordinates = new Point3D(ex, ey, ez);
+
+            UnsprungAssembly["Pushrod"].OptimizedCoordinates = new Point3D(gx, gy, gz);
+
+            UnsprungAssembly["ToeLinkOutboard"].OptimizedCoordinates = new Point3D(mx, my, mz);
+
+            UnsprungAssembly["WcStart"].OptimizedCoordinates = new Point3D(kx, ky, kz);
+
+            UnsprungAssembly["WcEnd"].OptimizedCoordinates = new Point3D(lx, ly, lz);
+
+            UnsprungAssembly["ContactPatch"].OptimizedCoordinates = new Point3D(wx, wy, wz);
+
+
+
+
+        }
+
+        DoubleWishboneKinematicsSolver dwSolver = new DoubleWishboneKinematicsSolver();
+
         private double ComputeCasterError()
         {
             Angle dCaster_New = SetupChangeDatabase.AngleInRequiredView(Custom3DGeometry.GetMathNetVector3D(tempAxisLines["SteeringAxis"]),
@@ -1198,18 +1141,9 @@ namespace Coding_Attempt_with_GUI
                                                                         Custom3DGeometry.GetMathNetVector3D(tempAxisLines["LateralAxis_WheelCenter"]));
             Angle staticCaster = new Angle(-2.36, AngleUnit.Degrees);
 
-            double casterError = ((staticCaster.Degrees - 2) - (dCaster_New.Degrees - 2)) / staticCaster.Degrees;
+            double casterError = ((dCaster_New.Degrees - 2) - (staticCaster.Degrees - 2)) / staticCaster.Degrees;
 
-            //if (casterError > 1)
-            //{
-            //    return 0.99;
-            //}
-            //else if (casterError < 0)
-            //{
-            //    return 0.99;
-            //}
-            //else
-                return (casterError);
+            return (casterError);
 
 
         }
@@ -1229,8 +1163,6 @@ namespace Coding_Attempt_with_GUI
             int StepSize = 1;
 
             Point3D InboardPickUpPoint = new Point3D(_xCoord, _yCoord, _zCoord);
-
-            DoubleWishboneKinematicsSolver dwSolver = new DoubleWishboneKinematicsSolver();
 
             ///<summary>Assigning the Simulation Type in the <see cref="DoubleWishboneKinematicsSolver"/></summary>
             dwSolver.SimulationType = SimulationType.Optimization;
@@ -1407,10 +1339,9 @@ namespace Coding_Attempt_with_GUI
                 if (i != SuspensionEvalIterations - 1)
                 {
 
-                    ErrorCalc_Step1.Add(new Angle(/*CalculateScaledError*/(UserBumpSteerCurve[i].Degrees - _toeAngle[i].Degrees), AngleUnit.Degrees));
+                    //ErrorCalc_Step1.Add(new Angle((_toeAngle[i].Degrees - UserBumpSteerCurve[i].Degrees) , AngleUnit.Degrees));
 
-                    //ErrorCalc_Step1.Add(new Angle(((UserBumpSteerCurve[i].Degrees - _toeAngle[i].Degrees) / UserBumpSteerCurve[i].Degrees), AngleUnit.Degrees));
-
+                    ErrorCalc_Step1.Add(new Angle(((_toeAngle[i].Degrees - UserBumpSteerCurve[i].Degrees) / UserBumpSteerCurve[i].Degrees), AngleUnit.Degrees));
                 }
                 else
                 {

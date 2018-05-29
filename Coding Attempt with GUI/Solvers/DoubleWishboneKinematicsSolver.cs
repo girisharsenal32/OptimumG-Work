@@ -355,8 +355,159 @@ namespace Coding_Attempt_with_GUI
 
         #endregion
 
-        #region Remaining Outboard Points
 
+        //---COMPUTING ONLY UNSPRUNG MASS COORDINATES FOR SETUP CHANGE---
+        public void CalculateSteeringAxis_Outboard(double _dWishbone, Vehicle _vehicleOut, int _identifierOut, OutputClass _ocOut, out double XF1, out double YF1, out double ZF1, out double XE1, out double YE1, out double ZE1)
+        {
+            // TO CALCULATE THE NEW POSITION OF F i.e., TO CALCULATE F' or E' depending upon whether it is pullrod or  pushrod and if pushrod is housed by Lpper or Lower Wishbone 
+            XF1 = 0; YF1 = 0; ZF1 = 0; XE1 = 0; YE1 = 0; ZE1 = 0;
+
+            if ((_vehicleOut.PullRodIdentifierFront == 1) && ((_identifierOut == 1) || (_identifierOut == 2))) // Imples that Front is a Pull Rod System
+            {
+                // To Calculate New Position of F i.e, to Calculate F' for Front when it is a Pull Rod System
+                // Vectors used -> F'G', F'A & F'B 
+                QuadraticEquationSolver.Solver(l_F1x, l_F1y, l_F1z, l_H1x, l_H1y, l_H1z, 0, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, l_H1x, l_H1y, l_H1z, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, /*_ocOut.scmOP.H1y*/ l_H1y, false, out XF1, out YF1, out ZF1);
+
+                // TO CALCULATE THE NEW POSITION OF E i.e., TO CALCULATE E' When it is a PullRod System
+                // Vectors used -> E'F', E'C & E'D   
+                QuadraticEquationSolver.Solver(l_E1x, l_E1y, l_E1z, l_F1x, l_F1y, l_F1z, 0, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, XF1, YF1, ZF1, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, YF1, true, out XE1, out YE1, out ZE1);
+
+            }
+            else if ((_vehicleOut.PullRodIdentifierRear == 1) && ((_identifierOut == 3) || (_identifierOut == 4))) // Imples that Rear is a Pull Rod System
+            {
+                // To Calculate New Position of F for Rear i.e, to Calculate F' when it is a Pull Rod System
+                // Vectors used -> F'G', F'A & F'B 
+                QuadraticEquationSolver.Solver(l_F1x, l_F1y, l_F1z, l_H1x, l_H1y, l_H1z, 0, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, l_H1x, l_H1y, l_H1z, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, /*_ocOut.scmOP.H1y*/ l_H1y, false, out XF1, out YF1, out ZF1);
+
+                // TO CALCULATE THE NEW POSITION OF E i.e., TO CALCULATE E' When it is a PullRod System
+                // Vectors used -> E'F', E'C & E'D   
+                QuadraticEquationSolver.Solver(l_E1x, l_E1y, l_E1z, l_F1x, l_F1y, l_F1z, 0, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, XF1, YF1, ZF1, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, YF1, true, out XE1, out YE1, out ZE1);
+
+            }
+            else if (l_G1y >= l_F1y) // Implies that it is a PushRod System and the the Upper Wishbone houses the Pushrod
+            {
+                QuadraticEquationSolver.simType = SimulationType.Optimization;
+                QuadraticEquationSolver.WishboneLengthChange = _dWishbone;
+                // TO CALCULATE THE NEW POSITION OF F i.e., TO CALCULATE F' When Pushrod is housed by Upper Wishbone
+                // Vectors used -> F'G', F'A & F'B 
+                QuadraticEquationSolver.Solver(l_F1x, l_F1y, l_F1z, l_H1x, l_H1y, l_H1z, 0, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, l_H1x, l_H1y, l_H1z, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, /*_ocOut.scmOP.H1y*/ l_H1y, true, out XF1, out YF1, out ZF1);
+                QuadraticEquationSolver.WishboneLengthChange = 0;
+                QuadraticEquationSolver.simType = SimulationType.Dummy;
+
+                // TO CALCULATE THE NEW POSITION OF E i.e., TO CALCULATE E' When Pushrod is housed by Upper Wishbone
+                // Vectors used -> E'F', E'C & E'D   
+                QuadraticEquationSolver.Solver(l_E1x, l_E1y, l_E1z, l_F1x, l_F1y, l_F1z, 0, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, XF1, YF1, ZF1, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, YF1, true, out XE1, out YE1, out ZE1);
+
+            }
+            else if ((l_G1y >= l_E1y) && (l_G1y < l_F1y)) // Implies that the Pushrod is housed by the Lower Wishbone
+            {
+                // TO CALCULATE THE NEW POSITION OF E i.e., TO CALCULATE E' When Pushrod is housed by Lower Wishbone
+                QuadraticEquationSolver.Solver(l_E1x, l_E1y, l_E1z, l_H1x, l_H1y, l_H1z, 0, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, l_H1x, l_H1y, l_H1z, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, /*_ocOut.scmOP.G1y*/ l_H1y, true, out XE1, out YE1, out ZE1);
+
+                // TO CALCULATE THE NEW POSITION OF F i.e., TO CALCULATE F' When Pushrod is housed by Lower Wishbone
+                QuadraticEquationSolver.Solver(l_F1x, l_F1y, l_F1z, l_E1x, l_E1y, l_E1z, 0, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, XE1, YE1, ZE1, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, _ocOut.scmOP./*G*/E1y, false, out XF1, out YF1, out ZF1);
+
+            }
+
+            _ocOut.scmOP.F1x = XF1;
+            _ocOut.scmOP.F1y = YF1;
+            _ocOut.scmOP.F1z = ZF1;
+
+            _ocOut.scmOP.E1x = XE1;
+            _ocOut.scmOP.E1y = YE1;
+            _ocOut.scmOP.E1z = ZE1;
+
+            if ((l_G1y >= l_E1y) && (l_G1y < l_F1y))
+            {
+                CalculateFinalMotionRatio(_ocOut, _ocOut.scmOP, false);
+            }
+            else CalculateFinalMotionRatio(_ocOut, _ocOut.scmOP, true);
+        }
+
+        public void CalculatePushrod_Outboard(Vehicle _vehicleOut, int _identifierOut, OutputClass _ocOut, out double XG1, out double YG1, out double ZG1)
+        {
+            // TO CALCULATE THE NEW POSITION OF G i.e., TO CALCULATE G'
+            // Vectors used -> G'H', G'B' & G'A'   
+
+            XG1 = 0; YG1 = 0; ZG1 = 0;
+            if ((_vehicleOut.PullRodIdentifierFront == 1) && ((_identifierOut == 1) || (_identifierOut == 2))) // To calculate the points for a Pull Rod System in the Front
+            { QuadraticEquationSolver.Solver(l_G1x, l_G1y, l_G1z, l_F1x, l_F1y, l_F1z, 0, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, l_H1y, false, out XG1, out YG1, out ZG1); }
+
+            else if ((_vehicleOut.PullRodIdentifierRear == 1) && ((_identifierOut == 3) || (_identifierOut == 4))) // To calculate the points for a Pull Rod System in the Rear
+            { QuadraticEquationSolver.Solver(l_G1x, l_G1y, l_G1z, l_F1x, l_F1y, l_F1z, 0, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, l_H1y, false, out XG1, out YG1, out ZG1); }
+
+            else if ((l_G1y >= l_F1y)) // Implies that the the Upper Wishbone houses the Pushrod
+            { QuadraticEquationSolver.Solver(l_G1x, l_G1y, l_G1z, l_F1x, l_F1y, l_F1z, 0, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, l_H1y, true, out XG1, out YG1, out ZG1); }
+
+            else if ((l_G1y >= l_E1y) && (l_G1y < l_F1y)) // Implies that the Lower Wishbone houses the Pushrod
+            { QuadraticEquationSolver.Solver(l_G1x, l_G1y, l_G1z, l_E1x, l_E1y, l_D1z, 0, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, l_H1y, true, out XG1, out YG1, out ZG1); }
+
+
+            _ocOut.scmOP.G1x = XG1;
+            _ocOut.scmOP.G1y = YG1;
+            _ocOut.scmOP.G1z = ZG1;
+        }
+
+        public void CalculateToeLink_Outboard(Vehicle _vehicleOut, int _identifierOut, OutputClass _ocOut, out double XM1, out double YM1, out double ZM1)
+        {
+            // TO CALCULATE THE NEW POSITION OF M i.e., TO CALCULATE M'
+            // Vectors used -> M'E', M'F' & M'N  
+            XM1 = 0; YM1 = 0; ZM1 = 0;
+            QuadraticEquationSolver.Solver(l_M1x, l_M1y, l_M1z, l_E1x, l_E1y, l_E1z, 0, l_F1x, l_F1y, l_F1z, l_N1x, l_N1y, l_N1z, _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z, 
+                                           l_N1x, l_N1y, l_N1z, l_K1y + l_K1y + Math.Abs(l_W1y), true, out XM1, out YM1, out ZM1);
+
+            _ocOut.scmOP.M1x = XM1;
+            _ocOut.scmOP.M1y = YM1;
+            _ocOut.scmOP.M1z = ZM1;
+
+            _ocOut.scmOP.N1x = l_N1x;
+            _ocOut.scmOP.N1y = l_N1y;
+            _ocOut.scmOP.N1z = l_N1z;
+
+        }
+
+        public void CalculateWheelSpindle_Outboard(Vehicle _vehicleOut, int _identifierOut, OutputClass _ocOut, out double XK1, out double YK1, out double ZK1, out double XL1, out double YL1, out double ZL1)
+        {
+            // TO CALCULATE THE NEW POSITION OF M i.e., TO CALCULATE M'
+            // Vectors used -> M'E', M'F' & M'N  
+            XK1 = YK1 = ZK1 = 0;
+            QuadraticEquationSolver.Solver(l_K1x, l_K1y, l_K1z, l_M1x, l_M1y, l_M1z, 0, l_F1x, l_F1y, l_F1z, l_E1x, l_E1y, l_E1z, _ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z, 
+                                           _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, _ocOut.scmOP.E1y, false, out XK1, out YK1, out ZK1);
+
+            _ocOut.scmOP.K1x = XK1;
+            _ocOut.scmOP.K1y = YK1;
+            _ocOut.scmOP.K1z = ZK1;
+
+
+            // TO CALCULATE THE NEW POSITION OF L i.e., TO CALCULATE L'
+            // Vectors used -> L'M', L'F' & L'E'   
+            // THE INITIAL COORDINATES OF L SHOULD NOT BE TAKEN FROM USER. THEY SHOULD BE CALCULATED USING 'K' , THE INPUT CAMBER AND TOE
+            XL1 = 0; YL1 = 0; ZL1 = 0;
+            QuadraticEquationSolver.Solver(l_K1x + 157.48, l_K1y, l_K1z, l_M1x, l_M1y, l_M1z, 0, l_F1x, l_F1y, l_F1z, l_E1x, l_E1y, l_E1z, _ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z,
+                                           _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, _ocOut.scmOP.E1y, false, out XL1, out YL1, out ZL1);
+
+            _ocOut.scmOP.L1x = XL1;
+            _ocOut.scmOP.L1y = YL1;
+            _ocOut.scmOP.L1z = ZL1;
+
+        }
+
+        public void CalculateContactPatch_Outboard(Vehicle _vehicleOut, int _identifierOut, OutputClass _ocOut, out double XW1, out double YW1, out double ZW1)
+        {
+
+            //Contact Patch is seperately calculated because after an initial sweep of calculation of all points, the contact patch alone is recalculated to account for steering 
+            // TO CALCULATE THE NEW POSITION OF W i.e., TO CALCULATE W'
+            // Vectors used -> W'M', W'F' & W'E'
+            XW1 = 0; YW1 = 0; ZW1 = 0;
+            QuadraticEquationSolver.Solver(l_W1x, l_W1y, l_W1z, l_K1x+157.48, l_K1y, l_K1z, 0, l_F1x, l_F1y, l_F1z, l_E1x, l_E1y, l_E1z, _ocOut.scmOP.L1x, _ocOut.scmOP.L1y, _ocOut.scmOP.L1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z,
+                                                                                                                                        _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, _ocOut.scmOP.E1y, true, out XW1, out YW1, out ZW1);
+
+            _ocOut.scmOP.W1x = XW1;
+            _ocOut.scmOP.W1y = YW1;
+            _ocOut.scmOP.W1z = ZW1;
+        }
+
+        #region Remaining Outboard Points
         /// <summary>
         /// Method to calculalte all the remaining Outboard Points. Only exception is the Point which is not really an Outboard Point
         /// </summary>
@@ -400,11 +551,8 @@ namespace Coding_Attempt_with_GUI
                 // Vectors used -> F'G', F'A & F'B 
                 QuadraticEquationSolver.Solver(l_F1x, l_F1y, l_F1z, l_G1x, l_G1y, l_G1z, 0, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, _ocOut.scmOP.G1x, _ocOut.scmOP.G1y, _ocOut.scmOP.G1z, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, _ocOut.scmOP.G1y, false, out XF1, out YF1, out ZF1);
 
-                //CalculateFinalMotionRatio(_ocOut, _scmOut, true);
-
                 // TO CALCULATE THE NEW POSITION OF E i.e., TO CALCULATE E' When it is a PullRod System
                 // Vectors used -> E'F', E'C & E'D   
-                //QuadraticEquationSolver.Solver(l_E1x, l_E1y, l_E1z, l_F1x, l_F1y, l_F1z, 0, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, _ocOut.scmOP.G1y, true, out XE1, out YE1, out ZE1);
                 QuadraticEquationSolver.Solver(l_E1x, l_E1y, l_E1z, l_F1x, l_F1y, l_F1z, 0, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, XF1, YF1, ZF1, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, _ocOut.scmOP.G1y, true, out XE1, out YE1, out ZE1);
 
             }
@@ -414,11 +562,8 @@ namespace Coding_Attempt_with_GUI
                 // Vectors used -> F'G', F'A & F'B 
                 QuadraticEquationSolver.Solver(l_F1x, l_F1y, l_F1z, l_G1x, l_G1y, l_G1z, 0, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, _ocOut.scmOP.G1x, _ocOut.scmOP.G1y, _ocOut.scmOP.G1z, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, _ocOut.scmOP.G1y, false, out XF1, out YF1, out ZF1);
 
-                //CalculateFinalMotionRatio(_ocOut, _scmOut, true);
-
                 // TO CALCULATE THE NEW POSITION OF E i.e., TO CALCULATE E' When it is a PullRod System
                 // Vectors used -> E'F', E'C & E'D   
-                //QuadraticEquationSolver.Solver(l_E1x, l_E1y, l_E1z, l_F1x, l_F1y, l_F1z, 0, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, _ocOut.scmOP.G1y, true, out XE1, out YE1, out ZE1);
                 QuadraticEquationSolver.Solver(l_E1x, l_E1y, l_E1z, l_F1x, l_F1y, l_F1z, 0, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, XF1, YF1, ZF1, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, _ocOut.scmOP.G1y, true, out XE1, out YE1, out ZE1);
 
             }
@@ -429,11 +574,8 @@ namespace Coding_Attempt_with_GUI
                 // Vectors used -> F'G', F'A & F'B 
                 QuadraticEquationSolver.Solver(l_F1x, l_F1y, l_F1z, l_G1x, l_G1y, l_G1z, 0, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, _ocOut.scmOP.G1x, _ocOut.scmOP.G1y, _ocOut.scmOP.G1z, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, _ocOut.scmOP.G1y, true, out XF1, out YF1, out ZF1);
 
-                //CalculateFinalMotionRatio(_ocOut, _scmOut, true);
-
                 // TO CALCULATE THE NEW POSITION OF E i.e., TO CALCULATE E' When Pushrod is housed by Upper Wishbone
                 // Vectors used -> E'F', E'C & E'D   
-                //QuadraticEquationSolver.Solver(l_E1x, l_E1y, l_E1z, l_F1x, l_F1y, l_F1z, 0, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, _ocOut.scmOP.F1y, true, out XE1, out YE1, out ZE1);
                 QuadraticEquationSolver.Solver(l_E1x, l_E1y, l_E1z, l_F1x, l_F1y, l_F1z, 0, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, XF1, YF1, ZF1, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, _ocOut.scmOP.G1y, true, out XE1, out YE1, out ZE1);
 
             }
@@ -442,10 +584,7 @@ namespace Coding_Attempt_with_GUI
                 // TO CALCULATE THE NEW POSITION OF E i.e., TO CALCULATE E' When Pushrod is housed by Lower Wishbone
                 QuadraticEquationSolver.Solver(l_E1x, l_E1y, l_E1z, l_G1x, l_G1y, l_G1z, 0, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, _ocOut.scmOP.G1x, _ocOut.scmOP.G1y, _ocOut.scmOP.G1z, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, _ocOut.scmOP.G1y, true, out XE1, out YE1, out ZE1);
 
-                //CalculateFinalMotionRatio(_ocOut, _scmOut, false);
-
                 // TO CALCULATE THE NEW POSITION OF F i.e., TO CALCULATE F' When Pushrod is housed by Lower Wishbone
-                //QuadraticEquationSolver.Solver(l_F1x, l_F1y, l_F1z, l_E1x, l_E1y, l_E1z, 0, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, _ocOut.scmOP.G1y, false, out XF1, out YF1, out ZF1);
                 QuadraticEquationSolver.Solver(l_F1x, l_F1y, l_F1z, l_E1x, l_E1y, l_E1z, 0, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, XE1, YE1, ZE1, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, _ocOut.scmOP.G1y, false, out XF1, out YF1, out ZF1);
 
             }
@@ -470,7 +609,7 @@ namespace Coding_Attempt_with_GUI
             {
                 // TO CALCULATE THE NEW POSITION OF M i.e., TO CALCULATE M'
                 // Vectors used -> M'E', M'F' & M'N  
-                double XM1 = 0, YM1 = 0, ZM1 = 0/*, XM2 = 0, YM2 = 0, ZM2 = 0*/;
+                double XM1 = 0, YM1 = 0, ZM1 = 0;
                 QuadraticEquationSolver.Solver(l_M1x, l_M1y, l_M1z, l_E1x, l_E1y, l_E1z, 0, l_F1x, l_F1y, l_F1z, l_N1x, l_N1y, l_N1z, _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z, l_N1x, l_N1y, l_N1z, l_K1y + l_K1y + Math.Abs(l_W1y), true, out XM1, out YM1, out ZM1);
 
                 _ocOut.scmOP.M1x = XM1;
@@ -836,7 +975,7 @@ namespace Coding_Attempt_with_GUI
 
                     #region Calculating the Steering Axis Points and the Wheel Centre point --- F, then E, then K
                     ///<summary>
-                    ///---OBSOLETE---DELETE EVENTUALL. DONT USE. I DESTROYS THE ORDER OF SOLVING THE POINTS WHICH IS CRUCIAL 
+                    ///---OBSOLETE---IMPORTANT NOTE. DONT USE. I DESTROYS THE ORDER OF SOLVING THE POINTS WHICH IS CRUCIAL 
                     /// Seperate method which can be acccessed by the <see cref="SolverMasterClass"/> Class for the purpose of <see cref="SetupChange"/
                     /// ></summary>
                     //CalcualteSteeringAxisPoints(Identifier, _vehicleKinematicsDWSolver, oc[dummy1], scm, true); 
