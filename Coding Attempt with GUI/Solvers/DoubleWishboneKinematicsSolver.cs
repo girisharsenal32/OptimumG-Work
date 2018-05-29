@@ -388,6 +388,7 @@ namespace Coding_Attempt_with_GUI
             {
                 QuadraticEquationSolver.simType = SimulationType.Optimization;
                 QuadraticEquationSolver.WishboneLengthChange = _dWishbone;
+                QuadraticEquationSolver.ToeLinkLengthChange = 0;
                 // TO CALCULATE THE NEW POSITION OF F i.e., TO CALCULATE F' When Pushrod is housed by Upper Wishbone
                 // Vectors used -> F'G', F'A & F'B 
                 QuadraticEquationSolver.Solver(l_F1x, l_F1y, l_F1z, l_H1x, l_H1y, l_H1z, 0, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, l_H1x, l_H1y, l_H1z, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, /*_ocOut.scmOP.H1y*/ l_H1y, true, out XF1, out YF1, out ZF1);
@@ -448,13 +449,19 @@ namespace Coding_Attempt_with_GUI
             _ocOut.scmOP.G1z = ZG1;
         }
 
-        public void CalculateToeLink_Outboard(Vehicle _vehicleOut, int _identifierOut, OutputClass _ocOut, out double XM1, out double YM1, out double ZM1)
+        public void CalculateToeLink_Outboard(double _dToeLink, Vehicle _vehicleOut, int _identifierOut, OutputClass _ocOut, out double XM1, out double YM1, out double ZM1)
         {
+            QuadraticEquationSolver.simType = SimulationType.Optimization;
+            QuadraticEquationSolver.ToeLinkLengthChange = _dToeLink;
+            QuadraticEquationSolver.WishboneLengthChange = 0;
             // TO CALCULATE THE NEW POSITION OF M i.e., TO CALCULATE M'
             // Vectors used -> M'E', M'F' & M'N  
             XM1 = 0; YM1 = 0; ZM1 = 0;
             QuadraticEquationSolver.Solver(l_M1x, l_M1y, l_M1z, l_E1x, l_E1y, l_E1z, 0, l_F1x, l_F1y, l_F1z, l_N1x, l_N1y, l_N1z, _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z, 
                                            l_N1x, l_N1y, l_N1z, l_K1y + l_K1y + Math.Abs(l_W1y), true, out XM1, out YM1, out ZM1);
+            QuadraticEquationSolver.ToeLinkLengthChange = 0;
+            QuadraticEquationSolver.simType = SimulationType.Dummy;
+
 
             _ocOut.scmOP.M1x = XM1;
             _ocOut.scmOP.M1y = YM1;

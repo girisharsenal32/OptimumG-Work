@@ -3092,10 +3092,6 @@ namespace Coding_Attempt_with_GUI
                                                                      Custom3DGeometry.GetMathNetVector3D(SetupChange_DB_Master.WheelSpindle.ViewLines.TopView.DeltaLine[0]),
                                                                      Custom3DGeometry.GetMathNetVector3D(SetupChange_DB_Master.WheelCentreAxis.Vertical));
 
-            //SetupChange_DB_Master.SetupChangeOPDictionary["Toe"] = dToe_New.Radians;
-
-            //SetupChange_CLS.ListHelper(SetupChange_CLS.Summ_dToe, SetupChange_CLS.Final_Toe, "Toe");
-
             ///<remarks>
             ///Why I need negative for Toe is mentioned in my OneNote section called "Epiphanies!" 
             ///In short; All the while I was imagining myself to be sitting in the car and hence in MY front view, CW was positive. But for C#, MathNet.Spatial and EYESHOT, FRONT VIEW is same as that of SolidWorks and hence for their Front View, positive rotation is CCW

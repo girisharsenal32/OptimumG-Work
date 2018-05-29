@@ -87,6 +87,12 @@ namespace Coding_Attempt_with_GUI
 
         double LowerWishboneLinkLength;
 
+        double ToeLinkLength;
+
+        double UpperToeLinkLength;
+
+        double LowerToeLinkLength;
+
         DataTable Ga_Values { get; set; }
 
         List<object> GA_Values_Params;
@@ -328,6 +334,10 @@ namespace Coding_Attempt_with_GUI
 
             LowerWishboneLinkLength = -10;
 
+            UpperToeLinkLength = 10;
+
+            LowerToeLinkLength = -10;
+
 
         }
 
@@ -560,7 +570,7 @@ namespace Coding_Attempt_with_GUI
         /// <returns>Returns <see cref=Boolean"/> to determine if the Algoritm should termine or not </returns>
         private bool TerminateAlgorithm(Population _population, int _currGeneration, long currEvaluation)
         {
-            if (_currGeneration > 40)
+            if (_currGeneration > 100)
            {
                 ///<summary>Extracting the BEST <see cref="Chromosome"/> from the <see cref="Population"/></summary>
                 var chromosome = _population.GetTop(1)[0];
@@ -612,9 +622,9 @@ namespace Coding_Attempt_with_GUI
         //---TEMP--
         private void PopulateDictionaryTrial_2()
         {
-            Point3D Upper = new Point3D(100, 100, 10);
+            Point3D Upper = new Point3D(2, 20, 20);
 
-            Point3D Lower = new Point3D(-100, -100, -10);
+            Point3D Lower = new Point3D(-2, -20, -20);
 
 
             UnsprungAssembly = new Dictionary<string, OptimizedCoordinate>();
@@ -676,6 +686,12 @@ namespace Coding_Attempt_with_GUI
             tempAxisLines.Add("SteeringAxis_Ref", new Line(UBJ.Clone() as Point3D, LBJ.Clone() as Point3D));
 
             tempAxisLines.Add("LateralAxis_WheelCenter", new Line(WcStart.Clone() as Point3D, new Point3D(WcStart.X + 100, WcStart.Y, WcStart.Z)));
+
+            tempAxisLines.Add("WheelSpindle", new Line(WcStart.Clone() as Point3D, WcEnd.Clone() as Point3D));
+
+            tempAxisLines.Add("WheelSpindle_Ref", new Line(WcStart.Clone() as Point3D, WcEnd.Clone() as Point3D));
+
+            tempAxisLines.Add("VerticalAxis_WheelCenter", new Line(WcStart.Clone() as Point3D, new Point3D(WcStart.X, WcStart.Y + 100, WcStart.Z)));
 
         }
         #endregion
@@ -811,33 +827,36 @@ namespace Coding_Attempt_with_GUI
         {
             int geneNumber = 0;
 
-            var rcx = GAF.Math.GetRangeConstant(InboardPoints["ToeLinkInboard"].UpperCoordinateLimit.X - InboardPoints["ToeLinkInboard"].LowerCoordinateLimit.X, InboardPoints["ToeLinkInboard"].BitSize);
+            var rBSx = GAF.Math.GetRangeConstant(InboardPoints["ToeLinkInboard"].UpperCoordinateLimit.X - InboardPoints["ToeLinkInboard"].LowerCoordinateLimit.X, InboardPoints["ToeLinkInboard"].BitSize);
 
-            var rcy = GAF.Math.GetRangeConstant(InboardPoints["ToeLinkInboard"].UpperCoordinateLimit.Y - InboardPoints["ToeLinkInboard"].LowerCoordinateLimit.Y, InboardPoints["ToeLinkInboard"].BitSize);
+            var rBSy = GAF.Math.GetRangeConstant(InboardPoints["ToeLinkInboard"].UpperCoordinateLimit.Y - InboardPoints["ToeLinkInboard"].LowerCoordinateLimit.Y, InboardPoints["ToeLinkInboard"].BitSize);
 
-            var rcz = GAF.Math.GetRangeConstant(InboardPoints["ToeLinkInboard"].UpperCoordinateLimit.Z - InboardPoints["ToeLinkInboard"].LowerCoordinateLimit.Z, InboardPoints["ToeLinkInboard"].BitSize);
+            var rBSz = GAF.Math.GetRangeConstant(InboardPoints["ToeLinkInboard"].UpperCoordinateLimit.Z - InboardPoints["ToeLinkInboard"].LowerCoordinateLimit.Z, InboardPoints["ToeLinkInboard"].BitSize);
 
             var rWishboneLength = GAF.Math.GetRangeConstant(UpperWishboneLinkLength - LowerWishboneLinkLength, BitSize);
 
+            var rToeLinkLength = GAF.Math.GetRangeConstant(UpperToeLinkLength - LowerToeLinkLength, BitSize);
 
 
-
-            var x1 = Convert.ToInt32(chromosome.ToBinaryString(geneNumber* InboardPoints["ToeLinkInboard"].BitSize, InboardPoints["ToeLinkInboard"].BitSize), 2);
-
-            geneNumber++;
-
-            var y1 = Convert.ToInt32(chromosome.ToBinaryString(geneNumber * InboardPoints["ToeLinkInboard"].BitSize, InboardPoints["ToeLinkInboard"].BitSize), 2);
+            var xBS1 = Convert.ToInt32(chromosome.ToBinaryString(geneNumber* InboardPoints["ToeLinkInboard"].BitSize, InboardPoints["ToeLinkInboard"].BitSize), 2);
 
             geneNumber++;
 
-            var z1 = Convert.ToInt32(chromosome.ToBinaryString(geneNumber * InboardPoints["ToeLinkInboard"].BitSize, InboardPoints["ToeLinkInboard"].BitSize), 2);
+            var yBS1 = Convert.ToInt32(chromosome.ToBinaryString(geneNumber * InboardPoints["ToeLinkInboard"].BitSize, InboardPoints["ToeLinkInboard"].BitSize), 2);
+
+            geneNumber++;
+
+            var zBS1 = Convert.ToInt32(chromosome.ToBinaryString(geneNumber * InboardPoints["ToeLinkInboard"].BitSize, InboardPoints["ToeLinkInboard"].BitSize), 2);
 
             geneNumber++;
 
             var WishboneLength_1 = Convert.ToInt32(chromosome.ToBinaryString(geneNumber * BitSize, BitSize), 2);
 
+            geneNumber++;
 
+            var ToeLinkLength_1 = Convert.ToInt32(chromosome.ToBinaryString(geneNumber * BitSize, BitSize), 2);
 
+            geneNumber++;
 
             // multiply by the appropriate range constant and adjust for any offset 
             // in the range to get the real values
@@ -846,11 +865,14 @@ namespace Coding_Attempt_with_GUI
             ///Visit link above for more information on the code below
             /// </remarks>
             InboardPoints["ToeLinkInboard"].OptimizedCoordinates = new Point3D();
-            InboardPoints["ToeLinkInboard"].OptimizedCoordinates.X = System.Math.Round((x1 * rcx) + (InboardPoints["ToeLinkInboard"].NominalCoordinates.X + InboardPoints["ToeLinkInboard"].LowerCoordinateLimit.X) + SCM.InputOriginX, 3);
-            InboardPoints["ToeLinkInboard"].OptimizedCoordinates.Y = System.Math.Round((y1 * rcy) + (InboardPoints["ToeLinkInboard"].NominalCoordinates.Y + InboardPoints["ToeLinkInboard"].LowerCoordinateLimit.Y) + SCM.InputOriginY, 3);
-            InboardPoints["ToeLinkInboard"].OptimizedCoordinates.Z = System.Math.Round((z1 * rcz) + (InboardPoints["ToeLinkInboard"].NominalCoordinates.Z + InboardPoints["ToeLinkInboard"].LowerCoordinateLimit.Z) + SCM.InputOriginZ, 3);
+            InboardPoints["ToeLinkInboard"].OptimizedCoordinates.X = System.Math.Round((xBS1 * rBSx) + (InboardPoints["ToeLinkInboard"].NominalCoordinates.X + InboardPoints["ToeLinkInboard"].LowerCoordinateLimit.X) /*+ SCM.InputOriginX*/, 3);
+            InboardPoints["ToeLinkInboard"].OptimizedCoordinates.Y = System.Math.Round((yBS1 * rBSy) + (InboardPoints["ToeLinkInboard"].NominalCoordinates.Y + InboardPoints["ToeLinkInboard"].LowerCoordinateLimit.Y) /*+ SCM.InputOriginY*/, 3);
+            InboardPoints["ToeLinkInboard"].OptimizedCoordinates.Z = System.Math.Round((zBS1 * rBSz) + (InboardPoints["ToeLinkInboard"].NominalCoordinates.Z + InboardPoints["ToeLinkInboard"].LowerCoordinateLimit.Z) /*+ SCM.InputOriginZ*/, 3);
 
             WishboneLinkLength = System.Math.Round((WishboneLength_1 * rWishboneLength) + (LowerWishboneLinkLength), 3);
+
+            ToeLinkLength = System.Math.Round((ToeLinkLength_1 * rToeLinkLength) + (LowerToeLinkLength), 3);
+
 
         }
 
@@ -869,7 +891,9 @@ namespace Coding_Attempt_with_GUI
 
             double casterError = ComputeCasterError();
 
-            double rmsError = System.Math.Sqrt((System.Math.Pow(bumpSteerError, 2) + System.Math.Pow(casterError, 2)));
+            double toeError = ComputeToeError();
+
+            double rmsError = System.Math.Sqrt((System.Math.Pow(bumpSteerError, 2) + System.Math.Pow(casterError, 2) + System.Math.Pow(toeError, 2)));
             //double rmsError = bumpSteerError;
 
 
@@ -1081,6 +1105,8 @@ namespace Coding_Attempt_with_GUI
 
             tempAxisLines["SteeringAxis"] = new Line(UnsprungAssembly["UBJ"].OptimizedCoordinates, UnsprungAssembly["LBJ"].OptimizedCoordinates);
 
+            tempAxisLines["WheelSpindle"] = new Line(UnsprungAssembly["WcStart"].OptimizedCoordinates, UnsprungAssembly["WcEnd"].OptimizedCoordinates);
+
         }
 
         private Dictionary<string, Point3D> ConvertTo_PointDictionary()
@@ -1099,6 +1125,8 @@ namespace Coding_Attempt_with_GUI
         {
             dwSolver.AssignLocalCoordinateVariables_FixesPoints(SCM_Clone);
             dwSolver.AssignLocalCoordinateVariables_MovingPoints(SCM_Clone);
+            dwSolver.OptimizedSteeringPoint = InboardPoints["ToeLinkInboard"].OptimizedCoordinates;
+            dwSolver.AssignOptimizedSteeringPoints();
 
             OutputClass tempOC = new OutputClass();
             //QuadraticEquationSolver.simType = SimulationType.Optimization;
@@ -1107,7 +1135,7 @@ namespace Coding_Attempt_with_GUI
 
             dwSolver.CalculatePushrod_Outboard(Vehicle, Identifier, tempOC, out double gx, out double gy, out double gz);
 
-            dwSolver.CalculateToeLink_Outboard(Vehicle, Identifier, tempOC, out double mx, out double my, out double mz);
+            dwSolver.CalculateToeLink_Outboard(ToeLinkLength, Vehicle, Identifier, tempOC, out double mx, out double my, out double mz);
 
             dwSolver.CalculateWheelSpindle_Outboard(Vehicle, Identifier, tempOC, out double kx, out double ky, out double kz, out double lx, out double ly, out double lz);
 
@@ -1145,6 +1173,23 @@ namespace Coding_Attempt_with_GUI
 
             return (casterError);
 
+
+        }
+
+        private double ComputeToeError()
+        {
+            Angle dToe_New = SetupChangeDatabase.AngleInRequiredView(Custom3DGeometry.GetMathNetVector3D(tempAxisLines["WheelSpindle"]),
+                                                                     Custom3DGeometry.GetMathNetVector3D(tempAxisLines["WheelSpindle_Ref"]),
+                                                                     Custom3DGeometry.GetMathNetVector3D(tempAxisLines["VerticalAxis_WheelCenter"]));
+
+            Angle staticToe = new Angle(-WA.StaticToe, AngleUnit.Degrees);
+
+            ///<remarks>
+            ///---IMPORTANT--- FOR NOW TOE ERROR IS CALCUALTED AS ABSOLUTE ERROR AND NOT RELATIVE ERROR LIKE CASTER ABOVE
+            /// </remarks>
+            double toeError = ((dToe_New.Degrees - staticToe.Degrees) / (staticToe.Degrees));
+
+            return toeError;
 
         }
 
@@ -1324,9 +1369,9 @@ namespace Coding_Attempt_with_GUI
             //    reverse -= 0.1;
             //}
 
-            //for (int i = 0; i < SuspensionEvalIterations / 2; i++) 
+            //for (int i = 0; i < SuspensionEvalIterations / 2; i++)
             //{
-            //    UserBumpSteerCurve.Add(new Angle(_staticToe.Degrees + (i * 0.1) , AngleUnit.Degrees));
+            //    UserBumpSteerCurve.Add(new Angle(_staticToe.Degrees + (i * 0.1), AngleUnit.Degrees));
             //}
             //UserBumpSteerCurve.Insert(UserBumpSteerCurve.Count, new Angle(2, AngleUnit.Degrees));
 
@@ -1339,9 +1384,16 @@ namespace Coding_Attempt_with_GUI
                 if (i != SuspensionEvalIterations - 1)
                 {
 
-                    //ErrorCalc_Step1.Add(new Angle((_toeAngle[i].Degrees - UserBumpSteerCurve[i].Degrees) , AngleUnit.Degrees));
+                    //ErrorCalc_Step1.Add(new Angle((_toeAngle[i].Degrees - UserBumpSteerCurve[i].Degrees), AngleUnit.Degrees));
 
-                    ErrorCalc_Step1.Add(new Angle(((_toeAngle[i].Degrees - UserBumpSteerCurve[i].Degrees) / UserBumpSteerCurve[i].Degrees), AngleUnit.Degrees));
+                    if (UserBumpSteerCurve[i].Degrees != 0)
+                    {
+                        ErrorCalc_Step1.Add(new Angle(((_toeAngle[i].Degrees - UserBumpSteerCurve[i].Degrees) / UserBumpSteerCurve[i].Degrees), AngleUnit.Degrees)); 
+                    }
+                    else
+                    {
+                        ErrorCalc_Step1.Add(new Angle((_toeAngle[i].Degrees - UserBumpSteerCurve[i].Degrees), AngleUnit.Degrees));
+                    }
                 }
                 else
                 {

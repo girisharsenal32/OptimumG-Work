@@ -163,9 +163,9 @@ namespace Coding_Attempt_with_GUI
             K1z = _scflGUI.K1x;
 
             // Initial Coordinates of Moving Point L
-            L1x = _scflGUI.W1y; //IN THE HELPFILE CLEAFLY MENTION THAT THE X COORDINATE IS TO BE INPUT AS CONTACT 
-            L1y = _scflGUI.W1z;//PATCH CENTRE - 1/2 TIRE WIDTH
-            L1z = _scflGUI.W1x;
+            L1x = _scflGUI.K1y + 157.48; //IN THE HELPFILE CLEAFLY MENTION THAT THE X COORDINATE IS TO BE INPUT AS CONTACT 
+            L1y = _scflGUI.K1z;//PATCH CENTRE - 1/2 TIRE WIDTH
+            L1z = _scflGUI.K1x;
 
             // Initial Coordinates of Moving Point M
             M1x = _scflGUI.M1y;

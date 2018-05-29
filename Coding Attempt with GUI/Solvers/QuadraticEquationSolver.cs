@@ -29,6 +29,8 @@ namespace Coding_Attempt_with_GUI
 
         public static double WishboneLengthChange = 0;
 
+        public static double ToeLinkLengthChange = 0;
+
         public static void Solver(double Sx, double Sy, double Sz, double T1x, double T1y, double T1z, double StrutDeflection, double U1x, double U1y, double U1z, double V1x, double V1y, double V1z, double T2x, double T2y, double T2z, double U2x, double U2y, double U2z, 
                                   double V2x, double V2y, double V2z, double check1Y, bool GreaterThan, out double X, out double Y, out double Z )
         {
@@ -62,6 +64,7 @@ namespace Coding_Attempt_with_GUI
             //Magnitude and Cordinates of Vector S'V = SV
             double SV;
             SV = Math.Sqrt(Math.Pow((Sx - V1x), 2) + (Math.Pow((Sy - V1y), 2)) + (Math.Pow((Sz - V1z), 2)));
+            SV = SV + ToeLinkLengthChange;
             //Equation C --> CLHS = (Sx^2+ (CCSx)Sx) + (Sy^2 + (CCSy)Sy) + (Sz^2 + (CCSz)Sz)
             double CSLHS, CCSx, CCSy, CCSz;
             CSLHS = ((Math.Pow(SV, 2)) - ((Math.Pow(V2x, 2)) + (Math.Pow(V2y, 2)) + (Math.Pow(V2z, 2)))); // Eq C's LHS
