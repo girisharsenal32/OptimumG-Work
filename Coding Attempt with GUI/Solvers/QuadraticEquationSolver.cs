@@ -31,6 +31,8 @@ namespace Coding_Attempt_with_GUI
 
         public static double ToeLinkLengthChange = 0;
 
+        public static double CamberShimLength = 0;
+
         public static void Solver(double Sx, double Sy, double Sz, double T1x, double T1y, double T1z, double StrutDeflection, double U1x, double U1y, double U1z, double V1x, double V1y, double V1z, double T2x, double T2y, double T2z, double U2x, double U2y, double U2z, 
                                   double V2x, double V2y, double V2z, double check1Y, bool GreaterThan, out double X, out double Y, out double Z )
         {
@@ -42,6 +44,7 @@ namespace Coding_Attempt_with_GUI
             { ST = Math.Sqrt(Math.Pow((Sx - T1x), 2) + (Math.Pow((Sy - T1y), 2)) + (Math.Pow((Sz - T1z), 2))); }
             else
             { ST = StrutDeflection; }
+            ST = ST + CamberShimLength;
             //Equation A --> ALHS = (Sx^2+ (ACSx)Sx) + (Sy^2 + (ACSy)Sy) + (Sz^2 + (ACSz)Sz)
             double ASLHS, ACSx, ACSy, ACSz; // Named like this because S is the movable point we are calculating - Refere Nomenclature
             ASLHS = ((Math.Pow(ST, 2)) - ((Math.Pow(T2x, 2)) + (Math.Pow(T2y, 2)) + (Math.Pow(T2z, 2)))); // Eq A's LHS

@@ -454,7 +454,7 @@ namespace Coding_Attempt_with_GUI
         {
             QuadraticEquationSolver.simType = SimulationType.Optimization;
             QuadraticEquationSolver.ToeLinkLengthChange = _dToeLink;
-            QuadraticEquationSolver.WishboneLengthChange = 0;
+            //QuadraticEquationSolver.WishboneLengthChange = 0;
             // TO CALCULATE THE NEW POSITION OF M i.e., TO CALCULATE M'
             // Vectors used -> M'E', M'F' & M'N  
             XM1 = 0; YM1 = 0; ZM1 = 0;
@@ -474,14 +474,18 @@ namespace Coding_Attempt_with_GUI
 
         }
 
-        public void Optimization_CamberMountTop(double _dCamberShims, Vehicle _vehicleOut /*, int _identifier*/, OutputClass _ocOut, out double XCM1, out double YCM1, out double ZCM1)
+        public void Optimization_CamberMountTop(double _dCamberShims, Vehicle _vehicleOut, OutputClass _ocOut, out double XCM1, out double YCM1, out double ZCM1)
         {
             XCM1 = YCM1 = ZCM1 = 0;
+
+            QuadraticEquationSolver.simType = SimulationType.Optimization;
+            QuadraticEquationSolver.CamberShimLength = _dCamberShims;
 
             QuadraticEquationSolver.Solver(l_TCM1x, l_TCM1y, l_TCM1z, l_F1x, l_F1y, l_F1z, 0, l_E1x, l_E1y, l_E1z, l_M1x, l_M1y, l_M1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z, _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z,
                                            _ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z, _ocOut.scmOP.W1y, false, out XCM1, out YCM1, out ZCM1);
 
-
+            QuadraticEquationSolver.simType = SimulationType.Dummy;
+            QuadraticEquationSolver.CamberShimLength = 0;
 
             _ocOut.scmOP.TCM1x = XCM1;
             _ocOut.scmOP.TCM1y = YCM1;
@@ -520,9 +524,15 @@ namespace Coding_Attempt_with_GUI
             //           _ocOut.scmOP.BCM1x, _ocOut.scmOP.BCM1y, _ocOut.scmOP.BCM1z, _ocOut.scmOP.E1y, false, out XK1, out YK1, out ZK1);
             //}
 
+
+            //QuadraticEquationSolver.Solver(l_K1x, l_K1y, l_K1z, l_M1x, l_M1y, l_M1z, 0, l_F1x, l_F1y, l_F1z, l_E1x, l_E1y, l_E1z, _ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z,
+            //               _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, _ocOut.scmOP.E1y, false, out XK1, out YK1, out ZK1);
+
+
+
             QuadraticEquationSolver.Solver(l_K1x, l_K1y, l_K1z, l_M1x, l_M1y, l_M1z, 0, l_TCM1x, l_TCM1y, l_TCM1z, l_BCM1x, l_BCM1y, l_BCM1z, _ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z, _ocOut.scmOP.TCM1x, _ocOut.scmOP.TCM1y, _ocOut.scmOP.TCM1z,
                           _ocOut.scmOP.BCM1x, _ocOut.scmOP.BCM1y, _ocOut.scmOP.BCM1z, _ocOut.scmOP.E1y, false, out XK1, out YK1, out ZK1);
-
+            
             _ocOut.scmOP.K1x = XK1;
             _ocOut.scmOP.K1y = YK1;
             _ocOut.scmOP.K1z = ZK1;
@@ -548,6 +558,9 @@ namespace Coding_Attempt_with_GUI
             //}
 
 
+            QuadraticEquationSolver.Solver(l_K1x + 157.48, l_K1y, l_K1z, l_M1x, l_M1y, l_M1z, 0, l_F1x, l_F1y, l_F1z, l_E1x, l_E1y, l_E1z, _ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z,
+                                           _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, _ocOut.scmOP.E1y, false, out XL1, out YL1, out ZL1);
+
             QuadraticEquationSolver.Solver(l_K1x + 157.48, l_K1y, l_K1z, l_M1x, l_M1y, l_M1z, 0, l_TCM1x, l_TCM1y, l_TCM1z, l_BCM1x, l_BCM1y, l_BCM1z, _ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z, _ocOut.scmOP.TCM1x, _ocOut.scmOP.TCM1y, _ocOut.scmOP.TCM1z,
                                       _ocOut.scmOP.BCM1x, _ocOut.scmOP.BCM1y, _ocOut.scmOP.BCM1z, _ocOut.scmOP.E1y, false, out XL1, out YL1, out ZL1);
 
@@ -563,8 +576,8 @@ namespace Coding_Attempt_with_GUI
             // TO CALCULATE THE NEW POSITION OF W i.e., TO CALCULATE W'
             // Vectors used -> W'M', W'F' & W'E'
             XW1 = 0; YW1 = 0; ZW1 = 0;
-            //QuadraticEquationSolver.Solver(l_W1x, l_W1y, l_W1z, l_K1x + 157.48, l_K1y, l_K1z, 0, l_F1x, l_F1y, l_F1z, l_E1x, l_E1y, l_E1z, _ocOut.scmOP.L1x, _ocOut.scmOP.L1y, _ocOut.scmOP.L1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z,
-            //                                                                                                                            _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, _ocOut.scmOP.E1y, true, out XW1, out YW1, out ZW1);
+            QuadraticEquationSolver.Solver(l_W1x, l_W1y, l_W1z, l_K1x + 157.48, l_K1y, l_K1z, 0, l_F1x, l_F1y, l_F1z, l_E1x, l_E1y, l_E1z, _ocOut.scmOP.L1x, _ocOut.scmOP.L1y, _ocOut.scmOP.L1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z,
+                                                                                                                                        _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, _ocOut.scmOP.E1y, true, out XW1, out YW1, out ZW1);
 
             QuadraticEquationSolver.Solver(l_W1x, l_W1y, l_W1z, l_K1x + 157.48, l_K1y, l_K1z, 0, l_TCM1x, l_TCM1y, l_TCM1z, l_BCM1x, l_BCM1y, l_BCM1z, _ocOut.scmOP.L1x, _ocOut.scmOP.L1y, _ocOut.scmOP.L1z, _ocOut.scmOP.TCM1x, _ocOut.scmOP.TCM1y, _ocOut.scmOP.TCM1z,
                                                                                                                             _ocOut.scmOP.BCM1x, _ocOut.scmOP.BCM1y, _ocOut.scmOP.BCM1z, _ocOut.scmOP.E1y, true, out XW1, out YW1, out ZW1);

@@ -343,9 +343,9 @@ namespace Coding_Attempt_with_GUI
 
             LowerToeLinkLength = -10;
 
-            UpperCamberShimLength = 10;
+            UpperCamberShimLength = 5;
 
-            LowerCamberShimLength = -10;
+            LowerCamberShimLength = -5;
 
         }
 
@@ -630,9 +630,9 @@ namespace Coding_Attempt_with_GUI
         //---TEMP--
         private void PopulateDictionaryTrial_2()
         {
-            Point3D Upper = new Point3D(2, 20, 20);
+            Point3D Upper = new Point3D(20, 20, 20);
 
-            Point3D Lower = new Point3D(-2, -20, -20);
+            Point3D Lower = new Point3D(-20, -20, -20);
 
 
             UnsprungAssembly = new Dictionary<string, OptimizedCoordinate>();
@@ -656,7 +656,7 @@ namespace Coding_Attempt_with_GUI
 
             UnsprungAssembly.Add("UBJ", new OptimizedCoordinate(UBJ, Upper, Lower, BitSize));
 
-            UnsprungAssembly.Add("TopCamberPoint", new OptimizedCoordinate(UBJ.Clone() as Point3D, Upper, Lower, BitSize));
+            UnsprungAssembly.Add("TopCamberMount", new OptimizedCoordinate(UBJ.Clone() as Point3D, Upper, Lower, BitSize));
 
             Pushrod = new Point3D(SCM.G1x, SCM.G1y, SCM.G1z);
 
@@ -700,6 +700,8 @@ namespace Coding_Attempt_with_GUI
             tempAxisLines.Add("WheelSpindle_Ref", new Line(WcStart.Clone() as Point3D, WcEnd.Clone() as Point3D));
 
             tempAxisLines.Add("VerticalAxis_WheelCenter", new Line(WcStart.Clone() as Point3D, new Point3D(WcStart.X, WcStart.Y + 100, WcStart.Z)));
+
+            tempAxisLines.Add("LongitudinalAxis_WheelCenter", new Line(WcStart.Clone() as Point3D, new Point3D(WcStart.X, WcStart.Y, WcStart.Z + 100)));
 
         }
         #endregion
@@ -845,7 +847,7 @@ namespace Coding_Attempt_with_GUI
 
             var rToeLinkLength = GAF.Math.GetRangeConstant(UpperToeLinkLength - LowerToeLinkLength, BitSize);
 
-            var rCamberShimLength = GAF.Math.GetRangeConstant(SuspensionEvalUpperLimit - LowerCamberShimLength, BitSize);
+            var rCamberShimLength = GAF.Math.GetRangeConstant(UpperCamberShimLength - LowerCamberShimLength, BitSize);
 
 
             var xBS1 = Convert.ToInt32(chromosome.ToBinaryString(geneNumber* InboardPoints["ToeLinkInboard"].BitSize, InboardPoints["ToeLinkInboard"].BitSize), 2);
@@ -909,7 +911,9 @@ namespace Coding_Attempt_with_GUI
 
             double toeError = ComputeToeError();
 
-            double rmsError = System.Math.Sqrt((System.Math.Pow(bumpSteerError, 2) + System.Math.Pow(casterError, 2) + System.Math.Pow(toeError, 2)));
+            double camberError = ComputeCamberError();
+
+            double rmsError = System.Math.Sqrt((System.Math.Pow(bumpSteerError, 2) + System.Math.Pow(casterError, 2) + System.Math.Pow(toeError, 2) + System.Math.Pow(camberError, 2)));
             //double rmsError = bumpSteerError;
 
 
@@ -954,6 +958,8 @@ namespace Coding_Attempt_with_GUI
             UpdateOrientation(TransformationMatrix);
 
             //return EvaluateWishboneConstraints();
+
+            return null;
         }
 
         private Transformation GenerateTransformationMatrix(MathNet.Spatial.Euclidean.EulerAngles _optimizedOrientation, Point3D _optimizedOrigin)
@@ -1140,7 +1146,7 @@ namespace Coding_Attempt_with_GUI
 
             SolveKinematics_WishboneLengthChange(tempOC);
 
-            SolveKinematics_CamberShimChange(tempOC);
+            //SolveKinematics_CamberShimChange(tempOC);
         }
 
         private void SolveKinematics_WishboneLengthChange(OutputClass _tempOC)
@@ -1182,50 +1188,26 @@ namespace Coding_Attempt_with_GUI
 
         }
 
-        private void SolveKinematics_ToeLinkLengthChange()
-        {
-
-        }
-
-        private void SolveKinematics_CamberShimChange(OutputClass _tempOC)
-        {
-            dwSolver.Optimization_CamberMountTop(CamberShimLength, Vehicle, _tempOC, out double cmx, out double cmy, out double cmz);
-
-
-
-            MathNet.Spatial.Euclidean.Point3D CamberShimMount_1 = new MathNet.Spatial.Euclidean.Point3D(UnsprungAssembly["TopCamberMount"].OptimizedCoordinates.X,
-                                                                                                      UnsprungAssembly["TopCamberMount"].OptimizedCoordinates.Y,
-                                                                                                      UnsprungAssembly["TopCamberMount"].OptimizedCoordinates.Z);
-
-            MathNet.Spatial.Euclidean.Point3D CamberShimMount_2 = new MathNet.Spatial.Euclidean.Point3D(cmx, cmy, cmz);
-
-
-            //dwSolver.Optimization_WheelSpindleStart(Vehicle, _tempOC, AdjustmentTools.TopCamberMount, CamberShimMount_1, CamberShimMount_2, out double kx, out double ky, out double kz);
-
-            //dwSolver.Optimization_WheelSpindleEnd(Vehicle, _tempOC, AdjustmentTools.TopCamberMount, CamberShimMount_1, CamberShimMount_2, out double lx, out double ly, out double lz);
-        }
-
 
 
         DoubleWishboneKinematicsSolver dwSolver = new DoubleWishboneKinematicsSolver();
-
+        Angle dCaster_New;
         private double ComputeCasterError()
         {
-            Angle dCaster_New = SetupChangeDatabase.AngleInRequiredView(Custom3DGeometry.GetMathNetVector3D(tempAxisLines["SteeringAxis"]),
-                                                                        Custom3DGeometry.GetMathNetVector3D(tempAxisLines["SteeringAxis_Ref"]),
-                                                                        Custom3DGeometry.GetMathNetVector3D(tempAxisLines["LateralAxis_WheelCenter"]));
+            dCaster_New = SetupChangeDatabase.AngleInRequiredView(Custom3DGeometry.GetMathNetVector3D(tempAxisLines["SteeringAxis"]),
+                                                                  Custom3DGeometry.GetMathNetVector3D(tempAxisLines["SteeringAxis_Ref"]),
+                                                                  Custom3DGeometry.GetMathNetVector3D(tempAxisLines["LateralAxis_WheelCenter"]));
             Angle staticCaster = new Angle(-2.36, AngleUnit.Degrees);
 
             double casterError = ((dCaster_New.Degrees - 2) - (staticCaster.Degrees - 2)) / staticCaster.Degrees;
 
             return (casterError);
-
-
         }
 
+        Angle dToe_New;
         private double ComputeToeError()
         {
-            Angle dToe_New = SetupChangeDatabase.AngleInRequiredView(Custom3DGeometry.GetMathNetVector3D(tempAxisLines["WheelSpindle"]),
+            dToe_New = SetupChangeDatabase.AngleInRequiredView(Custom3DGeometry.GetMathNetVector3D(tempAxisLines["WheelSpindle"]),
                                                                      Custom3DGeometry.GetMathNetVector3D(tempAxisLines["WheelSpindle_Ref"]),
                                                                      Custom3DGeometry.GetMathNetVector3D(tempAxisLines["VerticalAxis_WheelCenter"]));
 
@@ -1238,6 +1220,20 @@ namespace Coding_Attempt_with_GUI
 
             return toeError;
 
+        }
+
+        Angle dCamber_New;
+        private double ComputeCamberError()
+        {
+            dCamber_New = SetupChangeDatabase.AngleInRequiredView(Custom3DGeometry.GetMathNetVector3D(tempAxisLines["WheelSpindle"]),
+                                                                        Custom3DGeometry.GetMathNetVector3D(tempAxisLines["WheelSpindle_Ref"]),
+                                                                        Custom3DGeometry.GetMathNetVector3D(tempAxisLines["LongitudinalAxis_WheelCenter"]));
+
+            Angle staticCamber = new Angle(WA.StaticCamber, AngleUnit.Degrees);
+
+            double camberError = ((dCamber_New.Degrees - staticCamber.Degrees) / (staticCamber.Degrees));
+
+            return camberError;
         }
 
         /// <summary>
