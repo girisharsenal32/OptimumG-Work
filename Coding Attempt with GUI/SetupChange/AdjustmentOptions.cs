@@ -586,7 +586,7 @@ namespace Coding_Attempt_with_GUI
         PushrodLength = 10,
         DamperEyetoSpringPerch = 11,
         DirectValue = 12,
-
+        Dummy = 13
     };
 
 }

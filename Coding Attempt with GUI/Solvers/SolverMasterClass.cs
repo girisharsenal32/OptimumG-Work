@@ -36,7 +36,7 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
         #region Local Moving Points Front Declaration
-        public double l_J1x, l_J1y, l_J1z, l_H1x, l_H1y, l_H1z, l_O1x, l_O1y, l_O1z, l_G1x, l_G1y, l_G1z, l_F1x, l_F1y, l_F1z, l_E1x, l_E1y, l_E1z, l_M1x, l_M1y, l_M1z, l_K1x, l_K1y, l_K1z, l_P1x, l_P1y, l_P1z, l_W1x, l_W1y, l_W1z;
+        public double l_J1x, l_J1y, l_J1z, l_H1x, l_H1y, l_H1z, l_O1x, l_O1y, l_O1z, l_G1x, l_G1y, l_G1z, l_F1x, l_F1y, l_F1z,l_TCM1x, l_TCM1y, l_TCM1z, l_E1x, l_E1y, l_E1z, l_BCM1x, l_BCM1y, l_BCM1z, l_M1x, l_M1y, l_M1z, l_K1x, l_K1y, l_K1z, l_P1x, l_P1y, l_P1z, l_W1x, l_W1y, l_W1z;
         public double Lx = 0, Ly = 0, Lz = 0; // Initial Coordinates of Spindle End
         public double L1x, L1y, L1z; // Final Coordinated of Spindle End
         #endregion
@@ -224,7 +224,9 @@ namespace Coding_Attempt_with_GUI
         public void AssignLocalCoordinateVariables_MovingPoints(SuspensionCoordinatesMaster _scmAssign)
         {
             l_E1x = _scmAssign.E1x; l_E1y = _scmAssign.E1y; l_E1z = _scmAssign.E1z;
+            l_BCM1x = l_E1x * 1.01; l_BCM1y = l_E1y; l_BCM1z = l_E1z;
             l_F1x = _scmAssign.F1x; l_F1y = _scmAssign.F1y; l_F1z = _scmAssign.F1z;
+            l_TCM1x = l_F1x * 1.01; l_TCM1y = l_F1y; l_TCM1z = l_F1z;
             l_G1x = _scmAssign.G1x; l_G1y = _scmAssign.G1y; l_G1z = _scmAssign.G1z;
             l_H1x = _scmAssign.H1x; l_H1y = _scmAssign.H1y; l_H1z = _scmAssign.H1z;
             l_J1x = _scmAssign.J1x; l_J1y = _scmAssign.J1y; l_J1z = _scmAssign.J1z;
@@ -441,10 +443,20 @@ namespace Coding_Attempt_with_GUI
             l_F1y -= _scmLCS.InputOriginY;
             l_F1z -= _scmLCS.InputOriginZ;
 
+            // Initial Coordinates of Moving Point Top Camber Mount
+            l_TCM1x -= _scmLCS.InputOriginX;
+            l_TCM1y -= _scmLCS.InputOriginY;
+            l_TCM1z -= _scmLCS.InputOriginZ;
+
             // Initial Coordinates of Moving Point E
             l_E1x -= _scmLCS.InputOriginX;
             l_E1y -= _scmLCS.InputOriginY;
             l_E1z -= _scmLCS.InputOriginZ;
+
+            // Initial Coordinates of Moving Point Bottom Camber Mount
+            l_BCM1x -= _scmLCS.InputOriginX;
+            l_BCM1y -= _scmLCS.InputOriginY;
+            l_BCM1z -= _scmLCS.InputOriginZ;
 
             // Initial Coordinates of Moving Point K
             l_K1x -= _scmLCS.InputOriginX; //IN THE HELPFILE CLEAFLY MENTION THAT THE X COORDINATE IS TO BE INPUT AS CONTACT 

@@ -356,8 +356,9 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
 
+        #region ---MOVE to Solver Master Class--Computing the Outboard Points for SetupChange with Optimization
         //---COMPUTING ONLY UNSPRUNG MASS COORDINATES FOR SETUP CHANGE---
-        public void CalculateSteeringAxis_Outboard(double _dWishbone, Vehicle _vehicleOut, int _identifierOut, OutputClass _ocOut, out double XF1, out double YF1, out double ZF1, out double XE1, out double YE1, out double ZE1)
+        public void Optimization_SteeringAxis(double _dWishbone, Vehicle _vehicleOut, int _identifierOut, OutputClass _ocOut, out double XF1, out double YF1, out double ZF1, out double XE1, out double YE1, out double ZE1)
         {
             // TO CALCULATE THE NEW POSITION OF F i.e., TO CALCULATE F' or E' depending upon whether it is pullrod or  pushrod and if pushrod is housed by Lpper or Lower Wishbone 
             XF1 = 0; YF1 = 0; ZF1 = 0; XE1 = 0; YE1 = 0; ZE1 = 0;
@@ -425,7 +426,7 @@ namespace Coding_Attempt_with_GUI
             else CalculateFinalMotionRatio(_ocOut, _ocOut.scmOP, true);
         }
 
-        public void CalculatePushrod_Outboard(Vehicle _vehicleOut, int _identifierOut, OutputClass _ocOut, out double XG1, out double YG1, out double ZG1)
+        public void Optimization_Pushrod(Vehicle _vehicleOut, int _identifierOut, OutputClass _ocOut, out double XG1, out double YG1, out double ZG1)
         {
             // TO CALCULATE THE NEW POSITION OF G i.e., TO CALCULATE G'
             // Vectors used -> G'H', G'B' & G'A'   
@@ -449,7 +450,7 @@ namespace Coding_Attempt_with_GUI
             _ocOut.scmOP.G1z = ZG1;
         }
 
-        public void CalculateToeLink_Outboard(double _dToeLink, Vehicle _vehicleOut, int _identifierOut, OutputClass _ocOut, out double XM1, out double YM1, out double ZM1)
+        public void Optimization_ToeLink(double _dToeLink, Vehicle _vehicleOut, int _identifierOut, OutputClass _ocOut, out double XM1, out double YM1, out double ZM1)
         {
             QuadraticEquationSolver.simType = SimulationType.Optimization;
             QuadraticEquationSolver.ToeLinkLengthChange = _dToeLink;
@@ -457,7 +458,7 @@ namespace Coding_Attempt_with_GUI
             // TO CALCULATE THE NEW POSITION OF M i.e., TO CALCULATE M'
             // Vectors used -> M'E', M'F' & M'N  
             XM1 = 0; YM1 = 0; ZM1 = 0;
-            QuadraticEquationSolver.Solver(l_M1x, l_M1y, l_M1z, l_E1x, l_E1y, l_E1z, 0, l_F1x, l_F1y, l_F1z, l_N1x, l_N1y, l_N1z, _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z, 
+            QuadraticEquationSolver.Solver(l_M1x, l_M1y, l_M1z, l_E1x, l_E1y, l_E1z, 0, l_F1x, l_F1y, l_F1z, l_N1x, l_N1y, l_N1z, _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z,
                                            l_N1x, l_N1y, l_N1z, l_K1y + l_K1y + Math.Abs(l_W1y), true, out XM1, out YM1, out ZM1);
             QuadraticEquationSolver.ToeLinkLengthChange = 0;
             QuadraticEquationSolver.simType = SimulationType.Dummy;
@@ -473,46 +474,108 @@ namespace Coding_Attempt_with_GUI
 
         }
 
-        public void CalculateWheelSpindle_Outboard(Vehicle _vehicleOut, int _identifierOut, OutputClass _ocOut, out double XK1, out double YK1, out double ZK1, out double XL1, out double YL1, out double ZL1)
+        public void Optimization_CamberMountTop(double _dCamberShims, Vehicle _vehicleOut /*, int _identifier*/, OutputClass _ocOut, out double XCM1, out double YCM1, out double ZCM1)
+        {
+            XCM1 = YCM1 = ZCM1 = 0;
+
+            QuadraticEquationSolver.Solver(l_TCM1x, l_TCM1y, l_TCM1z, l_F1x, l_F1y, l_F1z, 0, l_E1x, l_E1y, l_E1z, l_M1x, l_M1y, l_M1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z, _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z,
+                                           _ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z, _ocOut.scmOP.W1y, false, out XCM1, out YCM1, out ZCM1);
+
+
+
+            _ocOut.scmOP.TCM1x = XCM1;
+            _ocOut.scmOP.TCM1y = YCM1;
+            _ocOut.scmOP.TCM1z = ZCM1;
+
+        }
+
+        public void Optimization_CamberMountBottom(double _dCamberShims, Vehicle _vehicleOut, OutputClass _ocOut, out double XBCM1, out double YBCM1, out double ZBCM1)
+        {
+            XBCM1 = YBCM1 = ZBCM1 = 0;
+
+            QuadraticEquationSolver.Solver(l_BCM1x, l_BCM1y, l_BCM1z, l_E1x, l_E1y, l_E1z, 0, l_F1x, l_F1y, l_F1z, l_M1x, l_M1y, l_M1z, _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z,
+                                           _ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z, _ocOut.scmOP.W1y, false, out XBCM1, out YBCM1, out ZBCM1);
+
+            _ocOut.scmOP.BCM1x = XBCM1;
+            _ocOut.scmOP.BCM1y = YBCM1;
+            _ocOut.scmOP.BCM1z = ZBCM1;
+        }
+
+        public void Optimization_WheelSpindleStart(Vehicle _vehicleOut, OutputClass _ocOut, AdjustmentTools _adjTool, out double XK1, out double YK1, out double ZK1)
         {
             // TO CALCULATE THE NEW POSITION OF M i.e., TO CALCULATE M'
             // Vectors used -> M'E', M'F' & M'N  
             XK1 = YK1 = ZK1 = 0;
-            QuadraticEquationSolver.Solver(l_K1x, l_K1y, l_K1z, l_M1x, l_M1y, l_M1z, 0, l_F1x, l_F1y, l_F1z, l_E1x, l_E1y, l_E1z, _ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z, 
-                                           _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, _ocOut.scmOP.E1y, false, out XK1, out YK1, out ZK1);
+
+
+
+            //if (_adjTool == AdjustmentTools.TopCamberMount)
+            //{
+            //    QuadraticEquationSolver.Solver(l_K1x, l_K1y, l_K1z, l_M1x, l_M1y, l_M1z, 0, l_TCM1x, l_TCM1y, l_TCM1z, l_E1x, l_E1y, l_E1z, _ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z, _ocOut.scmOP.TCM1x, _ocOut.scmOP.TCM1y, _ocOut.scmOP.TCM1z,
+            //                           _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, _ocOut.scmOP.E1y, false, out XK1, out YK1, out ZK1);
+            //}
+            //else if (_adjTool == AdjustmentTools.BottomCamberMount)
+            //{
+            //    QuadraticEquationSolver.Solver(l_K1x, l_K1y, l_K1z, l_M1x, l_M1y, l_M1z, 0, l_F1x, l_F1y, l_F1z, l_BCM1x, l_BCM1y, l_BCM1z, _ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z,
+            //           _ocOut.scmOP.BCM1x, _ocOut.scmOP.BCM1y, _ocOut.scmOP.BCM1z, _ocOut.scmOP.E1y, false, out XK1, out YK1, out ZK1);
+            //}
+
+            QuadraticEquationSolver.Solver(l_K1x, l_K1y, l_K1z, l_M1x, l_M1y, l_M1z, 0, l_TCM1x, l_TCM1y, l_TCM1z, l_BCM1x, l_BCM1y, l_BCM1z, _ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z, _ocOut.scmOP.TCM1x, _ocOut.scmOP.TCM1y, _ocOut.scmOP.TCM1z,
+                          _ocOut.scmOP.BCM1x, _ocOut.scmOP.BCM1y, _ocOut.scmOP.BCM1z, _ocOut.scmOP.E1y, false, out XK1, out YK1, out ZK1);
 
             _ocOut.scmOP.K1x = XK1;
             _ocOut.scmOP.K1y = YK1;
             _ocOut.scmOP.K1z = ZK1;
 
+        }
 
+        public void Optimization_WheelSpindleEnd(Vehicle _vehicleOut, OutputClass _ocOut, AdjustmentTools _adjTool, out double XL1, out double YL1, out double ZL1)
+        {
             // TO CALCULATE THE NEW POSITION OF L i.e., TO CALCULATE L'
             // Vectors used -> L'M', L'F' & L'E'   
             // THE INITIAL COORDINATES OF L SHOULD NOT BE TAKEN FROM USER. THEY SHOULD BE CALCULATED USING 'K' , THE INPUT CAMBER AND TOE
             XL1 = 0; YL1 = 0; ZL1 = 0;
-            QuadraticEquationSolver.Solver(l_K1x + 157.48, l_K1y, l_K1z, l_M1x, l_M1y, l_M1z, 0, l_F1x, l_F1y, l_F1z, l_E1x, l_E1y, l_E1z, _ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z,
-                                           _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, _ocOut.scmOP.E1y, false, out XL1, out YL1, out ZL1);
+
+            //if (_adjTool == AdjustmentTools.TopCamberMount)
+            //{
+            //    QuadraticEquationSolver.Solver(l_K1x + 157.48, l_K1y, l_K1z, l_M1x, l_M1y, l_M1z, 0, l_TCM1x, l_TCM1y, l_TCM1z, l_E1x, l_E1y, l_E1z, _ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z, _ocOut.scmOP.TCM1x, _ocOut.scmOP.TCM1y, _ocOut.scmOP.TCM1z,
+            //                           _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, _ocOut.scmOP.E1y, false, out XL1, out YL1, out ZL1);
+            //}
+            //else if (_adjTool == AdjustmentTools.BottomCamberMount)
+            //{
+            //    QuadraticEquationSolver.Solver(l_K1x + 157.48, l_K1y, l_K1z, l_M1x, l_M1y, l_M1z, 0, l_F1x, l_F1y, l_F1z, l_BCM1x, l_BCM1y, l_BCM1z, _ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z,
+            //           _ocOut.scmOP.BCM1x, _ocOut.scmOP.BCM1y, _ocOut.scmOP.BCM1z, _ocOut.scmOP.E1y, false, out XL1, out YL1, out ZL1);
+            //}
+
+
+            QuadraticEquationSolver.Solver(l_K1x + 157.48, l_K1y, l_K1z, l_M1x, l_M1y, l_M1z, 0, l_TCM1x, l_TCM1y, l_TCM1z, l_BCM1x, l_BCM1y, l_BCM1z, _ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z, _ocOut.scmOP.TCM1x, _ocOut.scmOP.TCM1y, _ocOut.scmOP.TCM1z,
+                                      _ocOut.scmOP.BCM1x, _ocOut.scmOP.BCM1y, _ocOut.scmOP.BCM1z, _ocOut.scmOP.E1y, false, out XL1, out YL1, out ZL1);
 
             _ocOut.scmOP.L1x = XL1;
             _ocOut.scmOP.L1y = YL1;
             _ocOut.scmOP.L1z = ZL1;
-
         }
 
-        public void CalculateContactPatch_Outboard(Vehicle _vehicleOut, int _identifierOut, OutputClass _ocOut, out double XW1, out double YW1, out double ZW1)
+        public void Optimization_ContatcPatch(Vehicle _vehicleOut, int _identifierOut, OutputClass _ocOut, out double XW1, out double YW1, out double ZW1)
         {
 
             //Contact Patch is seperately calculated because after an initial sweep of calculation of all points, the contact patch alone is recalculated to account for steering 
             // TO CALCULATE THE NEW POSITION OF W i.e., TO CALCULATE W'
             // Vectors used -> W'M', W'F' & W'E'
             XW1 = 0; YW1 = 0; ZW1 = 0;
-            QuadraticEquationSolver.Solver(l_W1x, l_W1y, l_W1z, l_K1x+157.48, l_K1y, l_K1z, 0, l_F1x, l_F1y, l_F1z, l_E1x, l_E1y, l_E1z, _ocOut.scmOP.L1x, _ocOut.scmOP.L1y, _ocOut.scmOP.L1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z,
-                                                                                                                                        _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, _ocOut.scmOP.E1y, true, out XW1, out YW1, out ZW1);
+            //QuadraticEquationSolver.Solver(l_W1x, l_W1y, l_W1z, l_K1x + 157.48, l_K1y, l_K1z, 0, l_F1x, l_F1y, l_F1z, l_E1x, l_E1y, l_E1z, _ocOut.scmOP.L1x, _ocOut.scmOP.L1y, _ocOut.scmOP.L1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z,
+            //                                                                                                                            _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, _ocOut.scmOP.E1y, true, out XW1, out YW1, out ZW1);
+
+            QuadraticEquationSolver.Solver(l_W1x, l_W1y, l_W1z, l_K1x + 157.48, l_K1y, l_K1z, 0, l_TCM1x, l_TCM1y, l_TCM1z, l_BCM1x, l_BCM1y, l_BCM1z, _ocOut.scmOP.L1x, _ocOut.scmOP.L1y, _ocOut.scmOP.L1z, _ocOut.scmOP.TCM1x, _ocOut.scmOP.TCM1y, _ocOut.scmOP.TCM1z,
+                                                                                                                            _ocOut.scmOP.BCM1x, _ocOut.scmOP.BCM1y, _ocOut.scmOP.BCM1z, _ocOut.scmOP.E1y, true, out XW1, out YW1, out ZW1);
 
             _ocOut.scmOP.W1x = XW1;
             _ocOut.scmOP.W1y = YW1;
             _ocOut.scmOP.W1z = ZW1;
         }
+
+
+        #endregion
 
         #region Remaining Outboard Points
         /// <summary>
@@ -523,7 +586,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_ocOut"></param>
         /// <param name="_scmOut"></param>
         /// <param name="CalculateSteering"></param>
-        private void CalculateOutboardPoints(int _identifierOut,Vehicle _vehicleOut, OutputClass _ocOut, SuspensionCoordinatesMaster _scmOut,bool CalculateSteering)
+        private void CalculateOutboardPoints(int _identifierOut, Vehicle _vehicleOut, OutputClass _ocOut, SuspensionCoordinatesMaster _scmOut, bool CalculateSteering)
         {
             #region Point G - Pushrod Upright
             // TO CALCULATE THE NEW POSITION OF G i.e., TO CALCULATE G'
@@ -625,7 +688,7 @@ namespace Coding_Attempt_with_GUI
 
                 _ocOut.scmOP.N1x = l_N1x;
                 _ocOut.scmOP.N1y = l_N1y;
-                _ocOut.scmOP.N1z = l_N1z; 
+                _ocOut.scmOP.N1z = l_N1z;
             }
             #endregion
 
@@ -674,7 +737,7 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
         #region Method to Calculate the Antiroll Bar Droop Link Forces
-        private void ArbDroopLinkForce( OutputClass _ocARB)
+        private void ArbDroopLinkForce(OutputClass _ocARB)
         {
             ///<remarks>
             ///Declaring the Reaction Froces of the Bell Crank about the Pivot. Since it is a bearing which is present along the Z Axis, Mz is 0
@@ -686,14 +749,14 @@ namespace Coding_Attempt_with_GUI
             ///<remarks>
             ///Represent the Position Vectors of the Damper, ARB and Pushrod Points on the bellcrank. They are the position vectors with respect to the Pivot Point, I
             /// </remarks>
-            Vector3D Position_JI =  new Vector3D(_ocARB.scmOP.J1x - _ocARB.scmOP.I1x,  _ocARB.scmOP.J1y - _ocARB.scmOP.I1y,  _ocARB.scmOP.J1z - _ocARB.scmOP.I1z);
-            Vector3D Position_OI =  new Vector3D(_ocARB.scmOP.O1x - _ocARB.scmOP.I1x,  _ocARB.scmOP.O1y - _ocARB.scmOP.I1y,  _ocARB.scmOP.O1z - _ocARB.scmOP.I1z);
-            Vector3D Position_HI =  new Vector3D(_ocARB.scmOP.H1x - _ocARB.scmOP.I1x,  _ocARB.scmOP.H1y - _ocARB.scmOP.I1y,  _ocARB.scmOP.H1z - _ocARB.scmOP.I1z);
+            Vector3D Position_JI = new Vector3D(_ocARB.scmOP.J1x - _ocARB.scmOP.I1x, _ocARB.scmOP.J1y - _ocARB.scmOP.I1y, _ocARB.scmOP.J1z - _ocARB.scmOP.I1z);
+            Vector3D Position_OI = new Vector3D(_ocARB.scmOP.O1x - _ocARB.scmOP.I1x, _ocARB.scmOP.O1y - _ocARB.scmOP.I1y, _ocARB.scmOP.O1z - _ocARB.scmOP.I1z);
+            Vector3D Position_HI = new Vector3D(_ocARB.scmOP.H1x - _ocARB.scmOP.I1x, _ocARB.scmOP.H1y - _ocARB.scmOP.I1y, _ocARB.scmOP.H1z - _ocARB.scmOP.I1z);
 
             ///<remarks>
             ///Represent the Position Vectos of the Arb link and of the Damper Link . Basically, this is the position vector represent the entire link from start point to end point
             /// </remarks>
-            Vector3D Position_OP =  new Vector3D(_ocARB.scmOP.O1x - _ocARB.scmOP.P1x,  _ocARB.scmOP.O1y - _ocARB.scmOP.P1y,  _ocARB.scmOP.O1z - _ocARB.scmOP.P1z);
+            Vector3D Position_OP = new Vector3D(_ocARB.scmOP.O1x - _ocARB.scmOP.P1x, _ocARB.scmOP.O1y - _ocARB.scmOP.P1y, _ocARB.scmOP.O1z - _ocARB.scmOP.P1z);
             Vector3D Position_JJo = new Vector3D(_ocARB.scmOP.J1x - _ocARB.scmOP.JO1x, _ocARB.scmOP.J1y - _ocARB.scmOP.JO1y, _ocARB.scmOP.J1z - _ocARB.scmOP.JO1z);
 
             ///<remarks>
@@ -779,10 +842,10 @@ namespace Coding_Attempt_with_GUI
         }
 
         //Kinmetics Solver for Double Wishbone Suspenion
-        public void Kinematics(int Identifier, SuspensionCoordinatesMaster scm, WheelAlignment wa, Tire tire, AntiRollBar arb, double ARB_Rate_Nmm, Spring spring, Damper damper, List<OutputClass> oc, Vehicle _vehicleKinematicsDWSolver, 
+        public void Kinematics(int Identifier, SuspensionCoordinatesMaster scm, WheelAlignment wa, Tire tire, AntiRollBar arb, double ARB_Rate_Nmm, Spring spring, Damper damper, List<OutputClass> oc, Vehicle _vehicleKinematicsDWSolver,
                                List<double> WheelOrSpringDeflections, bool MotionExists, bool RecalculateSteering)
         {
-            
+
             dummy1 = 0; dummy2 = 0;
 
             #region Initialization methods
@@ -795,7 +858,7 @@ namespace Coding_Attempt_with_GUI
             {
                 AssignLocalCoordinateVariables_FixesPoints(scm);
                 AssignLocalCoordinateVariables_MovingPoints(scm);
-                if (SimulationType== SimulationType.Optimization)
+                if (SimulationType == SimulationType.Optimization)
                 {
                     AssignOptimizedSteeringPoints();
                 }
@@ -810,7 +873,7 @@ namespace Coding_Attempt_with_GUI
 
             if (MotionExists)
             {
-                if (SimType!= SimulationType.Optimization)
+                if (SimType != SimulationType.Optimization)
                 {
                     N = _vehicleKinematicsDWSolver.vehicle_Motion.Final_WheelDeflectionsX.Count;
 
@@ -858,7 +921,7 @@ namespace Coding_Attempt_with_GUI
                 ///<remarks> Resetting the wheel defelction due to steering to prevent residue error</remarks>
                 for (int i = 0; i < 100; i++)
                 {
-                    scm.WheelDeflection_Steering[i] = 0; 
+                    scm.WheelDeflection_Steering[i] = 0;
                 }
 
                 // Converting Coordinates from World Coordinate System to Car Coordinate System
@@ -880,7 +943,7 @@ namespace Coding_Attempt_with_GUI
 
                 // Preliminary Calculations to find the New Camber and Toe
                 CalculateInitialSpindleVector();
-                
+
             }
 
 
@@ -898,7 +961,7 @@ namespace Coding_Attempt_with_GUI
                 //
                 // Only for Stand to Ground
                 //
-                CalculateWheelAndSpringDeflection(scm, spring, damper, _vehicleKinematicsDWSolver, null, oc[0], tire, Identifier, ARB_Rate_Nmm, MotionExists,RecalculateSteering, 0);
+                CalculateWheelAndSpringDeflection(scm, spring, damper, _vehicleKinematicsDWSolver, null, oc[0], tire, Identifier, ARB_Rate_Nmm, MotionExists, RecalculateSteering, 0);
             }
             #endregion
 
@@ -917,7 +980,7 @@ namespace Coding_Attempt_with_GUI
                     CalculateWheelAndSpringDeflection(scm, spring, damper, _vehicleKinematicsDWSolver, WheelOrSpringDeflections, oc[dummy1], tire, Identifier, ARB_Rate_Nmm, MotionExists, RecalculateSteering, dummy1);
 
                 }
-                else if (MotionExists && (RecalculateSteering ))
+                else if (MotionExists && (RecalculateSteering))
                 {
                     CalculateSpringDeflection_AfterVehicleModel(oc, Identifier, WheelOrSpringDeflections[dummy1], oc[dummy1].FinalMR, dummy1);
                 }
@@ -946,7 +1009,7 @@ namespace Coding_Attempt_with_GUI
                 //To calculate the Angle of Rotation of the Bell-crank by calculating the spring deflection. These are done in small steps
 
                 #region Calculating the deflection of the spring in Steps 
-                CalculateAngleOfRotationOrDamperLength(oc[dummy1], MotionExists, dummy1, damper,RecalculateSteering);
+                CalculateAngleOfRotationOrDamperLength(oc[dummy1], MotionExists, dummy1, damper, RecalculateSteering);
                 #endregion
 
                 #region Calculating the Caster and KPI
@@ -974,7 +1037,7 @@ namespace Coding_Attempt_with_GUI
                 }
                 #endregion
 
-                if (!RecalculateSteering || ((RecalculateSteering) && (Identifier == 3 || Identifier == 4)) || (RecalculateSteering && !MotionExists)) 
+                if (!RecalculateSteering || ((RecalculateSteering) && (Identifier == 3 || Identifier == 4)) || (RecalculateSteering && !MotionExists))
                 {
                     #region Calculating the remaining Outboard Points - G, then M, then, P
                     CalculateOutboardPoints(Identifier, _vehicleKinematicsDWSolver, oc[dummy1], scm, true);
@@ -1031,12 +1094,12 @@ namespace Coding_Attempt_with_GUI
 
                 //if (!RecalculateSteering)
                 //{
-                    AssignLocalCoordinateVariables_MovingPoints(oc[dummy1].scmOP);
-                    L1x = oc[dummy1].scmOP.L1x; L1y = oc[dummy1].scmOP.L1y; L1z = oc[dummy1].scmOP.L1z;
+                AssignLocalCoordinateVariables_MovingPoints(oc[dummy1].scmOP);
+                L1x = oc[dummy1].scmOP.L1x; L1y = oc[dummy1].scmOP.L1y; L1z = oc[dummy1].scmOP.L1z;
                 //}
 
 
-                if ((SimulationType != SimulationType.Optimization) && (MotionExists) && (dummy1 != 0) && (Identifier != 3 && Identifier != 4) && (_vehicleKinematicsDWSolver.vehicle_Motion.SteeringExists)) 
+                if ((SimulationType != SimulationType.Optimization) && (MotionExists) && (dummy1 != 0) && (Identifier != 3 && Identifier != 4) && (_vehicleKinematicsDWSolver.vehicle_Motion.SteeringExists))
                 {
                     ///<summary>
                     ///This IF loop takes care of 2 things and is used ONLY for the Front in the event of SteeringExists is true
@@ -1044,7 +1107,7 @@ namespace Coding_Attempt_with_GUI
                     ///Calculating the Outboard and Inboard Points Seperately for the Front.
                     /// </summary>
 
-                    if (!RecalculateSteering )
+                    if (!RecalculateSteering)
                     {
                         //
                         //Calculating the new coordinates of the Toe Rod Inboard and Outboard End
@@ -1072,7 +1135,7 @@ namespace Coding_Attempt_with_GUI
                         ContactPatch_Steering(oc[dummy1]);
                         double DeltaWheelDef_Steering;
                         DeltaWheelDef_Steering = oc[dummy1].scmOP.W1y - l_W1y;
-                        scm.WheelDeflection_Steering[dummy1] = -DeltaWheelDef_Steering;  
+                        scm.WheelDeflection_Steering[dummy1] = -DeltaWheelDef_Steering;
                     }
 
                     else
@@ -1117,10 +1180,10 @@ namespace Coding_Attempt_with_GUI
             #region Initializing loop variables for other Outputs
             if (MotionExists)
             {
-                if (SimulationType != SimulationType.Optimization) 
+                if (SimulationType != SimulationType.Optimization)
                 {
                     N = _vehicleKinematicsDWSolver.vehicle_Motion.Final_WheelDeflectionsX.Count;
-                    dummy2 = 0; 
+                    dummy2 = 0;
                 }
                 else if (SimulationType == SimulationType.Optimization)
                 {
@@ -1149,20 +1212,20 @@ namespace Coding_Attempt_with_GUI
                     oc[dummy2].Corrected_WheelDeflection_1 = oc[dummy2].Corrected_WheelDeflection;
                 }
 
-                if (dummy2 != 0 && SimulationType == SimulationType.Optimization) 
+                if (dummy2 != 0 && SimulationType == SimulationType.Optimization)
                 {
                     CalculatenewCamberAndToe_Rear(oc, dummy2, _vehicleKinematicsDWSolver, Identifier);
                 }
 
-                else if (dummy2 != 0 && ((MotionExists) && ((Identifier == 3 || Identifier == 4) || ((Identifier == 1 || Identifier == 2) && (!_vehicleKinematicsDWSolver.vehicle_Motion.SteeringExists))))) 
+                else if (dummy2 != 0 && ((MotionExists) && ((Identifier == 3 || Identifier == 4) || ((Identifier == 1 || Identifier == 2) && (!_vehicleKinematicsDWSolver.vehicle_Motion.SteeringExists)))))
                 {
                     CalculatenewCamberAndToe_Rear(oc, dummy2, _vehicleKinematicsDWSolver, Identifier);
-                    
+
                 }
                 else if (!MotionExists)
                 {
                     CalculatenewCamberAndToe_Rear(oc, dummy2, _vehicleKinematicsDWSolver, Identifier);
-                    
+
                 }
                 #region Coordinate Translations
                 ///<remarks>
@@ -1203,7 +1266,7 @@ namespace Coding_Attempt_with_GUI
                 {
                     _vehicleKinematicsDWSolver.P1x_RR = scm.P1x + _vehicleKinematicsDWSolver.sc_FL.InputOriginX + _vehicleKinematicsDWSolver.OutputOrigin_x;
                     _vehicleKinematicsDWSolver.P1z_RR = scm.P1z + _vehicleKinematicsDWSolver.sc_FL.InputOriginZ + _vehicleKinematicsDWSolver.OutputOrigin_z;
-                    
+
                 }
 
                 #endregion
@@ -1230,7 +1293,7 @@ namespace Coding_Attempt_with_GUI
 
             #endregion
         }
-        
+
         #region Wishbone Force Calculator
         public void CalculateSuspensionForces(List<OutputClass> _oc, SuspensionCoordinatesMaster _scm, Spring spring, int _dummy2)
         {
@@ -1460,13 +1523,15 @@ namespace Coding_Attempt_with_GUI
             _oc[_dummy2].LBJ_z = (_oc[_dummy2].LowerFront_z + _oc[_dummy2].LowerRear_z);
 
             ArbDroopLinkForce(_oc[_dummy2]);
-        } 
+        }
         #endregion
 
         #endregion
 
         #endregion
     }
+
+
 
 
 }

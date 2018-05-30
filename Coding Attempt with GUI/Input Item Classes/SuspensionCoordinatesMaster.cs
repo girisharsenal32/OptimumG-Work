@@ -53,7 +53,7 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
         #region Moving Points Front Declaration
-        public double J1x, J1y, J1z, H1x, H1y, H1z, O1x, O1y, O1z, G1x, G1y, G1z, F1x, F1y, F1z, E1x, E1y, E1z, M1x, M1y, M1z,L1x,L1y,L1z, K1x, K1y, K1z, P1x, P1y, P1z, W1x, W1y, W1z;
+        public double J1x, J1y, J1z, H1x, H1y, H1z, O1x, O1y, O1z, G1x, G1y, G1z, F1x, F1y, F1z, TCM1x, TCM1y, TCM1z, E1x, E1y, E1z, BCM1x, BCM1y, BCM1z, M1x, M1y, M1z, L1x, L1y, L1z, K1x, K1y, K1z, P1x, P1y, P1z, W1x, W1y, W1z;
         #endregion
 
         #region Variables for InitialMotion Ratio Calculations

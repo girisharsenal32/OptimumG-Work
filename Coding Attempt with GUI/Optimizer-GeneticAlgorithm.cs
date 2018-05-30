@@ -93,6 +93,12 @@ namespace Coding_Attempt_with_GUI
 
         double LowerToeLinkLength;
 
+        double CamberShimLength;
+
+        double UpperCamberShimLength;
+
+        double LowerCamberShimLength;
+
         DataTable Ga_Values { get; set; }
 
         List<object> GA_Values_Params;
@@ -278,7 +284,6 @@ namespace Coding_Attempt_with_GUI
 
         #endregion
 
-
         #region ---INITIALIZATION METHODS---
 
         //---INITIALIZATION METHODS---
@@ -338,6 +343,9 @@ namespace Coding_Attempt_with_GUI
 
             LowerToeLinkLength = -10;
 
+            UpperCamberShimLength = 10;
+
+            LowerCamberShimLength = -10;
 
         }
 
@@ -837,6 +845,8 @@ namespace Coding_Attempt_with_GUI
 
             var rToeLinkLength = GAF.Math.GetRangeConstant(UpperToeLinkLength - LowerToeLinkLength, BitSize);
 
+            var rCamberShimLength = GAF.Math.GetRangeConstant(SuspensionEvalUpperLimit - LowerCamberShimLength, BitSize);
+
 
             var xBS1 = Convert.ToInt32(chromosome.ToBinaryString(geneNumber* InboardPoints["ToeLinkInboard"].BitSize, InboardPoints["ToeLinkInboard"].BitSize), 2);
 
@@ -858,6 +868,11 @@ namespace Coding_Attempt_with_GUI
 
             geneNumber++;
 
+            var CamberShimLength_1 = Convert.ToInt32(chromosome.ToBinaryString(geneNumber * BitSize, BitSize), 2);
+
+            geneNumber++;
+
+
             // multiply by the appropriate range constant and adjust for any offset 
             // in the range to get the real values
             ///<remarks>
@@ -873,6 +888,7 @@ namespace Coding_Attempt_with_GUI
 
             ToeLinkLength = System.Math.Round((ToeLinkLength_1 * rToeLinkLength) + (LowerToeLinkLength), 3);
 
+            CamberShimLength = System.Math.Round((CamberShimLength_1 * rCamberShimLength) + (LowerCamberShimLength), 3);
 
         }
 
@@ -937,7 +953,7 @@ namespace Coding_Attempt_with_GUI
 
             UpdateOrientation(TransformationMatrix);
 
-            return EvaluateWishboneConstraints();
+            //return EvaluateWishboneConstraints();
         }
 
         private Transformation GenerateTransformationMatrix(MathNet.Spatial.Euclidean.EulerAngles _optimizedOrientation, Point3D _optimizedOrigin)
@@ -1033,8 +1049,10 @@ namespace Coding_Attempt_with_GUI
 
         }
 
+        #endregion
+
         //Trial for Caster Change with Toe Constant Constraint
-        private List<double> EvaluateWishboneConstraints()
+        private void EvaluateWishboneConstraints()
         {
             double linkLengthError = 0;
 
@@ -1075,16 +1093,7 @@ namespace Coding_Attempt_with_GUI
 
             linkLengthError += System.Math.Pow(CalculateLinkLengthError(PushrodLength, PushrodLength_UpdatedOrientation), 2);
 
-            linkLengthError /= /*6*/1;
-
             linkLengthError = System.Math.Sqrt(linkLengthError);
-
-            List<double> error = new List<double>(new double[] { CalculateLinkLengthError(TopFrontLength, TopFrontLength_UpdatedOrientation) , CalculateLinkLengthError(BottomFrontLength, BottomFrontLength_UpdatedOrientation),
-                                                                 //CalculateLinkLengthError(TopRearLength + -5.5 /*WishboneLinkLength*/, TopRearLength_UpdatedOrientation)*2,
-                                                                 CalculateLinkLengthError(BottomRearLength, BottomRearLength_UpdatedOrientation),CalculateLinkLengthError(ToeLinkLength, ToeLinkLength_UpdatedOrientation),
-                                                                 CalculateLinkLengthError(PushrodLength, PushrodLength_UpdatedOrientation)});
-
-            return error;
         }
 
         private double CalculateLinkLengthError(double _original, double _calculated)
@@ -1095,7 +1104,6 @@ namespace Coding_Attempt_with_GUI
 
             return error;
         }
-        #endregion
 
         private void Update_SuspensionCoordinateData()
         {
@@ -1129,17 +1137,29 @@ namespace Coding_Attempt_with_GUI
             dwSolver.AssignOptimizedSteeringPoints();
 
             OutputClass tempOC = new OutputClass();
-            //QuadraticEquationSolver.simType = SimulationType.Optimization;
 
-            dwSolver.CalculateSteeringAxis_Outboard(WishboneLinkLength, Vehicle, Identifier, tempOC, out double fx, out double fy, out double fz, out double ex, out double ey, out double ez);
+            SolveKinematics_WishboneLengthChange(tempOC);
 
-            dwSolver.CalculatePushrod_Outboard(Vehicle, Identifier, tempOC, out double gx, out double gy, out double gz);
+            SolveKinematics_CamberShimChange(tempOC);
+        }
 
-            dwSolver.CalculateToeLink_Outboard(ToeLinkLength, Vehicle, Identifier, tempOC, out double mx, out double my, out double mz);
+        private void SolveKinematics_WishboneLengthChange(OutputClass _tempOC)
+        {
+            dwSolver.Optimization_SteeringAxis(WishboneLinkLength, Vehicle, Identifier, _tempOC, out double fx, out double fy, out double fz, out double ex, out double ey, out double ez);
 
-            dwSolver.CalculateWheelSpindle_Outboard(Vehicle, Identifier, tempOC, out double kx, out double ky, out double kz, out double lx, out double ly, out double lz);
+            dwSolver.Optimization_Pushrod(Vehicle, Identifier, _tempOC, out double gx, out double gy, out double gz);
 
-            dwSolver.CalculateContactPatch_Outboard(Vehicle, Identifier, tempOC, out double wx, out double wy, out double wz);
+            dwSolver.Optimization_ToeLink(ToeLinkLength, Vehicle, Identifier, _tempOC, out double mx, out double my, out double mz);
+
+            dwSolver.Optimization_CamberMountTop(CamberShimLength, Vehicle, _tempOC, out double tcmx, out double tcmy, out double tcmz);
+
+            dwSolver.Optimization_CamberMountBottom(/*CamberShimLength*/ 0, Vehicle, _tempOC, out double bcmx, out double bcmy, out double bcmz);
+
+            dwSolver.Optimization_WheelSpindleStart(Vehicle, _tempOC, AdjustmentTools.TopCamberMount, out double kx, out double ky, out double kz);
+
+            dwSolver.Optimization_WheelSpindleEnd(Vehicle, _tempOC, AdjustmentTools.TopCamberMount, out double lx, out double ly, out double lz);
+
+            dwSolver.Optimization_ContatcPatch(Vehicle, Identifier, _tempOC, out double wx, out double wy, out double wz);
 
             UnsprungAssembly["UBJ"].OptimizedCoordinates = new Point3D(fx, fy, fz);
 
@@ -1149,6 +1169,10 @@ namespace Coding_Attempt_with_GUI
 
             UnsprungAssembly["ToeLinkOutboard"].OptimizedCoordinates = new Point3D(mx, my, mz);
 
+            UnsprungAssembly["TopCamberMount"].OptimizedCoordinates = new Point3D(tcmx, tcmy, tcmz);
+
+            UnsprungAssembly["BottomCamberMount"].OptimizedCoordinates = new Point3D(bcmx, bcmy, bcmz);
+
             UnsprungAssembly["WcStart"].OptimizedCoordinates = new Point3D(kx, ky, kz);
 
             UnsprungAssembly["WcEnd"].OptimizedCoordinates = new Point3D(lx, ly, lz);
@@ -1156,9 +1180,32 @@ namespace Coding_Attempt_with_GUI
             UnsprungAssembly["ContactPatch"].OptimizedCoordinates = new Point3D(wx, wy, wz);
 
 
+        }
 
+        private void SolveKinematics_ToeLinkLengthChange()
+        {
 
         }
+
+        private void SolveKinematics_CamberShimChange(OutputClass _tempOC)
+        {
+            dwSolver.Optimization_CamberMountTop(CamberShimLength, Vehicle, _tempOC, out double cmx, out double cmy, out double cmz);
+
+
+
+            MathNet.Spatial.Euclidean.Point3D CamberShimMount_1 = new MathNet.Spatial.Euclidean.Point3D(UnsprungAssembly["TopCamberMount"].OptimizedCoordinates.X,
+                                                                                                      UnsprungAssembly["TopCamberMount"].OptimizedCoordinates.Y,
+                                                                                                      UnsprungAssembly["TopCamberMount"].OptimizedCoordinates.Z);
+
+            MathNet.Spatial.Euclidean.Point3D CamberShimMount_2 = new MathNet.Spatial.Euclidean.Point3D(cmx, cmy, cmz);
+
+
+            //dwSolver.Optimization_WheelSpindleStart(Vehicle, _tempOC, AdjustmentTools.TopCamberMount, CamberShimMount_1, CamberShimMount_2, out double kx, out double ky, out double kz);
+
+            //dwSolver.Optimization_WheelSpindleEnd(Vehicle, _tempOC, AdjustmentTools.TopCamberMount, CamberShimMount_1, CamberShimMount_2, out double lx, out double ly, out double lz);
+        }
+
+
 
         DoubleWishboneKinematicsSolver dwSolver = new DoubleWishboneKinematicsSolver();
 
