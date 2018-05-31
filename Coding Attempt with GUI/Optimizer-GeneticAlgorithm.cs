@@ -108,10 +108,6 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         int BitSize;
 
-        SolverPass Pass { get; set; }
-
-        OptimizedOrientation BestFit_CurrGen_UprightOrientation;
-
         Point3D BestFit_CurrGen_ToeLinkInboard;
 
         double BestFitness_CurrGen;
@@ -343,9 +339,6 @@ namespace Coding_Attempt_with_GUI
             PopulationSize = _popSize;
 
             Population = new Population(_popSize, _chromoseLength, false, true, ParentSelectionMethod.TournamentSelection);
-
-            Pass = SolverPass.FirstPass;
-
 
             Fitness_Individual_Objectives = new Dictionary<string, double[,]>();
 
@@ -1607,12 +1600,6 @@ namespace Coding_Attempt_with_GUI
         CasterKPILinkLengthToe
     }
 
-    enum SolverPass
-    {
-        FirstPass,
-        SecondPass
-    };
-
     public class OptimizedCoordinate
     {
         public string PointName;
@@ -1649,44 +1636,6 @@ namespace Coding_Attempt_with_GUI
         }
     }
 
-    //public class OptimizedOrientation
-    //{
-    //    public Point3D Upper_Origin;
-
-    //    public Point3D Lower_Origin;
-
-    //    public MathNet.Spatial.Euclidean.EulerAngles Upper_Orientation;
-
-    //    public MathNet.Spatial.Euclidean.EulerAngles Lower_Orientation;
-
-    //    public Point3D OptimizedOrigin;
-
-    //    public MathNet.Spatial.Euclidean.EulerAngles OptimizedEulerAngles;
-
-    //    public int BitSize;
-
-    //    public OptimizedOrientation() { }
-
-    //    public OptimizedOrientation(Point3D _upperOrigin, Point3D _lowerOrigin, MathNet.Spatial.Euclidean.EulerAngles _upperOrientation, MathNet.Spatial.Euclidean.EulerAngles _lowerOrientation, int _bitSize)
-    //    {
-
-    //        Upper_Origin = _upperOrigin;
-
-    //        Lower_Origin = _lowerOrigin;
-
-    //        OptimizedOrigin = new Point3D();
-
-    //        Upper_Orientation = _upperOrientation;
-
-    //        Lower_Orientation = _lowerOrientation;
-
-    //        OptimizedEulerAngles = new MathNet.Spatial.Euclidean.EulerAngles();
-
-    //        BitSize = _bitSize;
-
-    //    }
-    //} 
-
     public class Opt_AdjToolParams
     {
         public string ParamName { get; set; }
@@ -1701,7 +1650,7 @@ namespace Coding_Attempt_with_GUI
 
         public Opt_AdjToolParams() { }
 
-        public Opt_AdjToolParams(string _paramName, double _nominal, double _upper, double _lower, int _bitSize)
+        public Opt_AdjToolParams(string _paramName, double _nominal, double _upper, double _lower, int _bitSiz)
         {
             ParamName = _paramName;
 
@@ -1711,7 +1660,7 @@ namespace Coding_Attempt_with_GUI
 
             Lower = _lower;
 
-            BitSize = _bitSize;
+            BitSize = _bitSiz;
         }
     }
 
