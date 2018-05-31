@@ -581,12 +581,13 @@ namespace Coding_Attempt_with_GUI
         TopCamberMount = 5,
         BottomCamberMount = 6,
         ToeLinkLength = 7,
-        ToeShims = 8,
-        SpringPreloadValue = 9,
-        PushrodLength = 10,
-        DamperEyetoSpringPerch = 11,
-        DirectValue = 12,
-        Dummy = 13
+        ToeLinkInboardPoint = 8,
+        ToeShims = 9,
+        SpringPreloadValue = 10,
+        PushrodLength = 11,
+        DamperEyetoSpringPerch = 12,
+        DirectValue = 13,
+        Dummy = 14
     };
 
 }

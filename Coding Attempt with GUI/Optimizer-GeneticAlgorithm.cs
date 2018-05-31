@@ -165,6 +165,9 @@ namespace Coding_Attempt_with_GUI
         /// Suspension Coordiantes of the corner of the Vehicle calling this class
         /// </summary>
         SuspensionCoordinatesMaster SCM;
+        /// <summary>
+        /// Cloned Object of the <see cref="SCM"/>. This is used to prevent residue error as in each iteraiton a fresh simulation is run
+        /// </summary>
         SuspensionCoordinatesMaster SCM_Clone;
         /// <summary>
         /// Spring of the corner of the Vehicle calling this class
@@ -273,13 +276,32 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// 
         /// </summary>
-        Dictionary<string, OptimizedCoordinate> UnsprungAssembly;
+        Dictionary<string, OptimizedCoordinate> tempUnsprungAssembly;
         /// <summary>
         /// 
         /// </summary>
-        Dictionary<string, OptimizedCoordinate> InboardPoints;
-
+        Dictionary<string, OptimizedCoordinate> tempInboardPoints;
+        /// <summary>
+        /// 
+        /// </summary>
         Dictionary<string, Line> tempAxisLines;
+        /// <summary>
+        /// Name is Critical
+        /// </summary>
+        Dictionary<string, Opt_AdjToolParams> CasterRequested;
+
+        Dictionary<string, Opt_AdjToolParams> ToeRequested;
+
+        Dictionary<string, Opt_AdjToolParams> CamberRequested;
+
+        Dictionary<string, Opt_AdjToolParams> KPIRequested;
+
+        Dictionary<string, Opt_AdjToolParams> BumpSteerRequested;
+
+        Dictionary<string, Dictionary<string, Opt_AdjToolParams>> MasterDictionary;
+
+        
+
         #endregion
 
         #endregion
@@ -299,7 +321,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_chromoseLength"> <para>Chromosome Length of the <see cref="Population"/></para>
                                        /// <para>Decided based on 2 things: The number of Genes and the bit size required for each Gene</para>
                                        /// <para>https://gaframework.org/wiki/index.php/How_to_Encode_Parameters for more information</para> </param>
-        public OptimizerGeneticAlgorithm(double _crossover, double _mutation, int _elites, int _popSize, int _chromoseLength, List<string> _adjustLinks)
+        public OptimizerGeneticAlgorithm(double _crossover, double _mutation, int _elites, int _popSize, int _chromoseLength/*, List<string> _setupsRequested*/)
         {
             BitSize = 30;
 
@@ -329,9 +351,7 @@ namespace Coding_Attempt_with_GUI
 
             BestFit_CurrGen_ToeLinkInboard = new Point3D();
 
-            BestFit_CurrGen_UprightOrientation = new OptimizedOrientation();
-
-            InitializeDataTable(_adjustLinks);
+            //InitializeDataTable(_setupsRequested);
 
             No_GaOutputs = _chromoseLength / BitSize;
 
@@ -347,52 +367,56 @@ namespace Coding_Attempt_with_GUI
 
             LowerCamberShimLength = -5;
 
+
+
         }
 
-        private void InitializeDataTable(List<string> _adjustLinkNames)
+        private void InitializeDataTable(List<string> _setupsRequested)
         {
-            Ga_Values = new DataTable();
+            //Ga_Values = new DataTable();
 
-            GA_Values_Params = new List<object>();
-
-
-            Ga_Values.Columns.Add("Solution Name", typeof(string));
-            GA_Values_Params.Add("SolutionName");
+            //GA_Values_Params = new List<object>();
 
 
-            Ga_Values.Columns.Add("Orientation", typeof(OptimizedOrientation));
-            GA_Values_Params.Add(new OptimizedOrientation());
+            //Ga_Values.Columns.Add("Solution Name", typeof(string));
+            //GA_Values_Params.Add("SolutionName");
 
 
-            Ga_Values.Columns.Add("Orientation Fitness", typeof(double));
-            GA_Values_Params.Add(0);
+            ////Ga_Values.Columns.Add("Orientation", typeof(OptimizedOrientation));
+            ////GA_Values_Params.Add(new OptimizedOrientation());
 
 
-            Ga_Values.Columns.Add("Toe Link Inboard", typeof(OptimizedCoordinate));
-            GA_Values_Params.Add(new Point3D());
+            //Ga_Values.Columns.Add("Orientation Fitness", typeof(double));
+            //GA_Values_Params.Add(0);
 
 
-            Ga_Values.Columns.Add("Bump Steer Fitness", typeof(double));
-            GA_Values_Params.Add(0);
+            //Ga_Values.Columns.Add("Toe Link Inboard", typeof(OptimizedCoordinate));
+            //GA_Values_Params.Add(new Point3D());
 
 
-            for (int i = 0; i < _adjustLinkNames.Count; i++)
-            {
-                Ga_Values.Columns.Add(_adjustLinkNames[i], typeof(double));
-                GA_Values_Params.Add(0);
-            }
+            //Ga_Values.Columns.Add("Bump Steer Fitness", typeof(double));
+            //GA_Values_Params.Add(0);
 
-            Ga_Values.Columns.Add("Pareto Rank", typeof(double));
 
-            Ga_Values.Columns.Add("Pareto Optimal", typeof(bool));
-            GA_Values_Params.Add(false);
+            //for (int i = 0; i < _adjustLinkNames.Count; i++)
+            //{
+            //    Ga_Values.Columns.Add(_adjustLinkNames[i], typeof(double));
+            //    GA_Values_Params.Add(0);
+            //}
 
-            Ga_Values.Columns.Add("RMS Fitness", typeof(double));
+            //Ga_Values.Columns.Add("Pareto Rank", typeof(double));
 
-            for (int i = 0; i < Ga_Values.Columns.Count; i++)
-            {
-                Ga_Values.Columns[0].ReadOnly = true;
-            }
+            //Ga_Values.Columns.Add("Pareto Optimal", typeof(bool));
+            //GA_Values_Params.Add(false);
+
+            //Ga_Values.Columns.Add("RMS Fitness", typeof(double));
+
+            //for (int i = 0; i < Ga_Values.Columns.Count; i++)
+            //{
+            //    Ga_Values.Columns[0].ReadOnly = true;
+            //}
+
+
         }
 
         /// <summary>
@@ -452,7 +476,7 @@ namespace Coding_Attempt_with_GUI
 
         private void InitializeSuspensionAssemblies(Dictionary<string, OptimizedCoordinate> _assemblyPoints)
         {
-            UnsprungAssembly = _assemblyPoints;
+            tempUnsprungAssembly = _assemblyPoints;
         }
 
         /// <summary>
@@ -635,13 +659,13 @@ namespace Coding_Attempt_with_GUI
             Point3D Lower = new Point3D(-20, -20, -20);
 
 
-            UnsprungAssembly = new Dictionary<string, OptimizedCoordinate>();
+            tempUnsprungAssembly = new Dictionary<string, OptimizedCoordinate>();
 
-            InboardPoints = new Dictionary<string, OptimizedCoordinate>();
+            tempInboardPoints = new Dictionary<string, OptimizedCoordinate>();
 
             ToeLinkInboard = new Point3D(SCM.N1x, SCM.N1y, SCM.N1z);
 
-            InboardPoints.Add("ToeLinkInboard", new OptimizedCoordinate(ToeLinkInboard, Upper, Lower, BitSize));
+            tempInboardPoints.Add("ToeLinkInboard", new OptimizedCoordinate(ToeLinkInboard, Upper, Lower, BitSize));
 
             TopFront = new Point3D(SCM.A1x, SCM.A1y, SCM.A1z);
 
@@ -654,37 +678,37 @@ namespace Coding_Attempt_with_GUI
 
             UBJ = new Point3D(SCM.F1x, SCM.F1y, SCM.F1z);
 
-            UnsprungAssembly.Add("UBJ", new OptimizedCoordinate(UBJ, Upper, Lower, BitSize));
+            tempUnsprungAssembly.Add("UBJ", new OptimizedCoordinate(UBJ, Upper, Lower, BitSize));
 
-            UnsprungAssembly.Add("TopCamberMount", new OptimizedCoordinate(UBJ.Clone() as Point3D, Upper, Lower, BitSize));
+            tempUnsprungAssembly.Add("TopCamberMount", new OptimizedCoordinate(UBJ.Clone() as Point3D, Upper, Lower, BitSize));
 
             Pushrod = new Point3D(SCM.G1x, SCM.G1y, SCM.G1z);
 
-            UnsprungAssembly.Add("Pushrod", new OptimizedCoordinate(Pushrod, Upper, Lower, BitSize));
+            tempUnsprungAssembly.Add("Pushrod", new OptimizedCoordinate(Pushrod, Upper, Lower, BitSize));
 
             PushrodShockMount = new Point3D(SCM.H1x, SCM.H1y, SCM.H1z);
 
             LBJ = new Point3D(SCM.E1x, SCM.E1y, SCM.E1z);
 
-            UnsprungAssembly.Add("BottomCamberMount", new OptimizedCoordinate(LBJ.Clone() as Point3D, Upper, Lower, BitSize));
+            tempUnsprungAssembly.Add("BottomCamberMount", new OptimizedCoordinate(LBJ.Clone() as Point3D, Upper, Lower, BitSize));
 
-            UnsprungAssembly.Add("LBJ", new OptimizedCoordinate(LBJ, Upper, Lower, BitSize));
+            tempUnsprungAssembly.Add("LBJ", new OptimizedCoordinate(LBJ, Upper, Lower, BitSize));
 
             WcStart = new Point3D(SCM.K1x, SCM.K1y, SCM.K1z);
 
-            UnsprungAssembly.Add("WcStart", new OptimizedCoordinate(WcStart, Upper, Lower, BitSize));
+            tempUnsprungAssembly.Add("WcStart", new OptimizedCoordinate(WcStart, Upper, Lower, BitSize));
 
             WcEnd = new Point3D(SCM.L1x, SCM.L1y, SCM.L1z);
 
-            UnsprungAssembly.Add("WcEnd", new OptimizedCoordinate(WcEnd, Upper, Lower, BitSize));
+            tempUnsprungAssembly.Add("WcEnd", new OptimizedCoordinate(WcEnd, Upper, Lower, BitSize));
 
             ToeLinkOutboard = new Point3D(SCM.M1x, SCM.M1y, SCM.M1z);
 
-            UnsprungAssembly.Add("ToeLinkOutboard", new OptimizedCoordinate(ToeLinkOutboard, Upper, Lower, BitSize));
+            tempUnsprungAssembly.Add("ToeLinkOutboard", new OptimizedCoordinate(ToeLinkOutboard, Upper, Lower, BitSize));
 
             ContactPatch = new Point3D(SCM.W1x, SCM.W1x, SCM.W1z);
 
-            UnsprungAssembly.Add("ContactPatch", new OptimizedCoordinate(ContactPatch, Upper, Lower, BitSize));
+            tempUnsprungAssembly.Add("ContactPatch", new OptimizedCoordinate(ContactPatch, Upper, Lower, BitSize));
 
 
             tempAxisLines = new Dictionary<string, Line>();
@@ -702,6 +726,30 @@ namespace Coding_Attempt_with_GUI
             tempAxisLines.Add("VerticalAxis_WheelCenter", new Line(WcStart.Clone() as Point3D, new Point3D(WcStart.X, WcStart.Y + 100, WcStart.Z)));
 
             tempAxisLines.Add("LongitudinalAxis_WheelCenter", new Line(WcStart.Clone() as Point3D, new Point3D(WcStart.X, WcStart.Y, WcStart.Z + 100)));
+
+
+            CasterRequested = new Dictionary<string, Opt_AdjToolParams>();
+
+            CasterRequested.Add(AdjustmentTools.TopFrontArm.ToString(), new Opt_AdjToolParams(AdjustmentTools.TopFrontArm.ToString(), 0, 10, -10, 30));
+
+            ToeRequested = new Dictionary<string, Opt_AdjToolParams>();
+
+            ToeRequested.Add(AdjustmentTools.ToeLinkLength.ToString(), new Opt_AdjToolParams(AdjustmentTools.ToeLinkLength.ToString(), 0, 10, -10, 30));
+
+            KPIRequested = new Dictionary<string, Opt_AdjToolParams>();
+
+            KPIRequested.Add(AdjustmentTools.BottomRearArm.ToString(), new Opt_AdjToolParams(AdjustmentTools.BottomRearArm.ToString(), 0, 10, -10, 30));
+
+            CamberRequested = new Dictionary<string, Opt_AdjToolParams>();
+
+            CamberRequested.Add(AdjustmentTools.TopCamberMount.ToString(), new Opt_AdjToolParams(AdjustmentTools.TopCamberMount.ToString(), 0, 10, -10, 30));
+
+            BumpSteerRequested = new Dictionary<string, Opt_AdjToolParams>();
+
+            BumpSteerRequested.Add(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_x", new Opt_AdjToolParams(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_x", 232.12, 5, -5, 30));
+            BumpSteerRequested.Add(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_y", new Opt_AdjToolParams(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_y", 124.4, 5, -5, 30));
+            BumpSteerRequested.Add(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_z", new Opt_AdjToolParams(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_z", 60.8, 5, -5, 30));
+            
 
         }
         #endregion
@@ -837,11 +885,11 @@ namespace Coding_Attempt_with_GUI
         {
             int geneNumber = 0;
 
-            var rBSx = GAF.Math.GetRangeConstant(InboardPoints["ToeLinkInboard"].UpperCoordinateLimit.X - InboardPoints["ToeLinkInboard"].LowerCoordinateLimit.X, InboardPoints["ToeLinkInboard"].BitSize);
+            var rBSx = GAF.Math.GetRangeConstant(tempInboardPoints["ToeLinkInboard"].UpperCoordinateLimit.X - tempInboardPoints["ToeLinkInboard"].LowerCoordinateLimit.X, tempInboardPoints["ToeLinkInboard"].BitSize);
 
-            var rBSy = GAF.Math.GetRangeConstant(InboardPoints["ToeLinkInboard"].UpperCoordinateLimit.Y - InboardPoints["ToeLinkInboard"].LowerCoordinateLimit.Y, InboardPoints["ToeLinkInboard"].BitSize);
+            var rBSy = GAF.Math.GetRangeConstant(tempInboardPoints["ToeLinkInboard"].UpperCoordinateLimit.Y - tempInboardPoints["ToeLinkInboard"].LowerCoordinateLimit.Y, tempInboardPoints["ToeLinkInboard"].BitSize);
 
-            var rBSz = GAF.Math.GetRangeConstant(InboardPoints["ToeLinkInboard"].UpperCoordinateLimit.Z - InboardPoints["ToeLinkInboard"].LowerCoordinateLimit.Z, InboardPoints["ToeLinkInboard"].BitSize);
+            var rBSz = GAF.Math.GetRangeConstant(tempInboardPoints["ToeLinkInboard"].UpperCoordinateLimit.Z - tempInboardPoints["ToeLinkInboard"].LowerCoordinateLimit.Z, tempInboardPoints["ToeLinkInboard"].BitSize);
 
             var rWishboneLength = GAF.Math.GetRangeConstant(UpperWishboneLinkLength - LowerWishboneLinkLength, BitSize);
 
@@ -850,15 +898,15 @@ namespace Coding_Attempt_with_GUI
             var rCamberShimLength = GAF.Math.GetRangeConstant(UpperCamberShimLength - LowerCamberShimLength, BitSize);
 
 
-            var xBS1 = Convert.ToInt32(chromosome.ToBinaryString(geneNumber* InboardPoints["ToeLinkInboard"].BitSize, InboardPoints["ToeLinkInboard"].BitSize), 2);
+            var xBS1 = Convert.ToInt32(chromosome.ToBinaryString(geneNumber* tempInboardPoints["ToeLinkInboard"].BitSize, tempInboardPoints["ToeLinkInboard"].BitSize), 2);
 
             geneNumber++;
 
-            var yBS1 = Convert.ToInt32(chromosome.ToBinaryString(geneNumber * InboardPoints["ToeLinkInboard"].BitSize, InboardPoints["ToeLinkInboard"].BitSize), 2);
+            var yBS1 = Convert.ToInt32(chromosome.ToBinaryString(geneNumber * tempInboardPoints["ToeLinkInboard"].BitSize, tempInboardPoints["ToeLinkInboard"].BitSize), 2);
 
             geneNumber++;
 
-            var zBS1 = Convert.ToInt32(chromosome.ToBinaryString(geneNumber * InboardPoints["ToeLinkInboard"].BitSize, InboardPoints["ToeLinkInboard"].BitSize), 2);
+            var zBS1 = Convert.ToInt32(chromosome.ToBinaryString(geneNumber * tempInboardPoints["ToeLinkInboard"].BitSize, tempInboardPoints["ToeLinkInboard"].BitSize), 2);
 
             geneNumber++;
 
@@ -881,10 +929,10 @@ namespace Coding_Attempt_with_GUI
             ///https://gaframework.org/wiki/index.php/How_to_Encode_Parameters
             ///Visit link above for more information on the code below
             /// </remarks>
-            InboardPoints["ToeLinkInboard"].OptimizedCoordinates = new Point3D();
-            InboardPoints["ToeLinkInboard"].OptimizedCoordinates.X = System.Math.Round((xBS1 * rBSx) + (InboardPoints["ToeLinkInboard"].NominalCoordinates.X + InboardPoints["ToeLinkInboard"].LowerCoordinateLimit.X) /*+ SCM.InputOriginX*/, 3);
-            InboardPoints["ToeLinkInboard"].OptimizedCoordinates.Y = System.Math.Round((yBS1 * rBSy) + (InboardPoints["ToeLinkInboard"].NominalCoordinates.Y + InboardPoints["ToeLinkInboard"].LowerCoordinateLimit.Y) /*+ SCM.InputOriginY*/, 3);
-            InboardPoints["ToeLinkInboard"].OptimizedCoordinates.Z = System.Math.Round((zBS1 * rBSz) + (InboardPoints["ToeLinkInboard"].NominalCoordinates.Z + InboardPoints["ToeLinkInboard"].LowerCoordinateLimit.Z) /*+ SCM.InputOriginZ*/, 3);
+            tempInboardPoints["ToeLinkInboard"].OptimizedCoordinates = new Point3D();
+            tempInboardPoints["ToeLinkInboard"].OptimizedCoordinates.X = System.Math.Round((xBS1 * rBSx) + (tempInboardPoints["ToeLinkInboard"].NominalCoordinates.X + tempInboardPoints["ToeLinkInboard"].LowerCoordinateLimit.X) /*+ SCM.InputOriginX*/, 3);
+            tempInboardPoints["ToeLinkInboard"].OptimizedCoordinates.Y = System.Math.Round((yBS1 * rBSy) + (tempInboardPoints["ToeLinkInboard"].NominalCoordinates.Y + tempInboardPoints["ToeLinkInboard"].LowerCoordinateLimit.Y) /*+ SCM.InputOriginY*/, 3);
+            tempInboardPoints["ToeLinkInboard"].OptimizedCoordinates.Z = System.Math.Round((zBS1 * rBSz) + (tempInboardPoints["ToeLinkInboard"].NominalCoordinates.Z + tempInboardPoints["ToeLinkInboard"].LowerCoordinateLimit.Z) /*+ SCM.InputOriginZ*/, 3);
 
             WishboneLinkLength = System.Math.Round((WishboneLength_1 * rWishboneLength) + (LowerWishboneLinkLength), 3);
 
@@ -905,7 +953,7 @@ namespace Coding_Attempt_with_GUI
             
             Update_SuspensionCoordinateData();
 
-            double bumpSteerError = EvaluateBumpSteer(InboardPoints["ToeLinkInboard"].OptimizedCoordinates.X, InboardPoints["ToeLinkInboard"].OptimizedCoordinates.Y, InboardPoints["ToeLinkInboard"].OptimizedCoordinates.Z);
+            double bumpSteerError = EvaluateBumpSteer(tempInboardPoints["ToeLinkInboard"].OptimizedCoordinates.X, tempInboardPoints["ToeLinkInboard"].OptimizedCoordinates.Y, tempInboardPoints["ToeLinkInboard"].OptimizedCoordinates.Z);
 
             double casterError = ComputeCasterError();
 
@@ -936,124 +984,124 @@ namespace Coding_Attempt_with_GUI
 
         private void GetParetoSolutions()
         {
-            Dictionary<string,OptimizedOrientation> paretoOrientations = new Dictionary<string, OptimizedOrientation>();
+            //Dictionary<string,OptimizedOrientation> paretoOrientations = new Dictionary<string, OptimizedOrientation>();
 
-            Dictionary<string, Point3D> paretoToeLink = new Dictionary<string, Point3D>();
+            //Dictionary<string, Point3D> paretoToeLink = new Dictionary<string, Point3D>();
 
-            for (int i = 0; i < Ga_Values.Rows.Count; i++)
-            {
-                if (Ga_Values.Rows[i].Field<bool>("Pareto Optimal"))
-                {
-                    paretoOrientations.Add(Ga_Values.Rows[i].Field<double>("Orientation Fitness").ToString() + i, Ga_Values.Rows[i].Field<OptimizedOrientation>("Orientation"));
-                    paretoToeLink.Add(Ga_Values.Rows[i].Field<double>("Bump Steer Fitness").ToString() + i, Ga_Values.Rows[i].Field<OptimizedCoordinate>("Toe Link Inboard").OptimizedCoordinates);
-                }
-            }
+            //for (int i = 0; i < Ga_Values.Rows.Count; i++)
+            //{
+            //    if (Ga_Values.Rows[i].Field<bool>("Pareto Optimal"))
+            //    {
+            //        paretoOrientations.Add(Ga_Values.Rows[i].Field<double>("Orientation Fitness").ToString() + i, Ga_Values.Rows[i].Field<OptimizedOrientation>("Orientation"));
+            //        paretoToeLink.Add(Ga_Values.Rows[i].Field<double>("Bump Steer Fitness").ToString() + i, Ga_Values.Rows[i].Field<OptimizedCoordinate>("Toe Link Inboard").OptimizedCoordinates);
+            //    }
+            //}
         }
 
         #region --- NOT NEEDED IN THIS ITERATION---
-        private List<double> EvaluateUpdatedOrientation(OptimizedOrientation _OptimizationOrientation)
-        {
-            Transformation TransformationMatrix = GenerateTransformationMatrix(_OptimizationOrientation.OptimizedEulerAngles, _OptimizationOrientation.OptimizedOrigin);
+        //private List<double> EvaluateUpdatedOrientation(OptimizedOrientation _OptimizationOrientation)
+        //{
+        //    Transformation TransformationMatrix = GenerateTransformationMatrix(_OptimizationOrientation.OptimizedEulerAngles, _OptimizationOrientation.OptimizedOrigin);
 
-            UpdateOrientation(TransformationMatrix);
+        //    UpdateOrientation(TransformationMatrix);
 
-            //return EvaluateWishboneConstraints();
+        //    //return EvaluateWishboneConstraints();
 
-            return null;
-        }
+        //    return null;
+        //}
 
-        private Transformation GenerateTransformationMatrix(MathNet.Spatial.Euclidean.EulerAngles _optimizedOrientation, Point3D _optimizedOrigin)
-        {
+        //private Transformation GenerateTransformationMatrix(MathNet.Spatial.Euclidean.EulerAngles _optimizedOrientation, Point3D _optimizedOrigin)
+        //{
 
-            var UprightCSTranslation = Matrix<double>.Build.DenseOfArray(new double[,]
-                {
-                    { (1) , (0) , (0) , (UnsprungAssembly["WcStart"].NominalCoordinates.X)},
-                    { (0) , (1) , (0) , (UnsprungAssembly["WcStart"].NominalCoordinates.Y)},
-                    { (0) , (0) , (1) , (UnsprungAssembly["WcStart"].NominalCoordinates.Z)},
-                    { (0) , (0) , (0) , (1)},
-                });
-
-
-            Angle a = _optimizedOrientation.Alpha;
-
-            Angle b = _optimizedOrientation.Beta;
-
-            Angle g = _optimizedOrientation.Gamma;
-
-            double S1 = System.Math.Sin(a.Radians);
-
-            double S2 = System.Math.Sin(b.Radians);
-
-            double S3 = System.Math.Sin(g.Radians);
+        //    var UprightCSTranslation = Matrix<double>.Build.DenseOfArray(new double[,]
+        //        {
+        //            { (1) , (0) , (0) , (tempUnsprungAssembly["WcStart"].NominalCoordinates.X)},
+        //            { (0) , (1) , (0) , (tempUnsprungAssembly["WcStart"].NominalCoordinates.Y)},
+        //            { (0) , (0) , (1) , (tempUnsprungAssembly["WcStart"].NominalCoordinates.Z)},
+        //            { (0) , (0) , (0) , (1)},
+        //        });
 
 
-            double C1 = System.Math.Cos(a.Radians);
+        //    Angle a = _optimizedOrientation.Alpha;
 
-            double C2 = System.Math.Cos(b.Radians);
+        //    Angle b = _optimizedOrientation.Beta;
 
-            double C3 = System.Math.Cos(g.Radians);
+        //    Angle g = _optimizedOrientation.Gamma;
 
-            var TaitRotationMatrix_YZX = Matrix<double>.Build.DenseOfArray(new double[,]
-            {
-                { ((C1 * C2))               ,   ((S1 * S3) - (C1 * C3 * S2))   ,   ((C3 * S1) + (C1 * S2 * S3 ))  ,   0},
-                { (S2)                      ,   ((C2 * C3))                    ,   (-(C2 * S3))                   ,   0},
-                { (-C2 * S1)                ,   ((C1 * S3) + (C3 * S1 * S2) )  ,   ((C1 * C3) - (S1 * S2 * S3))   ,   0},
-                { (0)                       ,   (0)                            ,   (0)                            ,   1}
+        //    double S1 = System.Math.Sin(a.Radians);
 
-            });
+        //    double S2 = System.Math.Sin(b.Radians);
+
+        //    double S3 = System.Math.Sin(g.Radians);
 
 
-            double dx = -_optimizedOrigin.X;
+        //    double C1 = System.Math.Cos(a.Radians);
 
-            double dy = -_optimizedOrigin.Y;
+        //    double C2 = System.Math.Cos(b.Radians);
 
-            double dz = -_optimizedOrigin.Z;
+        //    double C3 = System.Math.Cos(g.Radians);
 
+        //    var TaitRotationMatrix_YZX = Matrix<double>.Build.DenseOfArray(new double[,]
+        //    {
+        //        { ((C1 * C2))               ,   ((S1 * S3) - (C1 * C3 * S2))   ,   ((C3 * S1) + (C1 * S2 * S3 ))  ,   0},
+        //        { (S2)                      ,   ((C2 * C3))                    ,   (-(C2 * S3))                   ,   0},
+        //        { (-C2 * S1)                ,   ((C1 * S3) + (C3 * S1 * S2) )  ,   ((C1 * C3) - (S1 * S2 * S3))   ,   0},
+        //        { (0)                       ,   (0)                            ,   (0)                            ,   1}
 
-
-            var OrientationTranslationMatrix = Matrix<double>.Build.DenseOfArray(new double[,]
-            {
-                { (1) , (0) , (0) , (dx)},
-                { (0) , (1) , (0) , (dy)},
-                { (0) , (0) , (1) , (dz)},
-                { (0) , (0) , (0) , (1)}
-            });
-
-            var UprightCSInverseTranslation = Matrix<double>.Build.DenseOfArray(new double[,]
-                {
-                    { (1) , (0) , (0) , (-UnsprungAssembly["WcStart"].NominalCoordinates.X)},
-                    { (0) , (1) , (0) , (-UnsprungAssembly["WcStart"].NominalCoordinates.Y)},
-                    { (0) , (0) , (1) , (-UnsprungAssembly["WcStart"].NominalCoordinates.Z)},
-                    { (0) , (0) , (0) , (1)},
-                });
-
-            Matrix<double> Transformation_1 = UprightCSTranslation.Multiply(TaitRotationMatrix_YZX);
-
-            Matrix<double> Transformation_2 = Transformation_1.Solve(OrientationTranslationMatrix);
-
-            Matrix<double> Transformation_3 = Transformation_2.Solve(UprightCSInverseTranslation);
-
-            Matrix<double> FinalTransformation = Transformation_3;
+        //    });
 
 
-            Transformation TransformationMatrix = new Transformation(FinalTransformation.ToArray());
+        //    double dx = -_optimizedOrigin.X;
 
-            return TransformationMatrix;
+        //    double dy = -_optimizedOrigin.Y;
 
-        }
+        //    double dz = -_optimizedOrigin.Z;
 
-        private void UpdateOrientation(Transformation _transformationMatrix)
-        {
-            foreach (string point in UnsprungAssembly.Keys)
-            {
-                Point3D tempPoint = UnsprungAssembly[point].NominalCoordinates.Clone() as Point3D;
-                tempPoint.TransformBy(_transformationMatrix);
-                UnsprungAssembly[point].OptimizedCoordinates = tempPoint.Clone() as Point3D;
-            }
 
-            tempAxisLines["SteeringAxis"] = new Line(UnsprungAssembly["UBJ"].OptimizedCoordinates, UnsprungAssembly["LBJ"].OptimizedCoordinates);
 
-        }
+        //    var OrientationTranslationMatrix = Matrix<double>.Build.DenseOfArray(new double[,]
+        //    {
+        //        { (1) , (0) , (0) , (dx)},
+        //        { (0) , (1) , (0) , (dy)},
+        //        { (0) , (0) , (1) , (dz)},
+        //        { (0) , (0) , (0) , (1)}
+        //    });
+
+        //    var UprightCSInverseTranslation = Matrix<double>.Build.DenseOfArray(new double[,]
+        //        {
+        //            { (1) , (0) , (0) , (-tempUnsprungAssembly["WcStart"].NominalCoordinates.X)},
+        //            { (0) , (1) , (0) , (-tempUnsprungAssembly["WcStart"].NominalCoordinates.Y)},
+        //            { (0) , (0) , (1) , (-tempUnsprungAssembly["WcStart"].NominalCoordinates.Z)},
+        //            { (0) , (0) , (0) , (1)},
+        //        });
+
+        //    Matrix<double> Transformation_1 = UprightCSTranslation.Multiply(TaitRotationMatrix_YZX);
+
+        //    Matrix<double> Transformation_2 = Transformation_1.Solve(OrientationTranslationMatrix);
+
+        //    Matrix<double> Transformation_3 = Transformation_2.Solve(UprightCSInverseTranslation);
+
+        //    Matrix<double> FinalTransformation = Transformation_3;
+
+
+        //    Transformation TransformationMatrix = new Transformation(FinalTransformation.ToArray());
+
+        //    return TransformationMatrix;
+
+        //}
+
+        //private void UpdateOrientation(Transformation _transformationMatrix)
+        //{
+        //    foreach (string point in tempUnsprungAssembly.Keys)
+        //    {
+        //        Point3D tempPoint = tempUnsprungAssembly[point].NominalCoordinates.Clone() as Point3D;
+        //        tempPoint.TransformBy(_transformationMatrix);
+        //        tempUnsprungAssembly[point].OptimizedCoordinates = tempPoint.Clone() as Point3D;
+        //    }
+
+        //    tempAxisLines["SteeringAxis"] = new Line(tempUnsprungAssembly["UBJ"].OptimizedCoordinates, tempUnsprungAssembly["LBJ"].OptimizedCoordinates);
+
+        //}
 
         #endregion
 
@@ -1064,27 +1112,27 @@ namespace Coding_Attempt_with_GUI
 
             double TopFrontLength = System.Math.Round(SCM.UpperFrontLength, 3);
 
-            double TopFrontLength_UpdatedOrientation = System.Math.Round(UnsprungAssembly["UBJ"].OptimizedCoordinates.DistanceTo(TopFront), 3);
+            double TopFrontLength_UpdatedOrientation = System.Math.Round(tempUnsprungAssembly["UBJ"].OptimizedCoordinates.DistanceTo(TopFront), 3);
 
             double TopRearLength = System.Math.Round(SCM.UpperRearLength, 3);
 
-            double TopRearLength_UpdatedOrientation = System.Math.Round(UnsprungAssembly["UBJ"].OptimizedCoordinates.DistanceTo(TopRear), 3);
+            double TopRearLength_UpdatedOrientation = System.Math.Round(tempUnsprungAssembly["UBJ"].OptimizedCoordinates.DistanceTo(TopRear), 3);
 
             double BottomFrontLength = System.Math.Round(SCM.LowerFrontLength, 3);
 
-            double BottomFrontLength_UpdatedOrientation = System.Math.Round(UnsprungAssembly["LBJ"].OptimizedCoordinates.DistanceTo(BottomFront), 3);
+            double BottomFrontLength_UpdatedOrientation = System.Math.Round(tempUnsprungAssembly["LBJ"].OptimizedCoordinates.DistanceTo(BottomFront), 3);
 
             double BottomRearLength = System.Math.Round(SCM.LowerRearLength, 3);
 
-            double BottomRearLength_UpdatedOrientation = System.Math.Round(UnsprungAssembly["LBJ"].OptimizedCoordinates.DistanceTo(BottomRear), 3);
+            double BottomRearLength_UpdatedOrientation = System.Math.Round(tempUnsprungAssembly["LBJ"].OptimizedCoordinates.DistanceTo(BottomRear), 3);
 
             double ToeLinkLength = System.Math.Round(SCM.ToeLinkLength, 3);
 
-            double ToeLinkLength_UpdatedOrientation = System.Math.Round(UnsprungAssembly["ToeLinkOutboard"].OptimizedCoordinates.DistanceTo(InboardPoints["ToeLinkInboard"].OptimizedCoordinates), 3);
+            double ToeLinkLength_UpdatedOrientation = System.Math.Round(tempUnsprungAssembly["ToeLinkOutboard"].OptimizedCoordinates.DistanceTo(tempInboardPoints["ToeLinkInboard"].OptimizedCoordinates), 3);
 
             double PushrodLength = System.Math.Round(SCM.PushRodLength);
 
-            double PushrodLength_UpdatedOrientation = System.Math.Round(UnsprungAssembly["Pushrod"].OptimizedCoordinates.DistanceTo(PushrodShockMount), 3);
+            double PushrodLength_UpdatedOrientation = System.Math.Round(tempUnsprungAssembly["Pushrod"].OptimizedCoordinates.DistanceTo(PushrodShockMount), 3);
 
 
             linkLengthError += System.Math.Pow(CalculateLinkLengthError(TopFrontLength, TopFrontLength_UpdatedOrientation), 2);
@@ -1117,9 +1165,9 @@ namespace Coding_Attempt_with_GUI
 
             SCM.Clone_Outboard_FromDictionary(SuspensionCoordintes);
 
-            tempAxisLines["SteeringAxis"] = new Line(UnsprungAssembly["UBJ"].OptimizedCoordinates, UnsprungAssembly["LBJ"].OptimizedCoordinates);
+            tempAxisLines["SteeringAxis"] = new Line(tempUnsprungAssembly["UBJ"].OptimizedCoordinates, tempUnsprungAssembly["LBJ"].OptimizedCoordinates);
 
-            tempAxisLines["WheelSpindle"] = new Line(UnsprungAssembly["WcStart"].OptimizedCoordinates, UnsprungAssembly["WcEnd"].OptimizedCoordinates);
+            tempAxisLines["WheelSpindle"] = new Line(tempUnsprungAssembly["WcStart"].OptimizedCoordinates, tempUnsprungAssembly["WcEnd"].OptimizedCoordinates);
 
         }
 
@@ -1127,9 +1175,9 @@ namespace Coding_Attempt_with_GUI
         {
             Dictionary<string, Point3D> suspCoordinates = new Dictionary<string, Point3D>();
 
-            foreach (string point in UnsprungAssembly.Keys)
+            foreach (string point in tempUnsprungAssembly.Keys)
             {
-                suspCoordinates.Add(point, UnsprungAssembly[point].OptimizedCoordinates.Clone() as Point3D);
+                suspCoordinates.Add(point, tempUnsprungAssembly[point].OptimizedCoordinates.Clone() as Point3D);
             }
 
             return suspCoordinates;
@@ -1139,7 +1187,7 @@ namespace Coding_Attempt_with_GUI
         {
             dwSolver.AssignLocalCoordinateVariables_FixesPoints(SCM_Clone);
             dwSolver.AssignLocalCoordinateVariables_MovingPoints(SCM_Clone);
-            dwSolver.OptimizedSteeringPoint = InboardPoints["ToeLinkInboard"].OptimizedCoordinates;
+            dwSolver.OptimizedSteeringPoint = tempInboardPoints["ToeLinkInboard"].OptimizedCoordinates;
             dwSolver.AssignOptimizedSteeringPoints();
 
             OutputClass tempOC = new OutputClass();
@@ -1167,23 +1215,23 @@ namespace Coding_Attempt_with_GUI
 
             dwSolver.Optimization_ContatcPatch(Vehicle, Identifier, _tempOC, out double wx, out double wy, out double wz);
 
-            UnsprungAssembly["UBJ"].OptimizedCoordinates = new Point3D(fx, fy, fz);
+            tempUnsprungAssembly["UBJ"].OptimizedCoordinates = new Point3D(fx, fy, fz);
 
-            UnsprungAssembly["LBJ"].OptimizedCoordinates = new Point3D(ex, ey, ez);
+            tempUnsprungAssembly["LBJ"].OptimizedCoordinates = new Point3D(ex, ey, ez);
 
-            UnsprungAssembly["Pushrod"].OptimizedCoordinates = new Point3D(gx, gy, gz);
+            tempUnsprungAssembly["Pushrod"].OptimizedCoordinates = new Point3D(gx, gy, gz);
 
-            UnsprungAssembly["ToeLinkOutboard"].OptimizedCoordinates = new Point3D(mx, my, mz);
+            tempUnsprungAssembly["ToeLinkOutboard"].OptimizedCoordinates = new Point3D(mx, my, mz);
 
-            UnsprungAssembly["TopCamberMount"].OptimizedCoordinates = new Point3D(tcmx, tcmy, tcmz);
+            tempUnsprungAssembly["TopCamberMount"].OptimizedCoordinates = new Point3D(tcmx, tcmy, tcmz);
 
-            UnsprungAssembly["BottomCamberMount"].OptimizedCoordinates = new Point3D(bcmx, bcmy, bcmz);
+            tempUnsprungAssembly["BottomCamberMount"].OptimizedCoordinates = new Point3D(bcmx, bcmy, bcmz);
 
-            UnsprungAssembly["WcStart"].OptimizedCoordinates = new Point3D(kx, ky, kz);
+            tempUnsprungAssembly["WcStart"].OptimizedCoordinates = new Point3D(kx, ky, kz);
 
-            UnsprungAssembly["WcEnd"].OptimizedCoordinates = new Point3D(lx, ly, lz);
+            tempUnsprungAssembly["WcEnd"].OptimizedCoordinates = new Point3D(lx, ly, lz);
 
-            UnsprungAssembly["ContactPatch"].OptimizedCoordinates = new Point3D(wx, wy, wz);
+            tempUnsprungAssembly["ContactPatch"].OptimizedCoordinates = new Point3D(wx, wy, wz);
 
 
         }
@@ -1601,43 +1649,72 @@ namespace Coding_Attempt_with_GUI
         }
     }
 
-    public class OptimizedOrientation
+    //public class OptimizedOrientation
+    //{
+    //    public Point3D Upper_Origin;
+
+    //    public Point3D Lower_Origin;
+
+    //    public MathNet.Spatial.Euclidean.EulerAngles Upper_Orientation;
+
+    //    public MathNet.Spatial.Euclidean.EulerAngles Lower_Orientation;
+
+    //    public Point3D OptimizedOrigin;
+
+    //    public MathNet.Spatial.Euclidean.EulerAngles OptimizedEulerAngles;
+
+    //    public int BitSize;
+
+    //    public OptimizedOrientation() { }
+
+    //    public OptimizedOrientation(Point3D _upperOrigin, Point3D _lowerOrigin, MathNet.Spatial.Euclidean.EulerAngles _upperOrientation, MathNet.Spatial.Euclidean.EulerAngles _lowerOrientation, int _bitSize)
+    //    {
+
+    //        Upper_Origin = _upperOrigin;
+
+    //        Lower_Origin = _lowerOrigin;
+
+    //        OptimizedOrigin = new Point3D();
+
+    //        Upper_Orientation = _upperOrientation;
+
+    //        Lower_Orientation = _lowerOrientation;
+
+    //        OptimizedEulerAngles = new MathNet.Spatial.Euclidean.EulerAngles();
+
+    //        BitSize = _bitSize;
+
+    //    }
+    //} 
+
+    public class Opt_AdjToolParams
     {
-        public Point3D Upper_Origin;
+        public string ParamName { get; set; }
 
-        public Point3D Lower_Origin;
+        public double Nominal { get; set; }
 
-        public MathNet.Spatial.Euclidean.EulerAngles Upper_Orientation;
+        public double Uppwer { get; set; }
 
-        public MathNet.Spatial.Euclidean.EulerAngles Lower_Orientation;
+        public double Lower { get; set; }
 
-        public Point3D OptimizedOrigin;
+        public int BitSize { get; set; }
 
-        public MathNet.Spatial.Euclidean.EulerAngles OptimizedEulerAngles;
+        public Opt_AdjToolParams() { }
 
-        public int BitSize;
-
-        public OptimizedOrientation() { }
-
-        public OptimizedOrientation(Point3D _upperOrigin, Point3D _lowerOrigin, MathNet.Spatial.Euclidean.EulerAngles _upperOrientation, MathNet.Spatial.Euclidean.EulerAngles _lowerOrientation, int _bitSize)
+        public Opt_AdjToolParams(string _paramName, double _nominal, double _upper, double _lower, int _bitSize)
         {
+            ParamName = _paramName;
 
-            Upper_Origin = _upperOrigin;
+            Nominal = _nominal;
 
-            Lower_Origin = _lowerOrigin;
+            Uppwer = _upper;
 
-            OptimizedOrigin = new Point3D();
-
-            Upper_Orientation = _upperOrientation;
-
-            Lower_Orientation = _lowerOrientation;
-
-            OptimizedEulerAngles = new MathNet.Spatial.Euclidean.EulerAngles();
+            Lower = _lower;
 
             BitSize = _bitSize;
-
         }
-    } 
+    }
+
     #endregion
 
 

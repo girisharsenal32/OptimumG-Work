@@ -65,6 +65,8 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         public Dictionary<string, double> SetupChangeOPDictionary = new Dictionary<string, double>();
 
+
+
         /// <summary>
         /// Constructor. Must be called only once because everytime constructor is called, the Dictionary which holds the outputs is reset
         /// </summary>
