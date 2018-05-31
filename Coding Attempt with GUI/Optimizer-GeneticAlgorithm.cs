@@ -283,6 +283,7 @@ namespace Coding_Attempt_with_GUI
         Dictionary<string, Line> tempAxisLines;
         /// <summary>
         /// Name is Critical
+        /// Works in Delta
         /// </summary>
         Dictionary<string, Opt_AdjToolParams> CasterRequested;
 
@@ -291,12 +292,14 @@ namespace Coding_Attempt_with_GUI
         Dictionary<string, Opt_AdjToolParams> CamberRequested;
 
         Dictionary<string, Opt_AdjToolParams> KPIRequested;
-
+        /// <summary>
+        /// Worka with Nominal
+        /// </summary>
         Dictionary<string, Opt_AdjToolParams> BumpSteerRequested;
 
         Dictionary<string, Dictionary<string, Opt_AdjToolParams>> MasterDictionary;
 
-        Dictionary<String, double> OptimizedParams;
+        Dictionary<String, double> OptimizedAdjToolValues;
         
 
         #endregion
@@ -721,7 +724,7 @@ namespace Coding_Attempt_with_GUI
 
             tempAxisLines.Add("LongitudinalAxis_WheelCenter", new Line(WcStart.Clone() as Point3D, new Point3D(WcStart.X, WcStart.Y, WcStart.Z + 100)));
 
-
+            ///<remarks>For the Camber/Caster/Toe/KPI we are dealing with Deltas and hence we don't need Nominal</remarks>
             CasterRequested = new Dictionary<string, Opt_AdjToolParams>();
 
             CasterRequested.Add(AdjustmentTools.TopFrontArm.ToString(), new Opt_AdjToolParams(AdjustmentTools.TopFrontArm.ToString(), 0, 10, -10, 30));
@@ -738,25 +741,59 @@ namespace Coding_Attempt_with_GUI
 
             CamberRequested.Add(AdjustmentTools.TopCamberMount.ToString(), new Opt_AdjToolParams(AdjustmentTools.TopCamberMount.ToString(), 0, 10, -10, 30));
 
+
+
+            ///<remarks>For the Bump Steer Chnge there exists a nominal Value</remarks>
             BumpSteerRequested = new Dictionary<string, Opt_AdjToolParams>();
 
             BumpSteerRequested.Add(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_x", new Opt_AdjToolParams(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_x", 232.12, 5, -5, 30));
             BumpSteerRequested.Add(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_y", new Opt_AdjToolParams(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_y", 124.4, 5, -5, 30));
             BumpSteerRequested.Add(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_z", new Opt_AdjToolParams(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_z", 60.8, 5, -5, 30));
 
+            MasterDictionary = new Dictionary<string, Dictionary<string, Opt_AdjToolParams>>();
+
             MasterDictionary.Add("CasterRequested", CasterRequested);
             MasterDictionary.Add("CamberRequested", CamberRequested);
             MasterDictionary.Add("ToeRequested", ToeRequested);
             MasterDictionary.Add("BumpSteerRequested", BumpSteerRequested);
 
-            OptimizedParams = new Dictionary<string, double>();
+            OptimizedAdjToolValues = new Dictionary<string, double>();
 
-            Array AdjTool =  Enum.GetValues(typeof(AdjustmentTools)); 
+            //Array AdjTool =  Enum.GetValues(typeof(AdjustmentTools)); 
 
-            for (int i = 0; i < AdjTool.Length; i++)
+            //for (int i = 0; i < AdjTool.Length; i++)
+            //{
+            //    OptimizedAdjToolValues.Add(AdjTool.GetValue(i).ToString(), 0);
+            //}
+
+            foreach (string item in CasterRequested.Keys)
             {
-                OptimizedParams.Add(AdjTool.GetValue(i).ToString(), 0);
+                OptimizedAdjToolValues.Add(item, 0);
             }
+
+            //foreach (string item in KPIRequested.Keys)
+            //{
+            //    OptimizedAdjToolValues.Add(item, 0);
+            //}
+            foreach (string item in CamberRequested.Keys)
+            {
+                OptimizedAdjToolValues.Add(item, 0);
+            }
+            foreach (string item in ToeRequested.Keys)
+            {
+                OptimizedAdjToolValues.Add(item, 0);
+            }
+            foreach (string item in BumpSteerRequested.Keys)
+            {
+                OptimizedAdjToolValues.Add(item, 0);
+            }
+
+
+
+
+
+
+
         }
         #endregion
 
@@ -956,11 +993,11 @@ namespace Coding_Attempt_with_GUI
                     var gene = Convert.ToInt32(chromosome.ToBinaryString(geneNumber * MasterDictionary[SetupChange][adjTool].BitSize, MasterDictionary[SetupChange][adjTool].BitSize), 2);
                     geneNumber++;
 
-                    double param = System.Math.Round((gene * range) + (MasterDictionary[SetupChange][adjTool].Lower), 3);
+                    double param = System.Math.Round((gene * range) + (MasterDictionary[SetupChange][adjTool].Nominal + MasterDictionary[SetupChange][adjTool].Lower), 3);
 
-                    if (OptimizedParams.ContainsKey(adjTool))
+                    if (OptimizedAdjToolValues.ContainsKey(adjTool))
                     {
-                        OptimizedParams[adjTool] = param;
+                        OptimizedAdjToolValues[adjTool] = param;
                     }
                 }
             }
@@ -1231,39 +1268,39 @@ namespace Coding_Attempt_with_GUI
 
         private void SolveKinematics_WishboneLengthChange(OutputClass _tempOC)
         {
-            dwSolver.Optimization_SteeringAxis(WishboneLinkLength, Vehicle, Identifier, _tempOC, out double fx, out double fy, out double fz, out double ex, out double ey, out double ez);
+            dwSolver.Optimization_SteeringAxis(0, WishboneLinkLength, 0, 0, Vehicle, Identifier, _tempOC, out MathNet.Spatial.Euclidean.Point3D F, out MathNet.Spatial.Euclidean.Point3D E);
 
-            dwSolver.Optimization_Pushrod(Vehicle, Identifier, _tempOC, out double gx, out double gy, out double gz);
+            dwSolver.Optimization_Pushrod(Vehicle, Identifier, _tempOC, out MathNet.Spatial.Euclidean.Point3D G);
 
-            dwSolver.Optimization_ToeLink(ToeLinkLength, Vehicle, Identifier, _tempOC, out double mx, out double my, out double mz);
+            dwSolver.Optimization_ToeLink(ToeLinkLength, Vehicle, Identifier, _tempOC, out MathNet.Spatial.Euclidean.Point3D M);
 
-            dwSolver.Optimization_CamberMountTop(CamberShimLength, Vehicle, _tempOC, out double tcmx, out double tcmy, out double tcmz);
+            dwSolver.Optimization_CamberMountTop(CamberShimLength, Vehicle, _tempOC, out MathNet.Spatial.Euclidean.Point3D TCM);
 
-            dwSolver.Optimization_CamberMountBottom(/*CamberShimLength*/ 0, Vehicle, _tempOC, out double bcmx, out double bcmy, out double bcmz);
+            dwSolver.Optimization_CamberMountBottom(/*CamberShimLength*/ 0, Vehicle, _tempOC, out MathNet.Spatial.Euclidean.Point3D BCM);
 
-            dwSolver.Optimization_WheelSpindleStart(Vehicle, _tempOC, AdjustmentTools.TopCamberMount, out double kx, out double ky, out double kz);
+            dwSolver.Optimization_WheelSpindleStart(Vehicle, _tempOC, AdjustmentTools.TopCamberMount, out MathNet.Spatial.Euclidean.Point3D K);
 
-            dwSolver.Optimization_WheelSpindleEnd(Vehicle, _tempOC, AdjustmentTools.TopCamberMount, out double lx, out double ly, out double lz);
+            dwSolver.Optimization_WheelSpindleEnd(Vehicle, _tempOC, AdjustmentTools.TopCamberMount, out MathNet.Spatial.Euclidean.Point3D L);
 
-            dwSolver.Optimization_ContatcPatch(Vehicle, Identifier, _tempOC, out double wx, out double wy, out double wz);
+            dwSolver.Optimization_ContatcPatch(Vehicle, Identifier, _tempOC, out MathNet.Spatial.Euclidean.Point3D W);
 
-            tempUnsprungAssembly["UBJ"].OptimizedCoordinates = new Point3D(fx, fy, fz);
+            tempUnsprungAssembly["UBJ"].OptimizedCoordinates = new Point3D(F.X, F.Y, F.Z);
 
-            tempUnsprungAssembly["LBJ"].OptimizedCoordinates = new Point3D(ex, ey, ez);
+            tempUnsprungAssembly["LBJ"].OptimizedCoordinates = new Point3D(E.X, E.Y, E.Z);
 
-            tempUnsprungAssembly["Pushrod"].OptimizedCoordinates = new Point3D(gx, gy, gz);
+            tempUnsprungAssembly["Pushrod"].OptimizedCoordinates = new Point3D(G.X, G.Y, G.Z);
 
-            tempUnsprungAssembly["ToeLinkOutboard"].OptimizedCoordinates = new Point3D(mx, my, mz);
+            tempUnsprungAssembly["ToeLinkOutboard"].OptimizedCoordinates = new Point3D(M.X, M.Y, M.Z);
 
-            tempUnsprungAssembly["TopCamberMount"].OptimizedCoordinates = new Point3D(tcmx, tcmy, tcmz);
+            tempUnsprungAssembly["TopCamberMount"].OptimizedCoordinates = new Point3D(TCM.X, TCM.Y, TCM.Z);
 
-            tempUnsprungAssembly["BottomCamberMount"].OptimizedCoordinates = new Point3D(bcmx, bcmy, bcmz);
+            tempUnsprungAssembly["BottomCamberMount"].OptimizedCoordinates = new Point3D(BCM.X, BCM.Y, BCM.Z);
 
-            tempUnsprungAssembly["WcStart"].OptimizedCoordinates = new Point3D(kx, ky, kz);
+            tempUnsprungAssembly["WcStart"].OptimizedCoordinates = new Point3D(K.X, K.Y, K.Z);
 
-            tempUnsprungAssembly["WcEnd"].OptimizedCoordinates = new Point3D(lx, ly, lz);
+            tempUnsprungAssembly["WcEnd"].OptimizedCoordinates = new Point3D(L.X, L.Y, L.Z);
 
-            tempUnsprungAssembly["ContactPatch"].OptimizedCoordinates = new Point3D(wx, wy, wz);
+            tempUnsprungAssembly["ContactPatch"].OptimizedCoordinates = new Point3D(W.X, W.Y, W.Z);
 
 
         }

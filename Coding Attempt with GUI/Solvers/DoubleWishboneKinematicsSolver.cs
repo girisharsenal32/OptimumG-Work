@@ -358,66 +358,266 @@ namespace Coding_Attempt_with_GUI
 
         #region ---MOVE to Solver Master Class--Computing the Outboard Points for SetupChange with Optimization
         //---COMPUTING ONLY UNSPRUNG MASS COORDINATES FOR SETUP CHANGE---
-        public void Optimization_SteeringAxis(double _dWishbone, Vehicle _vehicleOut, int _identifierOut, OutputClass _ocOut, out double XF1, out double YF1, out double ZF1, out double XE1, out double YE1, out double ZE1)
+
+        #region -Helper Methods-
+        private void Optimization_Helper_UBJPointAssigner(Vehicle _vOut, int _identifier, OutputClass _oc, out Point3D _s, out Point3D _t1, out Point3D _u1, out Point3D _v1, out Point3D _t2, out Point3D _u2, out Point3D _v2)
+        {
+            _s = new Point3D();
+            _t1 = new Point3D();
+            _u1 = new Point3D();
+            _v1 = new Point3D();
+            _t2 = new Point3D();
+            _u2 = new Point3D();
+            _v2 = new Point3D();
+
+            #region Front Pull Rod
+            if ((_vOut.PullRodIdentifierFront == 1) && ((_identifier == 1) || (_identifier == 2))) // Imples that Front is a Pull Rod System
+            {
+                // To Calculate New Position of F i.e, to Calculate F' for Front when it is a Pull Rod System
+                // Vectors used -> F'H', F'A & F'B 
+
+                _s = new Point3D(l_F1x, l_F1y, l_F1z);
+                _t1 = new Point3D(l_H1x, l_H1y, l_H1z);
+                _u1 = new Point3D(l_B1x, l_B1y, l_B1z);
+                _v1 = new Point3D(l_A1x, l_A1y, l_A1z);
+                _t2 = new Point3D(l_H1x, l_H1y, l_H1z);
+                _u2 = new Point3D(l_B1x, l_B1y, l_B1z);
+                _v2 = new Point3D(l_A1x, l_A1y, l_A1z);
+
+            }
+
+            #endregion
+
+            #region Rear Pullrod
+            else if ((_vOut.PullRodIdentifierRear == 1) && ((_identifier == 3) || (_identifier == 4))) // Imples that Rear is a Pull Rod System
+            {
+                // To Calculate New Position of F i.e, to Calculate F' for Front when it is a Pull Rod System
+                // Vectors used -> F'H', F'A & F'B 
+
+                _s = new Point3D(l_F1x, l_F1y, l_F1z);
+                _t1 = new Point3D(l_H1x, l_H1y, l_H1z);
+                _u1 = new Point3D(l_B1x, l_B1y, l_B1z);
+                _v1 = new Point3D(l_A1x, l_A1y, l_A1z);
+                _t2 = new Point3D(l_H1x, l_H1y, l_H1z);
+                _u2 = new Point3D(l_B1x, l_B1y, l_B1z);
+                _v2 = new Point3D(l_A1x, l_A1y, l_A1z);
+            }
+            #endregion
+
+            #region Actuation Point above Top Wishbone
+            else if (l_G1y >= l_F1y) // Implies that it is a PushRod System and the the Upper Wishbone houses the Pushrod
+            {
+                // To Calculate New Position of F i.e, to Calculate F' for Front when it is a Pull Rod System
+                // Vectors used -> F'H', F'A & F'B 
+
+                _s = new Point3D(l_F1x, l_F1y, l_F1z);
+                _t1 = new Point3D(l_H1x, l_H1y, l_H1z);
+                _u1 = new Point3D(l_B1x, l_B1y, l_B1z);
+                _v1 = new Point3D(l_A1x, l_A1y, l_A1z);
+                _t2 = new Point3D(l_H1x, l_H1y, l_H1z);
+                _u2 = new Point3D(l_B1x, l_B1y, l_B1z);
+                _v2 = new Point3D(l_A1x, l_A1y, l_A1z);
+            }
+
+            #endregion
+
+            #region Actuation Point below Top Wishbone and above Bottom Wishbone
+            else if ((l_G1y >= l_E1y) && (l_G1y < l_F1y)) // Implies that the Pushrod is housed by the Lower Wishbone
+            {
+                // To Calculate New Position of F i.e, to Calculate F' for Front when it is a Pull Rod System
+                // Vectors used -> F'H', F'A & F'B 
+
+                _s = new Point3D(l_F1x, l_F1y, l_F1z);
+                _t1 = new Point3D(l_E1x, l_E1y, l_E1z);
+                _u1 = new Point3D(l_B1x, l_B1y, l_B1z);
+                _v1 = new Point3D(l_A1x, l_A1y, l_A1z);
+                _t2 = new Point3D(_oc.scmOP.E1x, _oc.scmOP.E1y, _oc.scmOP.E1z);
+                _u2 = new Point3D(l_B1x, l_B1y, l_B1z);
+                _v2 = new Point3D(l_A1x, l_A1y, l_A1z);
+            }
+            #endregion
+        }
+
+        private void Optimization_Helper_LBJPointAssigner(Vehicle _vOut, int _identifier, OutputClass _oc, out Point3D _s, out Point3D _t1, out Point3D _u1, out Point3D _v1, out Point3D _t2, out Point3D _u2, out Point3D _v2)
+        {
+            _s = new Point3D();
+            _t1 = new Point3D();
+            _u1 = new Point3D();
+            _v1 = new Point3D();
+            _t2 = new Point3D();
+            _u2 = new Point3D();
+            _v2 = new Point3D();
+
+            #region Front Pull Rod
+            if ((_vOut.PullRodIdentifierFront == 1) && ((_identifier == 1) || (_identifier == 2))) // Imples that Front is a Pull Rod System
+            {
+                // To Calculate New Position of E i.e, to Calculate E' for Front when it is a Pull Rod System
+                // Vectors used -> E'F', E'C & E'D 
+
+                _s = new Point3D(l_E1x, l_E1y, l_E1z);
+                _t1 = new Point3D(l_F1x, l_F1y, l_F1z);
+                _u1 = new Point3D(l_C1x, l_C1y, l_C1z);
+                _v1 = new Point3D(l_D1x, l_D1y, l_D1z);
+                _t2 = new Point3D(_oc.scmOP.F1x, _oc.scmOP.F1y, _oc.scmOP.F1z);
+                _u2 = new Point3D(l_C1x, l_C1y, l_C1z);
+                _v2 = new Point3D(l_D1x, l_D1y, l_D1z);
+
+            }
+            #endregion
+
+            #region Rear Pull Rod
+            else if ((_vOut.PullRodIdentifierRear == 1) && ((_identifier == 3) || (_identifier == 4))) // Imples that Rear is a Pull Rod System
+            {
+                // To Calculate New Position of E i.e, to Calculate E' for Front when it is a Pull Rod System
+                // Vectors used -> E'F', E'C & E'D 
+
+                _s = new Point3D(l_E1x, l_E1y, l_E1z);
+                _t1 = new Point3D(l_F1x, l_F1y, l_F1z);
+                _u1 = new Point3D(l_C1x, l_C1y, l_C1z);
+                _v1 = new Point3D(l_D1x, l_D1y, l_D1z);
+                _t2 = new Point3D(_oc.scmOP.F1x, _oc.scmOP.F1y, _oc.scmOP.F1z);
+                _u2 = new Point3D(l_C1x, l_C1y, l_C1z);
+                _v2 = new Point3D(l_D1x, l_D1y, l_D1z);
+            }
+            #endregion
+
+            #region Actuation Point above Top Wishbone
+            else if (l_G1y >= l_F1y) // Implies that it is a PushRod System and the the Upper Wishbone houses the Pushrod
+            {
+                // To Calculate New Position of E i.e, to Calculate E' for Front when it is a Pull Rod System
+                // Vectors used -> E'F', E'C & E'D 
+
+                _s = new Point3D(l_E1x, l_E1y, l_E1z);
+                _t1 = new Point3D(l_F1x, l_F1y, l_F1z);
+                _u1 = new Point3D(l_C1x, l_C1y, l_C1z);
+                _v1 = new Point3D(l_D1x, l_D1y, l_D1z);
+                _t2 = new Point3D(_oc.scmOP.F1x, _oc.scmOP.F1y, _oc.scmOP.F1z);
+                _u2 = new Point3D(l_C1x, l_C1y, l_C1z);
+                _v2 = new Point3D(l_D1x, l_D1y, l_D1z);
+            }
+            #endregion
+
+            #region Actuation Point below Top Wishbone and above Bottom Wishbone
+            else if ((l_G1y >= l_E1y) && (l_G1y < l_F1y)) // Implies that the Pushrod is housed by the Lower Wishbone
+            {
+                // To Calculate New Position of E i.e, to Calculate E' for Front when it is a Pull Rod System
+                // Vectors used -> E'H', E'C & E'D 
+
+                _s = new Point3D(l_E1x, l_E1y, l_E1z);
+                _t1 = new Point3D(l_H1x, l_H1y, l_H1z);
+                _u1 = new Point3D(l_C1x, l_C1y, l_C1z);
+                _v1 = new Point3D(l_D1x, l_D1y, l_D1z);
+                _t2 = new Point3D(l_H1x, l_H1y, l_H1z);
+                _u2 = new Point3D(l_C1x, l_C1y, l_C1z);
+                _v2 = new Point3D(l_D1x, l_D1y, l_D1z);
+            }
+            #endregion
+        }
+        #endregion
+
+        #region -Kinematic Solver Methods-
+        public void Optimization_SteeringAxis(double _dTopFr, double _dTopRear, double _dBotFr, double _dBotRear, Vehicle _vehicleOut, int _identifierOut, OutputClass _ocOut, out Point3D _newUBJ, out Point3D _newLBJ)
         {
             // TO CALCULATE THE NEW POSITION OF F i.e., TO CALCULATE F' or E' depending upon whether it is pullrod or  pushrod and if pushrod is housed by Lpper or Lower Wishbone 
-            XF1 = 0; YF1 = 0; ZF1 = 0; XE1 = 0; YE1 = 0; ZE1 = 0;
+            //XF1 = 0; YF1 = 0; ZF1 = 0; XE1 = 0; YE1 = 0; ZE1 = 0;
 
+            _newLBJ = new Point3D(); _newUBJ = new Point3D();
+            Point3D S, T1, U1, V1, T2, U2, V2;
+
+            #region Front Pull Rod
             if ((_vehicleOut.PullRodIdentifierFront == 1) && ((_identifierOut == 1) || (_identifierOut == 2))) // Imples that Front is a Pull Rod System
             {
                 // To Calculate New Position of F i.e, to Calculate F' for Front when it is a Pull Rod System
                 // Vectors used -> F'G', F'A & F'B 
-                QuadraticEquationSolver.Solver(l_F1x, l_F1y, l_F1z, l_H1x, l_H1y, l_H1z, 0, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, l_H1x, l_H1y, l_H1z, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, /*_ocOut.scmOP.H1y*/ l_H1y, false, out XF1, out YF1, out ZF1);
+                //QuadraticEquationSolver.Solver(l_F1x, l_F1y, l_F1z, l_H1x, l_H1y, l_H1z, 0, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, l_H1x, l_H1y, l_H1z, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, l_H1y, false, out XF1, out YF1, out ZF1);
+                Optimization_Helper_UBJPointAssigner(_vehicleOut, _identifierOut, _ocOut, out S, out T1, out U1, out V1, out T2, out U2, out V2);
+                QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, 0, 0, _dTopRear, _dTopFr, l_H1y, false, out _newUBJ);
+                _ocOut.scmOP.F1x = _newUBJ.X;
+                _ocOut.scmOP.F1y = _newUBJ.Y;
+                _ocOut.scmOP.F1z = _newUBJ.Z;
+
 
                 // TO CALCULATE THE NEW POSITION OF E i.e., TO CALCULATE E' When it is a PullRod System
                 // Vectors used -> E'F', E'C & E'D   
-                QuadraticEquationSolver.Solver(l_E1x, l_E1y, l_E1z, l_F1x, l_F1y, l_F1z, 0, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, XF1, YF1, ZF1, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, YF1, true, out XE1, out YE1, out ZE1);
-
+                //QuadraticEquationSolver.Solver(l_E1x, l_E1y, l_E1z, l_F1x, l_F1y, l_F1z, 0, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, XF1, YF1, ZF1, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, YF1, true, out XE1, out YE1, out ZE1);
+                Optimization_Helper_LBJPointAssigner(_vehicleOut, _identifierOut, _ocOut, out S, out T1, out U1, out V1, out T2, out U2, out V2);
+                QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, 0, 0, _dBotRear, _dBotFr, _newUBJ.Y, true, out _newLBJ);
+                _ocOut.scmOP.E1x = _newLBJ.X;
+                _ocOut.scmOP.E1y = _newLBJ.Y;
+                _ocOut.scmOP.E1z = _newLBJ.Z;
             }
+            #endregion
+
+            #region Rear Pullrod
             else if ((_vehicleOut.PullRodIdentifierRear == 1) && ((_identifierOut == 3) || (_identifierOut == 4))) // Imples that Rear is a Pull Rod System
             {
                 // To Calculate New Position of F for Rear i.e, to Calculate F' when it is a Pull Rod System
                 // Vectors used -> F'G', F'A & F'B 
-                QuadraticEquationSolver.Solver(l_F1x, l_F1y, l_F1z, l_H1x, l_H1y, l_H1z, 0, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, l_H1x, l_H1y, l_H1z, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, /*_ocOut.scmOP.H1y*/ l_H1y, false, out XF1, out YF1, out ZF1);
+                //QuadraticEquationSolver.Solver(l_F1x, l_F1y, l_F1z, l_H1x, l_H1y, l_H1z, 0, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, l_H1x, l_H1y, l_H1z, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, l_H1y, false, out XF1, out YF1, out ZF1);
+                Optimization_Helper_UBJPointAssigner(_vehicleOut, _identifierOut, _ocOut, out S, out T1, out U1, out V1, out T2, out U2, out V2);
+                QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, 0, 0, _dTopRear, _dTopFr, l_H1y, false, out _newUBJ);
+                _ocOut.scmOP.F1x = _newUBJ.X;
+                _ocOut.scmOP.F1y = _newUBJ.Y;
+                _ocOut.scmOP.F1z = _newUBJ.Z;
 
                 // TO CALCULATE THE NEW POSITION OF E i.e., TO CALCULATE E' When it is a PullRod System
                 // Vectors used -> E'F', E'C & E'D   
-                QuadraticEquationSolver.Solver(l_E1x, l_E1y, l_E1z, l_F1x, l_F1y, l_F1z, 0, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, XF1, YF1, ZF1, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, YF1, true, out XE1, out YE1, out ZE1);
-
+                //QuadraticEquationSolver.Solver(l_E1x, l_E1y, l_E1z, l_F1x, l_F1y, l_F1z, 0, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, XF1, YF1, ZF1, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, YF1, true, out XE1, out YE1, out ZE1);
+                Optimization_Helper_LBJPointAssigner(_vehicleOut, _identifierOut, _ocOut, out S, out T1, out U1, out V1, out T2, out U2, out V2);
+                QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, 0, 0, _dBotRear, _dBotFr, _newUBJ.Y, true, out _newLBJ);
+                _ocOut.scmOP.E1x = _newLBJ.X;
+                _ocOut.scmOP.E1y = _newLBJ.Y;
+                _ocOut.scmOP.E1z = _newLBJ.Z;
             }
+            #endregion
+
+            #region Actuation Point above Top Wishbone
             else if (l_G1y >= l_F1y) // Implies that it is a PushRod System and the the Upper Wishbone houses the Pushrod
             {
-                QuadraticEquationSolver.simType = SimulationType.Optimization;
-                QuadraticEquationSolver.WishboneLengthChange = _dWishbone;
-                QuadraticEquationSolver.ToeLinkLengthChange = 0;
                 // TO CALCULATE THE NEW POSITION OF F i.e., TO CALCULATE F' When Pushrod is housed by Upper Wishbone
                 // Vectors used -> F'G', F'A & F'B 
-                QuadraticEquationSolver.Solver(l_F1x, l_F1y, l_F1z, l_H1x, l_H1y, l_H1z, 0, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, l_H1x, l_H1y, l_H1z, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, /*_ocOut.scmOP.H1y*/ l_H1y, true, out XF1, out YF1, out ZF1);
-                QuadraticEquationSolver.WishboneLengthChange = 0;
-                QuadraticEquationSolver.simType = SimulationType.Dummy;
+                //QuadraticEquationSolver.Solver(l_F1x, l_F1y, l_F1z, l_H1x, l_H1y, l_H1z, 0, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, l_H1x, l_H1y, l_H1z, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, l_H1y, true, out double XF1, out double YF1, out double ZF1);
+                Optimization_Helper_UBJPointAssigner(_vehicleOut, _identifierOut, _ocOut, out S, out T1, out U1, out V1, out T2, out U2, out V2);
+                QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, 0, 0, _dTopRear, _dTopFr, l_H1y, true, out _newUBJ);
+                _ocOut.scmOP.F1x = _newUBJ.X;
+                _ocOut.scmOP.F1y = _newUBJ.Y;
+                _ocOut.scmOP.F1z = _newUBJ.Z;
+
 
                 // TO CALCULATE THE NEW POSITION OF E i.e., TO CALCULATE E' When Pushrod is housed by Upper Wishbone
-                // Vectors used -> E'F', E'C & E'D   
-                QuadraticEquationSolver.Solver(l_E1x, l_E1y, l_E1z, l_F1x, l_F1y, l_F1z, 0, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, XF1, YF1, ZF1, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, YF1, true, out XE1, out YE1, out ZE1);
+                // Vectors used -> E'F', E'C & E'D 
+                //QuadraticEquationSolver.Solver(l_E1x, l_E1y, l_E1z, l_F1x, l_F1y, l_F1z, 0, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, XF1, YF1, ZF1, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, YF1, true, out double XE1, out double YE1, out double ZE1);
+                Optimization_Helper_LBJPointAssigner(_vehicleOut, _identifierOut, _ocOut, out S, out T1, out U1, out V1, out T2, out U2, out V2);
+                QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, 0, 0, _dBotRear, _dBotFr, _newUBJ.Y, true, out _newLBJ);
+                _ocOut.scmOP.E1x = _newLBJ.X;
+                _ocOut.scmOP.E1y = _newLBJ.Y;
+                _ocOut.scmOP.E1z = _newLBJ.Z;
 
             }
+            #endregion
+
+            #region Actuation Point below Top Wishbone and above Bottom Wishbone
             else if ((l_G1y >= l_E1y) && (l_G1y < l_F1y)) // Implies that the Pushrod is housed by the Lower Wishbone
             {
                 // TO CALCULATE THE NEW POSITION OF E i.e., TO CALCULATE E' When Pushrod is housed by Lower Wishbone
-                QuadraticEquationSolver.Solver(l_E1x, l_E1y, l_E1z, l_H1x, l_H1y, l_H1z, 0, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, l_H1x, l_H1y, l_H1z, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, /*_ocOut.scmOP.G1y*/ l_H1y, true, out XE1, out YE1, out ZE1);
+                //QuadraticEquationSolver.Solver(l_E1x, l_E1y, l_E1z, l_H1x, l_H1y, l_H1z, 0, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, l_H1x, l_H1y, l_H1z, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, /*_ocOut.scmOP.G1y*/ l_H1y, true, out XE1, out YE1, out ZE1);
+                Optimization_Helper_LBJPointAssigner(_vehicleOut, _identifierOut, _ocOut, out S, out T1, out U1, out V1, out T2, out U2, out V2);
+                QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, 0, 0, _dBotRear, _dBotFr, l_H1y, true, out _newLBJ);
+                _ocOut.scmOP.E1x = _newLBJ.X;
+                _ocOut.scmOP.E1y = _newLBJ.Y;
+                _ocOut.scmOP.E1z = _newLBJ.Z;
 
                 // TO CALCULATE THE NEW POSITION OF F i.e., TO CALCULATE F' When Pushrod is housed by Lower Wishbone
-                QuadraticEquationSolver.Solver(l_F1x, l_F1y, l_F1z, l_E1x, l_E1y, l_E1z, 0, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, XE1, YE1, ZE1, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, _ocOut.scmOP./*G*/E1y, false, out XF1, out YF1, out ZF1);
+                //QuadraticEquationSolver.Solver(l_F1x, l_F1y, l_F1z, l_E1x, l_E1y, l_E1z, 0, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, XE1, YE1, ZE1, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, _ocOut.scmOP./*G*/E1y, false, out XF1, out YF1, out ZF1);
+                Optimization_Helper_UBJPointAssigner(_vehicleOut, _identifierOut, _ocOut, out S, out T1, out U1, out V1, out T2, out U2, out V2);
+                QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, 0, 0, _dTopRear, _dTopFr, _newLBJ.Y, false, out _newUBJ);
+                _ocOut.scmOP.F1x = _newUBJ.X;
+                _ocOut.scmOP.F1y = _newUBJ.Y;
+                _ocOut.scmOP.F1z = _newUBJ.Z;
 
             }
+            #endregion
 
-            _ocOut.scmOP.F1x = XF1;
-            _ocOut.scmOP.F1y = YF1;
-            _ocOut.scmOP.F1z = ZF1;
-
-            _ocOut.scmOP.E1x = XE1;
-            _ocOut.scmOP.E1y = YE1;
-            _ocOut.scmOP.E1z = ZE1;
 
             if ((l_G1y >= l_E1y) && (l_G1y < l_F1y))
             {
@@ -426,47 +626,93 @@ namespace Coding_Attempt_with_GUI
             else CalculateFinalMotionRatio(_ocOut, _ocOut.scmOP, true);
         }
 
-        public void Optimization_Pushrod(Vehicle _vehicleOut, int _identifierOut, OutputClass _ocOut, out double XG1, out double YG1, out double ZG1)
+        public void Optimization_Pushrod(Vehicle _vehicleOut, int _identifierOut, OutputClass _ocOut, out Point3D _newPushrod)
         {
             // TO CALCULATE THE NEW POSITION OF G i.e., TO CALCULATE G'
             // Vectors used -> G'H', G'B' & G'A'   
 
-            XG1 = 0; YG1 = 0; ZG1 = 0;
+            //XG1 = 0; YG1 = 0; ZG1 = 0;
+            _newPushrod = new Point3D();
+
+            Point3D S = new Point3D(l_G1x, l_G1y, l_G1z);
+            Point3D T1 = new Point3D(l_F1x, l_F1y, l_F1z);
+            Point3D U1 = new Point3D(l_B1x, l_B1y, l_B1z);
+            Point3D V1 = new Point3D(l_A1x, l_A1y, l_A1z);
+            Point3D T2 = new Point3D(_ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z);
+            Point3D U2 = new Point3D(l_B1x, l_B1y, l_B1z);
+            Point3D V2 = new Point3D(l_A1x, l_A1y, l_A1z);
+
+
             if ((_vehicleOut.PullRodIdentifierFront == 1) && ((_identifierOut == 1) || (_identifierOut == 2))) // To calculate the points for a Pull Rod System in the Front
-            { QuadraticEquationSolver.Solver(l_G1x, l_G1y, l_G1z, l_F1x, l_F1y, l_F1z, 0, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, l_H1y, false, out XG1, out YG1, out ZG1); }
+            {
+                //QuadraticEquationSolver.Solver(l_G1x, l_G1y, l_G1z, l_F1x, l_F1y, l_F1z, 0, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, l_H1y, false, out XG1, out YG1, out ZG1);
+                QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, 0, 0, 0, 0, l_H1y, false, out _newPushrod);
+            }
 
             else if ((_vehicleOut.PullRodIdentifierRear == 1) && ((_identifierOut == 3) || (_identifierOut == 4))) // To calculate the points for a Pull Rod System in the Rear
-            { QuadraticEquationSolver.Solver(l_G1x, l_G1y, l_G1z, l_F1x, l_F1y, l_F1z, 0, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, l_H1y, false, out XG1, out YG1, out ZG1); }
+            {
+                //QuadraticEquationSolver.Solver(l_G1x, l_G1y, l_G1z, l_F1x, l_F1y, l_F1z, 0, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, l_H1y, false, out XG1, out YG1, out ZG1);
+                QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, 0, 0, 0, 0, l_H1y, false, out _newPushrod);
+            }
 
             else if ((l_G1y >= l_F1y)) // Implies that the the Upper Wishbone houses the Pushrod
-            { QuadraticEquationSolver.Solver(l_G1x, l_G1y, l_G1z, l_F1x, l_F1y, l_F1z, 0, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, l_H1y, true, out XG1, out YG1, out ZG1); }
+            {
+                //QuadraticEquationSolver.Solver(l_G1x, l_G1y, l_G1z, l_F1x, l_F1y, l_F1z, 0, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z, l_B1x, l_B1y, l_B1z, l_A1x, l_A1y, l_A1z, l_H1y, true, out XG1, out YG1, out ZG1);
+                QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, 0, 0, 0, 0, l_H1y, true, out _newPushrod);
+            }
 
             else if ((l_G1y >= l_E1y) && (l_G1y < l_F1y)) // Implies that the Lower Wishbone houses the Pushrod
-            { QuadraticEquationSolver.Solver(l_G1x, l_G1y, l_G1z, l_E1x, l_E1y, l_D1z, 0, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, l_H1y, true, out XG1, out YG1, out ZG1); }
+            {
+                S = new Point3D(l_G1x, l_G1y, l_G1z); T1 = new Point3D(l_E1x, l_E1y, l_E1z); U1 = new Point3D(l_C1x, l_C1y, l_C1z); V1 = new Point3D(l_D1x, l_D1y, l_D1z); T2 = new Point3D(_ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z); U2 = new Point3D(l_C1x, l_C1y, l_C1z);
+                V2 = new Point3D(l_D1x, l_D1y, l_D1z);
+
+                //QuadraticEquationSolver.Solver(l_G1x, l_G1y, l_G1z, l_E1x, l_E1y, l_E1z, 0, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, l_H1y, true, out XG1, out YG1, out ZG1);
+                QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, 0, 0, 0, 0, l_H1y, true, out _newPushrod);
+            }
 
 
-            _ocOut.scmOP.G1x = XG1;
-            _ocOut.scmOP.G1y = YG1;
-            _ocOut.scmOP.G1z = ZG1;
+            _ocOut.scmOP.G1x = _newPushrod.X;
+            _ocOut.scmOP.G1y = _newPushrod.Y;
+            _ocOut.scmOP.G1z = _newPushrod.Z;
         }
 
-        public void Optimization_ToeLink(double _dToeLink, Vehicle _vehicleOut, int _identifierOut, OutputClass _ocOut, out double XM1, out double YM1, out double ZM1)
+        public void Optimization_ToeLink(double _dToeLink, Vehicle _vehicleOut, int _identifierOut, OutputClass _ocOut, out Point3D _newToeLink)
         {
-            QuadraticEquationSolver.simType = SimulationType.Optimization;
-            QuadraticEquationSolver.ToeLinkLengthChange = _dToeLink;
-            //QuadraticEquationSolver.WishboneLengthChange = 0;
             // TO CALCULATE THE NEW POSITION OF M i.e., TO CALCULATE M'
             // Vectors used -> M'E', M'F' & M'N  
-            XM1 = 0; YM1 = 0; ZM1 = 0;
-            QuadraticEquationSolver.Solver(l_M1x, l_M1y, l_M1z, l_E1x, l_E1y, l_E1z, 0, l_F1x, l_F1y, l_F1z, l_N1x, l_N1y, l_N1z, _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z,
-                                           l_N1x, l_N1y, l_N1z, l_K1y + l_K1y + Math.Abs(l_W1y), true, out XM1, out YM1, out ZM1);
-            QuadraticEquationSolver.ToeLinkLengthChange = 0;
-            QuadraticEquationSolver.simType = SimulationType.Dummy;
 
 
-            _ocOut.scmOP.M1x = XM1;
-            _ocOut.scmOP.M1y = YM1;
-            _ocOut.scmOP.M1z = ZM1;
+            //XM1 = 0; YM1 = 0; ZM1 = 0;
+
+            //QuadraticEquationSolver.ToeLinkLengthChange = _dToeLink;
+
+            //QuadraticEquationSolver.Solver(l_M1x, l_M1y, l_M1z, l_E1x, l_E1y, l_E1z, 0, l_F1x, l_F1y, l_F1z, l_N1x, l_N1y, l_N1z, _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z,
+            //l_N1x, l_N1y, l_N1z, l_K1y + l_K1y + Math.Abs(l_W1y), true, out double XM1, out double YM1, out double ZM1);
+
+            Point3D S = new Point3D(l_M1x, l_M1y, l_M1z);
+
+            Point3D T1 = new Point3D(l_E1x, l_E1y, l_E1z);
+
+            Point3D U1 = new Point3D(l_F1x, l_F1y, l_F1z);
+
+            Point3D V1 = new Point3D(l_N1x, l_N1y, l_N1z);
+
+            Point3D T2 = new Point3D(_ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z);
+
+            Point3D U2 = new Point3D(_ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z);
+
+            Point3D V2 = new Point3D(l_N1x, l_N1y, l_N1z);
+
+
+            QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, 0, 0, 0, _dToeLink, l_K1y + l_K1y + Math.Abs(l_W1y), true, out _newToeLink);
+
+
+            //QuadraticEquationSolver.ToeLinkLengthChange = 0;
+
+
+            _ocOut.scmOP.M1x = _newToeLink.X;
+            _ocOut.scmOP.M1y = _newToeLink.Y;
+            _ocOut.scmOP.M1z = _newToeLink.Z;
 
             _ocOut.scmOP.N1x = l_N1x;
             _ocOut.scmOP.N1y = l_N1y;
@@ -474,119 +720,174 @@ namespace Coding_Attempt_with_GUI
 
         }
 
-        public void Optimization_CamberMountTop(double _dCamberShims, Vehicle _vehicleOut, OutputClass _ocOut, out double XCM1, out double YCM1, out double ZCM1)
+        public void Optimization_CamberMountTop(double _dCamberShims, Vehicle _vehicleOut, OutputClass _ocOut, out Point3D _newTCM)
         {
-            XCM1 = YCM1 = ZCM1 = 0;
+            // TO CALCULATE THE NEW POSITION OF TCM i.e., TO CALCULATE TCM'
+            // Vectors used -> TCM'F', TCM'E' & TCM'M  
 
-            QuadraticEquationSolver.simType = SimulationType.Optimization;
-            QuadraticEquationSolver.CamberShimLength = _dCamberShims;
+            //XCM1 = YCM1 = ZCM1 = 0;
 
-            QuadraticEquationSolver.Solver(l_TCM1x, l_TCM1y, l_TCM1z, l_F1x, l_F1y, l_F1z, 0, l_E1x, l_E1y, l_E1z, l_M1x, l_M1y, l_M1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z, _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z,
-                                           _ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z, _ocOut.scmOP.W1y, false, out XCM1, out YCM1, out ZCM1);
+            //QuadraticEquationSolver.CamberShimLength = _dCamberShims;
 
-            QuadraticEquationSolver.simType = SimulationType.Dummy;
-            QuadraticEquationSolver.CamberShimLength = 0;
+            //QuadraticEquationSolver.Solver(l_TCM1x, l_TCM1y, l_TCM1z, l_F1x, l_F1y, l_F1z, 0, l_E1x, l_E1y, l_E1z, l_M1x, l_M1y, l_M1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z, _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z,
+            //                               _ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z, /*_ocOut.scmOP.W1y*/_ocOut.scmOP.E1y, false, out XCM1, out YCM1, out ZCM1);
 
-            _ocOut.scmOP.TCM1x = XCM1;
-            _ocOut.scmOP.TCM1y = YCM1;
-            _ocOut.scmOP.TCM1z = ZCM1;
+            //QuadraticEquationSolver.CamberShimLength = 0;
+
+            Point3D S = new Point3D(l_TCM1x, l_TCM1y, l_TCM1z);
+
+            Point3D T1 = new Point3D(l_F1x, l_F1y, l_F1z);
+
+            Point3D U1 = new Point3D(l_E1x, l_E1y, l_E1z);
+
+            Point3D V1 = new Point3D(l_M1x, l_M1y, l_M1z);
+
+            Point3D T2 = new Point3D(_ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z);
+
+            Point3D U2 = new Point3D(_ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z);
+
+            Point3D V2 = new Point3D(_ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z);
+
+            QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, 0, _dCamberShims, 0, 0, _ocOut.scmOP.E1y, false, out _newTCM);
+
+            _ocOut.scmOP.TCM1x = _newTCM.X;
+            _ocOut.scmOP.TCM1y = _newTCM.Y;
+            _ocOut.scmOP.TCM1z = _newTCM.Z;
 
         }
 
-        public void Optimization_CamberMountBottom(double _dCamberShims, Vehicle _vehicleOut, OutputClass _ocOut, out double XBCM1, out double YBCM1, out double ZBCM1)
+        public void Optimization_CamberMountBottom(double _dCamberShims, Vehicle _vehicleOut, OutputClass _ocOut, out Point3D _newBCM)
         {
-            XBCM1 = YBCM1 = ZBCM1 = 0;
+            // TO CALCULATE THE NEW POSITION OF BCM i.e., TO CALCULATE BCM'
+            // Vectors used -> BCM'E', BCM'F' & BCM'M  
 
-            QuadraticEquationSolver.Solver(l_BCM1x, l_BCM1y, l_BCM1z, l_E1x, l_E1y, l_E1z, 0, l_F1x, l_F1y, l_F1z, l_M1x, l_M1y, l_M1z, _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z,
-                                           _ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z, _ocOut.scmOP.W1y, false, out XBCM1, out YBCM1, out ZBCM1);
+            //XBCM1 = YBCM1 = ZBCM1 = 0;
 
-            _ocOut.scmOP.BCM1x = XBCM1;
-            _ocOut.scmOP.BCM1y = YBCM1;
-            _ocOut.scmOP.BCM1z = ZBCM1;
+            //QuadraticEquationSolver.Solver(l_BCM1x, l_BCM1y, l_BCM1z, l_E1x, l_E1y, l_E1z, 0, l_F1x, l_F1y, l_F1z, l_M1x, l_M1y, l_M1z, _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z,
+            //                               _ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z, _ocOut.scmOP./*W1y*/F1y, /*false*/true, out XBCM1, out YBCM1, out ZBCM1);
+
+            Point3D S = new Point3D(l_BCM1x, l_BCM1y, l_BCM1z);
+
+            Point3D T1 = new Point3D(l_E1x, l_E1y, l_E1z);
+
+            Point3D U1 = new Point3D(l_F1x, l_F1y, l_F1z);
+
+            Point3D V1 = new Point3D(l_M1x, l_M1y, l_M1z);
+
+            Point3D T2 = new Point3D(_ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z);
+
+            Point3D U2 = new Point3D(_ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z);
+
+            Point3D V2 = new Point3D(_ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z);
+
+            QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, 0, _dCamberShims, 0, 0, _ocOut.scmOP.F1y, true, out _newBCM);
+
+            _ocOut.scmOP.BCM1x = _newBCM.X;
+            _ocOut.scmOP.BCM1y = _newBCM.Y;
+            _ocOut.scmOP.BCM1z = _newBCM.Z;
         }
 
-        public void Optimization_WheelSpindleStart(Vehicle _vehicleOut, OutputClass _ocOut, AdjustmentTools _adjTool, out double XK1, out double YK1, out double ZK1)
+        public void Optimization_WheelSpindleStart(Vehicle _vehicleOut, OutputClass _ocOut, AdjustmentTools _adjTool, out Point3D _newSpindleStart)
         {
-            // TO CALCULATE THE NEW POSITION OF M i.e., TO CALCULATE M'
-            // Vectors used -> M'E', M'F' & M'N  
-            XK1 = YK1 = ZK1 = 0;
+            // TO CALCULATE THE NEW POSITION OF K i.e., TO CALCULATE K'
+            // Vectors used -> K'TCM', K'BCM' & K'M  
+
+            //XK1 = YK1 = ZK1 = 0;
+
+            //QuadraticEquationSolver.Solver(l_K1x, l_K1y, l_K1z, l_M1x, l_M1y, l_M1z, 0, l_TCM1x, l_TCM1y, l_TCM1z, l_BCM1x, l_BCM1y, l_BCM1z, _ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z, _ocOut.scmOP.TCM1x, _ocOut.scmOP.TCM1y, _ocOut.scmOP.TCM1z,
+            //              _ocOut.scmOP.BCM1x, _ocOut.scmOP.BCM1y, _ocOut.scmOP.BCM1z, _ocOut.scmOP.E1y, false, out XK1, out YK1, out ZK1);
 
 
+            Point3D S = new Point3D(l_K1x, l_K1y, l_K1z);
 
-            //if (_adjTool == AdjustmentTools.TopCamberMount)
-            //{
-            //    QuadraticEquationSolver.Solver(l_K1x, l_K1y, l_K1z, l_M1x, l_M1y, l_M1z, 0, l_TCM1x, l_TCM1y, l_TCM1z, l_E1x, l_E1y, l_E1z, _ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z, _ocOut.scmOP.TCM1x, _ocOut.scmOP.TCM1y, _ocOut.scmOP.TCM1z,
-            //                           _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, _ocOut.scmOP.E1y, false, out XK1, out YK1, out ZK1);
-            //}
-            //else if (_adjTool == AdjustmentTools.BottomCamberMount)
-            //{
-            //    QuadraticEquationSolver.Solver(l_K1x, l_K1y, l_K1z, l_M1x, l_M1y, l_M1z, 0, l_F1x, l_F1y, l_F1z, l_BCM1x, l_BCM1y, l_BCM1z, _ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z,
-            //           _ocOut.scmOP.BCM1x, _ocOut.scmOP.BCM1y, _ocOut.scmOP.BCM1z, _ocOut.scmOP.E1y, false, out XK1, out YK1, out ZK1);
-            //}
+            Point3D T1 = new Point3D(l_TCM1x, l_TCM1y, l_TCM1z);
 
+            Point3D U1 = new Point3D(l_BCM1x, l_BCM1y, l_BCM1z);
 
-            //QuadraticEquationSolver.Solver(l_K1x, l_K1y, l_K1z, l_M1x, l_M1y, l_M1z, 0, l_F1x, l_F1y, l_F1z, l_E1x, l_E1y, l_E1z, _ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z,
-            //               _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, _ocOut.scmOP.E1y, false, out XK1, out YK1, out ZK1);
+            Point3D V1 = new Point3D(l_M1x, l_M1y, l_M1z);
 
+            Point3D T2 = new Point3D(_ocOut.scmOP.TCM1x, _ocOut.scmOP.TCM1y, _ocOut.scmOP.TCM1z);
 
+            Point3D U2 = new Point3D(_ocOut.scmOP.BCM1x, _ocOut.scmOP.BCM1y, _ocOut.scmOP.BCM1z);
 
-            QuadraticEquationSolver.Solver(l_K1x, l_K1y, l_K1z, l_M1x, l_M1y, l_M1z, 0, l_TCM1x, l_TCM1y, l_TCM1z, l_BCM1x, l_BCM1y, l_BCM1z, _ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z, _ocOut.scmOP.TCM1x, _ocOut.scmOP.TCM1y, _ocOut.scmOP.TCM1z,
-                          _ocOut.scmOP.BCM1x, _ocOut.scmOP.BCM1y, _ocOut.scmOP.BCM1z, _ocOut.scmOP.E1y, false, out XK1, out YK1, out ZK1);
-            
-            _ocOut.scmOP.K1x = XK1;
-            _ocOut.scmOP.K1y = YK1;
-            _ocOut.scmOP.K1z = ZK1;
+            Point3D V2 = new Point3D(_ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z);
+
+            QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, 0, 0, 0, 0, _ocOut.scmOP.E1y, false, out _newSpindleStart);
+
+            _ocOut.scmOP.K1x = _newSpindleStart.X;
+            _ocOut.scmOP.K1y = _newSpindleStart.Y;
+            _ocOut.scmOP.K1z = _newSpindleStart.Z;
 
         }
 
-        public void Optimization_WheelSpindleEnd(Vehicle _vehicleOut, OutputClass _ocOut, AdjustmentTools _adjTool, out double XL1, out double YL1, out double ZL1)
+        public void Optimization_WheelSpindleEnd(Vehicle _vehicleOut, OutputClass _ocOut, AdjustmentTools _adjTool, out Point3D _newSpindleEnd)
         {
             // TO CALCULATE THE NEW POSITION OF L i.e., TO CALCULATE L'
-            // Vectors used -> L'M', L'F' & L'E'   
+            // Vectors used -> L'TCM', L'BCM' & L'M'   
+
             // THE INITIAL COORDINATES OF L SHOULD NOT BE TAKEN FROM USER. THEY SHOULD BE CALCULATED USING 'K' , THE INPUT CAMBER AND TOE
-            XL1 = 0; YL1 = 0; ZL1 = 0;
+            //XL1 = 0; YL1 = 0; ZL1 = 0;
 
-            //if (_adjTool == AdjustmentTools.TopCamberMount)
-            //{
-            //    QuadraticEquationSolver.Solver(l_K1x + 157.48, l_K1y, l_K1z, l_M1x, l_M1y, l_M1z, 0, l_TCM1x, l_TCM1y, l_TCM1z, l_E1x, l_E1y, l_E1z, _ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z, _ocOut.scmOP.TCM1x, _ocOut.scmOP.TCM1y, _ocOut.scmOP.TCM1z,
-            //                           _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, _ocOut.scmOP.E1y, false, out XL1, out YL1, out ZL1);
-            //}
-            //else if (_adjTool == AdjustmentTools.BottomCamberMount)
-            //{
-            //    QuadraticEquationSolver.Solver(l_K1x + 157.48, l_K1y, l_K1z, l_M1x, l_M1y, l_M1z, 0, l_F1x, l_F1y, l_F1z, l_BCM1x, l_BCM1y, l_BCM1z, _ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z,
-            //           _ocOut.scmOP.BCM1x, _ocOut.scmOP.BCM1y, _ocOut.scmOP.BCM1z, _ocOut.scmOP.E1y, false, out XL1, out YL1, out ZL1);
-            //}
+            //QuadraticEquationSolver.Solver(l_K1x + 157.48, l_K1y, l_K1z, l_M1x, l_M1y, l_M1z, 0, l_TCM1x, l_TCM1y, l_TCM1z, l_BCM1x, l_BCM1y, l_BCM1z, _ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z, _ocOut.scmOP.TCM1x, _ocOut.scmOP.TCM1y, _ocOut.scmOP.TCM1z,
+            //                          _ocOut.scmOP.BCM1x, _ocOut.scmOP.BCM1y, _ocOut.scmOP.BCM1z, _ocOut.scmOP.E1y, false, out XL1, out YL1, out ZL1);
 
 
-            QuadraticEquationSolver.Solver(l_K1x + 157.48, l_K1y, l_K1z, l_M1x, l_M1y, l_M1z, 0, l_F1x, l_F1y, l_F1z, l_E1x, l_E1y, l_E1z, _ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z,
-                                           _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, _ocOut.scmOP.E1y, false, out XL1, out YL1, out ZL1);
+            Point3D S = new Point3D(l_K1x + 157.48, l_K1y, l_K1z);
 
-            QuadraticEquationSolver.Solver(l_K1x + 157.48, l_K1y, l_K1z, l_M1x, l_M1y, l_M1z, 0, l_TCM1x, l_TCM1y, l_TCM1z, l_BCM1x, l_BCM1y, l_BCM1z, _ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z, _ocOut.scmOP.TCM1x, _ocOut.scmOP.TCM1y, _ocOut.scmOP.TCM1z,
-                                      _ocOut.scmOP.BCM1x, _ocOut.scmOP.BCM1y, _ocOut.scmOP.BCM1z, _ocOut.scmOP.E1y, false, out XL1, out YL1, out ZL1);
+            Point3D T1 = new Point3D(l_TCM1x, l_TCM1y, l_TCM1z);
 
-            _ocOut.scmOP.L1x = XL1;
-            _ocOut.scmOP.L1y = YL1;
-            _ocOut.scmOP.L1z = ZL1;
+            Point3D U1 = new Point3D(l_BCM1x, l_BCM1y, l_BCM1z);
+
+            Point3D V1 = new Point3D(l_M1x, l_M1y, l_M1z);
+
+            Point3D T2 = new Point3D(_ocOut.scmOP.TCM1x, _ocOut.scmOP.TCM1y, _ocOut.scmOP.TCM1z);
+
+            Point3D U2 = new Point3D(_ocOut.scmOP.BCM1x, _ocOut.scmOP.BCM1y, _ocOut.scmOP.BCM1z);
+
+            Point3D V2 = new Point3D(_ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z);
+
+            QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, 0, 0, 0, 0, _ocOut.scmOP.E1y, false, out _newSpindleEnd);
+
+
+            _ocOut.scmOP.L1x = _newSpindleEnd.X;
+            _ocOut.scmOP.L1y = _newSpindleEnd.Y;
+            _ocOut.scmOP.L1z = _newSpindleEnd.Z;
         }
 
-        public void Optimization_ContatcPatch(Vehicle _vehicleOut, int _identifierOut, OutputClass _ocOut, out double XW1, out double YW1, out double ZW1)
+        public void Optimization_ContatcPatch(Vehicle _vehicleOut, int _identifierOut, OutputClass _ocOut, out Point3D _newContactPatch)
         {
 
             //Contact Patch is seperately calculated because after an initial sweep of calculation of all points, the contact patch alone is recalculated to account for steering 
             // TO CALCULATE THE NEW POSITION OF W i.e., TO CALCULATE W'
             // Vectors used -> W'M', W'F' & W'E'
-            XW1 = 0; YW1 = 0; ZW1 = 0;
-            QuadraticEquationSolver.Solver(l_W1x, l_W1y, l_W1z, l_K1x + 157.48, l_K1y, l_K1z, 0, l_F1x, l_F1y, l_F1z, l_E1x, l_E1y, l_E1z, _ocOut.scmOP.L1x, _ocOut.scmOP.L1y, _ocOut.scmOP.L1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z,
-                                                                                                                                        _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, _ocOut.scmOP.E1y, true, out XW1, out YW1, out ZW1);
 
-            QuadraticEquationSolver.Solver(l_W1x, l_W1y, l_W1z, l_K1x + 157.48, l_K1y, l_K1z, 0, l_TCM1x, l_TCM1y, l_TCM1z, l_BCM1x, l_BCM1y, l_BCM1z, _ocOut.scmOP.L1x, _ocOut.scmOP.L1y, _ocOut.scmOP.L1z, _ocOut.scmOP.TCM1x, _ocOut.scmOP.TCM1y, _ocOut.scmOP.TCM1z,
-                                                                                                                            _ocOut.scmOP.BCM1x, _ocOut.scmOP.BCM1y, _ocOut.scmOP.BCM1z, _ocOut.scmOP.E1y, true, out XW1, out YW1, out ZW1);
+            //XW1 = 0; YW1 = 0; ZW1 = 0;
 
-            _ocOut.scmOP.W1x = XW1;
-            _ocOut.scmOP.W1y = YW1;
-            _ocOut.scmOP.W1z = ZW1;
+            //QuadraticEquationSolver.Solver(l_W1x, l_W1y, l_W1z, l_K1x + 157.48, l_K1y, l_K1z, 0, l_TCM1x, l_TCM1y, l_TCM1z, l_BCM1x, l_BCM1y, l_BCM1z, _ocOut.scmOP.L1x, _ocOut.scmOP.L1y, _ocOut.scmOP.L1z, _ocOut.scmOP.TCM1x, _ocOut.scmOP.TCM1y, _ocOut.scmOP.TCM1z,
+            //                                                                                                                _ocOut.scmOP.BCM1x, _ocOut.scmOP.BCM1y, _ocOut.scmOP.BCM1z, _ocOut.scmOP.E1y, true, out XW1, out YW1, out ZW1);
+
+            Point3D S = new Point3D(l_W1x, l_W1y, l_W1z);
+
+            Point3D T1 = new Point3D(l_K1x + 157.48, l_K1y, l_K1z);
+
+            Point3D U1 = new Point3D(l_TCM1x, l_TCM1y, l_TCM1z);
+
+            Point3D V1 = new Point3D(l_BCM1x, l_BCM1y, l_BCM1z);
+
+            Point3D T2 = new Point3D(_ocOut.scmOP.L1x, _ocOut.scmOP.L1y, _ocOut.scmOP.L1z);
+
+            Point3D U2 = new Point3D(_ocOut.scmOP.TCM1x, _ocOut.scmOP.TCM1y, _ocOut.scmOP.TCM1z);
+
+            Point3D V2 = new Point3D(_ocOut.scmOP.BCM1x, _ocOut.scmOP.BCM1y, _ocOut.scmOP.BCM1z);
+
+            QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, 0, 0, 0, 0, _ocOut.scmOP.E1y, true, out _newContactPatch);
+
+            _ocOut.scmOP.W1x = _newContactPatch.X;
+            _ocOut.scmOP.W1y = _newContactPatch.Y;
+            _ocOut.scmOP.W1z = _newContactPatch.Z;
         }
 
+        #endregion
 
         #endregion
 
@@ -693,7 +994,8 @@ namespace Coding_Attempt_with_GUI
                 // TO CALCULATE THE NEW POSITION OF M i.e., TO CALCULATE M'
                 // Vectors used -> M'E', M'F' & M'N  
                 double XM1 = 0, YM1 = 0, ZM1 = 0;
-                QuadraticEquationSolver.Solver(l_M1x, l_M1y, l_M1z, l_E1x, l_E1y, l_E1z, 0, l_F1x, l_F1y, l_F1z, l_N1x, l_N1y, l_N1z, _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z, l_N1x, l_N1y, l_N1z, l_K1y + l_K1y + Math.Abs(l_W1y), true, out XM1, out YM1, out ZM1);
+                QuadraticEquationSolver.Solver(l_M1x, l_M1y, l_M1z, l_E1x, l_E1y, l_E1z, 0, l_F1x, l_F1y, l_F1z, l_N1x, l_N1y, l_N1z, _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z,
+                    l_N1x, l_N1y, l_N1z, l_K1y + l_K1y + Math.Abs(l_W1y), true, out XM1, out YM1, out ZM1);
 
                 _ocOut.scmOP.M1x = XM1;
                 _ocOut.scmOP.M1y = YM1;

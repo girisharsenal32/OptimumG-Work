@@ -1034,21 +1034,7 @@ namespace Coding_Attempt_with_GUI
         } 
         #endregion
 
-        private void vGridControl1_Click(object sender, EventArgs e)
-        {
-        }
 
-        private void vGridControl1_FocusedRowChanged(object sender, DevExpress.XtraVerticalGrid.Events.FocusedRowChangedEventArgs e)
-        {
-        }
-
-        private void vGridControl1_CustomDrawRowHeaderCell(object sender, DevExpress.XtraVerticalGrid.Events.CustomDrawRowHeaderCellEventArgs e)
-        {
-        }
-
-        private void rIComboBoxAdjustmentType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
 
         private void rIComboBoxAdjustmentTypeCamber_Leave(object sender, EventArgs e)
         {

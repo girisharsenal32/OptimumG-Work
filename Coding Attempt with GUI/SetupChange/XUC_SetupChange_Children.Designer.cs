@@ -43,7 +43,6 @@
             this.rIComboBoxWishboneSelecter = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.rIComboBoxAdjustmentTypeCamberChange = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.rIComboBoxAdjustmentTypeRideHeight = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
-            this.groupControlChangeConstraint = new DevExpress.XtraEditors.GroupControl();
             this.categoryKPIChange = new DevExpress.XtraVerticalGrid.Rows.CategoryRow();
             this.rowKPIAngle = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.rowKPIAdjusterSelect = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
@@ -70,6 +69,7 @@
             this.rowBottomRear = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.rowToeLinkLength = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.rowPushrod = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.groupControlChangeConstraint = new DevExpress.XtraEditors.GroupControl();
             this.xtraScrollableControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.checkedListBoxControlConstraints)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkedListBoxControlChanges)).BeginInit();
@@ -273,7 +273,6 @@
             "Direct",
             "Indirect"});
             this.rIComboBoxAdjustmentTypeCamberChange.Name = "rIComboBoxAdjustmentTypeCamberChange";
-            this.rIComboBoxAdjustmentTypeCamberChange.SelectedIndexChanged += new System.EventHandler(this.rIComboBoxAdjustmentType_SelectedIndexChanged);
             this.rIComboBoxAdjustmentTypeCamberChange.Leave += new System.EventHandler(this.rIComboBoxAdjustmentTypeCamber_Leave);
             // 
             // rIComboBoxAdjustmentTypeRideHeight
@@ -287,26 +286,6 @@
             "Indirect"});
             this.rIComboBoxAdjustmentTypeRideHeight.Name = "rIComboBoxAdjustmentTypeRideHeight";
             this.rIComboBoxAdjustmentTypeRideHeight.Leave += new System.EventHandler(this.rIComboBoxAdjustmentTypeRideHeight_Leave);
-            // 
-            // groupControlChangeConstraint
-            // 
-            this.groupControlChangeConstraint.Appearance.Options.UseTextOptions = true;
-            this.groupControlChangeConstraint.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
-            this.groupControlChangeConstraint.AppearanceCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupControlChangeConstraint.AppearanceCaption.Options.UseFont = true;
-            this.groupControlChangeConstraint.AppearanceCaption.Options.UseTextOptions = true;
-            this.groupControlChangeConstraint.AppearanceCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.groupControlChangeConstraint.AppearanceCaption.TextOptions.Trimming = DevExpress.Utils.Trimming.None;
-            this.groupControlChangeConstraint.AppearanceCaption.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.groupControlChangeConstraint.AppearanceCaption.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
-            this.groupControlChangeConstraint.CaptionLocation = DevExpress.Utils.Locations.Top;
-            this.groupControlChangeConstraint.Controls.Add(this.xtraScrollableControl1);
-            this.groupControlChangeConstraint.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupControlChangeConstraint.Location = new System.Drawing.Point(0, 0);
-            this.groupControlChangeConstraint.Name = "groupControlChangeConstraint";
-            this.groupControlChangeConstraint.Size = new System.Drawing.Size(148, 421);
-            this.groupControlChangeConstraint.TabIndex = 1;
-            this.groupControlChangeConstraint.Text = "Change/Constraint";
             // 
             // categoryKPIChange
             // 
@@ -544,6 +523,26 @@
             this.rowPushrod.Properties.Caption = "Pushrod Length (mm)";
             this.rowPushrod.Properties.Format.FormatString = "n3";
             this.rowPushrod.Properties.Format.FormatType = DevExpress.Utils.FormatType.Numeric;
+            // 
+            // groupControlChangeConstraint
+            // 
+            this.groupControlChangeConstraint.Appearance.Options.UseTextOptions = true;
+            this.groupControlChangeConstraint.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
+            this.groupControlChangeConstraint.AppearanceCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupControlChangeConstraint.AppearanceCaption.Options.UseFont = true;
+            this.groupControlChangeConstraint.AppearanceCaption.Options.UseTextOptions = true;
+            this.groupControlChangeConstraint.AppearanceCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.groupControlChangeConstraint.AppearanceCaption.TextOptions.Trimming = DevExpress.Utils.Trimming.None;
+            this.groupControlChangeConstraint.AppearanceCaption.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.groupControlChangeConstraint.AppearanceCaption.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
+            this.groupControlChangeConstraint.CaptionLocation = DevExpress.Utils.Locations.Top;
+            this.groupControlChangeConstraint.Controls.Add(this.xtraScrollableControl1);
+            this.groupControlChangeConstraint.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupControlChangeConstraint.Location = new System.Drawing.Point(0, 0);
+            this.groupControlChangeConstraint.Name = "groupControlChangeConstraint";
+            this.groupControlChangeConstraint.Size = new System.Drawing.Size(148, 421);
+            this.groupControlChangeConstraint.TabIndex = 1;
+            this.groupControlChangeConstraint.Text = "Change/Constraint";
             // 
             // XUC_SetupChange_Children
             // 

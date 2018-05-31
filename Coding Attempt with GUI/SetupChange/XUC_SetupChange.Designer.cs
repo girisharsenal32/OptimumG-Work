@@ -31,8 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(XUC_SetupChange));
             DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
-            this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(this.components);
-            this.document2 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager(this.components);
             this.panelContainer1 = new DevExpress.XtraBars.Docking.DockPanel();
@@ -59,8 +57,9 @@
             this.SetupChangeFL_Results = new Coding_Attempt_with_GUI.XUC_SetupChangeResults();
             this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager(this.components);
             this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.document2)).BeginInit();
+            this.document2 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
+            this.document3 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
+            this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
             this.panelContainer1.SuspendLayout();
@@ -79,22 +78,10 @@
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.document2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.document3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // documentGroup1
-            // 
-            this.documentGroup1.Items.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document[] {
-            this.document2});
-            // 
-            // document2
-            // 
-            this.document2.Caption = "Results";
-            this.document2.ControlName = "dockPanel1";
-            this.document2.FloatLocation = new System.Drawing.Point(771, 517);
-            this.document2.FloatSize = new System.Drawing.Size(629, 468);
-            this.document2.Properties.AllowClose = DevExpress.Utils.DefaultBoolean.False;
-            this.document2.Properties.AllowFloat = DevExpress.Utils.DefaultBoolean.True;
-            this.document2.Properties.AllowFloatOnDoubleClick = DevExpress.Utils.DefaultBoolean.True;
             // 
             // document1
             // 
@@ -295,7 +282,7 @@
             this.dockPanel1.Controls.Add(this.controlContainer2);
             this.dockPanel1.Dock = DevExpress.XtraBars.Docking.DockingStyle.Float;
             this.dockPanel1.DockedAsTabbedDocument = true;
-            this.dockPanel1.FloatLocation = new System.Drawing.Point(771, 517);
+            this.dockPanel1.FloatLocation = new System.Drawing.Point(1315, 529);
             this.dockPanel1.FloatSize = new System.Drawing.Size(629, 468);
             this.dockPanel1.ID = new System.Guid("6716d508-2a52-4fc8-b0c5-80f8c1876062");
             this.dockPanel1.Image = ((System.Drawing.Image)(resources.GetObject("dockPanel1.Image")));
@@ -303,8 +290,8 @@
             this.dockPanel1.Name = "dockPanel1";
             this.dockPanel1.Options.ShowCloseButton = false;
             this.dockPanel1.OriginalSize = new System.Drawing.Size(200, 200);
+            this.dockPanel1.SavedDock = DevExpress.XtraBars.Docking.DockingStyle.Right;
             this.dockPanel1.SavedIndex = 1;
-            this.dockPanel1.SavedMdiDocument = true;
             this.dockPanel1.Size = new System.Drawing.Size(650, 811);
             this.dockPanel1.Text = "Results";
             this.dockPanel1.Click += new System.EventHandler(this.dockPanel1_Click);
@@ -379,11 +366,33 @@
             this.tabbedView1.DocumentGroups.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup[] {
             this.documentGroup1});
             this.tabbedView1.Documents.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseDocument[] {
-            this.document2});
+            this.document3});
             this.tabbedView1.RootContainer.Element = null;
             dockingContainer1.Element = this.documentGroup1;
             this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
             dockingContainer1});
+            // 
+            // document2
+            // 
+            this.document2.Caption = "Results";
+            this.document2.ControlName = "dockPanel1";
+            this.document2.FloatLocation = new System.Drawing.Point(1247, 529);
+            this.document2.FloatSize = new System.Drawing.Size(629, 468);
+            // 
+            // document3
+            // 
+            this.document3.Caption = "Results";
+            this.document3.ControlName = "dockPanel1";
+            this.document3.FloatLocation = new System.Drawing.Point(1315, 529);
+            this.document3.FloatSize = new System.Drawing.Size(629, 468);
+            this.document3.Properties.AllowClose = DevExpress.Utils.DefaultBoolean.False;
+            this.document3.Properties.AllowFloat = DevExpress.Utils.DefaultBoolean.True;
+            this.document3.Properties.AllowFloatOnDoubleClick = DevExpress.Utils.DefaultBoolean.True;
+            // 
+            // documentGroup1
+            // 
+            this.documentGroup1.Items.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document[] {
+            this.document3});
             // 
             // XUC_SetupChange
             // 
@@ -393,8 +402,6 @@
             this.Name = "XUC_SetupChange";
             this.Size = new System.Drawing.Size(1634, 839);
             this.Load += new System.EventHandler(this.XUC_SetupChange_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.document2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).EndInit();
             this.panelContainer1.ResumeLayout(false);
@@ -413,6 +420,9 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.document2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.document3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -440,11 +450,12 @@
         private DevExpress.XtraBars.Docking2010.Views.Tabbed.Document document1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private DevExpress.XtraBars.Docking.DockPanel panelContainer3;
-        private DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup documentGroup1;
-        private DevExpress.XtraBars.Docking2010.Views.Tabbed.Document document2;
         public XUC_SetupChangeResults SetupChangeRR_Results;
         public XUC_SetupChangeResults SetupChangeRL_Results;
         public XUC_SetupChangeResults SetupChangeFR_Results;
         public XUC_SetupChangeResults SetupChangeFL_Results;
+        private DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup documentGroup1;
+        private DevExpress.XtraBars.Docking2010.Views.Tabbed.Document document3;
+        private DevExpress.XtraBars.Docking2010.Views.Tabbed.Document document2;
     }
 }
