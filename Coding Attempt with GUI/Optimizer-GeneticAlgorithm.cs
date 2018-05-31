@@ -296,6 +296,7 @@ namespace Coding_Attempt_with_GUI
 
         Dictionary<string, Dictionary<string, Opt_AdjToolParams>> MasterDictionary;
 
+        Dictionary<String, double> OptimizedParams;
         
 
         #endregion
@@ -742,8 +743,20 @@ namespace Coding_Attempt_with_GUI
             BumpSteerRequested.Add(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_x", new Opt_AdjToolParams(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_x", 232.12, 5, -5, 30));
             BumpSteerRequested.Add(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_y", new Opt_AdjToolParams(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_y", 124.4, 5, -5, 30));
             BumpSteerRequested.Add(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_z", new Opt_AdjToolParams(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_z", 60.8, 5, -5, 30));
-            
 
+            MasterDictionary.Add("CasterRequested", CasterRequested);
+            MasterDictionary.Add("CamberRequested", CamberRequested);
+            MasterDictionary.Add("ToeRequested", ToeRequested);
+            MasterDictionary.Add("BumpSteerRequested", BumpSteerRequested);
+
+            OptimizedParams = new Dictionary<string, double>();
+
+            Array AdjTool =  Enum.GetValues(typeof(AdjustmentTools)); 
+
+            for (int i = 0; i < AdjTool.Length; i++)
+            {
+                OptimizedParams.Add(AdjTool.GetValue(i).ToString(), 0);
+            }
         }
         #endregion
 
@@ -933,7 +946,33 @@ namespace Coding_Attempt_with_GUI
 
             CamberShimLength = System.Math.Round((CamberShimLength_1 * rCamberShimLength) + (LowerCamberShimLength), 3);
 
+            geneNumber = 0;
+            foreach (string SetupChange in MasterDictionary.Keys)
+            {
+                foreach (string adjTool in MasterDictionary[SetupChange].Keys)
+                {
+                    var range = GAF.Math.GetRangeConstant(MasterDictionary[SetupChange][adjTool].Uppwer - MasterDictionary[SetupChange][adjTool].Lower, MasterDictionary[SetupChange][adjTool].BitSize);
+
+                    var gene = Convert.ToInt32(chromosome.ToBinaryString(geneNumber * MasterDictionary[SetupChange][adjTool].BitSize, MasterDictionary[SetupChange][adjTool].BitSize), 2);
+                    geneNumber++;
+
+                    double param = System.Math.Round((gene * range) + (MasterDictionary[SetupChange][adjTool].Lower), 3);
+
+                    if (OptimizedParams.ContainsKey(adjTool))
+                    {
+                        OptimizedParams[adjTool] = param;
+                    }
+                }
+            }
+
+
+
+
+
+
         }
+
+
 
         private void Update_GADataTable(string _solutionName)
         {
