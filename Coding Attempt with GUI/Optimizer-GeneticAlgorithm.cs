@@ -468,7 +468,6 @@ namespace Coding_Attempt_with_GUI
 
             PopulateDictionaryTrial();
 
-
         }
 
         private void InitializeSuspensionAssemblies(Dictionary<string, OptimizedCoordinate> _assemblyPoints)

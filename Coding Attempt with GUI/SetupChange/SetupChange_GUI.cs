@@ -36,7 +36,7 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Instance of the Setup Change User Control
         /// </summary>
-        public XUC_SetupChange XUC_SetupChange = new XUC_SetupChange();
+        public XUC_SetupChange XUC_SetupChange;
         /// <summary>
         /// NavBarItem representing this object of the SetupChange class
         /// </summary>
@@ -80,6 +80,8 @@ namespace Coding_Attempt_with_GUI
             setupChangeFR_GUI = new SetupChange_CornerVariables();
             setupChangeRL_GUI = new SetupChange_CornerVariables();
             setupChangeRR_GUI = new SetupChange_CornerVariables();
+
+            XUC_SetupChange = new XUC_SetupChange();
 
             ///<summary>Initializing the <see cref="NavBarItem"/> Object</summary>
             navBarItemSetupChange = new CusNavBarItem(_setupChangeName, _setupChangeID, this);

@@ -32,7 +32,6 @@
             this.checkedListBoxControlConstraints = new DevExpress.XtraEditors.CheckedListBoxControl();
             this.checkedListBoxControlChanges = new DevExpress.XtraEditors.CheckedListBoxControl();
             this.vGridControl1 = new DevExpress.XtraVerticalGrid.VGridControl();
-            this.groupControlChangeConstraint = new DevExpress.XtraEditors.GroupControl();
             this.r1TextboxKPI = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.r1TextboxCamber = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.r1TextboxCaster = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
@@ -47,6 +46,7 @@
             this.rICheckedCB_Adj_CasterKPI = new DevExpress.XtraEditors.Repository.RepositoryItemCheckedComboBoxEdit();
             this.rICheckedCB_Adj_Camber = new DevExpress.XtraEditors.Repository.RepositoryItemCheckedComboBoxEdit();
             this.rIButtonBumpSteerChart = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
+            this.rICheckedCB_Adj_BumpSteer = new DevExpress.XtraEditors.Repository.RepositoryItemCheckedComboBoxEdit();
             this.categoryKPIChange = new DevExpress.XtraVerticalGrid.Rows.CategoryRow();
             this.rowKPIAngle = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.rowCasterAngle = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
@@ -74,7 +74,6 @@
             this.rowBottomCamberMount = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRow();
             this.BottomCamberMount_Upper = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties();
             this.BottomCamberMount_Lower = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties();
-            this.rowCamberChangeMethod = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.rowShims = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.rowNoOfShims = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.categoryCasterChange = new DevExpress.XtraVerticalGrid.Rows.CategoryRow();
@@ -106,14 +105,12 @@
             this.rowToeLinkInboard_z = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRow();
             this.TLI_z_Upper = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties();
             this.TLI_z_Lower = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties();
+            this.groupControlChangeConstraint = new DevExpress.XtraEditors.GroupControl();
             this.multiEditorRowProperties3 = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties();
-            this.rICheckedCB_Adj_BumpSteer = new DevExpress.XtraEditors.Repository.RepositoryItemCheckedComboBoxEdit();
             this.xtraScrollableControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.checkedListBoxControlConstraints)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkedListBoxControlChanges)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vGridControl1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControlChangeConstraint)).BeginInit();
-            this.groupControlChangeConstraint.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.r1TextboxKPI)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.r1TextboxCamber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.r1TextboxCaster)).BeginInit();
@@ -129,6 +126,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.rICheckedCB_Adj_Camber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rIButtonBumpSteerChart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rICheckedCB_Adj_BumpSteer)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControlChangeConstraint)).BeginInit();
+            this.groupControlChangeConstraint.SuspendLayout();
             this.SuspendLayout();
             // 
             // xtraScrollableControl1
@@ -165,7 +164,7 @@
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Caster constant"),
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Toe constant"),
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Ride Height constant"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem(null, "Bump Steer Constant")});
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Bump Steer Constant")});
             this.checkedListBoxControlConstraints.Location = new System.Drawing.Point(0, 133);
             this.checkedListBoxControlConstraints.Name = "checkedListBoxControlConstraints";
             this.checkedListBoxControlConstraints.Size = new System.Drawing.Size(144, 138);
@@ -192,7 +191,7 @@
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Toe Change"),
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Ride Height Change"),
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Link Length Change"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem(null, "Bump Steer Change")});
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Bump Steer Change")});
             this.checkedListBoxControlChanges.Location = new System.Drawing.Point(0, 0);
             this.checkedListBoxControlChanges.Name = "checkedListBoxControlChanges";
             this.checkedListBoxControlChanges.Size = new System.Drawing.Size(144, 133);
@@ -240,26 +239,6 @@
             this.vGridControl1.Size = new System.Drawing.Size(319, 466);
             this.vGridControl1.TabIndex = 1;
             this.vGridControl1.CellValueChanged += new DevExpress.XtraVerticalGrid.Events.CellValueChangedEventHandler(this.vGridControl1_CellValueChanged);
-            // 
-            // groupControlChangeConstraint
-            // 
-            this.groupControlChangeConstraint.Appearance.Options.UseTextOptions = true;
-            this.groupControlChangeConstraint.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
-            this.groupControlChangeConstraint.AppearanceCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupControlChangeConstraint.AppearanceCaption.Options.UseFont = true;
-            this.groupControlChangeConstraint.AppearanceCaption.Options.UseTextOptions = true;
-            this.groupControlChangeConstraint.AppearanceCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.groupControlChangeConstraint.AppearanceCaption.TextOptions.Trimming = DevExpress.Utils.Trimming.None;
-            this.groupControlChangeConstraint.AppearanceCaption.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.groupControlChangeConstraint.AppearanceCaption.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
-            this.groupControlChangeConstraint.CaptionLocation = DevExpress.Utils.Locations.Top;
-            this.groupControlChangeConstraint.Controls.Add(this.xtraScrollableControl1);
-            this.groupControlChangeConstraint.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupControlChangeConstraint.Location = new System.Drawing.Point(0, 0);
-            this.groupControlChangeConstraint.Name = "groupControlChangeConstraint";
-            this.groupControlChangeConstraint.Size = new System.Drawing.Size(148, 466);
-            this.groupControlChangeConstraint.TabIndex = 1;
-            this.groupControlChangeConstraint.Text = "Change/Constraint";
             // 
             // r1TextboxKPI
             // 
@@ -380,6 +359,14 @@
             this.rIButtonBumpSteerChart.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.rIButtonBumpSteerChart.Name = "rIButtonBumpSteerChart";
+            // 
+            // rICheckedCB_Adj_BumpSteer
+            // 
+            this.rICheckedCB_Adj_BumpSteer.AutoHeight = false;
+            this.rICheckedCB_Adj_BumpSteer.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.rICheckedCB_Adj_BumpSteer.Name = "rICheckedCB_Adj_BumpSteer";
+            this.rICheckedCB_Adj_BumpSteer.EditValueChanged += new System.EventHandler(this.rICheckedCB_Adj_BumpSteer_EditValueChanged);
             // 
             // categoryKPIChange
             // 
@@ -520,7 +507,6 @@
             this.rowShimThickness,
             this.rowTopCamberMount,
             this.rowBottomCamberMount,
-            this.rowCamberChangeMethod,
             this.rowShims});
             this.categoryCamberChange.Height = 15;
             this.categoryCamberChange.Name = "categoryCamberChange";
@@ -565,13 +551,13 @@
             // TopCamberMount_Upper
             // 
             this.TopCamberMount_Upper.Caption = "Top Mount: Upper";
-            this.TopCamberMount_Upper.Value = -5D;
+            this.TopCamberMount_Upper.Value = 5D;
             this.TopCamberMount_Upper.Width = 109;
             // 
             // TopCamberMount_Lower
             // 
             this.TopCamberMount_Lower.Caption = "Lower";
-            this.TopCamberMount_Lower.Value = 5D;
+            this.TopCamberMount_Lower.Value = -5D;
             this.TopCamberMount_Lower.Width = 50;
             // 
             // rowBottomCamberMount
@@ -585,23 +571,14 @@
             // BottomCamberMount_Upper
             // 
             this.BottomCamberMount_Upper.Caption = "Bot. Mount: Upper";
-            this.BottomCamberMount_Upper.Value = -5D;
+            this.BottomCamberMount_Upper.Value = 5D;
             this.BottomCamberMount_Upper.Width = 109;
             // 
             // BottomCamberMount_Lower
             // 
             this.BottomCamberMount_Lower.Caption = "Lower";
-            this.BottomCamberMount_Lower.Value = 5D;
+            this.BottomCamberMount_Lower.Value = -5D;
             this.BottomCamberMount_Lower.Width = 50;
-            // 
-            // rowCamberChangeMethod
-            // 
-            this.rowCamberChangeMethod.Enabled = false;
-            this.rowCamberChangeMethod.Name = "rowCamberChangeMethod";
-            this.rowCamberChangeMethod.Properties.Caption = "Camber Change Method";
-            this.rowCamberChangeMethod.Properties.DrawEditorBorder = false;
-            this.rowCamberChangeMethod.Properties.RowEdit = this.rIComboBoxAdjustmentTypeCamberChange;
-            this.rowCamberChangeMethod.Visible = false;
             // 
             // rowShims
             // 
@@ -797,6 +774,7 @@
             this.rowBumpSteerAdjuster.Enabled = false;
             this.rowBumpSteerAdjuster.Name = "rowBumpSteerAdjuster";
             this.rowBumpSteerAdjuster.Properties.Caption = "Bump Steer Adjuster";
+            this.rowBumpSteerAdjuster.Properties.RowEdit = this.rICheckedCB_Adj_BumpSteer;
             // 
             // rowToeLinkInboard_x
             // 
@@ -858,13 +836,25 @@
             this.TLI_z_Lower.Value = -5D;
             this.TLI_z_Lower.Width = 39;
             // 
-            // rICheckedCB_Adj_BumpSteer
+            // groupControlChangeConstraint
             // 
-            this.rICheckedCB_Adj_BumpSteer.AutoHeight = false;
-            this.rICheckedCB_Adj_BumpSteer.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.rICheckedCB_Adj_BumpSteer.Name = "rICheckedCB_Adj_BumpSteer";
-            this.rICheckedCB_Adj_BumpSteer.EditValueChanged += new System.EventHandler(this.rICheckedCB_Adj_BumpSteer_EditValueChanged);
+            this.groupControlChangeConstraint.Appearance.Options.UseTextOptions = true;
+            this.groupControlChangeConstraint.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
+            this.groupControlChangeConstraint.AppearanceCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupControlChangeConstraint.AppearanceCaption.Options.UseFont = true;
+            this.groupControlChangeConstraint.AppearanceCaption.Options.UseTextOptions = true;
+            this.groupControlChangeConstraint.AppearanceCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.groupControlChangeConstraint.AppearanceCaption.TextOptions.Trimming = DevExpress.Utils.Trimming.None;
+            this.groupControlChangeConstraint.AppearanceCaption.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.groupControlChangeConstraint.AppearanceCaption.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
+            this.groupControlChangeConstraint.CaptionLocation = DevExpress.Utils.Locations.Top;
+            this.groupControlChangeConstraint.Controls.Add(this.xtraScrollableControl1);
+            this.groupControlChangeConstraint.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupControlChangeConstraint.Location = new System.Drawing.Point(0, 0);
+            this.groupControlChangeConstraint.Name = "groupControlChangeConstraint";
+            this.groupControlChangeConstraint.Size = new System.Drawing.Size(148, 466);
+            this.groupControlChangeConstraint.TabIndex = 1;
+            this.groupControlChangeConstraint.Text = "Change/Constraint";
             // 
             // XUC_SetupChange_Children
             // 
@@ -879,8 +869,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.checkedListBoxControlConstraints)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkedListBoxControlChanges)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vGridControl1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControlChangeConstraint)).EndInit();
-            this.groupControlChangeConstraint.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.r1TextboxKPI)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.r1TextboxCamber)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.r1TextboxCaster)).EndInit();
@@ -896,6 +884,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.rICheckedCB_Adj_Camber)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rIButtonBumpSteerChart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rICheckedCB_Adj_BumpSteer)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControlChangeConstraint)).EndInit();
+            this.groupControlChangeConstraint.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -922,7 +912,6 @@
         private DevExpress.XtraVerticalGrid.Rows.EditorRow rowKPIAngle;
         private DevExpress.XtraVerticalGrid.Rows.EditorRow rowKPICasterAdjusterSelect;
         private DevExpress.XtraVerticalGrid.Rows.CategoryRow categoryCamberChange;
-        private DevExpress.XtraVerticalGrid.Rows.EditorRow rowCamberChangeMethod;
         private DevExpress.XtraVerticalGrid.Rows.EditorRow rowCamberAngle;
         private DevExpress.XtraVerticalGrid.Rows.EditorRow rowShims;
         private DevExpress.XtraVerticalGrid.Rows.EditorRow rowCamberMount;

@@ -86,10 +86,13 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
         #region Variable to Indicate that the motion is returning to bump after series of rebounds
+        /// <summary>
+        /// Variable to Indicate that the motion is returning to bump after series of rebounds
+        /// </summary>
         public bool IsStillinRebound = true;
         #endregion
 
-        #region Objects of the SetupChangeDatabase Class
+        #region Setup Change - SetupChangeDatabase Class Objects
         /// <summary>
         /// Master Object of the SetupChangeDatabase class which holds the vectors and points representing the Wheel Assembly parameters which can be changed
         /// </summary>
@@ -112,7 +115,7 @@ namespace Coding_Attempt_with_GUI
         SetupChangeDatabase SetupChange_DB_RR = new SetupChangeDatabase();
         #endregion
 
-        #region Objects off the SetupChange_CornerVariablesClass
+        #region NOT NEEDED Objects off the SetupChange_CornerVariablesClass
         ///// <summary>
         ///// Front Left object of the <see cref="SetupChange_CornerVariables"/> class.
         ///// </summary>
@@ -132,7 +135,7 @@ namespace Coding_Attempt_with_GUI
 
         #endregion
 
-        #region Objects of the SetupChange_ClosedLoopVariables Class
+        #region Setup Change - SetupChange_ClosedLoopVariables Class Object
         /// <summary>
         /// Object of the <see cref="SetupChange_ClosedLoopSolver"/> Class which will be treated as the Master
         /// </summary>
@@ -155,7 +158,11 @@ namespace Coding_Attempt_with_GUI
         public SetupChange_ClosedLoopSolver SetupChange_CLS_RR;
         #endregion
 
-        #region Object of the Vehicle Model Class. Used exclusively for the Setup Change
+        #region Setup Change - OptimizationGeneticAlgorithm Class Object
+        OptimizerGeneticAlgorithm ga; 
+        #endregion
+
+        #region SetupChange- Vehicle Model Object
         private VehicleModel SetupChange_VehicleModel = new VehicleModel();
         #endregion
 
@@ -1394,19 +1401,19 @@ namespace Coding_Attempt_with_GUI
             if (_FlCV.RideHeightChanged || _FrCV.RideHeightChanged || _RlCV.RideHeightChanged || _RrCV.RideHeightChanged)
             {
                 Identifier = 1;
-                SetupChange_PrimaryInitializeMethod(_FlCV, _Vehicle.oc_FL, FinalCamberFL, FinalToeFL, FinalCasterFL, FinalKPIFL);
+                SetupChange_PrimaryInitializeMethod(_FlCV, _Vehicle.oc_FL, FinalCamberFL, FinalToeFL, FinalCasterFL, FinalKPIFL, Identifier, _Vehicle);
                 FinalRideHeight_FL = SetupChange_GetRideHeightChange(_FlCV, SetupChange_DB_Master.AdjOptions.PushrodLine, SetupChange_DB_Master.AdjOptions.PushrodVector, _FlCV.rideheightAdjustmentType, _FlCV.rideheightAdjustmentTool, 1, out FinalPushrod_FL);
 
                 Identifier = 2;
-                SetupChange_PrimaryInitializeMethod(_FrCV, _Vehicle.oc_FR, FinalCamberFR, FinalToeFR, FinalCasterFR, FinalKPIFR);
+                SetupChange_PrimaryInitializeMethod(_FrCV, _Vehicle.oc_FR, FinalCamberFR, FinalToeFR, FinalCasterFR, FinalKPIFR, Identifier, _Vehicle);
                 FinalRideHeight_FR = SetupChange_GetRideHeightChange(_FrCV, SetupChange_DB_Master.AdjOptions.PushrodLine, SetupChange_DB_Master.AdjOptions.PushrodVector, _FrCV.rideheightAdjustmentType, _FrCV.rideheightAdjustmentTool, 2, out FinalPushrod_FR);
 
                 Identifier = 3;
-                SetupChange_PrimaryInitializeMethod(_RlCV, _Vehicle.oc_RL, FinalCamberRL, FinalToeRL, FinalCasterRL, FinalKPIRL);
+                SetupChange_PrimaryInitializeMethod(_RlCV, _Vehicle.oc_RL, FinalCamberRL, FinalToeRL, FinalCasterRL, FinalKPIRL, Identifier, _Vehicle);
                 FinalRideHeight_RL = SetupChange_GetRideHeightChange(_RlCV, SetupChange_DB_Master.AdjOptions.PushrodLine, SetupChange_DB_Master.AdjOptions.PushrodVector, _RlCV.rideheightAdjustmentType, _RlCV.rideheightAdjustmentTool, 3, out FinalPushrod_RL);
 
                 Identifier = 4;
-                SetupChange_PrimaryInitializeMethod(_RrCV, _Vehicle.oc_RR, FinalCamberRR, FinalToeRR, FinalCasterRR, FinalKPIRR);
+                SetupChange_PrimaryInitializeMethod(_RrCV, _Vehicle.oc_RR, FinalCamberRR, FinalToeRR, FinalCasterRR, FinalKPIRR, Identifier, _Vehicle);
                 FinalRideHeight_RR = SetupChange_GetRideHeightChange(_RrCV, SetupChange_DB_Master.AdjOptions.PushrodLine, SetupChange_DB_Master.AdjOptions.PushrodVector, _RrCV.rideheightAdjustmentType, _RrCV.rideheightAdjustmentTool, 4, out FinalPushrod_RR);
 
                 SetupChange_RideHeightChange_Helper_SolveForRideHeightChanges(_Vehicle, FinalRideHeight_FL, FinalRideHeight_FR, FinalRideHeight_RL, FinalRideHeight_RR);
@@ -1419,20 +1426,20 @@ namespace Coding_Attempt_with_GUI
 
             Identifier = 1;
             ///<summary>Bringing about the Setup Changes in each of the corners and assigning the <see cref="SetupChangeDatabase"/>objects to the corners as well</summary>
-            SetupChange_InvokeChangeSolvers(_Vehicle.oc_FL[0].sccvOP, _Vehicle.oc_FL, 1, FinalCamberFL, FinalToeFL, FinalCasterFL, FinalKPIFL, FinalRideHeight_FL, FinalPushrod_FL);
+            SetupChange_InvokeChangeSolvers(_Vehicle, _Vehicle.oc_FL[0].sccvOP, _Vehicle.oc_FL, 1, FinalCamberFL, FinalToeFL, FinalCasterFL, FinalKPIFL, FinalRideHeight_FL, FinalPushrod_FL);
             ///<summary>Assigning All the Final Values to the FRONT LEFT Object of the Closed Loop Solver</summary>
             AssignAllFinalValues(1, _Vehicle.oc_FL[0].sccvOP, FinalRideHeight_FL, FinalPushrod_FL);
 
             Identifier = 2;
-            SetupChange_InvokeChangeSolvers(_Vehicle.oc_FR[0].sccvOP, _Vehicle.oc_FR, 2, FinalCamberFR, FinalToeFR, FinalCasterFR, FinalKPIFR, FinalRideHeight_FR, FinalPushrod_FR);
+            SetupChange_InvokeChangeSolvers(_Vehicle, _Vehicle.oc_FR[0].sccvOP, _Vehicle.oc_FR, 2, FinalCamberFR, FinalToeFR, FinalCasterFR, FinalKPIFR, FinalRideHeight_FR, FinalPushrod_FR);
             AssignAllFinalValues(2, _Vehicle.oc_FR[0].sccvOP, FinalRideHeight_FR, FinalPushrod_FR);
 
             Identifier = 3;
-            SetupChange_InvokeChangeSolvers(_Vehicle.oc_RL[0].sccvOP, _Vehicle.oc_RL, 3, FinalCamberRL, FinalToeRL, FinalCasterRL, FinalKPIRL, FinalRideHeight_RL, FinalPushrod_RL);
+            SetupChange_InvokeChangeSolvers(_Vehicle, _Vehicle.oc_RL[0].sccvOP, _Vehicle.oc_RL, 3, FinalCamberRL, FinalToeRL, FinalCasterRL, FinalKPIRL, FinalRideHeight_RL, FinalPushrod_RL);
             AssignAllFinalValues(3, _Vehicle.oc_RL[0].sccvOP, FinalRideHeight_RL, FinalPushrod_RL);
 
             Identifier = 4;
-            SetupChange_InvokeChangeSolvers(_Vehicle.oc_RR[0].sccvOP, _Vehicle.oc_RR, 4, FinalCamberRR, FinalToeRR, FinalCasterRR, FinalKPIRR, FinalRideHeight_RR, FinalPushrod_RR);
+            SetupChange_InvokeChangeSolvers(_Vehicle, _Vehicle.oc_RR[0].sccvOP, _Vehicle.oc_RR, 4, FinalCamberRR, FinalToeRR, FinalCasterRR, FinalKPIRR, FinalRideHeight_RR, FinalPushrod_RR);
             AssignAllFinalValues(4, _Vehicle.oc_RR[0].sccvOP, FinalRideHeight_RR, FinalPushrod_RR);
         }
         #endregion
@@ -1521,6 +1528,8 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         List<int> randomIndexSelecter = new List<int>();
 
+        #region ---NOT NEEDED--- Axis Selector Methods for KPI and Caster
+        // These are taken care of in the Setup Change Form itself now 
         /// <summary>
         /// Method to assign the <see cref="AdjustmentTools"/> and Axis of Rotation to the <see cref="AdjustmentOptions.MCasterAdjustmenterLine"/> and <see cref="AdjustmentOptions.MKPIAdjusterLine"/>.
         /// This method uses a Random Assigner in sync with <see cref="SetupChange_CornerVariables.LinkLengthsWhichHaveNotChanged"/> List to decide the Master Adjuster and Axis of Rotation based on which Links have been left free of any Change
@@ -1604,17 +1613,28 @@ namespace Coding_Attempt_with_GUI
 
         }
 
-        private void SetupChange_PrimaryInitializeMethod(SetupChange_CornerVariables _requestedChanges, List<OutputClass> _oc, Angle finalCamber, Angle finalToe, Angle finalCaster, Angle finalKPI)
+        #endregion
+
+        private void SetupChange_PrimaryInitializeMethod(SetupChange_CornerVariables _requestedChanges, List<OutputClass> _oc, Angle finalCamber, Angle finalToe, Angle finalCaster, Angle finalKPI, int identifier, Vehicle _vehicle)
         {
             ///<summary>Initializing the <see cref="SetupChangeDatabase"/> object of this class and assigning the <see cref="OutputClass.scmOP"/>'s coordinate values to the local variables of this class</summary>
             SetupChange_InitializeSetupChange(_requestedChanges, _oc[0], _requestedChanges.AdjToolsDictionary);
 
-            ///<remarks>Constructing the <see cref="SetupChange_ClosedLoopSolver"/> object before calling the <see cref="SetupChange_AssignNewSetupValues(List{OutputClass}, SetupChange_CornerVariables)"/> so that the static values of Camber, Caster, Toe etc are stored in the 
-            ///first posotion of the <see cref="SetupChange_ClosedLoopSolver.Final_Camber"/> and other lists. This way the minute I make the first pass through the <see cref="SetupChange_CamberChange(double, OutputClass, int, int, bool)"/> or any other Setup Change Method, the 2nd position 
-            ///of the lists have the delta values 
-            /// </remarks>
-            SetupChange_CLS_Master = null;
-            SetupChange_CLS_Master = new SetupChange_ClosedLoopSolver(this, _oc, ref SetupChange_DB_Master.SetupChangeOPDictionary, finalCamber, finalToe, finalCaster, finalKPI);
+            /////<remarks>Constructing the <see cref="SetupChange_ClosedLoopSolver"/> object before calling the <see cref="SetupChange_AssignNewSetupValues(List{OutputClass}, SetupChange_CornerVariables)"/> so that the static values of Camber, Caster, Toe etc are stored in the 
+            /////first posotion of the <see cref="SetupChange_ClosedLoopSolver.Final_Camber"/> and other lists. This way the minute I make the first pass through the <see cref="SetupChange_CamberChange(double, OutputClass, int, int, bool)"/> or any other Setup Change Method, the 2nd position 
+            /////of the lists have the delta values 
+            ///// </remarks>
+            //SetupChange_CLS_Master = null;
+            //SetupChange_CLS_Master = new SetupChange_ClosedLoopSolver(this, _oc, ref SetupChange_DB_Master.SetupChangeOPDictionary, finalCamber, finalToe, finalCaster, finalKPI);
+
+            ga = new OptimizerGeneticAlgorithm(0.85, 0.05, 5, 200, 180);
+
+            ga.InitializeVehicleParams((VehicleCorner)identifier, _vehicle, 1, 25, -25);
+
+
+
+            ga.ConstructGeneticAlgorithm();
+
 
             /////<summary>Finding the final values of the Setup Parameters by adding the changes in the corresponding parameters which the user has requested</summary>
             //SetupChange_AssignNewSetupValues(_oc, _requestedChanges);
@@ -1626,10 +1646,11 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_RequestedChanges">Object of the <see cref="SetupChange_CornerVariables"/> which contains the user's requested changes. </param>
         /// <param name="_Oc"></param>
         /// <param name="_Identifier">Corner Identifier</param>
-        private void SetupChange_InvokeChangeSolvers(SetupChange_CornerVariables _RequestedChanges, List<OutputClass> _Oc, int _Identifier, Angle _FinalCamber, Angle _FinalToe, Angle _FinalCaster, Angle _FinalKPI, double _FinalRideHeight, double _FinalPushrod)
+        private void SetupChange_InvokeChangeSolvers(Vehicle _Vehicle, SetupChange_CornerVariables _RequestedChanges, List<OutputClass> _Oc, int _Identifier, Angle _FinalCamber, Angle _FinalToe, Angle _FinalCaster, Angle _FinalKPI, double _FinalRideHeight, double _FinalPushrod)
         {
-            SetupChange_PrimaryInitializeMethod(_RequestedChanges, _Oc, _FinalCamber, _FinalToe, _FinalCaster, _FinalKPI);
+            SetupChange_PrimaryInitializeMethod(_RequestedChanges, _Oc, _FinalCamber, _FinalToe, _FinalCaster, _FinalKPI, _Identifier, _Vehicle);
 
+            #region NOT NEEDED. As not working with Link Length Changes now
             ///<summary>Selecting the Links for KPI and Caster Changes in case the user has not selected them from the combobox provided AND Caster/KPI const or change is requested</summary>
             if (!_RequestedChanges.OverrideRandomSelectorForKPI)
             {
@@ -1709,7 +1730,8 @@ namespace Coding_Attempt_with_GUI
                 //}
 
                 SetupChange_CLS_Master.ClosedLoop_Solver(CurrentChange.LinkLength);
-            }
+            } 
+            #endregion
 
             else if (_RequestedChanges.deltaRideHeight != 0)
             {

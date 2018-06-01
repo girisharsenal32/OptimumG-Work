@@ -225,7 +225,28 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         public Dictionary<string, AdjustmentTools> AdjToolsDictionary = new Dictionary<string, AdjustmentTools>();
 
+        public Dictionary<string, Opt_AdjToolParams> Caster_KPI_Adj;
 
+        public Dictionary<string, Opt_AdjToolParams> Camber_Adj;
+
+        public Dictionary<string, Opt_AdjToolParams> Toe_Adj;
+
+        public Dictionary<string, Opt_AdjToolParams> BumpSteer_Adj;
+
+        public Dictionary<string, Dictionary<string, Opt_AdjToolParams>> Master_Adj;
+
+        public SetupChange_CornerVariables()
+        {
+            Caster_KPI_Adj = new Dictionary<string, Opt_AdjToolParams>();
+
+            Camber_Adj = new Dictionary<string, Opt_AdjToolParams>();
+
+            Toe_Adj = new Dictionary<string, Opt_AdjToolParams>();
+
+            BumpSteer_Adj = new Dictionary<string, Opt_AdjToolParams>();
+
+            Master_Adj = new Dictionary<string, Dictionary<string, Opt_AdjToolParams>>();
+        }
 
         /// <summary>
         /// Method to add the user selected <see cref="AdjustmentTools"/>
@@ -251,7 +272,7 @@ namespace Coding_Attempt_with_GUI
 
     }
 
-
+    
 
     /// <summary>
     /// Enum to decide whether the adjustment will be direct or indirect. 
