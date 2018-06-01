@@ -1615,7 +1615,7 @@ namespace Coding_Attempt_with_GUI
 
         #endregion
 
-        private void SetupChange_PrimaryInitializeMethod(SetupChange_CornerVariables _requestedChanges, List<OutputClass> _oc, Angle finalCamber, Angle finalToe, Angle finalCaster, Angle finalKPI, int identifier, Vehicle _vehicle)
+        private void SetupChange_PrimaryInitializeMethod(SetupChange_CornerVariables _requestedChanges, List<OutputClass> _oc)
         {
             ///<summary>Initializing the <see cref="SetupChangeDatabase"/> object of this class and assigning the <see cref="OutputClass.scmOP"/>'s coordinate values to the local variables of this class</summary>
             SetupChange_InitializeSetupChange(_requestedChanges, _oc[0], _requestedChanges.AdjToolsDictionary);
@@ -1627,17 +1627,26 @@ namespace Coding_Attempt_with_GUI
             //SetupChange_CLS_Master = null;
             //SetupChange_CLS_Master = new SetupChange_ClosedLoopSolver(this, _oc, ref SetupChange_DB_Master.SetupChangeOPDictionary, finalCamber, finalToe, finalCaster, finalKPI);
 
-            ga = new OptimizerGeneticAlgorithm(0.85, 0.05, 5, 200, 180);
 
-            ga.InitializeVehicleParams((VehicleCorner)identifier, _vehicle, 1, 25, -25);
-
-
-
-            ga.ConstructGeneticAlgorithm();
 
 
             /////<summary>Finding the final values of the Setup Parameters by adding the changes in the corresponding parameters which the user has requested</summary>
             //SetupChange_AssignNewSetupValues(_oc, _requestedChanges);
+        }
+
+        private void SetupChange_Init_GeneticAlgorithmClass(Vehicle _vehicle, int identifier, SetupChange_CornerVariables _requestedChanges, Angle finalCamber, Angle finalToe, Angle finalCaster, Angle finalKPI)
+        {
+            ///<summary>Initialize the Genetic Algorithm's Properties and Operators</summary>
+            ga = new OptimizerGeneticAlgorithm(0.85, 0.05, 5, 200, 180);
+
+            ///<summary>Initializing the Vehicle of the <see cref="OptimizerGeneticAlgorithm"/> class along with all of it's properties</summary>
+            ga.InitializeVehicleParams((VehicleCorner)identifier, _vehicle);
+
+            ///<summary>Initializing the requirements of the USER in terms of Setup and Tools available to adjust</summary>
+            ga.InitializeSetupParams(_requestedChanges.Master_Adj, finalCamber, finalCaster, finalToe, finalKPI);
+
+            ///<summary>Constructing the Genetic Algorithm and Runng it </summary>
+            //ga.ConstructGeneticAlgorithm();
         }
 
         /// <summary>
@@ -1648,7 +1657,9 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_Identifier">Corner Identifier</param>
         private void SetupChange_InvokeChangeSolvers(Vehicle _Vehicle, SetupChange_CornerVariables _RequestedChanges, List<OutputClass> _Oc, int _Identifier, Angle _FinalCamber, Angle _FinalToe, Angle _FinalCaster, Angle _FinalKPI, double _FinalRideHeight, double _FinalPushrod)
         {
-            SetupChange_PrimaryInitializeMethod(_RequestedChanges, _Oc, _FinalCamber, _FinalToe, _FinalCaster, _FinalKPI, _Identifier, _Vehicle);
+            SetupChange_PrimaryInitializeMethod(_RequestedChanges, _Oc);
+
+            SetupChange_Init_GeneticAlgorithmClass(_Vehicle, _Identifier, _RequestedChanges, _FinalCamber, _FinalToe, _FinalCaster, _FinalKPI);
 
             #region NOT NEEDED. As not working with Link Length Changes now
             ///<summary>Selecting the Links for KPI and Caster Changes in case the user has not selected them from the combobox provided AND Caster/KPI const or change is requested</summary>
