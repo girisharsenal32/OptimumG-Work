@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraEditors.Controls;
+
+
 namespace Coding_Attempt_with_GUI
 {
     public partial class XUC_SetupChange_Children : XtraUserControl
@@ -25,12 +27,54 @@ namespace Coding_Attempt_with_GUI
 
         XUC_SetupChange parentForm;
 
+        Dictionary<string, Opt_AdjToolParams> Caster_KPI_Adj;
+
+        Dictionary<string, Opt_AdjToolParams> Camber_Adj;
+
+        Dictionary<string, Opt_AdjToolParams> Toe_Adj;
+
+        Dictionary<string, Opt_AdjToolParams> BumpSteer_Adj;
+
+        int BitSize;
+
         public XUC_SetupChange_Children()
         {
             InitializeComponent();
             vGridControl1.ValidatingEditor += VGridControl1_ValidatingEditor;
             vGridControl1.BindingContext = new BindingContext();
             vGridControl1.DataSource = null;
+
+            BitSize = 30;
+
+            InitializeDictionaries();
+
+
+        }
+
+        private void InitializeAdjustmentTools()
+        {
+            rICheckedCB_Adj_CasterKPI.Items.AddRange(new object[] { AdjustmentTools.TopFrontArm, AdjustmentTools.TopRearArm, AdjustmentTools.BottomFrontArm, AdjustmentTools.BottomRearArm });
+
+            rICheckedCB_Adj_Camber.Items.AddRange(new object[] { AdjustmentTools.TopCamberMount, AdjustmentTools.BottomCamberMount });
+
+            rICheckedCB_Adj_BumpSteer.Items.AddRange(new object[] { AdjustmentTools.ToeLinkInboardPoint });
+        }
+
+        private void InitializeDictionaries()
+        {
+            Caster_KPI_Adj = new Dictionary<string, Opt_AdjToolParams>();
+            Caster_KPI_Adj.Add(AdjustmentTools.TopFrontArm.ToString(), new Opt_AdjToolParams(AdjustmentTools.TopFrontArm.ToString(), 0, 0, 0, BitSize));
+
+            Camber_Adj = new Dictionary<string, Opt_AdjToolParams>();
+            Camber_Adj.Add(AdjustmentTools.TopCamberMount.ToString(), new Opt_AdjToolParams(AdjustmentTools.TopCamberMount.ToString(), 0, 0, 0, BitSize));
+
+            Toe_Adj = new Dictionary<string, Opt_AdjToolParams>();
+            Toe_Adj.Add(AdjustmentTools.ToeLinkLength.ToString(), new Opt_AdjToolParams(AdjustmentTools.ToeLinkLength.ToString(), 0, 0, 0, BitSize));
+
+            BumpSteer_Adj = new Dictionary<string, Opt_AdjToolParams>();
+            BumpSteer_Adj.Add(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_x", new Opt_AdjToolParams(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_x", 0, 0, 0, BitSize));
+            BumpSteer_Adj.Add(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_y", new Opt_AdjToolParams(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_y", 0, 0, 0, BitSize));
+            BumpSteer_Adj.Add(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_z", new Opt_AdjToolParams(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_z", 0, 0, 0, BitSize));
         }
 
         #region Cell Validator Events
@@ -79,7 +123,7 @@ namespace Coding_Attempt_with_GUI
         /// <returns></returns>
         private bool CheckIfKPIAdjusterSelecter()
         {
-            if (vGridControl1.FocusedRow == rowKPIAdjusterSelect)
+            if (vGridControl1.FocusedRow == rowKPICasterAdjusterSelect)
             {
                 return true;
             }
@@ -195,7 +239,7 @@ namespace Coding_Attempt_with_GUI
             {
                 //vGridControl1.Rows["rowKPI"].Visible = true;
                 rowKPIAngle.Enabled = true;
-                rowKPIAdjusterSelect.Enabled = true;
+                rowKPICasterAdjusterSelect.Enabled = true;
                 checkedListBoxControlConstraints.Items["KPI constant"].CheckState = CheckState.Unchecked;
                 checkedListBoxControlConstraints.Items["KPI constant"].Enabled = false;
 
@@ -214,11 +258,11 @@ namespace Coding_Attempt_with_GUI
             {
                 //rowKPIAngle.Visible = false;
                 rowKPIAngle.Enabled = false;
-                rowKPIAdjusterSelect.Enabled = false;
+                rowKPICasterAdjusterSelect.Enabled = false;
                 vGridControl1.SetCellValue(rowKPIAngle, 1, null);
                 rowKPIAngle.Properties.Value = null;
-                vGridControl1.SetCellValue(rowKPIAdjusterSelect, 1, null);
-                rowKPIAdjusterSelect.Properties.Value = null;
+                vGridControl1.SetCellValue(rowKPICasterAdjusterSelect, 1, null);
+                rowKPICasterAdjusterSelect.Properties.Value = null;
                 checkedListBoxControlConstraints.Items["KPI constant"].CheckState = CheckState.Unchecked;
                 checkedListBoxControlConstraints.Items["KPI constant"].Enabled = true;
 
@@ -231,14 +275,14 @@ namespace Coding_Attempt_with_GUI
                 }
 
             }
-
-
-
+            
             ///<summary>
             ///Camber Checkbox Constraint Operations
             /// </summary>
             if (checkedListBoxControlChanges.Items["Camber Change"].CheckState == CheckState.Checked)
             {
+                //rowCamberChangeMethod.Enabled = true;
+                rowCamberAngle.Enabled = true;
                 rowCamberChangeMethod.Enabled = true;
                 rowShimThickness.Enabled = true;
                 checkedListBoxControlConstraints.Items["Camber constant"].CheckState = CheckState.Unchecked;
@@ -270,7 +314,7 @@ namespace Coding_Attempt_with_GUI
                 checkedListBoxControlConstraints.Items["Camber constant"].Enabled = true;
             }
 
-            
+
 
             ///<summary>
             ///Caster Checkbox Constraint Operations
@@ -353,6 +397,24 @@ namespace Coding_Attempt_with_GUI
                 checkedListBoxControlConstraints.Items["Ride Height constant"].CheckState = CheckState.Unchecked;
                 checkedListBoxControlConstraints.Items["Ride Height constant"].Enabled = true;
             }
+
+            if (checkedListBoxControlChanges.Items["Bump Steer Change"].CheckState == CheckState.Checked)
+            {
+                rowBumpSteerChart.Enabled = true;
+                rowBumpSteerAdjuster.Enabled = true;
+                checkedListBoxControlConstraints.Items["Bump Steer Constant"].CheckState = CheckState.Unchecked;
+                checkedListBoxControlConstraints.Items["Bump Steer Constant"].Enabled = false;
+            }
+            else 
+            {
+                rowBumpSteerChart.Enabled = false;
+                rowBumpSteerAdjuster.Enabled = false;
+                vGridControl1.SetCellValue(rowBumpSteerAdjuster, 1, null);
+                checkedListBoxControlConstraints.Items["Bump Steer Constant"].CheckState = CheckState.Unchecked;
+                checkedListBoxControlConstraints.Items["Bump Steer Constant"].Enabled = true;
+
+            }
+
 
             if (checkedListBoxControlChanges.Items["Link Length Change"].CheckState == CheckState.Checked)
             {
@@ -666,6 +728,62 @@ namespace Coding_Attempt_with_GUI
             Kinematics_Software_New.ComboboxSetupChangeOperations_Invoker();
         }
 
+        private void Set_TopFrontArmParams()
+        {
+            Caster_KPI_Adj[AdjustmentTools.TopFrontArm.ToString()].Uppwer = (double)vGridControl1.GetCellValue(rowTopFrontArm, 1);
+            Caster_KPI_Adj[AdjustmentTools.TopFrontArm.ToString()].Lower = (double)vGridControl1.GetCellValue(rowTopFrontArm, 2);
+        }
+
+        private void Set_TopRearArmParams()
+        {
+            Caster_KPI_Adj[AdjustmentTools.TopRearArm.ToString()].Uppwer = (double)vGridControl1.GetCellValue(rowTopRearArm, 1);
+            Caster_KPI_Adj[AdjustmentTools.TopRearArm.ToString()].Lower = (double)vGridControl1.GetCellValue(rowTopRearArm, 2);
+        }
+
+        private void Set_BottomFrontArmParams()
+        {
+            Caster_KPI_Adj[AdjustmentTools.BottomFrontArm.ToString()].Uppwer = (double)vGridControl1.GetCellValue(rowBottomFrontArm, 1);
+            Caster_KPI_Adj[AdjustmentTools.BottomFrontArm.ToString()].Lower = (double)vGridControl1.GetCellValue(rowBottomFrontArm, 2);
+        }
+        private void Set_BottomRearArmParams()
+        {
+            Caster_KPI_Adj[AdjustmentTools.BottomRearArm.ToString()].Uppwer = (double)vGridControl1.GetCellValue(rowBottomRearArm, 1);
+            Caster_KPI_Adj[AdjustmentTools.BottomRearArm.ToString()].Lower = (double)vGridControl1.GetCellValue(rowBottomRearArm, 2);
+        }
+
+        private void Set_TopCamberMountParams()
+        {
+            Camber_Adj[AdjustmentTools.TopCamberMount.ToString()].Uppwer = (double)vGridControl1.GetCellValue(rowTopCamberMount, 1);
+            Camber_Adj[AdjustmentTools.TopCamberMount.ToString()].Lower = (double)vGridControl1.GetCellValue(rowTopCamberMount, 2);
+        }
+
+        private void Set_BottomCamberMountParams()
+        {
+            Camber_Adj[AdjustmentTools.BottomCamberMount.ToString()].Uppwer = (double)vGridControl1.GetCellValue(rowBottomCamberMount, 1);
+            Camber_Adj[AdjustmentTools.BottomCamberMount.ToString()].Lower = (double)vGridControl1.GetCellValue(rowBottomCamberMount, 2);
+        }
+
+        private void Set_ToeLinkParams()
+        {
+            Toe_Adj[AdjustmentTools.ToeLinkLength.ToString()].Uppwer = (double)vGridControl1.GetCellValue(rowToeLink, 1);
+            Toe_Adj[AdjustmentTools.ToeLinkLength.ToString()].Uppwer = (double)vGridControl1.GetCellValue(rowToeLink, 2);
+        }
+
+        private void Set_ToeLinkInboardParams()
+        {
+            BumpSteer_Adj[AdjustmentTools.ToeLinkLength.ToString() + "_x"].Uppwer = (double)vGridControl1.GetCellValue(rowToeLinkInboard_x, 1);
+            BumpSteer_Adj[AdjustmentTools.ToeLinkLength.ToString() + "_x"].Uppwer = (double)vGridControl1.GetCellValue(rowToeLinkInboard_x, 2);
+
+            BumpSteer_Adj[AdjustmentTools.ToeLinkLength.ToString() + "_y"].Uppwer = (double)vGridControl1.GetCellValue(rowToeLinkInboard_y, 1);
+            BumpSteer_Adj[AdjustmentTools.ToeLinkLength.ToString() + "_y"].Uppwer = (double)vGridControl1.GetCellValue(rowToeLinkInboard_y, 2);
+
+            BumpSteer_Adj[AdjustmentTools.ToeLinkLength.ToString() + "_z"].Uppwer = (double)vGridControl1.GetCellValue(rowToeLinkInboard_z, 1);
+            BumpSteer_Adj[AdjustmentTools.ToeLinkLength.ToString() + "_z"].Uppwer = (double)vGridControl1.GetCellValue(rowToeLinkInboard_z, 2);
+        }
+
+
+        
+        #region Link Length Changed methods. NOT NEEDED
         private void LinkLengthChanged()
         {
             double ToeLinkLength = Convert.ToDouble(vGridControl1.GetCellValue(rowToeLinkLength, 1));
@@ -685,16 +803,16 @@ namespace Coding_Attempt_with_GUI
                 //WillCauseEndlessLoop = true;
                 //vGridControl1.SetCellValue(rowKPIAdjusterSelect, 1, null); WillCauseEndlessLoop = true;
                 //vGridControl1.SetCellValue(rowCasterAdjusterSelect, 1, null);
-                rowKPIAdjusterSelect.Properties.Value = null;
+                rowKPICasterAdjusterSelect.Properties.Value = null;
                 rowCasterAdjusterSelect.Properties.Value = null;
-                
+
             }
             else
             {
                 setupChangeCornerVariables.deltaTopFrontArm = Convert.ToDouble(vGridControl1.GetCellValue(rowTopFront, 1));
                 if (!setupChangeCornerVariables.LinkLengthsWhichHaveNotChanged.Contains(1))
                 {
-                    setupChangeCornerVariables.LinkLengthsWhichHaveNotChanged.Add(1); 
+                    setupChangeCornerVariables.LinkLengthsWhichHaveNotChanged.Add(1);
                 }
                 AddToRIComboBox("Top Front Arm", rIComboBoxWishboneSelecter);
             }
@@ -727,7 +845,7 @@ namespace Coding_Attempt_with_GUI
                 RemoveFromRICombobox("Bottom Front Arm", rIComboBoxWishboneSelecter); /*WillCauseEndlessLoop = true*/;
                 //vGridControl1.SetCellValue(rowKPIAdjusterSelect, 1, null); WillCauseEndlessLoop = true;
                 //vGridControl1.SetCellValue(rowCasterAdjusterSelect, 1, null); WillCauseEndlessLoop = true;
-                rowKPIAdjusterSelect.Properties.Value = null;
+                rowKPICasterAdjusterSelect.Properties.Value = null;
                 rowCasterAdjusterSelect.Properties.Value = null;
             }
             else
@@ -748,7 +866,7 @@ namespace Coding_Attempt_with_GUI
                 RemoveFromRICombobox("Bottom Rear Arm", rIComboBoxWishboneSelecter); /*WillCauseEndlessLoop = true;*/
                 //vGridControl1.SetCellValue(rowKPIAdjusterSelect, 1, null); WillCauseEndlessLoop = true;
                 //vGridControl1.SetCellValue(rowCasterAdjusterSelect, 1, null); WillCauseEndlessLoop = true;
-                rowKPIAdjusterSelect.Properties.Value = null;
+                rowKPICasterAdjusterSelect.Properties.Value = null;
                 rowCasterAdjusterSelect.Properties.Value = null;
             }
             else
@@ -781,7 +899,7 @@ namespace Coding_Attempt_with_GUI
             else
             {
                 setupChangeCornerVariables.deltaPushrod = Convert.ToDouble(vGridControl1.GetCellValue(rowPushrod, 1));
-                if (checkedListBoxControlChanges.Items["Ride Height Change"].CheckState == CheckState.Checked) 
+                if (checkedListBoxControlChanges.Items["Ride Height Change"].CheckState == CheckState.Checked)
                 {
                     setupChangeCornerVariables.RideHeightChanged = false;
                     //rowRideHeight.Enabled = true;
@@ -814,7 +932,7 @@ namespace Coding_Attempt_with_GUI
                 setupChangeCornerVariables.ToeChangeRequested = false;
                 if (checkedListBoxControlChanges.Items["Toe Change"].CheckState == CheckState.Checked)
                 {
-                    rowToeAngle.Enabled = true; 
+                    rowToeAngle.Enabled = true;
                 }
             }
 
@@ -826,7 +944,7 @@ namespace Coding_Attempt_with_GUI
                 //vGridControl1.SetCellValue(rowCasterAngle, 1, null); WillCauseEndlessLoop = true;
                 //vGridControl1.SetCellValue(rowCasterAdjusterSelect, 1, null); WillCauseEndlessLoop = true;
                 rowKPIAngle.Properties.Value = null;
-                rowKPIAdjusterSelect.Properties.Value = null;
+                rowKPICasterAdjusterSelect.Properties.Value = null;
                 rowCasterAngle.Properties.Value = null;
                 rowCasterAdjusterSelect.Properties.Value = null;
 
@@ -852,7 +970,7 @@ namespace Coding_Attempt_with_GUI
 
             if (setupChangeCornerVariables.LinkLengthsWhichHaveNotChanged.Count == 3)
             {
-                
+
             }
 
             setupChangeCornerVariables.LinkLengthChanged = true;
@@ -860,7 +978,7 @@ namespace Coding_Attempt_with_GUI
 
 
 
-            if (TopFrontArm == 0 && TopRearArm == 0 && BottomFrontArm == 0 && BottomRearArm == 0 && (ToeLinkLength == 0) && (PushrodLength == 0)) 
+            if (TopFrontArm == 0 && TopRearArm == 0 && BottomFrontArm == 0 && BottomRearArm == 0 && (ToeLinkLength == 0) && (PushrodLength == 0))
             {
                 setupChangeCornerVariables.LinkLengthChanged = false;
             }
@@ -876,16 +994,12 @@ namespace Coding_Attempt_with_GUI
 
         }
 
+        #endregion
 
-        //bool WillCauseEndlessLoop = false;
-        
+
         private void vGridControl1_CellValueChanged(object sender, DevExpress.XtraVerticalGrid.Events.CellValueChangedEventArgs e)
         {
-            //if (WillCauseEndlessLoop == true)
-            //{
-            //    WillCauseEndlessLoop = false;
-            //    return;
-            //}
+          
 
             if (vGridControl1.FocusedRow == rowKPIAngle)
             {
@@ -893,7 +1007,7 @@ namespace Coding_Attempt_with_GUI
             }
 
             
-            else if (vGridControl1.FocusedRow == rowKPIAdjusterSelect)
+            else if (vGridControl1.FocusedRow == rowKPICasterAdjusterSelect)
             {
                 if (Convert.ToString(vGridControl1.GetCellValue(vGridControl1.FocusedRow, vGridControl1.FocusedRecord)) == "Top Front Arm")
                 {
@@ -948,6 +1062,7 @@ namespace Coding_Attempt_with_GUI
                 CamberShimCountChanged(Convert.ToInt32(vGridControl1.GetCellValue(vGridControl1.FocusedRow, vGridControl1.FocusedRecord)), Convert.ToDouble(vGridControl1.GetCellValue(rowShimThickness, vGridControl1.FocusedRecord)),
                                         AdjustmentType.Indirect, setupChangeCornerVariables.camberAdjustmentTool);
             }
+
             else if (vGridControl1.FocusedRow == rowShimThickness)
             {
                 CamberShimCountChanged(Convert.ToInt32(vGridControl1.GetCellValue(rowNoOfShims, vGridControl1.FocusedRecord)), Convert.ToDouble(vGridControl1.GetCellValue(rowShimThickness, vGridControl1.FocusedRecord)),
@@ -959,12 +1074,10 @@ namespace Coding_Attempt_with_GUI
                 ToeChangeRequested(Convert.ToDouble(vGridControl1.GetCellValue(vGridControl1.FocusedRow, vGridControl1.FocusedRecord)), AdjustmentType.Direct, AdjustmentTools.DirectValue);
             }
 
-
             else if (vGridControl1.FocusedRow == rowCasterAngle)
             {
                 CasterChangeRequested(Convert.ToDouble(vGridControl1.GetCellValue(vGridControl1.FocusedRow, vGridControl1.FocusedRecord)), AdjustmentType.Direct, AdjustmentTools.DirectValue);
             }
-
 
             else if (vGridControl1.FocusedRow == rowCasterAdjusterSelect)
             {
@@ -994,19 +1107,56 @@ namespace Coding_Attempt_with_GUI
                 }
             }
 
-
             else if (vGridControl1.FocusedRow == rowRideHeight)
             {
                 RideHeightChangeRequested(Convert.ToDouble(vGridControl1.GetCellValue(vGridControl1.FocusedRow, vGridControl1.FocusedRecord)), AdjustmentType.Direct, AdjustmentTools.DirectValue);
             }
-
 
             else if (vGridControl1.FocusedRow == rowTopFront || vGridControl1.FocusedRow == rowTopRear || vGridControl1.FocusedRow == rowBottomFron || vGridControl1.FocusedRow == rowBottomRear || vGridControl1.FocusedRow == rowPushrod || vGridControl1.FocusedRow == rowToeLinkLength)
             {
                 
                 LinkLengthChanged();
             }
-            
+
+            else if (vGridControl1.FocusedRow == rowTopFrontArm)
+            {
+                Set_TopFrontArmParams();
+            }
+
+            else if (vGridControl1.FocusedRow == rowTopRear)
+            {
+                Set_TopRearArmParams();
+            }
+
+            else if (vGridControl1.FocusedRow == rowBottomFrontArm)
+            {
+                Set_BottomFrontArmParams();
+            }
+
+            else if (vGridControl1.FocusedRow == rowBottomRearArm)
+            {
+                Set_BottomRearArmParams();
+            }
+
+            else if (vGridControl1.FocusedRow == rowTopCamberMount)
+            {
+                Set_TopCamberMountParams();
+            }
+
+            else if (vGridControl1.FocusedRow == rowBottomCamberMount)
+            {
+                Set_BottomCamberMountParams();
+            }
+
+            else if (vGridControl1.FocusedRow == rowToeLinkLength)
+            {
+                Set_ToeLinkParams();
+            }
+
+            else if (vGridControl1.FocusedRow == rowToeLinkInboard_x || vGridControl1.FocusedRow == rowToeLinkInboard_y || vGridControl1.FocusedRow == rowToeLinkInboard_y)
+            {
+                Set_ToeLinkInboardParams();
+            }
 
             setupChangeGUI.EditSetupChangeDeltas(setupChangeCornerVariables, Identifier);
 
@@ -1031,11 +1181,10 @@ namespace Coding_Attempt_with_GUI
             {
                 _riCB.Items.Add(_itemToBeAdded);
             }
-        } 
+        }
         #endregion
-
-
-
+        
+        #region Not Needed Now
         private void rIComboBoxAdjustmentTypeCamber_Leave(object sender, EventArgs e)
         {
             string adjType = Convert.ToString(vGridControl1.GetCellValue(vGridControl1.FocusedRow, vGridControl1.FocusedRecord));
@@ -1093,11 +1242,144 @@ namespace Coding_Attempt_with_GUI
                 }
             }
         }
+        #endregion
+
+        #region Caster/KPI Adjuster Selection Event
+        private void rICheckedCB_Adj_CasterKPI_EditValueChanged(object sender, EventArgs e)
+        {
+            List<object> checkedItems = rICheckedCB_Adj_CasterKPI.Items.GetCheckedValues();
+
+            Caster_KPI_Adj.Clear();
+
+            for (int i = 0; i < checkedItems.Count; i++)
+            {
+                if (!Caster_KPI_Adj.ContainsKey(checkedItems[i] as string))
+                {
+                    Caster_KPI_Adj.Add(checkedItems[i] as string, new Opt_AdjToolParams(checkedItems[i] as string, 0, 0, 0, BitSize));
+                }
+            }
 
 
+            if (checkedItems.Contains(AdjustmentTools.TopFrontArm))
+            {
+                rowTopFrontArm.Visible = true;
+            }
+            else
+            {
+                rowTopFrontArm.Visible = false;
+                rowTopFrontArm.PropertiesCollection[0].Value = null;
+                rowTopFrontArm.PropertiesCollection[1].Value = null;
+            }
+            if (checkedItems.Contains(AdjustmentTools.TopRearArm))
+            {
+                rowTopRearArm.Visible = true;
+            }
+            else
+            {
+                rowTopRearArm.Visible = false;
+                rowTopRearArm.PropertiesCollection[0].Value = null;
+                rowTopRearArm.PropertiesCollection[1].Value = null;
+            }
 
+            if (checkedItems.Contains(AdjustmentTools.BottomFrontArm))
+            {
+                rowBottomFrontArm.Visible = true;
+            }
+            else
+            {
+                rowBottomFrontArm.Visible = false;
+                rowBottomFrontArm.PropertiesCollection[0].Value = null;
+                rowBottomFrontArm.PropertiesCollection[1].Value = null;
+            }
 
+            if (checkedItems.Contains(AdjustmentTools.BottomRearArm))
+            {
+                rowBottomRearArm.Visible = true;
+            }
+            else
+            {
+                rowBottomRearArm.Visible = false;
+                rowBottomRearArm.PropertiesCollection[0].Value = null;
+                rowBottomRearArm.PropertiesCollection[1].Value = null;
+            }
 
+        } 
+        #endregion
 
+        #region Camber Adjuster Selection Event
+        private void rICheckedCB_Adj_Camber_EditValueChanged(object sender, EventArgs e)
+        {
+            List<object> checkeditems = rICheckedCB_Adj_Camber.Items.GetCheckedValues();
+
+            Camber_Adj.Clear();
+
+            for (int i = 0; i < checkeditems.Count; i++)
+            {
+                if (!Camber_Adj.ContainsKey(checkeditems[i] as string))
+                {
+                    Camber_Adj.Add(checkeditems[i] as string, new Opt_AdjToolParams(checkeditems[i] as string, 0, 0, 0, BitSize));
+                }
+            }
+
+            if (checkeditems.Contains(AdjustmentTools.TopCamberMount))
+            {
+                rowTopCamberMount.Visible = true;
+            }
+            else
+            {
+                rowTopCamberMount.Visible = false;
+                rowTopCamberMount.PropertiesCollection[0].Value = null;
+                rowTopCamberMount.PropertiesCollection[1].Value = null;
+            }
+
+            if (checkeditems.Contains(AdjustmentTools.BottomCamberMount))
+            {
+                rowBottomCamberMount.Visible = true;
+            }
+            else
+            {
+                rowBottomCamberMount.Visible = false;
+                rowBottomCamberMount.PropertiesCollection[0].Value = null;
+                rowBottomCamberMount.PropertiesCollection[1].Value = null;
+            }
+        }
+        #endregion
+
+        #region Bump Steer Adjuster Selection Event
+        private void rICheckedCB_Adj_BumpSteer_EditValueChanged(object sender, EventArgs e)
+        {
+            List<object> checkeditems = rICheckedCB_Adj_BumpSteer.Items.GetCheckedValues();
+
+            for (int i = 0; i < checkeditems.Count; i++)
+            {
+                if (!BumpSteer_Adj.ContainsKey(checkeditems[i] as string))
+                {
+                    BumpSteer_Adj.Add((string)checkeditems[i] + "_x", new Opt_AdjToolParams((string)checkeditems[i] + "_x", 232.12, 0, 0, BitSize));
+                    BumpSteer_Adj.Add((string)checkeditems[i] + "_y", new Opt_AdjToolParams((string)checkeditems[i] + "_y", 124.4, 0, 0, BitSize));
+                    BumpSteer_Adj.Add((string)checkeditems[i] + "_z", new Opt_AdjToolParams((string)checkeditems[i] + "_z", 60.8, 0, 0, BitSize));
+                }
+            }
+
+            if (checkeditems.Contains(AdjustmentTools.ToeLinkInboardPoint))
+            {
+                rowToeLinkInboard_x.Visible = true;
+                rowToeLinkInboard_y.Visible = true;
+                rowToeLinkInboard_z.Visible = true;
+            }
+            else
+            {
+                rowToeLinkInboard_x.Visible = false;
+                rowToeLinkInboard_y.Visible = false;
+                rowToeLinkInboard_z.Visible = false;
+
+                rowToeLinkInboard_x.PropertiesCollection[0].Value = null;
+                rowToeLinkInboard_x.PropertiesCollection[1].Value = null;
+                rowToeLinkInboard_y.PropertiesCollection[0].Value = null;
+                rowToeLinkInboard_y.PropertiesCollection[1].Value = null;
+                rowToeLinkInboard_z.PropertiesCollection[0].Value = null;
+                rowToeLinkInboard_z.PropertiesCollection[1].Value = null;
+            }
+        } 
+        #endregion
     }
 }

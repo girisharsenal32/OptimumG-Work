@@ -1001,12 +1001,7 @@ namespace Coding_Attempt_with_GUI
                     }
                 }
             }
-
-
-
-
-
-
+            
         }
 
 
