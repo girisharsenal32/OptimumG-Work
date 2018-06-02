@@ -1497,10 +1497,10 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Calculating the Final Value of Camber that is requested by the User. No change in parameter's value if requested change is 0</summary>
             Angle deltaCamber = new Angle(_requestedChanges.deltaCamber, AngleUnit.Degrees);
             //_oc[0].waOP.StaticCamber += deltaCamber.Radians;
-            _finalCamber = new Angle(_oc[0].waOP.StaticCamber + deltaCamber.Radians, AngleUnit.Degrees);
+            _finalCamber = new Angle(_oc[0].waOP.StaticCamber + deltaCamber.Radians, AngleUnit.Radians);
 
             ///<summary>Calculating the Final Value of Toe that is requested by the User. No change in parameter's value if requested change is 0</summary>
-            Angle deltaToeReq = new Angle(_requestedChanges.deltaToe, AngleUnit.Degrees);
+             Angle deltaToeReq = new Angle(_requestedChanges.deltaToe, AngleUnit.Degrees);
             //_oc[0].waOP.StaticToe += deltaToeReq.Radians;
             _finalToe = new Angle(_oc[0].waOP.StaticToe + deltaToeReq.Radians, AngleUnit.Radians);
 
@@ -1640,7 +1640,7 @@ namespace Coding_Attempt_with_GUI
         private void SetupChange_Init_GeneticAlgorithmClass(Vehicle _vehicle, int identifier, SetupChange_CornerVariables _requestedChanges, Angle finalCamber, Angle finalToe, Angle finalCaster, Angle finalKPI)
         {
             ///<summary>Initialize the Genetic Algorithm's Properties and Operators</summary>
-            ga = new OptimizerGeneticAlgorithm(0.85, 0.05, 5, 200, 180);
+            ga = new OptimizerGeneticAlgorithm(0.85, 0.05, 5);
 
             ///<summary>Initializing the Vehicle of the <see cref="OptimizerGeneticAlgorithm"/> class along with all of it's properties</summary>
             ga.InitializeVehicleParams((VehicleCorner)identifier, _vehicle);
@@ -1651,7 +1651,7 @@ namespace Coding_Attempt_with_GUI
             ga.Set_ErrorsToEvaluate();
 
             ///<summary>Constructing the Genetic Algorithm and Runng it </summary>
-            ga.ConstructGeneticAlgorithm();
+            ga.ConstructGeneticAlgorithm(200);
         }
 
         /// <summary>

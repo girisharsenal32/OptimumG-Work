@@ -1024,7 +1024,7 @@ namespace Coding_Attempt_with_GUI
         private void Set_ToeLinkParams()
         {
             setupChange_CV.Toe_Adj[AdjustmentTools.ToeLinkLength.ToString()].Uppwer = (double)rowToeLink.PropertiesCollection[0].Value;
-            setupChange_CV.Toe_Adj[AdjustmentTools.ToeLinkLength.ToString()].Uppwer = (double)rowToeLink.PropertiesCollection[1].Value;
+            setupChange_CV.Toe_Adj[AdjustmentTools.ToeLinkLength.ToString()].Lower = (double)rowToeLink.PropertiesCollection[1].Value;
         }
 
         private void Set_ToeLinkInboardParams()
@@ -1577,19 +1577,7 @@ namespace Coding_Attempt_with_GUI
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
 
 
 

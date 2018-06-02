@@ -832,7 +832,7 @@ namespace Coding_Attempt_with_GUI
             //                          _ocOut.scmOP.BCM1x, _ocOut.scmOP.BCM1y, _ocOut.scmOP.BCM1z, _ocOut.scmOP.E1y, false, out XL1, out YL1, out ZL1);
 
 
-            Point3D S = new Point3D(l_K1x + 157.48, l_K1y, l_K1z);
+            Point3D S = new Point3D(L1x, L1y, L1z);
 
             Point3D T1 = new Point3D(l_TCM1x, l_TCM1y, l_TCM1z);
 
@@ -868,7 +868,7 @@ namespace Coding_Attempt_with_GUI
 
             Point3D S = new Point3D(l_W1x, l_W1y, l_W1z);
 
-            Point3D T1 = new Point3D(l_K1x + 157.48, l_K1y, l_K1z);
+            Point3D T1 = new Point3D(L1x, L1y, L1z);
 
             Point3D U1 = new Point3D(l_TCM1x, l_TCM1y, l_TCM1z);
 
@@ -1593,10 +1593,6 @@ namespace Coding_Attempt_with_GUI
                 oc[dummy2].New_NonSuspendedMassCoGz = (oc[dummy2].scmOP.K1z + oc[dummy2].scmOP.L1z) / 2;
 
                 CalculateSuspensionForces(oc, scm, spring, dummy2);
-
-                //singleLoadCaseResults = AssignSingleBatchRunResultsObject(Identifier, _vehicleKinematicsDWSolver);
-
-                //singleLoadCaseResults.AssignSuspensionForces(oc[dummy2]);
 
                 BreakPointA2:
                 if (MotionExists)

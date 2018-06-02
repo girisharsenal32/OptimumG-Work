@@ -117,10 +117,10 @@ namespace Coding_Attempt_with_GUI
 
         List<object> GA_Values_Params;
 
-        /// <summary>
-        /// Integer to determine the Bit Size of each of the <see cref="Gene"/>s inside the <see cref="Chromosome"/>
-        /// </summary>
-        int BitSize;
+        ///// <summary>
+        ///// Integer to determine the Bit Size of each of the <see cref="Gene"/>s inside the <see cref="Chromosome"/>
+        ///// </summary>
+        //int BitSize;
 
         Point3D BestFit_CurrGen_ToeLinkInboard;
 
@@ -212,6 +212,10 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         List<OutputClass> OC;
         /// <summary>
+        /// This <see cref="OutputClass"/> List is exclusively used for the Bump Steer method as it needs to run a Motion Analysis from -25 to +25 (or whatever the user decides)
+        /// </summary>
+        List<OutputClass> OC_BumpSteer;
+        /// <summary>
         /// Identifier Number of the corner of the Vehicle calling this class
         /// </summary>
         int Identifier;
@@ -290,7 +294,7 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// 
         /// </summary>
-        Dictionary<string, OptimizedCoordinate> tempInboardPoints;
+        //Dictionary<string, OptimizedCoordinate> tempInboardPoints;
         /// <summary>
         /// 
         /// </summary>
@@ -366,9 +370,9 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_chromoseLength"> <para>Chromosome Length of the <see cref="Population"/></para>
         /// <para>Decided based on 2 things: The number of Genes and the bit size required for each Gene</para>
         /// <para>https://gaframework.org/wiki/index.php/How_to_Encode_Parameters for more information</para> </param>
-        public OptimizerGeneticAlgorithm(double _crossover, double _mutation, int _elites, int _popSize, int _chromoseLength/*, List<string> _setupsRequested*/)
+        public OptimizerGeneticAlgorithm(double _crossover, double _mutation, int _elites/*, int _popSize, int _chromoseLength*/)
         {
-            BitSize = 30;
+            //BitSize = 30;
 
             BestFitness_CurrGen = 0;
 
@@ -385,29 +389,18 @@ namespace Coding_Attempt_with_GUI
 
             Mutations = new BinaryMutate(MutationProbability, false);
 
-            PopulationSize = _popSize;
+            //PopulationSize = _popSize;
 
-            Population = new Population(_popSize, _chromoseLength, false, true, ParentSelectionMethod.TournamentSelection);
+            //Population = new Population(_popSize, _chromoseLength, false, true, ParentSelectionMethod.TournamentSelection);
 
             Fitness_Individual_Objectives = new Dictionary<string, double[,]>();
 
             BestFit_CurrGen_ToeLinkInboard = new Point3D();
 
+            //---NEEDED---
             //InitializeDataTable(_setupsRequested);
 
-            No_GaOutputs = _chromoseLength / BitSize;
-
-            //UpperWishboneLinkLength = 10;
-
-            //LowerWishboneLinkLength = -10;
-
-            //UpperToeLinkLength = 10;
-
-            //LowerToeLinkLength = -10;
-
-            //UpperCamberShimLength = 5;
-
-            //LowerCamberShimLength = -5;
+            //No_GaOutputs = _chromoseLength / BitSize;
 
             Opt_AdjToolValues = new Dictionary<string, double>();
 
@@ -487,8 +480,8 @@ namespace Coding_Attempt_with_GUI
 
             VCorner = _vCorner;
 
-            ///<summary>Invoking the <see cref="VehicleParamsAssigner.AssignVehicleParams(VehicleCorner, Vehicle, int)"/> method to assign the right Vehicle's Params (based on the Vehicle Corner) into a Dictionary</summary>
-            Dictionary<string, object> tempVehicleParams = VehicleParamsAssigner.AssignVehicleParams(_vCorner, _vehicle, (SuspensionEvalIterations * 2) + 1);
+            ///<summary>Invoking the <see cref="VehicleParamsAssigner.AssignVehicleParams_PostSolver(VehicleCorner, Vehicle, int)"/> method to assign the right Vehicle's Params (based on the Vehicle Corner) into a Dictionary</summary>
+            Dictionary<string, object> tempVehicleParams = VehicleParamsAssigner.AssignVehicleParams_PostKinematicsSolver(_vCorner, _vehicle, 0);
 
             ///<summary>Passing the <see cref="Dictionary{TKey, TValue}"/> of Vehicle Params's objects into the right Parameter</summary>
             SCM = tempVehicleParams["SuspensionCoordinateMaster"] as SuspensionCoordinatesMaster;
@@ -510,6 +503,8 @@ namespace Coding_Attempt_with_GUI
             Chassis = tempVehicleParams["Chassis"] as Chassis;
 
             OC = tempVehicleParams["OutputClass"] as List<OutputClass>;
+
+            OC_BumpSteer = VehicleParamsAssigner.AssignVehicleParams_Custom_OC_BumpSteer(_vCorner, _vehicle, (SuspensionEvalIterations * 2) + 1);
 
             Identifier = (int)tempVehicleParams["Identifier"];
 
@@ -549,6 +544,10 @@ namespace Coding_Attempt_with_GUI
 
         private double Dummy() { return 0; }
 
+        /// <summary>
+        /// <para>---4th---This method is to be called 4th in the Sequence</para>
+        /// <para>Method to Initialize the Delegates</para>
+        /// </summary>
         public void Set_ErrorsToEvaluate()
         {
             Del_KPI_Error = new ParamsToEvaluate(ComputeKPIError);
@@ -587,11 +586,17 @@ namespace Coding_Attempt_with_GUI
         }
 
         /// <summary>
-        /// <para>---4th--- This method is to be called 3rd in the sequence</para>
+        /// <para>---5th--- This method is to be called 5th in the sequence</para>
         /// <para>Method to construct and run the <see cref="GA"/> (<see cref="GeneticAlgorithm"/>)</para>
         /// </summary>
-        public void ConstructGeneticAlgorithm()
+        public void ConstructGeneticAlgorithm(int _popSize)
         {
+            PopulationSize = _popSize;
+
+            Population = new Population(_popSize, GetChromsomeLength(), false, true, ParentSelectionMethod.TournamentSelection);
+
+            //No_GaOutputs = _chromoseLength / BitSize;
+
             ///<summary>Assigning the <see cref="Delegate"/> of the Ftiness Function</summary>
             EvaluateFitnessOfGeneticAlforithm = EvaluateFitnessCurve;
             ///<summary>Assigning the <see cref="Delegate"/> of the Terminate Function</summary>
@@ -770,11 +775,11 @@ namespace Coding_Attempt_with_GUI
 
             UnsprungAssembly = new Dictionary<string, OptimizedCoordinate>();
 
-            tempInboardPoints = new Dictionary<string, OptimizedCoordinate>();
+            //tempInboardPoints = new Dictionary<string, OptimizedCoordinate>();
 
             ToeLinkInboard = new Point3D(SCM.N1x, SCM.N1y, SCM.N1z);
             ga_ToeLinkInboard = ToeLinkInboard.Clone() as Point3D;
-            tempInboardPoints.Add("ToeLinkInboard", new OptimizedCoordinate(ToeLinkInboard, Upper, Lower, BitSize));
+            //tempInboardPoints.Add("ToeLinkInboard", new OptimizedCoordinate(ToeLinkInboard, Upper, Lower, BitSize));
 
             TopFront = new Point3D(SCM.A1x, SCM.A1y, SCM.A1z);
 
@@ -787,37 +792,37 @@ namespace Coding_Attempt_with_GUI
 
             UBJ = new Point3D(SCM.F1x, SCM.F1y, SCM.F1z);
 
-            UnsprungAssembly.Add("UBJ", new OptimizedCoordinate(UBJ, Upper, Lower, BitSize));
+            UnsprungAssembly.Add("UBJ", new OptimizedCoordinate(UBJ, Upper, Lower));
 
-            UnsprungAssembly.Add("TopCamberMount", new OptimizedCoordinate(UBJ.Clone() as Point3D, Upper, Lower, BitSize));
+            UnsprungAssembly.Add("TopCamberMount", new OptimizedCoordinate(UBJ.Clone() as Point3D, Upper, Lower));
 
             Pushrod = new Point3D(SCM.G1x, SCM.G1y, SCM.G1z);
 
-            UnsprungAssembly.Add("Pushrod", new OptimizedCoordinate(Pushrod, Upper, Lower, BitSize));
+            UnsprungAssembly.Add("Pushrod", new OptimizedCoordinate(Pushrod, Upper, Lower));
 
             PushrodShockMount = new Point3D(SCM.H1x, SCM.H1y, SCM.H1z);
 
             LBJ = new Point3D(SCM.E1x, SCM.E1y, SCM.E1z);
 
-            UnsprungAssembly.Add("BottomCamberMount", new OptimizedCoordinate(LBJ.Clone() as Point3D, Upper, Lower, BitSize));
+            UnsprungAssembly.Add("BottomCamberMount", new OptimizedCoordinate(LBJ.Clone() as Point3D, Upper, Lower));
 
-            UnsprungAssembly.Add("LBJ", new OptimizedCoordinate(LBJ, Upper, Lower, BitSize));
+            UnsprungAssembly.Add("LBJ", new OptimizedCoordinate(LBJ, Upper, Lower));
 
             WcStart = new Point3D(SCM.K1x, SCM.K1y, SCM.K1z);
 
-            UnsprungAssembly.Add("WcStart", new OptimizedCoordinate(WcStart, Upper, Lower, BitSize));
+            UnsprungAssembly.Add("WcStart", new OptimizedCoordinate(WcStart, Upper, Lower));
 
             WcEnd = new Point3D(SCM.L1x, SCM.L1y, SCM.L1z);
 
-            UnsprungAssembly.Add("WcEnd", new OptimizedCoordinate(WcEnd, Upper, Lower, BitSize));
+            UnsprungAssembly.Add("WcEnd", new OptimizedCoordinate(WcEnd, Upper, Lower));
 
             ToeLinkOutboard = new Point3D(SCM.M1x, SCM.M1y, SCM.M1z);
 
-            UnsprungAssembly.Add("ToeLinkOutboard", new OptimizedCoordinate(ToeLinkOutboard, Upper, Lower, BitSize));
+            UnsprungAssembly.Add("ToeLinkOutboard", new OptimizedCoordinate(ToeLinkOutboard, Upper, Lower));
 
             ContactPatch = new Point3D(SCM.W1x, SCM.W1x, SCM.W1z);
 
-            UnsprungAssembly.Add("ContactPatch", new OptimizedCoordinate(ContactPatch, Upper, Lower, BitSize));
+            UnsprungAssembly.Add("ContactPatch", new OptimizedCoordinate(ContactPatch, Upper, Lower));
 
 
             tempAxisLines = new Dictionary<string, Line>();
@@ -915,6 +920,21 @@ namespace Coding_Attempt_with_GUI
 
 
         //--HELPER METHODS--
+
+        private int GetChromsomeLength()
+        {
+            int chromLength = 0;
+
+            foreach (string changeORconstraint in MasterDictionary.Keys)
+            {
+                foreach (string adjTool in MasterDictionary[changeORconstraint].Keys)
+                {
+                    chromLength += MasterDictionary[changeORconstraint][adjTool].BitSize;
+                }
+            }
+
+            return chromLength;
+        }
 
         private int GetMaxIndex()
         {
@@ -1183,7 +1203,6 @@ namespace Coding_Attempt_with_GUI
             
             Update_SuspensionCoordinateData();
 
-            List<double> errorPile = new List<double>();
 
             bumpSteerError = casterError = toeError = camberError = kpiError = 0;
             double rmsError = 0;
@@ -1372,7 +1391,7 @@ namespace Coding_Attempt_with_GUI
 
             double ToeLinkLength = System.Math.Round(SCM.ToeLinkLength, 3);
 
-            double ToeLinkLength_UpdatedOrientation = System.Math.Round(UnsprungAssembly["ToeLinkOutboard"].OptimizedCoordinates.DistanceTo(tempInboardPoints["ToeLinkInboard"].OptimizedCoordinates), 3);
+            double ToeLinkLength_UpdatedOrientation = System.Math.Round(UnsprungAssembly["ToeLinkOutboard"].OptimizedCoordinates.DistanceTo(/*tempInboardPoints["ToeLinkInboard"].OptimizedCoordinates*/ga_ToeLinkInboard), 3);
 
             double PushrodLength = System.Math.Round(SCM.PushRodLength);
 
@@ -1431,7 +1450,8 @@ namespace Coding_Attempt_with_GUI
         {
             dwSolver.AssignLocalCoordinateVariables_FixesPoints(SCM_Clone);
             dwSolver.AssignLocalCoordinateVariables_MovingPoints(SCM_Clone);
-            dwSolver.OptimizedSteeringPoint = tempInboardPoints["ToeLinkInboard"].OptimizedCoordinates;
+            dwSolver.L1x = SCM_Clone.L1x; dwSolver.L1y = SCM_Clone.L1y; dwSolver.L1z = SCM_Clone.L1z;
+            dwSolver.OptimizedSteeringPoint = ga_ToeLinkInboard;
             dwSolver.AssignOptimizedSteeringPoints();
 
             OutputClass tempOC = new OutputClass();
@@ -1469,6 +1489,8 @@ namespace Coding_Attempt_with_GUI
             UnsprungAssembly["WcEnd"].OptimizedCoordinates = new Point3D(L.X, L.Y, L.Z);
 
             UnsprungAssembly["ContactPatch"].OptimizedCoordinates = new Point3D(W.X, W.Y, W.Z);
+
+
         }
 
 
@@ -1485,7 +1507,9 @@ namespace Coding_Attempt_with_GUI
 
             Angle staticCaster = new Angle(OC[0].Caster, AngleUnit.Radians);
 
-            double casterError = ((dCaster_New.Degrees + staticCaster.Degrees) - (Caster.Degrees)) / Caster.Degrees;
+            casterError = ((dCaster_New.Degrees + staticCaster.Degrees) - (Caster.Degrees)) / Caster.Degrees;
+
+            
 
             return (casterError);
         }
@@ -1499,7 +1523,7 @@ namespace Coding_Attempt_with_GUI
 
             Angle staticKPI = new Angle(OC[0].KPI, AngleUnit.Radians);
 
-            double kpiError = (((dKPI_new.Degrees + staticKPI.Degrees) - (KPI.Degrees)) / (KPI.Degrees));
+            kpiError = (((dKPI_new.Degrees + staticKPI.Degrees) - (KPI.Degrees)) / (KPI.Degrees));
 
             return kpiError;
         }
@@ -1516,7 +1540,7 @@ namespace Coding_Attempt_with_GUI
             ///<remarks>
             ///---IMPORTANT--- FOR NOW TOE ERROR IS CALCUALTED AS ABSOLUTE ERROR AND NOT RELATIVE ERROR LIKE CASTER ABOVE
             /// </remarks>
-            double toeError = ((dToe_New.Degrees - staticToe.Degrees) / (staticToe.Degrees));
+            toeError = (((dToe_New.Degrees + staticToe.Degrees) - (Toe.Degrees)) / (Toe.Degrees));
 
             return toeError;
 
@@ -1529,9 +1553,9 @@ namespace Coding_Attempt_with_GUI
                                                                   Custom3DGeometry.GetMathNetVector3D(tempAxisLines["WheelSpindle_Ref"]),
                                                                   Custom3DGeometry.GetMathNetVector3D(tempAxisLines["LongitudinalAxis_WheelCenter"]));
 
-            Angle staticCamber = new Angle(WA.StaticCamber, AngleUnit.Degrees);
+            Angle staticCamber = new Angle(-WA.StaticCamber, AngleUnit.Radians);
 
-            double camberError = ((dCamber_New.Degrees - staticCamber.Degrees) / (staticCamber.Degrees));
+            camberError = (((dCamber_New.Degrees + staticCamber.Degrees) - (Camber.Degrees)) / (Camber.Degrees));
 
             return camberError;
         }
@@ -1545,7 +1569,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_yCoord">Y Coordinate of the Inboard Toe Link Pick-Up Point</param>
         /// <param name="_zCoord">x Coordinate of the Inboard Toe Link Pick-Up Point</param>
         /// <returns>Returns Error of the computed Bump Steer Curve with the Curve that the user wants</returns>
-        private double ComputeBumpSteerError(/*double _xCoord, double _yCoord, double _zCoord*/)
+        private double ComputeBumpSteerError()
         {
             double bumpSteer = 1;
 
@@ -1565,10 +1589,10 @@ namespace Coding_Attempt_with_GUI
             ///Invoking the <see cref="DoubleWishboneKinematicsSolver.Kinematics(int, SuspensionCoordinatesMaster, WheelAlignment, Tire, AntiRollBar, double, Spring, Damper, List{OutputClass}, Vehicle, List{double}, bool, bool)"/>
             ///Class to compute the Kinematics and calculate the Bump Steer at each interval of Wheel Deflection
             /// </summary>
-            dwSolver.Kinematics(Identifier, SCM, WA, Tire, ARB, ARBRate_Nmm, Spring, Damper, OC, Vehicle, CalculateWheelDeflections(StepSize, dwSolver), true, false);
+            dwSolver.Kinematics(Identifier, SCM, WA, Tire, ARB, ARBRate_Nmm, Spring, Damper, OC_BumpSteer, Vehicle, CalculateWheelDeflections(StepSize, dwSolver), true, false);
 
             ///<summary>Invoking the <see cref="GetResultValues(List{OutputClass})"/> to extract the Bump Steer Data</summary>
-            bumpSteer = GetResultValues(OC);
+            bumpSteer = GetResultValues(OC_BumpSteer);
 
             ///<summary>Reassigning the Simulation type to Dummy so to prevent confusion if any other simulation is run after this one</summary>
             dwSolver.SimulationType = SimulationType.Dummy;
@@ -1881,9 +1905,9 @@ namespace Coding_Attempt_with_GUI
 
         public double LowerLinkLengthLimit_Rear;
 
-        public int BitSize;
+        //public int BitSize;
 
-        public OptimizedCoordinate(Point3D _nominalCoord, Point3D _upperLimit, Point3D _lowerLimit, int _bitSize)
+        public OptimizedCoordinate(Point3D _nominalCoord, Point3D _upperLimit, Point3D _lowerLimit/*, int _bitSize*/)
         {
             NominalCoordinates = _nominalCoord;
 
@@ -1893,7 +1917,7 @@ namespace Coding_Attempt_with_GUI
 
             LowerCoordinateLimit = _lowerLimit;
 
-            BitSize = _bitSize;
+            //BitSize = _bitSize;
         }
     }
 
