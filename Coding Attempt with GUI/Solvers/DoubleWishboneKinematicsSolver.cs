@@ -1370,7 +1370,8 @@ namespace Coding_Attempt_with_GUI
                     // TO CALCULATE THE NEW POSITION OF L i.e., TO CALCULATE L'
                     // Vectors used -> L'M', L'F' & L'E'   // THE INITIAL COORDINATES OF L SHOULD NOT BE TAKEN FROM USER. THEY SHOULD BE CALCULATED USING 'K' , THE INPUT CAMBER AND TOE
                     double XL1 = 0, YL1 = 0, ZL1 = 0/*, XL2 = 0, YL2 = 0, ZL2 = 0*/;
-                    QuadraticEquationSolver.Solver(L1x, L1y, L1z, l_M1x, l_M1y, l_M1z, 0, l_F1x, l_F1y, l_F1z, l_E1x, l_E1y, l_E1z, oc[dummy1].scmOP.M1x, oc[dummy1].scmOP.M1y, oc[dummy1].scmOP.M1z, oc[dummy1].scmOP.F1x, oc[dummy1].scmOP.F1y, oc[dummy1].scmOP.F1z, oc[dummy1].scmOP.E1x, oc[dummy1].scmOP.E1y, oc[dummy1].scmOP.E1z, oc[dummy1].scmOP.E1y, false, out XL1, out YL1, out ZL1);
+                    QuadraticEquationSolver.Solver(L1x, L1y, L1z, l_M1x, l_M1y, l_M1z, 0, l_F1x, l_F1y, l_F1z, l_E1x, l_E1y, l_E1z, oc[dummy1].scmOP.M1x, oc[dummy1].scmOP.M1y, oc[dummy1].scmOP.M1z, oc[dummy1].scmOP.F1x, oc[dummy1].scmOP.F1y, oc[dummy1].scmOP.F1z, 
+                        oc[dummy1].scmOP.E1x, oc[dummy1].scmOP.E1y, oc[dummy1].scmOP.E1z, oc[dummy1].scmOP.E1y, false, out XL1, out YL1, out ZL1);
 
                     oc[dummy1].scmOP.L1x = XL1;
                     oc[dummy1].scmOP.L1y = YL1;

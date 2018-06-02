@@ -1185,7 +1185,7 @@ namespace Coding_Attempt_with_GUI
 
             List<double> errorPile = new List<double>();
 
-            bumpSteerError = casterError = toeError = camberError = KPI = 0;
+            bumpSteerError = casterError = toeError = camberError = kpiError = 0;
             double rmsError = 0;
 
             //double bumpSteerError = ComputeBumpSteerError();
@@ -1198,7 +1198,7 @@ namespace Coding_Attempt_with_GUI
 
             Del_RMS_Error();
 
-            rmsError = System.Math.Sqrt((System.Math.Pow(bumpSteerError, 2) + System.Math.Pow(casterError, 2) + System.Math.Pow(toeError, 2) + System.Math.Pow(camberError, 2)));
+            rmsError = System.Math.Sqrt((System.Math.Pow(bumpSteerError, 2) + System.Math.Pow(casterError, 2) + System.Math.Pow(toeError, 2) + System.Math.Pow(camberError, 2) + System.Math.Pow(kpiError, 2)));
 
             //errorPile.Add(Del_RMS_Error());
 
