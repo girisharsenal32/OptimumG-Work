@@ -1401,19 +1401,19 @@ namespace Coding_Attempt_with_GUI
             if (_FlCV.RideHeightChanged || _FrCV.RideHeightChanged || _RlCV.RideHeightChanged || _RrCV.RideHeightChanged)
             {
                 Identifier = 1;
-                SetupChange_PrimaryInitializeMethod(_FlCV, _Vehicle.oc_FL, FinalCamberFL, FinalToeFL, FinalCasterFL, FinalKPIFL, Identifier, _Vehicle);
+                SetupChange_PrimaryInitializeMethod(_FlCV, _Vehicle.oc_FL /*,FinalCamberFL, FinalToeFL, FinalCasterFL, FinalKPIFL, Identifier, _Vehicle*/);
                 FinalRideHeight_FL = SetupChange_GetRideHeightChange(_FlCV, SetupChange_DB_Master.AdjOptions.PushrodLine, SetupChange_DB_Master.AdjOptions.PushrodVector, _FlCV.rideheightAdjustmentType, _FlCV.rideheightAdjustmentTool, 1, out FinalPushrod_FL);
 
                 Identifier = 2;
-                SetupChange_PrimaryInitializeMethod(_FrCV, _Vehicle.oc_FR, FinalCamberFR, FinalToeFR, FinalCasterFR, FinalKPIFR, Identifier, _Vehicle);
+                SetupChange_PrimaryInitializeMethod(_FrCV, _Vehicle.oc_FR /*,FinalCamberFR, FinalToeFR, FinalCasterFR, FinalKPIFR, Identifier, _Vehicle*/);
                 FinalRideHeight_FR = SetupChange_GetRideHeightChange(_FrCV, SetupChange_DB_Master.AdjOptions.PushrodLine, SetupChange_DB_Master.AdjOptions.PushrodVector, _FrCV.rideheightAdjustmentType, _FrCV.rideheightAdjustmentTool, 2, out FinalPushrod_FR);
 
                 Identifier = 3;
-                SetupChange_PrimaryInitializeMethod(_RlCV, _Vehicle.oc_RL, FinalCamberRL, FinalToeRL, FinalCasterRL, FinalKPIRL, Identifier, _Vehicle);
+                SetupChange_PrimaryInitializeMethod(_RlCV, _Vehicle.oc_RL /*,FinalCamberRL, FinalToeRL, FinalCasterRL, FinalKPIRL, Identifier, _Vehicle*/);
                 FinalRideHeight_RL = SetupChange_GetRideHeightChange(_RlCV, SetupChange_DB_Master.AdjOptions.PushrodLine, SetupChange_DB_Master.AdjOptions.PushrodVector, _RlCV.rideheightAdjustmentType, _RlCV.rideheightAdjustmentTool, 3, out FinalPushrod_RL);
 
                 Identifier = 4;
-                SetupChange_PrimaryInitializeMethod(_RrCV, _Vehicle.oc_RR, FinalCamberRR, FinalToeRR, FinalCasterRR, FinalKPIRR, Identifier, _Vehicle);
+                SetupChange_PrimaryInitializeMethod(_RrCV, _Vehicle.oc_RR /*,FinalCamberRR, FinalToeRR, FinalCasterRR, FinalKPIRR, Identifier, _Vehicle*/);
                 FinalRideHeight_RR = SetupChange_GetRideHeightChange(_RrCV, SetupChange_DB_Master.AdjOptions.PushrodLine, SetupChange_DB_Master.AdjOptions.PushrodVector, _RrCV.rideheightAdjustmentType, _RrCV.rideheightAdjustmentTool, 4, out FinalPushrod_RR);
 
                 SetupChange_RideHeightChange_Helper_SolveForRideHeightChanges(_Vehicle, FinalRideHeight_FL, FinalRideHeight_FR, FinalRideHeight_RL, FinalRideHeight_RR);
@@ -1497,7 +1497,7 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Calculating the Final Value of Camber that is requested by the User. No change in parameter's value if requested change is 0</summary>
             Angle deltaCamber = new Angle(_requestedChanges.deltaCamber, AngleUnit.Degrees);
             //_oc[0].waOP.StaticCamber += deltaCamber.Radians;
-            _finalCamber = new Angle(_oc[0].waOP.StaticCamber + deltaCamber.Radians, AngleUnit.Radians);
+            _finalCamber = new Angle(_oc[0].waOP.StaticCamber + deltaCamber.Radians, AngleUnit.Degrees);
 
             ///<summary>Calculating the Final Value of Toe that is requested by the User. No change in parameter's value if requested change is 0</summary>
             Angle deltaToeReq = new Angle(_requestedChanges.deltaToe, AngleUnit.Degrees);
@@ -1632,6 +1632,9 @@ namespace Coding_Attempt_with_GUI
 
             /////<summary>Finding the final values of the Setup Parameters by adding the changes in the corresponding parameters which the user has requested</summary>
             //SetupChange_AssignNewSetupValues(_oc, _requestedChanges);
+
+
+
         }
 
         private void SetupChange_Init_GeneticAlgorithmClass(Vehicle _vehicle, int identifier, SetupChange_CornerVariables _requestedChanges, Angle finalCamber, Angle finalToe, Angle finalCaster, Angle finalKPI)
@@ -1643,10 +1646,12 @@ namespace Coding_Attempt_with_GUI
             ga.InitializeVehicleParams((VehicleCorner)identifier, _vehicle);
 
             ///<summary>Initializing the requirements of the USER in terms of Setup and Tools available to adjust</summary>
-            ga.InitializeSetupParams(_requestedChanges.Master_Adj, finalCamber, finalCaster, finalToe, finalKPI);
+            ga.InitializeSetupParams(_requestedChanges, _requestedChanges.Master_Adj, finalCamber, finalCaster, finalToe, finalKPI);
+
+            ga.Set_ErrorsToEvaluate();
 
             ///<summary>Constructing the Genetic Algorithm and Runng it </summary>
-            //ga.ConstructGeneticAlgorithm();
+            ga.ConstructGeneticAlgorithm();
         }
 
         /// <summary>

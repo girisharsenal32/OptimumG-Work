@@ -318,7 +318,9 @@ namespace Coding_Attempt_with_GUI
 
         #endregion
 
-        #region ---Required Values---
+        #region ---Setup Change Params---
+        public SetupChange_CornerVariables GA_CV { get; set; }
+
         public Angle Camber { get; set; }
 
         public Angle Caster { get; set; }
@@ -328,6 +330,23 @@ namespace Coding_Attempt_with_GUI
         public Angle Toe { get; set; }
 
         public List<double> BumpSteerGraph { get; set; }
+        #endregion
+
+        #region Delegates
+        private delegate double ParamsToEvaluate();
+
+        ParamsToEvaluate Del_RMS_Error;
+
+        ParamsToEvaluate Del_Caster_Error;
+
+        ParamsToEvaluate Del_KPI_Error;
+
+        ParamsToEvaluate Del_Camber_Error;
+
+        ParamsToEvaluate Del_Toe_Error;
+
+        ParamsToEvaluate Del_BumpSteer_Error;
+
         #endregion
 
         #endregion
@@ -390,7 +409,7 @@ namespace Coding_Attempt_with_GUI
 
             //LowerCamberShimLength = -5;
 
-
+            Opt_AdjToolValues = new Dictionary<string, double>();
 
         }
 
@@ -506,8 +525,10 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_fCaster"></param>
         /// <param name="_fToe"></param>
         /// <param name="_fKPI"></param>
-        public void InitializeSetupParams(Dictionary<string, Dictionary<string, Opt_AdjToolParams>> _masterDictionary, Angle _fCamber, Angle _fCaster, Angle _fToe, Angle _fKPI)
+        public void InitializeSetupParams(SetupChange_CornerVariables _reqChanges, Dictionary<string, Dictionary<string, Opt_AdjToolParams>> _masterDictionary, Angle _fCamber, Angle _fCaster, Angle _fToe, Angle _fKPI)
         {
+            GA_CV = _reqChanges;
+
             MasterDictionary = _masterDictionary;
 
             Camber = _fCamber;
@@ -517,8 +538,53 @@ namespace Coding_Attempt_with_GUI
             Toe = _fToe;
 
             KPI = _fKPI;
+
+            if (MasterDictionary.ContainsKey("Bump Steer Change"))
+            {
+                MasterDictionary["Bump Steer Change"][AdjustmentTools.ToeLinkInboardPoint.ToString() + "_x"].Nominal = SCM.N1x;
+                MasterDictionary["Bump Steer Change"][AdjustmentTools.ToeLinkInboardPoint.ToString() + "_y"].Nominal = SCM.N1z;
+                MasterDictionary["Bump Steer Change"][AdjustmentTools.ToeLinkInboardPoint.ToString() + "_z"].Nominal = SCM.N1y; 
+            }
         }
 
+        private double Dummy() { return 0; }
+
+        public void Set_ErrorsToEvaluate()
+        {
+            Del_KPI_Error = new ParamsToEvaluate(ComputeKPIError);
+
+            Del_Caster_Error = new ParamsToEvaluate(ComputeCasterError);
+
+            Del_Camber_Error = new ParamsToEvaluate(ComputeCamberError);
+
+            Del_Toe_Error = new ParamsToEvaluate(ComputeToeError);
+
+            Del_BumpSteer_Error = new ParamsToEvaluate(ComputeBumpSteerError);
+
+            Del_RMS_Error = new ParamsToEvaluate(Dummy);
+
+            if (GA_CV.constKPI == true || GA_CV.KPIChangeRequested)
+            {
+                Del_RMS_Error += Del_KPI_Error;
+            }
+            if (GA_CV.constCaster == true || GA_CV.CasterChangeRequested)
+            {
+                Del_RMS_Error += Del_Caster_Error;
+            }
+            if (GA_CV.constCamber == true || GA_CV.CamberChangeRequested)
+            {
+                Del_RMS_Error += Del_Camber_Error;
+            }
+            if (GA_CV.constToe == true || GA_CV.ToeChangeRequested)
+            {
+                Del_RMS_Error += Del_Toe_Error;
+            }
+            if (GA_CV.constBumpSteer || GA_CV.BumpSteerChangeRequested)
+            {
+                Del_RMS_Error += Del_BumpSteer_Error;
+            }
+
+        }
 
         /// <summary>
         /// <para>---4th--- This method is to be called 3rd in the sequence</para>
@@ -548,9 +614,6 @@ namespace Coding_Attempt_with_GUI
 
         }
 
-        private void GA_OnRunComplete(object sender, GaEventArgs e)
-        {
-        }
         #endregion
 
         #region ---GENETIC ALGORITHM METHODS
@@ -573,7 +636,7 @@ namespace Coding_Attempt_with_GUI
                 ExtractOptimizedValues(chromosome);
                 //Update_GADataTable("Solution" + SolutionCounter);
 
-                ///<summary>Invoking the <see cref="EvaluateBumpSteer(double, double, double)"/> method to check the error of the calcualted Bump Steer Curve with the Curve that the user wants</summary>
+                ///<summary>Invoking the <see cref="ComputeBumpSteerError(double, double, double)"/> method to check the error of the calcualted Bump Steer Curve with the Curve that the user wants</summary>
                 double resultError = EvaluateRMSError(SolutionCounter);
 
                 ///<summary>Calculating the Fitness based on the Error</summary>
@@ -632,6 +695,11 @@ namespace Coding_Attempt_with_GUI
             Ga_Values.Rows.Clear();
 
 
+        }
+
+
+        private void GA_OnRunComplete(object sender, GaEventArgs e)
+        {
         }
 
         /// <summary>
@@ -1108,24 +1176,38 @@ namespace Coding_Attempt_with_GUI
             //Ga_Values.Rows.Add(_solutionName, GAOrientation["NewOrientation1"], 0, InboardPoints["ToeLinkInboard"], 0, WishboneLinkLength, 0, false, 0);
         }
 
+        double bumpSteerError, casterError, toeError, camberError, kpiError;
         private double EvaluateRMSError(int rowIndex)
         {
             SolveKinematics();
             
             Update_SuspensionCoordinateData();
 
-            //double bumpSteerError = EvaluateBumpSteer(tempInboardPoints["ToeLinkInboard"].OptimizedCoordinates.X, tempInboardPoints["ToeLinkInboard"].OptimizedCoordinates.Y, tempInboardPoints["ToeLinkInboard"].OptimizedCoordinates.Z);
+            List<double> errorPile = new List<double>();
 
-            double bumpSteerError = EvaluateBumpSteer(ga_ToeLinkInboard.X, ga_ToeLinkInboard.Y, ga_ToeLinkInboard.Z);
+            bumpSteerError = casterError = toeError = camberError = KPI = 0;
+            double rmsError = 0;
 
-            double casterError = ComputeCasterError();
+            //double bumpSteerError = ComputeBumpSteerError();
 
-            double toeError = ComputeToeError();
+            //double casterError = ComputeCasterError();
 
-            double camberError = ComputeCamberError();
+            //double toeError = ComputeToeError();
 
-            double rmsError = System.Math.Sqrt((System.Math.Pow(bumpSteerError, 2) + System.Math.Pow(casterError, 2) + System.Math.Pow(toeError, 2) + System.Math.Pow(camberError, 2)));
+            //double camberError = ComputeCamberError();
 
+            Del_RMS_Error();
+
+            rmsError = System.Math.Sqrt((System.Math.Pow(bumpSteerError, 2) + System.Math.Pow(casterError, 2) + System.Math.Pow(toeError, 2) + System.Math.Pow(camberError, 2)));
+
+            //errorPile.Add(Del_RMS_Error());
+
+            //for (int i = 0; i < errorPile.Count; i++)
+            //{
+            //    squareErrors += System.Math.Pow(errorPile[i], 2);
+            //}
+
+            //rmsError = System.Math.Sqrt(squareErrors);
 
             //Ga_Values.Rows[rowIndex].SetField<double>("Orientation Fitness", orientationError);
             //Ga_Values.Rows[rowIndex].SetField<double>("Bump Steer Fitness", bumpSteerError);
@@ -1399,11 +1481,27 @@ namespace Coding_Attempt_with_GUI
             dCaster_New = SetupChangeDatabase.AngleInRequiredView(Custom3DGeometry.GetMathNetVector3D(tempAxisLines["SteeringAxis"]),
                                                                   Custom3DGeometry.GetMathNetVector3D(tempAxisLines["SteeringAxis_Ref"]),
                                                                   Custom3DGeometry.GetMathNetVector3D(tempAxisLines["LateralAxis_WheelCenter"]));
-            Angle staticCaster = new Angle(-2.36, AngleUnit.Degrees);
+            //Angle staticCaster = new Angle(-2.36, AngleUnit.Degrees);
 
-            double casterError = ((dCaster_New.Degrees - 2) - (staticCaster.Degrees - 2)) / staticCaster.Degrees;
+            Angle staticCaster = new Angle(OC[0].Caster, AngleUnit.Radians);
+
+            double casterError = ((dCaster_New.Degrees + staticCaster.Degrees) - (Caster.Degrees)) / Caster.Degrees;
 
             return (casterError);
+        }
+
+        Angle dKPI_new;
+        private double ComputeKPIError()
+        {
+            dKPI_new = SetupChangeDatabase.AngleInRequiredView(Custom3DGeometry.GetMathNetVector3D(tempAxisLines["SteeringAxis"]),
+                                                               Custom3DGeometry.GetMathNetVector3D(tempAxisLines["SteeringAxis_Ref"]),
+                                                               Custom3DGeometry.GetMathNetVector3D(tempAxisLines["LongitudinalAxis_WheelCenter"]));
+
+            Angle staticKPI = new Angle(OC[0].KPI, AngleUnit.Radians);
+
+            double kpiError = (((dKPI_new.Degrees + staticKPI.Degrees) - (KPI.Degrees)) / (KPI.Degrees));
+
+            return kpiError;
         }
 
         Angle dToe_New;
@@ -1428,8 +1526,8 @@ namespace Coding_Attempt_with_GUI
         private double ComputeCamberError()
         {
             dCamber_New = SetupChangeDatabase.AngleInRequiredView(Custom3DGeometry.GetMathNetVector3D(tempAxisLines["WheelSpindle"]),
-                                                                        Custom3DGeometry.GetMathNetVector3D(tempAxisLines["WheelSpindle_Ref"]),
-                                                                        Custom3DGeometry.GetMathNetVector3D(tempAxisLines["LongitudinalAxis_WheelCenter"]));
+                                                                  Custom3DGeometry.GetMathNetVector3D(tempAxisLines["WheelSpindle_Ref"]),
+                                                                  Custom3DGeometry.GetMathNetVector3D(tempAxisLines["LongitudinalAxis_WheelCenter"]));
 
             Angle staticCamber = new Angle(WA.StaticCamber, AngleUnit.Degrees);
 
@@ -1438,6 +1536,7 @@ namespace Coding_Attempt_with_GUI
             return camberError;
         }
 
+        #region --Computing the Bump Steer Error--
         /// <summary>
         /// Method to which calls the <see cref="DoubleWishboneKinematicsSolver.Kinematics(int, SuspensionCoordinatesMaster, WheelAlignment, Tire, AntiRollBar, double, Spring, Damper, List{OutputClass}, Vehicle, List{double}, bool, bool)"/> Solver
         /// to compute the Bump Steer Values for the Wheel Deflection Range set by the User
@@ -1446,13 +1545,13 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_yCoord">Y Coordinate of the Inboard Toe Link Pick-Up Point</param>
         /// <param name="_zCoord">x Coordinate of the Inboard Toe Link Pick-Up Point</param>
         /// <returns>Returns Error of the computed Bump Steer Curve with the Curve that the user wants</returns>
-        private double EvaluateBumpSteer(double _xCoord, double _yCoord, double _zCoord)
+        private double ComputeBumpSteerError(/*double _xCoord, double _yCoord, double _zCoord*/)
         {
             double bumpSteer = 1;
 
             int StepSize = 1;
 
-            Point3D InboardPickUpPoint = new Point3D(_xCoord, _yCoord, _zCoord);
+            Point3D InboardPickUpPoint = new Point3D(ga_ToeLinkInboard.X, ga_ToeLinkInboard.Y, ga_ToeLinkInboard.Z);
 
             ///<summary>Assigning the Simulation Type in the <see cref="DoubleWishboneKinematicsSolver"/></summary>
             dwSolver.SimulationType = SimulationType.Optimization;
@@ -1633,7 +1732,7 @@ namespace Coding_Attempt_with_GUI
 
                     if (UserBumpSteerCurve[i].Degrees != 0)
                     {
-                        ErrorCalc_Step1.Add(new Angle(((_toeAngle[i].Degrees - UserBumpSteerCurve[i].Degrees) / UserBumpSteerCurve[i].Degrees), AngleUnit.Degrees)); 
+                        ErrorCalc_Step1.Add(new Angle(((_toeAngle[i].Degrees - UserBumpSteerCurve[i].Degrees) / UserBumpSteerCurve[i].Degrees), AngleUnit.Degrees));
                     }
                     else
                     {
@@ -1667,7 +1766,8 @@ namespace Coding_Attempt_with_GUI
 
 
             return FinalError;
-        }
+        } 
+        #endregion
 
         private void EvaluateParetoOptimial()
         {

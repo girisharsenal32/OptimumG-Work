@@ -585,13 +585,13 @@ namespace Coding_Attempt_with_GUI
         {
             if (Vehicle != null)
             {
-                List<string> adjusterLinks = new List<string>(new string[] { "CasterRequested", "CamberRequested", "ToeRequested", "KPIRequested" });
+                //List<string> adjusterLinks = new List<string>(new string[] { "CasterRequested", "CamberRequested", "ToeRequested", "KPIRequested" });
 
-                OptimizerGeneticAlgorithm Optimizer = new OptimizerGeneticAlgorithm(0.85, 0.05, 5, 200, 180/*, adjusterLinks*/);
+                //OptimizerGeneticAlgorithm Optimizer = new OptimizerGeneticAlgorithm(0.85, 0.05, 5, 200, 180/*, adjusterLinks*/);
 
-                Optimizer.InitializeVehicleParams(Corner, Vehicle, 1, 25, -25);
+                //Optimizer.InitializeVehicleParams(Corner, Vehicle, 1, 25, -25);
 
-                Optimizer.ConstructGeneticAlgorithm(); 
+                //Optimizer.ConstructGeneticAlgorithm(); 
             }
             else
             {

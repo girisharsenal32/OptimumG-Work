@@ -12352,20 +12352,20 @@ namespace Coding_Attempt_with_GUI
 
         private void barButtonItem9_ItemClick(object sender, ItemClickEventArgs e)
         {
-            Temp_BobillierMethod tempBob = new Temp_BobillierMethod();
-            if (SuspensionCoordinatesFront.Assy_List_SCFL != null)
-            {
-                if (SuspensionCoordinatesFront.Assy_List_SCFL.Count != 0 && Vehicle.List_Vehicle.Count != 0) 
-                {
-                    tempBob.AssignLocalSuspensionObject(Vehicle.List_Vehicle[0], SuspensionCoordinatesFront.Assy_List_SCFL[0], 1);
-                    tempBob.ConstructBobilierLine();
-                    tempBob.Show();
-                }
-                else
-                {
-                    MessageBox.Show("HRHRRRHHHKHKKKHH");
-                }
-            }
+            //Temp_BobillierMethod tempBob = new Temp_BobillierMethod();
+            //if (SuspensionCoordinatesFront.Assy_List_SCFL != null)
+            //{
+            //    if (SuspensionCoordinatesFront.Assy_List_SCFL.Count != 0 && Vehicle.List_Vehicle.Count != 0) 
+            //    {
+            //        tempBob.AssignLocalSuspensionObject(Vehicle.List_Vehicle[0], SuspensionCoordinatesFront.Assy_List_SCFL[0], 1);
+            //        tempBob.ConstructBobilierLine();
+            //        tempBob.Show();
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("HRHRRRHHHKHKKKHH");
+            //    }
+            //}
         }
 
 

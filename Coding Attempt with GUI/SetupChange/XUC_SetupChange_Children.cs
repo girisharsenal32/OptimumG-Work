@@ -39,10 +39,7 @@ namespace Coding_Attempt_with_GUI
             vGridControl1.DataSource = null;
 
             BitSize = 30;
-
-
-
-
+            
         }
 
         private void InitializeAdjustmentTools()
@@ -57,18 +54,18 @@ namespace Coding_Attempt_with_GUI
         private void InitializeDictionaries()
         {
             setupChange_CV.Caster_KPI_Adj = new Dictionary<string, Opt_AdjToolParams>();
-            setupChange_CV.Caster_KPI_Adj.Add(AdjustmentTools.TopFrontArm.ToString(), new Opt_AdjToolParams(AdjustmentTools.TopFrontArm.ToString(), 0, 0, 0, BitSize));
+            setupChange_CV.Caster_KPI_Adj.Add(AdjustmentTools.TopFrontArm.ToString(), new Opt_AdjToolParams(AdjustmentTools.TopFrontArm.ToString(), 0, 10, -10, BitSize));
 
             setupChange_CV.Camber_Adj = new Dictionary<string, Opt_AdjToolParams>();
-            setupChange_CV.Camber_Adj.Add(AdjustmentTools.TopCamberMount.ToString(), new Opt_AdjToolParams(AdjustmentTools.TopCamberMount.ToString(), 0, 0, 0, BitSize));
+            setupChange_CV.Camber_Adj.Add(AdjustmentTools.TopCamberMount.ToString(), new Opt_AdjToolParams(AdjustmentTools.TopCamberMount.ToString(), 0, 5, -5, BitSize));
 
             setupChange_CV.Toe_Adj = new Dictionary<string, Opt_AdjToolParams>();
-            setupChange_CV.Toe_Adj.Add(AdjustmentTools.ToeLinkLength.ToString(), new Opt_AdjToolParams(AdjustmentTools.ToeLinkLength.ToString(), 0, 0, 0, BitSize));
+            setupChange_CV.Toe_Adj.Add(AdjustmentTools.ToeLinkLength.ToString(), new Opt_AdjToolParams(AdjustmentTools.ToeLinkLength.ToString(), 0, 10, 10, BitSize));
 
             setupChange_CV.BumpSteer_Adj = new Dictionary<string, Opt_AdjToolParams>();
-            setupChange_CV.BumpSteer_Adj.Add(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_x", new Opt_AdjToolParams(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_x", 0, 0, 0, BitSize));
-            setupChange_CV.BumpSteer_Adj.Add(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_y", new Opt_AdjToolParams(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_y", 0, 0, 0, BitSize));
-            setupChange_CV.BumpSteer_Adj.Add(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_z", new Opt_AdjToolParams(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_z", 0, 0, 0, BitSize));
+            setupChange_CV.BumpSteer_Adj.Add(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_x", new Opt_AdjToolParams(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_x", 232.12, 5, -5, BitSize));
+            setupChange_CV.BumpSteer_Adj.Add(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_y", new Opt_AdjToolParams(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_y", 124.4, 5, -5, BitSize));
+            setupChange_CV.BumpSteer_Adj.Add(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_z", new Opt_AdjToolParams(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_z", 60.8, 5, -5, BitSize));
         }
 
         /// <summary>
@@ -256,9 +253,9 @@ namespace Coding_Attempt_with_GUI
                     return;
                 }
 
-                if (!setupChange_CV.Master_Adj.ContainsKey("Caster/KPI Change"))
+                if (!setupChange_CV.Master_Adj.ContainsKey("Caster/KPI"))
                 {
-                    setupChange_CV.Master_Adj.Add("Caster/KPI Change", setupChange_CV.Caster_KPI_Adj);
+                    setupChange_CV.Master_Adj.Add("Caster/KPI", setupChange_CV.Caster_KPI_Adj);
                 }
 
             }
@@ -274,9 +271,9 @@ namespace Coding_Attempt_with_GUI
                     {
                         Deactivate_KPICaster_Adjusters();
 
-                        if (setupChange_CV.Master_Adj.ContainsKey("Caster/KPI Change"))
+                        if (setupChange_CV.Master_Adj.ContainsKey("Caster/KPI"))
                         {
-                            setupChange_CV.Master_Adj.Remove("Caster/KPI Change");
+                            setupChange_CV.Master_Adj.Remove("Caster/KPI");
                         }
                     }
                 }
@@ -306,7 +303,10 @@ namespace Coding_Attempt_with_GUI
                 checkedListBoxControlConstraints.Items["Camber constant"].CheckState = CheckState.Unchecked;
                 checkedListBoxControlConstraints.Items["Camber constant"].Enabled = false;
 
-                setupChange_CV.Master_Adj.Add("Camber Change", setupChange_CV.Camber_Adj);
+                if (!setupChange_CV.Master_Adj.ContainsKey("Camber"))
+                {
+                    setupChange_CV.Master_Adj.Add("Camber", setupChange_CV.Camber_Adj); 
+                }
 
             }
             else if (checkedListBoxControlChanges.Items["Camber Change"].CheckState == CheckState.Unchecked)
@@ -334,9 +334,9 @@ namespace Coding_Attempt_with_GUI
                 //checkedListBoxControlConstraints.Items["Camber constant"].CheckState = CheckState.Unchecked;
                 checkedListBoxControlConstraints.Items["Camber constant"].Enabled = true;
 
-                if (setupChange_CV.Master_Adj.ContainsKey("Camber Change"))
+                if (setupChange_CV.Master_Adj.ContainsKey("Camber"))
                 {
-                    setupChange_CV.Master_Adj.Remove("Camber Change");
+                    setupChange_CV.Master_Adj.Remove("Camber");
                 }
             }
 
@@ -362,9 +362,9 @@ namespace Coding_Attempt_with_GUI
                     return;
                 }
 
-                if (!setupChange_CV.Master_Adj.ContainsKey("Caster/KPI Change"))
+                if (!setupChange_CV.Master_Adj.ContainsKey("Caster/KPI"))
                 {
-                    setupChange_CV.Master_Adj.Add("Caster/KPI Change", setupChange_CV.Caster_KPI_Adj);
+                    setupChange_CV.Master_Adj.Add("Caster/KPI", setupChange_CV.Caster_KPI_Adj);
                 }
             }
             else if (checkedListBoxControlChanges.Items["Caster Change"].CheckState == CheckState.Unchecked)
@@ -380,9 +380,9 @@ namespace Coding_Attempt_with_GUI
                     {
                         Deactivate_KPICaster_Adjusters();
 
-                        if (setupChange_CV.Master_Adj.ContainsKey("Caster/KPI Change"))
+                        if (setupChange_CV.Master_Adj.ContainsKey("Caster/KPI"))
                         {
-                            setupChange_CV.Master_Adj.Remove("Caster/KPI Change");
+                            setupChange_CV.Master_Adj.Remove("Caster/KPI");
                         }
 
                     }
@@ -411,7 +411,10 @@ namespace Coding_Attempt_with_GUI
                 checkedListBoxControlConstraints.Items["Toe constant"].CheckState = CheckState.Unchecked;
                 checkedListBoxControlConstraints.Items["Toe constant"].Enabled = false;
 
-                setupChange_CV.Master_Adj.Add("Toe Change", setupChange_CV.Toe_Adj);
+                if (!setupChange_CV.Master_Adj.ContainsKey("Toe"))
+                {
+                    setupChange_CV.Master_Adj.Add("Toe", setupChange_CV.Toe_Adj); 
+                }
 
             }
             else if (checkedListBoxControlChanges.Items["Toe Change"].CheckState == CheckState.Unchecked)
@@ -461,15 +464,20 @@ namespace Coding_Attempt_with_GUI
             ///</summary>
             if (checkedListBoxControlChanges.Items["Bump Steer Change"].CheckState == CheckState.Checked)
             {
+                setupChange_CV.BumpSteerChangeRequested = true;
                 rowBumpSteerChart.Enabled = true;
                 rowBumpSteerAdjuster.Enabled = true;
                 checkedListBoxControlConstraints.Items["Bump Steer Constant"].CheckState = CheckState.Unchecked;
                 checkedListBoxControlConstraints.Items["Bump Steer Constant"].Enabled = false;
 
-                setupChange_CV.Master_Adj.Add("Bump Steer Change", setupChange_CV.BumpSteer_Adj);
+                if (setupChange_CV.Master_Adj.ContainsKey("Bump Steer"))
+                {
+                    setupChange_CV.Master_Adj.Add("Bump Steer", setupChange_CV.BumpSteer_Adj); 
+                }
             }
             else 
             {
+                setupChange_CV.BumpSteerChangeRequested = false;
                 rowBumpSteerChart.Enabled = false;
                 rowBumpSteerAdjuster.Enabled = false;
                 vGridControl1.SetCellValue(rowBumpSteerAdjuster, 1, null);
@@ -479,9 +487,9 @@ namespace Coding_Attempt_with_GUI
                 //checkedListBoxControlConstraints.Items["Bump Steer Constant"].CheckState = CheckState.Unchecked;
                 checkedListBoxControlConstraints.Items["Bump Steer Constant"].Enabled = true;
 
-                if (setupChange_CV.Master_Adj.ContainsKey("Bump Steer Change"))
+                if (setupChange_CV.Master_Adj.ContainsKey("Bump Steer"))
                 {
-                    setupChange_CV.Master_Adj.Remove("Bump Steer Change");
+                    setupChange_CV.Master_Adj.Remove("Bump Steer");
                 }
 
             }
@@ -539,7 +547,7 @@ namespace Coding_Attempt_with_GUI
             }
 
 
-            setupChange_CV.Caster_KPI_Adj.Clear(); 
+            //setupChange_CV.Caster_KPI_Adj.Clear(); 
         }
         private void Activate_KPICaster_Adjusters()
         {
@@ -558,7 +566,7 @@ namespace Coding_Attempt_with_GUI
                 rICheckedCB_Adj_Camber.Items[i].CheckState = CheckState.Unchecked;
             }
 
-            setupChange_CV.Camber_Adj.Clear();
+            //setupChange_CV.Camber_Adj.Clear();
         }
         private void Activate_Camber_Adjusters()
         {
@@ -576,7 +584,7 @@ namespace Coding_Attempt_with_GUI
                 rICheckedCB_Adj_Camber.Items[0].CheckState = CheckState.Unchecked;
             }
 
-            setupChange_CV.BumpSteer_Adj.Clear();
+            //setupChange_CV.BumpSteer_Adj.Clear();
         }
         private void Activate_BumpSteer_Adjusters()
         {
@@ -615,6 +623,10 @@ namespace Coding_Attempt_with_GUI
 
                 Activate_KPICaster_Adjusters();
 
+                if (!setupChange_CV.Master_Adj.ContainsKey("Caster/KPI"))
+                {
+                    setupChange_CV.Master_Adj.Add("Caster/KPI", setupChange_CV.Caster_KPI_Adj);
+                }
             }
             else
             {
@@ -625,8 +637,14 @@ namespace Coding_Attempt_with_GUI
                 {
                     if (checkedListBoxControlChanges.Items["KPI Change"].CheckState == CheckState.Unchecked)
                     {
-                        Deactivate_KPICaster_Adjusters(); 
+                        Deactivate_KPICaster_Adjusters();
+
+                        if (setupChange_CV.Master_Adj.ContainsKey("Caster/KPI"))
+                        {
+                            setupChange_CV.Master_Adj.Remove("Caster/KPI");
+                        }
                     }
+
                 }
 
             }
@@ -639,6 +657,12 @@ namespace Coding_Attempt_with_GUI
                 setupChange_CV.constCaster = true;
                 setupChangeGUI.EditSetupChangeDeltas(setupChange_CV, Identifier);
                 Activate_KPICaster_Adjusters();
+
+                if (!setupChange_CV.Master_Adj.ContainsKey("Caster/KPI"))
+                {
+                    setupChange_CV.Master_Adj.Add("Caster/KPI", setupChange_CV.Caster_KPI_Adj);
+                }
+
             }
             else
             {
@@ -649,7 +673,12 @@ namespace Coding_Attempt_with_GUI
                 {
                     if (checkedListBoxControlChanges.Items["Caster Change"].CheckState == CheckState.Unchecked)
                     {
-                        Deactivate_KPICaster_Adjusters(); 
+                        Deactivate_KPICaster_Adjusters();
+
+                        if (setupChange_CV.Master_Adj.ContainsKey("Caster/KPI"))
+                        {
+                            setupChange_CV.Master_Adj.Remove("Caster/KPI");
+                        }
                     }
                 }
             }
@@ -663,6 +692,11 @@ namespace Coding_Attempt_with_GUI
                 rowShimThickness.Enabled = true;
                 setupChangeGUI.EditSetupChangeDeltas(setupChange_CV, Identifier);
                 Activate_Camber_Adjusters();
+
+                if (!setupChange_CV.Master_Adj.ContainsKey("Camber"))
+                {
+                    setupChange_CV.Master_Adj.Add("Camber", setupChange_CV.Camber_Adj);
+                }
             }
             else
             {
@@ -673,6 +707,12 @@ namespace Coding_Attempt_with_GUI
                 setupChange_CV.constCamber = false;
                 setupChangeGUI.EditSetupChangeDeltas(setupChange_CV, Identifier);
                 Deactivate_Camber_Adjusters();
+
+                if (setupChange_CV.Master_Adj.ContainsKey("Camber"))
+                {
+                    setupChange_CV.Master_Adj.Remove("Camber");
+                }
+
             }
 
             ///<summary>
@@ -683,12 +723,22 @@ namespace Coding_Attempt_with_GUI
                 setupChange_CV.constToe = true;
                 setupChangeGUI.EditSetupChangeDeltas(setupChange_CV, Identifier);
                 Activate_Toe_Adjusters();
+
+                if (!setupChange_CV.Master_Adj.ContainsKey("Toe"))
+                {
+                    setupChange_CV.Master_Adj.Add("Toe", setupChange_CV.Toe_Adj);
+                }
             }
             else
             {
                 setupChange_CV.constToe = false;
                 setupChangeGUI.EditSetupChangeDeltas(setupChange_CV, Identifier);
                 Deactivate_Toe_Adjusters();
+
+                if (setupChange_CV.Master_Adj.ContainsKey("Toe Change"))
+                {
+                    setupChange_CV.Master_Adj.Remove("Toe Change");
+                }
             }
 
             ///<summary>
@@ -710,11 +760,25 @@ namespace Coding_Attempt_with_GUI
             /// </summary>
             if (checkedListBoxControlConstraints.Items["Bump Steer Constant"].CheckState == CheckState.Checked)
             {
+                setupChange_CV.constBumpSteer = true;
+
                 Activate_BumpSteer_Adjusters();
+
+                if (setupChange_CV.Master_Adj.ContainsKey("Bump Steer"))
+                {
+                    setupChange_CV.Master_Adj.Add("Bump Steer", setupChange_CV.BumpSteer_Adj);
+                }
             }
             else
             {
+                setupChange_CV.constBumpSteer = false;
+
                 Deactivate_BumpSteer_Adjusters();
+
+                if (setupChange_CV.Master_Adj.ContainsKey("Bump Steer"))
+                {
+                    setupChange_CV.Master_Adj.Remove("Bump Steer");
+                }
             }
 
 
@@ -1361,6 +1425,7 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
         #region ---Adjuster Selection Events---
+
         #region Caster/KPI Adjuster Selection Event
         private void rICheckedCB_Adj_CasterKPI_EditValueChanged(object sender, EventArgs e)
         {
@@ -1372,7 +1437,7 @@ namespace Coding_Attempt_with_GUI
             {
                 if (!setupChange_CV.Caster_KPI_Adj.ContainsKey(checkedItems[i].ToString()))
                 {
-                    setupChange_CV.Caster_KPI_Adj.Add(checkedItems[i].ToString(), new Opt_AdjToolParams(checkedItems[i].ToString(), 0, 0, 0, BitSize));
+                    setupChange_CV.Caster_KPI_Adj.Add(checkedItems[i].ToString(), new Opt_AdjToolParams(checkedItems[i].ToString(), 0, 10, -10, BitSize));
 
                 }
             }
@@ -1435,7 +1500,7 @@ namespace Coding_Attempt_with_GUI
             {
                 if (!setupChange_CV.Camber_Adj.ContainsKey(checkeditems[i].ToString()))
                 {
-                    setupChange_CV.Camber_Adj.Add(checkeditems[i].ToString(), new Opt_AdjToolParams(checkeditems[i].ToString(), 0, 0, 0, BitSize));
+                    setupChange_CV.Camber_Adj.Add(checkeditems[i].ToString(), new Opt_AdjToolParams(checkeditems[i].ToString(), 0, 5, -5, BitSize));
                 }
             }
 
@@ -1472,9 +1537,9 @@ namespace Coding_Attempt_with_GUI
             {
                 if (!setupChange_CV.BumpSteer_Adj.ContainsKey(checkeditems[i].ToString()))
                 {
-                    setupChange_CV.BumpSteer_Adj.Add(checkeditems[i].ToString() + "_x", new Opt_AdjToolParams(checkeditems[i].ToString() + "_x", 232.12, 0, 0, BitSize));
-                    setupChange_CV.BumpSteer_Adj.Add(checkeditems[i].ToString() + "_y", new Opt_AdjToolParams(checkeditems[i].ToString() + "_y", 124.4, 0, 0, BitSize));
-                    setupChange_CV.BumpSteer_Adj.Add(checkeditems[i].ToString() + "_z", new Opt_AdjToolParams(checkeditems[i].ToString() + "_z", 60.8, 0, 0, BitSize));
+                    setupChange_CV.BumpSteer_Adj.Add(checkeditems[i].ToString() + "_x", new Opt_AdjToolParams(checkeditems[i].ToString() + "_x", 232.12, 5, -5, BitSize));
+                    setupChange_CV.BumpSteer_Adj.Add(checkeditems[i].ToString() + "_y", new Opt_AdjToolParams(checkeditems[i].ToString() + "_y", 124.4, 5, -5, BitSize));
+                    setupChange_CV.BumpSteer_Adj.Add(checkeditems[i].ToString() + "_z", new Opt_AdjToolParams(checkeditems[i].ToString() + "_z", 60.8, 5, -5, BitSize));
                 }
             }
 

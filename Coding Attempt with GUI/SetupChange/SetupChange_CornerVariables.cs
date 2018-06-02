@@ -108,7 +108,7 @@ namespace Coding_Attempt_with_GUI
 
         public bool RideHeightChanged { get; set; } = false;
 
-
+        public bool BumpSteerChangeRequested;
 
 
         /// <summary>
@@ -131,6 +131,10 @@ namespace Coding_Attempt_with_GUI
         /// Boolean to determine if Ride Height is to be constant during the iterations
         /// </summary>
         public bool constRideHeight;
+
+        public bool constBumpSteer;
+
+
 
         /// <summary>
         /// Integer to determine the Number of Iterations which the user wants to perform for Camber. 
