@@ -38,7 +38,7 @@ namespace Coding_Attempt_with_GUI
             vGridControl1.BindingContext = new BindingContext();
             vGridControl1.DataSource = null;
 
-            BitSize = 15;
+            BitSize = 25;
             
         }
 

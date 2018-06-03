@@ -1659,7 +1659,7 @@ namespace Coding_Attempt_with_GUI
             ga.Set_ErrorsToEvaluate();
 
             ///<summary>Constructing the Genetic Algorithm and Runng it </summary>
-            ga.ConstructGeneticAlgorithm(200);
+            ga.ConstructGeneticAlgorithm(100);
         }
 
         /// <summary>
@@ -1675,198 +1675,198 @@ namespace Coding_Attempt_with_GUI
             SetupChange_Init_GeneticAlgorithmClass(_Vehicle, _Identifier, _RequestedChanges, _FinalCamber, _FinalToe, _FinalCaster, _FinalKPI);
 
             #region NOT NEEDED. As not working with Link Length Changes now
-            ///<summary>Selecting the Links for KPI and Caster Changes in case the user has not selected them from the combobox provided AND Caster/KPI const or change is requested</summary>
-            if (!_RequestedChanges.OverrideRandomSelectorForKPI)
-            {
-                SetupChange_DecideAxisAndAdjuster_KPI(_RequestedChanges);
-            }
+            /////<summary>Selecting the Links for KPI and Caster Changes in case the user has not selected them from the combobox provided AND Caster/KPI const or change is requested</summary>
+            //if (!_RequestedChanges.OverrideRandomSelectorForKPI)
+            //{
+            //    SetupChange_DecideAxisAndAdjuster_KPI(_RequestedChanges);
+            //}
 
-            if (!_RequestedChanges.OverrideRandomSelectorForCaster)
-            {
-                SetupChange_DecideAxisAndAdjuster_Caster(_RequestedChanges);
-            }
+            //if (!_RequestedChanges.OverrideRandomSelectorForCaster)
+            //{
+            //    SetupChange_DecideAxisAndAdjuster_Caster(_RequestedChanges);
+            //}
 
-            ///<summary>The IF loops below decide which Parameter change is the starting point for the Closed Loop Solve</summary>
-            if (_RequestedChanges.LinkLengthChanged)
-            {
-                if (_RequestedChanges.deltaTopFrontArm != 0/*true*/)
-                {
-                    SetupChange_LinkLengthChange_Helper_ChangeLinkLength(_RequestedChanges.deltaTopFrontArm, _RequestedChanges.deltaTopRearArm, SetupChange_DB_Master.LBJToToeLink.Line.DeltaLine[SetupChange_DB_Master.LBJToToeLink.Line.DeltaLine.Count - 1],
-                                                                         SetupChange_DB_Master.AdjOptions.TopFrontArm, SetupChange_DB_Master.AdjOptions.TopFrontVector, SetupChange_DB_Master.AdjOptions.TopRearArm, SetupChange_DB_Master.AdjOptions.TopRearVector,
-                                                                         AdjustmentTools.TopFrontArm, SetupChange_CLS_Master.Final_TopFrontArm, SetupChange_CLS_Master.Final_TopRearArm, _Oc, 0, SetupChange_DB_Master.AdjOptions.TopWishbonePlane, _RequestedChanges);
-                }
-                if (_RequestedChanges.deltaTopRearArm != 0/*true*/)
-                {
-                    SetupChange_LinkLengthChange_Helper_ChangeLinkLength(_RequestedChanges.deltaTopRearArm, _RequestedChanges.deltaTopFrontArm, SetupChange_DB_Master.LBJToToeLink.Line.DeltaLine[SetupChange_DB_Master.LBJToToeLink.Line.DeltaLine.Count - 1],
-                                                                         SetupChange_DB_Master.AdjOptions.TopRearArm, SetupChange_DB_Master.AdjOptions.TopRearVector, SetupChange_DB_Master.AdjOptions.TopFrontArm, SetupChange_DB_Master.AdjOptions.TopFrontVector,
-                                                                         AdjustmentTools.TopRearArm, SetupChange_CLS_Master.Final_TopRearArm, SetupChange_CLS_Master.Final_TopFrontArm, _Oc, 0, SetupChange_DB_Master.AdjOptions.TopWishbonePlane, _RequestedChanges);
+            /////<summary>The IF loops below decide which Parameter change is the starting point for the Closed Loop Solve</summary>
+            //if (_RequestedChanges.LinkLengthChanged)
+            //{
+            //    if (_RequestedChanges.deltaTopFrontArm != 0/*true*/)
+            //    {
+            //        SetupChange_LinkLengthChange_Helper_ChangeLinkLength(_RequestedChanges.deltaTopFrontArm, _RequestedChanges.deltaTopRearArm, SetupChange_DB_Master.LBJToToeLink.Line.DeltaLine[SetupChange_DB_Master.LBJToToeLink.Line.DeltaLine.Count - 1],
+            //                                                             SetupChange_DB_Master.AdjOptions.TopFrontArm, SetupChange_DB_Master.AdjOptions.TopFrontVector, SetupChange_DB_Master.AdjOptions.TopRearArm, SetupChange_DB_Master.AdjOptions.TopRearVector,
+            //                                                             AdjustmentTools.TopFrontArm, SetupChange_CLS_Master.Final_TopFrontArm, SetupChange_CLS_Master.Final_TopRearArm, _Oc, 0, SetupChange_DB_Master.AdjOptions.TopWishbonePlane, _RequestedChanges);
+            //    }
+            //    if (_RequestedChanges.deltaTopRearArm != 0/*true*/)
+            //    {
+            //        SetupChange_LinkLengthChange_Helper_ChangeLinkLength(_RequestedChanges.deltaTopRearArm, _RequestedChanges.deltaTopFrontArm, SetupChange_DB_Master.LBJToToeLink.Line.DeltaLine[SetupChange_DB_Master.LBJToToeLink.Line.DeltaLine.Count - 1],
+            //                                                             SetupChange_DB_Master.AdjOptions.TopRearArm, SetupChange_DB_Master.AdjOptions.TopRearVector, SetupChange_DB_Master.AdjOptions.TopFrontArm, SetupChange_DB_Master.AdjOptions.TopFrontVector,
+            //                                                             AdjustmentTools.TopRearArm, SetupChange_CLS_Master.Final_TopRearArm, SetupChange_CLS_Master.Final_TopFrontArm, _Oc, 0, SetupChange_DB_Master.AdjOptions.TopWishbonePlane, _RequestedChanges);
 
-                }
-                if (_RequestedChanges.deltaBottmFrontArm != 0 /*true*/)
-                {
+            //    }
+            //    if (_RequestedChanges.deltaBottmFrontArm != 0 /*true*/)
+            //    {
 
-                    SetupChange_LinkLengthChange_Helper_ChangeLinkLength(_RequestedChanges.deltaBottmFrontArm, _RequestedChanges.deltaBottomRearArm, SetupChange_DB_Master.UBJToToeLink.Line.DeltaLine[SetupChange_DB_Master.UBJToToeLink.Line.DeltaLine.Count - 1],
-                                                                         SetupChange_DB_Master.AdjOptions.BottomFrontArm, SetupChange_DB_Master.AdjOptions.BottomFrontArmVector, SetupChange_DB_Master.AdjOptions.BottomRearArm, SetupChange_DB_Master.AdjOptions.BottomRearArmVector,
-                                                                         AdjustmentTools.BottomFrontArm, SetupChange_CLS_Master.Final_BottomFrontArm, SetupChange_CLS_Master.Final_BottomRearArm, _Oc, 1, SetupChange_DB_Master.AdjOptions.BottomWishbonePlane, _RequestedChanges);
+            //        SetupChange_LinkLengthChange_Helper_ChangeLinkLength(_RequestedChanges.deltaBottmFrontArm, _RequestedChanges.deltaBottomRearArm, SetupChange_DB_Master.UBJToToeLink.Line.DeltaLine[SetupChange_DB_Master.UBJToToeLink.Line.DeltaLine.Count - 1],
+            //                                                             SetupChange_DB_Master.AdjOptions.BottomFrontArm, SetupChange_DB_Master.AdjOptions.BottomFrontArmVector, SetupChange_DB_Master.AdjOptions.BottomRearArm, SetupChange_DB_Master.AdjOptions.BottomRearArmVector,
+            //                                                             AdjustmentTools.BottomFrontArm, SetupChange_CLS_Master.Final_BottomFrontArm, SetupChange_CLS_Master.Final_BottomRearArm, _Oc, 1, SetupChange_DB_Master.AdjOptions.BottomWishbonePlane, _RequestedChanges);
 
-                }
-                if (_RequestedChanges.deltaBottomRearArm != 0 /*true*/)
-                {
-                    SetupChange_LinkLengthChange_Helper_ChangeLinkLength(_RequestedChanges.deltaBottomRearArm, _RequestedChanges.deltaBottmFrontArm, SetupChange_DB_Master.UBJToToeLink.Line.DeltaLine[SetupChange_DB_Master.UBJToToeLink.Line.DeltaLine.Count - 1],
-                                                                         SetupChange_DB_Master.AdjOptions.BottomRearArm, SetupChange_DB_Master.AdjOptions.BottomRearArmVector, SetupChange_DB_Master.AdjOptions.BottomFrontArm, SetupChange_DB_Master.AdjOptions.BottomFrontArmVector,
-                                                                         AdjustmentTools.BottomRearArm, SetupChange_CLS_Master.Final_BottomRearArm, SetupChange_CLS_Master.Final_BottomFrontArm, _Oc, 1, SetupChange_DB_Master.AdjOptions.BottomWishbonePlane, _RequestedChanges);
+            //    }
+            //    if (_RequestedChanges.deltaBottomRearArm != 0 /*true*/)
+            //    {
+            //        SetupChange_LinkLengthChange_Helper_ChangeLinkLength(_RequestedChanges.deltaBottomRearArm, _RequestedChanges.deltaBottmFrontArm, SetupChange_DB_Master.UBJToToeLink.Line.DeltaLine[SetupChange_DB_Master.UBJToToeLink.Line.DeltaLine.Count - 1],
+            //                                                             SetupChange_DB_Master.AdjOptions.BottomRearArm, SetupChange_DB_Master.AdjOptions.BottomRearArmVector, SetupChange_DB_Master.AdjOptions.BottomFrontArm, SetupChange_DB_Master.AdjOptions.BottomFrontArmVector,
+            //                                                             AdjustmentTools.BottomRearArm, SetupChange_CLS_Master.Final_BottomRearArm, SetupChange_CLS_Master.Final_BottomFrontArm, _Oc, 1, SetupChange_DB_Master.AdjOptions.BottomWishbonePlane, _RequestedChanges);
 
-                }
-                if (_RequestedChanges.deltaToeLinkLength != 0)
-                {
-                    ///<summary>
-                    ///Calculating the Angle to be rotated for a given ToeLink Increase. Achieved by extending the <see cref="AdjustmentOptions.MToeAdjusterLine"/>, taking the <see cref="SetupChangeDatabase.UprightTriangle"/>'s ToeLinkUpright Point to the new
-                    ///Point created by the <see cref="AdjustmentOptions.MToeAdjusterLine"/> and then finding the angle between the 2 Upright positions
-                    ///</summary>
-                    Angle AngleToBeRotated = SetupChange_ToeLinkLengthChanged(_RequestedChanges.deltaToeLinkLength);
-                    ///<summary>Invoking the Actual Toe Change Method by passing the Angle calculated above for a requested change in Toe Link Length </summary>
-                    SetupChange_ToeChange(AngleToBeRotated.Degrees, _Oc[0], false, _RequestedChanges, SetupChange_DB_Master.AdjOptions.MToeAdjusterLine, SetupChange_DB_Master.AdjOptions.MToeAdjusterVector,
-                                          SetupChange_DB_Master.AdjOptions.AxisRotation_Toe[SetupChange_DB_Master.AdjOptions.AxisRotation_Toe.Count - 1], 2);
-                }
-                if (_RequestedChanges.deltaPushrod != 0)
-                {
-                    SetupChange_RideHeightChange(_Oc[0]);
+            //    }
+            //    if (_RequestedChanges.deltaToeLinkLength != 0)
+            //    {
+            //        ///<summary>
+            //        ///Calculating the Angle to be rotated for a given ToeLink Increase. Achieved by extending the <see cref="AdjustmentOptions.MToeAdjusterLine"/>, taking the <see cref="SetupChangeDatabase.UprightTriangle"/>'s ToeLinkUpright Point to the new
+            //        ///Point created by the <see cref="AdjustmentOptions.MToeAdjusterLine"/> and then finding the angle between the 2 Upright positions
+            //        ///</summary>
+            //        Angle AngleToBeRotated = SetupChange_ToeLinkLengthChanged(_RequestedChanges.deltaToeLinkLength);
+            //        ///<summary>Invoking the Actual Toe Change Method by passing the Angle calculated above for a requested change in Toe Link Length </summary>
+            //        SetupChange_ToeChange(AngleToBeRotated.Degrees, _Oc[0], false, _RequestedChanges, SetupChange_DB_Master.AdjOptions.MToeAdjusterLine, SetupChange_DB_Master.AdjOptions.MToeAdjusterVector,
+            //                              SetupChange_DB_Master.AdjOptions.AxisRotation_Toe[SetupChange_DB_Master.AdjOptions.AxisRotation_Toe.Count - 1], 2);
+            //    }
+            //    if (_RequestedChanges.deltaPushrod != 0)
+            //    {
+            //        SetupChange_RideHeightChange(_Oc[0]);
 
-                    SetupChange_CLS_Master.Final_Pushrod.Add(_FinalPushrod);
+            //        SetupChange_CLS_Master.Final_Pushrod.Add(_FinalPushrod);
 
-                    SetupChange_CLS_Master.Final_RideHeight.Add(_FinalRideHeight);
+            //        SetupChange_CLS_Master.Final_RideHeight.Add(_FinalRideHeight);
 
-                    SetupChange_CLS_Master.ClosedLoop_Solver(CurrentChange.RideHeight);
+            //        SetupChange_CLS_Master.ClosedLoop_Solver(CurrentChange.RideHeight);
 
-                    SetupChange_CLS_Master.RHConvergence = Convergence.Successful;
+            //        SetupChange_CLS_Master.RHConvergence = Convergence.Successful;
 
-                }
+            //    }
 
-                ///<summary>Assigning the Adjuster for KPI and Caster using a Random function. Only the wishbones which are not changed are considered</summary>
-                //if (!_RequestedChanges.OverrideRandomSelectorForKPI)
-                //{
-                //    SetupChange_DecideAxisAndAdjuster_KPI(_RequestedChanges);
-                //}
+            //    ///<summary>Assigning the Adjuster for KPI and Caster using a Random function. Only the wishbones which are not changed are considered</summary>
+            //    //if (!_RequestedChanges.OverrideRandomSelectorForKPI)
+            //    //{
+            //    //    SetupChange_DecideAxisAndAdjuster_KPI(_RequestedChanges);
+            //    //}
 
-                //if (!_RequestedChanges.OverrideRandomSelectorForCaster)
-                //{
-                //    SetupChange_DecideAxisAndAdjuster_Caster(_RequestedChanges);
-                //}
+            //    //if (!_RequestedChanges.OverrideRandomSelectorForCaster)
+            //    //{
+            //    //    SetupChange_DecideAxisAndAdjuster_Caster(_RequestedChanges);
+            //    //}
 
-                SetupChange_CLS_Master.ClosedLoop_Solver(CurrentChange.LinkLength);
-            } 
+            //    SetupChange_CLS_Master.ClosedLoop_Solver(CurrentChange.LinkLength);
+            //} 
+            
+
+            //else if (_RequestedChanges.deltaRideHeight != 0)
+            //{
+            //    SetupChange_RideHeightChange(_Oc[0]);
+
+            //    SetupChange_CLS_Master.Final_Pushrod.Add(_FinalPushrod);
+
+            //    SetupChange_CLS_Master.Final_RideHeight.Add(_FinalRideHeight);
+
+            //    SetupChange_CLS_Master.ClosedLoop_Solver(CurrentChange.RideHeight);
+
+            //    SetupChange_CLS_Master.RHConvergence = Convergence.Successful;
+
+            //}
+
+            //else if (_RequestedChanges.deltaKPI != 0 || _RequestedChanges.deltaTopFrontArm != 0)
+            //{
+            //    if (_RequestedChanges.kpiAdjustmentType == AdjustmentType.Indirect)
+            //    {
+            //        /////<summary>
+            //        /////Calculating the Angle to be rotated for a given Adjuster(wishbone) Length Increase. Achieved by extending the <see cref="AdjustmentOptions.MKPIAdjusterLine"/>, taking the <see cref="SetupChangeDatabase.UprightTriangle"/>'s UBJ or LBJ Point to the new
+            //        /////Point created by the <see cref="AdjustmentOptions.MKPIAdjusterLine"/> and then finding the angle between the 2 Upright positions
+            //        /////</summary>
+            //        //Angle AngleToBeRotated = SetupChange_CamberShims_OR_ShimsVectorLengthChanged(_RequestedChanges.deltaTopFrontArm);
+            //        /////<summary>Invoking the Actual Camber Change Method by passing the Angle calculated above for a requested change in Camber Shims </summary>
+            //        //SetupChange_KPIChange(AngleToBeRotated.Degrees, _Oc[0], false, _RequestedChanges, SetupChange_DB_Master.AdjOptions.MKPIAdjusterLine, SetupChange_DB_Master.AdjOptions.MKPIAdjusterVector,
+            //        //                      SetupChange_DB_Master.AdjOptions.AxisRotation_KPI[SetupChange_DB_Master.AdjOptions.AxisRotation_KPI.Count - 1], SetupChange_DB_Master.AdjOptions.UprightIndexForKPI);
+            //    }
+            //    else
+            //    {
+            //        SetupChange_KPIChange(_RequestedChanges.deltaKPI, _Oc[0], false, _RequestedChanges, SetupChange_DB_Master.AdjOptions.MKPIAdjusterLine, SetupChange_DB_Master.AdjOptions.MKPIAdjusterVector,
+            //          SetupChange_DB_Master.AdjOptions.AxisRotation_KPI[SetupChange_DB_Master.AdjOptions.AxisRotation_KPI.Count - 1], SetupChange_DB_Master.AdjOptions.UprightIndexForKPI);
+            //    }
+
+            //    SetupChange_CLS_Master.ClosedLoop_Solver(CurrentChange.KPI);
+            //}
+
+            //else if (_RequestedChanges.deltaCaster != 0 || _RequestedChanges.deltaBottmFrontArm != 0)
+            //{
+            //    if (_RequestedChanges.casterAdjustmentType == AdjustmentType.Indirect)
+            //    {
+            //        /////<summary>
+            //        /////Calculating the Angle to be rotated for a given Adjuster(wishbone) Length Increase. Achieved by extending the <see cref="AdjustmentOptions.MCasterAdjusterLine"/>, taking the <see cref="SetupChangeDatabase.UprightTriangle"/>'s UBJ or LBJ Point to the new
+            //        /////Point created by the <see cref="AdjustmentOptions.MCamberAdjusterLine"/> and then finding the angle between the 2 Upright positions
+            //        /////</summary>
+            //        //Angle AngleToBeRotated = SetupChange_CamberShims_OR_ShimsVectorLengthChanged(_RequestedChanges.deltaBottmFrontArm);
+            //        /////<summary>Invoking the Actual Camber Change Method by passing the Angle calculated above for a requested change in Camber Shims </summary>
+            //        //SetupChange_CasterChange(AngleToBeRotated.Degrees, _Oc[0], false, _RequestedChanges, SetupChange_DB_Master.AdjOptions.MCasterAdjustmenterLine, SetupChange_DB_Master.AdjOptions.MCasterAdjusterVector, 
+            //        //                         SetupChange_DB_Master.AdjOptions.AxisRotation_Caster[SetupChange_DB_Master.AdjOptions.AxisRotation_Caster.Count - 1], SetupChange_DB_Master.AdjOptions.UprightIndexForCaster);
+            //    }
+            //    else
+            //    {
+            //        SetupChange_CasterChange(_RequestedChanges.deltaCaster, _Oc[0], false, _RequestedChanges, SetupChange_DB_Master.AdjOptions.MCasterAdjustmenterLine, SetupChange_DB_Master.AdjOptions.MCasterAdjusterVector,
+            //             SetupChange_DB_Master.AdjOptions.AxisRotation_Caster[SetupChange_DB_Master.AdjOptions.AxisRotation_Caster.Count - 1], SetupChange_DB_Master.AdjOptions.UprightIndexForCaster);
+            //    }
+
+            //    SetupChange_CLS_Master.ClosedLoop_Solver(CurrentChange.Caster);
+
+            //}
+
+            //else if (_RequestedChanges.deltaCamber != 0 || _RequestedChanges.deltaCamberShims != 0)
+            //{
+            //    ///<remarks>Now the Camber Change has been established as the starting point for the Closed Loop </remarks>
+
+            //    ///<summary>Invoking the Camber Change method</summary>
+            //    if (_RequestedChanges.camberAdjustmentType == AdjustmentType.Indirect)
+            //    {
+            //        ///<summary>
+            //        ///Calculating the Angle to be rotated for a given Shim Increase. Achieved by extending the <see cref="AdjustmentOptions.MCamberAdjusterLine"/>, taking the <see cref="SetupChangeDatabase.UprightTriangle"/>'s UBJ or LBJ Point to the new
+            //        ///Point created by the <see cref="AdjustmentOptions.MCamberAdjusterLine"/> and then finding the angle between the 2 Upright positions
+            //        ///</summary>
+            //        Angle AngleToBeRotated = SetupChange_CamberShims_OR_ShimsVectorLengthChanged(_RequestedChanges.camberShimThickness * _RequestedChanges.deltaCamberShims, SetupChange_DB_Master.UBJ, SetupChange_DB_Master.LBJ, _RequestedChanges.camberAdjustmentTool);
+            //        ///<summary>Invoking the Actual Camber Change Method by passing the Angle calculated above for a requested change in Camber Shims </summary>
+            //        SetupChange_CamberChange(AngleToBeRotated.Degrees, _Oc[0], false, _RequestedChanges, SetupChange_DB_Master.AdjOptions.MCamberAdjusterLine, SetupChange_DB_Master.AdjOptions.MCamberAdjusterVector,
+            //                                 SetupChange_DB_Master.AdjOptions.AxisRotation_Camber[SetupChange_DB_Master.AdjOptions.AxisRotation_Camber.Count - 1], SetupChange_DB_Master.AdjOptions.UprightIndexForCamber);
+            //    }
+            //    else
+            //    {
+            //        ///<summary>Invoking the Actual Camber Chsnge method for SetupChange Camber requested by the User </summary>
+            //        SetupChange_CamberChange(_RequestedChanges.deltaCamber, _Oc[0], false, _RequestedChanges, SetupChange_DB_Master.AdjOptions.MCamberAdjusterLine, SetupChange_DB_Master.AdjOptions.MCamberAdjusterVector,
+            //                                 SetupChange_DB_Master.AdjOptions.AxisRotation_Camber[SetupChange_DB_Master.AdjOptions.AxisRotation_Camber.Count - 1], SetupChange_DB_Master.AdjOptions.UprightIndexForCamber);
+            //    }
+
+            //    SetupChange_CLS_Master.ClosedLoop_Solver(CurrentChange.Camber);
+            //}
+
+            //else if (_RequestedChanges.deltaToe != 0 || _RequestedChanges.deltaToeLinkLength != 0)
+            //{
+            //    ///<remarks>Now the Toe Change has been established as the starting point for the Closed Loop </remarks>
+            //    if (_RequestedChanges.toeAdjustmentType == AdjustmentType.Indirect)
+            //    {
+            //        /////<summary>
+            //        /////Calculating the Angle to be rotated for a given ToeLink Increase. Achieved by extending the <see cref="AdjustmentOptions.MToeAdjusterLine"/>, taking the <see cref="SetupChangeDatabase.UprightTriangle"/>'s ToeLinkUpright Point to the new
+            //        /////Point created by the <see cref="AdjustmentOptions.MToeAdjusterLine"/> and then finding the angle between the 2 Upright positions
+            //        /////</summary>
+            //        //Angle AngleToBeRotated = SetupChange_ToeLinkLengthChanged(_RequestedChanges.deltaToeLinkLength);
+            //        /////<summary>Invoking the Actual Toe Change Method by passing the Angle calculated above for a requested change in Toe Link Length </summary>
+            //        //SetupChange_ToeChange(AngleToBeRotated.Degrees, _Oc[0], false, _RequestedChanges, SetupChange_DB_FL.AdjOptions.MToeAdjusterLine, SetupChange_DB_FL.AdjOptions.MToeAdjusterVector, 
+            //        //                      SetupChange_DB_Master.AdjOptions.AxisRotation_Toe[SetupChange_DB_Master.AdjOptions.AxisRotation_Toe.Count - 1], 2);
+            //    }
+            //    else
+            //    {
+            //        ///<summary>Invoking the Actual Toe Chsnge method for SetupChange Toe requested by the User </summary>
+            //        SetupChange_ToeChange(_RequestedChanges.deltaToe, _Oc[0], false, _RequestedChanges, SetupChange_DB_Master.AdjOptions.MToeAdjusterLine, SetupChange_DB_Master.AdjOptions.MToeAdjusterVector,
+            //          SetupChange_DB_Master.AdjOptions.AxisRotation_Toe[SetupChange_DB_Master.AdjOptions.AxisRotation_Toe.Count - 1], 2);
+            //    }
+
+            //    SetupChange_CLS_Master.ClosedLoop_Solver(CurrentChange.Toe);
+
+            //}
             #endregion
-
-            else if (_RequestedChanges.deltaRideHeight != 0)
-            {
-                SetupChange_RideHeightChange(_Oc[0]);
-
-                SetupChange_CLS_Master.Final_Pushrod.Add(_FinalPushrod);
-
-                SetupChange_CLS_Master.Final_RideHeight.Add(_FinalRideHeight);
-
-                SetupChange_CLS_Master.ClosedLoop_Solver(CurrentChange.RideHeight);
-
-                SetupChange_CLS_Master.RHConvergence = Convergence.Successful;
-
-            }
-
-            else if (_RequestedChanges.deltaKPI != 0 || _RequestedChanges.deltaTopFrontArm != 0)
-            {
-                if (_RequestedChanges.kpiAdjustmentType == AdjustmentType.Indirect)
-                {
-                    /////<summary>
-                    /////Calculating the Angle to be rotated for a given Adjuster(wishbone) Length Increase. Achieved by extending the <see cref="AdjustmentOptions.MKPIAdjusterLine"/>, taking the <see cref="SetupChangeDatabase.UprightTriangle"/>'s UBJ or LBJ Point to the new
-                    /////Point created by the <see cref="AdjustmentOptions.MKPIAdjusterLine"/> and then finding the angle between the 2 Upright positions
-                    /////</summary>
-                    //Angle AngleToBeRotated = SetupChange_CamberShims_OR_ShimsVectorLengthChanged(_RequestedChanges.deltaTopFrontArm);
-                    /////<summary>Invoking the Actual Camber Change Method by passing the Angle calculated above for a requested change in Camber Shims </summary>
-                    //SetupChange_KPIChange(AngleToBeRotated.Degrees, _Oc[0], false, _RequestedChanges, SetupChange_DB_Master.AdjOptions.MKPIAdjusterLine, SetupChange_DB_Master.AdjOptions.MKPIAdjusterVector,
-                    //                      SetupChange_DB_Master.AdjOptions.AxisRotation_KPI[SetupChange_DB_Master.AdjOptions.AxisRotation_KPI.Count - 1], SetupChange_DB_Master.AdjOptions.UprightIndexForKPI);
-                }
-                else
-                {
-                    SetupChange_KPIChange(_RequestedChanges.deltaKPI, _Oc[0], false, _RequestedChanges, SetupChange_DB_Master.AdjOptions.MKPIAdjusterLine, SetupChange_DB_Master.AdjOptions.MKPIAdjusterVector,
-                      SetupChange_DB_Master.AdjOptions.AxisRotation_KPI[SetupChange_DB_Master.AdjOptions.AxisRotation_KPI.Count - 1], SetupChange_DB_Master.AdjOptions.UprightIndexForKPI);
-                }
-
-                SetupChange_CLS_Master.ClosedLoop_Solver(CurrentChange.KPI);
-            }
-
-            else if (_RequestedChanges.deltaCaster != 0 || _RequestedChanges.deltaBottmFrontArm != 0)
-            {
-                if (_RequestedChanges.casterAdjustmentType == AdjustmentType.Indirect)
-                {
-                    /////<summary>
-                    /////Calculating the Angle to be rotated for a given Adjuster(wishbone) Length Increase. Achieved by extending the <see cref="AdjustmentOptions.MCasterAdjusterLine"/>, taking the <see cref="SetupChangeDatabase.UprightTriangle"/>'s UBJ or LBJ Point to the new
-                    /////Point created by the <see cref="AdjustmentOptions.MCamberAdjusterLine"/> and then finding the angle between the 2 Upright positions
-                    /////</summary>
-                    //Angle AngleToBeRotated = SetupChange_CamberShims_OR_ShimsVectorLengthChanged(_RequestedChanges.deltaBottmFrontArm);
-                    /////<summary>Invoking the Actual Camber Change Method by passing the Angle calculated above for a requested change in Camber Shims </summary>
-                    //SetupChange_CasterChange(AngleToBeRotated.Degrees, _Oc[0], false, _RequestedChanges, SetupChange_DB_Master.AdjOptions.MCasterAdjustmenterLine, SetupChange_DB_Master.AdjOptions.MCasterAdjusterVector, 
-                    //                         SetupChange_DB_Master.AdjOptions.AxisRotation_Caster[SetupChange_DB_Master.AdjOptions.AxisRotation_Caster.Count - 1], SetupChange_DB_Master.AdjOptions.UprightIndexForCaster);
-                }
-                else
-                {
-                    SetupChange_CasterChange(_RequestedChanges.deltaCaster, _Oc[0], false, _RequestedChanges, SetupChange_DB_Master.AdjOptions.MCasterAdjustmenterLine, SetupChange_DB_Master.AdjOptions.MCasterAdjusterVector,
-                         SetupChange_DB_Master.AdjOptions.AxisRotation_Caster[SetupChange_DB_Master.AdjOptions.AxisRotation_Caster.Count - 1], SetupChange_DB_Master.AdjOptions.UprightIndexForCaster);
-                }
-
-                SetupChange_CLS_Master.ClosedLoop_Solver(CurrentChange.Caster);
-
-            }
-
-            else if (_RequestedChanges.deltaCamber != 0 || _RequestedChanges.deltaCamberShims != 0)
-            {
-                ///<remarks>Now the Camber Change has been established as the starting point for the Closed Loop </remarks>
-
-                ///<summary>Invoking the Camber Change method</summary>
-                if (_RequestedChanges.camberAdjustmentType == AdjustmentType.Indirect)
-                {
-                    ///<summary>
-                    ///Calculating the Angle to be rotated for a given Shim Increase. Achieved by extending the <see cref="AdjustmentOptions.MCamberAdjusterLine"/>, taking the <see cref="SetupChangeDatabase.UprightTriangle"/>'s UBJ or LBJ Point to the new
-                    ///Point created by the <see cref="AdjustmentOptions.MCamberAdjusterLine"/> and then finding the angle between the 2 Upright positions
-                    ///</summary>
-                    Angle AngleToBeRotated = SetupChange_CamberShims_OR_ShimsVectorLengthChanged(_RequestedChanges.camberShimThickness * _RequestedChanges.deltaCamberShims, SetupChange_DB_Master.UBJ, SetupChange_DB_Master.LBJ, _RequestedChanges.camberAdjustmentTool);
-                    ///<summary>Invoking the Actual Camber Change Method by passing the Angle calculated above for a requested change in Camber Shims </summary>
-                    SetupChange_CamberChange(AngleToBeRotated.Degrees, _Oc[0], false, _RequestedChanges, SetupChange_DB_Master.AdjOptions.MCamberAdjusterLine, SetupChange_DB_Master.AdjOptions.MCamberAdjusterVector,
-                                             SetupChange_DB_Master.AdjOptions.AxisRotation_Camber[SetupChange_DB_Master.AdjOptions.AxisRotation_Camber.Count - 1], SetupChange_DB_Master.AdjOptions.UprightIndexForCamber);
-                }
-                else
-                {
-                    ///<summary>Invoking the Actual Camber Chsnge method for SetupChange Camber requested by the User </summary>
-                    SetupChange_CamberChange(_RequestedChanges.deltaCamber, _Oc[0], false, _RequestedChanges, SetupChange_DB_Master.AdjOptions.MCamberAdjusterLine, SetupChange_DB_Master.AdjOptions.MCamberAdjusterVector,
-                                             SetupChange_DB_Master.AdjOptions.AxisRotation_Camber[SetupChange_DB_Master.AdjOptions.AxisRotation_Camber.Count - 1], SetupChange_DB_Master.AdjOptions.UprightIndexForCamber);
-                }
-
-                SetupChange_CLS_Master.ClosedLoop_Solver(CurrentChange.Camber);
-            }
-
-            else if (_RequestedChanges.deltaToe != 0 || _RequestedChanges.deltaToeLinkLength != 0)
-            {
-                ///<remarks>Now the Toe Change has been established as the starting point for the Closed Loop </remarks>
-                if (_RequestedChanges.toeAdjustmentType == AdjustmentType.Indirect)
-                {
-                    /////<summary>
-                    /////Calculating the Angle to be rotated for a given ToeLink Increase. Achieved by extending the <see cref="AdjustmentOptions.MToeAdjusterLine"/>, taking the <see cref="SetupChangeDatabase.UprightTriangle"/>'s ToeLinkUpright Point to the new
-                    /////Point created by the <see cref="AdjustmentOptions.MToeAdjusterLine"/> and then finding the angle between the 2 Upright positions
-                    /////</summary>
-                    //Angle AngleToBeRotated = SetupChange_ToeLinkLengthChanged(_RequestedChanges.deltaToeLinkLength);
-                    /////<summary>Invoking the Actual Toe Change Method by passing the Angle calculated above for a requested change in Toe Link Length </summary>
-                    //SetupChange_ToeChange(AngleToBeRotated.Degrees, _Oc[0], false, _RequestedChanges, SetupChange_DB_FL.AdjOptions.MToeAdjusterLine, SetupChange_DB_FL.AdjOptions.MToeAdjusterVector, 
-                    //                      SetupChange_DB_Master.AdjOptions.AxisRotation_Toe[SetupChange_DB_Master.AdjOptions.AxisRotation_Toe.Count - 1], 2);
-                }
-                else
-                {
-                    ///<summary>Invoking the Actual Toe Chsnge method for SetupChange Toe requested by the User </summary>
-                    SetupChange_ToeChange(_RequestedChanges.deltaToe, _Oc[0], false, _RequestedChanges, SetupChange_DB_Master.AdjOptions.MToeAdjusterLine, SetupChange_DB_Master.AdjOptions.MToeAdjusterVector,
-                      SetupChange_DB_Master.AdjOptions.AxisRotation_Toe[SetupChange_DB_Master.AdjOptions.AxisRotation_Toe.Count - 1], 2);
-                }
-
-                SetupChange_CLS_Master.ClosedLoop_Solver(CurrentChange.Toe);
-
-            }
-
             SetupChange_AssignSetupChangeDatabase(_Identifier);
 
         }
