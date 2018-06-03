@@ -1196,8 +1196,10 @@ namespace Coding_Attempt_with_GUI
 
             int iSetup = this.vehicleSetupChange.SetupChangeID - 1;
 
-            SetupChange_GUI.List_SetupChangeGUI[iSetup].XUC_SetupChange.DisplayOutputs(MasterSolver.SetupChange_CLS_FL, _setupChange.setupChange_CV_FL, MasterSolver.SetupChange_CLS_FR, _setupChange.setupChange_CV_FR, MasterSolver.SetupChange_CLS_RL, _setupChange.setupChange_CV_RL,
-                                                                                       MasterSolver.SetupChange_CLS_RR, _setupChange.setupChange_CV_RR);
+            SetupChange_GUI.List_SetupChangeGUI[iSetup].XUC_SetupChange.SetOutputClass(oc_FL[0], oc_FR[0], oc_RL[0], oc_RR[0]);
+
+            SetupChange_GUI.List_SetupChangeGUI[iSetup].XUC_SetupChange.DisplayOutputs(MasterSolver.SC_OC_FL, _setupChange.setupChange_CV_FL, MasterSolver.SC_OC_FR, _setupChange.setupChange_CV_FR, MasterSolver.SC_OC_RL, _setupChange.setupChange_CV_RL,
+                                                                                       MasterSolver.SC_OC_RR, _setupChange.setupChange_CV_RR);
 
         }
         #endregion

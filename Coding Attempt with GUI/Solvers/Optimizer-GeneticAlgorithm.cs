@@ -81,37 +81,21 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         //Dictionary<string, OptimizedOrientation> GAOrientation { get; set; }
 
-        double ga_TopFront;
+        public double ga_TopFront;
 
-        double ga_TopRear;
+        public double ga_TopRear;
 
-        double ga_BottomFront;
+        public double ga_BottomFront;
 
-        double ga_BottomRear;
+        public double ga_BottomRear;
 
-        double ga_ToeLink;
+        public double ga_ToeLink;
 
-        double ga_TopCamberShims;
+        public double ga_TopCamberShims;
 
-        double ga_BottomCamberShims;
+        public double ga_BottomCamberShims;
 
-        Point3D ga_ToeLinkInboard;
-
-        //double UpperWishboneLinkLength;
-
-        //double LowerWishboneLinkLength;
-
-        //double ToeLinkLength;
-
-        //double UpperToeLinkLength;
-
-        //double LowerToeLinkLength;
-
-        //double CamberShimLength;
-
-        //double UpperCamberShimLength;
-
-        //double LowerCamberShimLength;
+        public Point3D ga_ToeLinkInboard;
 
         DataTable Ga_Values { get; set; }
 
@@ -333,10 +317,10 @@ namespace Coding_Attempt_with_GUI
 
         public Angle Toe { get; set; }
 
-        public List<double> BumpSteerGraph { get; set; }
+        public List<Angle> BumpSteerGraph { get; set; }
         #endregion
 
-        #region Delegates
+        #region --Delegates--
         private delegate double ParamsToEvaluate();
 
         ParamsToEvaluate Del_RMS_Error;
@@ -1794,6 +1778,8 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Computing the Final Error by finding the Square Root of the Squares of the distances and dividing it by the No. of Iterations</summary>
             double FinalError = System.Math.Sqrt(ErrorCalc_Step3) / SuspensionEvalIterations;
 
+            
+            BumpSteerGraph = _toeAngle;
 
             return FinalError;
         } 

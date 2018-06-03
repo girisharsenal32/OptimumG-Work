@@ -16,6 +16,16 @@ namespace Coding_Attempt_with_GUI
     {
         static XUC_SetupChange _r1;
 
+        public OutputClass OC_FL;
+
+        public OutputClass OC_FR;
+
+        public OutputClass OC_RL;
+
+        public OutputClass OC_RR;
+
+
+
         public XUC_SetupChange()
         {
             InitializeComponent();
@@ -77,24 +87,35 @@ namespace Coding_Attempt_with_GUI
 
         }
 
+        internal void SetOutputClass(OutputClass _ocFL, OutputClass _ocFR, OutputClass _ocRL, OutputClass _ocRR)
+        {
+            OC_FL = _ocFL;
 
-        internal void DisplayOutputs(SetupChange_ClosedLoopSolver cls_FL, SetupChange_CornerVariables cvFL, SetupChange_ClosedLoopSolver cls_FR, SetupChange_CornerVariables cvFR,
-                                     SetupChange_ClosedLoopSolver cls_RL, SetupChange_CornerVariables cvRL, SetupChange_ClosedLoopSolver cls_RR, SetupChange_CornerVariables cvRR)
+            OC_FR = _ocFR;
+
+            OC_RL = _ocRL;
+
+            OC_RR = _ocRR;
+        }
+
+
+        internal void DisplayOutputs(SetupChange_Outputs setup_OP_FL, SetupChange_CornerVariables cvFL, SetupChange_Outputs setup_OP_FR, SetupChange_CornerVariables cvFR,
+                                     SetupChange_Outputs setup_OP_RL, SetupChange_CornerVariables cvRL, SetupChange_Outputs setup_OP_RR, SetupChange_CornerVariables cvRR)
         {
             bool Converged = true;
 
 
             ///<summary>Setting the Front Left Outputs</summary>
-            SetupChangeFL_Results.DisplayIndividualOutputs(cls_FL, cvFL, SetupChangeFL_Results, SetupChangeFL_Results.vGridControl1, ref Converged);
+            SetupChangeFL_Results.DisplayIndividualOutputs(OC_FL, setup_OP_FL, cvFL, SetupChangeFL_Results, SetupChangeFL_Results.vGridControl1, ref Converged);
 
             ///<summary>Setting the Front Right Outputs</summary>
-            SetupChangeFL_Results.DisplayIndividualOutputs(cls_FR, cvFR, SetupChangeFR_Results, SetupChangeFR_Results.vGridControl1, ref Converged);
+            SetupChangeFL_Results.DisplayIndividualOutputs(OC_FR, setup_OP_FR, cvFR, SetupChangeFR_Results, SetupChangeFR_Results.vGridControl1, ref Converged);
 
             ///<summary>Setting the Rear Left Outputs</summary>
-            SetupChangeFL_Results.DisplayIndividualOutputs(cls_RL, cvRL, SetupChangeRL_Results, SetupChangeRL_Results.vGridControl1, ref Converged);
+            SetupChangeFL_Results.DisplayIndividualOutputs(OC_RL, setup_OP_RL, cvRL, SetupChangeRL_Results, SetupChangeRL_Results.vGridControl1, ref Converged);
 
             ///<summary>Setting the Rear Right Outputs</summary>
-            SetupChangeFL_Results.DisplayIndividualOutputs(cls_RR, cvRR, SetupChangeRR_Results, SetupChangeRR_Results.vGridControl1, ref Converged);
+            SetupChangeFL_Results.DisplayIndividualOutputs(OC_RR, setup_OP_RR, cvRR, SetupChangeRR_Results, SetupChangeRR_Results.vGridControl1, ref Converged);
 
             if (!Converged)
             {

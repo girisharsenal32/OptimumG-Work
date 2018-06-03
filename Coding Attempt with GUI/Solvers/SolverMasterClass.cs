@@ -166,6 +166,35 @@ namespace Coding_Attempt_with_GUI
         private VehicleModel SetupChange_VehicleModel = new VehicleModel();
         #endregion
 
+        #region SetupChange - Outputs
+
+        /// <summary>
+        /// Temporary object to accept all the SetupChange Outputs and then assign it to the right corner
+        /// </summary>
+        public SetupChange_Outputs SC_OC_Temp;
+
+        /// <summary>
+        /// Front Left object of the <see cref="SetupChange_Outputs"/> Class
+        /// </summary>
+        public SetupChange_Outputs SC_OC_FL;
+
+        /// <summary>
+        /// Front Right object of the <see cref="SetupChange_Outputs"/> Class
+        /// </summary>
+        public SetupChange_Outputs SC_OC_FR;
+
+        /// <summary>
+        /// Rear Left object of the <see cref="SetupChange_Outputs"/> Class
+        /// </summary>
+        public SetupChange_Outputs SC_OC_RL;
+
+        /// <summary>
+        /// Rear Right object of the <see cref="SetupChange_Outputs"/> Class
+        /// </summary>
+        public SetupChange_Outputs SC_OC_RR;
+
+        #endregion
+
         /// <summary>
         /// <para><see cref="SimulationType"/> object will help me calculate with the Delta of the CornerWeight. <see cref="CalculateWheelAndSpringDeflection(SuspensionCoordinatesMaster, Spring, Damper, Vehicle, List{double}, OutputClass, Tire, int, double, bool, bool, int)"/></para>
         /// <para>I would enter this method for <see cref="SetupChange"/> operations because <see cref="SuspensionCoordinatesMaster.SuspensionMotionExists"/> would be false. Hence After the <see cref="VehicleModel"/> is solved for Diagonal Weight Transfer I would need to calculate the Delta
@@ -1436,19 +1465,19 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Bringing about the Setup Changes in each of the corners and assigning the <see cref="SetupChangeDatabase"/>objects to the corners as well</summary>
             SetupChange_InvokeChangeSolvers(_Vehicle, _Vehicle.oc_FL[0].sccvOP, _Vehicle.oc_FL, 1, FinalCamberFL, FinalToeFL, FinalCasterFL, FinalKPIFL, FinalRideHeight_FL, FinalPushrod_FL);
             ///<summary>Assigning All the Final Values to the FRONT LEFT Object of the Closed Loop Solver</summary>
-            AssignAllFinalValues(1, _Vehicle.oc_FL[0].sccvOP, FinalRideHeight_FL, FinalPushrod_FL);
+            AssignAllFinalValues(_Vehicle.oc_FL[0], 1, _Vehicle.oc_FL[0].sccvOP, FinalRideHeight_FL, FinalPushrod_FL);
 
             Identifier = 2;
             SetupChange_InvokeChangeSolvers(_Vehicle, _Vehicle.oc_FR[0].sccvOP, _Vehicle.oc_FR, 2, FinalCamberFR, FinalToeFR, FinalCasterFR, FinalKPIFR, FinalRideHeight_FR, FinalPushrod_FR);
-            AssignAllFinalValues(2, _Vehicle.oc_FR[0].sccvOP, FinalRideHeight_FR, FinalPushrod_FR);
+            AssignAllFinalValues(_Vehicle.oc_FR[0], 2, _Vehicle.oc_FR[0].sccvOP, FinalRideHeight_FR, FinalPushrod_FR);
 
             Identifier = 3;
             SetupChange_InvokeChangeSolvers(_Vehicle, _Vehicle.oc_RL[0].sccvOP, _Vehicle.oc_RL, 3, FinalCamberRL, FinalToeRL, FinalCasterRL, FinalKPIRL, FinalRideHeight_RL, FinalPushrod_RL);
-            AssignAllFinalValues(3, _Vehicle.oc_RL[0].sccvOP, FinalRideHeight_RL, FinalPushrod_RL);
+            AssignAllFinalValues(_Vehicle.oc_RL[0], 3, _Vehicle.oc_RL[0].sccvOP, FinalRideHeight_RL, FinalPushrod_RL);
 
             Identifier = 4;
             SetupChange_InvokeChangeSolvers(_Vehicle, _Vehicle.oc_RR[0].sccvOP, _Vehicle.oc_RR, 4, FinalCamberRR, FinalToeRR, FinalCasterRR, FinalKPIRR, FinalRideHeight_RR, FinalPushrod_RR);
-            AssignAllFinalValues(4, _Vehicle.oc_RR[0].sccvOP, FinalRideHeight_RR, FinalPushrod_RR);
+            AssignAllFinalValues(_Vehicle.oc_RR[0], 4, _Vehicle.oc_RR[0].sccvOP, FinalRideHeight_RR, FinalPushrod_RR);
         }
         #endregion
 
@@ -1504,22 +1533,18 @@ namespace Coding_Attempt_with_GUI
         {
             ///<summary>Calculating the Final Value of Camber that is requested by the User. No change in parameter's value if requested change is 0</summary>
             Angle deltaCamber = new Angle(_requestedChanges.deltaCamber, AngleUnit.Degrees);
-            //_oc[0].waOP.StaticCamber += deltaCamber.Radians;
             _finalCamber = new Angle(_oc[0].waOP.StaticCamber + deltaCamber.Radians, AngleUnit.Radians);
 
             ///<summary>Calculating the Final Value of Toe that is requested by the User. No change in parameter's value if requested change is 0</summary>
              Angle deltaToeReq = new Angle(_requestedChanges.deltaToe, AngleUnit.Degrees);
-            //_oc[0].waOP.StaticToe += deltaToeReq.Radians;
             _finalToe = new Angle(_oc[0].waOP.StaticToe + deltaToeReq.Radians, AngleUnit.Radians);
 
             ///<summary>Calculating the Final Value of Caster that is requested by the User. No change in parameter's value if requested change is 0</summary>
             Angle deltaCaster = new Angle(_requestedChanges.deltaCaster, AngleUnit.Degrees);
-            //_oc[0].Caster += deltaCaster.Radians;
             _finalCaster = new Angle(_oc[0].Caster + deltaCaster.Radians, AngleUnit.Radians);
 
             ///<summary>Calculating the Final Value of KPI that is requested by the User. No change in parameter's value if requested change is 0</summary>
             Angle deltaKPI = new Angle(_requestedChanges.deltaKPI, AngleUnit.Degrees);
-            //_oc[0].KPI += deltaKPI.Radians;
             _finalKPI = new Angle(_oc[0].KPI + deltaKPI.Radians, AngleUnit.Radians);
 
             ///<summary>Calculating the Final Value of Ride Height that is requested by the User. No change in parameter's value if requested change is 0</summary>
@@ -3331,129 +3356,124 @@ namespace Coding_Attempt_with_GUI
             SetupChange_CLS_Master.Summ_RideHeight.Add(dRideHeight_New);
 
             return dRideHeight_New;
-        } 
+        }
         #endregion
+
 
         /// <summary>
         /// Method to Assign All the Final Values of the correct <see cref="SetupChange_ClosedLoopSolver"/> Object which have not been assigned during Operations.
         /// </summary>
-        /// <param name="Identifier">Corner Identifier</param>
+        /// <param name="_identifier">Corner Identifier</param>
         /// <param name="_sccvOut">Object of the <see cref="SetupChange_CornerVariables"/>. Need this only for Adjustment Tools</param>
-        private void AssignAllFinalValues(int Identifier, SetupChange_CornerVariables _sccvOut, double _finalRideHeight, double _finalPushrod)
+        private void AssignAllFinalValues(OutputClass _oc, int _identifier, SetupChange_CornerVariables _sccvOut, double _finalRideHeight, double _finalPushrod)
         {
+            SC_OC_Temp = new SetupChange_Outputs(_identifier);
 
             ///<summary>Assigning the Final Wishbone Lengths bssed on which of them was chosen for KPI Adjustmenr. Need to do this exclusively as all adjustments will be done with help of <see cref="AdjustmentOptions.MKPIAdjusterLine"/> </summary>
-            if (_sccvOut.CasterChangeRequested)
+            if (_sccvOut.CasterChangeRequested || _sccvOut.constCaster || _sccvOut.KPIChangeRequested || _sccvOut.constKPI)
             {
-                if (_sccvOut.kpiAdjustmentTool == AdjustmentTools.TopFrontArm)
-                {
-                    SetupChange_CLS_Master.Final_TopFrontArm.Add(SetupChange_DB_Master.AdjOptions.MKPIAdjusterLine[SetupChange_DB_Master.AdjOptions.MKPIAdjusterLine.Count - 1].Length());
-                    //SetupChange_CLS_Master.Final_TopFrontArm = SetupChange_CLS_Master.Final_KPIAdjusterLength;
-                }
-                else if (_sccvOut.kpiAdjustmentTool == AdjustmentTools.TopRearArm)
-                {
-                    SetupChange_CLS_Master.Final_TopRearArm.Add(SetupChange_DB_Master.AdjOptions.MKPIAdjusterLine[SetupChange_DB_Master.AdjOptions.MKPIAdjusterLine.Count - 1].Length());
-                }
-                else if (_sccvOut.kpiAdjustmentTool == AdjustmentTools.BottomFrontArm)
-                {
-                    SetupChange_CLS_Master.Final_BottomFrontArm.Add(SetupChange_DB_Master.AdjOptions.MKPIAdjusterLine[SetupChange_DB_Master.AdjOptions.MKPIAdjusterLine.Count - 1].Length());
-                }
-                else if (_sccvOut.kpiAdjustmentTool == AdjustmentTools.BottomRearArm)
-                {
-                    SetupChange_CLS_Master.Final_BottomRearArm.Add(SetupChange_DB_Master.AdjOptions.MKPIAdjusterLine[SetupChange_DB_Master.AdjOptions.MKPIAdjusterLine.Count - 1].Length());
-                }
+                SC_OC_Temp.TopFrontLength = ga.ga_TopFront;
+                SC_OC_Temp.TopRearLength = ga.ga_TopRear;
+                SC_OC_Temp.BottomFrontLength = ga.ga_BottomFront;
+                SC_OC_Temp.BottomRearLength = ga.ga_BottomRear;
             }
 
-            if (_sccvOut.KPIChangeRequested)
+            if (_sccvOut.CamberChangeRequested || _sccvOut.constCamber)
             {
-                ///<summary>Assigning the Final Wishbone Lengths bssed on which of them was chosen for Caster Adjustmenr. Need to do this exclusively as all adjustments will be done with help of <see cref="AdjustmentOptions.MCasterAdjustmenterLine"/> </summary>
-                if (_sccvOut.casterAdjustmentTool == AdjustmentTools.TopFrontArm)
-                {
-                    SetupChange_CLS_Master.Final_TopFrontArm.Add(SetupChange_DB_Master.AdjOptions.MCasterAdjustmenterLine[SetupChange_DB_Master.AdjOptions.MCasterAdjustmenterLine.Count - 1].Length());
-                }
-                else if (_sccvOut.casterAdjustmentTool == AdjustmentTools.TopRearArm)
-                {
-                    SetupChange_CLS_Master.Final_TopRearArm.Add(SetupChange_DB_Master.AdjOptions.MCasterAdjustmenterLine[SetupChange_DB_Master.AdjOptions.MCasterAdjustmenterLine.Count - 1].Length());
-                }
-                else if (_sccvOut.casterAdjustmentTool == AdjustmentTools.BottomFrontArm)
-                {
-                    SetupChange_CLS_Master.Final_BottomFrontArm.Add(SetupChange_DB_Master.AdjOptions.MCasterAdjustmenterLine[SetupChange_DB_Master.AdjOptions.MCasterAdjustmenterLine.Count - 1].Length());
-                }
-                else if (_sccvOut.casterAdjustmentTool == AdjustmentTools.BottomRearArm)
-                {
-                    SetupChange_CLS_Master.Final_BottomRearArm.Add(SetupChange_DB_Master.AdjOptions.MCasterAdjustmenterLine[SetupChange_DB_Master.AdjOptions.MCasterAdjustmenterLine.Count - 1].Length());
-                }
+                SC_OC_Temp.TopCamberShimsLength = ga.ga_TopCamberShims;
+
+                SC_OC_Temp.TopCamberShimsNo = ga.ga_TopCamberShims / _sccvOut.camberShimThickness;
+
+                SC_OC_Temp.BottomCamberShimsLength = ga.ga_BottomCamberShims;
+
+                SC_OC_Temp.BottomCamberShimsNo = ga.ga_BottomCamberShims / _sccvOut.camberShimThickness;
+
             }
 
-            ///<summary>Ride Height Adjustment </summary>
-            ///<remarks>This step below is removed because it is now already done inside the <see cref="SetupChange_InvokeChangeSolvers(SetupChange_CornerVariables, List{OutputClass}, int, Angle, Angle, Angle, Angle, double, double)"/> method</remarks>
-            //SetupChange_CLS_Master.Final_Pushrod.Add(_finalPushrod);
-            //SetupChange_CLS_Master.Final_RideHeight.Add(_finalRideHeight);
-            if (_sccvOut.RideHeightChanged == false && SetupChange_CLS_Master.Summ_RideHeight.Count != 0)
+            if (_sccvOut.ToeChangeRequested || _sccvOut.constToe)
             {
-                SetupChange_CLS_Master.Final_RideHeight.Add(SetupChange_CLS_Master.Summ_RideHeight[SetupChange_CLS_Master.Summ_RideHeight.Count - 1]);
+                SC_OC_Temp.ToeLinklength = ga.ga_ToeLink;
             }
 
-            //SetupChange_CLS_Master.Final_ToeAdjusterLength.Add(SetupChange_DB_Master.AdjOptions.MToeAdjusterLine[SetupChange_DB_Master.AdjOptions.MToeAdjusterLine.Count - 1].Length());
+            if (_sccvOut.BumpSteerChangeRequested || _sccvOut.constBumpSteer)
+            {
+                SC_OC_Temp.ToeLinkInboard = ga.ga_ToeLinkInboard;
+
+                SC_OC_Temp.BumpSteerChart = ga.BumpSteerGraph;
+            }
+
+            if (_sccvOut.RideHeightChanged || _sccvOut.constRideHeight)
+            {
+                SC_OC_Temp.RideHeight = _finalRideHeight;
+
+                SC_OC_Temp.PushrodLength = _finalPushrod;
+            }
+
 
             ///<summary>Assigning the KPI Angle Direction. Have to use a temp variable since <see cref="Angle"/> is a property and I cannot pass a property as a <see cref="ref"/></summary>
-            double tempKPI = SetupChange_CLS_Master.Final_KPI[SetupChange_CLS_Master.Final_KPI.Count - 1].Degrees;
-            AssignDirection_KPI(Identifier, ref tempKPI);
-            SetupChange_CLS_Master.Final_KPI[SetupChange_CLS_Master.Final_KPI.Count - 1] = new Angle(tempKPI, AngleUnit.Degrees);
+            double tempKPI = ga.KPI.Degrees;
+            AssignDirection_KPI(_identifier, ref tempKPI);
+            SC_OC_Temp.KPI = new Angle(tempKPI, AngleUnit.Degrees); 
 
-            double tempKPIStart = SetupChange_CLS_Master.Final_KPI[0].Degrees;
-            AssignDirection_KPI(Identifier, ref tempKPI);
-            SetupChange_CLS_Master.Final_KPI[0] = new Angle(tempKPIStart, AngleUnit.Degrees);
+            double tempKPIStart = _oc.KPI;
+            AssignDirection_KPI(_identifier, ref tempKPI);
+            _oc.KPI = tempKPIStart;
 
-            ///<summary></summary>
-            double tempCamber = SetupChange_CLS_Master.Final_Camber[SetupChange_CLS_Master.Final_Camber.Count - 1].Degrees;
-            double tempToe = SetupChange_CLS_Master.Final_Toe[SetupChange_CLS_Master.Final_Toe.Count - 1].Degrees;
-            AssignOrientation_CamberToe(ref tempCamber, ref tempToe, tempCamber, tempToe, Identifier);
-            SetupChange_CLS_Master.Final_Camber[SetupChange_CLS_Master.Final_Camber.Count - 1] = new Angle(tempCamber, AngleUnit.Degrees);
-            SetupChange_CLS_Master.Final_Toe[SetupChange_CLS_Master.Final_Toe.Count - 1] = new Angle(tempToe, AngleUnit.Degrees);
+            ///<summary>Assigning the direction to the Final Camber and Toe based on teh corner</summary>
+            double tempCamber = ga.Camber.Degrees;
+            double tempToe = ga.Toe.Degrees;
+            AssignOrientation_CamberToe(ref tempCamber, ref tempToe, tempCamber, tempToe, _identifier);
+            SC_OC_Temp.Camber = new Angle(tempCamber, AngleUnit.Degrees);
+            SC_OC_Temp.Toe = new Angle(tempToe, AngleUnit.Degrees);
+            ///<summary>
+            ///Assigning the direction to the starting value of Camber and Toe based on the corner
+            ///This is needed because the start Camber and Toe where converted to the Local Sign convention. Now they need to be converted to the User sign convention that -ve for Camber towards the Chassis and +ve to Camber away from Chassis
+            /// </summary>
+            double tempCamberStart =  _oc.waOP.StaticCamber;
+            double tempToeStart =  _oc.waOP.StaticToe;
+            AssignOrientation_CamberToe(ref tempCamberStart, ref tempToeStart, tempCamberStart, tempToeStart, _identifier);
+            _oc.waOP.StaticCamber = tempCamberStart;
+            _oc.waOP.StaticToe = tempToeStart;
 
-            double tempCamberStart = SetupChange_CLS_Master.Final_Camber[0].Degrees;
-            double tempToeStart = SetupChange_CLS_Master.Final_Toe[0].Degrees;
-            AssignOrientation_CamberToe(ref tempCamberStart, ref tempToeStart, tempCamberStart, tempToeStart, Identifier);
-            SetupChange_CLS_Master.Final_Camber[0] = new Angle(tempCamberStart, AngleUnit.Degrees);
-            SetupChange_CLS_Master.Final_Toe[0] = new Angle(tempToeStart, AngleUnit.Degrees);
+            ///<summary>
+            ///Assigning the direction to the Caster. 
+            ///The Caster direction was assigned to make it in the local sign convention. But now it needs to be displayed to the user's sign convention which is +ve for a clockwise rotation when seeing thhe car in ISO view 
+            ///</summary>
+            double tempCaster = -ga.Caster.Degrees;
+            //SetupChange_CLS_Master.Final_Caster[SetupChange_CLS_Master.Final_Caster.Count - 1] = new Angle(tempCaster, AngleUnit.Degrees);
+            SC_OC_Temp.Caster = new Angle(tempCaster, AngleUnit.Degrees);
+            double tempCasterStart = -_oc.Caster;
+            //SetupChange_CLS_Master.Final_Caster[0] = new Angle(tempCasterStart, AngleUnit.Degrees);
+            _oc.Caster = tempCasterStart;
 
-
-            ///<summary></summary>
-            double tempCaster = -SetupChange_CLS_Master.Final_Caster[SetupChange_CLS_Master.Final_Caster.Count - 1].Degrees;
-            SetupChange_CLS_Master.Final_Caster[SetupChange_CLS_Master.Final_Caster.Count - 1] = new Angle(tempCaster, AngleUnit.Degrees);
-
-            double tempCasterStart = -SetupChange_CLS_Master.Final_Caster[0].Degrees;
-            SetupChange_CLS_Master.Final_Caster[0] = new Angle(tempCasterStart, AngleUnit.Degrees);
-
-            if (Identifier == 1)
+            if (_identifier == 1)
             {
 
-                SetupChange_CLS_FL = null;
-                SetupChange_CLS_FL = SetupChange_CLS_Master;
+                SC_OC_FL = null;
+                SC_OC_FL = SC_OC_Temp;
             }
-            if (Identifier == 2)
+            if (_identifier == 2)
             {
 
-                SetupChange_CLS_FR = null;
-                SetupChange_CLS_FR = SetupChange_CLS_Master;
+                SC_OC_FR = null;
+                SC_OC_FR = SC_OC_Temp;
             }
-            if (Identifier == 3)
+            if (_identifier == 3)
             {
-                SetupChange_CLS_RL = null;
-                SetupChange_CLS_RL = SetupChange_CLS_Master;
+                SC_OC_RL = null;
+                SC_OC_RL = SC_OC_Temp;
             }
-            if (Identifier == 4)
+            if (_identifier == 4)
             {
-                SetupChange_CLS_RR = null;
-                SetupChange_CLS_RR = SetupChange_CLS_Master;
+                SC_OC_RR = null;
+                SC_OC_RR  = SC_OC_Temp;
             }
 
-        } 
+        }
 
         #endregion
 
-        
+
     }
 }
     

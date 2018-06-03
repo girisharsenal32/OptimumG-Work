@@ -929,12 +929,12 @@ namespace Coding_Attempt_with_GUI
         LinkLength
     };
 
-    public enum Convergence
-    {
-        NotRequested,
-        Successful,
-        InProgress,
-        UnSuccessful
-    };
+    //public enum Convergence
+    //{
+    //    NotRequested,
+    //    Successful,
+    //    InProgress,
+    //    UnSuccessful
+    //};
 
 }
