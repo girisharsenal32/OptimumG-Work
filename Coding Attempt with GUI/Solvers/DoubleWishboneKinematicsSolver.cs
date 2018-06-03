@@ -1013,7 +1013,8 @@ namespace Coding_Attempt_with_GUI
             // TO CALCULATE THE NEW POSITION OF K i.e., TO CALCULATE K'
             // Vectors used -> K'M', K'F' & K'E'   
             double XK1 = 0, YK1 = 0, ZK1 = 0/*, XK2 = 0, YK2 = 0, ZK2 = 0*/;
-            QuadraticEquationSolver.Solver(l_K1x, l_K1y, l_K1z, l_M1x, l_M1y, l_M1z, 0, l_F1x, l_F1y, l_F1z, l_E1x, l_E1y, l_E1z, _ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z, _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, _ocOut.scmOP.E1y, false, out XK1, out YK1, out ZK1);
+            QuadraticEquationSolver.Solver(l_K1x, l_K1y, l_K1z, l_M1x, l_M1y, l_M1z, 0, l_F1x, l_F1y, l_F1z, l_E1x, l_E1y, l_E1z, _ocOut.scmOP.M1x, _ocOut.scmOP.M1y, _ocOut.scmOP.M1z, _ocOut.scmOP.F1x, _ocOut.scmOP.F1y, _ocOut.scmOP.F1z,
+                                           _ocOut.scmOP.E1x, _ocOut.scmOP.E1y, _ocOut.scmOP.E1z, _ocOut.scmOP.E1y, false, out XK1, out YK1, out ZK1);
 
             _ocOut.scmOP.K1x = XK1;
             _ocOut.scmOP.K1y = YK1;
@@ -1240,7 +1241,10 @@ namespace Coding_Attempt_with_GUI
                 }
 
                 // Converting Coordinates from World Coordinate System to Car Coordinate System
-                TranslateToLocalCS(_vehicleKinematicsDWSolver.sc_FL);
+                if (SolverMasterClass.SimType != SimulationType.Optimization)
+                {
+                    TranslateToLocalCS(_vehicleKinematicsDWSolver.sc_FL); 
+                }
 
 
                 // Initializing the Wheel Spindle end
@@ -1248,8 +1252,11 @@ namespace Coding_Attempt_with_GUI
 
 
                 // Initializing Wheel Spindle far end vector using Static Camber and Toe
-                RotateSpindleVector(oc[dummy1].waOP.StaticCamber, oc[dummy1].waOP.StaticToe, false, 0, 0, 0, 0, 0, 0, Lx, Ly, Lz, out L1x, out L1y, out L1z);
+                if (SolverMasterClass.SimType != SimulationType.Optimization) 
+                {
+                    RotateSpindleVector(oc[dummy1].waOP.StaticCamber, oc[dummy1].waOP.StaticToe, false, 0, 0, 0, 0, 0, 0, Lx, Ly, Lz, out L1x, out L1y, out L1z);
 
+                }
                 // Initial Motion Ratio Calculations
                 scm.MotionRatio(_vehicleKinematicsDWSolver.McPhersonFront, _vehicleKinematicsDWSolver.McPhersonRear, _vehicleKinematicsDWSolver.PullRodIdentifierFront, _vehicleKinematicsDWSolver.PullRodIdentifierRear, Identifier);
                 // Passing the Motion Ratio to the Output Class

@@ -534,11 +534,11 @@ namespace Coding_Attempt_with_GUI
 
             KPI = _fKPI;
 
-            if (MasterDictionary.ContainsKey("Bump Steer Change"))
+            if (MasterDictionary.ContainsKey("Bump Steer"))
             {
-                MasterDictionary["Bump Steer Change"][AdjustmentTools.ToeLinkInboardPoint.ToString() + "_x"].Nominal = SCM.N1x;
-                MasterDictionary["Bump Steer Change"][AdjustmentTools.ToeLinkInboardPoint.ToString() + "_y"].Nominal = SCM.N1z;
-                MasterDictionary["Bump Steer Change"][AdjustmentTools.ToeLinkInboardPoint.ToString() + "_z"].Nominal = SCM.N1y; 
+                MasterDictionary["Bump Steer"][AdjustmentTools.ToeLinkInboardPoint.ToString() + "_x"].Nominal = SCM.N1x;
+                MasterDictionary["Bump Steer"][AdjustmentTools.ToeLinkInboardPoint.ToString() + "_y"].Nominal = SCM.N1y;
+                MasterDictionary["Bump Steer"][AdjustmentTools.ToeLinkInboardPoint.ToString() + "_z"].Nominal = SCM.N1z; 
             }
         }
 
@@ -593,7 +593,7 @@ namespace Coding_Attempt_with_GUI
         {
             PopulationSize = _popSize;
 
-            Population = new Population(_popSize, GetChromsomeLength(), false, true, ParentSelectionMethod.TournamentSelection);
+            Population = new Population(_popSize, GetChromsomeLength(), false, true);
 
             //No_GaOutputs = _chromoseLength / BitSize;
 
@@ -678,7 +678,6 @@ namespace Coding_Attempt_with_GUI
             double Fitness = e.Population.MaximumFitness;
 
             
-
             int Generations = e.Generation;
             
             long Evaluations = e.Evaluations;
@@ -687,17 +686,17 @@ namespace Coding_Attempt_with_GUI
 
             EvaluateParetoOptimial();
 
-            int MaxRowIndex = GetMaxIndex();
+            int MaxRowIndex = /*GetMaxIndex()*/0;
 
             double resultError = EvaluateRMSError(MaxRowIndex);
 
-            DataTable clone = Ga_Values.Copy();
+            //DataTable clone = Ga_Values.Copy();
 
             //GetParetoSolutions();
 
             SolutionCounter = 0;
 
-            Ga_Values.Rows.Clear();
+            //Ga_Values.Rows.Clear();
 
 
         }
@@ -716,7 +715,7 @@ namespace Coding_Attempt_with_GUI
         /// <returns>Returns <see cref=Boolean"/> to determine if the Algoritm should termine or not </returns>
         private bool TerminateAlgorithm(Population _population, int _currGeneration, long currEvaluation)
         {
-            if (_currGeneration > 100)
+            if (_currGeneration > 50)
            {
                 ///<summary>Extracting the BEST <see cref="Chromosome"/> from the <see cref="Population"/></summary>
                 var chromosome = _population.GetTop(1)[0];
@@ -731,7 +730,7 @@ namespace Coding_Attempt_with_GUI
                 ///<summary>Extracting the Max Fitness</summary>
                 double Fitness = _population.MaximumFitness;
 
-                int MaxRowIndex = GetMaxIndex();
+                int MaxRowIndex = /*GetMaxIndex()*/0;
 
                 double resultError = EvaluateRMSError(MaxRowIndex);
 
@@ -1205,15 +1204,19 @@ namespace Coding_Attempt_with_GUI
 
 
             bumpSteerError = casterError = toeError = camberError = kpiError = 0;
+
             double rmsError = 0;
 
-            //double bumpSteerError = ComputeBumpSteerError();
+            //bumpSteerError = ComputeBumpSteerError();
 
-            //double casterError = ComputeCasterError();
+            //casterError = ComputeCasterError();
 
-            //double toeError = ComputeToeError();
+            //toeError = ComputeToeError();
 
-            //double camberError = ComputeCamberError();
+            //camberError = ComputeCamberError();
+
+            //kpiError = ComputeKPIError();
+
 
             Del_RMS_Error();
 
@@ -1232,7 +1235,7 @@ namespace Coding_Attempt_with_GUI
             //Ga_Values.Rows[rowIndex].SetField<double>("Bump Steer Fitness", bumpSteerError);
             //Ga_Values.Rows[rowIndex].SetField<double>("RMS Fitness", 1 - rmsError);
 
-            EvaluateWishboneConstraints();
+            //EvaluateWishboneConstraints();
             
             if (rmsError > 1 )
             {
@@ -1535,7 +1538,7 @@ namespace Coding_Attempt_with_GUI
                                                                      Custom3DGeometry.GetMathNetVector3D(tempAxisLines["WheelSpindle_Ref"]),
                                                                      Custom3DGeometry.GetMathNetVector3D(tempAxisLines["VerticalAxis_WheelCenter"]));
 
-            Angle staticToe = new Angle(-WA.StaticToe, AngleUnit.Degrees);
+            Angle staticToe = new Angle(WA.StaticToe, AngleUnit.Radians);
 
             ///<remarks>
             ///---IMPORTANT--- FOR NOW TOE ERROR IS CALCUALTED AS ABSOLUTE ERROR AND NOT RELATIVE ERROR LIKE CASTER ABOVE
@@ -1553,7 +1556,7 @@ namespace Coding_Attempt_with_GUI
                                                                   Custom3DGeometry.GetMathNetVector3D(tempAxisLines["WheelSpindle_Ref"]),
                                                                   Custom3DGeometry.GetMathNetVector3D(tempAxisLines["LongitudinalAxis_WheelCenter"]));
 
-            Angle staticCamber = new Angle(-WA.StaticCamber, AngleUnit.Radians);
+            Angle staticCamber = new Angle(WA.StaticCamber, AngleUnit.Radians);
 
             camberError = (((dCamber_New.Degrees + staticCamber.Degrees) - (Camber.Degrees)) / (Camber.Degrees));
 
@@ -1571,7 +1574,7 @@ namespace Coding_Attempt_with_GUI
         /// <returns>Returns Error of the computed Bump Steer Curve with the Curve that the user wants</returns>
         private double ComputeBumpSteerError()
         {
-            double bumpSteer = 1;
+            
 
             int StepSize = 1;
 
@@ -1585,6 +1588,9 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Assigning the Optimized Inboard Pick Up Point in the <see cref="DoubleWishboneKinematicsSolver"/></summary>
             dwSolver.OptimizedSteeringPoint = InboardPickUpPoint;
 
+            ///<summary>Assigning the Wheel Spindle End Coordinate of the <see cref="DoubleWishboneKinematicsSolver"/> Class</summary>
+            dwSolver.L1x = SCM.L1x; dwSolver.L1y = SCM.L1y; dwSolver.L1z = SCM.L1z;
+
             ///<summary>
             ///Invoking the <see cref="DoubleWishboneKinematicsSolver.Kinematics(int, SuspensionCoordinatesMaster, WheelAlignment, Tire, AntiRollBar, double, Spring, Damper, List{OutputClass}, Vehicle, List{double}, bool, bool)"/>
             ///Class to compute the Kinematics and calculate the Bump Steer at each interval of Wheel Deflection
@@ -1592,14 +1598,14 @@ namespace Coding_Attempt_with_GUI
             dwSolver.Kinematics(Identifier, SCM, WA, Tire, ARB, ARBRate_Nmm, Spring, Damper, OC_BumpSteer, Vehicle, CalculateWheelDeflections(StepSize, dwSolver), true, false);
 
             ///<summary>Invoking the <see cref="GetResultValues(List{OutputClass})"/> to extract the Bump Steer Data</summary>
-            bumpSteer = GetResultValues(OC_BumpSteer);
+            bumpSteerError = GetResultValues(OC_BumpSteer);
 
             ///<summary>Reassigning the Simulation type to Dummy so to prevent confusion if any other simulation is run after this one</summary>
             dwSolver.SimulationType = SimulationType.Dummy;
 
             SolverMasterClass.SimType = SimulationType.Dummy;
 
-            return bumpSteer;
+            return bumpSteerError;
 
         }
 
@@ -1703,7 +1709,7 @@ namespace Coding_Attempt_with_GUI
 
             ToeAngleRelevant.Sort();
 
-            Angle StaticToe = new Angle(WA.StaticToe, AngleUnit.Degrees);
+            Angle StaticToe = new Angle(WA.StaticToe, AngleUnit.Radians);
 
             ///<summary>Invoking the <see cref="EvaluateDeviation(List{Angle}, Angle)"/> method to compute the Eucledian Ditance between the User's Bump Steer Curve and the computed Bump Steer Curve. The output is the Error which needs to be minimized</summary>
             double Error = EvaluateDeviation(ToeAngleRelevant, StaticToe);
@@ -1795,11 +1801,11 @@ namespace Coding_Attempt_with_GUI
 
         private void EvaluateParetoOptimial()
         {
-            double[,] Fitness_MultipleObjective = ConstructParetoArray();
+            //double[,] Fitness_MultipleObjective = ConstructParetoArray();
 
-            FindDominatingSolutions(Fitness_MultipleObjective);
+            //FindDominatingSolutions(Fitness_MultipleObjective);
 
-            FindScaledRanks();
+            //FindScaledRanks();
         }
 
         private double[,] ConstructParetoArray()

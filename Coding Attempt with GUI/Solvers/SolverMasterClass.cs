@@ -251,8 +251,16 @@ namespace Coding_Attempt_with_GUI
             _ocInitialize.waOP.WheelIsSteered = _steeringExists;
 
             #region Initializating the Local Wheel Alignment variables
-            StaticCamber = _waInitialize.StaticCamber * (Math.PI / 180);
-            StaticToe = _waInitialize.StaticToe * (Math.PI / 180);
+            if (SimType != SimulationType.Optimization)
+            {
+                StaticCamber = _waInitialize.StaticCamber * (Math.PI / 180);
+                StaticToe = _waInitialize.StaticToe * (Math.PI / 180); 
+            }
+            else
+            {
+                StaticCamber = _waInitialize.StaticCamber;
+                StaticToe = _waInitialize.StaticToe;
+            }
             #endregion
 
             #region Initializing the Camber and Toe of the Output Class
