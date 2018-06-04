@@ -157,6 +157,11 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         public Convergence RideHeight_Conv;
 
+        /// <summary>
+        /// Total or RMS Convergence Value
+        /// </summary>
+        public Convergence Total_Conv;
+
         #endregion
 
         #endregion
@@ -165,11 +170,18 @@ namespace Coding_Attempt_with_GUI
         #region ---Methods---
 
         #region --Constructors--
+        /// <summary>
+        /// Base Constructor
+        /// </summary>
         public SetupChange_Outputs()
         {
             SetBaseConvergence();
         }
 
+        /// <summary>
+        /// First OVerloaded Consturctor accepting <see cref="VehicleCorner"/>
+        /// </summary>
+        /// <param name="_vCorner"></param>
         public SetupChange_Outputs(VehicleCorner _vCorner)
         {
             Corner = _vCorner;
@@ -181,6 +193,10 @@ namespace Coding_Attempt_with_GUI
             SetBaseConvergence();
         }
 
+        /// <summary>
+        /// 2nd overloaded constructor accpting identifier integer
+        /// </summary>
+        /// <param name="_identifier"></param>
         public SetupChange_Outputs(int _identifier)
         {
             Identifier = _identifier;
@@ -193,6 +209,11 @@ namespace Coding_Attempt_with_GUI
         }
         #endregion
 
+
+        /// <summary>
+        /// Method to initialize the <see cref="Convergence"/> of each of the Setup Params.
+        /// This is crucial because if a Setup Param is not requested then the method below would have alreaddy set its <see cref="Convergence.ConvergenceStatus"/> to "Not Requested"
+        /// </summary>
         private void SetBaseConvergence()
         {
             Caster_Conv = new Convergence("NotRequested");
@@ -204,6 +225,8 @@ namespace Coding_Attempt_with_GUI
             Toe_Conv = new Convergence("NotRequested");
 
             BumpSteer_Conv= new Convergence("NotRequested");
+
+            Total_Conv = new Convergence("0");
         }
 
         /// <summary>
@@ -281,6 +304,7 @@ namespace Coding_Attempt_with_GUI
 
     }
 
+    #region ---Convergence Struct---
     /// <summary>
     /// Class to hold information regarding the Convergance of a Setup Paras
     /// </summary>
@@ -289,7 +313,7 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Percentage of Convergence. Between 0 and 100
         /// </summary>
-        public double Percentage{ get; set; }
+        public double Percentage { get; set; }
 
         /// <summary>
         /// Ratio of Convergence. Between 0 and 1
@@ -331,6 +355,7 @@ namespace Coding_Attempt_with_GUI
 
 
 
-    }
+    } 
+    #endregion
 
 }

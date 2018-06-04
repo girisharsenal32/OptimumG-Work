@@ -228,16 +228,42 @@ namespace Coding_Attempt_with_GUI
         /// This Dictionary will contain the <see cref="AdjustmentTools"/> option which the user has selected FOR EACH Setup Change.
         /// </summary>
         public Dictionary<string, AdjustmentTools> AdjToolsDictionary = new Dictionary<string, AdjustmentTools>();
+        
 
+
+
+
+
+        /// <summary>
+        /// Dictionary which holds the Adjustment Tools availble to the user to adjust Caster and/or KPI
+        /// </summary>
         public Dictionary<string, Opt_AdjToolParams> Caster_KPI_Adj;
-
+        /// <summary>
+        /// Dictionary which holds the Adjustment Tools availble to the user to adjust Camber
+        /// </summary>
         public Dictionary<string, Opt_AdjToolParams> Camber_Adj;
-
+        /// <summary>
+        /// Dictionary which holds the Adjustment Tools availble to the user to adjust Toe
+        /// </summary>
         public Dictionary<string, Opt_AdjToolParams> Toe_Adj;
-
+        /// <summary>
+        /// Dictionary which holds the Adjustment Tools availble to the user to adjust Bump Steer
+        /// </summary>
         public Dictionary<string, Opt_AdjToolParams> BumpSteer_Adj;
+        /// <summary>
+        /// Object of the <see cref="BumpSteerCurve"/> User control
+        /// </summary>
+        public BumpSteerCurve BumpSteer_Params;
 
+
+        /// <summary>
+        /// Master Dictionary which holds all the above Dictionary depending upon whether they are to be SETUP or not 
+        /// </summary>
         public Dictionary<string, Dictionary<string, Opt_AdjToolParams>> Master_Adj;
+
+
+
+
 
         public SetupChange_CornerVariables()
         {
