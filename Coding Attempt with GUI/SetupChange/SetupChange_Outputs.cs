@@ -152,6 +152,11 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         public Convergence BumpSteer_Conv;
 
+        /// <summary>
+        /// Convergence value of the Ride Height
+        /// </summary>
+        public Convergence RideHeight_Conv;
+
         #endregion
 
         #endregion
@@ -160,13 +165,20 @@ namespace Coding_Attempt_with_GUI
         #region ---Methods---
 
         #region --Constructors--
-        public SetupChange_Outputs() { }
+        public SetupChange_Outputs()
+        {
+            SetBaseConvergence();
+        }
 
         public SetupChange_Outputs(VehicleCorner _vCorner)
         {
             Corner = _vCorner;
 
             Identifier = (int)Corner;
+
+            ToeLinkInboard = new Point3D();
+
+            SetBaseConvergence();
         }
 
         public SetupChange_Outputs(int _identifier)
@@ -174,8 +186,25 @@ namespace Coding_Attempt_with_GUI
             Identifier = _identifier;
 
             Corner = (VehicleCorner)Identifier;
+
+            ToeLinkInboard = new Point3D();
+
+            SetBaseConvergence();
         }
         #endregion
+
+        private void SetBaseConvergence()
+        {
+            Caster_Conv = new Convergence("NotRequested");
+
+            KPI_Conv = new Convergence("NotRequested");
+
+            Camber_Conv= new Convergence("NotRequested");
+
+            Toe_Conv = new Convergence("NotRequested");
+
+            BumpSteer_Conv= new Convergence("NotRequested");
+        }
 
         /// <summary>
         /// Method to Assign the link Lengths
@@ -202,21 +231,33 @@ namespace Coding_Attempt_with_GUI
         }
 
         /// <summary>
-        /// Method to assign the Angles 
+        /// Method to assign ORIENTATION to the Angles according to the User's Convention and then initialize the angles 
+        /// The goal is that, if a Setup Angle is requested then these angles below will be overridden by the <see cref="OptimizerGeneticAlgorithm"/>'s results and then later will be conditioned with the right orientation
+        /// BUT, if a Setup ANgle is not requested, then initalizing it and conditioning it with right direction here itself will be useful as then it will simply have to be displayed in the Final Output Stage
         /// </summary>
         /// <param name="_fCamber"></param>
         /// <param name="_fToe"></param>
         /// <param name="_fCaster"></param>
         /// <param name="_fKPI"></param>
-        public void SetAngles(Angle _fCamber, Angle _fToe, Angle _fCaster, Angle _fKPI)
+        public void InitializeAngles(Angle _fCamber, Angle _fToe, Angle _fCaster, Angle _fKPI)
         {
-            Camber = _fCamber;
+            double tempToe = _fToe.Degrees;
 
-            Toe = _fToe;
+            double tempCamber = _fCamber.Degrees;
 
-            Caster = _fCaster;
+            double tempKPI = _fKPI.Degrees;
 
-            KPI = _fKPI;
+            SolverMasterClass.AssignOrientation_CamberToe(ref tempCamber, ref tempToe, tempCamber, tempToe, Identifier);
+
+            Camber = new Angle(tempCamber, AngleUnit.Degrees);
+
+            Toe = new Angle(tempToe, AngleUnit.Degrees);
+
+            Caster = -_fCaster;
+
+            SolverMasterClass.AssignDirection_KPI(Identifier, ref tempKPI);
+
+            KPI = new Angle(tempKPI, AngleUnit.Degrees);
         }
 
         /// <summary>
@@ -240,18 +281,55 @@ namespace Coding_Attempt_with_GUI
 
     }
 
+    /// <summary>
+    /// Class to hold information regarding the Convergance of a Setup Paras
+    /// </summary>
     public struct Convergence
     {
+        /// <summary>
+        /// Percentage of Convergence. Between 0 and 100
+        /// </summary>
         public double Percentage{ get; set; }
 
+        /// <summary>
+        /// Ratio of Convergence. Between 0 and 1
+        /// </summary>
         public double Ratio { get; set; }
 
+        /// <summary>
+        /// Status of the convergence. Used only when a Particular Param is not requested
+        /// </summary>
+        public string ConvergenceStatus { get; set; }
+
+        /// <summary>
+        /// Constructor for Params which have been requested. The Ratio of Convergence is to be passed as argument
+        /// </summary>
+        /// <param name="_ratio"></param>
         public Convergence(double _ratio)
         {
             Ratio = _ratio;
 
             Percentage = Ratio * 100;
+
+            ConvergenceStatus = Percentage.ToString();
         }
+
+        /// <summary>
+        /// <para>Method to construct a Null convergence object. Calling this will set the Convergence status to "Not Requested"</para>
+        /// <para>This constructor should be used ALWAYS when initializing a convergence object for the first time. 
+        /// This is so that if the convergence object is not required then it can display "Not Requested"</para>
+        /// </summary>
+        /// <param name="_notRequested"></param>
+        public Convergence(string _notRequested)
+        {
+            Ratio = 0;
+
+            Percentage = Ratio * 100;
+
+            ConvergenceStatus = _notRequested;
+        }
+
+
 
     }
 

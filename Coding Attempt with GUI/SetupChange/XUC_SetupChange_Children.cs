@@ -341,6 +341,11 @@ namespace Coding_Attempt_with_GUI
                     //rowCamberMount.Properties.Value = null;
 
                     Deactivate_Camber_Adjusters();
+
+                    if (setupChange_CV.Master_Adj.ContainsKey("Camber"))
+                    {
+                        setupChange_CV.Master_Adj.Remove("Camber");
+                    }
                 }
 
                 //if (checkedListBoxControlConstraints.Items["Camber constant"].CheckState == CheckState.Unchecked)
@@ -353,10 +358,7 @@ namespace Coding_Attempt_with_GUI
                 //checkedListBoxControlConstraints.Items["Camber constant"].CheckState = CheckState.Unchecked;
                 checkedListBoxControlConstraints.Items["Camber constant"].Enabled = true;
 
-                if (setupChange_CV.Master_Adj.ContainsKey("Camber"))
-                {
-                    setupChange_CV.Master_Adj.Remove("Camber");
-                }
+
             }
             #endregion
 
@@ -450,15 +452,17 @@ namespace Coding_Attempt_with_GUI
                 if (checkedListBoxControlConstraints.Items["Toe constant"].CheckState == CheckState.Unchecked)
                 {
                     Deactivate_Toe_Adjusters();
+
+                    if (setupChange_CV.Master_Adj.ContainsKey("Toe Change"))
+                    {
+                        setupChange_CV.Master_Adj.Remove("Toe Change");
+                    }
                 }
 
                 //checkedListBoxControlConstraints.Items["Toe constant"].CheckState = CheckState.Unchecked;
                 checkedListBoxControlConstraints.Items["Toe constant"].Enabled = true;
 
-                if (setupChange_CV.Master_Adj.ContainsKey("Toe Change"))
-                {
-                    setupChange_CV.Master_Adj.Remove("Toe Change");
-                }
+
             }
             #endregion
 
@@ -520,15 +524,17 @@ namespace Coding_Attempt_with_GUI
                 if (checkedListBoxControlConstraints.Items["Bump Steer Constant"].CheckState == CheckState.Unchecked)
                 {
                     Deactivate_BumpSteer_Adjusters();
+
+                    if (setupChange_CV.Master_Adj.ContainsKey("Bump Steer"))
+                    {
+                        setupChange_CV.Master_Adj.Remove("Bump Steer");
+                    }
                 }
 
                 //checkedListBoxControlConstraints.Items["Bump Steer Constant"].CheckState = CheckState.Unchecked;
                 checkedListBoxControlConstraints.Items["Bump Steer Constant"].Enabled = true;
 
-                if (setupChange_CV.Master_Adj.ContainsKey("Bump Steer"))
-                {
-                    setupChange_CV.Master_Adj.Remove("Bump Steer");
-                }
+
 
             } 
             #endregion
@@ -762,13 +768,16 @@ namespace Coding_Attempt_with_GUI
 
                 if (checkedListBoxControlChanges.Items["Camber Change"].CheckState == CheckState.Unchecked)
                 {
-                    Deactivate_Camber_Adjusters(); 
+                    Deactivate_Camber_Adjusters();
+
+                    if (setupChange_CV.Master_Adj.ContainsKey("Camber"))
+                    {
+                        setupChange_CV.Master_Adj.Remove("Camber");
+                    }
+
                 }
 
-                if (setupChange_CV.Master_Adj.ContainsKey("Camber"))
-                {
-                    setupChange_CV.Master_Adj.Remove("Camber");
-                }
+
 
             }
             #endregion
@@ -795,13 +804,15 @@ namespace Coding_Attempt_with_GUI
 
                 if (checkedListBoxControlChanges.Items["Toe Change"].CheckState == CheckState.Unchecked) 
                 {
-                    Deactivate_Toe_Adjusters(); 
+                    Deactivate_Toe_Adjusters();
+
+                    if (setupChange_CV.Master_Adj.ContainsKey("Toe Change"))
+                    {
+                        setupChange_CV.Master_Adj.Remove("Toe Change");
+                    }
                 }
 
-                if (setupChange_CV.Master_Adj.ContainsKey("Toe Change"))
-                {
-                    setupChange_CV.Master_Adj.Remove("Toe Change");
-                }
+
             }
             #endregion
 
@@ -842,13 +853,15 @@ namespace Coding_Attempt_with_GUI
 
                 if (checkedListBoxControlChanges.Items["Bump Steer Change"].CheckState == CheckState.Unchecked) 
                 {
-                    Deactivate_BumpSteer_Adjusters(); 
+                    Deactivate_BumpSteer_Adjusters();
+
+                    if (setupChange_CV.Master_Adj.ContainsKey("Bump Steer"))
+                    {
+                        setupChange_CV.Master_Adj.Remove("Bump Steer");
+                    }
                 }
 
-                if (setupChange_CV.Master_Adj.ContainsKey("Bump Steer"))
-                {
-                    setupChange_CV.Master_Adj.Remove("Bump Steer");
-                }
+
             } 
             #endregion
 

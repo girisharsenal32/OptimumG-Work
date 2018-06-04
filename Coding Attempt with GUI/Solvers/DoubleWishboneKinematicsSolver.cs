@@ -515,7 +515,7 @@ namespace Coding_Attempt_with_GUI
         }
         #endregion
 
-        #region -Kinematic Solver Methods-
+        #region -Kinematic Solver Methods for Optimization-
         public void Optimization_SteeringAxis(double _dTopFr, double _dTopRear, double _dBotFr, double _dBotRear, Vehicle _vehicleOut, int _identifierOut, OutputClass _ocOut, out Point3D _newUBJ, out Point3D _newLBJ)
         {
             // TO CALCULATE THE NEW POSITION OF F i.e., TO CALCULATE F' or E' depending upon whether it is pullrod or  pushrod and if pushrod is housed by Lpper or Lower Wishbone 

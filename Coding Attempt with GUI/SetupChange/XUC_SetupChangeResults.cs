@@ -55,7 +55,7 @@ namespace Coding_Attempt_with_GUI
             //    _resultsGrid.SetCellValue(_resultsGUI.rowLinkKPIDelta, 1, null);
 
             //}
-            _resultsGrid.SetCellValue(_resultsGUI.rowKPIConvergance, 1, _cls.KPIConvergence.ToString());
+            _resultsGrid.SetCellValue(_resultsGUI.rowKPIConvergance, 1, _setupOP.KPI_Conv.ConvergenceStatus);
 
 
 
@@ -77,7 +77,7 @@ namespace Coding_Attempt_with_GUI
             //{
             //    _resultsGrid.SetCellValue(_resultsGUI.rowLinkCasterDelta, 1, null);
             //}
-            _resultsGrid.SetCellValue(_resultsGUI.rowCasterConvergance, 1, _cls.CasterConvergence.ToString());
+            _resultsGrid.SetCellValue(_resultsGUI.rowCasterConvergance, 1, _setupOP.Caster_Conv.ConvergenceStatus);
 
 
 
@@ -104,7 +104,7 @@ namespace Coding_Attempt_with_GUI
             //    _resultsGrid.SetCellValue(_resultsGUI.rowShimThickness, 1, 1);
             //}
             //_resultsGrid.SetCellValue(_resultsGUI.rowShimThickness, 1, _cv.camberShimThickness);
-            _resultsGrid.SetCellValue(_resultsGUI.rowCamberConvergance, 1, _cls.CamberConvergence.ToString());
+            _resultsGrid.SetCellValue(_resultsGUI.rowCamberConvergance, 1, _setupOP.Camber_Conv.ConvergenceStatus);
 
 
 
@@ -119,7 +119,7 @@ namespace Coding_Attempt_with_GUI
             //{
             //    _resultsGrid.SetCellValue(_resultsGUI.rowLinkToeDelta, 1, _cls.Final_ToeAdjusterLength[_cls.Final_ToeAdjusterLength.Count - 1] - _cls.Final_ToeAdjusterLength[0]);
             //}
-            _resultsGrid.SetCellValue(_resultsGUI.rowToeConvergance, 1, _cls.ToeConvergence.ToString());
+            _resultsGrid.SetCellValue(_resultsGUI.rowToeConvergance, 1, _setupOP.Toe_Conv.ConvergenceStatus);
 
 
 
@@ -135,7 +135,7 @@ namespace Coding_Attempt_with_GUI
             //    _resultsGrid.SetCellValue(_resultsGUI.rowLinkRHDelta, 1, _cls.Final_Pushrod[_cls.Final_Pushrod.Count - 1] - _cls.Final_Pushrod[0]);
 
             //}
-            _resultsGrid.SetCellValue(_resultsGUI.rowRHConvergance, 1, _cls.RHConvergence.ToString());
+            _resultsGrid.SetCellValue(_resultsGUI.rowRHConvergance, 1, _setupOP.RideHeight_Conv.ConvergenceStatus);
 
 
 

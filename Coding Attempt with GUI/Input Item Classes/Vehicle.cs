@@ -687,6 +687,10 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
         #region Output Class Initializer Method
+        /// <summary>
+        /// Method to initialze the Output Class of the Vehicle for when a Motion Profile going to be run. That is. <see cref="SuspensionCoordinatesMaster.SuspensionMotionExists"/> is true
+        /// </summary>
+        /// <param name="noOfSteps"></param>
         public void InitializeOutputClass(int noOfSteps)
         {
             oc_FL = new List<OutputClass>();
@@ -722,6 +726,44 @@ namespace Coding_Attempt_with_GUI
             ARB_MR_Front = new double[noOfSteps];
             ARB_MR_Rear = new double[noOfSteps];
         }
+
+        /// <summary>
+        /// This method performs the same operation as the above <see cref="InitializeOutputClass(int)"/> method.
+        /// However, this must be when we require an Independant OutputClass (That is, not affiliated to the Vehicle's 4 OutputClass Objects) and when we need to initialze only 1 OutputClass object 
+        /// </summary>
+        /// <param name="noOfSteps"></param>
+        /// <param name="identifier"></param>
+        /// <param name="scm"></param>
+        /// <returns></returns>
+        public List<OutputClass> Initialize_IndependantOutputClass(int noOfSteps, int identifier, SuspensionCoordinatesMaster scm)
+        {
+            List<OutputClass> tempOC = new List<OutputClass>();
+
+            for (int i = 0; i < noOfSteps; i++)
+            {
+                tempOC.Add(new OutputClass());
+
+                InitializeOutputClass(tempOC[i], identifier, scm);
+            }
+
+            New_WheelBase = new double[noOfSteps];
+            New_TrackF = new double[noOfSteps];
+            New_TrackR = new double[noOfSteps];
+
+            New_SMCoGx = new double[noOfSteps];
+            New_SMCoGy = new double[noOfSteps];
+            New_SMCoGz = new double[noOfSteps];
+
+            RollAngle = new double[noOfSteps];
+            PitchAngle = new double[noOfSteps];
+
+            ARB_MR_Front = new double[noOfSteps];
+            ARB_MR_Rear = new double[noOfSteps];
+
+            return tempOC;
+
+        }
+
         #endregion
 
         #endregion

@@ -147,28 +147,28 @@ namespace Coding_Attempt_with_GUI
             return VehicleParams;
         }
 
-        public static List<OutputClass> AssignVehicleParams_Custom_OC_BumpSteer(VehicleCorner _vCorner, Vehicle _vehicle, int noOfOCSteps)
+        public static List<OutputClass> AssignVehicleParams_Custom_OC_BumpSteer(SuspensionCoordinatesMaster _scm, VehicleCorner _vCorner, Vehicle _vehicle, int noOfOCSteps)
         {
             List<OutputClass> oc = new List<OutputClass>();
 
-            _vehicle.InitializeOutputClass(noOfOCSteps);
+            oc = _vehicle.Initialize_IndependantOutputClass(noOfOCSteps, (int)_vCorner, _scm);
 
-            if (_vCorner == VehicleCorner.FrontLeft)
-            {
-                oc = _vehicle.oc_FL;
-            }
-            else if (_vCorner == VehicleCorner.FrontRight)
-            {
-                oc = _vehicle.oc_FR;
-            }
-            else if (_vCorner == VehicleCorner.RearLeft)
-            {
-                oc = _vehicle.oc_RL;
-            }
-            else if (_vCorner == VehicleCorner.RearRight)
-            {
-                oc = _vehicle.oc_RR;
-            }
+            //if (_vCorner == VehicleCorner.FrontLeft)
+            //{
+            //    oc = _vehicle.oc_FL;
+            //}
+            //else if (_vCorner == VehicleCorner.FrontRight)
+            //{
+            //    oc = _vehicle.oc_FR;
+            //}
+            //else if (_vCorner == VehicleCorner.RearLeft)
+            //{
+            //    oc = _vehicle.oc_RL;
+            //}
+            //else if (_vCorner == VehicleCorner.RearRight)
+            //{
+            //    oc = _vehicle.oc_RR;
+            //}
 
             return oc;
 

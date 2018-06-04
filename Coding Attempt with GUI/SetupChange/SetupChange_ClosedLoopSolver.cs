@@ -201,30 +201,30 @@ namespace Coding_Attempt_with_GUI
 
         public Angle FinalKPI { get; set; }
 
-        /// <summary>
-        /// <see cref="Convergence"/> Enum's variable which contains information regarding whether the Camber has Converged or not
-        /// </summary>
-        public Convergence CamberConvergence = Convergence.NotRequested;
-        /// <summary>
-        /// <see cref="Convergence"/> Enum's variable which contains information regarding whether the Caster has Converged or not
-        /// </summary>
-        public Convergence CasterConvergence = Convergence.NotRequested;
-        /// <summary>
-        /// <see cref="Convergence"/> Enum's variable which contains information regarding whether the KPI has Converged or not
-        /// </summary>
-        public Convergence KPIConvergence = Convergence.NotRequested;
-        /// <summary>
-        /// <see cref="Convergence"/> Enum's variable which contains information regarding whether the Toe has Converged or not
-        /// </summary>
-        public Convergence ToeConvergence = Convergence.NotRequested;
-        /// <summary>
-        /// <see cref="Convergence"/> Enum's variable which contains information regarding whether the RH has Converged or not
-        /// </summary>
-        public Convergence RHConvergence = Convergence.NotRequested;
-        /// <summary>
-        /// <see cref="Convergence"/> Enum's variable which contains information regarding whether the Link Lengths has Converged or not
-        /// </summary>
-        public Convergence LinkLengthConvergence = Convergence.NotRequested;
+        ///// <summary>
+        ///// <see cref="Convergence"/> Enum's variable which contains information regarding whether the Camber has Converged or not
+        ///// </summary>
+        //public Convergence CamberConvergence = Convergence.NotRequested;
+        ///// <summary>
+        ///// <see cref="Convergence"/> Enum's variable which contains information regarding whether the Caster has Converged or not
+        ///// </summary>
+        //public Convergence CasterConvergence = Convergence.NotRequested;
+        ///// <summary>
+        ///// <see cref="Convergence"/> Enum's variable which contains information regarding whether the KPI has Converged or not
+        ///// </summary>
+        //public Convergence KPIConvergence = Convergence.NotRequested;
+        ///// <summary>
+        ///// <see cref="Convergence"/> Enum's variable which contains information regarding whether the Toe has Converged or not
+        ///// </summary>
+        //public Convergence ToeConvergence = Convergence.NotRequested;
+        ///// <summary>
+        ///// <see cref="Convergence"/> Enum's variable which contains information regarding whether the RH has Converged or not
+        ///// </summary>
+        //public Convergence RHConvergence = Convergence.NotRequested;
+        ///// <summary>
+        ///// <see cref="Convergence"/> Enum's variable which contains information regarding whether the Link Lengths has Converged or not
+        ///// </summary>
+        //public Convergence LinkLengthConvergence = Convergence.NotRequested;
 
         /// <summary>
         /// Multicast Delegate which will be used to decide the Methods to be invoked and their order
@@ -475,22 +475,22 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         private void SolveSetupChange()
         {
-            for (int i = 0; i <= NoOfClosedLoopiterations; i++)  
-            {
-                DecideInvocationOrder();
+            //for (int i = 0; i <= NoOfClosedLoopiterations; i++)  
+            //{
+            //    DecideInvocationOrder();
 
-                if (ClosedLoop_AllConditionsCheck(0.0009, 0.0009, 0.0009, 0.0009, 1, i))
-                {
-                    break;
-                }
-                else
-                {
-                    if (i != NoOfClosedLoopiterations) 
-                    {
-                        primaryClosedLoopMethod(); 
-                    }
-                }
-            }
+            //    if (ClosedLoop_AllConditionsCheck(0.0009, 0.0009, 0.0009, 0.0009, 1, i))
+            //    {
+            //        break;
+            //    }
+            //    else
+            //    {
+            //        if (i != NoOfClosedLoopiterations) 
+            //        {
+            //            primaryClosedLoopMethod(); 
+            //        }
+            //    }
+            //}
 
         }
 
@@ -639,275 +639,279 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_finalLinkLengthList"> List which holds the history of the deltas of the Concerned Link Length. Ex - <see cref="Final_TopFrontArm"/></param>
         private void ClosedLoop_ChangeLinkLengths(double _deltaLinkLength, List<Line> _linkLine, List<Vector3D> _linkVector, AdjustmentTools _adjTool,List<double> _finalLinkLengthList)
         {
-            Start:
+            //Start:
 
-            if (_finalLinkLengthList.Count == 0)
-            {
-                return;
-            }
-
-            if (ClosedLoop_LinkLengthCheck(_deltaLinkLength, _finalLinkLengthList[_finalLinkLengthList.Count - 1], 1))
-            {
-                return;
-            }
-            else
-            {
-                /////<summary>
-                /////Finding the angle to be rotated by the Upright because of the Wishbone length Change. The 3 points of the Triangle are passed as it is. 
-                /////The will worked upon inside the <see cref="SolverMasterClass.SetupChange_WishboneLengthChanged(double, List{Line}, List{Vector3D}, Point3D, Point3D, Point3D, AdjustmentTools)"/> method
-                /////</summary>
-                //Angle AngleToBeRotated = SMC.SetupChange_WishboneLengthChanged(_deltaLinkLength, _linkLine, _linkVector,
-                //                                                           SetupChange_DB.UBJ, SetupChange_DB.LBJ, SetupChange_DB.ToeLinkUpright, _adjTool);
-                /////<summary>Link Length Changed Operations</summary>
-                //SMC.SetupChange_LinkLengthChange(AngleToBeRotated.Degrees, _deltaLinkLength, OC[0], SetupChange_DB.LBJToToeLink.Line.DeltaLine[SetupChange_DB.LBJToToeLink.Line.DeltaLine.Count - 1],
-                //                                                  _linkLine, _linkVector, _finalLinkLengthList, 0);
-                //goto Start;
-            }
-        }
-
-
-
-
-
-
-        private bool ClosedLoop_AllConditionsCheck(double camberTol, double toeTol, double casterTol, double kpiTol, double linkLengthtol, int iterationsDone)
-        {
-
-            //if (ClosedLoop_CamberCheck(camberTol) && ClosedLoop_ToeCheck(toeTol) && ClosedLoop_CasterCheck(casterTol) && ClosedLoop_KPICheck(kpiTol) && ClosedLoop_LinkLengthCheck_Invoker(linkLengthtol)) 
+            //if (_finalLinkLengthList.Count == 0)
             //{
-            //    return true;
+            //    return;
             //}
-            bool OverallSuccessfull = true;
 
-            if ((SetupChange_CV_Base.constCamber || SetupChange_CV_Base.CamberChangeRequested)&& !ClosedLoop_CamberCheck(camberTol, iterationsDone)) 
-            {
-                OverallSuccessfull = false;
-            }
-            if ((SetupChange_CV_Base.constToe || SetupChange_CV_Base.ToeChangeRequested)&& !ClosedLoop_ToeCheck(toeTol, iterationsDone))
-            {
-                //return false;
-                OverallSuccessfull = false;
-            }
-            if ((SetupChange_CV_Base.constCaster || SetupChange_CV_Base.CasterChangeRequested) && !ClosedLoop_CasterCheck(casterTol, iterationsDone))
-            {
-                //return false;
-                OverallSuccessfull = false;
-            }
-            if ((SetupChange_CV_Base.constKPI || SetupChange_CV_Base.KPIChangeRequested)&& !ClosedLoop_KPICheck(kpiTol, iterationsDone))
-            {
-                //return false;
-                OverallSuccessfull = false;
-            }
-            if (!ClosedLoop_LinkLengthCheck_Invoker(linkLengthtol, iterationsDone))
-            {
-                //return false;
-                OverallSuccessfull = false;
-            }
-
-            if (OverallSuccessfull == true)
-            {
-                return true;
-            }
-            else return false;
-
+            //if (ClosedLoop_LinkLengthCheck(_deltaLinkLength, _finalLinkLengthList[_finalLinkLengthList.Count - 1], 1))
+            //{
+            //    return;
+            //}
+            //else
+            //{
+            //    /////<summary>
+            //    /////Finding the angle to be rotated by the Upright because of the Wishbone length Change. The 3 points of the Triangle are passed as it is. 
+            //    /////The will worked upon inside the <see cref="SolverMasterClass.SetupChange_WishboneLengthChanged(double, List{Line}, List{Vector3D}, Point3D, Point3D, Point3D, AdjustmentTools)"/> method
+            //    /////</summary>
+            //    //Angle AngleToBeRotated = SMC.SetupChange_WishboneLengthChanged(_deltaLinkLength, _linkLine, _linkVector,
+            //    //                                                           SetupChange_DB.UBJ, SetupChange_DB.LBJ, SetupChange_DB.ToeLinkUpright, _adjTool);
+            //    /////<summary>Link Length Changed Operations</summary>
+            //    //SMC.SetupChange_LinkLengthChange(AngleToBeRotated.Degrees, _deltaLinkLength, OC[0], SetupChange_DB.LBJToToeLink.Line.DeltaLine[SetupChange_DB.LBJToToeLink.Line.DeltaLine.Count - 1],
+            //    //                                                  _linkLine, _linkVector, _finalLinkLengthList, 0);
+            //    //goto Start;
+            //}
         }
 
-        private bool ClosedLoop_CamberCheck(double _camberTol, int _iterationsDone)
-        {
-            if (OC[0].sccvOP.camberAdjustmentType == AdjustmentType.Direct)
-            {
-                if (Math.Abs(/*OC[0].waOP.StaticCamber*/FinalCamber.Radians - Final_Camber[Final_Camber.Count - 1].Radians) < _camberTol)
-                {
-                    CamberConvergence = Convergence.Successful;
-                    return true;
-                }
-                else
-                {
-                    //CamberConvergence = Convergence.InProgress;
 
-                    if (_iterationsDone == NoOfClosedLoopiterations)
-                    {
-                        CamberConvergence = Convergence.UnSuccessful;
-                    }
 
-                    return false;
-                }
-            }
-            else
-            {
-                if ((Math.Abs(OC[0].sccvOP.deltaCamberShims * OC[0].sccvOP.camberShimThickness) - Final_CamberAdjusterLength[Final_CamberAdjusterLength.Count - 1]) < _camberTol) 
-                {
-                    CamberConvergence = Convergence.Successful;
-                    return true;
-                }
-                else
-                {
-                    //CamberConvergence = Convergence.InProgress;
 
-                    if (_iterationsDone == NoOfClosedLoopiterations)
-                    {
-                        CamberConvergence = Convergence.UnSuccessful;
-                    }
 
-                    return false;
-                }
-            }
-        }
-        private bool ClosedLoop_ToeCheck(double _toeTol, int _iterationsDone)
-        {
-            if (OC[0].sccvOP.toeAdjustmentType == AdjustmentType.Direct) 
-            {
-                if (Math.Abs(/*OC[0].waOP.StaticToe*/FinalToe.Radians - Final_Toe[Final_Toe.Count - 1].Radians) < _toeTol)
-                {
-                    ToeConvergence = Convergence.Successful;
-                    return true;
-                }
-                else
-                {
-                    //ToeConvergence = Convergence.InProgress;
 
-                    if (_iterationsDone == NoOfClosedLoopiterations)
-                    {
-                        ToeConvergence = Convergence.UnSuccessful;
-                    }
+        //private bool ClosedLoop_AllConditionsCheck(double camberTol, double toeTol, double casterTol, double kpiTol, double linkLengthtol, int iterationsDone)
+        //{
 
-                    return false;
-                }
-            }
-            else
-            {
-                if (Math.Abs(OC[0].sccvOP.deltaToeLinkLength - Final_ToeAdjusterLength[Final_ToeAdjusterLength.Count - 1]) < 0.05)
-                {
-                    ToeConvergence = Convergence.Successful;
-                    return true;
-                }
-                else
-                {
-                    //ToeConvergence = Convergence.InProgress;
+        //    //if (ClosedLoop_CamberCheck(camberTol) && ClosedLoop_ToeCheck(toeTol) && ClosedLoop_CasterCheck(casterTol) && ClosedLoop_KPICheck(kpiTol) && ClosedLoop_LinkLengthCheck_Invoker(linkLengthtol)) 
+        //    //{
+        //    //    return true;
+        //    //}
+        //    bool OverallSuccessfull = true;
 
-                    if (_iterationsDone == NoOfClosedLoopiterations)
-                    {
-                        ToeConvergence = Convergence.UnSuccessful;
-                    }
+        //    if ((SetupChange_CV_Base.constCamber || SetupChange_CV_Base.CamberChangeRequested)&& !ClosedLoop_CamberCheck(camberTol, iterationsDone)) 
+        //    {
+        //        OverallSuccessfull = false;
+        //    }
+        //    if ((SetupChange_CV_Base.constToe || SetupChange_CV_Base.ToeChangeRequested)&& !ClosedLoop_ToeCheck(toeTol, iterationsDone))
+        //    {
+        //        //return false;
+        //        OverallSuccessfull = false;
+        //    }
+        //    if ((SetupChange_CV_Base.constCaster || SetupChange_CV_Base.CasterChangeRequested) && !ClosedLoop_CasterCheck(casterTol, iterationsDone))
+        //    {
+        //        //return false;
+        //        OverallSuccessfull = false;
+        //    }
+        //    if ((SetupChange_CV_Base.constKPI || SetupChange_CV_Base.KPIChangeRequested)&& !ClosedLoop_KPICheck(kpiTol, iterationsDone))
+        //    {
+        //        //return false;
+        //        OverallSuccessfull = false;
+        //    }
+        //    if (!ClosedLoop_LinkLengthCheck_Invoker(linkLengthtol, iterationsDone))
+        //    {
+        //        //return false;
+        //        OverallSuccessfull = false;
+        //    }
 
-                    return false;
-                }
-            }
-            
-        }
-        private bool ClosedLoop_CasterCheck(double _casterTol, int _iterationsDone)
-        {
-            if (Math.Abs(/*OC[0].Caster*/FinalCaster.Radians - Final_Caster[Final_Caster.Count - 1].Radians) < _casterTol)
-            {
-                CasterConvergence = Convergence.Successful;
-                return true;
-            }
-            else
-            {
-                //CasterConvergence = Convergence.InProgress;
+        //    if (OverallSuccessfull == true)
+        //    {
+        //        return true;
+        //    }
+        //    else return false;
 
-                if (_iterationsDone == NoOfClosedLoopiterations)
-                {
-                    CasterConvergence = Convergence.UnSuccessful;
-                }
-                return false;
-            }
-        }
-        private bool ClosedLoop_KPICheck(double _kpiTol, int _iterationsDone)
-        {
-            if (Math.Abs(/*OC[0].KPI*/FinalKPI.Radians - Final_KPI[Final_KPI.Count - 1].Radians) < _kpiTol)
-            {
-                KPIConvergence = Convergence.Successful;
-                return true;
-            }
-            else
-            {
-                //KPIConvergence = Convergence.InProgress;
+        //}
 
-                if (_iterationsDone == NoOfClosedLoopiterations)
-                {
-                    KPIConvergence = Convergence.UnSuccessful;
-                }
-                return false;
-            }
-        }
+        //private bool ClosedLoop_CamberCheck(double _camberTol, int _iterationsDone)
+        //{
+        //    //if (OC[0].sccvOP.camberAdjustmentType == AdjustmentType.Direct)
+        //    //{
+        //    //    if (Math.Abs(/*OC[0].waOP.StaticCamber*/FinalCamber.Radians - Final_Camber[Final_Camber.Count - 1].Radians) < _camberTol)
+        //    //    {
+        //    //        CamberConvergence = Convergence.Successful;
+        //    //        return true;
+        //    //    }
+        //    //    else
+        //    //    {
+        //    //        //CamberConvergence = Convergence.InProgress;
 
-        private bool ClosedLoop_RideHeightCheck()
-        {
-            return true;
-        }
+        //    //        if (_iterationsDone == NoOfClosedLoopiterations)
+        //    //        {
+        //    //            CamberConvergence = Convergence.UnSuccessful;
+        //    //        }
 
-        private bool ClosedLoop_LinkLengthCheck_Invoker(double _linkLengthTol, int _iterationsDone)
-        {
-            if (OC[0].sccvOP.deltaTopFrontArm != 0 && !ClosedLoop_LinkLengthCheck(Final_TopFrontArm[Final_TopFrontArm.Count - 1], OC[0].sccvOP.deltaTopFrontArm, _linkLengthTol)) 
-            {
-                //LinkLengthConvergence = Convergence.InProgress;
-                if (_iterationsDone == NoOfClosedLoopiterations)
-                {
-                    LinkLengthConvergence = Convergence.UnSuccessful;
-                }
-                return false;
-            }
-            else if (OC[0].sccvOP.deltaTopRearArm != 0 && !ClosedLoop_LinkLengthCheck(Final_TopRearArm[Final_TopRearArm.Count - 1], OC[0].sccvOP.deltaTopRearArm, _linkLengthTol)) 
-            {
-                //LinkLengthConvergence = Convergence.InProgress;
-                if (_iterationsDone == NoOfClosedLoopiterations)
-                {
-                    LinkLengthConvergence = Convergence.UnSuccessful;
-                }
-                return false;
-            }
-            else if (OC[0].sccvOP.deltaBottmFrontArm != 0 && !ClosedLoop_LinkLengthCheck(Final_BottomFrontArm[Final_BottomFrontArm.Count - 1], OC[0].sccvOP.deltaBottmFrontArm, _linkLengthTol)) 
-            {
-                //LinkLengthConvergence = Convergence.InProgress;
-                if (_iterationsDone == NoOfClosedLoopiterations)
-                {
-                    LinkLengthConvergence = Convergence.UnSuccessful;
-                }
-                return false;
-            }
-            else if (OC[0].sccvOP.deltaBottomRearArm != 0 && !ClosedLoop_LinkLengthCheck(Final_BottomRearArm[Final_BottomRearArm.Count - 1], OC[0].sccvOP.deltaBottomRearArm, _linkLengthTol)) 
-            {
-                //LinkLengthConvergence = Convergence.InProgress;
-                if (_iterationsDone == NoOfClosedLoopiterations)
-                {
-                    LinkLengthConvergence = Convergence.UnSuccessful;
-                }
-                return false;
-            }
-            else if (OC[0].sccvOP.deltaPushrod != 0 && !ClosedLoop_LinkLengthCheck(Final_Pushrod[Final_Pushrod.Count - 1], OC[0].sccvOP.deltaPushrod, _linkLengthTol)) 
-            {
-                //LinkLengthConvergence = Convergence.InProgress;
-                if (_iterationsDone == NoOfClosedLoopiterations)
-                {
-                    LinkLengthConvergence = Convergence.UnSuccessful;
-                }
-                return false;
-            }
-            else if (OC[0].sccvOP.deltaToeLinkLength != 0 && !ClosedLoop_LinkLengthCheck(Final_ToeAdjusterLength[Final_ToeAdjusterLength.Count - 1], OC[0].sccvOP.deltaToeLinkLength, _linkLengthTol)) 
-            {
-                //LinkLengthConvergence = Convergence.InProgress;
-                if (_iterationsDone == NoOfClosedLoopiterations)
-                {
-                    LinkLengthConvergence = Convergence.UnSuccessful;
-                }
-                return false;
-            }
-            else
-            {
-                LinkLengthConvergence = Convergence.Successful;
-                return true;
-            }
-        }
+        //    //        return false;
+        //    //    }
+        //    //}
+        //    //else
+        //    //{
+        //    //    if ((Math.Abs(OC[0].sccvOP.deltaCamberShims * OC[0].sccvOP.camberShimThickness) - Final_CamberAdjusterLength[Final_CamberAdjusterLength.Count - 1]) < _camberTol) 
+        //    //    {
+        //    //        CamberConvergence = Convergence.Successful;
+        //    //        return true;
+        //    //    }
+        //    //    else
+        //    //    {
+        //    //        //CamberConvergence = Convergence.InProgress;
+
+        //    //        if (_iterationsDone == NoOfClosedLoopiterations)
+        //    //        {
+        //    //            CamberConvergence = Convergence.UnSuccessful;
+        //    //        }
+
+        //    //        return false;
+        //    //    }
+        //    //}
+
+        //    return null;
+        //}
+        //private bool ClosedLoop_ToeCheck(double _toeTol, int _iterationsDone)
+        //{
+        //    //if (OC[0].sccvOP.toeAdjustmentType == AdjustmentType.Direct) 
+        //    //{
+        //    //    if (Math.Abs(/*OC[0].waOP.StaticToe*/FinalToe.Radians - Final_Toe[Final_Toe.Count - 1].Radians) < _toeTol)
+        //    //    {
+        //    //        ToeConvergence = Convergence.Successful;
+        //    //        return true;
+        //    //    }
+        //    //    else
+        //    //    {
+        //    //        //ToeConvergence = Convergence.InProgress;
+
+        //    //        if (_iterationsDone == NoOfClosedLoopiterations)
+        //    //        {
+        //    //            ToeConvergence = Convergence.UnSuccessful;
+        //    //        }
+
+        //    //        return false;
+        //    //    }
+        //    //}
+        //    //else
+        //    //{
+        //    //    if (Math.Abs(OC[0].sccvOP.deltaToeLinkLength - Final_ToeAdjusterLength[Final_ToeAdjusterLength.Count - 1]) < 0.05)
+        //    //    {
+        //    //        ToeConvergence = Convergence.Successful;
+        //    //        return true;
+        //    //    }
+        //    //    else
+        //    //    {
+        //    //        //ToeConvergence = Convergence.InProgress;
+
+        //    //        if (_iterationsDone == NoOfClosedLoopiterations)
+        //    //        {
+        //    //            ToeConvergence = Convergence.UnSuccessful;
+        //    //        }
+
+        //    //        return false;
+        //    //    }
+        //    //}
+        //    return null;
+        //}
+        //private bool ClosedLoop_CasterCheck(double _casterTol, int _iterationsDone)
+        //{
+        //    //if (Math.Abs(/*OC[0].Caster*/FinalCaster.Radians - Final_Caster[Final_Caster.Count - 1].Radians) < _casterTol)
+        //    //{
+        //    //    CasterConvergence = Convergence.Successful;
+        //    //    return true;
+        //    //}
+        //    //else
+        //    //{
+        //    //    //CasterConvergence = Convergence.InProgress;
+
+        //    //    if (_iterationsDone == NoOfClosedLoopiterations)
+        //    //    {
+        //    //        CasterConvergence = Convergence.UnSuccessful;
+        //    //    }
+        //    //    return false;
+        //    //}
+        //}
+        //private bool ClosedLoop_KPICheck(double _kpiTol, int _iterationsDone)
+        //{
+        //    //if (Math.Abs(/*OC[0].KPI*/FinalKPI.Radians - Final_KPI[Final_KPI.Count - 1].Radians) < _kpiTol)
+        //    //{
+        //    //    KPIConvergence = Convergence.Successful;
+        //    //    return true;
+        //    //}
+        //    //else
+        //    //{
+        //    //    //KPIConvergence = Convergence.InProgress;
+
+        //    //    if (_iterationsDone == NoOfClosedLoopiterations)
+        //    //    {
+        //    //        KPIConvergence = Convergence.UnSuccessful;
+        //    //    }
+        //    //    return false;
+        //    //}
+        //    return null;
+        //}
+
+        //private bool ClosedLoop_RideHeightCheck()
+        //{
+        //    return true;
+        //}
+
+        //private bool ClosedLoop_LinkLengthCheck_Invoker(double _linkLengthTol, int _iterationsDone)
+        //{
+        //    //if (OC[0].sccvOP.deltaTopFrontArm != 0 && !ClosedLoop_LinkLengthCheck(Final_TopFrontArm[Final_TopFrontArm.Count - 1], OC[0].sccvOP.deltaTopFrontArm, _linkLengthTol)) 
+        //    //{
+        //    //    //LinkLengthConvergence = Convergence.InProgress;
+        //    //    if (_iterationsDone == NoOfClosedLoopiterations)
+        //    //    {
+        //    //        LinkLengthConvergence = Convergence.UnSuccessful;
+        //    //    }
+        //    //    return false;
+        //    //}
+        //    //else if (OC[0].sccvOP.deltaTopRearArm != 0 && !ClosedLoop_LinkLengthCheck(Final_TopRearArm[Final_TopRearArm.Count - 1], OC[0].sccvOP.deltaTopRearArm, _linkLengthTol)) 
+        //    //{
+        //    //    //LinkLengthConvergence = Convergence.InProgress;
+        //    //    if (_iterationsDone == NoOfClosedLoopiterations)
+        //    //    {
+        //    //        LinkLengthConvergence = Convergence.UnSuccessful;
+        //    //    }
+        //    //    return false;
+        //    //}
+        //    //else if (OC[0].sccvOP.deltaBottmFrontArm != 0 && !ClosedLoop_LinkLengthCheck(Final_BottomFrontArm[Final_BottomFrontArm.Count - 1], OC[0].sccvOP.deltaBottmFrontArm, _linkLengthTol)) 
+        //    //{
+        //    //    //LinkLengthConvergence = Convergence.InProgress;
+        //    //    if (_iterationsDone == NoOfClosedLoopiterations)
+        //    //    {
+        //    //        LinkLengthConvergence = Convergence.UnSuccessful;
+        //    //    }
+        //    //    return false;
+        //    //}
+        //    //else if (OC[0].sccvOP.deltaBottomRearArm != 0 && !ClosedLoop_LinkLengthCheck(Final_BottomRearArm[Final_BottomRearArm.Count - 1], OC[0].sccvOP.deltaBottomRearArm, _linkLengthTol)) 
+        //    //{
+        //    //    //LinkLengthConvergence = Convergence.InProgress;
+        //    //    if (_iterationsDone == NoOfClosedLoopiterations)
+        //    //    {
+        //    //        LinkLengthConvergence = Convergence.UnSuccessful;
+        //    //    }
+        //    //    return false;
+        //    //}
+        //    //else if (OC[0].sccvOP.deltaPushrod != 0 && !ClosedLoop_LinkLengthCheck(Final_Pushrod[Final_Pushrod.Count - 1], OC[0].sccvOP.deltaPushrod, _linkLengthTol)) 
+        //    //{
+        //    //    //LinkLengthConvergence = Convergence.InProgress;
+        //    //    if (_iterationsDone == NoOfClosedLoopiterations)
+        //    //    {
+        //    //        LinkLengthConvergence = Convergence.UnSuccessful;
+        //    //    }
+        //    //    return false;
+        //    //}
+        //    //else if (OC[0].sccvOP.deltaToeLinkLength != 0 && !ClosedLoop_LinkLengthCheck(Final_ToeAdjusterLength[Final_ToeAdjusterLength.Count - 1], OC[0].sccvOP.deltaToeLinkLength, _linkLengthTol)) 
+        //    //{
+        //    //    //LinkLengthConvergence = Convergence.InProgress;
+        //    //    if (_iterationsDone == NoOfClosedLoopiterations)
+        //    //    {
+        //    //        LinkLengthConvergence = Convergence.UnSuccessful;
+        //    //    }
+        //    //    return false;
+        //    //}
+        //    //else
+        //    //{
+        //    //    LinkLengthConvergence = Convergence.Successful;
+        //    //    return true;
+        //    //}
+        //    return null;
+        //}
         
-        private bool ClosedLoop_LinkLengthCheck(double acutalLength, double requiredLength, double tol)
-        {
-            if (Math.Abs(requiredLength - acutalLength) < tol)
-            {
-                return true;
-            }
-            else return false;
-        }
+        //private bool ClosedLoop_LinkLengthCheck(double acutalLength, double requiredLength, double tol)
+        //{
+        //    if (Math.Abs(requiredLength - acutalLength) < tol)
+        //    {
+        //        return true;
+        //    }
+        //    else return false;
+        //}
 
 
 

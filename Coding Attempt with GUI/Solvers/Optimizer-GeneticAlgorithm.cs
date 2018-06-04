@@ -307,18 +307,45 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
         #region ---Setup Change Params---
-        public SetupChange_CornerVariables GA_CV { get; set; }
+        public SetupChange_CornerVariables Setup_CV { get; set; }
 
-        public Angle Camber { get; set; }
+        public SetupChange_Outputs Setup_OP { get; set; }
 
-        public Angle Caster { get; set; }
+        public Angle Req_Camber { get; set; }
 
-        public Angle KPI { get; set; }
+        public Angle Calc_Camber;
 
-        public Angle Toe { get; set; }
+        public double CamberError { get; set; }
 
-        public List<Angle> BumpSteerGraph { get; set; }
+        public Angle Req_Caster { get; set; }
+
+        public Angle Calc_Caster;
+
+        public double CasterError { get; set; }
+
+        public Angle Req_KPI { get; set; }
+
+        public Angle Calc_KPI;
+
+        public double KpiError { get; set; }
+
+        public Angle Req_Toe { get; set; }
+
+        public Angle Calc_Toe;
+
+        public double ToeError { get; set; }
+
+        public List<Angle> Req_BumpSteerGraph { get; set; }
+
+        public List<Angle> Calc_BumpSteerGraph;
+
+        public double BumpSteerError { get; set; }
+
         #endregion
+
+
+
+
 
         #region --Delegates--
         private delegate double ParamsToEvaluate();
@@ -372,10 +399,6 @@ namespace Coding_Attempt_with_GUI
             Crossovers = new Crossover(CrossOverProbability, false, CrossoverType.SinglePoint);
 
             Mutations = new BinaryMutate(MutationProbability, false);
-
-            //PopulationSize = _popSize;
-
-            //Population = new Population(_popSize, _chromoseLength, false, true, ParentSelectionMethod.TournamentSelection);
 
             Fitness_Individual_Objectives = new Dictionary<string, double[,]>();
 
@@ -488,7 +511,7 @@ namespace Coding_Attempt_with_GUI
 
             OC = tempVehicleParams["OutputClass"] as List<OutputClass>;
 
-            OC_BumpSteer = VehicleParamsAssigner.AssignVehicleParams_Custom_OC_BumpSteer(_vCorner, _vehicle, (SuspensionEvalIterations * 2) + 1);
+            OC_BumpSteer = VehicleParamsAssigner.AssignVehicleParams_Custom_OC_BumpSteer(SCM, _vCorner, _vehicle, (SuspensionEvalIterations * 2) + 1);
 
             Identifier = (int)tempVehicleParams["Identifier"];
 
@@ -499,24 +522,26 @@ namespace Coding_Attempt_with_GUI
         /// <para>---3rd--- This method is to be called 4th in the sequence </para>
         /// <para>Method to Initialize the Setup Change Parameters which include the Final Values of the Setup Changes and the Tools available to adjust them </para>
         /// </summary>
-        /// <param name="_masterDictionary"><see cref="Dictionary{TKey, Dictionary}"/> (Dictionary inside a Dictionary). That is a the master Dictionary which consists of the Sub Dictionaries which contains the Adjusters of each Setup Change</param>
+        /// <param name="_masterD"><see cref="Dictionary{TKey, Dictionary}"/> (Dictionary inside a Dictionary). That is a the master Dictionary which consists of the Sub Dictionaries which contains the Adjusters of each Setup Change</param>
         /// <param name="_fCamber"></param>
         /// <param name="_fCaster"></param>
         /// <param name="_fToe"></param>
         /// <param name="_fKPI"></param>
-        public void InitializeSetupParams(SetupChange_CornerVariables _reqChanges, Dictionary<string, Dictionary<string, Opt_AdjToolParams>> _masterDictionary, Angle _fCamber, Angle _fCaster, Angle _fToe, Angle _fKPI)
+        public void InitializeSetupParams(SetupChange_CornerVariables _reqChanges, SetupChange_Outputs _setupOP, Dictionary<string, Dictionary<string, Opt_AdjToolParams>> _masterD, Angle _fCamber, Angle _fCaster, Angle _fToe, Angle _fKPI)
         {
-            GA_CV = _reqChanges;
+            Setup_CV = _reqChanges;
 
-            MasterDictionary = _masterDictionary;
+            MasterDictionary = _masterD;
 
-            Camber = _fCamber;
+            Setup_OP = _setupOP;
 
-            Caster = _fCaster;
+            Req_Camber = _fCamber;
 
-            Toe = _fToe;
+            Req_Caster = _fCaster;
 
-            KPI = _fKPI;
+            Req_Toe = _fToe;
+
+            Req_KPI = _fKPI;
 
             if (MasterDictionary.ContainsKey("Bump Steer"))
             {
@@ -546,23 +571,23 @@ namespace Coding_Attempt_with_GUI
 
             Del_RMS_Error = new ParamsToEvaluate(Dummy);
 
-            if (GA_CV.constKPI == true || GA_CV.KPIChangeRequested)
+            if (Setup_CV.constKPI == true || Setup_CV.KPIChangeRequested)
             {
                 Del_RMS_Error += Del_KPI_Error;
             }
-            if (GA_CV.constCaster == true || GA_CV.CasterChangeRequested)
+            if (Setup_CV.constCaster == true || Setup_CV.CasterChangeRequested)
             {
                 Del_RMS_Error += Del_Caster_Error;
             }
-            if (GA_CV.constCamber == true || GA_CV.CamberChangeRequested)
+            if (Setup_CV.constCamber == true || Setup_CV.CamberChangeRequested)
             {
                 Del_RMS_Error += Del_Camber_Error;
             }
-            if (GA_CV.constToe == true || GA_CV.ToeChangeRequested)
+            if (Setup_CV.constToe == true || Setup_CV.ToeChangeRequested)
             {
                 Del_RMS_Error += Del_Toe_Error;
             }
-            if (GA_CV.constBumpSteer || GA_CV.BumpSteerChangeRequested)
+            if (Setup_CV.constBumpSteer || Setup_CV.BumpSteerChangeRequested)
             {
                 Del_RMS_Error += Del_BumpSteer_Error;
             }
@@ -599,8 +624,11 @@ namespace Coding_Attempt_with_GUI
             GA.Operators.Add(Mutations);
 
             ///<summary>Running the Algorithm</summary>
-            GA.Run(Terminate);
+            if (GetChromsomeLength() != 0)
+            {
+                GA.Run(Terminate);
 
+            }
         }
 
         #endregion
@@ -1045,61 +1073,6 @@ namespace Coding_Attempt_with_GUI
         {
             int geneNumber;
 
-            //var rBSx = GAF.Math.GetRangeConstant(tempInboardPoints["ToeLinkInboard"].UpperCoordinateLimit.X - tempInboardPoints["ToeLinkInboard"].LowerCoordinateLimit.X, tempInboardPoints["ToeLinkInboard"].BitSize);
-
-            //var rBSy = GAF.Math.GetRangeConstant(tempInboardPoints["ToeLinkInboard"].UpperCoordinateLimit.Y - tempInboardPoints["ToeLinkInboard"].LowerCoordinateLimit.Y, tempInboardPoints["ToeLinkInboard"].BitSize);
-
-            //var rBSz = GAF.Math.GetRangeConstant(tempInboardPoints["ToeLinkInboard"].UpperCoordinateLimit.Z - tempInboardPoints["ToeLinkInboard"].LowerCoordinateLimit.Z, tempInboardPoints["ToeLinkInboard"].BitSize);
-
-            //var rWishboneLength = GAF.Math.GetRangeConstant(UpperWishboneLinkLength - LowerWishboneLinkLength, BitSize);
-
-            //var rToeLinkLength = GAF.Math.GetRangeConstant(UpperToeLinkLength - LowerToeLinkLength, BitSize);
-
-            //var rCamberShimLength = GAF.Math.GetRangeConstant(UpperCamberShimLength - LowerCamberShimLength, BitSize);
-
-
-            //var xBS1 = Convert.ToInt32(chromosome.ToBinaryString(geneNumber* tempInboardPoints["ToeLinkInboard"].BitSize, tempInboardPoints["ToeLinkInboard"].BitSize), 2);
-
-            //geneNumber++;
-
-            //var yBS1 = Convert.ToInt32(chromosome.ToBinaryString(geneNumber * tempInboardPoints["ToeLinkInboard"].BitSize, tempInboardPoints["ToeLinkInboard"].BitSize), 2);
-
-            //geneNumber++;
-
-            //var zBS1 = Convert.ToInt32(chromosome.ToBinaryString(geneNumber * tempInboardPoints["ToeLinkInboard"].BitSize, tempInboardPoints["ToeLinkInboard"].BitSize), 2);
-
-            //geneNumber++;
-
-            //var WishboneLength_1 = Convert.ToInt32(chromosome.ToBinaryString(geneNumber * BitSize, BitSize), 2);
-
-            //geneNumber++;
-
-            //var ToeLinkLength_1 = Convert.ToInt32(chromosome.ToBinaryString(geneNumber * BitSize, BitSize), 2);
-
-            //geneNumber++;
-
-            //var CamberShimLength_1 = Convert.ToInt32(chromosome.ToBinaryString(geneNumber * BitSize, BitSize), 2);
-
-            //geneNumber++;
-
-
-            //// multiply by the appropriate range constant and adjust for any offset 
-            //// in the range to get the real values
-            /////<remarks>
-            /////https://gaframework.org/wiki/index.php/How_to_Encode_Parameters
-            /////Visit link above for more information on the code below
-            ///// </remarks>
-            //tempInboardPoints["ToeLinkInboard"].OptimizedCoordinates = new Point3D();
-            //tempInboardPoints["ToeLinkInboard"].OptimizedCoordinates.X = System.Math.Round((xBS1 * rBSx) + (tempInboardPoints["ToeLinkInboard"].NominalCoordinates.X + tempInboardPoints["ToeLinkInboard"].LowerCoordinateLimit.X) /*+ SCM.InputOriginX*/, 3);
-            //tempInboardPoints["ToeLinkInboard"].OptimizedCoordinates.Y = System.Math.Round((yBS1 * rBSy) + (tempInboardPoints["ToeLinkInboard"].NominalCoordinates.Y + tempInboardPoints["ToeLinkInboard"].LowerCoordinateLimit.Y) /*+ SCM.InputOriginY*/, 3);
-            //tempInboardPoints["ToeLinkInboard"].OptimizedCoordinates.Z = System.Math.Round((zBS1 * rBSz) + (tempInboardPoints["ToeLinkInboard"].NominalCoordinates.Z + tempInboardPoints["ToeLinkInboard"].LowerCoordinateLimit.Z) /*+ SCM.InputOriginZ*/, 3);
-
-            //WishboneLinkLength = System.Math.Round((WishboneLength_1 * rWishboneLength) + (LowerWishboneLinkLength), 3);
-
-            //ToeLinkLength = System.Math.Round((ToeLinkLength_1 * rToeLinkLength) + (LowerToeLinkLength), 3);
-
-            //CamberShimLength = System.Math.Round((CamberShimLength_1 * rCamberShimLength) + (LowerCamberShimLength), 3);
-
             geneNumber = 0;
             foreach (string SetupChange in MasterDictionary.Keys)
             {
@@ -1134,42 +1107,64 @@ namespace Coding_Attempt_with_GUI
             if (Opt_AdjToolValues.ContainsKey(AdjustmentTools.TopFrontArm.ToString()))
             {
                 ga_TopFront = Opt_AdjToolValues[AdjustmentTools.TopFrontArm.ToString()];
+
+                Setup_OP.TopFrontLength = ga_TopFront;
             }
             if (Opt_AdjToolValues.ContainsKey(AdjustmentTools.TopRearArm.ToString()))
             {
                 ga_TopRear = Opt_AdjToolValues[AdjustmentTools.TopRearArm.ToString()];
+
+                Setup_OP.TopRearLength = ga_TopRear;
             }
             if (Opt_AdjToolValues.ContainsKey(AdjustmentTools.BottomFrontArm.ToString()))
             {
                 ga_BottomFront = Opt_AdjToolValues[AdjustmentTools.BottomFrontArm.ToString()];
+
+                Setup_OP.BottomFrontLength = ga_BottomFront;
             }
             if (Opt_AdjToolValues.ContainsKey(AdjustmentTools.BottomRearArm.ToString()))
             {
                 ga_BottomRear = Opt_AdjToolValues[AdjustmentTools.BottomRearArm.ToString()];
+
+                Setup_OP.BottomRearLength = ga_BottomRear;
             }
             if (Opt_AdjToolValues.ContainsKey(AdjustmentTools.ToeLinkLength.ToString()))
             {
                 ga_ToeLink= Opt_AdjToolValues[AdjustmentTools.ToeLinkLength.ToString()];
+
+                Setup_OP.ToeLinklength = ga_ToeLink;
             }
             if (Opt_AdjToolValues.ContainsKey(AdjustmentTools.TopCamberMount.ToString()))
             {
                 ga_TopCamberShims = Opt_AdjToolValues[AdjustmentTools.TopCamberMount.ToString()];
+
+                Setup_OP.TopCamberShimsLength = ga_TopCamberShims;
+
+                Setup_OP.TopCamberShimsNo = ga_TopCamberShims / Setup_CV.camberShimThickness;
             }
             if (Opt_AdjToolValues.ContainsKey(AdjustmentTools.BottomCamberMount.ToString()))
             {
                 ga_BottomCamberShims = Opt_AdjToolValues[AdjustmentTools.BottomCamberMount.ToString()];
+
+                Setup_OP.BottomCamberShimsLength = ga_BottomCamberShims;
             }
             if (Opt_AdjToolValues.ContainsKey(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_x")) 
             {
                 ga_ToeLinkInboard.X = Opt_AdjToolValues[AdjustmentTools.ToeLinkInboardPoint.ToString() + "_x"];
+
+                Setup_OP.ToeLinkInboard.X = ga_ToeLinkInboard.X;
             }
             if (Opt_AdjToolValues.ContainsKey(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_y"))
             {
                 ga_ToeLinkInboard.Y = Opt_AdjToolValues[AdjustmentTools.ToeLinkInboardPoint.ToString() + "_y"];
+
+                Setup_OP.ToeLinkInboard.Y = ga_ToeLinkInboard.Y;
             }
             if (Opt_AdjToolValues.ContainsKey(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_z"))
             {
                 ga_ToeLinkInboard.Z = Opt_AdjToolValues[AdjustmentTools.ToeLinkInboardPoint.ToString() + "_z"];
+
+                Setup_OP.ToeLinkInboard.Z = ga_ToeLinkInboard.Z;
             }
 
         }
@@ -1179,7 +1174,6 @@ namespace Coding_Attempt_with_GUI
             //Ga_Values.Rows.Add(_solutionName, GAOrientation["NewOrientation1"], 0, InboardPoints["ToeLinkInboard"], 0, WishboneLinkLength, 0, false, 0);
         }
 
-        double bumpSteerError, casterError, toeError, camberError, kpiError;
         private double EvaluateRMSError(int rowIndex)
         {
             SolveKinematics();
@@ -1187,7 +1181,7 @@ namespace Coding_Attempt_with_GUI
             Update_SuspensionCoordinateData();
 
 
-            bumpSteerError = casterError = toeError = camberError = kpiError = 0;
+            BumpSteerError = CasterError = ToeError = CamberError = KpiError = 0;
 
             double rmsError = 0;
 
@@ -1204,7 +1198,7 @@ namespace Coding_Attempt_with_GUI
 
             Del_RMS_Error();
 
-            rmsError = System.Math.Sqrt((System.Math.Pow(bumpSteerError, 2) + System.Math.Pow(casterError, 2) + System.Math.Pow(toeError, 2) + System.Math.Pow(camberError, 2) + System.Math.Pow(kpiError, 2)));
+            rmsError = System.Math.Sqrt((System.Math.Pow(BumpSteerError, 2) + System.Math.Pow(CasterError, 2) + System.Math.Pow(ToeError, 2) + System.Math.Pow(CamberError, 2) + System.Math.Pow(KpiError, 2)));
 
             //errorPile.Add(Del_RMS_Error());
 
@@ -1490,15 +1484,18 @@ namespace Coding_Attempt_with_GUI
             dCaster_New = SetupChangeDatabase.AngleInRequiredView(Custom3DGeometry.GetMathNetVector3D(tempAxisLines["SteeringAxis"]),
                                                                   Custom3DGeometry.GetMathNetVector3D(tempAxisLines["SteeringAxis_Ref"]),
                                                                   Custom3DGeometry.GetMathNetVector3D(tempAxisLines["LateralAxis_WheelCenter"]));
-            //Angle staticCaster = new Angle(-2.36, AngleUnit.Degrees);
 
             Angle staticCaster = new Angle(OC[0].Caster, AngleUnit.Radians);
 
-            casterError = ((dCaster_New.Degrees + staticCaster.Degrees) - (Caster.Degrees)) / Caster.Degrees;
+            Calc_Caster = new Angle(dCaster_New.Degrees + staticCaster.Degrees, AngleUnit.Degrees);
 
-            
+            CasterError = ((dCaster_New.Degrees + staticCaster.Degrees) - (Req_Caster.Degrees)) / Req_Caster.Degrees;
 
-            return (casterError);
+            Setup_OP.Caster_Conv = new Convergence(1 - SetConvergenceError(CasterError));
+
+            Setup_OP.Caster = -Calc_Caster;
+
+            return (CasterError);
         }
 
         Angle dKPI_new;
@@ -1510,9 +1507,19 @@ namespace Coding_Attempt_with_GUI
 
             Angle staticKPI = new Angle(OC[0].KPI, AngleUnit.Radians);
 
-            kpiError = (((dKPI_new.Degrees + staticKPI.Degrees) - (KPI.Degrees)) / (KPI.Degrees));
+            Calc_KPI = new Angle(dKPI_new.Degrees + staticKPI.Degrees, AngleUnit.Degrees);
 
-            return kpiError;
+            KpiError = (((dKPI_new.Degrees + staticKPI.Degrees) - (Req_KPI.Degrees)) / (Req_KPI.Degrees));
+
+            Setup_OP.KPI_Conv = new Convergence(1 - SetConvergenceError(KpiError));
+
+            double tmepKPI = Calc_KPI.Degrees;
+
+            SolverMasterClass.AssignDirection_KPI((int)VCorner, ref tmepKPI);
+
+            Setup_OP.KPI = new Angle(tmepKPI, AngleUnit.Degrees);
+
+            return KpiError;
         }
 
         Angle dToe_New;
@@ -1524,12 +1531,24 @@ namespace Coding_Attempt_with_GUI
 
             Angle staticToe = new Angle(WA.StaticToe, AngleUnit.Radians);
 
+            Calc_Toe = new Angle(dToe_New.Degrees + staticToe.Degrees, AngleUnit.Degrees);
+
             ///<remarks>
+            /// NOT ANYMORE
             ///---IMPORTANT--- FOR NOW TOE ERROR IS CALCUALTED AS ABSOLUTE ERROR AND NOT RELATIVE ERROR LIKE CASTER ABOVE
             /// </remarks>
-            toeError = (((dToe_New.Degrees + staticToe.Degrees) - (Toe.Degrees)) / (Toe.Degrees));
+            ToeError = (((dToe_New.Degrees + staticToe.Degrees) - (Req_Toe.Degrees)) / (Req_Toe.Degrees));
 
-            return toeError;
+            Setup_OP.Toe_Conv = new Convergence(1 - SetConvergenceError(ToeError));
+
+            double tempToe = Calc_Toe.Degrees;
+            double tempCamber = 0;
+
+            SolverMasterClass.AssignOrientation_CamberToe(ref tempCamber, ref tempToe, tempCamber, tempToe, (int)VCorner);
+
+            Setup_OP.Toe = new Angle(tempToe, AngleUnit.Degrees);
+
+            return ToeError;
 
         }
 
@@ -1542,9 +1561,20 @@ namespace Coding_Attempt_with_GUI
 
             Angle staticCamber = new Angle(WA.StaticCamber, AngleUnit.Radians);
 
-            camberError = (((dCamber_New.Degrees + staticCamber.Degrees) - (Camber.Degrees)) / (Camber.Degrees));
+            Calc_Camber = new Angle(dCamber_New.Degrees + staticCamber.Degrees, AngleUnit.Degrees);
 
-            return camberError;
+            CamberError = (((dCamber_New.Degrees + staticCamber.Degrees) - (Req_Camber.Degrees)) / (Req_Camber.Degrees));
+
+            Setup_OP.Camber_Conv = new Convergence(1 - SetConvergenceError(CamberError));
+
+            double tempToe = 0;
+            double tempCamber = Calc_Camber.Degrees;
+
+            SolverMasterClass.AssignOrientation_CamberToe(ref tempCamber, ref tempToe, tempCamber, tempToe, (int)VCorner);
+
+            Setup_OP.Camber = new Angle(tempCamber, AngleUnit.Degrees);
+
+            return CamberError;
         }
 
         #region --Computing the Bump Steer Error--
@@ -1560,7 +1590,7 @@ namespace Coding_Attempt_with_GUI
         {
             
 
-            int StepSize = 1;
+            
 
             Point3D InboardPickUpPoint = new Point3D(ga_ToeLinkInboard.X, ga_ToeLinkInboard.Y, ga_ToeLinkInboard.Z);
 
@@ -1579,17 +1609,17 @@ namespace Coding_Attempt_with_GUI
             ///Invoking the <see cref="DoubleWishboneKinematicsSolver.Kinematics(int, SuspensionCoordinatesMaster, WheelAlignment, Tire, AntiRollBar, double, Spring, Damper, List{OutputClass}, Vehicle, List{double}, bool, bool)"/>
             ///Class to compute the Kinematics and calculate the Bump Steer at each interval of Wheel Deflection
             /// </summary>
-            dwSolver.Kinematics(Identifier, SCM, WA, Tire, ARB, ARBRate_Nmm, Spring, Damper, OC_BumpSteer, Vehicle, CalculateWheelDeflections(StepSize, dwSolver), true, false);
+            dwSolver.Kinematics(Identifier, SCM, WA, Tire, ARB, ARBRate_Nmm, Spring, Damper, OC_BumpSteer, Vehicle, CalculateWheelDeflections(SuspensionEvalStepSize, dwSolver), true, false);
 
             ///<summary>Invoking the <see cref="GetResultValues(List{OutputClass})"/> to extract the Bump Steer Data</summary>
-            bumpSteerError = GetResultValues(OC_BumpSteer);
+            BumpSteerError = GetResultValues(OC_BumpSteer);
 
             ///<summary>Reassigning the Simulation type to Dummy so to prevent confusion if any other simulation is run after this one</summary>
             dwSolver.SimulationType = SimulationType.Dummy;
 
             SolverMasterClass.SimType = SimulationType.Dummy;
 
-            return bumpSteerError;
+            return BumpSteerError;
 
         }
 
@@ -1676,8 +1706,6 @@ namespace Coding_Attempt_with_GUI
 
             List<Angle> ToeAngle_Rebound = new List<Angle>();
 
-            List<Angle> ToeAngleRelevant = new List<Angle>();
-
             for (int i = 0; i < _oc.Count; i++)
             {
                 ToeAngles.Add(new Angle(_oc[i].waOP.StaticToe, AngleUnit.Radians));
@@ -1687,16 +1715,18 @@ namespace Coding_Attempt_with_GUI
 
             ToeAngle_Rebound.AddRange(ToeAngles.GetRange((SuspensionEvalIterations_UpperLimit * 2) + 1, SuspensionEvalIterations_LowerLimit));
 
-            ToeAngleRelevant.AddRange(ToeAngle_Rebound);
+            Req_BumpSteerGraph = new List<Angle>();
 
-            ToeAngleRelevant.AddRange(ToeAngles_Bump);
+            Req_BumpSteerGraph.AddRange(ToeAngle_Rebound);
 
-            ToeAngleRelevant.Sort();
+            Req_BumpSteerGraph.AddRange(ToeAngles_Bump);
+
+            Req_BumpSteerGraph.Sort();
 
             Angle StaticToe = new Angle(WA.StaticToe, AngleUnit.Radians);
 
             ///<summary>Invoking the <see cref="EvaluateDeviation(List{Angle}, Angle)"/> method to compute the Eucledian Ditance between the User's Bump Steer Curve and the computed Bump Steer Curve. The output is the Error which needs to be minimized</summary>
-            double Error = EvaluateDeviation(ToeAngleRelevant, StaticToe);
+            double Error = EvaluateDeviation(Req_BumpSteerGraph, StaticToe);
 
             return Error;
 
@@ -1719,6 +1749,8 @@ namespace Coding_Attempt_with_GUI
                 UserBumpSteerCurve.Add(new Angle(_staticToe.Degrees, AngleUnit.Degrees));
 
             }
+
+            Req_BumpSteerGraph = UserBumpSteerCurve;
 
             //double reverse = 2.5;
             //for (int i = 0; i < SuspensionEvalIterations / 2; i++)
@@ -1778,12 +1810,29 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Computing the Final Error by finding the Square Root of the Squares of the distances and dividing it by the No. of Iterations</summary>
             double FinalError = System.Math.Sqrt(ErrorCalc_Step3) / SuspensionEvalIterations;
 
-            
-            BumpSteerGraph = _toeAngle;
+            Setup_OP.BumpSteer_Conv = new Convergence(1 - SetConvergenceError(FinalError));
+
+            Setup_OP.BumpSteerChart = _toeAngle;
 
             return FinalError;
-        } 
+        }
         #endregion
+
+        private double SetConvergenceError(double error)
+        {
+
+            if (error < 0) 
+            {
+                error *= -1;
+            }
+
+            if (error > 1)
+            {
+                error = 1 - error;
+            }
+
+            return System.Math.Round(error, 2);
+        }
 
         private void EvaluateParetoOptimial()
         {
