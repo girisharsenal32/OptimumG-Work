@@ -52,6 +52,9 @@
             this.rowCasterAngle = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.rowKPICasterAdjusterSelect = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.rowCasterAdjusterSelect = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.rowTopFrontArm = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRow();
+            this.multiEditorRowProperties1 = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties();
+            this.multiEditorRowProperties2 = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties();
             this.rowTopRearArm = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRow();
             this.multiEditorRowProperties4 = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties();
             this.multiEditorRowProperties5 = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties();
@@ -76,9 +79,6 @@
             this.categoryCasterChange = new DevExpress.XtraVerticalGrid.Rows.CategoryRow();
             this.categoryToeChange = new DevExpress.XtraVerticalGrid.Rows.CategoryRow();
             this.rowToeAngle = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
-            this.row2 = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRow();
-            this.multiEditorRowProperties14 = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties();
-            this.multiEditorRowProperties15 = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties();
             this.categoryRideHeightChange = new DevExpress.XtraVerticalGrid.Rows.CategoryRow();
             this.rowRideHeightChangeMethod = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.rowRideHeight = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
@@ -93,9 +93,6 @@
             this.categoryBumpSteer = new DevExpress.XtraVerticalGrid.Rows.CategoryRow();
             this.rowBumpSteerChart = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.rowBumpSteerAdjuster = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
-            this.row3 = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRow();
-            this.multiEditorRowProperties16 = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties();
-            this.multiEditorRowProperties17 = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties();
             this.rowToeLinkInboard_y = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRow();
             this.multiEditorRowProperties18 = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties();
             this.multiEditorRowProperties19 = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties();
@@ -104,13 +101,11 @@
             this.multiEditorRowProperties21 = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties();
             this.groupControlChangeConstraint = new DevExpress.XtraEditors.GroupControl();
             this.rowTopCamberMount = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRow();
-            this.rowToeLink = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRow();
-            this.rowToeLinkInboard_x = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRow();
             this.multiEditorRowProperties3 = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties();
             this.bumpSteerCurve1 = new Coding_Attempt_with_GUI.BumpSteerCurve();
-            this.rowTopFrontArm = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRow();
-            this.multiEditorRowProperties1 = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties();
-            this.multiEditorRowProperties2 = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties();
+            this.rowToeLink = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRow();
+            this.multiEditorRowProperties14 = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties();
+            this.multiEditorRowProperties15 = new DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties();
             this.xtraScrollableControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.checkedListBoxControlConstraints)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkedListBoxControlChanges)).BeginInit();
@@ -215,7 +210,7 @@
             this.vGridControl1.Dock = System.Windows.Forms.DockStyle.Left;
             this.vGridControl1.Location = new System.Drawing.Point(132, 0);
             this.vGridControl1.Name = "vGridControl1";
-            this.vGridControl1.RecordWidth = 59;
+            this.vGridControl1.RecordWidth = 48;
             this.vGridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.r1TextboxKPI,
             this.r1TextboxCamber,
@@ -429,6 +424,24 @@
             this.rowCasterAdjusterSelect.Properties.RowEdit = this.rIComboBoxWishboneSelecter;
             this.rowCasterAdjusterSelect.Visible = false;
             // 
+            // rowTopFrontArm
+            // 
+            this.rowTopFrontArm.Name = "rowTopFrontArm";
+            this.rowTopFrontArm.PropertiesCollection.AddRange(new DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties[] {
+            this.multiEditorRowProperties1,
+            this.multiEditorRowProperties2});
+            this.rowTopFrontArm.Visible = false;
+            // 
+            // multiEditorRowProperties1
+            // 
+            this.multiEditorRowProperties1.Caption = "Top Front : Upper";
+            this.multiEditorRowProperties1.Value = 10D;
+            // 
+            // multiEditorRowProperties2
+            // 
+            this.multiEditorRowProperties2.Caption = "Lower";
+            this.multiEditorRowProperties2.Value = -10D;
+            // 
             // rowTopRearArm
             // 
             this.rowTopRearArm.Name = "rowTopRearArm";
@@ -601,7 +614,7 @@
             // 
             this.categoryToeChange.ChildRows.AddRange(new DevExpress.XtraVerticalGrid.Rows.BaseRow[] {
             this.rowToeAngle,
-            this.row2});
+            this.rowToeLink});
             this.categoryToeChange.Height = 17;
             this.categoryToeChange.Name = "categoryToeChange";
             this.categoryToeChange.Properties.Caption = "Toe Change";
@@ -615,26 +628,6 @@
             this.rowToeAngle.Properties.Format.FormatString = "n3";
             this.rowToeAngle.Properties.Format.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.rowToeAngle.Properties.RowEdit = this.r1TextboxToe;
-            // 
-            // row2
-            // 
-            this.row2.Name = "row2";
-            this.row2.PropertiesCollection.AddRange(new DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties[] {
-            this.multiEditorRowProperties14,
-            this.multiEditorRowProperties15});
-            this.row2.Visible = false;
-            // 
-            // multiEditorRowProperties14
-            // 
-            this.multiEditorRowProperties14.Caption = "Toe Link: Upper";
-            this.multiEditorRowProperties14.Value = 10D;
-            this.multiEditorRowProperties14.Width = 109;
-            // 
-            // multiEditorRowProperties15
-            // 
-            this.multiEditorRowProperties15.Caption = "Lower";
-            this.multiEditorRowProperties15.Value = -10D;
-            this.multiEditorRowProperties15.Width = 50;
             // 
             // categoryRideHeightChange
             // 
@@ -745,7 +738,6 @@
             this.categoryBumpSteer.ChildRows.AddRange(new DevExpress.XtraVerticalGrid.Rows.BaseRow[] {
             this.rowBumpSteerChart,
             this.rowBumpSteerAdjuster,
-            this.row3,
             this.rowToeLinkInboard_y,
             this.rowToeLinkInboard_z});
             this.categoryBumpSteer.Height = 15;
@@ -765,26 +757,6 @@
             this.rowBumpSteerAdjuster.Name = "rowBumpSteerAdjuster";
             this.rowBumpSteerAdjuster.Properties.Caption = "Bump Steer Adjuster";
             this.rowBumpSteerAdjuster.Properties.RowEdit = this.rICheckedCB_Adj_BumpSteer;
-            // 
-            // row3
-            // 
-            this.row3.Name = "row3";
-            this.row3.PropertiesCollection.AddRange(new DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties[] {
-            this.multiEditorRowProperties16,
-            this.multiEditorRowProperties17});
-            this.row3.Visible = false;
-            // 
-            // multiEditorRowProperties16
-            // 
-            this.multiEditorRowProperties16.Caption = "Toe Inboard X: Upper";
-            this.multiEditorRowProperties16.Value = 5D;
-            this.multiEditorRowProperties16.Width = 122;
-            // 
-            // multiEditorRowProperties17
-            // 
-            this.multiEditorRowProperties17.Caption = "Lower";
-            this.multiEditorRowProperties17.Value = -5D;
-            this.multiEditorRowProperties17.Width = 37;
             // 
             // rowToeLinkInboard_y
             // 
@@ -851,16 +823,6 @@
             this.rowTopCamberMount.Name = "rowTopCamberMount";
             this.rowTopCamberMount.Visible = false;
             // 
-            // rowToeLink
-            // 
-            this.rowToeLink.Name = "rowToeLink";
-            this.rowToeLink.Visible = false;
-            // 
-            // rowToeLinkInboard_x
-            // 
-            this.rowToeLinkInboard_x.Name = "rowToeLinkInboard_x";
-            this.rowToeLinkInboard_x.Visible = false;
-            // 
             // bumpSteerCurve1
             // 
             this.bumpSteerCurve1.CustomBumpSteerCurve = false;
@@ -876,23 +838,22 @@
             this.bumpSteerCurve1.Y_Lower = 0D;
             this.bumpSteerCurve1.Y_Upper = 0D;
             // 
-            // rowTopFrontArm
+            // rowToeLink
             // 
-            this.rowTopFrontArm.Name = "rowTopFrontArm";
-            this.rowTopFrontArm.PropertiesCollection.AddRange(new DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties[] {
-            this.multiEditorRowProperties1,
-            this.multiEditorRowProperties2});
-            this.rowTopFrontArm.Visible = false;
+            this.rowToeLink.Name = "rowToeLink";
+            this.rowToeLink.PropertiesCollection.AddRange(new DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties[] {
+            this.multiEditorRowProperties14,
+            this.multiEditorRowProperties15});
             // 
-            // multiEditorRowProperties1
+            // multiEditorRowProperties14
             // 
-            this.multiEditorRowProperties1.Caption = "Top Front : Upper";
-            this.multiEditorRowProperties1.Value = 10D;
+            this.multiEditorRowProperties14.Caption = "Toe Link: Upper";
+            this.multiEditorRowProperties14.Value = 10D;
             // 
-            // multiEditorRowProperties2
+            // multiEditorRowProperties15
             // 
-            this.multiEditorRowProperties2.Caption = "Lower";
-            this.multiEditorRowProperties2.Value = -10D;
+            this.multiEditorRowProperties15.Caption = "Lower";
+            this.multiEditorRowProperties15.Value = -10D;
             // 
             // XUC_SetupChange_Children
             // 
@@ -981,9 +942,6 @@
         private DevExpress.XtraVerticalGrid.Rows.CategoryRow categoryCasterChange;
         private DevExpress.XtraVerticalGrid.Rows.CategoryRow categoryToeChange;
         private DevExpress.XtraVerticalGrid.Rows.EditorRow rowToeAngle;
-        private DevExpress.XtraVerticalGrid.Rows.MultiEditorRow row2;
-        private DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties multiEditorRowProperties14;
-        private DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties multiEditorRowProperties15;
         private DevExpress.XtraVerticalGrid.Rows.CategoryRow categoryRideHeightChange;
         private DevExpress.XtraVerticalGrid.Rows.EditorRow rowRideHeightChangeMethod;
         private DevExpress.XtraVerticalGrid.Rows.EditorRow rowRideHeight;
@@ -998,9 +956,6 @@
         private DevExpress.XtraVerticalGrid.Rows.CategoryRow categoryBumpSteer;
         private DevExpress.XtraVerticalGrid.Rows.EditorRow rowBumpSteerChart;
         private DevExpress.XtraVerticalGrid.Rows.EditorRow rowBumpSteerAdjuster;
-        private DevExpress.XtraVerticalGrid.Rows.MultiEditorRow row3;
-        private DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties multiEditorRowProperties16;
-        private DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties multiEditorRowProperties17;
         private DevExpress.XtraVerticalGrid.Rows.MultiEditorRow rowToeLinkInboard_y;
         private DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties multiEditorRowProperties18;
         private DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties multiEditorRowProperties19;
@@ -1008,11 +963,12 @@
         private DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties multiEditorRowProperties20;
         private DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties multiEditorRowProperties21;
         private DevExpress.XtraVerticalGrid.Rows.MultiEditorRow rowTopCamberMount;
-        private DevExpress.XtraVerticalGrid.Rows.MultiEditorRow rowToeLink;
-        private DevExpress.XtraVerticalGrid.Rows.MultiEditorRow rowToeLinkInboard_x;
         private BumpSteerCurve bumpSteerCurve1;
         private DevExpress.XtraVerticalGrid.Rows.MultiEditorRow rowTopFrontArm;
         private DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties multiEditorRowProperties1;
         private DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties multiEditorRowProperties2;
+        private DevExpress.XtraVerticalGrid.Rows.MultiEditorRow rowToeLink;
+        private DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties multiEditorRowProperties14;
+        private DevExpress.XtraVerticalGrid.Rows.MultiEditorRowProperties multiEditorRowProperties15;
     }
 }
