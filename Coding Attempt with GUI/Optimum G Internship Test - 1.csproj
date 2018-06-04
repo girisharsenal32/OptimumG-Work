@@ -197,6 +197,7 @@
     <Compile Include="BumpSteerCurve.Designer.cs">
       <DependentUpon>BumpSteerCurve.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomBumpSteerParams.cs" />
     <Compile Include="CustomInfiniteLine.cs">
       <SubType>Component</SubType>
     </Compile>

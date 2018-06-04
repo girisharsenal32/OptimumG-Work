@@ -251,9 +251,9 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         public Dictionary<string, Opt_AdjToolParams> BumpSteer_Adj;
         /// <summary>
-        /// Object of the <see cref="BumpSteerCurve"/> User control
+        /// Object of the <see cref="CustomBumpSteerParams"/> Class
         /// </summary>
-        public BumpSteerCurve BumpSteer_Params;
+        public CustomBumpSteerParams BS_Params;
 
 
         /// <summary>

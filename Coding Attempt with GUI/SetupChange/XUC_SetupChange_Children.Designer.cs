@@ -208,7 +208,7 @@
             this.vGridControl1.Appearance.RowHeaderPanel.Font = new System.Drawing.Font("Tahoma", 9F);
             this.vGridControl1.Appearance.RowHeaderPanel.Options.UseFont = true;
             this.vGridControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
-            this.vGridControl1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.vGridControl1.Cursor = System.Windows.Forms.Cursors.Default;
             this.vGridControl1.Dock = System.Windows.Forms.DockStyle.Left;
             this.vGridControl1.Location = new System.Drawing.Point(132, 0);
             this.vGridControl1.Name = "vGridControl1";
@@ -773,6 +773,7 @@
             this.rowBumpSteerChart.Name = "rowBumpSteerChart";
             this.rowBumpSteerChart.Properties.Caption = "Bump Steer Chart";
             this.rowBumpSteerChart.Properties.RowEdit = this.rIButtonBumpSteerChart;
+            this.rowBumpSteerChart.Visible = false;
             // 
             // rowBumpSteerAdjuster
             // 
@@ -865,6 +866,7 @@
             // 
             this.bsCurve.CustomBumpSteerCurve = false;
             this.bsCurve.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.bsCurve.Enabled = false;
             this.bsCurve.Location = new System.Drawing.Point(378, 0);
             this.bsCurve.Name = "bsCurve";
             this.bsCurve.seriesPointsInChart = null;

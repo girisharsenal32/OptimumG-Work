@@ -1691,11 +1691,11 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Initialize the Genetic Algorithm's Properties and Operators</summary>
             ga = new OptimizerGeneticAlgorithm(0.85, 0.05, 5);
 
-            ///<summary>Initializing the Vehicle of the <see cref="OptimizerGeneticAlgorithm"/> class along with all of it's properties</summary>
-            ga.InitializeVehicleParams((VehicleCorner)identifier, _vehicle);
-
             ///<summary>Initializing the requirements of the USER in terms of Setup and Tools available to adjust</summary>
             ga.InitializeSetupParams(_requestedChanges, SC_OC_Temp, _requestedChanges.Master_Adj, finalCamber, finalCaster, finalToe, finalKPI);
+
+            ///<summary>Initializing the Vehicle of the <see cref="OptimizerGeneticAlgorithm"/> class along with all of it's properties</summary>
+            ga.InitializeVehicleParams((VehicleCorner)identifier, _vehicle);
 
             ga.Set_ErrorsToEvaluate();
 

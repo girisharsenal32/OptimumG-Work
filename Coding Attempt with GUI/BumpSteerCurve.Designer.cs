@@ -28,27 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraCharts.XYDiagram xyDiagram6 = new DevExpress.XtraCharts.XYDiagram();
-            DevExpress.XtraCharts.Series series6 = new DevExpress.XtraCharts.Series();
-            DevExpress.XtraCharts.SeriesPoint seriesPoint46 = new DevExpress.XtraCharts.SeriesPoint(0D, new object[] {
+            DevExpress.XtraCharts.XYDiagram xyDiagram1 = new DevExpress.XtraCharts.XYDiagram();
+            DevExpress.XtraCharts.Series series1 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.SeriesPoint seriesPoint1 = new DevExpress.XtraCharts.SeriesPoint(0D, new object[] {
             ((object)(0D))});
-            DevExpress.XtraCharts.SeriesPoint seriesPoint47 = new DevExpress.XtraCharts.SeriesPoint(5D, new object[] {
-            ((object)(0D))});
-            DevExpress.XtraCharts.SeriesPoint seriesPoint48 = new DevExpress.XtraCharts.SeriesPoint(10D, new object[] {
-            ((object)(0D))});
-            DevExpress.XtraCharts.SeriesPoint seriesPoint49 = new DevExpress.XtraCharts.SeriesPoint(15D, new object[] {
-            ((object)(0D))});
-            DevExpress.XtraCharts.SeriesPoint seriesPoint50 = new DevExpress.XtraCharts.SeriesPoint(20D, new object[] {
-            ((object)(0D))});
-            DevExpress.XtraCharts.SeriesPoint seriesPoint51 = new DevExpress.XtraCharts.SeriesPoint(-5D, new object[] {
-            ((object)(0D))});
-            DevExpress.XtraCharts.SeriesPoint seriesPoint52 = new DevExpress.XtraCharts.SeriesPoint(-10D, new object[] {
-            ((object)(0D))});
-            DevExpress.XtraCharts.SeriesPoint seriesPoint53 = new DevExpress.XtraCharts.SeriesPoint(-15D, new object[] {
-            ((object)(0D))});
-            DevExpress.XtraCharts.SeriesPoint seriesPoint54 = new DevExpress.XtraCharts.SeriesPoint(-20D, new object[] {
-            ((object)(0D))});
-            DevExpress.XtraCharts.LineSeriesView lineSeriesView6 = new DevExpress.XtraCharts.LineSeriesView();
+            DevExpress.XtraCharts.LineSeriesView lineSeriesView1 = new DevExpress.XtraCharts.LineSeriesView();
             this.chartControl1 = new DevExpress.XtraCharts.ChartControl();
             this.groupControlBSChart = new DevExpress.XtraEditors.GroupControl();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
@@ -72,9 +56,9 @@
             this.emptySpaceItem4 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem6 = new DevExpress.XtraLayout.EmptySpaceItem();
             ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(xyDiagram6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(series6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(series1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControlBSChart)).BeginInit();
             this.groupControlBSChart.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
@@ -100,33 +84,40 @@
             this.chartControl1.BorderOptions.Color = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(73)))), ((int)(((byte)(122)))));
             this.chartControl1.BorderOptions.Thickness = 2;
             this.chartControl1.DataBindings = null;
-            xyDiagram6.AxisX.GridLines.Visible = true;
-            xyDiagram6.AxisX.NumericScaleOptions.AutoGrid = false;
-            xyDiagram6.AxisX.NumericScaleOptions.GridSpacing = 5D;
-            xyDiagram6.AxisX.Title.Font = new System.Drawing.Font("Tahoma", 9F);
-            xyDiagram6.AxisX.Title.Text = "Wheel Deflection";
-            xyDiagram6.AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.Default;
-            xyDiagram6.AxisX.VisibleInPanesSerializable = "-1";
-            xyDiagram6.AxisX.VisualRange.Auto = false;
-            xyDiagram6.AxisX.VisualRange.AutoSideMargins = false;
-            xyDiagram6.AxisX.VisualRange.MaxValueSerializable = "25";
-            xyDiagram6.AxisX.VisualRange.MinValueSerializable = "-25";
-            xyDiagram6.AxisX.VisualRange.SideMarginsValue = 0D;
-            xyDiagram6.AxisX.WholeRange.Auto = false;
-            xyDiagram6.AxisX.WholeRange.AutoSideMargins = false;
-            xyDiagram6.AxisX.WholeRange.MaxValueSerializable = "25";
-            xyDiagram6.AxisX.WholeRange.MinValueSerializable = "-25";
-            xyDiagram6.AxisX.WholeRange.SideMarginsValue = 0D;
-            xyDiagram6.AxisY.Title.Font = new System.Drawing.Font("Tahoma", 9F);
-            xyDiagram6.AxisY.Title.Text = "Toe Angle";
-            xyDiagram6.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.Default;
-            xyDiagram6.AxisY.VisibleInPanesSerializable = "-1";
-            xyDiagram6.AxisY.WholeRange.Auto = false;
-            xyDiagram6.AxisY.WholeRange.AutoSideMargins = false;
-            xyDiagram6.AxisY.WholeRange.MaxValueSerializable = "5";
-            xyDiagram6.AxisY.WholeRange.MinValueSerializable = "-5";
-            xyDiagram6.AxisY.WholeRange.SideMarginsValue = 1D;
-            this.chartControl1.Diagram = xyDiagram6;
+            xyDiagram1.AxisX.GridLines.Visible = true;
+            xyDiagram1.AxisX.NumericScaleOptions.AutoGrid = false;
+            xyDiagram1.AxisX.NumericScaleOptions.GridSpacing = 5D;
+            xyDiagram1.AxisX.Title.Font = new System.Drawing.Font("Tahoma", 9F);
+            xyDiagram1.AxisX.Title.Text = "Wheel Deflection (mm)";
+            xyDiagram1.AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.Default;
+            xyDiagram1.AxisX.VisibleInPanesSerializable = "-1";
+            xyDiagram1.AxisX.VisualRange.Auto = false;
+            xyDiagram1.AxisX.VisualRange.AutoSideMargins = false;
+            xyDiagram1.AxisX.VisualRange.MaxValueSerializable = "25";
+            xyDiagram1.AxisX.VisualRange.MinValueSerializable = "-25";
+            xyDiagram1.AxisX.VisualRange.SideMarginsValue = 0D;
+            xyDiagram1.AxisX.WholeRange.Auto = false;
+            xyDiagram1.AxisX.WholeRange.AutoSideMargins = false;
+            xyDiagram1.AxisX.WholeRange.MaxValueSerializable = "25";
+            xyDiagram1.AxisX.WholeRange.MinValueSerializable = "-25";
+            xyDiagram1.AxisX.WholeRange.SideMarginsValue = 0D;
+            xyDiagram1.AxisY.NumericScaleOptions.AutoGrid = false;
+            xyDiagram1.AxisY.NumericScaleOptions.GridSpacing = 0.5D;
+            xyDiagram1.AxisY.Title.Font = new System.Drawing.Font("Tahoma", 9F);
+            xyDiagram1.AxisY.Title.Text = "Toe Variation (deg)";
+            xyDiagram1.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.Default;
+            xyDiagram1.AxisY.VisibleInPanesSerializable = "-1";
+            xyDiagram1.AxisY.VisualRange.Auto = false;
+            xyDiagram1.AxisY.VisualRange.AutoSideMargins = false;
+            xyDiagram1.AxisY.VisualRange.MaxValueSerializable = "5";
+            xyDiagram1.AxisY.VisualRange.MinValueSerializable = "-5";
+            xyDiagram1.AxisY.VisualRange.SideMarginsValue = 0D;
+            xyDiagram1.AxisY.WholeRange.Auto = false;
+            xyDiagram1.AxisY.WholeRange.AutoSideMargins = false;
+            xyDiagram1.AxisY.WholeRange.MaxValueSerializable = "5";
+            xyDiagram1.AxisY.WholeRange.MinValueSerializable = "-5";
+            xyDiagram1.AxisY.WholeRange.SideMarginsValue = 0D;
+            this.chartControl1.Diagram = xyDiagram1;
             this.chartControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chartControl1.Legend.MarkerSize = new System.Drawing.Size(8, 14);
             this.chartControl1.Legend.Name = "Default Legend";
@@ -134,20 +125,14 @@
             this.chartControl1.Legend.Visibility = DevExpress.Utils.DefaultBoolean.False;
             this.chartControl1.Location = new System.Drawing.Point(2, 20);
             this.chartControl1.Name = "chartControl1";
-            series6.Name = "Series 1";
-            series6.Points.AddRange(new DevExpress.XtraCharts.SeriesPoint[] {
-            seriesPoint46,
-            seriesPoint47,
-            seriesPoint48,
-            seriesPoint49,
-            seriesPoint50,
-            seriesPoint51,
-            seriesPoint52,
-            seriesPoint53,
-            seriesPoint54});
-            series6.View = lineSeriesView6;
+            series1.CrosshairEnabled = DevExpress.Utils.DefaultBoolean.True;
+            series1.CrosshairLabelVisibility = DevExpress.Utils.DefaultBoolean.True;
+            series1.Name = "Series 1";
+            series1.Points.AddRange(new DevExpress.XtraCharts.SeriesPoint[] {
+            seriesPoint1});
+            series1.View = lineSeriesView1;
             this.chartControl1.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
-        series6};
+        series1};
             this.chartControl1.Size = new System.Drawing.Size(617, 439);
             this.chartControl1.TabIndex = 0;
             this.chartControl1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chartControl1_MouseClick);
@@ -189,7 +174,8 @@
             this.textBoxStepSize.Size = new System.Drawing.Size(21, 20);
             this.textBoxStepSize.TabIndex = 0;
             this.textBoxStepSize.Text = "5";
-            this.textBoxStepSize.TextChanged += new System.EventHandler(this.textBoxStepSize_TextChanged);
+            this.textBoxStepSize.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxStepSize_KeyDown);
+            this.textBoxStepSize.Leave += new System.EventHandler(this.textBoxStepSize_Leave);
             // 
             // textBoxYLowerLimit
             // 
@@ -198,7 +184,8 @@
             this.textBoxYLowerLimit.Size = new System.Drawing.Size(21, 20);
             this.textBoxYLowerLimit.TabIndex = 4;
             this.textBoxYLowerLimit.Text = "-6";
-            this.textBoxYLowerLimit.TextChanged += new System.EventHandler(this.textBoxYLowerLimit_TextChanged);
+            this.textBoxYLowerLimit.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxYLowerLimit_KeyDown);
+            this.textBoxYLowerLimit.Leave += new System.EventHandler(this.textBoxYLowerLimit_Leave);
             // 
             // textBoxYUpperLimit
             // 
@@ -207,7 +194,8 @@
             this.textBoxYUpperLimit.Size = new System.Drawing.Size(21, 20);
             this.textBoxYUpperLimit.TabIndex = 3;
             this.textBoxYUpperLimit.Text = "6";
-            this.textBoxYUpperLimit.TextChanged += new System.EventHandler(this.textBoxYUpperLimit_TextChanged);
+            this.textBoxYUpperLimit.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxYUpperLimit_KeyDown);
+            this.textBoxYUpperLimit.Leave += new System.EventHandler(this.textBoxYUpperLimit_Leave);
             // 
             // textBoxXLowerLimit
             // 
@@ -216,7 +204,8 @@
             this.textBoxXLowerLimit.Size = new System.Drawing.Size(21, 20);
             this.textBoxXLowerLimit.TabIndex = 2;
             this.textBoxXLowerLimit.Text = "-25";
-            this.textBoxXLowerLimit.TextChanged += new System.EventHandler(this.textBoxXLowerLimit_TextChanged);
+            this.textBoxXLowerLimit.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxXLowerLimit_KeyDown);
+            this.textBoxXLowerLimit.Leave += new System.EventHandler(this.textBoxXLowerLimit_Leave);
             // 
             // textBoxXUpperLimit
             // 
@@ -225,7 +214,8 @@
             this.textBoxXUpperLimit.Size = new System.Drawing.Size(21, 20);
             this.textBoxXUpperLimit.TabIndex = 1;
             this.textBoxXUpperLimit.Text = "25";
-            this.textBoxXUpperLimit.TextChanged += new System.EventHandler(this.textBoxXUpperLimit_TextChanged);
+            this.textBoxXUpperLimit.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxXUpperLimit_KeyDown);
+            this.textBoxXUpperLimit.Leave += new System.EventHandler(this.textBoxXUpperLimit_Leave);
             // 
             // layoutControlGroup1
             // 
@@ -374,9 +364,9 @@
             this.Controls.Add(this.layoutControl1);
             this.Name = "BumpSteerCurve";
             this.Size = new System.Drawing.Size(718, 495);
-            ((System.ComponentModel.ISupportInitialize)(xyDiagram6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(series6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(series1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControlBSChart)).EndInit();
             this.groupControlBSChart.ResumeLayout(false);

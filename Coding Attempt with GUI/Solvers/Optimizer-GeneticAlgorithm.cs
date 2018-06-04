@@ -462,7 +462,39 @@ namespace Coding_Attempt_with_GUI
         }
 
         /// <summary>
-        /// <para>---2nd--- This method is to be called 2nd in the sequence</para>
+        /// <para>---2nd--- This method is to be called 4th in the sequence </para>
+        /// <para>Method to Initialize the Setup Change Parameters which include the Final Values of the Setup Changes and the Tools available to adjust them </para>
+        /// </summary>
+        /// <param name="_masterD"><see cref="Dictionary{TKey, Dictionary}"/> (Dictionary inside a Dictionary). That is a the master Dictionary which consists of the Sub Dictionaries which contains the Adjusters of each Setup Change</param>
+        /// <param name="_fCamber"></param>
+        /// <param name="_fCaster"></param>
+        /// <param name="_fToe"></param>
+        /// <param name="_fKPI"></param>
+        public void InitializeSetupParams(SetupChange_CornerVariables _reqChanges, SetupChange_Outputs _setupOP, Dictionary<string, Dictionary<string, Opt_AdjToolParams>> _masterD, Angle _fCamber, Angle _fCaster, Angle _fToe, Angle _fKPI)
+        {
+            ///<summary>Assigning the <see cref="SetupChange_CornerVariables"/> object</summary>
+            Setup_CV = _reqChanges;
+
+            ///<summary>Passing the Master Dictionary which contains the Dictionaries (with Adjustmer Options) of all the Setup Changes requested</summary>
+            MasterDictionary = _masterD;
+
+            ///<summary>Passing the <see cref="SetupChange_Outputs"/> object</summary>
+            Setup_OP = _setupOP;
+
+            ///<summary>Passing all the Requested Values of the Setup Change. If there is not value requested then the Required and Initial value of the Param is the same</summary>
+            Req_Camber = _fCamber;
+
+            Req_Caster = _fCaster;
+
+            Req_Toe = _fToe;
+
+            Req_KPI = _fKPI;
+
+            Req_BumpSteerGraph = Setup_CV.BS_Params.ToeAngles;
+        }
+
+        /// <summary>
+        /// <para>---3rd--- This method is to be called 2nd in the sequence</para>
         /// <para>Method to Initialize the Vehicle of the class and initialize all the parameters of the Vehicle along with it  </para>
         /// </summary>
         /// <param name="_vCorner">Object of the <see cref="VehicleCorner"/> which decides the corner of the Vehicle calling this Class</param>
@@ -473,7 +505,7 @@ namespace Coding_Attempt_with_GUI
             ///Assigning default values of Step Size, Upper and Lower Limit of the Wheel Deflections to create a default Motion profile to evalluate Bump Steer. 
             ///This will be used in case the user doesn't create a Bummp Steer Chart
             /// </summary>
-            SuspensionEvalStepSize = 1;
+            SuspensionEvalStepSize = Setup_CV.BS_Params.StepSize;
             SuspensionEvalLowerLimit = -25;
             SuspensionEvalUpperLimit = 25;
 
@@ -516,40 +548,18 @@ namespace Coding_Attempt_with_GUI
             Identifier = (int)tempVehicleParams["Identifier"];
 
             PopulateDictionaryTrial();
-        }
 
-        /// <summary>
-        /// <para>---3rd--- This method is to be called 4th in the sequence </para>
-        /// <para>Method to Initialize the Setup Change Parameters which include the Final Values of the Setup Changes and the Tools available to adjust them </para>
-        /// </summary>
-        /// <param name="_masterD"><see cref="Dictionary{TKey, Dictionary}"/> (Dictionary inside a Dictionary). That is a the master Dictionary which consists of the Sub Dictionaries which contains the Adjusters of each Setup Change</param>
-        /// <param name="_fCamber"></param>
-        /// <param name="_fCaster"></param>
-        /// <param name="_fToe"></param>
-        /// <param name="_fKPI"></param>
-        public void InitializeSetupParams(SetupChange_CornerVariables _reqChanges, SetupChange_Outputs _setupOP, Dictionary<string, Dictionary<string, Opt_AdjToolParams>> _masterD, Angle _fCamber, Angle _fCaster, Angle _fToe, Angle _fKPI)
-        {
-            Setup_CV = _reqChanges;
-
-            MasterDictionary = _masterD;
-
-            Setup_OP = _setupOP;
-
-            Req_Camber = _fCamber;
-
-            Req_Caster = _fCaster;
-
-            Req_Toe = _fToe;
-
-            Req_KPI = _fKPI;
-
+            ///<summary>Assigning the Nominal Coordinate of the <see cref="ToeLinkInboard"/> in case Bump Steer change/constant is requested</summary>
             if (MasterDictionary.ContainsKey("Bump Steer"))
             {
                 MasterDictionary["Bump Steer"][AdjustmentTools.ToeLinkInboardPoint.ToString() + "_x"].Nominal = SCM.N1x;
                 MasterDictionary["Bump Steer"][AdjustmentTools.ToeLinkInboardPoint.ToString() + "_y"].Nominal = SCM.N1y;
-                MasterDictionary["Bump Steer"][AdjustmentTools.ToeLinkInboardPoint.ToString() + "_z"].Nominal = SCM.N1z; 
+                MasterDictionary["Bump Steer"][AdjustmentTools.ToeLinkInboardPoint.ToString() + "_z"].Nominal = SCM.N1z;
             }
+
         }
+
+
 
         private double Dummy() { return 0; }
 

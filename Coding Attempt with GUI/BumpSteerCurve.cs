@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraCharts;
+using MathNet.Spatial.Units;
 
 namespace Coding_Attempt_with_GUI
 {
@@ -46,12 +47,11 @@ namespace Coding_Attempt_with_GUI
 
         #endregion
 
-        List<double> WheelDeflections;
-
-        List<double> ToeAngles;
+        public CustomBumpSteerParams BumpSteerParms;
 
         SetupChange_CornerVariables Setup_CV;
 
+        WheelAlignment WA;
 
         /// <summary>
         /// Object which would contain the Series Points of the Chart
@@ -63,6 +63,12 @@ namespace Coding_Attempt_with_GUI
         public BumpSteerCurve()
         {
             InitializeComponent();
+
+            ChartPoints_X = new List<double>();
+
+            ChartPoints_Y = new List<double>();
+
+            BumpSteerParms = new CustomBumpSteerParams();
         }
 
         public void GetParentObjectData(SetupChange_CornerVariables _setupCV)
@@ -86,13 +92,15 @@ namespace Coding_Attempt_with_GUI
 
             ChartPoints_Y.Add(_y);
 
-            WheelDeflections = ChartPoints_X;
+            BumpSteerParms.WheelDeflections = ChartPoints_X;
 
-            ToeAngles = ChartPoints_Y;
+            BumpSteerParms.PopulateToeAngleList(ChartPoints_Y);
 
-            WheelDeflections.Sort();
+            BumpSteerParms.WheelDeflections.Sort();
 
-            ToeAngles.Sort();
+            BumpSteerParms.ToeAngles.Sort();
+
+            Setup_CV.BS_Params = this.BumpSteerParms;
 
         }
 
@@ -114,9 +122,24 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
-        private void textBoxStepSize_TextChanged(object sender, EventArgs e)
+
+
+
+        private void textBoxStepSize_Leave(object sender, EventArgs e)
         {
-            if (Int32.TryParse(e.ToString(),out int result))
+            SetStepSize();
+        }
+        private void textBoxStepSize_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                SetStepSize();
+            }
+        }
+
+        private void SetStepSize()
+        {
+            if (Int32.TryParse(textBoxStepSize.Text, out int result))
             {
                 if (result < 0)
                 {
@@ -125,6 +148,9 @@ namespace Coding_Attempt_with_GUI
                 else
                 {
                     StepSize = result;
+
+                    Setup_CV.BS_Params.StepSize = StepSize;
+
                 }
             }
             else
@@ -133,9 +159,26 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
-        private void textBoxXUpperLimit_TextChanged(object sender, EventArgs e)
+
+
+
+
+        private void textBoxXUpperLimit_Leave(object sender, EventArgs e)
         {
-            if (Double.TryParse(e.ToString(), out double result))
+            SetXUpperLimit();
+        }
+
+        private void textBoxXUpperLimit_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                SetXUpperLimit();
+            }
+        }
+
+        private void SetXUpperLimit()
+        {
+            if (Double.TryParse(textBoxXUpperLimit.Text, out double result))
             {
                 if (result < 0)
                 {
@@ -144,6 +187,12 @@ namespace Coding_Attempt_with_GUI
                 else
                 {
                     X_Upper = result;
+
+                    XYDiagram xyDiagram = (XYDiagram)chartControl1.Diagram;
+
+                    xyDiagram.AxisX.WholeRange.MaxValue = X_Upper;
+                    xyDiagram.AxisX.VisualRange.MaxValue = X_Upper;
+
                 }
             }
             else
@@ -152,9 +201,28 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
-        private void textBoxXLowerLimit_TextChanged(object sender, EventArgs e)
+
+
+
+
+
+
+        private void textBoxXLowerLimit_Leave(object sender, EventArgs e)
         {
-            if (Double.TryParse(e.ToString(), out double result))
+            SetXLowerLimit();
+        }
+
+        private void textBoxXLowerLimit_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                SetXLowerLimit();
+            }
+        }
+
+        private void SetXLowerLimit()
+        {
+            if (Double.TryParse(textBoxXLowerLimit.Text, out double result))
             {
                 if (result > 0)
                 {
@@ -163,6 +231,11 @@ namespace Coding_Attempt_with_GUI
                 else
                 {
                     X_Lower = result;
+
+                    XYDiagram xyDiagram = (XYDiagram)chartControl1.Diagram;
+
+                    xyDiagram.AxisX.WholeRange.MinValue = X_Lower;
+                    xyDiagram.AxisX.VisualRange.MinValue = X_Lower;
                 }
             }
             else
@@ -171,9 +244,29 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
-        private void textBoxYUpperLimit_TextChanged(object sender, EventArgs e)
+
+
+
+
+
+
+
+
+        private void textBoxYUpperLimit_Leave(object sender, EventArgs e)
         {
-            if (Double.TryParse(e.ToString(), out double result))
+            SetYUpperLimit();
+        }
+
+        private void textBoxYUpperLimit_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) 
+            {
+                SetYUpperLimit();
+            }
+        }
+        private void SetYUpperLimit()
+        {
+            if (Double.TryParse(textBoxYUpperLimit.Text, out double result))
             {
                 if (result < 0)
                 {
@@ -182,6 +275,11 @@ namespace Coding_Attempt_with_GUI
                 else
                 {
                     Y_Upper = result;
+
+                    XYDiagram xyDiagram = (XYDiagram)chartControl1.Diagram;
+
+                    xyDiagram.AxisY.WholeRange.MaxValue = Y_Upper;
+                    xyDiagram.AxisY.VisualRange.MaxValue = Y_Upper;
                 }
             }
             else
@@ -190,9 +288,27 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
-        private void textBoxYLowerLimit_TextChanged(object sender, EventArgs e)
+
+
+
+
+
+        private void textBoxYLowerLimit_Leave(object sender, EventArgs e)
         {
-            if (Double.TryParse(e.ToString(), out double result))
+            SetYLowerLimit();
+        }
+
+        private void textBoxYLowerLimit_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) 
+            {
+                SetYLowerLimit();
+            }
+        }
+
+        private void SetYLowerLimit()
+        {
+            if (Double.TryParse(textBoxYLowerLimit.Text, out double result))
             {
                 if (result > 0)
                 {
@@ -201,6 +317,11 @@ namespace Coding_Attempt_with_GUI
                 else
                 {
                     Y_Lower = result;
+
+                    XYDiagram xyDiagram = (XYDiagram)chartControl1.Diagram;
+
+                    xyDiagram.AxisY.WholeRange.MinValue = Y_Lower;
+                    xyDiagram.AxisY.VisualRange.MinValue = Y_Lower;
                 }
             }
             else
@@ -208,5 +329,7 @@ namespace Coding_Attempt_with_GUI
                 MessageBox.Show("Please Enter Numeric Values");
             }
         }
+
+
     }
 }

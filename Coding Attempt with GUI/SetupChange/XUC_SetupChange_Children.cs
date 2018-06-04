@@ -38,6 +38,8 @@ namespace Coding_Attempt_with_GUI
             vGridControl1.BindingContext = new BindingContext();
             vGridControl1.DataSource = null;
 
+            
+
             BitSize = 25;
             
         }
@@ -504,7 +506,10 @@ namespace Coding_Attempt_with_GUI
             if (checkedListBoxControlChanges.Items["Bump Steer Change"].CheckState == CheckState.Checked)
             {
                 setupChange_CV.BumpSteerChangeRequested = true;
-                rowBumpSteerChart.Enabled = true;
+
+                bsCurve.Enabled = true;
+                bsCurve.GetParentObjectData(setupChange_CV);
+
                 rowBumpSteerAdjuster.Enabled = true;
                 checkedListBoxControlConstraints.Items["Bump Steer Constant"].CheckState = CheckState.Unchecked;
                 checkedListBoxControlConstraints.Items["Bump Steer Constant"].Enabled = false;
@@ -517,7 +522,8 @@ namespace Coding_Attempt_with_GUI
             else
             {
                 setupChange_CV.BumpSteerChangeRequested = false;
-                rowBumpSteerChart.Enabled = false;
+
+                bsCurve.Enabled = false;
                 //rowBumpSteerAdjuster.Enabled = false;
                 //vGridControl1.SetCellValue(rowBumpSteerAdjuster, 1, null);
 
