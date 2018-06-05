@@ -3418,7 +3418,7 @@ namespace Coding_Attempt_with_GUI
 
             if (_sccvOut.RideHeightChanged || _sccvOut.constRideHeight)
             {
-                SC_OC_Temp.RideHeight = _finalRideHeight;
+                SC_OC_Temp.Calc_RideHeight = _finalRideHeight;
 
                 SC_OC_Temp.PushrodLength = _finalPushrod;
             }

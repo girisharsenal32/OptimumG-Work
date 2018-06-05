@@ -95,33 +95,37 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Final Camber Angle 
         /// </summary>
-        public Angle Camber;
+        public Angle Calc_Camber;
 
         /// <summary>
         /// Fnal Toe Angle
         /// </summary>
-        public Angle Toe;
+        public Angle Calc_Toe;
 
         /// <summary>
         /// Final Caster Angle
         /// </summary>
-        public Angle Caster;
+        public Angle Calc_Caster;
 
         /// <summary>
         /// Final KPI Angle
         /// </summary>
-        public Angle KPI;
+        public Angle Calc_KPI;
         #endregion
 
         #region -Direct Values-
-        public double RideHeight;
+        public double Calc_RideHeight;
         #endregion
 
         #region -Charts-
         /// <summary>
         /// Final Bump Steer Chart
         /// </summary>
-        public List<Angle> BumpSteerChart;
+        public List<Angle> Calc_BumpSteerChart;
+        /// <summary>
+        /// Bump Steer Chsrt requested by the User
+        /// </summary>
+        public List<Angle> Req_BumpSteerChart;
         #endregion
 
         #endregion
@@ -272,15 +276,15 @@ namespace Coding_Attempt_with_GUI
 
             SolverMasterClass.AssignOrientation_CamberToe(ref tempCamber, ref tempToe, tempCamber, tempToe, Identifier);
 
-            Camber = new Angle(tempCamber, AngleUnit.Degrees);
+            Calc_Camber = new Angle(tempCamber, AngleUnit.Degrees);
 
-            Toe = new Angle(tempToe, AngleUnit.Degrees);
+            Calc_Toe = new Angle(tempToe, AngleUnit.Degrees);
 
-            Caster = -_fCaster;
+            Calc_Caster = -_fCaster;
 
             SolverMasterClass.AssignDirection_KPI(Identifier, ref tempKPI);
 
-            KPI = new Angle(tempKPI, AngleUnit.Degrees);
+            Calc_KPI = new Angle(tempKPI, AngleUnit.Degrees);
         }
 
         /// <summary>
@@ -289,7 +293,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_bumpSteerChart"></param>
         public void SetCharts(List<Angle> _bumpSteerChart)
         {
-            BumpSteerChart = _bumpSteerChart;
+            Calc_BumpSteerChart = _bumpSteerChart;
         }
 
         /// <summary>

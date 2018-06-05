@@ -44,6 +44,10 @@ namespace Coding_Attempt_with_GUI
         /// Array containing the Y Coordinates of the Chart
         /// </summary>
         List<double> ChartPoints_Y { get; set; }
+        /// <summary>
+        /// Boolean to determine if the Chart is being plotted by the USER during input or by solver during Output Display
+        /// </summary>
+        public bool IsOutputChart { get; set; }
 
         #endregion
 
@@ -52,6 +56,8 @@ namespace Coding_Attempt_with_GUI
         SetupChange_CornerVariables Setup_CV;
 
         WheelAlignment WA;
+
+        
 
         /// <summary>
         /// Object which would contain the Series Points of the Chart
@@ -70,14 +76,21 @@ namespace Coding_Attempt_with_GUI
 
             BumpSteerParms = new CustomBumpSteerParams();
 
-            AddPointToChart(chartControl1, 0, 0, 0);
+            //AddPointToChart(chartControl1, 0, 0, 0, false);
         }
 
+        /// <summary>
+        /// Method to initialize the Parent Data of the Bump Steer Chart
+        /// ---IMP---This is used only for the Input section of the Setup Change and not the Output Section
+        /// </summary>
+        /// <param name="_setupCV"></param>
         public void GetParentObjectData(SetupChange_CornerVariables _setupCV)
         {
             Setup_CV = _setupCV;
 
             Setup_CV.BS_Params = BumpSteerParms;
+
+            AddPointToChart(chartControl1, 0, 0, 0, false);
         }
 
 
@@ -88,91 +101,60 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_x"></param>
         /// <param name="_y"></param>
         /// <param name="_seriesNo"></param>
-        public void AddPointToChart(ChartControl _chart, double _x, double _y, int _seriesNo)
+        public void AddPointToChart(ChartControl _chart, double _x, double _y, int _seriesNo, bool _isOutputChart)
         {
             _chart.Series[_seriesNo].Points.AddPoint(_x, _y);
 
-            ChartPoints_X.Add(_x);
+            if (!_isOutputChart)
+            {
+                ChartPoints_X.Add(_x);
 
-            ChartPoints_Y.Add(_y);
+                ChartPoints_Y.Add(_y);
 
-            BumpSteerParms.PopulateBumpSteerGraph(ChartPoints_X, ChartPoints_Y);
-
-
+                BumpSteerParms.PopulateBumpSteerGraph(ChartPoints_X, ChartPoints_Y); 
+            }
 
         }
+        /// <summary>
+        /// Method to add a new Series to the Chart
+        /// </summary>
+        /// <param name="_chart"></param>
+        public void AddSeriesToChart(ChartControl _chart)
+        {
+            _chart.Series.Add("Computed BS Curve", ViewType.Line);
+        }
 
-
+        /// <summary>
+        /// Event raised during the MouseClick event inside the chart
+        /// ----Chart is disabled during Output Plotting and hence this won't fired---
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void chartControl1_MouseClick(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (!IsOutputChart) 
             {
-                XYDiagram xYDiagram = (XYDiagram)chartControl1.Diagram;
+                if (e.Button == MouseButtons.Right)
+                {
+                    XYDiagram xYDiagram = (XYDiagram)chartControl1.Diagram;
 
-                double LastMouseCentreX = xYDiagram.PointToDiagram(e.Location).NumericalArgument;
-                double LastMouseCentreY = xYDiagram.PointToDiagram(e.Location).NumericalValue;
+                    double LastMouseCentreX = xYDiagram.PointToDiagram(e.Location).NumericalArgument;
+                    double LastMouseCentreY = xYDiagram.PointToDiagram(e.Location).NumericalValue;
 
-                AddPointToChart(chartControl1, LastMouseCentreX, LastMouseCentreY, 0);
-                LineSeriesView line = new LineSeriesView();
+                    AddPointToChart(chartControl1, LastMouseCentreX, LastMouseCentreY, 0, false);
+                    LineSeriesView line = new LineSeriesView();
 
-                seriesPointsInChart = chartControl1.Series[0].Points;
-                CustomBumpSteerCurve = true;
+                    seriesPointsInChart = chartControl1.Series[0].Points;
+                    CustomBumpSteerCurve = true;
+                } 
             }
         }
 
         private void simpleButton1_Click(object sender, EventArgs e)
         {
-            //AddPointToChart(chartControl1, 1, 0, 0);
-            //AddPointToChart(chartControl1, 2, 0, 0);
-            //AddPointToChart(chartControl1, 3, 0, 0);
-            //AddPointToChart(chartControl1, 4, 0, 0);
-            //AddPointToChart(chartControl1, 5, 0, 0);
-            //AddPointToChart(chartControl1, 6, 0, 0);
-            //AddPointToChart(chartControl1, 7, 0, 0);
-            //AddPointToChart(chartControl1, 8, 0, 0);
-            //AddPointToChart(chartControl1, 9, 0, 0);
-            //AddPointToChart(chartControl1, 10, 0, 0);
-            //AddPointToChart(chartControl1, 11, 0, 0);
-            //AddPointToChart(chartControl1, 12, 0, 0);
-            //AddPointToChart(chartControl1, 13, 0, 0);
-            //AddPointToChart(chartControl1, 14, 0, 0);
-            //AddPointToChart(chartControl1, 15, 0, 0);
-            //AddPointToChart(chartControl1, 16, 0, 0);
-            //AddPointToChart(chartControl1, 17, 0, 0);
-            //AddPointToChart(chartControl1, 18, 0, 0);
-            //AddPointToChart(chartControl1, 19, 0, 0);
-            //AddPointToChart(chartControl1, 20, 0, 0);
-            //AddPointToChart(chartControl1, 21, 0, 0);
-            //AddPointToChart(chartControl1, 22, 0, 0);
-            //AddPointToChart(chartControl1, 23, 0, 0);
-            //AddPointToChart(chartControl1, 24, 0, 0);
-            AddPointToChart(chartControl1, 25, 0, 0);
+            AddPointToChart(chartControl1, 25, 0, 0, false);
 
-            //AddPointToChart(chartControl1, -1, 0, 0);
-            //AddPointToChart(chartControl1, -2, 0, 0);
-            //AddPointToChart(chartControl1, -3, 0, 0);
-            //AddPointToChart(chartControl1, -4, 0, 0);
-            //AddPointToChart(chartControl1, -5, 0, 0);
-            //AddPointToChart(chartControl1, -6, 0, 0);
-            //AddPointToChart(chartControl1, -7, 0, 0);
-            //AddPointToChart(chartControl1, -8, 0, 0);
-            //AddPointToChart(chartControl1, -9, 0, 0);
-            //AddPointToChart(chartControl1, -10, 0, 0);
-            //AddPointToChart(chartControl1, -11, 0, 0);
-            //AddPointToChart(chartControl1, -12, 0, 0);
-            //AddPointToChart(chartControl1, -13, 0, 0);
-            //AddPointToChart(chartControl1, -14, 0, 0);
-            //AddPointToChart(chartControl1, -15, 0, 0);
-            //AddPointToChart(chartControl1, -16, 0, 0);
-            //AddPointToChart(chartControl1, -17, 0, 0);
-            //AddPointToChart(chartControl1, -18, 0, 0);
-            //AddPointToChart(chartControl1, -19, 0, 0);
-            //AddPointToChart(chartControl1, -20, 0, 0);
-            //AddPointToChart(chartControl1, -21, 0, 0);
-            //AddPointToChart(chartControl1, -22, 0, 0);
-            //AddPointToChart(chartControl1, -23, 0, 0);
-            //AddPointToChart(chartControl1, -24, 0, 0);
-            AddPointToChart(chartControl1, -25, 0, 0);
+            AddPointToChart(chartControl1, -25, 0, 0, false);
         }
 
 
@@ -381,6 +363,9 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
+        private void groupControlBSChart_Paint(object sender, PaintEventArgs e)
+        {
 
+        }
     }
 }

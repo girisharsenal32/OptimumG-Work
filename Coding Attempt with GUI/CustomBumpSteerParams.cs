@@ -104,13 +104,7 @@ namespace Coding_Attempt_with_GUI
 
             tempToeAngleFromChart.AddRange(toeAngleFromChart.ToArray());
 
-
-
-
-
-
-
-
+            
             List<double> deflections = new List<double>();
 
             List<double> toeVariations = new List<double>();
@@ -203,7 +197,14 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Converting the temporary <see cref="Array"/>s back to <see cref="List{T}"/>s</summary>
             WheelDeflections = wheelDeflections.ToList();
 
+            ///<summary>>Reversing the order of the Wheel Defelctions so that the sequence is (0 -> 25 | 25-> 0 | 0 -> -25) </summary>
             WheelDeflections.Reverse();
+
+            if (WheelDeflections.Count != 0)
+            {
+                ///<summary>Inserting an additional element at the end of the wheel deflection so that the solver runs through till the last wheel deflection and produces meaninful results</summary>
+                WheelDeflections.Insert(WheelDeflections.Count - 1, WheelDeflections[WheelDeflections.Count - 1]); 
+            }
 
             ToeAngles.Clear();
 
@@ -212,7 +213,15 @@ namespace Coding_Attempt_with_GUI
                 ToeAngles.Add(new Angle(toeAngle[i], AngleUnit.Degrees));
             }
 
+            ///<summary>Reversing the order of the Toe Angles so that they are along the same liines of the Wheel Deflection</summary>
             ToeAngles.Reverse();
+
+            if (ToeAngles.Count != 0)
+            {
+                ///<summary>Adding an additional element to the ToeANgles list jsut the I did to the Wheel Deflection just so both the lists are in the same wavelength</summary>
+                ToeAngles.Insert(ToeAngles.Count - 1, ToeAngles[ToeAngles.Count - 1]); 
+            }
+
 
         }
 

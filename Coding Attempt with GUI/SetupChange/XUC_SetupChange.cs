@@ -107,15 +107,24 @@ namespace Coding_Attempt_with_GUI
 
             ///<summary>Setting the Front Left Outputs</summary>
             SetupChangeFL_Results.DisplayIndividualOutputs(OC_FL, setup_OP_FL, cvFL, SetupChangeFL_Results, SetupChangeFL_Results.vGridControl1, ref Converged);
+            ///<summary>Plotting the User's and Calculated Bump Steer Curve. If they are not requested, their count will be zero and it will be taken care of </summary>
+            SetupChangeFL_Results.PlotBumpSteerGraph(setup_OP_FL, cvFL, SetupChangeFL_Results);
 
             ///<summary>Setting the Front Right Outputs</summary>
-            SetupChangeFL_Results.DisplayIndividualOutputs(OC_FR, setup_OP_FR, cvFR, SetupChangeFR_Results, SetupChangeFR_Results.vGridControl1, ref Converged);
+            SetupChangeFR_Results.DisplayIndividualOutputs(OC_FR, setup_OP_FR, cvFR, SetupChangeFR_Results, SetupChangeFR_Results.vGridControl1, ref Converged);
+            ///<summary>Plotting the User's and Calculated Bump Steer Curve. If they are not requested, their count will be zero and it will be taken care of </summary>
+            SetupChangeFR_Results.PlotBumpSteerGraph(setup_OP_FR, cvFR, SetupChangeFR_Results);
 
             ///<summary>Setting the Rear Left Outputs</summary>
-            SetupChangeFL_Results.DisplayIndividualOutputs(OC_RL, setup_OP_RL, cvRL, SetupChangeRL_Results, SetupChangeRL_Results.vGridControl1, ref Converged);
+            SetupChangeRL_Results.DisplayIndividualOutputs(OC_RL, setup_OP_RL, cvRL, SetupChangeRL_Results, SetupChangeRL_Results.vGridControl1, ref Converged);
+            ///<summary>Plotting the User's and Calculated Bump Steer Curve. If they are not requested, their count will be zero and it will be taken care of </summary>
+            SetupChangeFR_Results.PlotBumpSteerGraph(setup_OP_RL, cvRL, SetupChangeRL_Results);
 
             ///<summary>Setting the Rear Right Outputs</summary>
-            SetupChangeFL_Results.DisplayIndividualOutputs(OC_RR, setup_OP_RR, cvRR, SetupChangeRR_Results, SetupChangeRR_Results.vGridControl1, ref Converged);
+            SetupChangeRR_Results.DisplayIndividualOutputs(OC_RR, setup_OP_RR, cvRR, SetupChangeRR_Results, SetupChangeRR_Results.vGridControl1, ref Converged);
+            ///<summary>Plotting the User's and Calculated Bump Steer Curve. If they are not requested, their count will be zero and it will be taken care of </summary>
+            SetupChangeRR_Results.PlotBumpSteerGraph(setup_OP_RR, cvRR, SetupChangeRR_Results);
+
 
             if (!Converged)
             {

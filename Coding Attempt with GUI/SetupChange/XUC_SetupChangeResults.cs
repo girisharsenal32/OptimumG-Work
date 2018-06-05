@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using DevExpress.XtraVerticalGrid;
 using MathNet.Spatial.Units;
+using DevExpress.XtraCharts;
 
 namespace Coding_Attempt_with_GUI
 {
@@ -49,6 +50,17 @@ namespace Coding_Attempt_with_GUI
 
         }
 
+
+
+        /// <summary>
+        /// Method to display the Outputs of Each Setup Change. If a particular param is not requested the initial value is shown
+        /// </summary>
+        /// <param name="_oc"></param>
+        /// <param name="_setupOP"></param>
+        /// <param name="_cv"></param>
+        /// <param name="_resultsGUI"></param>
+        /// <param name="_resultsGrid"></param>
+        /// <param name="_converged"></param>
         public void DisplayIndividualOutputs(OutputClass _oc, SetupChange_Outputs _setupOP, SetupChange_CornerVariables _cv, XUC_SetupChangeResults _resultsGUI, VGridControl _resultsGrid, ref bool _converged)
         {
             string test = _cv.kpiAdjustmentTool.ToString();
@@ -63,7 +75,7 @@ namespace Coding_Attempt_with_GUI
 
 
             ///<summary>Assining the KPI Outputs</summary>
-            _resultsGrid.SetCellValue(_resultsGUI.rowKPIAngle, 1, Convert.ToString(Math.Round(Angle.FromRadians(_oc.KPI).Degrees, 2)) + " | " + Convert.ToString(Math.Round(_setupOP.KPI.Degrees, 2)));
+            _resultsGrid.SetCellValue(_resultsGUI.rowKPIAngle, 1, Convert.ToString(Math.Round(Angle.FromRadians(_oc.KPI).Degrees, 2)) + " | " + Convert.ToString(Math.Round(_setupOP.Calc_KPI.Degrees, 2)));
             //if (_cv.kpiAdjustmentTool == AdjustmentTools.DirectValue)
             //{
             //    _resultsGrid.SetCellValue(_resultsGUI.rowLinkKPIName, 1, AdjustmentTools.TopFrontArm.ToString());
@@ -87,7 +99,7 @@ namespace Coding_Attempt_with_GUI
 
 
             ///<summary>Assingint the Caster Outputs</summary>
-            _resultsGrid.SetCellValue(_resultsGUI.rowCasterAngle, 1, Convert.ToString(Math.Round(Angle.FromRadians(_oc.Caster).Degrees, 2)) + " | " + Convert.ToString(Math.Round(_setupOP.Caster.Degrees, 2)));
+            _resultsGrid.SetCellValue(_resultsGUI.rowCasterAngle, 1, Convert.ToString(Math.Round(Angle.FromRadians(_oc.Caster).Degrees, 2)) + " | " + Convert.ToString(Math.Round(_setupOP.Calc_Caster.Degrees, 2)));
             //if (_cv.casterAdjustmentTool == AdjustmentTools.DirectValue)
             //{
             //    _resultsGrid.SetCellValue(_resultsGUI.rowLinkCasterName, 1, AdjustmentTools.BottomFrontArm.ToString());
@@ -109,7 +121,7 @@ namespace Coding_Attempt_with_GUI
 
 
             ///<summary>Assining the Camber Outputs</summary>
-            _resultsGrid.SetCellValue(_resultsGUI.rowCamberAngle, 1, Convert.ToString(Math.Round(Angle.FromRadians(_oc.waOP.StaticCamber).Degrees, 2)) + " | " + Convert.ToString(Math.Round(_setupOP.Camber.Degrees, 2))
+            _resultsGrid.SetCellValue(_resultsGUI.rowCamberAngle, 1, Convert.ToString(Math.Round(Angle.FromRadians(_oc.waOP.StaticCamber).Degrees, 2)) + " | " + Convert.ToString(Math.Round(_setupOP.Calc_Camber.Degrees, 2))
                 /*_cls.Final_Camber[_cls.Final_Camber.Count - 1].Degrees*/);
             //if (_cv.camberAdjustmentTool == AdjustmentTools.DirectValue)
             //{
@@ -136,7 +148,7 @@ namespace Coding_Attempt_with_GUI
 
 
             ///<summary>Assigning the Toe Outputs</summary>
-            _resultsGrid.SetCellValue(_resultsGUI.rowToeAngle, 1, Convert.ToString(Math.Round(Angle.FromRadians(_oc.waOP.StaticToe).Degrees, 2)) + " | " + Convert.ToString(Math.Round(_setupOP.Toe.Degrees, 2))
+            _resultsGrid.SetCellValue(_resultsGUI.rowToeAngle, 1, Convert.ToString(Math.Round(Angle.FromRadians(_oc.waOP.StaticToe).Degrees, 2)) + " | " + Convert.ToString(Math.Round(_setupOP.Calc_Toe.Degrees, 2))
                 /*_cls.Final_Toe[_cls.Final_Toe.Count - 1].Degrees*/);
             //if (_cls.Final_ToeAdjusterLength.Count != 1)
             //{
@@ -151,7 +163,7 @@ namespace Coding_Attempt_with_GUI
 
 
             ///<summary>Assigning the Ride Height</summary>
-            _resultsGrid.SetCellValue(_resultsGUI.rowRideHeight, 1, _setupOP.RideHeight);
+            _resultsGrid.SetCellValue(_resultsGUI.rowRideHeight, 1, _setupOP.Calc_RideHeight);
             _resultsGrid.SetCellValue(_resultsGUI.rowLinkRHName, 1, _cv.rideheightAdjustmentTool.ToString());
             //if (_cls.Final_RideHeight.Count > 1)
             //{
@@ -242,6 +254,36 @@ namespace Coding_Attempt_with_GUI
         }
 
 
+        public void PlotBumpSteerGraph(SetupChange_Outputs _setupOP, SetupChange_CornerVariables _cv, XUC_SetupChangeResults _resultsGUI)
+        {
+            if (/*_cv.constBumpSteer || */_cv.BumpSteerChangeRequested)
+            {
+                ///<summary>If the Bump Steer Change is requested then setting the Enaled status to true so that the user can scroll and zoom the Bump Steer Contro </summary>
+                _resultsGUI.bumpSteerCurve1.Enabled = true;
+
+                ///<summary>Setting the <see cref="BumpSteerCurve.IsOutputChart"/> value to true to teach the CHart that the Output is calling it. 
+                ///---IMPORTANT--- This is an important step so that the accidentally clicking the control doesn;t create a series point
+                /// </summary>
+                _resultsGUI.bumpSteerCurve1.IsOutputChart = true;
+
+                for (int i = 0; i < _setupOP.Calc_BumpSteerChart.Count; i++)
+                {
+                    _resultsGUI.bumpSteerCurve1.AddPointToChart(_resultsGUI.bumpSteerCurve1.chartControl1, _cv.BS_Params.WheelDeflections[_cv.BS_Params.HighestBumpindex + i], _setupOP.Calc_BumpSteerChart[i].Degrees, 0, true);
+                }
+
+                if (_cv.BumpSteerChangeRequested || _cv.constBumpSteer)
+                {
+                    _resultsGUI.bumpSteerCurve1.AddSeriesToChart(_resultsGUI.bumpSteerCurve1.chartControl1);
+                }
+                for (int i = 0; i < _setupOP.Req_BumpSteerChart.Count; i++)
+                {
+                    _resultsGUI.bumpSteerCurve1.AddPointToChart(_resultsGUI.bumpSteerCurve1.chartControl1, _cv.BS_Params.WheelDeflections[_cv.BS_Params.HighestBumpindex + i], _setupOP.Req_BumpSteerChart[i].Degrees, 1, true);
+                }
+
+                _resultsGUI.bumpSteerCurve1.Enabled = true;
+            }
+
+        }
 
 
 
