@@ -150,11 +150,48 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
-        private void simpleButton1_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Event raised when the <see cref="simpleButtonPlotMinBS"/> is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void simpleButtonMinBumpSteerChart_Click(object sender, EventArgs e)
+        {
+            PlotMinBumpSteerChart();
+        }
+
+        /// <summary>
+        /// Method to Plot a Minimum Bump Steer Chart. 
+        /// That is a chart with 0 Toe Angle VARIATION
+        /// </summary>
+        private void PlotMinBumpSteerChart()
         {
             AddPointToChart(chartControl1, 25, 0, 0, false);
 
             AddPointToChart(chartControl1, -25, 0, 0, false);
+        }
+
+
+        /// <summary>
+        /// Event fired when the <see cref="simpleButtonClearCharrt"/> button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void simpleButtonClearCharrt_Click(object sender, EventArgs e)
+        {
+            ClearChart();
+        }
+
+        /// <summary>
+        /// Method to clear the chart
+        /// </summary>
+        private void ClearChart()
+        {
+            ///<summary>Clearing the chart</summary>
+            chartControl1.Series[0].Points.Clear();
+
+            ///<summary>Re-plotting the point 0,0</summary>
+            AddPointToChart(chartControl1, 0, 0, 0, false);
         }
 
 
@@ -367,5 +404,7 @@ namespace Coding_Attempt_with_GUI
         {
 
         }
+
+
     }
 }

@@ -280,6 +280,12 @@
     </Compile>
     <Compile Include="SetupChange\SetupChange_ClosedLoopSolver.cs" />
     <Compile Include="SetupChange\SetupChange_Outputs.cs" />
+    <Compile Include="SetupChange_ProgressForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SetupChange_ProgressForm.Designer.cs">
+      <DependentUpon>SetupChange_ProgressForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Simulation\Simulation.cs" />
     <Compile Include="Motion\MotionChart.cs">
       <SubType>UserControl</SubType>
@@ -634,6 +640,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI Elements\Graphics\CAD Functionalities\XUC_RotateObject.resx">
       <DependentUpon>XUC_RotateObject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SetupChange_ProgressForm.resx">
+      <DependentUpon>SetupChange_ProgressForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Simulation\SimulationPanel.resx">
       <DependentUpon>SimulationPanel.cs</DependentUpon>

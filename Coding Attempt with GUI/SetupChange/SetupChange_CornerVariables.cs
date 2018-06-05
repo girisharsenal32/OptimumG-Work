@@ -46,7 +46,7 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Thickness of each Shim
         /// </summary>
-        public double camberShimThickness;
+        public double camberShimThickness = 1;
         /// <summary>
         /// Change in Length of the Vector Representing the Shims
         /// </summary>

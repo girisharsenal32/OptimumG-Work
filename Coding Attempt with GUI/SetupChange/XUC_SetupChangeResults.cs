@@ -34,6 +34,8 @@ namespace Coding_Attempt_with_GUI
             bumpSteerCurve1.emptySpaceItem3.HideToCustomization();
             bumpSteerCurve1.emptySpaceItem4.HideToCustomization();
             bumpSteerCurve1.emptySpaceItem5.HideToCustomization();
+            bumpSteerCurve1.emptySpaceItem7.HideToCustomization();
+
 
             ///<summary>Hiding the Layout items which contain the Textboxes</summary>
             bumpSteerCurve1.layoutControlItem2.HideToCustomization();
@@ -45,9 +47,10 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Hiding the Title on the Right Side</summary>
             bumpSteerCurve1.simpleLabelItem1.HideToCustomization();
 
-            ///<summary>Hiding the Layout item containing the Button</summary>
+            ///<summary>Hiding the Layout item containing the Buttons</summary>
             bumpSteerCurve1.layoutControlItem7.HideToCustomization();
-
+            bumpSteerCurve1.layoutControlItem8.HideToCustomization();
+            
         }
 
 
@@ -76,6 +79,31 @@ namespace Coding_Attempt_with_GUI
 
             ///<summary>Assining the KPI Outputs</summary>
             _resultsGrid.SetCellValue(_resultsGUI.rowKPIAngle, 1, Convert.ToString(Math.Round(Angle.FromRadians(_oc.KPI).Degrees, 2)) + " | " + Convert.ToString(Math.Round(_setupOP.Calc_KPI.Degrees, 2)));
+            if (_cv.KPIChangeRequested || _cv.constKPI || _cv.CasterChangeRequested || _cv.constCaster)
+            {
+                if (_cv.Master_Adj["Caster/KPI"].ContainsKey(AdjustmentTools.TopFrontArm.ToString()))
+                {
+                    _resultsGrid.SetCellValue(_resultsGUI.rowTopFrontAdj, 1, Convert.ToString(Math.Round(_setupOP.TopFrontLength, 3)));
+                    _resultsGUI.rowTopFrontAdj.Visible = true;
+                }
+                if (_cv.Master_Adj["Caster/KPI"].ContainsKey(AdjustmentTools.TopRearArm.ToString()))
+                {
+                    _resultsGrid.SetCellValue(_resultsGUI.rowTopRearAdj, 1, Convert.ToString(Math.Round(_setupOP.TopRearLength, 3)));
+                    _resultsGUI.rowTopRearAdj.Visible = true;
+                }
+                if (_cv.Master_Adj["Caster/KPI"].ContainsKey(AdjustmentTools.BottomFrontArm.ToString()))
+                {
+                    _resultsGrid.SetCellValue(_resultsGUI.rowBottomFrontAdj, 1, Convert.ToString(Math.Round(_setupOP.BottomFrontLength, 3)));
+                    _resultsGUI.rowBottomFrontAdj.Visible = true;
+                }
+                if (_cv.Master_Adj["Caster/KPI"].ContainsKey(AdjustmentTools.BottomRearArm.ToString()))
+                {
+                    _resultsGrid.SetCellValue(_resultsGUI.rowBottomRearAdj, 1, Convert.ToString(Math.Round(_setupOP.BottomRearLength, 3)));
+                    _resultsGUI.rowBottomRearAdj.Visible = true;
+                }
+            }
+
+
             //if (_cv.kpiAdjustmentTool == AdjustmentTools.DirectValue)
             //{
             //    _resultsGrid.SetCellValue(_resultsGUI.rowLinkKPIName, 1, AdjustmentTools.TopFrontArm.ToString());
@@ -94,7 +122,7 @@ namespace Coding_Attempt_with_GUI
             //    _resultsGrid.SetCellValue(_resultsGUI.rowLinkKPIDelta, 1, null);
 
             //}
-            _resultsGrid.SetCellValue(_resultsGUI.rowKPIConvergance, 1, _setupOP.KPI_Conv.ConvergenceStatus);
+            _resultsGrid.SetCellValue(_resultsGUI.rowKPIConvergance, 1, _setupOP.KPI_Conv.ConvergenceStatus + "%");
 
 
 
@@ -116,13 +144,31 @@ namespace Coding_Attempt_with_GUI
             //{
             //    _resultsGrid.SetCellValue(_resultsGUI.rowLinkCasterDelta, 1, null);
             //}
-            _resultsGrid.SetCellValue(_resultsGUI.rowCasterConvergance, 1, _setupOP.Caster_Conv.ConvergenceStatus);
+            _resultsGrid.SetCellValue(_resultsGUI.rowCasterConvergance, 1, _setupOP.Caster_Conv.ConvergenceStatus + "%");
 
 
 
             ///<summary>Assining the Camber Outputs</summary>
             _resultsGrid.SetCellValue(_resultsGUI.rowCamberAngle, 1, Convert.ToString(Math.Round(Angle.FromRadians(_oc.waOP.StaticCamber).Degrees, 2)) + " | " + Convert.ToString(Math.Round(_setupOP.Calc_Camber.Degrees, 2))
                 /*_cls.Final_Camber[_cls.Final_Camber.Count - 1].Degrees*/);
+
+            if (_cv.CamberChangeRequested || _cv.constCamber)
+            {
+                if (_cv.Master_Adj["Camber"].ContainsKey(AdjustmentTools.TopCamberMount.ToString()))
+                {
+                    _resultsGrid.SetCellValue(rowTopCamberMount, 1, Convert.ToString(Math.Round(_setupOP.TopCamberShimsLength,3))); 
+                    _resultsGrid.SetCellValue(rowShimsTopCamberMount, 1, Convert.ToString(Math.Round(_setupOP.TopCamberShimsNo, 3)));
+                    rowTopCamberMount.Visible = true;
+                }
+                if (_cv.Master_Adj["Camber"].ContainsKey(AdjustmentTools.BottomCamberMount.ToString()))
+                {
+                    _resultsGrid.SetCellValue(rowBottomCamberMount, 1, Convert.ToString(Math.Round(_setupOP.BottomCamberShimsLength, 3)));
+                    _resultsGrid.SetCellValue(rowShimsBottomCamberMount, 1, Convert.ToString(Math.Round(_setupOP.BottomCamberShimsNo, 3)));
+                    rowBottomCamberMount.Visible = true;
+                }
+            }
+            
+            
             //if (_cv.camberAdjustmentTool == AdjustmentTools.DirectValue)
             //{
             //    _resultsGrid.SetCellValue(_resultsGUI.rowMountName, 1, AdjustmentTools.TopCamberMount.ToString());
@@ -143,13 +189,23 @@ namespace Coding_Attempt_with_GUI
             //    _resultsGrid.SetCellValue(_resultsGUI.rowShimThickness, 1, 1);
             //}
             //_resultsGrid.SetCellValue(_resultsGUI.rowShimThickness, 1, _cv.camberShimThickness);
-            _resultsGrid.SetCellValue(_resultsGUI.rowCamberConvergance, 1, _setupOP.Camber_Conv.ConvergenceStatus);
+            _resultsGrid.SetCellValue(_resultsGUI.rowCamberConvergance, 1, _setupOP.Camber_Conv.ConvergenceStatus + "%");
 
 
 
             ///<summary>Assigning the Toe Outputs</summary>
             _resultsGrid.SetCellValue(_resultsGUI.rowToeAngle, 1, Convert.ToString(Math.Round(Angle.FromRadians(_oc.waOP.StaticToe).Degrees, 2)) + " | " + Convert.ToString(Math.Round(_setupOP.Calc_Toe.Degrees, 2))
                 /*_cls.Final_Toe[_cls.Final_Toe.Count - 1].Degrees*/);
+
+            if (_cv.ToeChangeRequested || _cv.constToe)
+            {
+                if (_cv.Master_Adj["Toe"].ContainsKey(AdjustmentTools.ToeLinkLength.ToString()))
+                {
+                    _resultsGrid.SetCellValue(rowToeLink, 1, Convert.ToString(Math.Round(_setupOP.ToeLinklength, 3)));
+                    rowToeLink.Visible = true;
+                }
+            }
+
             //if (_cls.Final_ToeAdjusterLength.Count != 1)
             //{
             //    _resultsGrid.SetCellValue(_resultsGUI.rowLinkToeDelta, 1, _cls.Final_ToeAdjusterLength[_cls.Final_ToeAdjusterLength.Count - 1] /*- _cls.Final_ToeAdjusterLength[0]*/);
@@ -158,7 +214,7 @@ namespace Coding_Attempt_with_GUI
             //{
             //    _resultsGrid.SetCellValue(_resultsGUI.rowLinkToeDelta, 1, _cls.Final_ToeAdjusterLength[_cls.Final_ToeAdjusterLength.Count - 1] - _cls.Final_ToeAdjusterLength[0]);
             //}
-            _resultsGrid.SetCellValue(_resultsGUI.rowToeConvergance, 1, _setupOP.Toe_Conv.ConvergenceStatus);
+            _resultsGrid.SetCellValue(_resultsGUI.rowToeConvergance, 1, _setupOP.Toe_Conv.ConvergenceStatus + "%");
 
 
 
@@ -174,9 +230,20 @@ namespace Coding_Attempt_with_GUI
             //    _resultsGrid.SetCellValue(_resultsGUI.rowLinkRHDelta, 1, _cls.Final_Pushrod[_cls.Final_Pushrod.Count - 1] - _cls.Final_Pushrod[0]);
 
             //}
-            _resultsGrid.SetCellValue(_resultsGUI.rowRHConvergance, 1, _setupOP.RideHeight_Conv.ConvergenceStatus);
+            _resultsGrid.SetCellValue(_resultsGUI.rowRHConvergance, 1, _setupOP.RideHeight_Conv.ConvergenceStatus + "%");
 
+            ///<summary>Setting the results of the Bump Steer</summary>
+            if (_cv.constBumpSteer || _cv.BumpSteerChangeRequested)
+            {
+                _resultsGrid.SetCellValue(rowToeLinkInboard_x, 1, Convert.ToString(Math.Round(_setupOP.ToeLinkInboard.X, 2)));
+                rowToeLinkInboard_x.Visible = true;
+                _resultsGrid.SetCellValue(rowToeLinkInboard_y, 1, Convert.ToString(Math.Round(_setupOP.ToeLinkInboard.Y, 2)));
+                rowToeLinkInboard_y.Visible = true;
+                _resultsGrid.SetCellValue(rowToeLinkInboard_z, 1, Convert.ToString(Math.Round(_setupOP.ToeLinkInboard.Z, 2)));
+                rowToeLinkInboard_z.Visible = true;
+            }
 
+            _resultsGrid.SetCellValue(rowBSConvergence, 1, _setupOP.BumpSteer_Conv.ConvergenceStatus + "%");
 
             #region ---NOT NEEDED---LINK LENGTHS
             /////<summary>Assigning the Link Lengths </summary>
