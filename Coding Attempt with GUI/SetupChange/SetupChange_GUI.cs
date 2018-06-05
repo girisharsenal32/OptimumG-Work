@@ -41,6 +41,11 @@ namespace Coding_Attempt_with_GUI
         /// NavBarItem representing this object of the SetupChange class
         /// </summary>
         public CusNavBarItem navBarItemSetupChange;
+        /// <summary>
+        /// Object of the <see cref="SetupChange_ProgressForm"/> Form
+        /// </summary>
+        SetupChange_ProgressForm ProgressForm;
+
         #endregion
 
         #region Variable Declrations
@@ -164,6 +169,33 @@ namespace Coding_Attempt_with_GUI
         public void PlotOutputs()
         {
 
+        }
+
+        public void InitializeProgressBar(int _StepSize, int _MaxValue)
+        {
+            ProgressForm = new SetupChange_ProgressForm();
+
+            ProgressForm.InitializepProgressBar(_StepSize, _MaxValue);
+        }
+
+        public void UpdateProgressForm(Convergence _CasterConv, Convergence _KPIConv, Convergence _CamberConv, Convergence _ToeConv, Convergence _BSConv, Convergence _Total)
+        {
+            ProgressForm.UpdateValues(_CasterConv, _KPIConv, _CamberConv, _ToeConv, _BSConv, _Total);
+        }
+
+        public void SetProgressValue(int _Value)
+        {
+            ProgressForm.SetProgressBarValue(_Value);
+        }
+
+        public void DispayProgressForm()
+        {
+            ProgressForm.Show();
+        }
+
+        public void HideProgressForm()
+        {
+            ProgressForm.Hide();
         }
 
     }

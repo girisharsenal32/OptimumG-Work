@@ -73,6 +73,10 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         TerminateFunction Terminate;
         /// <summary>
+        /// Variable indicating the number of Generations before Termination
+        /// </summary>
+        public int No_Generations { get; set; }
+        /// <summary>
         /// Maximium Error in a particular Generation
         /// </summary>
         double MaximumErrorOfGeneration { get; set; }
@@ -382,6 +386,8 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         public double BumpSteerError { get; set; }
 
+        public int SetupID;
+
         #endregion
         
         #region --Delegates--
@@ -418,7 +424,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_chromoseLength"> <para>Chromosome Length of the <see cref="Population"/></para>
         /// <para>Decided based on 2 things: The number of Genes and the bit size required for each Gene</para>
         /// <para>https://gaframework.org/wiki/index.php/How_to_Encode_Parameters for more information</para> </param>
-        public OptimizerGeneticAlgorithm(double _crossover, double _mutation, int _elites/*, int _popSize, int _chromoseLength*/)
+        public OptimizerGeneticAlgorithm(double _crossover, double _mutation, int _elites, int _noOfGenerations)
         {
             //BitSize = 30;
 
@@ -430,6 +436,7 @@ namespace Coding_Attempt_with_GUI
 
             ElitePercentage = _elites;
 
+            No_Generations = _noOfGenerations;
 
             Elites = new Elite(ElitePercentage);
 
@@ -507,7 +514,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_fCaster"></param>
         /// <param name="_fToe"></param>
         /// <param name="_fKPI"></param>
-        public void InitializeSetupParams(SetupChange_CornerVariables _reqChanges, SetupChange_Outputs _setupOP, Dictionary<string, Dictionary<string, Opt_AdjToolParams>> _masterD, Angle _fCamber, Angle _fCaster, Angle _fToe, Angle _fKPI)
+        public void InitializeSetupParams(SetupChange_CornerVariables _reqChanges, SetupChange_Outputs _setupOP, Dictionary<string, Dictionary<string, Opt_AdjToolParams>> _masterD, Angle _fCamber, Angle _fCaster, Angle _fToe, Angle _fKPI, int _setupGUIID)
         {
             ///<summary>Assigning the <see cref="SetupChange_CornerVariables"/> object</summary>
             Setup_CV = _reqChanges;
@@ -526,6 +533,8 @@ namespace Coding_Attempt_with_GUI
             Req_Toe = _fToe;
 
             Req_KPI = _fKPI;
+
+            SetupID = _setupGUIID;
         }
 
         /// <summary>
@@ -674,6 +683,11 @@ namespace Coding_Attempt_with_GUI
                 GA.Run(Terminate);
 
             }
+            else
+            {
+                SetupChange_GUI.List_SetupChangeGUI[SetupID].SetProgressValue((int)VCorner * No_Generations);
+
+            }
         }
 
         #endregion
@@ -730,7 +744,6 @@ namespace Coding_Attempt_with_GUI
             ExtractOptimizedValues(chromosome);
 
             //Ga_Values.DefaultView.Sort = "RMS Fitness";
-
             ///<summary>Extracting the Max Fitness</summary>
             double Fitness = e.Population.MaximumFitness;
 
@@ -747,6 +760,8 @@ namespace Coding_Attempt_with_GUI
 
             double resultError = EvaluateRMSError(MaxRowIndex);
 
+            SetupChange_GUI.List_SetupChangeGUI[SetupID].UpdateProgressForm(Setup_OP.Caster_Conv, Setup_OP.KPI_Conv, Setup_OP.Camber_Conv, Setup_OP.Toe_Conv, Setup_OP.BumpSteer_Conv, Setup_OP.Total_Conv);
+
             //DataTable clone = Ga_Values.Copy();
 
             //GetParetoSolutions();
@@ -761,6 +776,7 @@ namespace Coding_Attempt_with_GUI
 
         private void GA_OnRunComplete(object sender, GaEventArgs e)
         {
+            SetupChange_GUI.List_SetupChangeGUI[SetupID].SetProgressValue((int)VCorner * No_Generations);
         }
 
         /// <summary>
@@ -772,7 +788,7 @@ namespace Coding_Attempt_with_GUI
         /// <returns>Returns <see cref=Boolean"/> to determine if the Algoritm should termine or not </returns>
         private bool TerminateAlgorithm(Population _population, int _currGeneration, long currEvaluation)
         {
-            if (_currGeneration > 50 || _population.MaximumFitness > 0.996)
+            if (_currGeneration > No_Generations || _population.MaximumFitness > 0.996)
             {
                 ///<summary>Extracting the BEST <see cref="Chromosome"/> from the <see cref="Population"/></summary>
                 var chromosome = _population.GetTop(1)[0];
@@ -1147,6 +1163,10 @@ namespace Coding_Attempt_with_GUI
 
         }
 
+        /// <summary>
+        /// Method to extract the data from the <see cref="MasterDictionary"/>
+        /// </summary>
+        /// <param name="_extractedValues"></param>
         private void ExtractIndividualOptimizedValues(Dictionary<string, double> _extractedValues)
         {
             if (Opt_AdjToolValues.ContainsKey(AdjustmentTools.TopFrontArm.ToString()))

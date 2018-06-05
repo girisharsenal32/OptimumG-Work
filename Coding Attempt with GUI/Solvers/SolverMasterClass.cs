@@ -158,6 +158,8 @@ namespace Coding_Attempt_with_GUI
         public SetupChange_ClosedLoopSolver SetupChange_CLS_RR;
         #endregion
 
+        int SetupChange_NoOfGenerations;
+
         #region Setup Change - OptimizationGeneticAlgorithm Class Object
         OptimizerGeneticAlgorithm ga; 
         #endregion
@@ -1400,6 +1402,10 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_Vehicle"Object of the <see cref="Vehicle"/> class</param>
         public void SetupChange_PrimaryInvoker(SetupChange_CornerVariables _FlCV, SetupChange_CornerVariables _FrCV, SetupChange_CornerVariables _RlCV, SetupChange_CornerVariables _RrCV, Vehicle _Vehicle)
         {
+            int setupID = _Vehicle.vehicleSetupChange.SetupChangeID - 1;
+
+            SetupChange_NoOfGenerations = 50;
+
             Identifier = 0;
 
             ///<summary>Assinging the <see cref="SetupChange_CornerVariables"/> class objects of each corner</summary>
@@ -1467,23 +1473,30 @@ namespace Coding_Attempt_with_GUI
                 SetupChange_EditSetupValues(_Vehicle.oc_RR[0], FinalCamberRR, FinalToeRR, FinalCasterRR, FinalKPIRR);
             }
 
+            SetupChange_GUI.List_SetupChangeGUI[setupID].InitializeProgressBar(1, 4 * SetupChange_NoOfGenerations);
+
+            SetupChange_GUI.List_SetupChangeGUI[setupID].DispayProgressForm();
+
             Identifier = 1;
             ///<summary>Bringing about the Setup Changes in each of the corners and assigning the <see cref="SetupChangeDatabase"/>objects to the corners as well</summary>
-            SetupChange_InvokeChangeSolvers(_Vehicle, _Vehicle.oc_FL[0].sccvOP, _Vehicle.oc_FL, 1, FinalCamberFL, FinalToeFL, FinalCasterFL, FinalKPIFL, FinalRideHeight_FL, FinalPushrod_FL);
+            SetupChange_InvokeChangeSolvers(_Vehicle, _Vehicle.oc_FL[0].sccvOP, _Vehicle.oc_FL, 1, FinalCamberFL, FinalToeFL, FinalCasterFL, FinalKPIFL, FinalRideHeight_FL, FinalPushrod_FL, setupID);
             ///<summary>Assigning All the Final Values to the FRONT LEFT Object of the Closed Loop Solver</summary>
             AssignAllFinalSetupParams(_Vehicle.oc_FL[0], 1, _Vehicle.oc_FL[0].sccvOP, FinalRideHeight_FL, FinalPushrod_FL);
 
             Identifier = 2;
-            SetupChange_InvokeChangeSolvers(_Vehicle, _Vehicle.oc_FR[0].sccvOP, _Vehicle.oc_FR, 2, FinalCamberFR, FinalToeFR, FinalCasterFR, FinalKPIFR, FinalRideHeight_FR, FinalPushrod_FR);
+            SetupChange_InvokeChangeSolvers(_Vehicle, _Vehicle.oc_FR[0].sccvOP, _Vehicle.oc_FR, 2, FinalCamberFR, FinalToeFR, FinalCasterFR, FinalKPIFR, FinalRideHeight_FR, FinalPushrod_FR, setupID);
             AssignAllFinalSetupParams(_Vehicle.oc_FR[0], 2, _Vehicle.oc_FR[0].sccvOP, FinalRideHeight_FR, FinalPushrod_FR);
 
             Identifier = 3;
-            SetupChange_InvokeChangeSolvers(_Vehicle, _Vehicle.oc_RL[0].sccvOP, _Vehicle.oc_RL, 3, FinalCamberRL, FinalToeRL, FinalCasterRL, FinalKPIRL, FinalRideHeight_RL, FinalPushrod_RL);
+            SetupChange_InvokeChangeSolvers(_Vehicle, _Vehicle.oc_RL[0].sccvOP, _Vehicle.oc_RL, 3, FinalCamberRL, FinalToeRL, FinalCasterRL, FinalKPIRL, FinalRideHeight_RL, FinalPushrod_RL, setupID);
             AssignAllFinalSetupParams(_Vehicle.oc_RL[0], 3, _Vehicle.oc_RL[0].sccvOP, FinalRideHeight_RL, FinalPushrod_RL);
 
             Identifier = 4;
-            SetupChange_InvokeChangeSolvers(_Vehicle, _Vehicle.oc_RR[0].sccvOP, _Vehicle.oc_RR, 4, FinalCamberRR, FinalToeRR, FinalCasterRR, FinalKPIRR, FinalRideHeight_RR, FinalPushrod_RR);
+            SetupChange_InvokeChangeSolvers(_Vehicle, _Vehicle.oc_RR[0].sccvOP, _Vehicle.oc_RR, 4, FinalCamberRR, FinalToeRR, FinalCasterRR, FinalKPIRR, FinalRideHeight_RR, FinalPushrod_RR, setupID);
             AssignAllFinalSetupParams(_Vehicle.oc_RR[0], 4, _Vehicle.oc_RR[0].sccvOP, FinalRideHeight_RR, FinalPushrod_RR);
+
+            SetupChange_GUI.List_SetupChangeGUI[setupID].HideProgressForm();
+
         }
         #endregion
 
@@ -1675,7 +1688,7 @@ namespace Coding_Attempt_with_GUI
 
         }
 
-        private void SetupChange_Init_GeneticAlgorithmClass(Vehicle _vehicle, int identifier, SetupChange_CornerVariables _requestedChanges, Angle finalCamber, Angle finalToe, Angle finalCaster, Angle finalKPI)
+        private void SetupChange_Init_GeneticAlgorithmClass(Vehicle _vehicle, int identifier, SetupChange_CornerVariables _requestedChanges, Angle finalCamber, Angle finalToe, Angle finalCaster, Angle finalKPI, int _setupID)
         {
             ///<summary>Initializng the object of the <see cref="SetupChange_Outputs"/> Class</summary>
             SC_OC_Temp = new SetupChange_Outputs(identifier);
@@ -1689,10 +1702,10 @@ namespace Coding_Attempt_with_GUI
             SC_OC_Temp.InitializeAngles(finalCamber, finalToe, finalCaster, finalKPI);
 
             ///<summary>Initialize the Genetic Algorithm's Properties and Operators</summary>
-            ga = new OptimizerGeneticAlgorithm(0.85, 0.05, 5);
+            ga = new OptimizerGeneticAlgorithm(0.85, 0.05, 5, SetupChange_NoOfGenerations);
 
             ///<summary>Initializing the requirements of the USER in terms of Setup and Tools available to adjust</summary>
-            ga.InitializeSetupParams(_requestedChanges, SC_OC_Temp, _requestedChanges.Master_Adj, finalCamber, finalCaster, finalToe, finalKPI);
+            ga.InitializeSetupParams(_requestedChanges, SC_OC_Temp, _requestedChanges.Master_Adj, finalCamber, finalCaster, finalToe, finalKPI, _setupID);
 
             ///<summary>Initializing the Vehicle of the <see cref="OptimizerGeneticAlgorithm"/> class along with all of it's properties</summary>
             ga.InitializeVehicleParams((VehicleCorner)identifier, _vehicle);
@@ -1709,11 +1722,11 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_RequestedChanges">Object of the <see cref="SetupChange_CornerVariables"/> which contains the user's requested changes. </param>
         /// <param name="_Oc"></param>
         /// <param name="_Identifier">Corner Identifier</param>
-        private void SetupChange_InvokeChangeSolvers(Vehicle _Vehicle, SetupChange_CornerVariables _RequestedChanges, List<OutputClass> _Oc, int _Identifier, Angle _FinalCamber, Angle _FinalToe, Angle _FinalCaster, Angle _FinalKPI, double _FinalRideHeight, double _FinalPushrod)
+        private void SetupChange_InvokeChangeSolvers(Vehicle _Vehicle, SetupChange_CornerVariables _RequestedChanges, List<OutputClass> _Oc, int _Identifier, Angle _FinalCamber, Angle _FinalToe, Angle _FinalCaster, Angle _FinalKPI, double _FinalRideHeight, double _FinalPushrod, int _SetupID)
         {
             //SetupChange_PrimaryInitializeMethod(_RequestedChanges, _Oc);
 
-            SetupChange_Init_GeneticAlgorithmClass(_Vehicle, _Identifier, _RequestedChanges, _FinalCamber, _FinalToe, _FinalCaster, _FinalKPI);
+            SetupChange_Init_GeneticAlgorithmClass(_Vehicle, _Identifier, _RequestedChanges, _FinalCamber, _FinalToe, _FinalCaster, _FinalKPI, _SetupID);
 
             #region NOT NEEDED. As not working with Link Length Changes now
             /////<summary>Selecting the Links for KPI and Caster Changes in case the user has not selected them from the combobox provided AND Caster/KPI const or change is requested</summary>
@@ -3495,6 +3508,8 @@ namespace Coding_Attempt_with_GUI
             }
 
         }
+
+
 
         #endregion
 
