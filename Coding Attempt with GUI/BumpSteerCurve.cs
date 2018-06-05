@@ -69,11 +69,15 @@ namespace Coding_Attempt_with_GUI
             ChartPoints_Y = new List<double>();
 
             BumpSteerParms = new CustomBumpSteerParams();
+
+            AddPointToChart(chartControl1, 0, 0, 0);
         }
 
         public void GetParentObjectData(SetupChange_CornerVariables _setupCV)
         {
             Setup_CV = _setupCV;
+
+            Setup_CV.BS_Params = BumpSteerParms;
         }
 
 
@@ -94,7 +98,7 @@ namespace Coding_Attempt_with_GUI
 
             BumpSteerParms.PopulateBumpSteerGraph(ChartPoints_X, ChartPoints_Y);
 
-            Setup_CV.BS_Params = BumpSteerParms;
+
 
         }
 
@@ -118,37 +122,57 @@ namespace Coding_Attempt_with_GUI
 
         private void simpleButton1_Click(object sender, EventArgs e)
         {
-            AddPointToChart(chartControl1, 1, 0, 0);
-            AddPointToChart(chartControl1, 2, 0, 0);
-            AddPointToChart(chartControl1, 3, 0, 0);
-            AddPointToChart(chartControl1, 4, 0, 0);
-            AddPointToChart(chartControl1, 5, 0, 0);
-            AddPointToChart(chartControl1, 6, 0, 0);
-            AddPointToChart(chartControl1, 7, 0, 0);
-            AddPointToChart(chartControl1, 8, 0, 0);
-            AddPointToChart(chartControl1, 9, 0, 0);
-            AddPointToChart(chartControl1, 10, 0, 0);
-            AddPointToChart(chartControl1, 11, 0, 0);
-            AddPointToChart(chartControl1, 12, 0, 0);
-            AddPointToChart(chartControl1, 13, 0, 0);
-            AddPointToChart(chartControl1, 14, 0, 0);
-            AddPointToChart(chartControl1, 15, 0, 0);
+            //AddPointToChart(chartControl1, 1, 0, 0);
+            //AddPointToChart(chartControl1, 2, 0, 0);
+            //AddPointToChart(chartControl1, 3, 0, 0);
+            //AddPointToChart(chartControl1, 4, 0, 0);
+            //AddPointToChart(chartControl1, 5, 0, 0);
+            //AddPointToChart(chartControl1, 6, 0, 0);
+            //AddPointToChart(chartControl1, 7, 0, 0);
+            //AddPointToChart(chartControl1, 8, 0, 0);
+            //AddPointToChart(chartControl1, 9, 0, 0);
+            //AddPointToChart(chartControl1, 10, 0, 0);
+            //AddPointToChart(chartControl1, 11, 0, 0);
+            //AddPointToChart(chartControl1, 12, 0, 0);
+            //AddPointToChart(chartControl1, 13, 0, 0);
+            //AddPointToChart(chartControl1, 14, 0, 0);
+            //AddPointToChart(chartControl1, 15, 0, 0);
+            //AddPointToChart(chartControl1, 16, 0, 0);
+            //AddPointToChart(chartControl1, 17, 0, 0);
+            //AddPointToChart(chartControl1, 18, 0, 0);
+            //AddPointToChart(chartControl1, 19, 0, 0);
+            //AddPointToChart(chartControl1, 20, 0, 0);
+            //AddPointToChart(chartControl1, 21, 0, 0);
+            //AddPointToChart(chartControl1, 22, 0, 0);
+            //AddPointToChart(chartControl1, 23, 0, 0);
+            //AddPointToChart(chartControl1, 24, 0, 0);
+            AddPointToChart(chartControl1, 25, 0, 0);
 
-            AddPointToChart(chartControl1, -1, 0, 0);
-            AddPointToChart(chartControl1, -2, 0, 0);
-            AddPointToChart(chartControl1, -3, 0, 0);
-            AddPointToChart(chartControl1, -4, 0, 0);
-            AddPointToChart(chartControl1, -5, 0, 0);
-            AddPointToChart(chartControl1, -6, 0, 0);
-            AddPointToChart(chartControl1, -7, 0, 0);
-            AddPointToChart(chartControl1, -8, 0, 0);
-            AddPointToChart(chartControl1, -9, 0, 0);
-            AddPointToChart(chartControl1, -10, 0, 0);
-            AddPointToChart(chartControl1, -11, 0, 0);
-            AddPointToChart(chartControl1, -12, 0, 0);
-            AddPointToChart(chartControl1, -13, 0, 0);
-            AddPointToChart(chartControl1, -14, 0, 0);
-            AddPointToChart(chartControl1, -15, 0, 0);
+            //AddPointToChart(chartControl1, -1, 0, 0);
+            //AddPointToChart(chartControl1, -2, 0, 0);
+            //AddPointToChart(chartControl1, -3, 0, 0);
+            //AddPointToChart(chartControl1, -4, 0, 0);
+            //AddPointToChart(chartControl1, -5, 0, 0);
+            //AddPointToChart(chartControl1, -6, 0, 0);
+            //AddPointToChart(chartControl1, -7, 0, 0);
+            //AddPointToChart(chartControl1, -8, 0, 0);
+            //AddPointToChart(chartControl1, -9, 0, 0);
+            //AddPointToChart(chartControl1, -10, 0, 0);
+            //AddPointToChart(chartControl1, -11, 0, 0);
+            //AddPointToChart(chartControl1, -12, 0, 0);
+            //AddPointToChart(chartControl1, -13, 0, 0);
+            //AddPointToChart(chartControl1, -14, 0, 0);
+            //AddPointToChart(chartControl1, -15, 0, 0);
+            //AddPointToChart(chartControl1, -16, 0, 0);
+            //AddPointToChart(chartControl1, -17, 0, 0);
+            //AddPointToChart(chartControl1, -18, 0, 0);
+            //AddPointToChart(chartControl1, -19, 0, 0);
+            //AddPointToChart(chartControl1, -20, 0, 0);
+            //AddPointToChart(chartControl1, -21, 0, 0);
+            //AddPointToChart(chartControl1, -22, 0, 0);
+            //AddPointToChart(chartControl1, -23, 0, 0);
+            //AddPointToChart(chartControl1, -24, 0, 0);
+            AddPointToChart(chartControl1, -25, 0, 0);
         }
 
 

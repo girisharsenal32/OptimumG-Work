@@ -27,10 +27,23 @@ namespace Coding_Attempt_with_GUI
 
         public List<Angle> ToeAnglesRebound;
 
+
+        /// <summary>
+        /// Variable holding the Highest Bump Value
+        /// </summary>
+        double HighestBump;
+
+        /// <summary>
+        /// Variable holding the index of the Highest Bump
+        /// </summary>
+        public int HighestBumpindex;
+
         /// <summary>
         /// Step Size of the Motion Analysis
         /// </summary>
-        public int StepSize;
+        public int StepSize = 1;
+
+        double slope, intercept, VerifyEQ;
 
         /// <summary>
         /// Constructor
@@ -46,48 +59,125 @@ namespace Coding_Attempt_with_GUI
             ToeAnglesRebound = new List<Angle>();
         }
 
+        #region Calculating the equation of the line of motion
+        /// <summary>
+        /// Method to compute the Equation of the Line
+        /// </summary>
+        /// <param name="_Y"></param>
+        /// <param name="_X"></param>
+        /// <param name="Index"></param>
+        private void EquationOfLine(double[] _Y, double[] _X, int Index)
+        {
+            slope = (_Y[Index + 1] - _Y[Index]) / (_X[Index + 1] - _X[Index]);
+            intercept = (_Y[Index] - (slope * _X[Index]));
+            VerifyEQ = (slope * _X[Index]) + intercept; // This line exists only to verify if the slope is calculated properly. This line will be used only during debugging
+        }
+        #endregion
+
         /// <summary>
         /// Method to populate the <see cref="ToeAngles"/> list with the plotted Chart Points in the <see cref="BumpSteerCurve"/> Chart
         /// Method to populate the <see cref="WheelDeflections"/> list with the Plotted Chart Points in the <see cref="BumpSteerCurve"/> Chart
         /// </summary>
         /// <param name="_toeAngleFromChart"></param>
         /// <param name="_wdFromChart"></param>
-        public void PopulateBumpSteerGraph(List<double> _wdFromChart, List<double> _toeAngleFromChart)
+        public void PopulateBumpSteerGraph(List<double> wdFromChart, List<double> toeAngleFromChart)
         {
+
+
+
+            int NoOfDeflections = wdFromChart.Count;
+
+            int NoOfSteps;
+
+            wdFromChart.Sort();
+
+            toeAngleFromChart.Sort();
+
+            
+
+            List<double> tempWdFromChart = new List<double>(/*new double[] { 0 }*/);
+
+            tempWdFromChart.AddRange(wdFromChart.ToArray());
+            
+
+            List<double> tempToeAngleFromChart = new List<double>(/*new double[] { 0 }*/);
+
+            tempToeAngleFromChart.AddRange(toeAngleFromChart.ToArray());
+
+
+
+
+
+
+
+
+            List<double> deflections = new List<double>();
+
+            List<double> toeVariations = new List<double>();
+
+
+            double NextX;
+
+            for (int i = 0; i < NoOfDeflections - 1; i++) 
+            {
+                ///<summary>Computing the Equation of the Line betweent he current and next plotted point</summary>
+                EquationOfLine(tempToeAngleFromChart.ToArray(), tempWdFromChart.ToArray(), i);
+                ///<summary>Calculating the number of steps required to get from the current point to the next for a step size of Delta = 1 </summary>
+                NoOfSteps = Math.Abs(Convert.ToInt32((tempWdFromChart[i + 1] - tempWdFromChart[i]) / StepSize));
+                ///<summary>Assigning the Current chart point to a temporary variable</summary>
+                NextX = tempWdFromChart[i];
+
+                ///<summary>Incrementing the Current variable based on the Slope, Intercept and delta</summary>
+                for (int j = 0; j < NoOfSteps; j++)
+                {
+
+                    int PositionOfInsert = toeVariations.Count;
+
+                    toeVariations.Insert(PositionOfInsert, new Double());
+                    toeVariations[PositionOfInsert] = (slope * NextX) + intercept;
+
+                    deflections.Insert(PositionOfInsert, new Double());
+                    deflections[PositionOfInsert] = NextX;
+
+                    NextX += StepSize;
+                }
+            }
 
             ///<summary>Populating the Toe Angles List</summary>
             ToeAngles.Clear();
 
-            for (int i = 0; i < _toeAngleFromChart.Count; i++)
+            for (int i = 0; i < toeVariations.Count; i++)
             {
-                ToeAngles.Add(new Angle(_toeAngleFromChart[i], AngleUnit.Degrees));
+                ToeAngles.Add(new Angle(toeVariations[i], AngleUnit.Degrees));
             }
 
 
             ///<summary> Populating the Wheel Deflections List</summary>
             WheelDeflections.Clear();
 
-            for (int i = 0; i < _wdFromChart.Count; i++)
+            for (int i = 0; i < deflections.Count; i++)
             {
-                WheelDeflections.Add(_wdFromChart[i]);
+                WheelDeflections.Add(deflections[i]);
             }
 
-            WheelDeflections.Add(0);
+            //WheelDeflections.Add(0);
 
-            ToeAngles.Add(new Angle());
+            //ToeAngles.Add(new Angle());
 
             ///<summary>Sorting the Toe Angles based on the sorting of Wheel Deflections</summary>
             SortToeList();
 
-            ToeAngles.Insert(0, ToeAngles[0]);
+            //ToeAngles.Insert(0, ToeAngles[0]);
 
-            ToeAngles.Insert(ToeAngles.Count, ToeAngles[ToeAngles.Count - 1]);
+            //ToeAngles.Insert(ToeAngles.Count, ToeAngles[ToeAngles.Count - 1]);
 
-            WheelDeflections.Insert(0, WheelDeflections[0]);
+            //WheelDeflections.Insert(0, WheelDeflections[0]);
 
-            WheelDeflections.Insert(WheelDeflections.Count, WheelDeflections[WheelDeflections.Count - 1]);
+            //WheelDeflections.Insert(WheelDeflections.Count, WheelDeflections[WheelDeflections.Count - 1]);
 
-            SplitToeAngles();
+            //SplitToeAngles();
+
+            ExtendWheelDeflection(StepSize);
 
         }
 
@@ -110,12 +200,10 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Sorting the Toe Angles based on the sorting of the Wheel Deflections</summary>
             Array.Sort(wheelDeflections, toeAngle);
 
-            //wheelDeflections.Reverse();
-
-            //toeAngle.Reverse();
-
             ///<summary>Converting the temporary <see cref="Array"/>s back to <see cref="List{T}"/>s</summary>
             WheelDeflections = wheelDeflections.ToList();
+
+            WheelDeflections.Reverse();
 
             ToeAngles.Clear();
 
@@ -123,6 +211,8 @@ namespace Coding_Attempt_with_GUI
             {
                 ToeAngles.Add(new Angle(toeAngle[i], AngleUnit.Degrees));
             }
+
+            ToeAngles.Reverse();
 
         }
 
@@ -159,6 +249,23 @@ namespace Coding_Attempt_with_GUI
         }
 
 
+        private void ExtendWheelDeflection(int _stepSize)
+        {
+            if (WheelDeflections.Count != 0)
+            {
+                HighestBump = WheelDeflections[0];
+
+                double iterations = HighestBump / _stepSize;
+
+                for (int i = 0; i < iterations; i++)
+                {
+                    WheelDeflections.Insert(i, i * _stepSize);
+                }
+
+                HighestBumpindex = WheelDeflections.IndexOf(WheelDeflections.Max());  
+            }
+
+        }
 
 
     }

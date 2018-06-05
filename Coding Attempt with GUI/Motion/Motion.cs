@@ -121,10 +121,14 @@ namespace Coding_Attempt_with_GUI
 
             for (int i_slope_Heave = 0; i_slope_Heave < NoOfDeflections - 1; i_slope_Heave++) 
             {
+                ///<summary>Computing the Equation of the Line betweent he current and next plotted point</summary>
                 EquationOfLine(ChartPoints_WheelDef_Y, ChartPoints_WheelDef_X, i_slope_Heave);
+                ///<summary>Calculating the number of steps required to get from the current point to the next for a step size of Delta = 1 </summary>
                 NoOfSteps = Math.Abs(Convert.ToInt32((ChartPoints_WheelDef_X[i_slope_Heave + 1] - ChartPoints_WheelDef_X[i_slope_Heave]) / Delta));
+                ///<summary>Assigning the Current chart point to a temporary variable</summary>
                 NextX = ChartPoints_WheelDef_X[i_slope_Heave];
 
+                ///<summary>Incrementing the Current variable based on the Slope, Intercept and delta</summary>
                 for (int i = 0; i < NoOfSteps; i++)
                 {
                     
