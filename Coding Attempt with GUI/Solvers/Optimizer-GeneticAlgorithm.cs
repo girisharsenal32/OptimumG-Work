@@ -489,12 +489,6 @@ namespace Coding_Attempt_with_GUI
             Req_Toe = _fToe;
 
             Req_KPI = _fKPI;
-
-            if (Setup_CV.BS_Params.ToeAngles != null)
-            {
-                Req_BumpSteerGraph = Setup_CV.BS_Params.ToeAngles;
-
-            }
         }
 
         /// <summary>

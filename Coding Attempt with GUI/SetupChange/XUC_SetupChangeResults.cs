@@ -19,8 +19,35 @@ namespace Coding_Attempt_with_GUI
         {
             InitializeComponent();
 
+            ShowRelevant();
         }
 
+        /// <summary>
+        /// Method to hide the unneccesary layout items of the <see cref="BumpSteerCurve"/> user control 
+        /// </summary>
+        private void ShowRelevant()
+        {
+            ///<summary>Hiding the empyt space items in the right</summary>
+            bumpSteerCurve1.emptySpaceItem1.HideToCustomization();
+            bumpSteerCurve1.emptySpaceItem2.HideToCustomization();
+            bumpSteerCurve1.emptySpaceItem3.HideToCustomization();
+            bumpSteerCurve1.emptySpaceItem4.HideToCustomization();
+            bumpSteerCurve1.emptySpaceItem5.HideToCustomization();
+
+            ///<summary>Hiding the Layout items which contain the Textboxes</summary>
+            bumpSteerCurve1.layoutControlItem2.HideToCustomization();
+            bumpSteerCurve1.layoutControlItem3.HideToCustomization();
+            bumpSteerCurve1.layoutControlItem4.HideToCustomization();
+            bumpSteerCurve1.layoutControlItem5.HideToCustomization();
+            bumpSteerCurve1.layoutControlItem6.HideToCustomization();
+
+            ///<summary>Hiding the Title on the Right Side</summary>
+            bumpSteerCurve1.simpleLabelItem1.HideToCustomization();
+
+            ///<summary>Hiding the Layout item containing the Button</summary>
+            bumpSteerCurve1.layoutControlItem7.HideToCustomization();
+
+        }
 
         public void DisplayIndividualOutputs(OutputClass _oc, SetupChange_Outputs _setupOP, SetupChange_CornerVariables _cv, XUC_SetupChangeResults _resultsGUI, VGridControl _resultsGrid, ref bool _converged)
         {

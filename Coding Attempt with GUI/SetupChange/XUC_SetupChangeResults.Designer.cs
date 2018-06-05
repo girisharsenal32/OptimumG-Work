@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.vGridControl1 = new DevExpress.XtraVerticalGrid.VGridControl();
+            this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.bumpSteerCurve1 = new Coding_Attempt_with_GUI.BumpSteerCurve();
             this.rowKPIAngle = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.rowLinkKPIName = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.rowLinkKPIDelta = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
@@ -57,7 +59,6 @@
             this.rowPushrod = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.rowToeLink = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.rowLinkConvergance = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
-            this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             ((System.ComponentModel.ISupportInitialize)(this.vGridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
@@ -81,7 +82,7 @@
             this.vGridControl1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.vGridControl1.Cursor = System.Windows.Forms.Cursors.Default;
             this.vGridControl1.CustomizationFormBounds = new System.Drawing.Rectangle(1420, 550, 210, 254);
-            this.vGridControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.vGridControl1.Dock = System.Windows.Forms.DockStyle.Left;
             this.vGridControl1.Location = new System.Drawing.Point(2, 20);
             this.vGridControl1.Name = "vGridControl1";
             this.vGridControl1.RecordWidth = 166;
@@ -94,8 +95,36 @@
             this.rowRideHeight,
             this.rowLinkLengths});
             this.vGridControl1.ScrollVisibility = DevExpress.XtraVerticalGrid.ScrollVisibility.Vertical;
-            this.vGridControl1.Size = new System.Drawing.Size(394, 379);
+            this.vGridControl1.Size = new System.Drawing.Size(394, 485);
             this.vGridControl1.TabIndex = 0;
+            // 
+            // groupControl1
+            // 
+            this.groupControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupControl1.CaptionLocation = DevExpress.Utils.Locations.Top;
+            this.groupControl1.Controls.Add(this.bumpSteerCurve1);
+            this.groupControl1.Controls.Add(this.vGridControl1);
+            this.groupControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupControl1.Location = new System.Drawing.Point(0, 0);
+            this.groupControl1.Name = "groupControl1";
+            this.groupControl1.Size = new System.Drawing.Size(1107, 507);
+            this.groupControl1.TabIndex = 1;
+            // 
+            // bumpSteerCurve1
+            // 
+            this.bumpSteerCurve1.CustomBumpSteerCurve = false;
+            this.bumpSteerCurve1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.bumpSteerCurve1.Enabled = false;
+            this.bumpSteerCurve1.Location = new System.Drawing.Point(396, 20);
+            this.bumpSteerCurve1.Name = "bumpSteerCurve1";
+            this.bumpSteerCurve1.seriesPointsInChart = null;
+            this.bumpSteerCurve1.Size = new System.Drawing.Size(709, 485);
+            this.bumpSteerCurve1.StepSize = 0;
+            this.bumpSteerCurve1.TabIndex = 1;
+            this.bumpSteerCurve1.X_Lower = 0D;
+            this.bumpSteerCurve1.X_Upper = 0D;
+            this.bumpSteerCurve1.Y_Lower = 0D;
+            this.bumpSteerCurve1.Y_Upper = 0D;
             // 
             // rowKPIAngle
             // 
@@ -365,8 +394,10 @@
             this.rowToeLink,
             this.rowLinkConvergance});
             this.rowLinkLengths.Enabled = false;
+            this.rowLinkLengths.Expanded = false;
             this.rowLinkLengths.Name = "rowLinkLengths";
             this.rowLinkLengths.Properties.Caption = "Link Lengths";
+            this.rowLinkLengths.Visible = false;
             // 
             // rowTopFront
             // 
@@ -463,24 +494,13 @@
             this.rowLinkConvergance.Name = "rowLinkConvergance";
             this.rowLinkConvergance.Properties.Caption = "Convergance Status";
             // 
-            // groupControl1
-            // 
-            this.groupControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.groupControl1.CaptionLocation = DevExpress.Utils.Locations.Top;
-            this.groupControl1.Controls.Add(this.vGridControl1);
-            this.groupControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupControl1.Location = new System.Drawing.Point(0, 0);
-            this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(398, 401);
-            this.groupControl1.TabIndex = 1;
-            // 
             // XUC_SetupChangeResults
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupControl1);
             this.Name = "XUC_SetupChangeResults";
-            this.Size = new System.Drawing.Size(398, 401);
+            this.Size = new System.Drawing.Size(1107, 507);
             ((System.ComponentModel.ISupportInitialize)(this.vGridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
@@ -519,5 +539,6 @@
         private DevExpress.XtraVerticalGrid.Rows.EditorRow rowPushrod;
         private DevExpress.XtraVerticalGrid.Rows.EditorRow rowToeLink;
         private DevExpress.XtraVerticalGrid.Rows.EditorRow rowLinkConvergance;
+        private BumpSteerCurve bumpSteerCurve1;
     }
 }

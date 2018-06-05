@@ -276,6 +276,8 @@ namespace Coding_Attempt_with_GUI
             BumpSteer_Adj = new Dictionary<string, Opt_AdjToolParams>();
 
             Master_Adj = new Dictionary<string, Dictionary<string, Opt_AdjToolParams>>();
+
+            BS_Params = new CustomBumpSteerParams();
         }
 
         /// <summary>
