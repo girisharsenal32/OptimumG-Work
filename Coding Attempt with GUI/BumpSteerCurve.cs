@@ -92,15 +92,9 @@ namespace Coding_Attempt_with_GUI
 
             ChartPoints_Y.Add(_y);
 
-            BumpSteerParms.WheelDeflections = ChartPoints_X;
+            BumpSteerParms.PopulateBumpSteerGraph(ChartPoints_X, ChartPoints_Y);
 
-            BumpSteerParms.PopulateToeAngleList(ChartPoints_Y);
-
-            BumpSteerParms.WheelDeflections.Sort();
-
-            BumpSteerParms.ToeAngles.Sort();
-
-            Setup_CV.BS_Params = this.BumpSteerParms;
+            Setup_CV.BS_Params = BumpSteerParms;
 
         }
 
@@ -122,7 +116,40 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
+        private void simpleButton1_Click(object sender, EventArgs e)
+        {
+            AddPointToChart(chartControl1, 1, 0, 0);
+            AddPointToChart(chartControl1, 2, 0, 0);
+            AddPointToChart(chartControl1, 3, 0, 0);
+            AddPointToChart(chartControl1, 4, 0, 0);
+            AddPointToChart(chartControl1, 5, 0, 0);
+            AddPointToChart(chartControl1, 6, 0, 0);
+            AddPointToChart(chartControl1, 7, 0, 0);
+            AddPointToChart(chartControl1, 8, 0, 0);
+            AddPointToChart(chartControl1, 9, 0, 0);
+            AddPointToChart(chartControl1, 10, 0, 0);
+            AddPointToChart(chartControl1, 11, 0, 0);
+            AddPointToChart(chartControl1, 12, 0, 0);
+            AddPointToChart(chartControl1, 13, 0, 0);
+            AddPointToChart(chartControl1, 14, 0, 0);
+            AddPointToChart(chartControl1, 15, 0, 0);
 
+            AddPointToChart(chartControl1, -1, 0, 0);
+            AddPointToChart(chartControl1, -2, 0, 0);
+            AddPointToChart(chartControl1, -3, 0, 0);
+            AddPointToChart(chartControl1, -4, 0, 0);
+            AddPointToChart(chartControl1, -5, 0, 0);
+            AddPointToChart(chartControl1, -6, 0, 0);
+            AddPointToChart(chartControl1, -7, 0, 0);
+            AddPointToChart(chartControl1, -8, 0, 0);
+            AddPointToChart(chartControl1, -9, 0, 0);
+            AddPointToChart(chartControl1, -10, 0, 0);
+            AddPointToChart(chartControl1, -11, 0, 0);
+            AddPointToChart(chartControl1, -12, 0, 0);
+            AddPointToChart(chartControl1, -13, 0, 0);
+            AddPointToChart(chartControl1, -14, 0, 0);
+            AddPointToChart(chartControl1, -15, 0, 0);
+        }
 
 
         private void textBoxStepSize_Leave(object sender, EventArgs e)

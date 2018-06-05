@@ -514,7 +514,7 @@ namespace Coding_Attempt_with_GUI
                 checkedListBoxControlConstraints.Items["Bump Steer Constant"].CheckState = CheckState.Unchecked;
                 checkedListBoxControlConstraints.Items["Bump Steer Constant"].Enabled = false;
 
-                if (setupChange_CV.Master_Adj.ContainsKey("Bump Steer"))
+                if (!setupChange_CV.Master_Adj.ContainsKey("Bump Steer"))
                 {
                     setupChange_CV.Master_Adj.Add("Bump Steer", setupChange_CV.BumpSteer_Adj);
                 }

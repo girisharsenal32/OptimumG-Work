@@ -148,9 +148,9 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
         #region --VEHICLE & SUSPENSION PARAMETERS--
-        
+
         //--VEHICLE PARAMETERS--
-        
+
         /// <summary>
         /// Object of the <see cref="VehicleCorner"/> which decides the corner of the Vehicle calling this Class
         /// </summary>
@@ -209,7 +209,7 @@ namespace Coding_Attempt_with_GUI
         Vehicle Vehicle;
 
         //-RELEVANT COORDINATES-
-        
+
         /// <summary>
         /// Upper Ball Joint
         /// </summary>
@@ -490,7 +490,11 @@ namespace Coding_Attempt_with_GUI
 
             Req_KPI = _fKPI;
 
-            Req_BumpSteerGraph = Setup_CV.BS_Params.ToeAngles;
+            if (Setup_CV.BS_Params.ToeAngles != null)
+            {
+                Req_BumpSteerGraph = Setup_CV.BS_Params.ToeAngles;
+
+            }
         }
 
         /// <summary>
@@ -543,7 +547,7 @@ namespace Coding_Attempt_with_GUI
 
             OC = tempVehicleParams["OutputClass"] as List<OutputClass>;
 
-            OC_BumpSteer = VehicleParamsAssigner.AssignVehicleParams_Custom_OC_BumpSteer(SCM, _vCorner, _vehicle, (SuspensionEvalIterations * 2) + 1);
+            //OC_BumpSteer = VehicleParamsAssigner.AssignVehicleParams_Custom_OC_BumpSteer(SCM, _vCorner, _vehicle, (SuspensionEvalIterations * 2) + 1);
 
             Identifier = (int)tempVehicleParams["Identifier"];
 
@@ -699,9 +703,9 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Extracting the Max Fitness</summary>
             double Fitness = e.Population.MaximumFitness;
 
-            
+
             int Generations = e.Generation;
-            
+
             long Evaluations = e.Evaluations;
 
             Anneal(Fitness);
@@ -738,7 +742,7 @@ namespace Coding_Attempt_with_GUI
         private bool TerminateAlgorithm(Population _population, int _currGeneration, long currEvaluation)
         {
             if (_currGeneration > 50)
-           {
+            {
                 ///<summary>Extracting the BEST <see cref="Chromosome"/> from the <see cref="Population"/></summary>
                 var chromosome = _population.GetTop(1)[0];
 
@@ -985,10 +989,10 @@ namespace Coding_Attempt_with_GUI
         /// <returns></returns>
         private int GetNoOfIterations(int _upperLimitWheelDeflection, int _lowerLimitWheelDeflection, int _stepSize)
         {
-            double Range = _upperLimitWheelDeflection - _lowerLimitWheelDeflection;
+            //double Range = _upperLimitWheelDeflection - _lowerLimitWheelDeflection;
 
-            return Convert.ToInt32(Range) / _stepSize;
-
+            //return Convert.ToInt32(Range) / _stepSize;
+            return 1;
         }
 
         private void Anneal(double Fitness)
@@ -1036,7 +1040,7 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
-        private void ModfiyStepSize(double _range, double _coordinateRange,double _linkLengthRange)
+        private void ModfiyStepSize(double _range, double _coordinateRange, double _linkLengthRange)
         {
 
 
@@ -1109,7 +1113,7 @@ namespace Coding_Attempt_with_GUI
             }
 
             ExtractIndividualOptimizedValues(Opt_AdjToolValues);
-            
+
         }
 
         private void ExtractIndividualOptimizedValues(Dictionary<string, double> _extractedValues)
@@ -1140,7 +1144,7 @@ namespace Coding_Attempt_with_GUI
             }
             if (Opt_AdjToolValues.ContainsKey(AdjustmentTools.ToeLinkLength.ToString()))
             {
-                ga_ToeLink= Opt_AdjToolValues[AdjustmentTools.ToeLinkLength.ToString()];
+                ga_ToeLink = Opt_AdjToolValues[AdjustmentTools.ToeLinkLength.ToString()];
 
                 Setup_OP.ToeLinklength = ga_ToeLink;
             }
@@ -1158,7 +1162,7 @@ namespace Coding_Attempt_with_GUI
 
                 Setup_OP.BottomCamberShimsLength = ga_BottomCamberShims;
             }
-            if (Opt_AdjToolValues.ContainsKey(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_x")) 
+            if (Opt_AdjToolValues.ContainsKey(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_x"))
             {
                 ga_ToeLinkInboard.X = Opt_AdjToolValues[AdjustmentTools.ToeLinkInboardPoint.ToString() + "_x"];
 
@@ -1187,7 +1191,7 @@ namespace Coding_Attempt_with_GUI
         private double EvaluateRMSError(int rowIndex)
         {
             SolveKinematics();
-            
+
             Update_SuspensionCoordinateData();
 
 
@@ -1224,8 +1228,8 @@ namespace Coding_Attempt_with_GUI
             //Ga_Values.Rows[rowIndex].SetField<double>("RMS Fitness", 1 - rmsError);
 
             //EvaluateWishboneConstraints();
-            
-            if (rmsError > 1 )
+
+            if (rmsError > 1)
             {
                 return 0.99;
             }
@@ -1598,10 +1602,6 @@ namespace Coding_Attempt_with_GUI
         /// <returns>Returns Error of the computed Bump Steer Curve with the Curve that the user wants</returns>
         private double ComputeBumpSteerError()
         {
-            
-
-            
-
             Point3D InboardPickUpPoint = new Point3D(ga_ToeLinkInboard.X, ga_ToeLinkInboard.Y, ga_ToeLinkInboard.Z);
 
             ///<summary>Assigning the Simulation Type in the <see cref="DoubleWishboneKinematicsSolver"/></summary>
@@ -1615,14 +1615,52 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Assigning the Wheel Spindle End Coordinate of the <see cref="DoubleWishboneKinematicsSolver"/> Class</summary>
             dwSolver.L1x = SCM.L1x; dwSolver.L1y = SCM.L1y; dwSolver.L1z = SCM.L1z;
 
+            #region ---Computing Toe Variation for a Bump Pass
+            ///<summary>Generating Bump Wheel Deflection profile</summary>
+            GetWheelDeflections(WheelDeflectionType.Bump);
+
+            ///<summary>Generating an Output Class List to compute the Toe Angle Variation during Bump</summary>
+            GetIndependantOutputClassList(dwSolver, WheelDeflectionType.Bump);
+
             ///<summary>
+            ///---BUMP---
             ///Invoking the <see cref="DoubleWishboneKinematicsSolver.Kinematics(int, SuspensionCoordinatesMaster, WheelAlignment, Tire, AntiRollBar, double, Spring, Damper, List{OutputClass}, Vehicle, List{double}, bool, bool)"/>
-            ///Class to compute the Kinematics and calculate the Bump Steer at each interval of Wheel Deflection
+            ///Class to compute the Kinematics and calculate the Bump Steer at each interval of Wheel Deflection 
             /// </summary>
-            dwSolver.Kinematics(Identifier, SCM, WA, Tire, ARB, ARBRate_Nmm, Spring, Damper, OC_BumpSteer, Vehicle, CalculateWheelDeflections(SuspensionEvalStepSize, dwSolver), true, false);
+            dwSolver.Kinematics(Identifier, SCM, WA, Tire, ARB, ARBRate_Nmm, Spring, Damper, OC_BumpSteer, Vehicle, wdBump, true, false);
+
+            ///<summary>Extractingg the Toe Angles Computed in the above Solver Pass for Bump</summary>
+            ExtractToeAngles(OC_BumpSteer, WheelDeflectionType.Bump);
+
+            #endregion
+
+            #region ---Computing Toe Variation for a Rebound Pass
+            ///<summary>Generating Rebound Wheel Deflection profile</summary>
+            GetWheelDeflections(WheelDeflectionType.Rebound);
+
+            ///<summary>Generating an Output Class List to compute the Toe Angle Variation during Rebound</summary>
+            GetIndependantOutputClassList(dwSolver, WheelDeflectionType.Rebound);
+
+            ///<summary>
+            ///---REBOUND---
+            ///Invoking the <see cref="DoubleWishboneKinematicsSolver.Kinematics(int, SuspensionCoordinatesMaster, WheelAlignment, Tire, AntiRollBar, double, Spring, Damper, List{OutputClass}, Vehicle, List{double}, bool, bool)"/>
+            ///Class to compute the Kinematics and calculate the Bump Steer at each interval of Wheel Deflection 
+            /// </summary>
+            dwSolver.Kinematics(Identifier, SCM, WA, Tire, ARB, ARBRate_Nmm, Spring, Damper, OC_BumpSteer, Vehicle, wdRebound, true, false);
+
+            ///<summary>Extractingg the Toe Angles Computed in the above Solver Pass for Rebound</summary>
+            ExtractToeAngles(OC_BumpSteer, WheelDeflectionType.Rebound);
+
+            #endregion
 
             ///<summary>Invoking the <see cref="GetResultValues(List{OutputClass})"/> to extract the Bump Steer Data</summary>
-            BumpSteerError = GetResultValues(OC_BumpSteer);
+            double bumpSteerError_Bump = GetResultValues(WheelDeflectionType.Bump);
+
+            double bumpSteer_Rebound = GetResultValues(WheelDeflectionType.Rebound) ;
+
+            //BumpSteerError = System.Math.Sqrt(System.Math.Pow(bumpSteerError_Bump, 2) + System.Math.Pow(bumpSteer_Rebound, 2));
+
+            BumpSteerError = (bumpSteerError_Bump + bumpSteer_Rebound) / 2;
 
             ///<summary>Reassigning the Simulation type to Dummy so to prevent confusion if any other simulation is run after this one</summary>
             dwSolver.SimulationType = SimulationType.Dummy;
@@ -1634,110 +1672,169 @@ namespace Coding_Attempt_with_GUI
         }
 
         /// <summary>
+        /// Wheel Deflection List for only Bump Condition
+        /// </summary>
+        List<double> wdBump;
+
+        /// <summary>
+        /// Wheel Deflection List for only Rebound Condition
+        /// </summary>
+        List<double> wdRebound;
+
+        /// <summary>
         /// Method to generate the Wheel Deflection curve based on the <see cref="SuspensionEvalStepSize"/> passed as an argument and the <see cref="SuspensionEvalIterations"/>
         /// </summary>
-        /// <param name="_StepSize">Step Size </param>
         /// <param name="_dwSolver">Object of the <see cref="DoubleWishboneKinematicsSolver"/></param>
+        /// <param name="_wdType"> Enum value to determine whether a Bump pass is happening or a Rebound pass</param>
         /// <returns><see cref="List{T}"/> of Wheel Deflections which define a Wheel Deflection Curve</returns>
-        private List<double> CalculateWheelDeflections(int _StepSize, DoubleWishboneKinematicsSolver _dwSolver)
+        private List<double> GetWheelDeflections(WheelDeflectionType _wdType)
         {
-            _dwSolver.NoOfIterationsOptimization = (SuspensionEvalIterations * 2) + 1;
 
-            List<double> WheelDefelctions = new List<double>();
-
-            WheelDefelctions.Add(0);
-
-
-            List<double> wheelDeflections0ToUpper = new List<double>();
-
-            wheelDeflections0ToUpper.Add(_StepSize);
-
-            for (int i = 0; i < SuspensionEvalIterations_UpperLimit - 1; i++)
+            if (_wdType == WheelDeflectionType.Bump)
             {
-                wheelDeflections0ToUpper.Add(wheelDeflections0ToUpper[i] + _StepSize);
-            }
-            for (int i = 0; i < SuspensionEvalIterations_UpperLimit - 1; i++)
-            {
-                wheelDeflections0ToUpper.Add(wheelDeflections0ToUpper[SuspensionEvalIterations_UpperLimit - 1 - i] - _StepSize);
-            }
+                wdBump = new List<double>();
 
-            WheelDefelctions.AddRange(wheelDeflections0ToUpper.ToArray());
-
-
-
-
-
-            List<double> WheelDeflections0ToLower = new List<double>();
-
-            WheelDeflections0ToLower.Add(-_StepSize);
-
-            for (int i = 0; i < SuspensionEvalIterations_LowerLimit - 1; i++)
-            {
-                WheelDeflections0ToLower.Add(WheelDeflections0ToLower[i] - _StepSize);
-            }
-            for (int i = 0; i < SuspensionEvalIterations_LowerLimit - 1; i++)
-            {
-                WheelDeflections0ToLower.Add(WheelDeflections0ToLower[SuspensionEvalIterations_LowerLimit - 1 - i] + _StepSize);
-            }
-
-            WheelDefelctions.AddRange(WheelDeflections0ToLower.ToArray());
-
-            WheelDefelctions.Insert(SuspensionEvalIterations_UpperLimit * 2, 0);
-            WheelDefelctions.Insert(WheelDefelctions.Count, 0);
-
-            if (WheelDefelctions.Count != _dwSolver.NoOfIterationsOptimization)
-            {
-                int diff = _dwSolver.NoOfIterationsOptimization - WheelDefelctions.Count - 1;
-
-                for (int i = 0; i < diff; i++)
+                for (int i = 0; i < Setup_CV.BS_Params.WheelDeflections.Count; i++)
                 {
-                    WheelDefelctions.Insert(WheelDefelctions.Count - 1, 1);
+                    if (Setup_CV.BS_Params.WheelDeflections[i] >= 0)
+                    {
+                        wdBump.Add(Setup_CV.BS_Params.WheelDeflections[i]);
+                    }
                 }
-            }
 
-            return WheelDefelctions;
+                //wdBump.Sort();
+
+                return wdBump;
+            }
+            else
+            {
+                wdRebound = new List<double>();
+
+                for (int i = 0; i < Setup_CV.BS_Params.WheelDeflections.Count; i++)
+                {
+                    if (Setup_CV.BS_Params.WheelDeflections[i] <= 0) 
+                    {
+                        wdRebound.Add(Setup_CV.BS_Params.WheelDeflections[i]);
+                    }
+                }
+
+                //wdRebound.Sort();
+                wdRebound.Reverse();
+
+                return wdRebound;
+
+            }
+        }
+
+        /// <summary>
+        /// Method to generate <see cref="List{T}"/> of Output Class objects based on whether a Bump or Rebound Pass is happening 
+        /// </summary>
+        /// <param name="_wdType">Enum value to determine whether a Bump pass is happening or a Rebound pass</param>
+        /// <returns><see cref="List{T}"/> of output class objects</returns>
+        private List<OutputClass> GetIndependantOutputClassList(DoubleWishboneKinematicsSolver _dwSolver, WheelDeflectionType _wdType)
+        {
+            if (_wdType == WheelDeflectionType.Bump)
+            {
+                ///<summary>Generating a List of Output Class based on the number of Wheel Deflections in the <see cref="wdBump"/></summary>
+                ///<remarks>---IMPORTANT--- Generating 1 less number of Objects because the last wheel deflection is always screwed up because of no delta</remarks>
+                OC_BumpSteer = VehicleParamsAssigner.AssignVehicleParams_Custom_OC_BumpSteer(SCM, VCorner, Vehicle, wdBump.Count);
+                dwSolver.NoOfIterationsOptimization = OC_BumpSteer.Count;
+                return OC_BumpSteer;
+            }
+            else
+            {
+                ///<summary>Generating a List of Output Class based on the number of Wheel Deflections in the <see cref="wdBump"/></summary>
+                ///<remarks>---IMPORTANT--- Generating 1 less number of Objects because the last wheel deflection is always screwed up because of no delta</remarks>
+                OC_BumpSteer = VehicleParamsAssigner.AssignVehicleParams_Custom_OC_BumpSteer(SCM, VCorner, Vehicle, wdRebound.Count);
+                dwSolver.NoOfIterationsOptimization = OC_BumpSteer.Count ;
+                return OC_BumpSteer;
+            }
+        }
+
+        /// <summary>
+        /// Toe Angles computed during the Bump Pass
+        /// </summary>
+        List<Angle> ToeAngles_Bump;
+        /// <summary>
+        /// Toe Angles computed during the Rebound Pass 
+        /// </summary>
+        List<Angle> ToeAngle_Rebound;
+
+        private void ExtractToeAngles(List<OutputClass> _oc, WheelDeflectionType _wdType)
+        {
+            if (_wdType == WheelDeflectionType.Bump)
+            {
+                ToeAngles_Bump = new List<Angle>();
+
+                for (int i = 0; i < _oc.Count; i++)
+                {
+                    ToeAngles_Bump.Add(new Angle(_oc[i].waOP.StaticToe, AngleUnit.Radians));
+                }
+
+                ToeAngles_Bump.RemoveAt(ToeAngles_Bump.Count - 1);
+
+                ///<remarks>Can't remove like this. If the user re-runs the Setup Change then it will continually keep removing Toe ANgles from the List</remarks>
+                //Setup_CV.BS_Params.ToeAngles.RemoveAt(Setup_CV.BS_Params.ToeAngles.Count - 1);
+            }
+            else
+            {
+                ToeAngle_Rebound = new List<Angle>();
+
+                for (int i = 0; i < _oc.Count; i++)
+                {
+                    ToeAngle_Rebound.Add(new Angle(_oc[i].waOP.StaticToe, AngleUnit.Radians));
+                }
+
+                ///<summary>SInce the Rebound Pass is from 0 to -25 while the Bump Steer Graph is from -25 to +25, I need to reverse it here so that the 2 are comparable</summary>
+                ToeAngle_Rebound.Reverse();
+
+                ToeAngle_Rebound.RemoveAt(0);
+
+                ///<remarks>Can't remove like this. If the user re-runs the Setup Change then it will continually keep removing Toe ANgles from the List</remarks>
+                //Setup_CV.BS_Params.ToeAngles.RemoveAt(0);
+
+            }
         }
 
         /// <summary>
         /// <para>Method to extract the Results
         /// <para>In this case the Toe Angle Varation per Step Size of Wheel Deflectin</para>
         /// </summary>
-        /// <param name="_oc"> <see cref="List{T}"/> of <see cref="OutputClass"/> objects</param>
+        /// <paramref name="_wdtype"/>
         /// <returns></returns>
-        private double GetResultValues(List<OutputClass> _oc)
+        private double GetResultValues(WheelDeflectionType _wdtype)
         {
-            double averageBS = 1;
-
-            double maxBumpSteer = 0;
-
-            List<Angle> ToeAngles = new List<Angle>();
-
-            List<Angle> ToeAngles_Bump = new List<Angle>();
-
-            List<Angle> ToeAngle_Rebound = new List<Angle>();
-
-            for (int i = 0; i < _oc.Count; i++)
-            {
-                ToeAngles.Add(new Angle(_oc[i].waOP.StaticToe, AngleUnit.Radians));
-            }
-
-            ToeAngles_Bump.AddRange(ToeAngles.GetRange(0, SuspensionEvalIterations_UpperLimit + 1));
-
-            ToeAngle_Rebound.AddRange(ToeAngles.GetRange((SuspensionEvalIterations_UpperLimit * 2) + 1, SuspensionEvalIterations_LowerLimit));
-
-            Req_BumpSteerGraph = new List<Angle>();
-
-            Req_BumpSteerGraph.AddRange(ToeAngle_Rebound);
-
-            Req_BumpSteerGraph.AddRange(ToeAngles_Bump);
-
-            Req_BumpSteerGraph.Sort();
+            double Error;
 
             Angle StaticToe = new Angle(WA.StaticToe, AngleUnit.Radians);
 
-            ///<summary>Invoking the <see cref="EvaluateDeviation(List{Angle}, Angle)"/> method to compute the Eucledian Ditance between the User's Bump Steer Curve and the computed Bump Steer Curve. The output is the Error which needs to be minimized</summary>
-            double Error = EvaluateDeviation(Req_BumpSteerGraph, StaticToe);
 
+            if (_wdtype == WheelDeflectionType.Bump) 
+            {
+                Req_BumpSteerGraph = Setup_CV.BS_Params.ToeAnglesBump.ToList();
+
+                for (int i = 0; i < Req_BumpSteerGraph.Count; i++)
+                {
+                    Req_BumpSteerGraph[i] = new Angle(Req_BumpSteerGraph[i].Degrees + StaticToe.Degrees, AngleUnit.Degrees);
+                }
+
+                ///<summary>Invoking the <see cref="EvaluateDeviation(List{Angle}, Angle)"/> method to compute the Eucledian Ditance between the User's Bump Steer Curve and the computed Bump Steer Curve. The output is the Error which needs to be minimized</summary>
+                Error = EvaluateDeviation(ToeAngles_Bump, Req_BumpSteerGraph);
+            }
+            else
+            {
+                Req_BumpSteerGraph = Setup_CV.BS_Params.ToeAnglesRebound.ToList();
+
+                for (int i = 0; i < Req_BumpSteerGraph.Count; i++)
+                {
+                    Req_BumpSteerGraph[i] = new Angle(Req_BumpSteerGraph[i].Degrees + StaticToe.Degrees, AngleUnit.Degrees);
+                }
+
+                ///<summary>Invoking the <see cref="EvaluateDeviation(List{Angle}, Angle)"/> method to compute the Eucledian Ditance between the User's Bump Steer Curve and the computed Bump Steer Curve. The output is the Error which needs to be minimized</summary>
+                Error = EvaluateDeviation(ToeAngle_Rebound, Req_BumpSteerGraph);
+            }
+
+            
             return Error;
 
         }
@@ -1748,19 +1845,10 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_toeAngle"><see cref="List{T}"/> of Toe Angles</param>
         /// <param name="_staticToe">The Static Toe Angle</param>
         /// <returns>Returns the error based on the Eucledian Distance</returns>
-        private double EvaluateDeviation(List<Angle> _toeAngle, Angle _staticToe)
+        private double EvaluateDeviation(List<Angle> _toeAngle, List<Angle> _userBumpSteerCurve)
         {
-            List<Angle> UserBumpSteerCurve = new List<Angle>();
+            List<Angle> UserBumpSteerCurve = _userBumpSteerCurve;
 
-            ///<summary>Generating an arbitrary Bump Steer Curve. This will be later on obtained from the user using a Chart</summary>
-            for (int i = 0; i < SuspensionEvalIterations + 1; i++)
-            {
-
-                UserBumpSteerCurve.Add(new Angle(_staticToe.Degrees, AngleUnit.Degrees));
-
-            }
-
-            Req_BumpSteerGraph = UserBumpSteerCurve;
 
             //double reverse = 2.5;
             //for (int i = 0; i < SuspensionEvalIterations / 2; i++)
@@ -1779,32 +1867,35 @@ namespace Coding_Attempt_with_GUI
             List<Angle> ErrorCalc_Step1 = new List<Angle>();
 
             ///<summary>Finding the distance between each pair of Points</summary>
-            for (int i = 0; i < SuspensionEvalIterations + 1; i++)
+            for (int i = 0; i < _userBumpSteerCurve.Count; i++) 
             {
-                if (i != SuspensionEvalIterations - 1)
+                if (i != 0 &&  i != _userBumpSteerCurve.Count - 1) 
                 {
+                    //if (i != SuspensionEvalIterations - 1)
+                    //{
 
-                    //ErrorCalc_Step1.Add(new Angle((_toeAngle[i].Degrees - UserBumpSteerCurve[i].Degrees), AngleUnit.Degrees));
+                        //ErrorCalc_Step1.Add(new Angle((_toeAngle[i].Degrees - UserBumpSteerCurve[i].Degrees), AngleUnit.Degrees));
 
-                    if (UserBumpSteerCurve[i].Degrees != 0)
-                    {
-                        ErrorCalc_Step1.Add(new Angle(((_toeAngle[i].Degrees - UserBumpSteerCurve[i].Degrees) / UserBumpSteerCurve[i].Degrees), AngleUnit.Degrees));
-                    }
-                    else
-                    {
-                        ErrorCalc_Step1.Add(new Angle((_toeAngle[i].Degrees - UserBumpSteerCurve[i].Degrees), AngleUnit.Degrees));
-                    }
-                }
-                else
-                {
-                    ErrorCalc_Step1.Add(ErrorCalc_Step1[i - 1]);
+                        //if (UserBumpSteerCurve[i].Degrees != 0)
+                        //{
+                        //    ErrorCalc_Step1.Add(new Angle(((_toeAngle[i - 1].Degrees - UserBumpSteerCurve[i].Degrees) / UserBumpSteerCurve[i].Degrees), AngleUnit.Degrees));
+                        //}
+                        //else
+                        //{
+                            ErrorCalc_Step1.Add(new Angle((_toeAngle[i - 1].Degrees - UserBumpSteerCurve[i].Degrees), AngleUnit.Degrees));
+                        //}
+                    //}
+                    //else
+                    //{
+                    //    ErrorCalc_Step1.Add(ErrorCalc_Step1[i - 1]);
+                    //} 
                 }
             }
 
             List<Angle> ErrorCalc_Step2 = new List<Angle>();
 
             ///<summary>Finiding the square of the Distance</summary>
-            for (int i = 0; i < SuspensionEvalIterations + 1; i++)
+            for (int i = 0; i < ErrorCalc_Step1.Count; i++) 
             {
                 ErrorCalc_Step2.Add(new Angle(ErrorCalc_Step1[i].Degrees * ErrorCalc_Step1[i].Degrees, AngleUnit.Degrees));
             }
@@ -1812,7 +1903,7 @@ namespace Coding_Attempt_with_GUI
             double ErrorCalc_Step3 = 0;
 
             ///<summary>Summing the squares of the distances</summary>
-            for (int i = 0; i < SuspensionEvalIterations + 1; i++)
+            for (int i = 0; i < ErrorCalc_Step2.Count; i++) 
             {
                 ErrorCalc_Step3 += ErrorCalc_Step2[i].Degrees;
             }
@@ -1831,7 +1922,7 @@ namespace Coding_Attempt_with_GUI
         private double SetConvergenceError(double error)
         {
 
-            if (error < 0) 
+            if (error < 0)
             {
                 error *= -1;
             }
@@ -1857,7 +1948,7 @@ namespace Coding_Attempt_with_GUI
         {
             double[,] multipleObjectiveFitness = new double[Ga_Values.Rows.Count, 2];
 
-            for (int i = 0; i < Ga_Values.Rows.Count - 1; i++) 
+            for (int i = 0; i < Ga_Values.Rows.Count - 1; i++)
             {
                 multipleObjectiveFitness[i, 0] = Ga_Values.Rows[i].Field<double>("Orientation Fitness");
                 multipleObjectiveFitness[i, 1] = Ga_Values.Rows[i].Field<double>("Bump Steer Fitness");
@@ -1868,13 +1959,13 @@ namespace Coding_Attempt_with_GUI
         private void FindDominatingSolutions(double[,] _moopFitnesses)
         {
 
-            for (int i = 0; i < Ga_Values.Rows.Count - 1; i++) 
+            for (int i = 0; i < Ga_Values.Rows.Count - 1; i++)
             {
                 bool dominatingSolution = true;
                 int dominatedSolIndex = 0;
-                for (int j = 0; j < Ga_Values.Rows.Count - 1; j++) 
+                for (int j = 0; j < Ga_Values.Rows.Count - 1; j++)
                 {
-                    if ((_moopFitnesses[i, 0] < _moopFitnesses[j, 0] && _moopFitnesses[i, 1] < _moopFitnesses[j, 1]) && (_moopFitnesses[j, 0] != 0 && _moopFitnesses[j, 1] != 0)) 
+                    if ((_moopFitnesses[i, 0] < _moopFitnesses[j, 0] && _moopFitnesses[i, 1] < _moopFitnesses[j, 1]) && (_moopFitnesses[j, 0] != 0 && _moopFitnesses[j, 1] != 0))
                     {
                         if (i != j)
                         {
@@ -1889,7 +1980,7 @@ namespace Coding_Attempt_with_GUI
                     }
                 }
 
-                if (dominatingSolution && (_moopFitnesses[i, 0] != 0 && _moopFitnesses[i, 1] != 0)) 
+                if (dominatingSolution && (_moopFitnesses[i, 0] != 0 && _moopFitnesses[i, 1] != 0))
                 {
                     Ga_Values.Rows[i].SetField<bool>("Pareto Optimal", true);
                 }
@@ -1901,17 +1992,17 @@ namespace Coding_Attempt_with_GUI
         {
             int mostDominated = 0;
 
-            for (int i = 0; i < Ga_Values.Rows.Count - 1; i++) 
+            for (int i = 0; i < Ga_Values.Rows.Count - 1; i++)
             {
                 double tempRank = Ga_Values.Rows[i].Field<double>("Pareto Rank");
 
-                if (Convert.ToInt32(tempRank) > mostDominated) 
+                if (Convert.ToInt32(tempRank) > mostDominated)
                 {
                     mostDominated = Convert.ToInt32(tempRank);
                 }
             }
 
-            for (int i = 0; i < Ga_Values.Rows.Count - 1; i++) 
+            for (int i = 0; i < Ga_Values.Rows.Count - 1; i++)
             {
                 Ga_Values.Rows[i].SetField<double>("Pareto Rank", Ga_Values.Rows[i].Field<double>("Pareto Rank") / mostDominated);
             }
