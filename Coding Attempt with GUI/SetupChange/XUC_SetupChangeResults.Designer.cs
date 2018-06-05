@@ -68,6 +68,10 @@
             this.rowToeLinkInboard_y = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.rowToeLinkInboard_z = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.rowBSConvergence = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.rowTopFrontAdj = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.rowTopRearAdj = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.rowBottomFrontAdj = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.rowBottomRearAdj = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             ((System.ComponentModel.ISupportInitialize)(this.vGridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
@@ -89,7 +93,7 @@
             this.vGridControl1.Appearance.RowHeaderPanel.Options.UseFont = true;
             this.vGridControl1.Appearance.RowHeaderPanel.Options.UseForeColor = true;
             this.vGridControl1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.vGridControl1.Cursor = System.Windows.Forms.Cursors.SizeNS;
+            this.vGridControl1.Cursor = System.Windows.Forms.Cursors.Default;
             this.vGridControl1.CustomizationFormBounds = new System.Drawing.Rectangle(1420, 550, 210, 254);
             this.vGridControl1.Dock = System.Windows.Forms.DockStyle.Left;
             this.vGridControl1.Location = new System.Drawing.Point(2, 20);
@@ -504,7 +508,11 @@
             this.categoryKPICaster.Appearance.Options.UseFont = true;
             this.categoryKPICaster.ChildRows.AddRange(new DevExpress.XtraVerticalGrid.Rows.BaseRow[] {
             this.rowKPIAngle,
-            this.rowCasterAngle});
+            this.rowCasterAngle,
+            this.rowTopFrontAdj,
+            this.rowTopRearAdj,
+            this.rowBottomFrontAdj,
+            this.rowBottomRearAdj});
             this.categoryKPICaster.Name = "categoryKPICaster";
             this.categoryKPICaster.Properties.Caption = "KPI & Caster";
             // 
@@ -576,6 +584,30 @@
             this.rowBSConvergence.Name = "rowBSConvergence";
             this.rowBSConvergence.Properties.Caption = "Convergence Status";
             // 
+            // rowTopFrontAdj
+            // 
+            this.rowTopFrontAdj.Name = "rowTopFrontAdj";
+            this.rowTopFrontAdj.Properties.Caption = "Top Front Arm (mm)";
+            this.rowTopFrontAdj.Visible = false;
+            // 
+            // rowTopRearAdj
+            // 
+            this.rowTopRearAdj.Name = "rowTopRearAdj";
+            this.rowTopRearAdj.Properties.Caption = "Top Rear Arm (mm)";
+            this.rowTopRearAdj.Visible = false;
+            // 
+            // rowBottomFrontAdj
+            // 
+            this.rowBottomFrontAdj.Name = "rowBottomFrontAdj";
+            this.rowBottomFrontAdj.Properties.Caption = "Bottom Front Arm (mm)";
+            this.rowBottomFrontAdj.Visible = false;
+            // 
+            // rowBottomRearAdj
+            // 
+            this.rowBottomRearAdj.Name = "rowBottomRearAdj";
+            this.rowBottomRearAdj.Properties.Caption = "Bottom Rear Arm (mm)";
+            this.rowBottomRearAdj.Visible = false;
+            // 
             // XUC_SetupChangeResults
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -631,5 +663,9 @@
         private DevExpress.XtraVerticalGrid.Rows.EditorRow rowToeLinkInboard_y;
         private DevExpress.XtraVerticalGrid.Rows.EditorRow rowToeLinkInboard_z;
         private DevExpress.XtraVerticalGrid.Rows.EditorRow rowBSConvergence;
+        private DevExpress.XtraVerticalGrid.Rows.EditorRow rowTopFrontAdj;
+        private DevExpress.XtraVerticalGrid.Rows.EditorRow rowTopRearAdj;
+        private DevExpress.XtraVerticalGrid.Rows.EditorRow rowBottomFrontAdj;
+        private DevExpress.XtraVerticalGrid.Rows.EditorRow rowBottomRearAdj;
     }
 }
