@@ -126,10 +126,7 @@ namespace Coding_Attempt_with_GUI
             SetupChangeRR_Results.PlotBumpSteerGraph(setup_OP_RR, cvRR, SetupChangeRR_Results);
 
 
-            if (!Converged)
-            {
-                MessageBox.Show("Solution Didn't Converge");
-            }
+
 
         }
 

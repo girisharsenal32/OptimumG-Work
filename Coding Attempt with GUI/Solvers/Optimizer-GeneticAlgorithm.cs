@@ -775,10 +775,10 @@ namespace Coding_Attempt_with_GUI
 
             long Evaluations = e.Evaluations;
 
-            #region Simmulated Annealing. Not used as of now 
+            #region Simmulated Annealing & Pareto Optimal Calls. Not used as of now 
             Anneal(Fitness);
 
-            EvaluateParetoOptimial(); 
+            //EvaluateParetoOptimial(); 
             #endregion
 
             double resultError = EvaluateRMSError();
@@ -1252,56 +1252,6 @@ namespace Coding_Attempt_with_GUI
         }
         #endregion
 
-
-
-        /// <summary>
-        /// Main Error Calculating fucntion. 
-        /// Computes the error of all the Setup Params which have been requested (and hence have their delegates initialized)
-        /// </summary>
-        /// <param name="rowIndex"></param>
-        /// <returns></returns>
-        private double EvaluateRMSError()
-        {
-            ///<summary>
-            ///--Cricual Step---
-            ///First and foremost, solving for the Suspension Coordinates. 
-            ///This step computes the Suspension Coorinates with the Link Length Changes accounted for. 
-            ///If there ia no Link Length Change then the result will be the same coordinates
-            /// </summary>
-            SolveKinematics();
-
-            ///<summary>Updating the Local <see cref="Dictionary{TKey, TValue}"/> of Suspension Coordinates called the <see cref="UnsprungAssembly"/></summary>
-            Update_SuspensionCoordinateData();
-
-            ///<summary>Initializing the errors to prevent residue error</summary>
-            BumpSteerError = CasterError = ToeError = CamberError = KpiError = 0;
-            double rmsError = 0;
-
-            ///<summary>Invoking the delegate to call all the error functions in it's Invocation List</summary>
-            Del_RMS_Error();
-
-            ///<summary>Computing the RMS Error</summary>
-            rmsError = System.Math.Sqrt((System.Math.Pow(BumpSteerError, 2) + System.Math.Pow(CasterError, 2) + System.Math.Pow(ToeError, 2) + System.Math.Pow(CamberError, 2) + System.Math.Pow(KpiError, 2)));
-
-            //EvaluateWishboneConstraints();
-
-            if (rmsError > 1)
-            {
-                Setup_OP.Total_Conv = new Convergence(1 - rmsError);
-
-                return 0.99;
-            }
-            else if (rmsError < 0)
-            {
-                Setup_OP.Total_Conv = new Convergence(1 - rmsError);
-
-                return 0.99;
-            }
-            else return rmsError;
-        }
-
-
-
         #region --- NOT NEEDED IN THIS ITERATION---
         //private List<double> EvaluateUpdatedOrientation(OptimizedOrientation _OptimizationOrientation)
         //{
@@ -1408,6 +1358,52 @@ namespace Coding_Attempt_with_GUI
         //}
 
         #endregion
+
+        /// <summary>
+        /// Main Error Calculating fucntion. 
+        /// Computes the error of all the Setup Params which have been requested (and hence have their delegates initialized)
+        /// </summary>
+        /// <param name="rowIndex"></param>
+        /// <returns></returns>
+        private double EvaluateRMSError()
+        {
+            ///<summary>
+            ///--Cricual Step---
+            ///First and foremost, solving for the Suspension Coordinates. 
+            ///This step computes the Suspension Coorinates with the Link Length Changes accounted for. 
+            ///If there ia no Link Length Change then the result will be the same coordinates
+            /// </summary>
+            SolveKinematics();
+
+            ///<summary>Updating the Local <see cref="Dictionary{TKey, TValue}"/> of Suspension Coordinates called the <see cref="UnsprungAssembly"/></summary>
+            Update_SuspensionCoordinateData();
+
+            ///<summary>Initializing the errors to prevent residue error</summary>
+            BumpSteerError = CasterError = ToeError = CamberError = KpiError = 0;
+            double rmsError = 0;
+
+            ///<summary>Invoking the delegate to call all the error functions in it's Invocation List</summary>
+            Del_RMS_Error();
+
+            ///<summary>Computing the RMS Error</summary>
+            rmsError = System.Math.Sqrt((System.Math.Pow(BumpSteerError, 2) + System.Math.Pow(CasterError, 2) + System.Math.Pow(ToeError, 2) + System.Math.Pow(CamberError, 2) + System.Math.Pow(KpiError, 2)));
+
+            //EvaluateWishboneConstraints();
+
+            if (rmsError > 1)
+            {
+                Setup_OP.Total_Conv = new Convergence(1 - rmsError);
+
+                return 0.99;
+            }
+            else if (rmsError < 0)
+            {
+                Setup_OP.Total_Conv = new Convergence(1 - rmsError);
+
+                return 0.99;
+            }
+            else return rmsError;
+        }
 
         #region Not Needed BUT will sever as good validation tools 
         //Trial for Caster Change with Toe Constant Constraint

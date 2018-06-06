@@ -16,18 +16,29 @@ namespace Coding_Attempt_with_GUI
 {
     public partial class XUC_SetupChange_Children : XtraUserControl
     {
-
+        /// <summary>
+        /// Object of the <see cref="SetupChange_GUI"/> Class which is also the Parent Class of this cClass
+        /// </summary>
         SetupChange_GUI setupChangeGUI;
-
+        
+        /// <summary>
+        /// Object of the <see cref="SetupChange_CornerVariables"/> (corresponding to the Corner to which object and THIS class belongs to)
+        /// </summary>
         SetupChange_CornerVariables setupChange_CV;
 
         int Identifier;
 
         Kinematics_Software_New R1 = Kinematics_Software_New.AssignFormVariable();
 
+        /// <summary>
+        /// Object of the <see cref="XUC_SetupChange"/> which contains 4 instance of THIS Class and is the Parent Form which displays everything to the user
+        /// </summary>
         XUC_SetupChange parentForm;
 
-
+        /// <summary>
+        /// Represents the Bit Size of the genes of the Chromosome.
+        /// Not ideal to put it here but seems like the only option as this is not something I can ask the user 
+        /// </summary>
         int BitSize;
 
         #region ---Initializer Methods---
@@ -101,7 +112,7 @@ namespace Coding_Attempt_with_GUI
 
         #endregion
 
-        #region Cell Validator Events
+        #region ---Cell Validator Events---
         /// <summary>
         /// Method to check if the focused row of the Vertical Grid is the row of number of Shims 
         /// </summary>
@@ -228,14 +239,10 @@ namespace Coding_Attempt_with_GUI
             }
         }
         #endregion
-
-
-
+        
         bool casterDisabledDuetoThreeLL = false;
         bool kpiDisabledDueToThreeLL = false;
-
-
-
+        
         #region ---Checkbox Changes Events---
         /// <summary>
         /// Checked Listbox Event which is fired when the item is checked or unchecked in the Listbox of SetupChanges

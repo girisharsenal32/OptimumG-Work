@@ -92,6 +92,7 @@ namespace Coding_Attempt_with_GUI
         public bool IsStillinRebound = true;
         #endregion
 
+        #region Setup Change Varriables and Obects
         #region Setup Change - SetupChangeDatabase Class Objects
         /// <summary>
         /// Master Object of the SetupChangeDatabase class which holds the vectors and points representing the Wheel Assembly parameters which can be changed
@@ -161,14 +162,17 @@ namespace Coding_Attempt_with_GUI
         int SetupChange_NoOfGenerations;
 
         #region Setup Change - OptimizationGeneticAlgorithm Class Object
-        OptimizerGeneticAlgorithm ga; 
+        /// <summary>
+        /// Object of the <see cref="OptimizerGeneticAlgorithm"/> Class which performs the Optimization using the Genetic Algorithm
+        /// </summary>
+        OptimizerGeneticAlgorithm ga;
         #endregion
 
         #region SetupChange- Vehicle Model Object
         private VehicleModel SetupChange_VehicleModel = new VehicleModel();
         #endregion
 
-        #region SetupChange - Outputs
+        #region SetupChange - Output Objects
 
         /// <summary>
         /// Temporary object to accept all the SetupChange Outputs and then assign it to the right corner
@@ -195,6 +199,7 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         public SetupChange_Outputs SC_OC_RR;
 
+        #endregion 
         #endregion
 
         public double scale_TCM_BCM = 1.015;
@@ -1426,6 +1431,7 @@ namespace Coding_Attempt_with_GUI
             AssignDirection_KPI(3, ref _Vehicle.oc_RL[0].sccvOP.deltaKPI);
             AssignDirection_KPI(4, ref _Vehicle.oc_RR[0].sccvOP.deltaKPI);
 
+            ///<summary>Assigning direction to the Caster. Need this because Positive Caster for the User is CW Rotation for me. So I need to condition it before using </summary>
             _Vehicle.oc_FL[0].sccvOP.deltaCaster *= -1;
             _Vehicle.oc_FR[0].sccvOP.deltaCaster *= -1;
             _Vehicle.oc_RL[0].sccvOP.deltaCaster *= -1;
@@ -1451,21 +1457,31 @@ namespace Coding_Attempt_with_GUI
             {
                 Identifier = 1;
                 SetupChange_PrimaryInitializeMethod(_FlCV, _Vehicle.oc_FL /*,FinalCamberFL, FinalToeFL, FinalCasterFL, FinalKPIFL, Identifier, _Vehicle*/);
-                FinalRideHeight_FL = SetupChange_GetRideHeightChange(_FlCV, SetupChange_DB_Master.AdjOptions.PushrodLine, SetupChange_DB_Master.AdjOptions.PushrodVector, _FlCV.rideheightAdjustmentType, _FlCV.rideheightAdjustmentTool, 1, out FinalPushrod_FL);
+                ///<remarks>The <see cref="SC_OC_FL"/> object needs to be initialized as it needs to be passed as a parameter in the below line of code</remarks>
+                SC_OC_FL = new SetupChange_Outputs();
+                FinalRideHeight_FL = SetupChange_GetRideHeightChange(_FlCV, SetupChange_DB_Master.AdjOptions.PushrodLine, SetupChange_DB_Master.AdjOptions.PushrodVector, _FlCV.rideheightAdjustmentType, _FlCV.rideheightAdjustmentTool, 1, out FinalPushrod_FL, SC_OC_FL);
 
                 Identifier = 2;
+                ///<remarks>The <see cref="SC_OC_FR"/> object needs to be initialized as it needs to be passed as a parameter in the below line of code</remarks>
+                SC_OC_FR = new SetupChange_Outputs();
                 SetupChange_PrimaryInitializeMethod(_FrCV, _Vehicle.oc_FR /*,FinalCamberFR, FinalToeFR, FinalCasterFR, FinalKPIFR, Identifier, _Vehicle*/);
-                FinalRideHeight_FR = SetupChange_GetRideHeightChange(_FrCV, SetupChange_DB_Master.AdjOptions.PushrodLine, SetupChange_DB_Master.AdjOptions.PushrodVector, _FrCV.rideheightAdjustmentType, _FrCV.rideheightAdjustmentTool, 2, out FinalPushrod_FR);
+                FinalRideHeight_FR = SetupChange_GetRideHeightChange(_FrCV, SetupChange_DB_Master.AdjOptions.PushrodLine, SetupChange_DB_Master.AdjOptions.PushrodVector, _FrCV.rideheightAdjustmentType, _FrCV.rideheightAdjustmentTool, 2, out FinalPushrod_FR, SC_OC_FL);
 
                 Identifier = 3;
+                ///<remarks>The <see cref="SC_OC_RL"/> object needs to be initialized as it needs to be passed as a parameter in the below line of code</remarks>
+                SC_OC_RL = new SetupChange_Outputs();
                 SetupChange_PrimaryInitializeMethod(_RlCV, _Vehicle.oc_RL /*,FinalCamberRL, FinalToeRL, FinalCasterRL, FinalKPIRL, Identifier, _Vehicle*/);
-                FinalRideHeight_RL = SetupChange_GetRideHeightChange(_RlCV, SetupChange_DB_Master.AdjOptions.PushrodLine, SetupChange_DB_Master.AdjOptions.PushrodVector, _RlCV.rideheightAdjustmentType, _RlCV.rideheightAdjustmentTool, 3, out FinalPushrod_RL);
+                FinalRideHeight_RL = SetupChange_GetRideHeightChange(_RlCV, SetupChange_DB_Master.AdjOptions.PushrodLine, SetupChange_DB_Master.AdjOptions.PushrodVector, _RlCV.rideheightAdjustmentType, _RlCV.rideheightAdjustmentTool, 3, out FinalPushrod_RL, SC_OC_FL);
 
                 Identifier = 4;
+                ///<remarks>The <see cref="SC_OC_RR"/> object needs to be initialized as it needs to be passed as a parameter in the below line of code</remarks>
+                SC_OC_RR = new SetupChange_Outputs();
                 SetupChange_PrimaryInitializeMethod(_RrCV, _Vehicle.oc_RR /*,FinalCamberRR, FinalToeRR, FinalCasterRR, FinalKPIRR, Identifier, _Vehicle*/);
-                FinalRideHeight_RR = SetupChange_GetRideHeightChange(_RrCV, SetupChange_DB_Master.AdjOptions.PushrodLine, SetupChange_DB_Master.AdjOptions.PushrodVector, _RrCV.rideheightAdjustmentType, _RrCV.rideheightAdjustmentTool, 4, out FinalPushrod_RR);
+                FinalRideHeight_RR = SetupChange_GetRideHeightChange(_RrCV, SetupChange_DB_Master.AdjOptions.PushrodLine, SetupChange_DB_Master.AdjOptions.PushrodVector, _RrCV.rideheightAdjustmentType, _RrCV.rideheightAdjustmentTool, 4, out FinalPushrod_RR, SC_OC_FL);
 
                 SetupChange_RideHeightChange_Helper_SolveForRideHeightChanges(_Vehicle, FinalRideHeight_FL, FinalRideHeight_FR, FinalRideHeight_RL, FinalRideHeight_RR);
+
+
 
                 SetupChange_EditSetupValues(_Vehicle.oc_FL[0], FinalCamberFL, FinalToeFL, FinalCasterFL, FinalKPIFL);
                 SetupChange_EditSetupValues(_Vehicle.oc_FR[0], FinalCamberFR, FinalToeFR, FinalCasterFR, FinalKPIFR);
@@ -1569,104 +1585,14 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Calculating the Final Value of Ride Height that is requested by the User. No change in parameter's value if requested change is 0</summary>
             _oc[0].FinalRideHeight += _requestedChanges.deltaRideHeight;
 
-        }
+        }        
 
         /// <summary>
-        /// Initializing a Random Class object
+        /// ---IMPORTANT--- This method is actually OBSOLETE-
+        /// Keeping it on because I need it for the Ride Height Changes---
         /// </summary>
-        Random AxisAndAdjusterSelecter = new Random();
-        /// <summary>
-        /// 
-        /// </summary>
-        List<int> randomIndexSelecter = new List<int>();
-
-        #region ---NOT NEEDED--- Axis Selector Methods for KPI and Caster
-        // These are taken care of in the Setup Change Form itself now 
-        /// <summary>
-        /// Method to assign the <see cref="AdjustmentTools"/> and Axis of Rotation to the <see cref="AdjustmentOptions.MCasterAdjustmenterLine"/> and <see cref="AdjustmentOptions.MKPIAdjusterLine"/>.
-        /// This method uses a Random Assigner in sync with <see cref="SetupChange_CornerVariables.LinkLengthsWhichHaveNotChanged"/> List to decide the Master Adjuster and Axis of Rotation based on which Links have been left free of any Change
-        /// </summary>
-        private void SetupChange_DecideAxisAndAdjuster_KPI(SetupChange_CornerVariables _requestedChange)
-        {
-            int axisAndAdjusterSelecter_KPI = -1;
-            int tempRandom = 0;
-
-            AdjustmentTools kpiTool = new AdjustmentTools();
-
-            /////<summary>Using the Index Numbers of the <see cref="SetupChange_CornerVariables.LinkLengthsWhichHaveNotChanged"/> to generate and store 2 Random Numbers</summary>
-            //tempRandom = AxisAndAdjusterSelecter.Next(0, _requestedChange.LinkLengthsWhichHaveNotChanged.Count - 1);
-            //randomIndexSelecter.Add(tempRandom);
-
-
-            ///<summary>Assinging the <see cref="AdjustmentTools"/> using their integer counterparts as descibred in the <see cref="AdjustmentTools"/> Enum</summary>
-            if (_requestedChange.LinkLengthsWhichHaveNotChanged.Count != 0)
-            {
-                for (int i = 0; i < _requestedChange.LinkLengthsWhichHaveNotChanged.Count; i++)
-                {
-                    axisAndAdjusterSelecter_KPI = _requestedChange.LinkLengthsWhichHaveNotChanged[i];
-                    //_requestedChange.LinkLengthsWhichHaveNotChanged.RemoveAt(0);
-                    kpiTool = (AdjustmentTools)axisAndAdjusterSelecter_KPI;
-
-                    if (kpiTool != _requestedChange.casterAdjustmentTool)
-                    {
-                        break;
-                    }
-
-                }
-
-                ///<summary>Assigning the Axis and Mater Adjuster for the Caster and KPI Adjustments</summary>
-                _requestedChange.kpiAdjustmentTool = kpiTool;
-                _requestedChange.AdjToolsDictionary["KPIChange"] = kpiTool;
-                SetupChange_DB_Master.AdjOptions.AssignMasterAdjusters(_requestedChange, _requestedChange.AdjToolsDictionary, SetupChange_DB_Master);
-            }
-            else
-            {
-                ///Add Convergence String here
-            }
-
-        }
-
-        /// <summary>
-        /// Method to assign the <see cref="AdjustmentTools"/> and Axis of Rotation to the <see cref="AdjustmentOptions.MCasterAdjustmenterLine"/> and <see cref="AdjustmentOptions.MKPIAdjusterLine"/>.
-        /// This method uses a Random Assigner in sync with <see cref="SetupChange_CornerVariables.LinkLengthsWhichHaveNotChanged"/> List to decide the Master Adjuster and Axis of Rotation based on which Links have been left free of any Change
-        /// </summary>
-        /// <param name="_requestedChanges"></param>
-        private void SetupChange_DecideAxisAndAdjuster_Caster(SetupChange_CornerVariables _requestedChanges)
-        {
-            int axisAndAdjusterSelecter_Caster = -1;
-
-            AdjustmentTools casterTool = new AdjustmentTools();
-
-            ///<summary>Assinging the <see cref="AdjustmentTools"/> using their integer counterparts as descibred in the <see cref="AdjustmentTools"/> Enum</summary>
-            if (_requestedChanges.LinkLengthsWhichHaveNotChanged.Count != 0)
-            {
-                for (int i = 0; i < _requestedChanges.LinkLengthsWhichHaveNotChanged.Count; i++)
-                {
-                    axisAndAdjusterSelecter_Caster = _requestedChanges.LinkLengthsWhichHaveNotChanged[i];
-                    casterTool = (AdjustmentTools)axisAndAdjusterSelecter_Caster;
-
-                    if (casterTool != _requestedChanges.kpiAdjustmentTool)
-                    {
-                        break;
-                    }
-                }
-
-                ///<summary>Assigning the Axis and Mater Adjuster for the Caster and KPI Adjustments</summary>
-                _requestedChanges.casterAdjustmentTool = casterTool;
-                _requestedChanges.AdjToolsDictionary["CasterChange"] = casterTool;
-                SetupChange_DB_Master.AdjOptions.AssignMasterAdjusters(_requestedChanges, _requestedChanges.AdjToolsDictionary, SetupChange_DB_Master);
-            }
-            else
-            {
-                ///Add Convergence String here
-            }
-
-
-
-        }
-
-        #endregion
-
+        /// <param name="_requestedChanges">Object of the <see cref="SetupChange_CornerVariables"/></param>
+        /// <param name="_oc"></param>
         private void SetupChange_PrimaryInitializeMethod(SetupChange_CornerVariables _requestedChanges, List<OutputClass> _oc)
         {
             ///<summary>Initializing the <see cref="SetupChangeDatabase"/> object of this class and assigning the <see cref="OutputClass.scmOP"/>'s coordinate values to the local variables of this class</summary>
@@ -1688,6 +1614,17 @@ namespace Coding_Attempt_with_GUI
 
         }
 
+        /// <summary>
+        /// Method to Initialize the object of the <see cref="OptimizerGeneticAlgorithm"/> Class which by extension initializes the Genetic Algorithm
+        /// </summary>
+        /// <param name="_vehicle">Vehicle Object</param>
+        /// <param name="identifier">Corner Identifier</param>
+        /// <param name="_requestedChanges"><see cref="SetupChange_CornerVariables"/> Object</param>
+        /// <param name="finalCamber">Final computed Camber after the User's Camber Request (if any) is added </param>
+        /// <param name="finalToe">Final computed Toe after the User's Toe Request (if any) is added </param>
+        /// <param name="finalCaster">Final computed Caster after the User's Caster Request (if any) is added </param>
+        /// <param name="finalKPI">Final computed KPI after the User's KPI Request (if any) is added </param>
+        /// <param name="_setupID">ID of the <see cref="SetupChange"/> which is INSIDE the <see cref="Vehicle"/> object passed to this method. </param>
         private void SetupChange_Init_GeneticAlgorithmClass(Vehicle _vehicle, int identifier, SetupChange_CornerVariables _requestedChanges, Angle finalCamber, Angle finalToe, Angle finalCaster, Angle finalKPI, int _setupID)
         {
             ///<summary>Initializng the object of the <see cref="SetupChange_Outputs"/> Class</summary>
@@ -1728,7 +1665,7 @@ namespace Coding_Attempt_with_GUI
 
             SetupChange_Init_GeneticAlgorithmClass(_Vehicle, _Identifier, _RequestedChanges, _FinalCamber, _FinalToe, _FinalCaster, _FinalKPI, _SetupID);
 
-            #region NOT NEEDED. As not working with Link Length Changes now
+            #region ---OBSOLETE--- As not working with Link Length Changes now
             /////<summary>Selecting the Links for KPI and Caster Changes in case the user has not selected them from the combobox provided AND Caster/KPI const or change is requested</summary>
             //if (!_RequestedChanges.OverrideRandomSelectorForKPI)
             //{
@@ -1809,7 +1746,7 @@ namespace Coding_Attempt_with_GUI
 
             //    SetupChange_CLS_Master.ClosedLoop_Solver(CurrentChange.LinkLength);
             //} 
-            
+
 
             //else if (_RequestedChanges.deltaRideHeight != 0)
             //{
@@ -1920,21 +1857,29 @@ namespace Coding_Attempt_with_GUI
             //    SetupChange_CLS_Master.ClosedLoop_Solver(CurrentChange.Toe);
 
             //}
+
+            //SetupChange_AssignSetupChangeDatabase(_Identifier);
+
             #endregion
-            SetupChange_AssignSetupChangeDatabase(_Identifier);
 
         }
+
+        #endregion
+
+        #region ---Ride Heigth Change Exclusive Methods
+
+        ///---Exclusive methods to deal with Ride Height Changes---
 
         /// <summary>
         /// Method to Calculate the return the ride height based on the type of Adjustment and Adjustment tool the user has selected
         /// </summary>
-        /// <param name="_reqChanges"></param>
-        /// <param name="_line"></param>
-        /// <param name="_vector"></param>
-        /// <param name="_adjType"></param>
-        /// <param name="_adjTools"></param>
+        /// <param name="_reqChanges">Object of the <see cref="SetupChange_CornerVariables"/></param>
+        /// <param name="_line">Line representing the Pushrod</param>
+        /// <param name="_vector">Vector representing the Pushrod</param>
+        /// <param name="_adjType">Object of the <see cref="AdjustmentType"/> indicating whether this is a direct or indirect change</param>
+        /// <param name="_adjTools">Object of the <see cref="AdjustmentTools"/> indicating the Adjust tool for the Ride Height Change</param>
         /// <returns>Change in Ride height either directly or indirectly requested by the user</returns>
-        private double SetupChange_GetRideHeightChange(SetupChange_CornerVariables _reqChanges, List<Line> _line, List<Vector3D> _vector, AdjustmentType _adjType, AdjustmentTools _adjTools, int identifier, out double _finalPushrod)
+        private double SetupChange_GetRideHeightChange(SetupChange_CornerVariables _reqChanges, List<Line> _line, List<Vector3D> _vector, AdjustmentType _adjType, AdjustmentTools _adjTools, int identifier, out double _finalPushrod, SetupChange_Outputs _setupOP)
         {
             double _dRideHeight = 0;
 
@@ -1985,8 +1930,44 @@ namespace Coding_Attempt_with_GUI
             }
             _finalPushrod = PushrodDelta;
 
+            ///<summary>Setting the Convergence of the Ride Height as 100% because it is always going to converge as it is independent of other changes</summary>
+            _setupOP.RideHeight_Conv = new Convergence(1);
+
             return _dRideHeight;
         }
+
+        /// <summary>
+        /// <para>Exclusive Method to</para>  
+        /// <para>1-> Increase the length of the pushrod and find the corresponding Ride Height Change</para>
+        /// <para>2-> To Invoke the <see cref="VehicleModel"/> Class and solve the Model for Diagonal Weight Transfer due to Ride Height Change</para>
+        /// </summary>
+        /// <param name="_dChange"></param>
+        /// <param name="_line"></param>
+        /// <param name="_vector"></param>
+        /// <param name="_finalChange"></param>
+        private void SetupChange_RideHeightChange_Helper_SolveForRideHeightChanges(Vehicle _vRideHeight, double _defFL, double _defFR, double _defRL, double _defRR)
+        {
+            ///<summary>Assigning the <see cref="SuspensionCoordinatesMaster.WheelDeflection_Steering"/> Arrays with the values of the </summary>
+            _vRideHeight.sc_FL.WheelDeflection_Steering[0] = _defFL;
+
+            _vRideHeight.sc_FR.WheelDeflection_Steering[0] = _defFR;
+
+            SetupChange_VehicleModel.AssignRearRideHeightChanges(_defRL, _defRR);
+
+            ///<summary>Calling the Vehicle Model Initializer method which also contains the Solvers</summary>
+            SetupChange_VehicleModel.InitializeVehicleOutputModel(_vRideHeight, true, false, SimulationType.SetupChange);
+
+            SetupChange_VehicleModel.ComputeVehicleModel_SummationOfResults_For_SetupChange(_vRideHeight, SimulationType.SetupChange);
+
+            ///<summary>Calling the Kinematics Solver to adapt the Suspension to these changes </summary>
+            _vRideHeight.KinematicsInvoker(false, SimulationType.SetupChange);
+
+        }
+        #endregion
+
+        #region --OBSOLETE--   
+
+        ///---Actual Setup Change Methods & Helper Methods---
 
         /// <summary>
         /// Helper method to change the Link Length of the Primary Link being considered and also pass both the Primiary and Counter Link data to the 
@@ -2169,9 +2150,7 @@ namespace Coding_Attempt_with_GUI
             //    SetupChange_DB_RR = SetupChange_DB_Master;
             //}
         }
-        #endregion
 
-        #region --Actual Setup Change Methods & Helper Methods-- 
         /// <summary>
         /// Method to return the value of the Internal Iterator check variable. This variable can be considered as a tolerance check variable. If it is lesser than the allowed tolerance, then the Loop which is calling this will terminate.
         /// </summary>
@@ -2332,33 +2311,7 @@ namespace Coding_Attempt_with_GUI
 
         }
 
-        /// <summary>
-        /// <para>Exclusive Method to</para>  
-        /// <para>1-> Increase the length of the pushrod and find the corresponding Ride Height Change</para>
-        /// <para>2-> To Invoke the <see cref="VehicleModel"/> Class and solve the Model for Diagonal Weight Transfer due to Ride Height Change</para>
-        /// </summary>
-        /// <param name="_dChange"></param>
-        /// <param name="_line"></param>
-        /// <param name="_vector"></param>
-        /// <param name="_finalChange"></param>
-        private void SetupChange_RideHeightChange_Helper_SolveForRideHeightChanges(Vehicle _vRideHeight, double _defFL, double _defFR, double _defRL, double _defRR)
-        {
-            ///<summary>Assigning the <see cref="SuspensionCoordinatesMaster.WheelDeflection_Steering"/> Arrays with the values of the </summary>
-            _vRideHeight.sc_FL.WheelDeflection_Steering[0] = _defFL;
 
-            _vRideHeight.sc_FR.WheelDeflection_Steering[0] = _defFR;
-
-            SetupChange_VehicleModel.AssignRearRideHeightChanges(_defRL, _defRR);
-
-            ///<summary>Calling the Vehicle Model Initializer method which also contains the Solvers</summary>
-            SetupChange_VehicleModel.InitializeVehicleOutputModel(_vRideHeight, true, false, SimulationType.SetupChange);
-
-            SetupChange_VehicleModel.ComputeVehicleModel_SummationOfResults_For_SetupChange(_vRideHeight, SimulationType.SetupChange);
-
-            ///<summary>Calling the Kinematics Solver to adapt the Suspension to these changes </summary>
-            _vRideHeight.KinematicsInvoker(false, SimulationType.SetupChange);
-
-        }
 
         /// <summary>
         /// Method to Recorrd the Inadvertent Changes caused to other parameters because of the Ride Height Chang e
@@ -3125,6 +3078,7 @@ namespace Coding_Attempt_with_GUI
             AssignAngleToBeRotatedForCamber(new Angle(-(checkCamber.Degrees - _oc.sccvOP.deltaCamber), AngleUnit.Degrees));
 
         }
+
         /// <summary>
         /// Calculating the Camber with the Initial Wheel Spindle Vector. Remember that this angle is still a DELTA of Camber and not the absoulte. The only thing is that this is a DELTA of Camber with the starting condition of the Wheel Spindle Vector
         /// </summary>
@@ -3388,7 +3342,7 @@ namespace Coding_Attempt_with_GUI
         }
         #endregion
 
-
+        #region --- Final Assignment Method---
         /// <summary>
         /// Method to Assign ONLY all the final Setup Params of the correct <see cref="SetupChange_ClosedLoopSolver"/> Object which have not been assigned during Operations.
         /// </summary>
@@ -3396,39 +3350,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_sccvOut">Object of the <see cref="SetupChange_CornerVariables"/>. Need this only for Adjustment Tools</param>
         private void AssignAllFinalSetupParams(OutputClass _oc, int _identifier, SetupChange_CornerVariables _sccvOut, double _finalRideHeight, double _finalPushrod)
         {
-            ///<summary>Assigning the Final Wishbone Lengths bssed on which of them was chosen for KPI Adjustmenr. Need to do this exclusively as all adjustments will be done with help of <see cref="AdjustmentOptions.MKPIAdjusterLine"/> </summary>
-            //if (_sccvOut.CasterChangeRequested || _sccvOut.constCaster || _sccvOut.KPIChangeRequested || _sccvOut.constKPI)
-            //{
-            //    SC_OC_Temp.TopFrontLength = ga.ga_TopFront;
-            //    SC_OC_Temp.TopRearLength = ga.ga_TopRear;
-            //    SC_OC_Temp.BottomFrontLength = ga.ga_BottomFront;
-            //    SC_OC_Temp.BottomRearLength = ga.ga_BottomRear;
-            //}
-
-            //if (_sccvOut.CamberChangeRequested || _sccvOut.constCamber)
-            //{
-            //    SC_OC_Temp.TopCamberShimsLength = ga.ga_TopCamberShims;
-
-            //    SC_OC_Temp.TopCamberShimsNo = ga.ga_TopCamberShims / _sccvOut.camberShimThickness;
-
-            //    SC_OC_Temp.BottomCamberShimsLength = ga.ga_BottomCamberShims;
-
-            //    SC_OC_Temp.BottomCamberShimsNo = ga.ga_BottomCamberShims / _sccvOut.camberShimThickness;
-
-            //}
-
-            //if (_sccvOut.ToeChangeRequested || _sccvOut.constToe)
-            //{
-            //    SC_OC_Temp.ToeLinklength = ga.ga_ToeLink;
-            //}
-
-            //if (_sccvOut.BumpSteerChangeRequested || _sccvOut.constBumpSteer)
-            //{
-            //    SC_OC_Temp.ToeLinkInboard = ga.ga_ToeLinkInboard;
-
-            //    SC_OC_Temp.BumpSteerChart = ga.BumpSteerGraph;
-            //}
-
+            ///<summary>Assiging he Ride Height Change</summary>
             if (_sccvOut.RideHeightChanged || _sccvOut.constRideHeight)
             {
                 SC_OC_Temp.Calc_RideHeight = _finalRideHeight;
@@ -3443,28 +3365,18 @@ namespace Coding_Attempt_with_GUI
             ///Below the Initial Values of the Setup Params are assigned after giving them the right direction
             /// </summary>
 
-            ///<summary>Assigning the KPI Angle Direction. Have to use a temp variable since <see cref="Angle"/> is a property and I cannot pass a property as a <see cref="ref"/></summary>
-            //double tempKPI = ga.Calc_KPI.Degrees;
-            //AssignDirection_KPI(_identifier, ref tempKPI);
-            //SC_OC_Temp.KPI = new Angle(tempKPI, AngleUnit.Degrees); 
-
             ///<summary>Assigning the Initial Value of KPI after assigning it with the right direciton</summary>
             double tempKPIStart = _oc.KPI;
             AssignDirection_KPI(_identifier, ref tempKPIStart);
             _oc.KPI = tempKPIStart;
 
-            ///<summary>Assigning the direction to the Final Camber and Toe based on teh corner</summary>
-            //double tempCamber = ga.Calc_Camber.Degrees;
-            //double tempToe = ga.Calc_Toe.Degrees;
-            //AssignOrientation_CamberToe(ref tempCamber, ref tempToe, tempCamber, tempToe, _identifier);
-            //SC_OC_Temp.Camber = new Angle(tempCamber, AngleUnit.Degrees);
-            //SC_OC_Temp.Toe = new Angle(tempToe, AngleUnit.Degrees);
+
             ///<summary>
             ///Assigning the direction to the starting value of Camber and Toe based on the corner
             ///This is needed because the start Camber and Toe where converted to the Local Sign convention. Now they need to be converted to the User sign convention that -ve for Camber towards the Chassis and +ve to Camber away from Chassis
             /// </summary>
-            double tempCamberStart =  _oc.waOP.StaticCamber;
-            double tempToeStart =  _oc.waOP.StaticToe;
+            double tempCamberStart = _oc.waOP.StaticCamber;
+            double tempToeStart = _oc.waOP.StaticToe;
             AssignOrientation_CamberToe(ref tempCamberStart, ref tempToeStart, tempCamberStart, tempToeStart, _identifier);
             _oc.waOP.StaticCamber = tempCamberStart;
             _oc.waOP.StaticToe = tempToeStart;
@@ -3473,11 +3385,7 @@ namespace Coding_Attempt_with_GUI
             ///Assigning the direction to the Caster. 
             ///The Caster direction was assigned to make it in the local sign convention. But now it needs to be displayed to the user's sign convention which is +ve for a clockwise rotation when seeing thhe car in ISO view 
             ///</summary>
-            //double tempCaster = -ga.Calc_Caster.Degrees;
-            ////SetupChange_CLS_Master.Final_Caster[SetupChange_CLS_Master.Final_Caster.Count - 1] = new Angle(tempCaster, AngleUnit.Degrees);
-            //SC_OC_Temp.Caster = new Angle(tempCaster, AngleUnit.Degrees);
             double tempCasterStart = -_oc.Caster;
-            //SetupChange_CLS_Master.Final_Caster[0] = new Angle(tempCasterStart, AngleUnit.Degrees);
             _oc.Caster = tempCasterStart;
 
             ///<remarks>
@@ -3485,29 +3393,37 @@ namespace Coding_Attempt_with_GUI
             ///---FOR NOW---Bump Steer User Chart is also assigned inside the Optimizer itele 
             /// </remarks>
 
-
+            ///<remarks>
+            ///The Ride Height Convergence is the only parameter which is calculated by each of the Conrer's <see cref="SetupChange_Outputs"/> right at the start. Hence to retain the convergence of the Ride Height
+            ///it is seperately assigned first to <see cref="SC_OC_Temp"/> by each of the corner objects
+            /// </remarks>
             if (_identifier == 1)
             {
+                SC_OC_Temp.RideHeight_Conv = SC_OC_FL.RideHeight_Conv;
                 SC_OC_FL = null;
                 SC_OC_FL = SC_OC_Temp;
             }
             if (_identifier == 2)
             {
+                SC_OC_Temp.RideHeight_Conv = SC_OC_FR.RideHeight_Conv;
                 SC_OC_FR = null;
                 SC_OC_FR = SC_OC_Temp;
             }
             if (_identifier == 3)
             {
+                SC_OC_Temp.RideHeight_Conv = SC_OC_RL.RideHeight_Conv;
                 SC_OC_RL = null;
                 SC_OC_RL = SC_OC_Temp;
             }
             if (_identifier == 4)
             {
+                SC_OC_Temp.RideHeight_Conv = SC_OC_RR.RideHeight_Conv;
                 SC_OC_RR = null;
-                SC_OC_RR  = SC_OC_Temp;
+                SC_OC_RR = SC_OC_Temp;
             }
 
-        }
+        } 
+        #endregion
 
 
 
