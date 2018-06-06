@@ -68,6 +68,12 @@
             this.rowTopCamberMount = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.rowShimsBottomCamberMount = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.rowShimsTopCamberMount = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.categoryBumpSteer = new DevExpress.XtraVerticalGrid.Rows.CategoryRow();
+            this.rowBSConvergence = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.rowToeLinkInboard_x = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.rowToeLinkInboard_y = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.rowToeLinkInboard_z = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.rowCamberConvergance = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             ((System.ComponentModel.ISupportInitialize)(this.vGridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
@@ -100,7 +106,8 @@
             this.categoryKPICaster,
             this.categoryToe,
             this.categoryCamber,
-            this.categoryRideHeight});
+            this.categoryRideHeight,
+            this.categoryBumpSteer});
             this.vGridControl1.ScrollVisibility = DevExpress.XtraVerticalGrid.ScrollVisibility.Vertical;
             this.vGridControl1.Size = new System.Drawing.Size(296, 485);
             this.vGridControl1.TabIndex = 0;
@@ -529,7 +536,8 @@
             this.rowCamberAngle,
             this.rowShimThickness,
             this.rowTopCamberMount,
-            this.rowBottomCamberMount});
+            this.rowBottomCamberMount,
+            this.rowCamberConvergance});
             this.categoryCamber.Name = "categoryCamber";
             this.categoryCamber.Properties.Caption = "Camber";
             // 
@@ -586,6 +594,57 @@
             this.rowShimsTopCamberMount.Enabled = false;
             this.rowShimsTopCamberMount.Name = "rowShimsTopCamberMount";
             this.rowShimsTopCamberMount.Properties.Caption = "Shims (#)";
+            // 
+            // categoryBumpSteer
+            // 
+            this.categoryBumpSteer.Appearance.Font = new System.Drawing.Font("Tahoma", 9.25F, System.Drawing.FontStyle.Bold);
+            this.categoryBumpSteer.Appearance.Options.UseFont = true;
+            this.categoryBumpSteer.ChildRows.AddRange(new DevExpress.XtraVerticalGrid.Rows.BaseRow[] {
+            this.rowToeLinkInboard_x,
+            this.rowToeLinkInboard_y,
+            this.rowToeLinkInboard_z,
+            this.rowBSConvergence});
+            this.categoryBumpSteer.Name = "categoryBumpSteer";
+            this.categoryBumpSteer.Properties.Caption = "Bump Steer";
+            // 
+            // rowBSConvergence
+            // 
+            this.rowBSConvergence.Enabled = false;
+            this.rowBSConvergence.Name = "rowBSConvergence";
+            this.rowBSConvergence.Properties.Caption = "Convergence Status";
+            // 
+            // rowToeLinkInboard_x
+            // 
+            this.rowToeLinkInboard_x.Appearance.Font = new System.Drawing.Font("Tahoma", 9F);
+            this.rowToeLinkInboard_x.Appearance.Options.UseFont = true;
+            this.rowToeLinkInboard_x.Enabled = false;
+            this.rowToeLinkInboard_x.Name = "rowToeLinkInboard_x";
+            this.rowToeLinkInboard_x.Properties.Caption = "Toe Inbrd X";
+            this.rowToeLinkInboard_x.Visible = false;
+            // 
+            // rowToeLinkInboard_y
+            // 
+            this.rowToeLinkInboard_y.Appearance.Font = new System.Drawing.Font("Tahoma", 9F);
+            this.rowToeLinkInboard_y.Appearance.Options.UseFont = true;
+            this.rowToeLinkInboard_y.Enabled = false;
+            this.rowToeLinkInboard_y.Name = "rowToeLinkInboard_y";
+            this.rowToeLinkInboard_y.Properties.Caption = "Toe Inbrd Y";
+            this.rowToeLinkInboard_y.Visible = false;
+            // 
+            // rowToeLinkInboard_z
+            // 
+            this.rowToeLinkInboard_z.Appearance.Font = new System.Drawing.Font("Tahoma", 9F);
+            this.rowToeLinkInboard_z.Appearance.Options.UseFont = true;
+            this.rowToeLinkInboard_z.Enabled = false;
+            this.rowToeLinkInboard_z.Name = "rowToeLinkInboard_z";
+            this.rowToeLinkInboard_z.Properties.Caption = "Toe Inbrd Z";
+            this.rowToeLinkInboard_z.Visible = false;
+            // 
+            // rowCamberConvergance
+            // 
+            this.rowCamberConvergance.Enabled = false;
+            this.rowCamberConvergance.Name = "rowCamberConvergance";
+            this.rowCamberConvergance.Properties.Caption = "Convergence Status";
             // 
             // XUC_SetupChangeResults
             // 
@@ -644,5 +703,11 @@
         private DevExpress.XtraVerticalGrid.Rows.EditorRow rowBottomCamberMount;
         private DevExpress.XtraVerticalGrid.Rows.EditorRow rowShimsBottomCamberMount;
         private DevExpress.XtraVerticalGrid.Rows.EditorRow rowShimsTopCamberMount;
+        private DevExpress.XtraVerticalGrid.Rows.CategoryRow categoryBumpSteer;
+        private DevExpress.XtraVerticalGrid.Rows.EditorRow rowToeLinkInboard_x;
+        private DevExpress.XtraVerticalGrid.Rows.EditorRow rowToeLinkInboard_y;
+        private DevExpress.XtraVerticalGrid.Rows.EditorRow rowToeLinkInboard_z;
+        private DevExpress.XtraVerticalGrid.Rows.EditorRow rowBSConvergence;
+        private DevExpress.XtraVerticalGrid.Rows.EditorRow rowCamberConvergance;
     }
 }
