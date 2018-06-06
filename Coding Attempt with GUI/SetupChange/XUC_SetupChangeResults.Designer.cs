@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.vGridControl1 = new DevExpress.XtraVerticalGrid.VGridControl();
+            this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.bumpSteerCurve1 = new Coding_Attempt_with_GUI.BumpSteerCurve();
             this.categoryKPICaster = new DevExpress.XtraVerticalGrid.Rows.CategoryRow();
             this.rowKPIAngle = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.rowLinkKPIName = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
@@ -44,36 +46,26 @@
             this.rowBottomRearAdj = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.categoryToe = new DevExpress.XtraVerticalGrid.Rows.CategoryRow();
             this.rowToeAngle = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
-            this.rowLinkToeDelta = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.rowToeConvergance = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
-            this.rowLinkLengths = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
-            this.rowTopFront = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
-            this.rowTopRear = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
-            this.rowBottomFront = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
-            this.rowBottomRear = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
-            this.rowPushrod = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
-            this.rowToeLink = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
-            this.rowLinkConvergance = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.categoryCamber = new DevExpress.XtraVerticalGrid.Rows.CategoryRow();
+            this.rowCamberAngle = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.rowShimThickness = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.rowTopCamberMount = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.rowShimsTopCamberMount = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.rowBottomCamberMount = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.rowShimsBottomCamberMount = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.rowCamberConvergance = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.categoryRideHeight = new DevExpress.XtraVerticalGrid.Rows.CategoryRow();
             this.rowRideHeight = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.rowLinkRHName = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.rowLinkRHDelta = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.rowRHConvergance = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
-            this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
-            this.bumpSteerCurve1 = new Coding_Attempt_with_GUI.BumpSteerCurve();
-            this.categoryCamber = new DevExpress.XtraVerticalGrid.Rows.CategoryRow();
-            this.rowCamberAngle = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
-            this.rowShimThickness = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
-            this.rowBottomCamberMount = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
-            this.rowTopCamberMount = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
-            this.rowShimsBottomCamberMount = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
-            this.rowShimsTopCamberMount = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.categoryBumpSteer = new DevExpress.XtraVerticalGrid.Rows.CategoryRow();
-            this.rowBSConvergence = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.rowToeLinkInboard_x = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.rowToeLinkInboard_y = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.rowToeLinkInboard_z = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
-            this.rowCamberConvergance = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.rowBSConvergence = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.rowToeLink = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             ((System.ComponentModel.ISupportInitialize)(this.vGridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
@@ -95,7 +87,7 @@
             this.vGridControl1.Appearance.RowHeaderPanel.Options.UseFont = true;
             this.vGridControl1.Appearance.RowHeaderPanel.Options.UseForeColor = true;
             this.vGridControl1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.vGridControl1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.vGridControl1.Cursor = System.Windows.Forms.Cursors.SizeNS;
             this.vGridControl1.CustomizationFormBounds = new System.Drawing.Rectangle(1420, 550, 210, 254);
             this.vGridControl1.Dock = System.Windows.Forms.DockStyle.Left;
             this.vGridControl1.Location = new System.Drawing.Point(2, 20);
@@ -111,6 +103,36 @@
             this.vGridControl1.ScrollVisibility = DevExpress.XtraVerticalGrid.ScrollVisibility.Vertical;
             this.vGridControl1.Size = new System.Drawing.Size(296, 485);
             this.vGridControl1.TabIndex = 0;
+            // 
+            // groupControl1
+            // 
+            this.groupControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupControl1.CaptionLocation = DevExpress.Utils.Locations.Top;
+            this.groupControl1.Controls.Add(this.bumpSteerCurve1);
+            this.groupControl1.Controls.Add(this.vGridControl1);
+            this.groupControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupControl1.Location = new System.Drawing.Point(0, 0);
+            this.groupControl1.Name = "groupControl1";
+            this.groupControl1.Size = new System.Drawing.Size(1107, 507);
+            this.groupControl1.TabIndex = 1;
+            // 
+            // bumpSteerCurve1
+            // 
+            this.bumpSteerCurve1.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.bumpSteerCurve1.CustomBumpSteerCurve = false;
+            this.bumpSteerCurve1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.bumpSteerCurve1.Enabled = false;
+            this.bumpSteerCurve1.IsOutputChart = false;
+            this.bumpSteerCurve1.Location = new System.Drawing.Point(298, 20);
+            this.bumpSteerCurve1.Name = "bumpSteerCurve1";
+            this.bumpSteerCurve1.seriesPointsInChart = null;
+            this.bumpSteerCurve1.Size = new System.Drawing.Size(807, 485);
+            this.bumpSteerCurve1.StepSize = 0;
+            this.bumpSteerCurve1.TabIndex = 1;
+            this.bumpSteerCurve1.X_Lower = 0D;
+            this.bumpSteerCurve1.X_Upper = 0D;
+            this.bumpSteerCurve1.Y_Lower = 0D;
+            this.bumpSteerCurve1.Y_Upper = 0D;
             // 
             // categoryKPICaster
             // 
@@ -180,7 +202,7 @@
             this.rowKPIConvergance.Appearance.Options.UseFont = true;
             this.rowKPIConvergance.Enabled = false;
             this.rowKPIConvergance.Name = "rowKPIConvergance";
-            this.rowKPIConvergance.Properties.Caption = "Convergance Status";
+            this.rowKPIConvergance.Properties.Caption = "Convergance (%)";
             // 
             // rowCasterAngle
             // 
@@ -235,7 +257,7 @@
             this.rowCasterConvergance.Appearance.Options.UseFont = true;
             this.rowCasterConvergance.Enabled = false;
             this.rowCasterConvergance.Name = "rowCasterConvergance";
-            this.rowCasterConvergance.Properties.Caption = "Convergance Status";
+            this.rowCasterConvergance.Properties.Caption = "Convergance (%)";
             // 
             // rowTopFrontAdj
             // 
@@ -279,7 +301,7 @@
             this.categoryToe.Appearance.Options.UseFont = true;
             this.categoryToe.ChildRows.AddRange(new DevExpress.XtraVerticalGrid.Rows.BaseRow[] {
             this.rowToeAngle,
-            this.rowLinkToeDelta,
+            this.rowToeLink,
             this.rowToeConvergance});
             this.categoryToe.Name = "categoryToe";
             this.categoryToe.Properties.Caption = "Toe";
@@ -299,145 +321,86 @@
             this.rowToeAngle.Properties.Format.FormatString = "n3";
             this.rowToeAngle.Properties.Format.FormatType = DevExpress.Utils.FormatType.Numeric;
             // 
-            // rowLinkToeDelta
-            // 
-            this.rowLinkToeDelta.Appearance.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.rowLinkToeDelta.Appearance.ForeColor = System.Drawing.Color.Black;
-            this.rowLinkToeDelta.Appearance.Options.UseFont = true;
-            this.rowLinkToeDelta.Appearance.Options.UseForeColor = true;
-            this.rowLinkToeDelta.Appearance.Options.UseTextOptions = true;
-            this.rowLinkToeDelta.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
-            this.rowLinkToeDelta.Enabled = false;
-            this.rowLinkToeDelta.Name = "rowLinkToeDelta";
-            this.rowLinkToeDelta.Properties.Caption = "Toe Link Length(mm)";
-            this.rowLinkToeDelta.Properties.Format.FormatString = "n3";
-            this.rowLinkToeDelta.Properties.Format.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.rowLinkToeDelta.Visible = false;
-            // 
             // rowToeConvergance
             // 
             this.rowToeConvergance.Appearance.Font = new System.Drawing.Font("Tahoma", 9F);
             this.rowToeConvergance.Appearance.Options.UseFont = true;
-            this.rowToeConvergance.ChildRows.AddRange(new DevExpress.XtraVerticalGrid.Rows.BaseRow[] {
-            this.rowLinkLengths});
             this.rowToeConvergance.Enabled = false;
             this.rowToeConvergance.Name = "rowToeConvergance";
-            this.rowToeConvergance.Properties.Caption = "Convergance Status";
+            this.rowToeConvergance.Properties.Caption = "Convergance (%)";
             // 
-            // rowLinkLengths
+            // categoryCamber
             // 
-            this.rowLinkLengths.Appearance.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.rowLinkLengths.Appearance.ForeColor = System.Drawing.Color.Black;
-            this.rowLinkLengths.Appearance.Options.UseFont = true;
-            this.rowLinkLengths.Appearance.Options.UseForeColor = true;
-            this.rowLinkLengths.ChildRows.AddRange(new DevExpress.XtraVerticalGrid.Rows.BaseRow[] {
-            this.rowTopFront,
-            this.rowTopRear,
-            this.rowBottomFront,
-            this.rowBottomRear,
-            this.rowPushrod,
-            this.rowToeLink,
-            this.rowLinkConvergance});
-            this.rowLinkLengths.Enabled = false;
-            this.rowLinkLengths.Expanded = false;
-            this.rowLinkLengths.Name = "rowLinkLengths";
-            this.rowLinkLengths.Properties.Caption = "Link Lengths";
-            this.rowLinkLengths.Visible = false;
+            this.categoryCamber.Appearance.Font = new System.Drawing.Font("Tahoma", 9.25F, System.Drawing.FontStyle.Bold);
+            this.categoryCamber.Appearance.Options.UseFont = true;
+            this.categoryCamber.ChildRows.AddRange(new DevExpress.XtraVerticalGrid.Rows.BaseRow[] {
+            this.rowCamberAngle,
+            this.rowShimThickness,
+            this.rowTopCamberMount,
+            this.rowBottomCamberMount,
+            this.rowCamberConvergance});
+            this.categoryCamber.Name = "categoryCamber";
+            this.categoryCamber.Properties.Caption = "Camber";
             // 
-            // rowTopFront
+            // rowCamberAngle
             // 
-            this.rowTopFront.Appearance.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.rowTopFront.Appearance.ForeColor = System.Drawing.Color.Black;
-            this.rowTopFront.Appearance.Options.UseFont = true;
-            this.rowTopFront.Appearance.Options.UseForeColor = true;
-            this.rowTopFront.Appearance.Options.UseTextOptions = true;
-            this.rowTopFront.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
-            this.rowTopFront.Enabled = false;
-            this.rowTopFront.Name = "rowTopFront";
-            this.rowTopFront.Properties.AllowEdit = false;
-            this.rowTopFront.Properties.Caption = "Top Front Arm (mm)";
-            this.rowTopFront.Properties.Format.FormatString = "n3";
-            this.rowTopFront.Properties.Format.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.rowCamberAngle.Appearance.Font = new System.Drawing.Font("Tahoma", 9F);
+            this.rowCamberAngle.Appearance.Options.UseFont = true;
+            this.rowCamberAngle.Enabled = false;
+            this.rowCamberAngle.Name = "rowCamberAngle";
+            this.rowCamberAngle.Properties.Caption = "Camber Angle (deg)";
             // 
-            // rowTopRear
+            // rowShimThickness
             // 
-            this.rowTopRear.Appearance.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.rowTopRear.Appearance.ForeColor = System.Drawing.Color.Black;
-            this.rowTopRear.Appearance.Options.UseFont = true;
-            this.rowTopRear.Appearance.Options.UseForeColor = true;
-            this.rowTopRear.Appearance.Options.UseTextOptions = true;
-            this.rowTopRear.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
-            this.rowTopRear.Enabled = false;
-            this.rowTopRear.Name = "rowTopRear";
-            this.rowTopRear.Properties.AllowEdit = false;
-            this.rowTopRear.Properties.Caption = "Top Rear Arm (mm)";
-            this.rowTopRear.Properties.Format.FormatString = "n3";
-            this.rowTopRear.Properties.Format.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.rowShimThickness.Appearance.Font = new System.Drawing.Font("Tahoma", 9F);
+            this.rowShimThickness.Appearance.Options.UseFont = true;
+            this.rowShimThickness.Enabled = false;
+            this.rowShimThickness.Name = "rowShimThickness";
+            this.rowShimThickness.Properties.Caption = "Shim Thickness (mm)";
             // 
-            // rowBottomFront
+            // rowTopCamberMount
             // 
-            this.rowBottomFront.Appearance.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.rowBottomFront.Appearance.ForeColor = System.Drawing.Color.Black;
-            this.rowBottomFront.Appearance.Options.UseFont = true;
-            this.rowBottomFront.Appearance.Options.UseForeColor = true;
-            this.rowBottomFront.Appearance.Options.UseTextOptions = true;
-            this.rowBottomFront.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
-            this.rowBottomFront.Enabled = false;
-            this.rowBottomFront.Name = "rowBottomFront";
-            this.rowBottomFront.Properties.AllowEdit = false;
-            this.rowBottomFront.Properties.Caption = "Bottom Front Arm (mm)";
-            this.rowBottomFront.Properties.Format.FormatString = "n3";
-            this.rowBottomFront.Properties.Format.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.rowTopCamberMount.Appearance.Font = new System.Drawing.Font("Tahoma", 9F);
+            this.rowTopCamberMount.Appearance.Options.UseFont = true;
+            this.rowTopCamberMount.ChildRows.AddRange(new DevExpress.XtraVerticalGrid.Rows.BaseRow[] {
+            this.rowShimsTopCamberMount});
+            this.rowTopCamberMount.Enabled = false;
+            this.rowTopCamberMount.Name = "rowTopCamberMount";
+            this.rowTopCamberMount.Properties.Caption = "Top Mount (mm)";
+            this.rowTopCamberMount.Visible = false;
             // 
-            // rowBottomRear
+            // rowShimsTopCamberMount
             // 
-            this.rowBottomRear.Appearance.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.rowBottomRear.Appearance.ForeColor = System.Drawing.Color.Black;
-            this.rowBottomRear.Appearance.Options.UseFont = true;
-            this.rowBottomRear.Appearance.Options.UseForeColor = true;
-            this.rowBottomRear.Appearance.Options.UseTextOptions = true;
-            this.rowBottomRear.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
-            this.rowBottomRear.Enabled = false;
-            this.rowBottomRear.Name = "rowBottomRear";
-            this.rowBottomRear.Properties.AllowEdit = false;
-            this.rowBottomRear.Properties.Caption = "Bottom Rear Arm (mm)";
-            this.rowBottomRear.Properties.Format.FormatString = "n3";
-            this.rowBottomRear.Properties.Format.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.rowShimsTopCamberMount.Appearance.Font = new System.Drawing.Font("Tahoma", 9F);
+            this.rowShimsTopCamberMount.Appearance.Options.UseFont = true;
+            this.rowShimsTopCamberMount.Enabled = false;
+            this.rowShimsTopCamberMount.Name = "rowShimsTopCamberMount";
+            this.rowShimsTopCamberMount.Properties.Caption = "Shims (#)";
             // 
-            // rowPushrod
+            // rowBottomCamberMount
             // 
-            this.rowPushrod.Appearance.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.rowPushrod.Appearance.ForeColor = System.Drawing.Color.Black;
-            this.rowPushrod.Appearance.Options.UseFont = true;
-            this.rowPushrod.Appearance.Options.UseForeColor = true;
-            this.rowPushrod.Appearance.Options.UseTextOptions = true;
-            this.rowPushrod.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
-            this.rowPushrod.Enabled = false;
-            this.rowPushrod.Name = "rowPushrod";
-            this.rowPushrod.Properties.AllowEdit = false;
-            this.rowPushrod.Properties.Caption = "Pushrod  (mm)";
-            this.rowPushrod.Properties.Format.FormatString = "n3";
-            this.rowPushrod.Properties.Format.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.rowBottomCamberMount.Appearance.Font = new System.Drawing.Font("Tahoma", 9F);
+            this.rowBottomCamberMount.Appearance.Options.UseFont = true;
+            this.rowBottomCamberMount.ChildRows.AddRange(new DevExpress.XtraVerticalGrid.Rows.BaseRow[] {
+            this.rowShimsBottomCamberMount});
+            this.rowBottomCamberMount.Enabled = false;
+            this.rowBottomCamberMount.Name = "rowBottomCamberMount";
+            this.rowBottomCamberMount.Properties.Caption = "Bottom Mount (mm)";
+            this.rowBottomCamberMount.Visible = false;
             // 
-            // rowToeLink
+            // rowShimsBottomCamberMount
             // 
-            this.rowToeLink.Appearance.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.rowToeLink.Appearance.ForeColor = System.Drawing.Color.Black;
-            this.rowToeLink.Appearance.Options.UseFont = true;
-            this.rowToeLink.Appearance.Options.UseForeColor = true;
-            this.rowToeLink.Appearance.Options.UseTextOptions = true;
-            this.rowToeLink.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
-            this.rowToeLink.Enabled = false;
-            this.rowToeLink.Name = "rowToeLink";
-            this.rowToeLink.Properties.AllowEdit = false;
-            this.rowToeLink.Properties.Caption = "Toe Link (mm)";
-            this.rowToeLink.Properties.Format.FormatString = "n3";
-            this.rowToeLink.Properties.Format.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.rowShimsBottomCamberMount.Appearance.Font = new System.Drawing.Font("Tahoma", 9F);
+            this.rowShimsBottomCamberMount.Appearance.Options.UseFont = true;
+            this.rowShimsBottomCamberMount.Enabled = false;
+            this.rowShimsBottomCamberMount.Name = "rowShimsBottomCamberMount";
+            this.rowShimsBottomCamberMount.Properties.Caption = "Shims (#)";
             // 
-            // rowLinkConvergance
+            // rowCamberConvergance
             // 
-            this.rowLinkConvergance.Name = "rowLinkConvergance";
-            this.rowLinkConvergance.Properties.Caption = "Convergance Status";
+            this.rowCamberConvergance.Enabled = false;
+            this.rowCamberConvergance.Name = "rowCamberConvergance";
+            this.rowCamberConvergance.Properties.Caption = "Convergence (%)";
             // 
             // categoryRideHeight
             // 
@@ -488,7 +451,7 @@
             this.rowLinkRHDelta.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
             this.rowLinkRHDelta.Enabled = false;
             this.rowLinkRHDelta.Name = "rowLinkRHDelta";
-            this.rowLinkRHDelta.Properties.Caption = "Link Length for RH (mm)";
+            this.rowLinkRHDelta.Properties.Caption = "Link Length(mm)";
             this.rowLinkRHDelta.Properties.Format.FormatString = "n3";
             this.rowLinkRHDelta.Properties.Format.FormatType = DevExpress.Utils.FormatType.Numeric;
             // 
@@ -496,104 +459,7 @@
             // 
             this.rowRHConvergance.Enabled = false;
             this.rowRHConvergance.Name = "rowRHConvergance";
-            this.rowRHConvergance.Properties.Caption = "Convergance Status";
-            // 
-            // groupControl1
-            // 
-            this.groupControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.groupControl1.CaptionLocation = DevExpress.Utils.Locations.Top;
-            this.groupControl1.Controls.Add(this.bumpSteerCurve1);
-            this.groupControl1.Controls.Add(this.vGridControl1);
-            this.groupControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupControl1.Location = new System.Drawing.Point(0, 0);
-            this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(1107, 507);
-            this.groupControl1.TabIndex = 1;
-            // 
-            // bumpSteerCurve1
-            // 
-            this.bumpSteerCurve1.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.bumpSteerCurve1.CustomBumpSteerCurve = false;
-            this.bumpSteerCurve1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.bumpSteerCurve1.Enabled = false;
-            this.bumpSteerCurve1.IsOutputChart = false;
-            this.bumpSteerCurve1.Location = new System.Drawing.Point(298, 20);
-            this.bumpSteerCurve1.Name = "bumpSteerCurve1";
-            this.bumpSteerCurve1.seriesPointsInChart = null;
-            this.bumpSteerCurve1.Size = new System.Drawing.Size(807, 485);
-            this.bumpSteerCurve1.StepSize = 0;
-            this.bumpSteerCurve1.TabIndex = 1;
-            this.bumpSteerCurve1.X_Lower = 0D;
-            this.bumpSteerCurve1.X_Upper = 0D;
-            this.bumpSteerCurve1.Y_Lower = 0D;
-            this.bumpSteerCurve1.Y_Upper = 0D;
-            // 
-            // categoryCamber
-            // 
-            this.categoryCamber.Appearance.Font = new System.Drawing.Font("Tahoma", 9.25F, System.Drawing.FontStyle.Bold);
-            this.categoryCamber.Appearance.Options.UseFont = true;
-            this.categoryCamber.ChildRows.AddRange(new DevExpress.XtraVerticalGrid.Rows.BaseRow[] {
-            this.rowCamberAngle,
-            this.rowShimThickness,
-            this.rowTopCamberMount,
-            this.rowBottomCamberMount,
-            this.rowCamberConvergance});
-            this.categoryCamber.Name = "categoryCamber";
-            this.categoryCamber.Properties.Caption = "Camber";
-            // 
-            // rowCamberAngle
-            // 
-            this.rowCamberAngle.Appearance.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.rowCamberAngle.Appearance.Options.UseFont = true;
-            this.rowCamberAngle.Enabled = false;
-            this.rowCamberAngle.Name = "rowCamberAngle";
-            this.rowCamberAngle.Properties.Caption = "Camber Angle (deg)";
-            // 
-            // rowShimThickness
-            // 
-            this.rowShimThickness.Appearance.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.rowShimThickness.Appearance.Options.UseFont = true;
-            this.rowShimThickness.Enabled = false;
-            this.rowShimThickness.Name = "rowShimThickness";
-            this.rowShimThickness.Properties.Caption = "Shim Thickness (mm)";
-            // 
-            // rowBottomCamberMount
-            // 
-            this.rowBottomCamberMount.Appearance.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.rowBottomCamberMount.Appearance.Options.UseFont = true;
-            this.rowBottomCamberMount.ChildRows.AddRange(new DevExpress.XtraVerticalGrid.Rows.BaseRow[] {
-            this.rowShimsBottomCamberMount});
-            this.rowBottomCamberMount.Enabled = false;
-            this.rowBottomCamberMount.Name = "rowBottomCamberMount";
-            this.rowBottomCamberMount.Properties.Caption = "Bottom Mount (mm)";
-            this.rowBottomCamberMount.Visible = false;
-            // 
-            // rowTopCamberMount
-            // 
-            this.rowTopCamberMount.Appearance.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.rowTopCamberMount.Appearance.Options.UseFont = true;
-            this.rowTopCamberMount.ChildRows.AddRange(new DevExpress.XtraVerticalGrid.Rows.BaseRow[] {
-            this.rowShimsTopCamberMount});
-            this.rowTopCamberMount.Enabled = false;
-            this.rowTopCamberMount.Name = "rowTopCamberMount";
-            this.rowTopCamberMount.Properties.Caption = "Top Mount (mm)";
-            this.rowTopCamberMount.Visible = false;
-            // 
-            // rowShimsBottomCamberMount
-            // 
-            this.rowShimsBottomCamberMount.Appearance.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.rowShimsBottomCamberMount.Appearance.Options.UseFont = true;
-            this.rowShimsBottomCamberMount.Enabled = false;
-            this.rowShimsBottomCamberMount.Name = "rowShimsBottomCamberMount";
-            this.rowShimsBottomCamberMount.Properties.Caption = "Shims (#)";
-            // 
-            // rowShimsTopCamberMount
-            // 
-            this.rowShimsTopCamberMount.Appearance.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.rowShimsTopCamberMount.Appearance.Options.UseFont = true;
-            this.rowShimsTopCamberMount.Enabled = false;
-            this.rowShimsTopCamberMount.Name = "rowShimsTopCamberMount";
-            this.rowShimsTopCamberMount.Properties.Caption = "Shims (#)";
+            this.rowRHConvergance.Properties.Caption = "Convergance (%)";
             // 
             // categoryBumpSteer
             // 
@@ -606,12 +472,6 @@
             this.rowBSConvergence});
             this.categoryBumpSteer.Name = "categoryBumpSteer";
             this.categoryBumpSteer.Properties.Caption = "Bump Steer";
-            // 
-            // rowBSConvergence
-            // 
-            this.rowBSConvergence.Enabled = false;
-            this.rowBSConvergence.Name = "rowBSConvergence";
-            this.rowBSConvergence.Properties.Caption = "Convergence Status";
             // 
             // rowToeLinkInboard_x
             // 
@@ -640,11 +500,20 @@
             this.rowToeLinkInboard_z.Properties.Caption = "Toe Inbrd Z";
             this.rowToeLinkInboard_z.Visible = false;
             // 
-            // rowCamberConvergance
+            // rowBSConvergence
             // 
-            this.rowCamberConvergance.Enabled = false;
-            this.rowCamberConvergance.Name = "rowCamberConvergance";
-            this.rowCamberConvergance.Properties.Caption = "Convergence Status";
+            this.rowBSConvergence.Enabled = false;
+            this.rowBSConvergence.Name = "rowBSConvergence";
+            this.rowBSConvergence.Properties.Caption = "Convergence (%)";
+            // 
+            // rowToeLink
+            // 
+            this.rowToeLink.Appearance.Font = new System.Drawing.Font("Tahoma", 9F);
+            this.rowToeLink.Appearance.Options.UseFont = true;
+            this.rowToeLink.Enabled = false;
+            this.rowToeLink.Name = "rowToeLink";
+            this.rowToeLink.Properties.Caption = "Toe Link (mm)";
+            this.rowToeLink.Visible = false;
             // 
             // XUC_SetupChangeResults
             // 
@@ -676,22 +545,12 @@
         
         private DevExpress.XtraVerticalGrid.Rows.CategoryRow categoryToe;
         private DevExpress.XtraVerticalGrid.Rows.EditorRow rowToeAngle;
-        private DevExpress.XtraVerticalGrid.Rows.EditorRow rowLinkToeDelta;
         private DevExpress.XtraVerticalGrid.Rows.EditorRow rowToeConvergance;
         private DevExpress.XtraVerticalGrid.Rows.CategoryRow categoryRideHeight;
         private DevExpress.XtraVerticalGrid.Rows.EditorRow rowRideHeight;
         private DevExpress.XtraVerticalGrid.Rows.EditorRow rowLinkRHName;
         private DevExpress.XtraVerticalGrid.Rows.EditorRow rowLinkRHDelta;
         private DevExpress.XtraVerticalGrid.Rows.EditorRow rowRHConvergance;
-        
-        private DevExpress.XtraVerticalGrid.Rows.EditorRow rowLinkLengths;
-        private DevExpress.XtraVerticalGrid.Rows.EditorRow rowTopFront;
-        private DevExpress.XtraVerticalGrid.Rows.EditorRow rowTopRear;
-        private DevExpress.XtraVerticalGrid.Rows.EditorRow rowBottomFront;
-        private DevExpress.XtraVerticalGrid.Rows.EditorRow rowBottomRear;
-        private DevExpress.XtraVerticalGrid.Rows.EditorRow rowPushrod;
-        private DevExpress.XtraVerticalGrid.Rows.EditorRow rowToeLink;
-        private DevExpress.XtraVerticalGrid.Rows.EditorRow rowLinkConvergance;
         private DevExpress.XtraVerticalGrid.Rows.EditorRow rowTopFrontAdj;
         private DevExpress.XtraVerticalGrid.Rows.EditorRow rowTopRearAdj;
         private DevExpress.XtraVerticalGrid.Rows.EditorRow rowBottomFrontAdj;
@@ -709,5 +568,6 @@
         private DevExpress.XtraVerticalGrid.Rows.EditorRow rowToeLinkInboard_z;
         private DevExpress.XtraVerticalGrid.Rows.EditorRow rowBSConvergence;
         private DevExpress.XtraVerticalGrid.Rows.EditorRow rowCamberConvergance;
+        private DevExpress.XtraVerticalGrid.Rows.EditorRow rowToeLink;
     }
 }
