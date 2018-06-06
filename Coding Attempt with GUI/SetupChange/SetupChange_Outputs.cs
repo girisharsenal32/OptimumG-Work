@@ -96,25 +96,43 @@ namespace Coding_Attempt_with_GUI
         /// Final Camber Angle 
         /// </summary>
         public Angle Calc_Camber;
+        /// <summary>
+        /// Requested Camber Angle. 
+        /// </summary>
+        public Angle Req_Camber;
 
         /// <summary>
         /// Fnal Toe Angle
         /// </summary>
         public Angle Calc_Toe;
+        /// <summary>
+        /// Requested Toe Angle
+        /// </summary>
+        public Angle Req_Toe;
 
         /// <summary>
         /// Final Caster Angle
         /// </summary>
         public Angle Calc_Caster;
+        /// <summary>
+        /// Requested Caster Angle
+        /// </summary>
+        public Angle Req_Caster;
 
         /// <summary>
         /// Final KPI Angle
         /// </summary>
         public Angle Calc_KPI;
+        /// <summary>
+        /// Requested KPI Angle
+        /// </summary>
+        public Angle Req_KPI;
         #endregion
 
         #region -Direct Values-
         public double Calc_RideHeight;
+
+        public double Req_RideHeight;
         #endregion
 
         #region -Charts-
@@ -224,11 +242,13 @@ namespace Coding_Attempt_with_GUI
 
             KPI_Conv = new Convergence("NotRequested");
 
-            Camber_Conv= new Convergence("NotRequested");
+            Camber_Conv = new Convergence("NotRequested");
 
             Toe_Conv = new Convergence("NotRequested");
 
-            BumpSteer_Conv= new Convergence("NotRequested");
+            BumpSteer_Conv = new Convergence("NotRequested");
+
+            RideHeight_Conv = new Convergence("NotRequested");
 
             Total_Conv = new Convergence("0");
         }
@@ -303,7 +323,85 @@ namespace Coding_Attempt_with_GUI
         public void SetPickUpPonts(Point3D _toeLinkInboard)
         {
             ToeLinkInboard = _toeLinkInboard;
-        } 
+        }
+
+        /// <summary>
+        /// Method to Clone all the properpties and variables of the <see cref="SetupChange_Outputs"/> Class from one Object to another
+        /// </summary>
+        /// <returns></returns>
+        public SetupChange_Outputs Clone()
+        {
+            SetupChange_Outputs tempOP = new SetupChange_Outputs();
+
+            tempOP.Corner = this.Corner;
+
+            tempOP.Identifier = this.Identifier;
+
+            tempOP.TopFrontLength = this.TopFrontLength;
+
+            tempOP.TopRearLength = this.TopRearLength;
+
+            tempOP.BottomFrontLength = this.BottomFrontLength;
+
+            tempOP.BottomRearLength = this.BottomRearLength;
+
+            tempOP.PushrodLength = this.PushrodLength;
+
+            tempOP.ToeLinklength = this.ToeLinklength;
+
+            tempOP.ToeLinkInboard = this.ToeLinkInboard;
+
+            tempOP.TopCamberShimsLength = this.TopCamberShimsLength;
+
+            tempOP.TopCamberShimsNo = this.TopCamberShimsNo;
+
+            tempOP.BottomCamberShimsLength = this.BottomCamberShimsLength;
+
+            tempOP.BottomCamberShimsNo = this.BottomCamberShimsNo;
+
+            tempOP.Calc_Camber = this.Calc_Camber;
+
+            tempOP.Calc_Toe = this.Calc_Toe;
+
+            tempOP.Calc_Caster = this.Calc_Caster;
+
+            tempOP.Calc_KPI = this.Calc_KPI;
+
+            tempOP.Req_Camber = this.Req_Camber;
+
+            tempOP.Req_Toe = this.Req_Toe;
+
+            tempOP.Req_Caster = this.Req_Caster;
+
+            tempOP.Req_KPI = this.Req_KPI;
+
+            tempOP.Calc_RideHeight = this.Calc_RideHeight;
+
+            tempOP.Req_RideHeight = this.Req_RideHeight;
+
+            tempOP.Calc_BumpSteerChart = this.Calc_BumpSteerChart;
+
+            tempOP.Req_BumpSteerChart = this.Req_BumpSteerChart;
+
+            tempOP.Caster_Conv = this.Caster_Conv;
+
+            tempOP.KPI_Conv = this.KPI_Conv;
+
+            tempOP.Camber_Conv = this.Camber_Conv;
+
+            tempOP.Toe_Conv = this.Toe_Conv;
+
+            tempOP.BumpSteer_Conv = this.BumpSteer_Conv;
+
+            tempOP.RideHeight_Conv = this.RideHeight_Conv;
+
+            tempOP.Total_Conv = this.Total_Conv;
+
+
+            return tempOP;
+
+        }
+
         #endregion
 
     }
@@ -359,7 +457,7 @@ namespace Coding_Attempt_with_GUI
 
 
 
-    } 
+    }
     #endregion
 
 }

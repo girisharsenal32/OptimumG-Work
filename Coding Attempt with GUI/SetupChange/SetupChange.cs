@@ -70,7 +70,7 @@ namespace Coding_Attempt_with_GUI
                 setupChange_CV_RL = null;
                 setupChange_CV_RL = setupChange_CV_Master;
             }
-            else if (identifier ==4)
+            else if (identifier == 4)
             {
                 setupChange_CV_RR = null;
                 setupChange_CV_RR = setupChange_CV_Master;
@@ -78,4 +78,16 @@ namespace Coding_Attempt_with_GUI
         }
 
     }
+
+    /// <summary>
+    /// Enum which has all the Setup Possibilities.  
+    /// </summary>
+    public enum AvailableSetups
+    {
+        Caster_KPI,
+        Camber,
+        Toe,
+        BumpSteer
+    };
+
 }

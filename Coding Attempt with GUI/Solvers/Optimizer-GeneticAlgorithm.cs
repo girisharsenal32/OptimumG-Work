@@ -24,104 +24,158 @@ namespace Coding_Attempt_with_GUI
         /// Percentage of the Population which is going to be subject to Crossover
         /// </summary>
         double CrossOverProbability { get; set; }
+
         /// <summary>
         /// Crossover Operator which takes the <see cref="CrossOverProbability"/> as a argument and is added to the <see cref="GA"/> during its initialization
         /// </summary>
         Crossover Crossovers { get; set; }
+
         /// <summary>
         /// Percentage of the Population which is going to be subject to Random Mutation
         /// </summary>
         double MutationProbability { get; set; }
+
         /// <summary>
         /// Mutate Operator which takes the <see cref="MutationProbability"/> as an argument and is added to the <see cref="GA"/> during it initialization
         /// </summary>
         BinaryMutate Mutations { get; set; }
+
         /// <summary>
         /// Percentage of the population which is going to be treated as Elite without an modifications to the Genes
         /// </summary>
         int ElitePercentage { get; set; }
+
         /// <summary>
         /// Elite operator which takes the <see cref="ElitePercentage"/> as an argument and is added to the <see cref="GA"/> during its initialization
         /// </summary>
         Elite Elites { get; set; }
+
         /// <summary>
         /// Size of the Population
         /// </summary>
         int PopulationSize { get; set; }
+
         /// <summary>
         /// Population which will be passed to the <see cref="GA"/> during its initialization
         /// </summary>
         Population Population { get; set; }
+
         /// <summary>
         /// <para>Chromosome Length of the <see cref="Population"/></para>
         /// <para>Decided based on 2 things: The number of Genes and the bit size required for each Gene</para>
         /// <para>https://gaframework.org/wiki/index.php/How_to_Encode_Parameters for more information</para>
         /// </summary>
         int ChromosomeLength { get; set; }
+
         /// <summary>
         /// The <see cref="GeneticAlgorithm"/>
         /// </summary>
         GeneticAlgorithm GA { get; set; }
+
         /// <summary>
         /// <para><see cref="Delegate"/> which points to the local Fitness Function</para>
         /// <para>In this case the <see cref="EvaluateFitnessCurve(Chromosome)"/></para>
         /// </summary>
         FitnessFunction EvaluateFitnessOfGeneticAlforithm;
+
         /// <summary>
         /// <para><see cref="Delegate"/> which points to the Terminate Function</para>
         /// <para>In this case the <see cref="TerminateAlgorithm(Population, int, long)"/></para>
         /// </summary>
         TerminateFunction Terminate;
+
         /// <summary>
         /// Variable indicating the number of Generations before Termination
         /// </summary>
         public int No_Generations { get; set; }
+
         /// <summary>
         /// Maximium Error in a particular Generation
         /// </summary>
         double MaximumErrorOfGeneration { get; set; }
-        /// <summary>
-        /// Dictionary of <see cref="OptimizedOrientation"/> into the which the Genetic Algorithm passes it's iteration vales
-        /// </summary>
-        //Dictionary<string, OptimizedOrientation> GAOrientation { get; set; }
-
-        public double ga_TopFront;
-
-        public double ga_TopRear;
-
-        public double ga_BottomFront;
-
-        public double ga_BottomRear;
-
-        public double ga_ToeLink;
-
-        public double ga_TopCamberShims;
-
-        public double ga_BottomCamberShims;
-
-        public Point3D ga_ToeLinkInboard;
-
-        DataTable Ga_Values { get; set; }
-
-        List<object> GA_Values_Params;
 
         ///// <summary>
-        ///// Integer to determine the Bit Size of each of the <see cref="Gene"/>s inside the <see cref="Chromosome"/>
+        ///// Dictionary of <see cref="OptimizedOrientation"/> into the which the Genetic Algorithm passes it's iteration vales
         ///// </summary>
-        //int BitSize;
+        //Dictionary<string, OptimizedOrientation> GAOrientation { get; set; }
 
-        Point3D BestFit_CurrGen_ToeLinkInboard;
+        /// <summary>
+        /// Top Front Link Length proposed by the Optimizer
+        /// </summary>
+        public double ga_TopFront;
 
-        double BestFitness_CurrGen;
+        /// <summary>
+        /// Top Rear Link Length proposed by the Optimizer
+        /// </summary>
+        public double ga_TopRear;
 
+        /// <summary>
+        /// Bottom Front Link Length proposed by the Optimizer
+        /// </summary>
+        public double ga_BottomFront;
+
+        /// <summary>
+        /// Bottom Rear Link Length proposed by the Optimizer
+        /// </summary>
+        public double ga_BottomRear;
+
+        /// <summary>
+        /// Toe Link Length proposed by the Optimizer
+        /// </summary>
+        public double ga_ToeLink;
+
+        /// <summary>
+        /// Top Camber Shims Length proposed by the Optimizer
+        /// </summary>
+        public double ga_TopCamberShims;
+
+        /// <summary>
+        /// Bottom Camber Shims Length proposed by the Optimizer
+        /// </summary>
+        public double ga_BottomCamberShims;
+
+        /// <summary>
+        /// Toe Link Inboard 
+        /// </summary>
+        public Point3D ga_ToeLinkInboard;
+
+        ///// <summary>
+        ///// <para>DataTable which will hold all the information regarding the Optimization</para>
+        ///// <para> Link Lengths | Coordiantes | All Setup Params Convergence values | All Setup Params actual values  </para>
+        ///// </summary>
+        //DataTable Ga_Values { get; set; }
+
+        List<SetupChange_Outputs> List_Setup_OP;
+
+        /// <summary>
+        /// Variable indicating number of columns in the <see cref="Ga_Values"/>
+        /// </summary>
+        int Columns_DataTable;
+
+        ///---Delete if not Needed---
+        //List<object> GA_Values_Params;
+
+        ///---DELETE IF NOT NEEDED - Used for Simmulated Annealing---
+        //Point3D BestFit_CurrGen_ToeLinkInboard;
+
+        ///---DELETE IF NOT NEEDED - Used for Simmulated Annealing---
+        //double BestFitness_CurrGen;
+
+        /// <summary>
+        /// ---Obsolete--- Was used for Pareto
+        /// </summary>
         Dictionary<string, double[,]> Fitness_Individual_Objectives;
 
+        /// <summary>
+        /// <para>Variable to keep track of which solution is currently being evaluated</para>
+        /// <para>---IMPORTANT--- This variable is crucial as it also aids in populating the <see cref="Ga_Values"/> <see cref="DataTable"/> </para>
+        /// </summary>
         int SolutionCounter { get; set; }
 
         int No_GaOutputs { get; set; }
         #endregion
 
-        #region --FITNESS FUNCTION EVALUATION PARAMETERS--
+        #region --DELETE.MOSTLY NOT NEEDED -FITNESS FUNCTION EVALUATION PARAMETERS--
 
         //--FITNESS FUNCTION EVALUATION PARAMETERS--
 
@@ -154,6 +208,11 @@ namespace Coding_Attempt_with_GUI
         #region --VEHICLE & SUSPENSION PARAMETERS--
 
         //--VEHICLE PARAMETERS--
+
+        /// <summary>
+        /// Object of the <see cref="DoubleWishboneKinematicsSolver"/> Class used for all the Kinematics computations
+        /// </summary>
+        DoubleWishboneKinematicsSolver dwSolver = new DoubleWishboneKinematicsSolver();
 
         /// <summary>
         /// Object of the <see cref="VehicleCorner"/> which decides the corner of the Vehicle calling this Class
@@ -392,7 +451,7 @@ namespace Coding_Attempt_with_GUI
         public int SetupID;
 
         #endregion
-        
+
         #region --Delegates--
         private delegate double ParamsToEvaluate();
 
@@ -429,8 +488,6 @@ namespace Coding_Attempt_with_GUI
         /// <para>https://gaframework.org/wiki/index.php/How_to_Encode_Parameters for more information</para> </param>
         public OptimizerGeneticAlgorithm(double _crossover, double _mutation, int _elites, int _noOfGenerations)
         {
-            BestFitness_CurrGen = 0;
-
             CrossOverProbability = _crossover;
 
             MutationProbability = _mutation;
@@ -447,62 +504,9 @@ namespace Coding_Attempt_with_GUI
 
             Fitness_Individual_Objectives = new Dictionary<string, double[,]>();
 
-            BestFit_CurrGen_ToeLinkInboard = new Point3D();
-
-            //---NEEDED---
-            //InitializeDataTable(_setupsRequested);
-
             //No_GaOutputs = _chromoseLength / BitSize;
 
             Opt_AdjToolValues = new Dictionary<string, double>();
-
-        }
-
-        private void InitializeDataTable(List<string> _setupsRequested)
-        {
-            //Ga_Values = new DataTable();
-
-            //GA_Values_Params = new List<object>();
-
-
-            //Ga_Values.Columns.Add("Solution Name", typeof(string));
-            //GA_Values_Params.Add("SolutionName");
-
-
-            ////Ga_Values.Columns.Add("Orientation", typeof(OptimizedOrientation));
-            ////GA_Values_Params.Add(new OptimizedOrientation());
-
-
-            //Ga_Values.Columns.Add("Orientation Fitness", typeof(double));
-            //GA_Values_Params.Add(0);
-
-
-            //Ga_Values.Columns.Add("Toe Link Inboard", typeof(OptimizedCoordinate));
-            //GA_Values_Params.Add(new Point3D());
-
-
-            //Ga_Values.Columns.Add("Bump Steer Fitness", typeof(double));
-            //GA_Values_Params.Add(0);
-
-
-            //for (int i = 0; i < _adjustLinkNames.Count; i++)
-            //{
-            //    Ga_Values.Columns.Add(_adjustLinkNames[i], typeof(double));
-            //    GA_Values_Params.Add(0);
-            //}
-
-            //Ga_Values.Columns.Add("Pareto Rank", typeof(double));
-
-            //Ga_Values.Columns.Add("Pareto Optimal", typeof(bool));
-            //GA_Values_Params.Add(false);
-
-            //Ga_Values.Columns.Add("RMS Fitness", typeof(double));
-
-            //for (int i = 0; i < Ga_Values.Columns.Count; i++)
-            //{
-            //    Ga_Values.Columns[0].ReadOnly = true;
-            //}
-
 
         }
 
@@ -523,6 +527,11 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Passing the Master Dictionary which contains the Dictionaries (with Adjustmer Options) of all the Setup Changes requested</summary>
             MasterDictionary = _masterD;
 
+            List_Setup_OP = new List<SetupChange_Outputs>();
+
+            //---NEEDED---
+            //InitializeDataTable(/*MasterDictionary.Keys.ToList()*/);
+
             ///<summary>Passing the <see cref="SetupChange_Outputs"/> object</summary>
             Setup_OP = _setupOP;
 
@@ -537,6 +546,57 @@ namespace Coding_Attempt_with_GUI
 
             SetupID = _setupGUIID;
         }
+
+        //private void InitializeDataTable(/*List<string> _setupsRequested*/)
+        //{
+        //    Columns_DataTable = 0;
+
+        //    Ga_Values = new DataTable();
+        //    //GA_Values_Params = new List<object>();
+
+        //    Ga_Values.Columns.Add("Solution Name", typeof(string));
+        //    //GA_Values_Params.Add("SolutionName");
+
+        //    foreach (string SetupChange in MasterDictionary.Keys)
+        //    {
+        //        if (SetupChange == "Caster/KPI")
+        //        {
+        //            ///<summary>
+        //            ///This is a Special Case because I treat Caster and KPI as a single entity when processing the Inputs because they have the Same Adjuster Links.
+        //            ///But the are treated as 2 unique entities while performing the Optimization and reducing the error. 
+        //            ///Hence they need to be split this way
+        //            /// </summary>
+        //            Ga_Values.Rows.Add("Caster", typeof(double));
+        //            Ga_Values.Rows.Add("KPI", typeof(double));
+        //        }
+
+        //        else
+        //        {
+        //            Ga_Values.Rows.Add(SetupChange, typeof(double));
+        //        }
+
+        //        foreach (string adjuster in MasterDictionary[SetupChange].Keys)
+        //        {
+        //            Ga_Values.Columns.Add(adjuster, typeof(double));
+        //        }
+        //    }
+
+        //    //Ga_Values.Columns.Add("Pareto Rank", typeof(double));
+
+        //    //Ga_Values.Columns.Add("Pareto Optimal", typeof(bool));
+        //    //GA_Values_Params.Add(false);
+
+        //    Ga_Values.Columns.Add("RMS Fitness", typeof(double));
+
+        //    for (int i = 0; i < Ga_Values.Columns.Count; i++)
+        //    {
+        //        Ga_Values.Columns[0].ReadOnly = true;
+        //    }
+
+
+        //    Columns_DataTable = Ga_Values.Columns.Count;
+
+        //}
 
         /// <summary>
         /// <para>---3rd--- This method is to be called 2nd in the sequence</para>
@@ -592,7 +652,7 @@ namespace Coding_Attempt_with_GUI
 
             Identifier = (int)tempVehicleParams["Identifier"];
 
-            PopulateDictionaryTrial();
+            PopulateDictionary();
 
             ///<summary>Assigning the Nominal Coordinate of the <see cref="ToeLinkInboard"/> in case Bump Steer change/constant is requested</summary>
             if (MasterDictionary.ContainsKey("Bump Steer"))
@@ -626,7 +686,7 @@ namespace Coding_Attempt_with_GUI
             Del_BumpSteer_Error = new ParamsToEvaluate(ComputeBumpSteerError);
 
             Del_RMS_Error = new ParamsToEvaluate(Dummy);
-            
+
             ///<summary>Populating the Main RMS delegate with the child delegates based on whether the Setup Change Exists</summary>
             if (Setup_CV.constKPI == true || Setup_CV.KPIChangeRequested)
             {
@@ -712,13 +772,15 @@ namespace Coding_Attempt_with_GUI
             {
                 ///<summary>Invokinig the <see cref="ExtractOptimizedValues(Chromosome, out double, out double, out double)"/> which extracts the coordinates </summary>
                 ExtractOptimizedValues(chromosome);
-                //Update_GADataTable("Solution" + SolutionCounter);
+                //AddRowToTable("Solution" + SolutionCounter);
 
                 ///<summary>Invoking the <see cref="ComputeBumpSteerError(double, double, double)"/> method to check the error of the calcualted Bump Steer Curve with the Curve that the user wants</summary>
                 double resultError = EvaluateRMSError(SolutionCounter);
 
                 ///<summary>Calculating the Fitness based on the Error</summary>
                 Fitness = 1 - (resultError);
+
+                List_Setup_OP.Add(Setup_OP.Clone());
 
                 SolutionCounter++;
             }
@@ -768,7 +830,10 @@ namespace Coding_Attempt_with_GUI
 
             //GetParetoSolutions();
 
+            ///<summary>Setting the SolutionCounter to 0 so that in the next Generation it can be re-used in conjunction with the <see cref="Ga_Values"/></summary>
             SolutionCounter = 0;
+
+            List_Setup_OP.Clear();
 
             //Ga_Values.Rows.Clear();
 
@@ -824,27 +889,9 @@ namespace Coding_Attempt_with_GUI
         }
         #endregion
 
-        #region ---TEMP--- METHOD TO POPULATE THE DICTIONARIES LOCALLY 
-        //---TEMP---
-        private void PopulateDictionaryTrial()
-        {
-            //GAOrientation = new Dictionary<string, OptimizedOrientation>();
+        #region ---METHOD TO POPULATE THE DICTIONARIES LOCALLY---  
 
-            //Point3D upperLimit = new Point3D(10, 10, 10);
-
-            //Point3D LowerLimit = new Point3D(-10, -10, -10);
-
-            //MathNet.Spatial.Euclidean.EulerAngles upperEuler = new MathNet.Spatial.Euclidean.EulerAngles(new Angle(5, AngleUnit.Degrees), new Angle(5, AngleUnit.Degrees), new Angle(5, AngleUnit.Degrees));
-
-            //MathNet.Spatial.Euclidean.EulerAngles lowerEuler = new MathNet.Spatial.Euclidean.EulerAngles(new Angle(0, AngleUnit.Degrees), new Angle(-5, AngleUnit.Degrees), new Angle(-5, AngleUnit.Degrees));
-
-            //GAOrientation.Add("NewOrientation1", new OptimizedOrientation(upperLimit, LowerLimit, upperEuler, lowerEuler, BitSize));
-
-            PopulateDictionaryTrial_2();
-
-        }
-        //---TEMP--
-        private void PopulateDictionaryTrial_2()
+        private void PopulateDictionary()
         {
             Point3D Upper = new Point3D(20, 20, 20);
 
@@ -853,11 +900,8 @@ namespace Coding_Attempt_with_GUI
 
             UnsprungAssembly = new Dictionary<string, OptimizedCoordinate>();
 
-            //tempInboardPoints = new Dictionary<string, OptimizedCoordinate>();
-
             ToeLinkInboard = new Point3D(SCM.N1x, SCM.N1y, SCM.N1z);
             ga_ToeLinkInboard = ToeLinkInboard.Clone() as Point3D;
-            //tempInboardPoints.Add("ToeLinkInboard", new OptimizedCoordinate(ToeLinkInboard, Upper, Lower, BitSize));
 
             TopFront = new Point3D(SCM.A1x, SCM.A1y, SCM.A1z);
 
@@ -918,6 +962,12 @@ namespace Coding_Attempt_with_GUI
             tempAxisLines.Add("VerticalAxis_WheelCenter", new Line(WcStart.Clone() as Point3D, new Point3D(WcStart.X, WcStart.Y + 100, WcStart.Z)));
 
             tempAxisLines.Add("LongitudinalAxis_WheelCenter", new Line(WcStart.Clone() as Point3D, new Point3D(WcStart.X, WcStart.Y, WcStart.Z + 100)));
+
+        }
+        //---TEMP--
+        private void PopulateDictionaryTrial_2()
+        {
+
 
 
 
@@ -1018,25 +1068,29 @@ namespace Coding_Attempt_with_GUI
             return chromLength;
         }
 
-
+        /// <summary>
+        /// Method to extract the index of the Row in the <see cref="Ga_Values"/> <see cref="DataTable"/> which has the most Fitness
+        /// </summary>
+        /// <returns></returns>
         private int GetMaxIndex()
         {
             int maxRowIndex = 0;
 
             double rmsFitness = 0;
 
-            for (int i = 0; i < Ga_Values.Rows.Count - 1; i++)
-            {
-                if (Ga_Values.Rows[i].Field<double>("RMS Fitness") > rmsFitness)
-                {
-                    rmsFitness = Ga_Values.Rows[i].Field<double>("RMS Fitness");
-                    maxRowIndex = i;
-                }
-            }
+            ///--Use List of <see cref="List{SetupChange_Outputs}"/> instead of the Data Table
+
+            //for (int i = 0; i < Ga_Values.Rows.Count - 1; i++)
+            //{
+            //    if (Ga_Values.Rows[i].Field<double>("RMS Fitness") > rmsFitness)
+            //    {
+            //        rmsFitness = Ga_Values.Rows[i].Field<double>("RMS Fitness");
+            //        maxRowIndex = i;
+            //    }
+            //}
 
             return maxRowIndex;
         }
-
 
         /// <summary>
         /// Method to calculate the Number of Iterations to be performed
@@ -1053,6 +1107,7 @@ namespace Coding_Attempt_with_GUI
             return 1;
         }
 
+        #region --Useful but not currenly employed -- Method to perform Simulated Annealing
         /// <summary>
         /// ---Useful but not currently employed---
         /// Method to perform Simulated Annealing by reducing the Range of the parameters being optimized depending upon their fitness
@@ -1062,44 +1117,44 @@ namespace Coding_Attempt_with_GUI
         {
             if (Fitness > 0.994 && Fitness < 0.998 && Fitness < 0.999)
             {
-                if (Fitness > BestFitness_CurrGen)
-                {
-                    BestFitness_CurrGen = Fitness;
+                //if (Fitness > BestFitness_CurrGen)
+                //{
+                //    BestFitness_CurrGen = Fitness;
 
-                    ModfiyStepSize(0.5, 20, 8);
-                }
+                //    ModfiyStepSize(0.5, 20, 8);
+                //}
 
             }
             else if (Fitness > 0.998 && Fitness < 0.999)
             {
 
-                if (Fitness > BestFitness_CurrGen)
-                {
-                    BestFitness_CurrGen = Fitness;
+                //if (Fitness > BestFitness_CurrGen)
+                //{
+                //    BestFitness_CurrGen = Fitness;
 
-                    ModfiyStepSize(0.3, 10, 4);
-                }
+                //    ModfiyStepSize(0.3, 10, 4);
+                //}
 
             }
             else if (Fitness > 0.999 && Fitness < 0.9999)
             {
 
-                if (Fitness > BestFitness_CurrGen)
-                {
-                    BestFitness_CurrGen = Fitness;
+                //if (Fitness > BestFitness_CurrGen)
+                //{
+                //    BestFitness_CurrGen = Fitness;
 
-                    ModfiyStepSize(0.15, 5, 2);
-                }
+                //    ModfiyStepSize(0.15, 5, 2);
+                //}
 
             }
             else if (Fitness > 0.9999)
             {
-                if (Fitness > BestFitness_CurrGen)
-                {
-                    BestFitness_CurrGen = Fitness;
+                //if (Fitness > BestFitness_CurrGen)
+                //{
+                //    BestFitness_CurrGen = Fitness;
 
-                    ModfiyStepSize(0.05, 2, 1);
-                }
+                //    ModfiyStepSize(0.05, 2, 1);
+                //}
             }
         }
 
@@ -1144,8 +1199,10 @@ namespace Coding_Attempt_with_GUI
             //LowerWishboneLinkLength = WishboneLinkLength - _linkLengthRange;
 
         }
+        #endregion
 
 
+        #region -Extraction Methods-
         /// <summary>
         /// Overloaded Method to 
         /// </summary>
@@ -1169,6 +1226,8 @@ namespace Coding_Attempt_with_GUI
                     double param = System.Math.Round((gene * range) + (MasterDictionary[SetupChange][adjTool].Nominal + MasterDictionary[SetupChange][adjTool].Lower), 3);
 
                     MasterDictionary[SetupChange][adjTool].OptimizedIteration = param;
+
+                    //Ga_Values.Rows[SolutionCounter].SetField<double>(adjTool, param);
 
                     if (Opt_AdjToolValues.ContainsKey(adjTool))
                     {
@@ -1255,11 +1314,22 @@ namespace Coding_Attempt_with_GUI
             }
 
         }
+        #endregion
 
-        private void Update_GADataTable(string _solutionName)
-        {
-            //Ga_Values.Rows.Add(_solutionName, GAOrientation["NewOrientation1"], 0, InboardPoints["ToeLinkInboard"], 0, WishboneLinkLength, 0, false, 0);
-        }
+        ///// <summary>
+        ///// Method to add a new Row to the <see cref="Ga_Values"/> <see cref="DataTable"/>
+        ///// </summary>
+        ///// <param name="_solutionName">Name of the Solution being added </param>
+        //private void AddRowToTable(string _solutionName)
+        //{
+        //    DataRow tempRow = Ga_Values.NewRow();
+
+        //    tempRow["Solution Name"] = _solutionName;
+
+        //    Ga_Values.Rows.Add(tempRow);
+
+        //    //Ga_Values.Rows.Add(_solutionName, GAOrientation["NewOrientation1"], 0, InboardPoints["ToeLinkInboard"], 0, WishboneLinkLength, 0, false, 0);
+        //}
 
         /// <summary>
         /// Main Error Calculating fucntion. 
@@ -1290,8 +1360,6 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Computing the RMS Error</summary>
             rmsError = System.Math.Sqrt((System.Math.Pow(BumpSteerError, 2) + System.Math.Pow(CasterError, 2) + System.Math.Pow(ToeError, 2) + System.Math.Pow(CamberError, 2) + System.Math.Pow(KpiError, 2)));
 
-            //Ga_Values.Rows[rowIndex].SetField<double>("Orientation Fitness", orientationError);
-            //Ga_Values.Rows[rowIndex].SetField<double>("Bump Steer Fitness", bumpSteerError);
             //Ga_Values.Rows[rowIndex].SetField<double>("RMS Fitness", 1 - rmsError);
 
             //EvaluateWishboneConstraints();
@@ -1307,21 +1375,7 @@ namespace Coding_Attempt_with_GUI
             else return rmsError;
         }
 
-        private void GetParetoSolutions()
-        {
-            //Dictionary<string,OptimizedOrientation> paretoOrientations = new Dictionary<string, OptimizedOrientation>();
 
-            //Dictionary<string, Point3D> paretoToeLink = new Dictionary<string, Point3D>();
-
-            //for (int i = 0; i < Ga_Values.Rows.Count; i++)
-            //{
-            //    if (Ga_Values.Rows[i].Field<bool>("Pareto Optimal"))
-            //    {
-            //        paretoOrientations.Add(Ga_Values.Rows[i].Field<double>("Orientation Fitness").ToString() + i, Ga_Values.Rows[i].Field<OptimizedOrientation>("Orientation"));
-            //        paretoToeLink.Add(Ga_Values.Rows[i].Field<double>("Bump Steer Fitness").ToString() + i, Ga_Values.Rows[i].Field<OptimizedCoordinate>("Toe Link Inboard").OptimizedCoordinates);
-            //    }
-            //}
-        }
 
         #region --- NOT NEEDED IN THIS ITERATION---
         //private List<double> EvaluateUpdatedOrientation(OptimizedOrientation _OptimizationOrientation)
@@ -1483,40 +1537,10 @@ namespace Coding_Attempt_with_GUI
             double error = ((difference / _original/*10*/));
 
             return error;
-        } 
+        }
         #endregion
 
-        /// <summary>
-        /// Method to update all the <see cref="SCM"/> Suspnsion coordinate Objects
-        /// </summary>
-        private void Update_SuspensionCoordinateData()
-        {
-            Dictionary<string, Point3D> SuspensionCoordintes = ConvertTo_PointDictionary();
-
-            SCM.Clone_Outboard_FromDictionary(SuspensionCoordintes);
-
-            tempAxisLines["SteeringAxis"] = new Line(UnsprungAssembly["UBJ"].OptimizedCoordinates, UnsprungAssembly["LBJ"].OptimizedCoordinates);
-
-            tempAxisLines["WheelSpindle"] = new Line(UnsprungAssembly["WcStart"].OptimizedCoordinates, UnsprungAssembly["WcEnd"].OptimizedCoordinates);
-
-        }
-
-        /// <summary>
-        /// Method to convert the <see cref="UnsprungAssembly"/> dictionary items (which is a <see cref="Dictionary{String, OptimizedCoordinate}"/> dictionary ) to a regular <see cref="Dictionary{String, Point3D}"/>
-        /// </summary>
-        /// <returns></returns>
-        private Dictionary<string, Point3D> ConvertTo_PointDictionary()
-        {
-            Dictionary<string, Point3D> suspCoordinates = new Dictionary<string, Point3D>();
-
-            foreach (string point in UnsprungAssembly.Keys)
-            {
-                suspCoordinates.Add(point, UnsprungAssembly[point].OptimizedCoordinates.Clone() as Point3D);
-            }
-
-            return suspCoordinates;
-        }
-
+        #region -Kinematic Solver and Helper Methods-
         /// <summary>
         /// Method to Solve the Suspension Kienmatics after a Link Length change has been proposed by the Optimizer
         /// </summary>
@@ -1567,7 +1591,7 @@ namespace Coding_Attempt_with_GUI
             ///Point L (Wheel Spindle End)
             /// </summary>
             dwSolver.Optimization_WheelSpindleEnd(Vehicle, tempOC, AdjustmentTools.TopCamberMount, out MathNet.Spatial.Euclidean.Point3D L);
-            
+
             ///<summary>
             ///Point W (Contact Patch)
             /// </summary>
@@ -1595,12 +1619,39 @@ namespace Coding_Attempt_with_GUI
 
         }
 
+        /// <summary>
+        /// Method to update all the <see cref="SCM"/> Suspnsion coordinate Objects
+        /// </summary>
+        private void Update_SuspensionCoordinateData()
+        {
+            Dictionary<string, Point3D> SuspensionCoordintes = ConvertTo_PointDictionary();
 
+            SCM.Clone_Outboard_FromDictionary(SuspensionCoordintes);
+
+            tempAxisLines["SteeringAxis"] = new Line(UnsprungAssembly["UBJ"].OptimizedCoordinates, UnsprungAssembly["LBJ"].OptimizedCoordinates);
+
+            tempAxisLines["WheelSpindle"] = new Line(UnsprungAssembly["WcStart"].OptimizedCoordinates, UnsprungAssembly["WcEnd"].OptimizedCoordinates);
+
+        }
 
         /// <summary>
-        /// Object of the <see cref="DoubleWishboneKinematicsSolver"/> Class used for all the Kinematics computations
+        /// Method to convert the <see cref="UnsprungAssembly"/> dictionary items (which is a <see cref="Dictionary{String, OptimizedCoordinate}"/> dictionary ) to a regular <see cref="Dictionary{String, Point3D}"/>
         /// </summary>
-        DoubleWishboneKinematicsSolver dwSolver = new DoubleWishboneKinematicsSolver();
+        /// <returns></returns>
+        private Dictionary<string, Point3D> ConvertTo_PointDictionary()
+        {
+            Dictionary<string, Point3D> suspCoordinates = new Dictionary<string, Point3D>();
+
+            foreach (string point in UnsprungAssembly.Keys)
+            {
+                suspCoordinates.Add(point, UnsprungAssembly[point].OptimizedCoordinates.Clone() as Point3D);
+            }
+
+            return suspCoordinates;
+        }
+        #endregion
+
+        #region -Computing the Caster Error-
         /// <summary>
         /// Newly computed DELTA Caster Angle after all the Kinematics Computations have been made
         /// </summary>
@@ -1619,7 +1670,7 @@ namespace Coding_Attempt_with_GUI
 
             ///<summary> Getting the Initial Caster </summary>
             Angle staticCaster = new Angle(OC[0].Caster, AngleUnit.Radians);
-            
+
             ///<summary>Calcualating the new Castet</summary>
             Calc_Caster = new Angle(dCaster_New.Degrees + staticCaster.Degrees, AngleUnit.Degrees);
 
@@ -1628,6 +1679,9 @@ namespace Coding_Attempt_with_GUI
 
             ///<summary>Setting the Caster COnvergence</summary>
             Setup_OP.Caster_Conv = new Convergence(1 - SetConvergenceError(CasterError));
+
+            /////<summary>Populating the <see cref="Ga_Values"/> DataTable</summary>
+            //Ga_Values.Rows[SolutionCounter].SetField<double>("Caster", 1 - SetConvergenceError(CasterError));
 
             ///<summary>
             /// Assigning Direction to the Caster Angle
@@ -1638,7 +1692,9 @@ namespace Coding_Attempt_with_GUI
 
             return (CasterError);
         }
+        #endregion
 
+        #region -Computing the KPI Error-
         /// <summary>
         /// Newly computed DELTA KPI Angle after all the Kinematics Computations have been made
         /// </summary>
@@ -1674,8 +1730,13 @@ namespace Coding_Attempt_with_GUI
 
             Setup_OP.Calc_KPI = new Angle(tmepKPI, AngleUnit.Degrees);
 
+            //Ga_Values.Rows[SolutionCounter].SetField<double>("KPI", 1 - SetConvergenceError(KpiError));
+
             return KpiError;
         }
+        #endregion
+
+        #region ---Computing the Toe Error---
 
         /// <summary>
         /// Change in Toe Angle or DELTA Toe Angle
@@ -1719,7 +1780,9 @@ namespace Coding_Attempt_with_GUI
             return ToeError;
 
         }
+        #endregion
 
+        #region ---Computing the Camber Error
         /// <summary>
         /// Delta or Change in Camber
         /// </summary>
@@ -1758,6 +1821,7 @@ namespace Coding_Attempt_with_GUI
 
             return CamberError;
         }
+        #endregion
 
         #region --Computing the Bump Steer Error--
         /// <summary>
@@ -1786,8 +1850,6 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Setting the number of iterations to be performed in the <see cref="DoubleWishboneKinematicsSolver"/></summary>
             dwSolver.NoOfIterationsOptimization = OC_BumpSteer.Count;
 
-            #region ---Computing Toe Variation for a Bump Pass
-
             ///<summary>
             ///---BUMP---
             ///Invoking the <see cref="DoubleWishboneKinematicsSolver.Kinematics(int, SuspensionCoordinatesMaster, WheelAlignment, Tire, AntiRollBar, double, Spring, Damper, List{OutputClass}, Vehicle, List{double}, bool, bool)"/>
@@ -1797,8 +1859,6 @@ namespace Coding_Attempt_with_GUI
 
             ///<summary>Extractingg the Toe Angles Computed in the above Solver Pass for Bump</summary>
             ExtractToeAngles(OC_BumpSteer);
-
-            #endregion
 
             ///<summary>Extracting the Bump Steer Error based on the Euclidean Distance </summary>
             BumpSteerError = GetResultValues();
@@ -1831,7 +1891,7 @@ namespace Coding_Attempt_with_GUI
             ///This is done so that the last deflection of the <see cref="CustomBumpSteerParams.WheelDeflections"/> also produces tangible results. If the extra element is not there then the Results at the 
             ///last wheel deflection would ALL be zero because of Lack of DELTA to compute from 
             /// </summary>
-            for (int i = 0; i < _oc.Count - 1; i++) 
+            for (int i = 0; i < _oc.Count - 1; i++)
             {
                 temp.Add(new Angle(_oc[i].waOP.StaticToe, AngleUnit.Radians));
             }
@@ -1875,14 +1935,14 @@ namespace Coding_Attempt_with_GUI
             ///This is done so that the last deflection of the <see cref="CustomBumpSteerParams.WheelDeflections"/> also produces tangible results. If the extra element is not there then the Results at the 
             ///last wheel deflection would ALL be zero because of Lack of DELTA to compute from 
             /// </remarks>
-            for (int i = 0; i < Setup_CV.BS_Params.ToeAngles.Count - 1; i++) 
+            for (int i = 0; i < Setup_CV.BS_Params.ToeAngles.Count - 1; i++)
             {
                 Setup_OP.Req_BumpSteerChart.Add(new Angle(Setup_CV.BS_Params.ToeAngles[i].Degrees + StaticToe.Degrees, AngleUnit.Degrees));
             }
 
             ///<summary>Calling the method which performs the actual Euclidean Distance Error Computation</summary>
             Error = EvaluateDeviation(Calc_BumpSteerGraph, Setup_OP.Req_BumpSteerChart);
-            
+
             return Error;
 
         }
@@ -1900,23 +1960,23 @@ namespace Coding_Attempt_with_GUI
             List<Angle> ErrorCalc_Step1 = new List<Angle>();
 
             ///<summary>Finding the distance between each pair of Points</summary>
-            for (int i = 0; i < _userBumpSteerCurve.Count; i++) 
+            for (int i = 0; i < _userBumpSteerCurve.Count; i++)
             {
-                if (i != 0 &&  i != _userBumpSteerCurve.Count - 1) 
+                if (i != 0 && i != _userBumpSteerCurve.Count - 1)
                 {
                     //if (i != SuspensionEvalIterations - 1)
                     //{
 
-                        //ErrorCalc_Step1.Add(new Angle((_toeAngle[i].Degrees - UserBumpSteerCurve[i].Degrees), AngleUnit.Degrees));
+                    //ErrorCalc_Step1.Add(new Angle((_toeAngle[i].Degrees - UserBumpSteerCurve[i].Degrees), AngleUnit.Degrees));
 
-                        //if (UserBumpSteerCurve[i].Degrees != 0)
-                        //{
-                        //    ErrorCalc_Step1.Add(new Angle(((_toeAngle[i - 1].Degrees - UserBumpSteerCurve[i].Degrees) / UserBumpSteerCurve[i].Degrees), AngleUnit.Degrees));
-                        //}
-                        //else
-                        //{
-                            ErrorCalc_Step1.Add(new Angle((_toeAngle[i - 1].Degrees - UserBumpSteerCurve[i].Degrees), AngleUnit.Degrees));
-                        //}
+                    //if (UserBumpSteerCurve[i].Degrees != 0)
+                    //{
+                    //    ErrorCalc_Step1.Add(new Angle(((_toeAngle[i - 1].Degrees - UserBumpSteerCurve[i].Degrees) / UserBumpSteerCurve[i].Degrees), AngleUnit.Degrees));
+                    //}
+                    //else
+                    //{
+                    ErrorCalc_Step1.Add(new Angle((_toeAngle[i - 1].Degrees - UserBumpSteerCurve[i].Degrees), AngleUnit.Degrees));
+                    //}
                     //}
                     //else
                     //{
@@ -1928,7 +1988,7 @@ namespace Coding_Attempt_with_GUI
             List<Angle> ErrorCalc_Step2 = new List<Angle>();
 
             ///<summary>Finiding the square of the Distance</summary>
-            for (int i = 0; i < ErrorCalc_Step1.Count; i++) 
+            for (int i = 0; i < ErrorCalc_Step1.Count; i++)
             {
                 ErrorCalc_Step2.Add(new Angle(ErrorCalc_Step1[i].Degrees * ErrorCalc_Step1[i].Degrees, AngleUnit.Degrees));
             }
@@ -1936,7 +1996,7 @@ namespace Coding_Attempt_with_GUI
             double ErrorCalc_Step3 = 0;
 
             ///<summary>Summing the squares of the distances</summary>
-            for (int i = 0; i < ErrorCalc_Step2.Count; i++) 
+            for (int i = 0; i < ErrorCalc_Step2.Count; i++)
             {
                 ErrorCalc_Step3 += ErrorCalc_Step2[i].Degrees;
             }
@@ -1975,6 +2035,23 @@ namespace Coding_Attempt_with_GUI
             return System.Math.Round(error, 2);
         }
 
+        #region ---NOT USED--- Pareto Solutions. Not used because this can be done for maximum of 3D optimization---
+        private void GetParetoSolutions()
+        {
+            //Dictionary<string,OptimizedOrientation> paretoOrientations = new Dictionary<string, OptimizedOrientation>();
+
+            //Dictionary<string, Point3D> paretoToeLink = new Dictionary<string, Point3D>();
+
+            //for (int i = 0; i < Ga_Values.Rows.Count; i++)
+            //{
+            //    if (Ga_Values.Rows[i].Field<bool>("Pareto Optimal"))
+            //    {
+            //        paretoOrientations.Add(Ga_Values.Rows[i].Field<double>("Orientation Fitness").ToString() + i, Ga_Values.Rows[i].Field<OptimizedOrientation>("Orientation"));
+            //        paretoToeLink.Add(Ga_Values.Rows[i].Field<double>("Bump Steer Fitness").ToString() + i, Ga_Values.Rows[i].Field<OptimizedCoordinate>("Toe Link Inboard").OptimizedCoordinates);
+            //    }
+            //}
+        }
+
         private void EvaluateParetoOptimial()
         {
             //double[,] Fitness_MultipleObjective = ConstructParetoArray();
@@ -1984,70 +2061,71 @@ namespace Coding_Attempt_with_GUI
             //FindScaledRanks();
         }
 
-        private double[,] ConstructParetoArray()
-        {
-            double[,] multipleObjectiveFitness = new double[Ga_Values.Rows.Count, 2];
+        //private double[,] ConstructParetoArray()
+        //{
+        //    double[,] multipleObjectiveFitness = new double[Ga_Values.Rows.Count, 2];
 
-            for (int i = 0; i < Ga_Values.Rows.Count - 1; i++)
-            {
-                multipleObjectiveFitness[i, 0] = Ga_Values.Rows[i].Field<double>("Orientation Fitness");
-                multipleObjectiveFitness[i, 1] = Ga_Values.Rows[i].Field<double>("Bump Steer Fitness");
-            }
-            return multipleObjectiveFitness;
-        }
+        //    for (int i = 0; i < Ga_Values.Rows.Count - 1; i++)
+        //    {
+        //        multipleObjectiveFitness[i, 0] = Ga_Values.Rows[i].Field<double>("Orientation Fitness");
+        //        multipleObjectiveFitness[i, 1] = Ga_Values.Rows[i].Field<double>("Bump Steer Fitness");
+        //    }
+        //    return multipleObjectiveFitness;
+        //}
 
-        private void FindDominatingSolutions(double[,] _moopFitnesses)
-        {
+        //private void FindDominatingSolutions(double[,] _moopFitnesses)
+        //{
 
-            for (int i = 0; i < Ga_Values.Rows.Count - 1; i++)
-            {
-                bool dominatingSolution = true;
-                int dominatedSolIndex = 0;
-                for (int j = 0; j < Ga_Values.Rows.Count - 1; j++)
-                {
-                    if ((_moopFitnesses[i, 0] < _moopFitnesses[j, 0] && _moopFitnesses[i, 1] < _moopFitnesses[j, 1]) && (_moopFitnesses[j, 0] != 0 && _moopFitnesses[j, 1] != 0))
-                    {
-                        if (i != j)
-                        {
-                            Ga_Values.Rows[j].SetField<double>("Pareto Rank", Ga_Values.Rows[j].Field<double>("Pareto Rank") + 1);
-                        }
-                    }
-                    else if ((_moopFitnesses[i, 0] > _moopFitnesses[j, 0] && _moopFitnesses[i, 1] > _moopFitnesses[j, 1]) && (_moopFitnesses[j, 0] != 0 && _moopFitnesses[j, 1] != 0))
-                    {
-                        dominatingSolution = false;
+        //    for (int i = 0; i < Ga_Values.Rows.Count - 1; i++)
+        //    {
+        //        bool dominatingSolution = true;
+        //        int dominatedSolIndex = 0;
+        //        for (int j = 0; j < Ga_Values.Rows.Count - 1; j++)
+        //        {
+        //            if ((_moopFitnesses[i, 0] < _moopFitnesses[j, 0] && _moopFitnesses[i, 1] < _moopFitnesses[j, 1]) && (_moopFitnesses[j, 0] != 0 && _moopFitnesses[j, 1] != 0))
+        //            {
+        //                if (i != j)
+        //                {
+        //                    Ga_Values.Rows[j].SetField<double>("Pareto Rank", Ga_Values.Rows[j].Field<double>("Pareto Rank") + 1);
+        //                }
+        //            }
+        //            else if ((_moopFitnesses[i, 0] > _moopFitnesses[j, 0] && _moopFitnesses[i, 1] > _moopFitnesses[j, 1]) && (_moopFitnesses[j, 0] != 0 && _moopFitnesses[j, 1] != 0))
+        //            {
+        //                dominatingSolution = false;
 
-                        break;
-                    }
-                }
+        //                break;
+        //            }
+        //        }
 
-                if (dominatingSolution && (_moopFitnesses[i, 0] != 0 && _moopFitnesses[i, 1] != 0))
-                {
-                    Ga_Values.Rows[i].SetField<bool>("Pareto Optimal", true);
-                }
+        //        if (dominatingSolution && (_moopFitnesses[i, 0] != 0 && _moopFitnesses[i, 1] != 0))
+        //        {
+        //            Ga_Values.Rows[i].SetField<bool>("Pareto Optimal", true);
+        //        }
 
-            }
-        }
+        //    }
+        //}
 
-        private void FindScaledRanks()
-        {
-            int mostDominated = 0;
+        //private void FindScaledRanks()
+        //{
+        //    int mostDominated = 0;
 
-            for (int i = 0; i < Ga_Values.Rows.Count - 1; i++)
-            {
-                double tempRank = Ga_Values.Rows[i].Field<double>("Pareto Rank");
+        //    for (int i = 0; i < Ga_Values.Rows.Count - 1; i++)
+        //    {
+        //        double tempRank = Ga_Values.Rows[i].Field<double>("Pareto Rank");
 
-                if (Convert.ToInt32(tempRank) > mostDominated)
-                {
-                    mostDominated = Convert.ToInt32(tempRank);
-                }
-            }
+        //        if (Convert.ToInt32(tempRank) > mostDominated)
+        //        {
+        //            mostDominated = Convert.ToInt32(tempRank);
+        //        }
+        //    }
 
-            for (int i = 0; i < Ga_Values.Rows.Count - 1; i++)
-            {
-                Ga_Values.Rows[i].SetField<double>("Pareto Rank", Ga_Values.Rows[i].Field<double>("Pareto Rank") / mostDominated);
-            }
+        //    for (int i = 0; i < Ga_Values.Rows.Count - 1; i++)
+        //    {
+        //        Ga_Values.Rows[i].SetField<double>("Pareto Rank", Ga_Values.Rows[i].Field<double>("Pareto Rank") / mostDominated);
+        //    }
 
-        }
+        //} 
+        #endregion
 
         #endregion
 
