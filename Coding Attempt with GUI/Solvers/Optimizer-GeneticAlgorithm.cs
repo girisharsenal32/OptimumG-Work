@@ -347,7 +347,7 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// 
         /// </summary>
-        Dictionary<string, Line> tempAxisLines;
+        Dictionary<string, Line> AxisLines;
         /// <summary>
         /// Name is Critical
         /// Works in Delta
@@ -549,57 +549,6 @@ namespace Coding_Attempt_with_GUI
             SetupID = _setupGUIID;
         }
 
-        //private void InitializeDataTable(/*List<string> _setupsRequested*/)
-        //{
-        //    Columns_DataTable = 0;
-
-        //    Ga_Values = new DataTable();
-        //    //GA_Values_Params = new List<object>();
-
-        //    Ga_Values.Columns.Add("Solution Name", typeof(string));
-        //    //GA_Values_Params.Add("SolutionName");
-
-        //    foreach (string SetupChange in MasterDictionary.Keys)
-        //    {
-        //        if (SetupChange == "Caster/KPI")
-        //        {
-        //            ///<summary>
-        //            ///This is a Special Case because I treat Caster and KPI as a single entity when processing the Inputs because they have the Same Adjuster Links.
-        //            ///But the are treated as 2 unique entities while performing the Optimization and reducing the error. 
-        //            ///Hence they need to be split this way
-        //            /// </summary>
-        //            Ga_Values.Rows.Add("Caster", typeof(double));
-        //            Ga_Values.Rows.Add("KPI", typeof(double));
-        //        }
-
-        //        else
-        //        {
-        //            Ga_Values.Rows.Add(SetupChange, typeof(double));
-        //        }
-
-        //        foreach (string adjuster in MasterDictionary[SetupChange].Keys)
-        //        {
-        //            Ga_Values.Columns.Add(adjuster, typeof(double));
-        //        }
-        //    }
-
-        //    //Ga_Values.Columns.Add("Pareto Rank", typeof(double));
-
-        //    //Ga_Values.Columns.Add("Pareto Optimal", typeof(bool));
-        //    //GA_Values_Params.Add(false);
-
-        //    Ga_Values.Columns.Add("RMS Fitness", typeof(double));
-
-        //    for (int i = 0; i < Ga_Values.Columns.Count; i++)
-        //    {
-        //        Ga_Values.Columns[0].ReadOnly = true;
-        //    }
-
-
-        //    Columns_DataTable = Ga_Values.Columns.Count;
-
-        //}
-
         /// <summary>
         /// <para>---3rd--- This method is to be called 2nd in the sequence</para>
         /// <para>Method to Initialize the Vehicle of the class and initialize all the parameters of the Vehicle along with it  </para>
@@ -617,10 +566,7 @@ namespace Coding_Attempt_with_GUI
             SuspensionEvalUpperLimit = 25;
 
             ///<summary>Calculating the Number of iterations based on the <see cref="SuspensionEvalStepSize"/> the <see cref="SuspensionEvalUpperLimit"/> and the <see cref="SuspensionEvalLowerLimit"/></summary>
-            SuspensionEvalIterations = GetNoOfIterations(SuspensionEvalUpperLimit, SuspensionEvalLowerLimit, SuspensionEvalStepSize);
-            SuspensionEvalIterations_UpperLimit = GetNoOfIterations(SuspensionEvalUpperLimit, 0, SuspensionEvalStepSize);
-            SuspensionEvalIterations_LowerLimit = GetNoOfIterations(0, SuspensionEvalLowerLimit, SuspensionEvalStepSize);
-
+            SuspensionEvalIterations = Setup_CV.BS_Params.WheelDeflections.Count / Setup_CV.BS_Params.StepSize;
 
             Vehicle = _vehicle;
 
@@ -777,7 +723,7 @@ namespace Coding_Attempt_with_GUI
                 //AddRowToTable("Solution" + SolutionCounter);
 
                 ///<summary>Invoking the <see cref="ComputeBumpSteerError(double, double, double)"/> method to check the error of the calcualted Bump Steer Curve with the Curve that the user wants</summary>
-                double resultError = EvaluateRMSError(SolutionCounter);
+                double resultError = EvaluateRMSError();
 
                 ///<summary>Calculating the Fitness based on the Error</summary>
                 Fitness = 1 - (resultError);
@@ -799,12 +745,14 @@ namespace Coding_Attempt_with_GUI
         /// <param name="e"></param>
         private void GA_OnGenerationComplete(object sender, GaEventArgs e)
         {
+            ///<summary>If the terminat conditions in the <see cref="Terminate"/> method are NOT met then it means anoher generation will procceed so the <see cref="List_Setup_OP"/> is cleared to hold the fresh values</summary>
             if (!TerminateAlgorithm(e.Population, e.Generation, e.Evaluations))
             {
                 List_Setup_OP.Clear();
             }
             else
             {
+                ///<summary>If the terminate condition is met then it means the last generation is this one and hence the <see cref="List_Setup_OP"/> is final and only now needs to be sorted</summary>
                 OptimizationResults = new List<SetupChange_Outputs>();
                 OptimizationResults = List_Setup_OP.OrderBy(rms => Convert.ToDouble(rms.Total_Conv.ConvergenceStatus)).ToList();
             }
@@ -819,7 +767,6 @@ namespace Coding_Attempt_with_GUI
             /// </summary>
             ExtractOptimizedValues(chromosome);
 
-            //Ga_Values.DefaultView.Sort = "RMS Fitness";
             ///<summary>Extracting the Max Fitness</summary>
             double Fitness = e.Population.MaximumFitness;
 
@@ -828,26 +775,22 @@ namespace Coding_Attempt_with_GUI
 
             long Evaluations = e.Evaluations;
 
+            #region Simmulated Annealing. Not used as of now 
             Anneal(Fitness);
 
-            EvaluateParetoOptimial();
+            EvaluateParetoOptimial(); 
+            #endregion
 
-            int MaxRowIndex = /*GetMaxIndex()*/0;
+            double resultError = EvaluateRMSError();
 
-            double resultError = EvaluateRMSError(MaxRowIndex);
-
+            ///<summary>Updating the Progress bar </summary>
             SetupChange_GUI.List_SetupChangeGUI[SetupID].UpdateProgressForm(Setup_OP.Caster_Conv, Setup_OP.KPI_Conv, Setup_OP.Camber_Conv, Setup_OP.Toe_Conv, Setup_OP.BumpSteer_Conv, Setup_OP.Total_Conv);
 
-            //DataTable clone = Ga_Values.Copy();
-
+            ///--Pareto Soltuion Method Call. Not used now 
             //GetParetoSolutions();
 
             ///<summary>Setting the SolutionCounter to 0 so that in the next Generation it can be re-used in conjunction with the <see cref="Ga_Values"/></summary>
             SolutionCounter = 0;
-
-
-
-            //Ga_Values.Rows.Clear();
 
 
         }
@@ -859,6 +802,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="e"></param>
         private void GA_OnRunComplete(object sender, GaEventArgs e)
         {
+            ///<summary>If the progress value is not the (Number of Iterations / 4 ) then this method pushes it to that value </summary>
             SetupChange_GUI.List_SetupChangeGUI[SetupID].SetProgressValue((int)VCorner * No_Generations);
         }
 
@@ -880,19 +824,14 @@ namespace Coding_Attempt_with_GUI
                 ///Invokinig the <see cref="ExtractOptimizedValues(Chromosome, out double, out double, out double)"/> which extracts the coordinates 
                 /// of the BEST FIT of this Generation
                 /// </summary>
-                //ExtractOptimizedValues(chromosome, out double x, out double y, out double z);
                 ExtractOptimizedValues(chromosome);
 
                 ///<summary>Extracting the Max Fitness</summary>
                 double Fitness = _population.MaximumFitness;
 
-                int MaxRowIndex = /*GetMaxIndex()*/0;
-
-                double resultError = EvaluateRMSError(MaxRowIndex);
+                //double resultError = EvaluateRMSError();
 
                 return true;
-
-
             }
             else
             {
@@ -959,21 +898,21 @@ namespace Coding_Attempt_with_GUI
             UnsprungAssembly.Add("ContactPatch", new OptimizedCoordinate(ContactPatch, Upper, Lower));
 
 
-            tempAxisLines = new Dictionary<string, Line>();
+            AxisLines = new Dictionary<string, Line>();
 
-            tempAxisLines.Add("SteeringAxis", new Line(UBJ.Clone() as Point3D, LBJ.Clone() as Point3D));
+            AxisLines.Add("SteeringAxis", new Line(UBJ.Clone() as Point3D, LBJ.Clone() as Point3D));
 
-            tempAxisLines.Add("SteeringAxis_Ref", new Line(UBJ.Clone() as Point3D, LBJ.Clone() as Point3D));
+            AxisLines.Add("SteeringAxis_Ref", new Line(UBJ.Clone() as Point3D, LBJ.Clone() as Point3D));
 
-            tempAxisLines.Add("LateralAxis_WheelCenter", new Line(WcStart.Clone() as Point3D, new Point3D(WcStart.X + 100, WcStart.Y, WcStart.Z)));
+            AxisLines.Add("LateralAxis_WheelCenter", new Line(WcStart.Clone() as Point3D, new Point3D(WcStart.X + 100, WcStart.Y, WcStart.Z)));
 
-            tempAxisLines.Add("WheelSpindle", new Line(WcStart.Clone() as Point3D, WcEnd.Clone() as Point3D));
+            AxisLines.Add("WheelSpindle", new Line(WcStart.Clone() as Point3D, WcEnd.Clone() as Point3D));
 
-            tempAxisLines.Add("WheelSpindle_Ref", new Line(WcStart.Clone() as Point3D, WcEnd.Clone() as Point3D));
+            AxisLines.Add("WheelSpindle_Ref", new Line(WcStart.Clone() as Point3D, WcEnd.Clone() as Point3D));
 
-            tempAxisLines.Add("VerticalAxis_WheelCenter", new Line(WcStart.Clone() as Point3D, new Point3D(WcStart.X, WcStart.Y + 100, WcStart.Z)));
+            AxisLines.Add("VerticalAxis_WheelCenter", new Line(WcStart.Clone() as Point3D, new Point3D(WcStart.X, WcStart.Y + 100, WcStart.Z)));
 
-            tempAxisLines.Add("LongitudinalAxis_WheelCenter", new Line(WcStart.Clone() as Point3D, new Point3D(WcStart.X, WcStart.Y, WcStart.Z + 100)));
+            AxisLines.Add("LongitudinalAxis_WheelCenter", new Line(WcStart.Clone() as Point3D, new Point3D(WcStart.X, WcStart.Y, WcStart.Z + 100)));
 
         }
         //---TEMP--
@@ -1102,21 +1041,6 @@ namespace Coding_Attempt_with_GUI
             //}
 
             return maxRowIndex;
-        }
-
-        /// <summary>
-        /// Method to calculate the Number of Iterations to be performed
-        /// </summary>
-        /// <param name="_upperLimitWheelDeflection">Upper Limit of th Wheel Defelction</param>
-        /// <param name="_lowerLimitWheelDeflection">Lower Limit of the Wheel Deflection</param>
-        /// <param name="_stepSize">Step Size </param>
-        /// <returns></returns>
-        private int GetNoOfIterations(int _upperLimitWheelDeflection, int _lowerLimitWheelDeflection, int _stepSize)
-        {
-            //double Range = _upperLimitWheelDeflection - _lowerLimitWheelDeflection;
-
-            //return Convert.ToInt32(Range) / _stepSize;
-            return 1;
         }
 
         #region --Useful but not currenly employed -- Method to perform Simulated Annealing
@@ -1328,20 +1252,7 @@ namespace Coding_Attempt_with_GUI
         }
         #endregion
 
-        ///// <summary>
-        ///// Method to add a new Row to the <see cref="Ga_Values"/> <see cref="DataTable"/>
-        ///// </summary>
-        ///// <param name="_solutionName">Name of the Solution being added </param>
-        //private void AddRowToTable(string _solutionName)
-        //{
-        //    DataRow tempRow = Ga_Values.NewRow();
 
-        //    tempRow["Solution Name"] = _solutionName;
-
-        //    Ga_Values.Rows.Add(tempRow);
-
-        //    //Ga_Values.Rows.Add(_solutionName, GAOrientation["NewOrientation1"], 0, InboardPoints["ToeLinkInboard"], 0, WishboneLinkLength, 0, false, 0);
-        //}
 
         /// <summary>
         /// Main Error Calculating fucntion. 
@@ -1349,7 +1260,7 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         /// <param name="rowIndex"></param>
         /// <returns></returns>
-        private double EvaluateRMSError(int rowIndex)
+        private double EvaluateRMSError()
         {
             ///<summary>
             ///--Cricual Step---
@@ -1372,16 +1283,18 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Computing the RMS Error</summary>
             rmsError = System.Math.Sqrt((System.Math.Pow(BumpSteerError, 2) + System.Math.Pow(CasterError, 2) + System.Math.Pow(ToeError, 2) + System.Math.Pow(CamberError, 2) + System.Math.Pow(KpiError, 2)));
 
-            //Ga_Values.Rows[rowIndex].SetField<double>("RMS Fitness", 1 - rmsError);
-
             //EvaluateWishboneConstraints();
 
             if (rmsError > 1)
             {
+                Setup_OP.Total_Conv = new Convergence(1 - rmsError);
+
                 return 0.99;
             }
             else if (rmsError < 0)
             {
+                Setup_OP.Total_Conv = new Convergence(1 - rmsError);
+
                 return 0.99;
             }
             else return rmsError;
@@ -1636,13 +1549,16 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         private void Update_SuspensionCoordinateData()
         {
+            ///<summary>Generating a simple <see cref="Dictionary{String, Point3D}"/> to represent the Suspension Coordinates </summary>
             Dictionary<string, Point3D> SuspensionCoordintes = ConvertTo_PointDictionary();
 
+            ///<summary>Cloning the coordinates using the dictionary</summary>
             SCM.Clone_Outboard_FromDictionary(SuspensionCoordintes);
 
-            tempAxisLines["SteeringAxis"] = new Line(UnsprungAssembly["UBJ"].OptimizedCoordinates, UnsprungAssembly["LBJ"].OptimizedCoordinates);
+            ///<summary>Updating the Axis lines</summary>
+            AxisLines["SteeringAxis"] = new Line(UnsprungAssembly["UBJ"].OptimizedCoordinates, UnsprungAssembly["LBJ"].OptimizedCoordinates);
 
-            tempAxisLines["WheelSpindle"] = new Line(UnsprungAssembly["WcStart"].OptimizedCoordinates, UnsprungAssembly["WcEnd"].OptimizedCoordinates);
+            AxisLines["WheelSpindle"] = new Line(UnsprungAssembly["WcStart"].OptimizedCoordinates, UnsprungAssembly["WcEnd"].OptimizedCoordinates);
 
         }
 
@@ -1676,9 +1592,9 @@ namespace Coding_Attempt_with_GUI
         private double ComputeCasterError()
         {
             ///<summary>Computing the DELTA or chage in caster with respect to the Initial Caster</summary>
-            dCaster_New = SetupChangeDatabase.AngleInRequiredView(Custom3DGeometry.GetMathNetVector3D(tempAxisLines["SteeringAxis"]),
-                                                                  Custom3DGeometry.GetMathNetVector3D(tempAxisLines["SteeringAxis_Ref"]),
-                                                                  Custom3DGeometry.GetMathNetVector3D(tempAxisLines["LateralAxis_WheelCenter"]));
+            dCaster_New = SetupChangeDatabase.AngleInRequiredView(Custom3DGeometry.GetMathNetVector3D(AxisLines["SteeringAxis"]),
+                                                                  Custom3DGeometry.GetMathNetVector3D(AxisLines["SteeringAxis_Ref"]),
+                                                                  Custom3DGeometry.GetMathNetVector3D(AxisLines["LateralAxis_WheelCenter"]));
 
             ///<summary> Getting the Initial Caster </summary>
             Angle staticCaster = new Angle(OC[0].Caster, AngleUnit.Radians);
@@ -1719,9 +1635,9 @@ namespace Coding_Attempt_with_GUI
         private double ComputeKPIError()
         {
             ///<summary>Computing the DELTA or chage in KPI with respect to the Initial KPI</summary>
-            dKPI_new = SetupChangeDatabase.AngleInRequiredView(Custom3DGeometry.GetMathNetVector3D(tempAxisLines["SteeringAxis"]),
-                                                               Custom3DGeometry.GetMathNetVector3D(tempAxisLines["SteeringAxis_Ref"]),
-                                                               Custom3DGeometry.GetMathNetVector3D(tempAxisLines["LongitudinalAxis_WheelCenter"]));
+            dKPI_new = SetupChangeDatabase.AngleInRequiredView(Custom3DGeometry.GetMathNetVector3D(AxisLines["SteeringAxis"]),
+                                                               Custom3DGeometry.GetMathNetVector3D(AxisLines["SteeringAxis_Ref"]),
+                                                               Custom3DGeometry.GetMathNetVector3D(AxisLines["LongitudinalAxis_WheelCenter"]));
 
             ///<summary>Getting the Inital KPI</summary>
             Angle staticKPI = new Angle(OC[0].KPI, AngleUnit.Radians);
@@ -1762,9 +1678,9 @@ namespace Coding_Attempt_with_GUI
         private double ComputeToeError()
         {
             ///<summary>Computing the change or Delta off Toe angle with respect to rhe initial position of the Wheel Spindle</summary>
-            dToe_New = SetupChangeDatabase.AngleInRequiredView(Custom3DGeometry.GetMathNetVector3D(tempAxisLines["WheelSpindle"]),
-                                                                     Custom3DGeometry.GetMathNetVector3D(tempAxisLines["WheelSpindle_Ref"]),
-                                                                     Custom3DGeometry.GetMathNetVector3D(tempAxisLines["VerticalAxis_WheelCenter"]));
+            dToe_New = SetupChangeDatabase.AngleInRequiredView(Custom3DGeometry.GetMathNetVector3D(AxisLines["WheelSpindle"]),
+                                                                     Custom3DGeometry.GetMathNetVector3D(AxisLines["WheelSpindle_Ref"]),
+                                                                     Custom3DGeometry.GetMathNetVector3D(AxisLines["VerticalAxis_WheelCenter"]));
 
             ///<summary>Setting the Static Toe </summary>
             Angle staticToe = new Angle(WA.StaticToe, AngleUnit.Radians);
@@ -1807,9 +1723,9 @@ namespace Coding_Attempt_with_GUI
         private double ComputeCamberError()
         {
             ///<summary>Computing the change in Camber with respect to the inital Wheel Spindle</summary>
-            dCamber_New = SetupChangeDatabase.AngleInRequiredView(Custom3DGeometry.GetMathNetVector3D(tempAxisLines["WheelSpindle"]),
-                                                                  Custom3DGeometry.GetMathNetVector3D(tempAxisLines["WheelSpindle_Ref"]),
-                                                                  Custom3DGeometry.GetMathNetVector3D(tempAxisLines["LongitudinalAxis_WheelCenter"]));
+            dCamber_New = SetupChangeDatabase.AngleInRequiredView(Custom3DGeometry.GetMathNetVector3D(AxisLines["WheelSpindle"]),
+                                                                  Custom3DGeometry.GetMathNetVector3D(AxisLines["WheelSpindle_Ref"]),
+                                                                  Custom3DGeometry.GetMathNetVector3D(AxisLines["LongitudinalAxis_WheelCenter"]));
 
             ///<summary>Getting the static value of Camber</summary>
             Angle staticCamber = new Angle(WA.StaticCamber, AngleUnit.Radians);
@@ -1976,6 +1892,8 @@ namespace Coding_Attempt_with_GUI
             {
                 if (i != 0 && i != _userBumpSteerCurve.Count - 1)
                 {
+                    ///<remarks>Not deleting the Commented out sections because they are different methods to evaluate error and I wanna do a few more iterations to tes tthem </remarks>
+
                     //if (i != SuspensionEvalIterations - 1)
                     //{
 
@@ -2014,7 +1932,9 @@ namespace Coding_Attempt_with_GUI
             }
 
             ///<summary>Computing the Final Error by finding the Square Root of the Squares of the distances and dividing it by the No. of Iterations</summary>
-            double FinalError = System.Math.Sqrt(ErrorCalc_Step3) / SuspensionEvalIterations;
+            ///<remarks>Not deleting the Commented out sections because they are different methods to evaluate error and I wanna do a few more iterations to tes tthem </remarks>
+
+            double FinalError = System.Math.Sqrt(ErrorCalc_Step3) /*/ SuspensionEvalIterations*/;
 
             ///<summary>Setting the Bump Steer Convergence</summary>
             Setup_OP.BumpSteer_Conv = new Convergence(1 - SetConvergenceError(FinalError));
@@ -2033,12 +1953,12 @@ namespace Coding_Attempt_with_GUI
         /// <returns></returns>
         private double SetConvergenceError(double error)
         {
-
+            ///<summary> If the error is less than 0 then I need to make it positive  to keep it within the (0 to 1) limit</summary>
             if (error < 0)
             {
                 error *= -1;
             }
-
+            ///<summary>If the error is more than one then sending 1 minus the error to keep it within the limits</summary>
             if (error > 1)
             {
                 error = 1 - error;
@@ -2047,98 +1967,7 @@ namespace Coding_Attempt_with_GUI
             return System.Math.Round(error, 2);
         }
 
-        #region ---NOT USED--- Pareto Solutions. Not used because this can be done for maximum of 3D optimization---
-        private void GetParetoSolutions()
-        {
-            //Dictionary<string,OptimizedOrientation> paretoOrientations = new Dictionary<string, OptimizedOrientation>();
-
-            //Dictionary<string, Point3D> paretoToeLink = new Dictionary<string, Point3D>();
-
-            //for (int i = 0; i < Ga_Values.Rows.Count; i++)
-            //{
-            //    if (Ga_Values.Rows[i].Field<bool>("Pareto Optimal"))
-            //    {
-            //        paretoOrientations.Add(Ga_Values.Rows[i].Field<double>("Orientation Fitness").ToString() + i, Ga_Values.Rows[i].Field<OptimizedOrientation>("Orientation"));
-            //        paretoToeLink.Add(Ga_Values.Rows[i].Field<double>("Bump Steer Fitness").ToString() + i, Ga_Values.Rows[i].Field<OptimizedCoordinate>("Toe Link Inboard").OptimizedCoordinates);
-            //    }
-            //}
-        }
-
-        private void EvaluateParetoOptimial()
-        {
-            //double[,] Fitness_MultipleObjective = ConstructParetoArray();
-
-            //FindDominatingSolutions(Fitness_MultipleObjective);
-
-            //FindScaledRanks();
-        }
-
-        //private double[,] ConstructParetoArray()
-        //{
-        //    double[,] multipleObjectiveFitness = new double[Ga_Values.Rows.Count, 2];
-
-        //    for (int i = 0; i < Ga_Values.Rows.Count - 1; i++)
-        //    {
-        //        multipleObjectiveFitness[i, 0] = Ga_Values.Rows[i].Field<double>("Orientation Fitness");
-        //        multipleObjectiveFitness[i, 1] = Ga_Values.Rows[i].Field<double>("Bump Steer Fitness");
-        //    }
-        //    return multipleObjectiveFitness;
-        //}
-
-        //private void FindDominatingSolutions(double[,] _moopFitnesses)
-        //{
-
-        //    for (int i = 0; i < Ga_Values.Rows.Count - 1; i++)
-        //    {
-        //        bool dominatingSolution = true;
-        //        int dominatedSolIndex = 0;
-        //        for (int j = 0; j < Ga_Values.Rows.Count - 1; j++)
-        //        {
-        //            if ((_moopFitnesses[i, 0] < _moopFitnesses[j, 0] && _moopFitnesses[i, 1] < _moopFitnesses[j, 1]) && (_moopFitnesses[j, 0] != 0 && _moopFitnesses[j, 1] != 0))
-        //            {
-        //                if (i != j)
-        //                {
-        //                    Ga_Values.Rows[j].SetField<double>("Pareto Rank", Ga_Values.Rows[j].Field<double>("Pareto Rank") + 1);
-        //                }
-        //            }
-        //            else if ((_moopFitnesses[i, 0] > _moopFitnesses[j, 0] && _moopFitnesses[i, 1] > _moopFitnesses[j, 1]) && (_moopFitnesses[j, 0] != 0 && _moopFitnesses[j, 1] != 0))
-        //            {
-        //                dominatingSolution = false;
-
-        //                break;
-        //            }
-        //        }
-
-        //        if (dominatingSolution && (_moopFitnesses[i, 0] != 0 && _moopFitnesses[i, 1] != 0))
-        //        {
-        //            Ga_Values.Rows[i].SetField<bool>("Pareto Optimal", true);
-        //        }
-
-        //    }
-        //}
-
-        //private void FindScaledRanks()
-        //{
-        //    int mostDominated = 0;
-
-        //    for (int i = 0; i < Ga_Values.Rows.Count - 1; i++)
-        //    {
-        //        double tempRank = Ga_Values.Rows[i].Field<double>("Pareto Rank");
-
-        //        if (Convert.ToInt32(tempRank) > mostDominated)
-        //        {
-        //            mostDominated = Convert.ToInt32(tempRank);
-        //        }
-        //    }
-
-        //    for (int i = 0; i < Ga_Values.Rows.Count - 1; i++)
-        //    {
-        //        Ga_Values.Rows[i].SetField<double>("Pareto Rank", Ga_Values.Rows[i].Field<double>("Pareto Rank") / mostDominated);
-        //    }
-
-        //} 
-        #endregion
-
+        
         #endregion
 
     }
