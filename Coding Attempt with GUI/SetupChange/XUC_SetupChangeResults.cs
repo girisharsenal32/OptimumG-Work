@@ -122,7 +122,7 @@ namespace Coding_Attempt_with_GUI
             //    _resultsGrid.SetCellValue(_resultsGUI.rowLinkKPIDelta, 1, null);
 
             //}
-            _resultsGrid.SetCellValue(_resultsGUI.rowKPIConvergance, 1, _setupOP.KPI_Conv.ConvergenceStatus + "%");
+            _resultsGrid.SetCellValue(_resultsGUI.rowKPIConvergance, 1, _setupOP.KPI_Conv.ConvergenceStatus);
 
 
 
@@ -144,7 +144,7 @@ namespace Coding_Attempt_with_GUI
             //{
             //    _resultsGrid.SetCellValue(_resultsGUI.rowLinkCasterDelta, 1, null);
             //}
-            _resultsGrid.SetCellValue(_resultsGUI.rowCasterConvergance, 1, _setupOP.Caster_Conv.ConvergenceStatus + "%");
+            _resultsGrid.SetCellValue(_resultsGUI.rowCasterConvergance, 1, _setupOP.Caster_Conv.ConvergenceStatus);
 
 
 
@@ -189,7 +189,7 @@ namespace Coding_Attempt_with_GUI
             //    _resultsGrid.SetCellValue(_resultsGUI.rowShimThickness, 1, 1);
             //}
             //_resultsGrid.SetCellValue(_resultsGUI.rowShimThickness, 1, _cv.camberShimThickness);
-            _resultsGrid.SetCellValue(_resultsGUI.rowCamberConvergance, 1, _setupOP.Camber_Conv.ConvergenceStatus + "%");
+            _resultsGrid.SetCellValue(_resultsGUI.rowCamberConvergance, 1, _setupOP.Camber_Conv.ConvergenceStatus);
 
 
 
@@ -214,7 +214,7 @@ namespace Coding_Attempt_with_GUI
             //{
             //    _resultsGrid.SetCellValue(_resultsGUI.rowLinkToeDelta, 1, _cls.Final_ToeAdjusterLength[_cls.Final_ToeAdjusterLength.Count - 1] - _cls.Final_ToeAdjusterLength[0]);
             //}
-            _resultsGrid.SetCellValue(_resultsGUI.rowToeConvergance, 1, _setupOP.Toe_Conv.ConvergenceStatus + "%");
+            _resultsGrid.SetCellValue(_resultsGUI.rowToeConvergance, 1, _setupOP.Toe_Conv.ConvergenceStatus);
 
 
 
@@ -230,7 +230,7 @@ namespace Coding_Attempt_with_GUI
             //    _resultsGrid.SetCellValue(_resultsGUI.rowLinkRHDelta, 1, _cls.Final_Pushrod[_cls.Final_Pushrod.Count - 1] - _cls.Final_Pushrod[0]);
 
             //}
-            _resultsGrid.SetCellValue(_resultsGUI.rowRHConvergance, 1, _setupOP.RideHeight_Conv.ConvergenceStatus + "%");
+            _resultsGrid.SetCellValue(_resultsGUI.rowRHConvergance, 1, _setupOP.RideHeight_Conv.ConvergenceStatus);
 
             ///<summary>Setting the results of the Bump Steer</summary>
             if (_cv.constBumpSteer || _cv.BumpSteerChangeRequested)
@@ -243,7 +243,7 @@ namespace Coding_Attempt_with_GUI
                 rowToeLinkInboard_z.Visible = true;
             }
 
-            _resultsGrid.SetCellValue(rowBSConvergence, 1, _setupOP.BumpSteer_Conv.ConvergenceStatus + "%");
+            _resultsGrid.SetCellValue(rowBSConvergence, 1, _setupOP.BumpSteer_Conv.ConvergenceStatus);
 
             #region ---NOT NEEDED---LINK LENGTHS
             /////<summary>Assigning the Link Lengths </summary>

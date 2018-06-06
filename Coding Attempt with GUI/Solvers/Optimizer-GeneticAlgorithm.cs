@@ -147,6 +147,8 @@ namespace Coding_Attempt_with_GUI
 
         List<SetupChange_Outputs> List_Setup_OP;
 
+        public List<SetupChange_Outputs> OptimizationResults;
+
         /// <summary>
         /// Variable indicating number of columns in the <see cref="Ga_Values"/>
         /// </summary>
@@ -797,6 +799,16 @@ namespace Coding_Attempt_with_GUI
         /// <param name="e"></param>
         private void GA_OnGenerationComplete(object sender, GaEventArgs e)
         {
+            if (!TerminateAlgorithm(e.Population, e.Generation, e.Evaluations))
+            {
+                List_Setup_OP.Clear();
+            }
+            else
+            {
+                OptimizationResults = new List<SetupChange_Outputs>();
+                OptimizationResults = List_Setup_OP.OrderBy(rms => Convert.ToDouble(rms.Total_Conv.ConvergenceStatus)).ToList();
+            }
+
             ///<summary>Extracting the BEST <see cref="Chromosome"/> from the <see cref="Population"/></summary>
             var chromosome = e.Population.GetTop(1)[0];
 
@@ -833,7 +845,7 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Setting the SolutionCounter to 0 so that in the next Generation it can be re-used in conjunction with the <see cref="Ga_Values"/></summary>
             SolutionCounter = 0;
 
-            List_Setup_OP.Clear();
+
 
             //Ga_Values.Rows.Clear();
 
