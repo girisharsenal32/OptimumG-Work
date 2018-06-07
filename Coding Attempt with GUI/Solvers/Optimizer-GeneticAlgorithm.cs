@@ -635,24 +635,22 @@ namespace Coding_Attempt_with_GUI
 
             Del_RMS_Error = new ParamsToEvaluate(Dummy);
 
-            ///<summary>Populating the Main RMS delegate with the child delegates based on whether the Setup Change Exists</summary>
-            if (Setup_CV.constKPI == true || Setup_CV.KPIChangeRequested)
-            {
-                Del_RMS_Error += Del_KPI_Error;
-            }
-            if (Setup_CV.constCaster == true || Setup_CV.CasterChangeRequested)
-            {
-                Del_RMS_Error += Del_Caster_Error;
-            }
-            if (Setup_CV.constCamber == true || Setup_CV.CamberChangeRequested)
-            {
-                Del_RMS_Error += Del_Camber_Error;
-            }
-            if (Setup_CV.constToe == true || Setup_CV.ToeChangeRequested)
-            {
-                Del_RMS_Error += Del_Toe_Error;
-            }
-            if (Setup_CV.constBumpSteer || Setup_CV.BumpSteerChangeRequested)
+            ///<summary>
+            ///Populating the Main RMS delegate with the child delegates
+            ///---Important---
+            ///Since I need to monitor the changes of the params even if they are not requested, I need to hence call the error function to monitor the change in each of the parameters. 
+            ///If a particular Setup is not requested then it's error is simply not computed
+            /// </summary>
+            Del_RMS_Error += Del_KPI_Error;
+
+            Del_RMS_Error += Del_Caster_Error;
+
+            Del_RMS_Error += Del_Camber_Error;
+
+            Del_RMS_Error += Del_Toe_Error;
+
+            ///<summary>Since Bump Steer Computation takes a lot of time I have decided to call its error function only if the user wants to change or moinitor it </summary>
+            if (Setup_CV.monitorBumpSteer || Setup_CV.BumpSteerChangeRequested)
             {
                 Del_RMS_Error += Del_BumpSteer_Error;
             }
@@ -1386,8 +1384,7 @@ namespace Coding_Attempt_with_GUI
             Del_RMS_Error();
 
             ///<summary>Computing the RMS Error</summary>
-            rmsError = System.Math.Sqrt((System.Math.Pow(BumpSteerError, 2) + System.Math.Pow(CasterError, 2) + System.Math.Pow(ToeError, 2) + System.Math.Pow(CamberError, 2) + System.Math.Pow(KpiError, 2)));
-
+            rmsError = ComputeRMSError();
             //EvaluateWishboneConstraints();
 
             if (rmsError > 1)
@@ -1403,6 +1400,44 @@ namespace Coding_Attempt_with_GUI
                 return 0.99;
             }
             else return rmsError;
+        }
+
+        /// <summary>
+        /// This method selectively adds up the errors (in RMS fashion) ONLY if they are requested. 
+        /// </summary>
+        private double ComputeRMSError()
+        {
+            double rms_1 = 0;
+
+            double rmsFinal;
+
+            ///<summary>Summing the RMS Erro with the child errors based on whether the Setup Change Exists</summary>
+            if (Setup_CV.constKPI == true || Setup_CV.KPIChangeRequested)
+            {
+                rms_1 += System.Math.Pow(KpiError, 2);
+            }
+            if (Setup_CV.constCaster == true || Setup_CV.CasterChangeRequested)
+            {
+                rms_1 += System.Math.Pow(CasterError, 2);
+            }
+            if (Setup_CV.constCamber == true || Setup_CV.CamberChangeRequested)
+            {
+                rms_1 += System.Math.Pow(CamberError, 2);
+            }
+            if (Setup_CV.constToe == true || Setup_CV.ToeChangeRequested)
+            {
+                rms_1 += System.Math.Pow(ToeError, 2);
+            }
+            if (Setup_CV.monitorBumpSteer || Setup_CV.BumpSteerChangeRequested)
+            {
+                rms_1 += System.Math.Pow(BumpSteerError, 2);
+            }
+
+            rmsFinal = System.Math.Sqrt(rms_1);
+
+            //System.Math.Sqrt((System.Math.Pow(BumpSteerError, 2) + System.Math.Pow(CasterError, 2) + System.Math.Pow(ToeError, 2) + System.Math.Pow(CamberError, 2) + System.Math.Pow(KpiError, 2)));
+
+            return rmsFinal;
         }
 
         #region Not Needed BUT will sever as good validation tools 
@@ -1601,9 +1636,12 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Computing the Caster Error</summary>
             CasterError = ((dCaster_New.Degrees + staticCaster.Degrees) - (Req_Caster.Degrees)) / Req_Caster.Degrees;
 
-            ///<summary>Setting the Caster COnvergence</summary>
-            Setup_OP.Caster_Conv = new Convergence(1 - SetConvergenceError(CasterError));
+            if (Setup_CV.constCaster || Setup_CV.CasterChangeRequested) 
+            {
+                ///<summary>Setting the Caster COnvergence</summary>
+                Setup_OP.Caster_Conv = new Convergence(1 - SetConvergenceError(CasterError));
 
+            }
             /////<summary>Populating the <see cref="Ga_Values"/> DataTable</summary>
             //Ga_Values.Rows[SolutionCounter].SetField<double>("Caster", 1 - SetConvergenceError(CasterError));
 
@@ -1644,8 +1682,11 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Calclating the KPI Error</summary>
             KpiError = (((dKPI_new.Degrees + staticKPI.Degrees) - (Req_KPI.Degrees)) / (Req_KPI.Degrees));
 
-            ///<summary>Setting the KPI Convergence</summary>
-            Setup_OP.KPI_Conv = new Convergence(1 - SetConvergenceError(KpiError));
+            if (Setup_CV.KPIChangeRequested || Setup_CV.constKPI) 
+            {
+                ///<summary>Setting the KPI Convergence</summary>
+                Setup_OP.KPI_Conv = new Convergence(1 - SetConvergenceError(KpiError)); 
+            }
 
             double tmepKPI = Calc_KPI.Degrees;
 
@@ -1690,8 +1731,11 @@ namespace Coding_Attempt_with_GUI
             /// </remarks>
             ToeError = (((dToe_New.Degrees + staticToe.Degrees) - (Req_Toe.Degrees)) / (Req_Toe.Degrees));
 
-            ///<summary>Setting the Toe Convergence</summary>
-            Setup_OP.Toe_Conv = new Convergence(1 - SetConvergenceError(ToeError));
+            if (Setup_CV.constToe || Setup_CV.ToeChangeRequested) 
+            {
+                ///<summary>Setting the Toe Convergence</summary>
+                Setup_OP.Toe_Conv = new Convergence(1 - SetConvergenceError(ToeError)); 
+            }
 
             double tempToe = Calc_Toe.Degrees;
             double tempCamber = 0;
@@ -1732,8 +1776,11 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Computing the Camber Error</summary>
             CamberError = (((dCamber_New.Degrees + staticCamber.Degrees) - (Req_Camber.Degrees)) / (Req_Camber.Degrees));
 
-            ///<summary>Setting the Camber Convergence </summary>
-            Setup_OP.Camber_Conv = new Convergence(1 - SetConvergenceError(CamberError));
+            if (Setup_CV.CamberChangeRequested || Setup_CV.constCamber) 
+            {
+                ///<summary>Setting the Camber Convergence </summary>
+                Setup_OP.Camber_Conv = new Convergence(1 - SetConvergenceError(CamberError)); 
+            }
 
             double tempToe = 0;
             double tempCamber = Calc_Camber.Degrees;
@@ -1932,8 +1979,15 @@ namespace Coding_Attempt_with_GUI
 
             double FinalError = System.Math.Sqrt(ErrorCalc_Step3) /*/ SuspensionEvalIterations*/;
 
-            ///<summary>Setting the Bump Steer Convergence</summary>
-            Setup_OP.BumpSteer_Conv = new Convergence(1 - SetConvergenceError(FinalError));
+            ///<summary>
+            ///You will notice that I have added only 1 condition for Bump Steer Convergence. This is because for the Special Case of BumpSteer there is no Const Bump Steer but only a "Monitor Bump Steer' 
+            ///If the user chooses to monitor it then the convergence need to be computed. the Bmp Steer Graph only needs to be plotted 
+            ///</summary>
+            if (Setup_CV.BumpSteerChangeRequested) 
+            {
+                ///<summary>Setting the Bump Steer Convergence</summary>
+                Setup_OP.BumpSteer_Conv = new Convergence(1 - SetConvergenceError(FinalError)); 
+            }
 
             Setup_OP.Calc_BumpSteerChart = _toeAngle;
 

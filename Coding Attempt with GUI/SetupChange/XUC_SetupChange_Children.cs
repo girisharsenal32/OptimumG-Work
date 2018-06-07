@@ -19,14 +19,14 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Object of the <see cref="SetupChange_GUI"/> Class which is also the Parent Class of this cClass
         /// </summary>
-        SetupChange_GUI setupChangeGUI;
-        
+        public SetupChange_GUI setupChangeGUI;
+
         /// <summary>
         /// Object of the <see cref="SetupChange_CornerVariables"/> (corresponding to the Corner to which object and THIS class belongs to)
         /// </summary>
-        SetupChange_CornerVariables setupChange_CV;
+        public SetupChange_CornerVariables setupChange_CV;
 
-        int Identifier;
+        public int Identifier;
 
         Kinematics_Software_New R1 = Kinematics_Software_New.AssignFormVariable();
 
@@ -285,6 +285,8 @@ namespace Coding_Attempt_with_GUI
                 vGridControl1.SetCellValue(rowKPIAngle, 1, null);
                 rowKPIAngle.Properties.Value = null;
 
+                setupChange_CV.KPIChangeRequested = false;
+
                 if (checkedListBoxControlChanges.Items["Caster Change"].CheckState == CheckState.Unchecked && checkedListBoxControlConstraints.Items["Caster constant"].CheckState == CheckState.Unchecked)
                 {
                     if (checkedListBoxControlConstraints.Items["KPI constant"].CheckState == CheckState.Unchecked)
@@ -338,6 +340,8 @@ namespace Coding_Attempt_with_GUI
                 rowCamberAngle.Enabled = false;
                 vGridControl1.SetCellValue(rowCamberAngle, 1, null);
                 rowCamberAngle.Properties.Value = null;
+
+                setupChange_CV.CamberChangeRequested = false;
 
                 //rowNoOfShims.Enabled = false;
                 //vGridControl1.SetCellValue(rowNoOfShims, 1, null);
@@ -405,6 +409,7 @@ namespace Coding_Attempt_with_GUI
                 vGridControl1.SetCellValue(rowCasterAngle, 1, null);
                 rowCasterAngle.Properties.Value = null;
 
+                setupChange_CV.CasterChangeRequested = false;
 
                 if (checkedListBoxControlChanges.Items["KPI Change"].CheckState == CheckState.Unchecked && checkedListBoxControlConstraints.Items["KPI constant"].CheckState == CheckState.Unchecked)
                 {
@@ -458,13 +463,15 @@ namespace Coding_Attempt_with_GUI
                 vGridControl1.SetCellValue(rowToeAngle, 1, null);
                 rowToeAngle.Properties.Value = null;
 
+                setupChange_CV.ToeChangeRequested = false;
+
                 if (checkedListBoxControlConstraints.Items["Toe constant"].CheckState == CheckState.Unchecked)
                 {
                     Deactivate_Toe_Adjusters();
 
-                    if (setupChange_CV.Master_Adj.ContainsKey("Toe Change"))
+                    if (setupChange_CV.Master_Adj.ContainsKey("Toe"))
                     {
-                        setupChange_CV.Master_Adj.Remove("Toe Change");
+                        setupChange_CV.Master_Adj.Remove("Toe");
                     }
                 }
 
@@ -501,6 +508,8 @@ namespace Coding_Attempt_with_GUI
                 rowDamperEyeToPerch.Properties.Value = null;
                 //checkedListBoxControlConstraints.Items["Ride Height constant"].CheckState = CheckState.Unchecked;
                 checkedListBoxControlConstraints.Items["Ride Height constant"].Enabled = true;
+
+
             }
 
             #endregion
@@ -820,9 +829,9 @@ namespace Coding_Attempt_with_GUI
                 {
                     Deactivate_Toe_Adjusters();
 
-                    if (setupChange_CV.Master_Adj.ContainsKey("Toe Change"))
+                    if (setupChange_CV.Master_Adj.ContainsKey("Toe"))
                     {
-                        setupChange_CV.Master_Adj.Remove("Toe Change");
+                        setupChange_CV.Master_Adj.Remove("Toe");
                     }
                 }
 
@@ -852,28 +861,34 @@ namespace Coding_Attempt_with_GUI
             /// </summary>
             if (checkedListBoxControlConstraints.Items["Bump Steer Constant"].CheckState == CheckState.Checked)
             {
-                setupChange_CV.constBumpSteer = true;
+                setupChange_CV.monitorBumpSteer = true;
 
-                Activate_BumpSteer_Adjusters();
+                setupChange_CV.BS_Params.PopulateBumpSteerGraph(new List<double>(new double[] { 25, 0, -25 }), new List<double>(new double[] { 0, 0, 0 }));
 
-                if (!setupChange_CV.Master_Adj.ContainsKey("Bump Steer"))
-                {
-                    setupChange_CV.Master_Adj.Add("Bump Steer", setupChange_CV.BumpSteer_Adj);
-                }
+                //Activate_BumpSteer_Adjusters();
+
+                //if (!setupChange_CV.Master_Adj.ContainsKey("Bump Steer"))
+                //{
+                //    setupChange_CV.Master_Adj.Add("Bump Steer", setupChange_CV.BumpSteer_Adj);
+                //}
             }
             else
             {
-                setupChange_CV.constBumpSteer = false;
+                setupChange_CV.monitorBumpSteer = false;
 
-                if (checkedListBoxControlChanges.Items["Bump Steer Change"].CheckState == CheckState.Unchecked) 
-                {
-                    Deactivate_BumpSteer_Adjusters();
+                setupChange_CV.BS_Params.WheelDeflections.Clear();
 
-                    if (setupChange_CV.Master_Adj.ContainsKey("Bump Steer"))
-                    {
-                        setupChange_CV.Master_Adj.Remove("Bump Steer");
-                    }
-                }
+                setupChange_CV.BS_Params.ToeAngles.Clear();
+
+                //if (checkedListBoxControlChanges.Items["Bump Steer Change"].CheckState == CheckState.Unchecked) 
+                //{
+                //    Deactivate_BumpSteer_Adjusters();
+
+                //    if (setupChange_CV.Master_Adj.ContainsKey("Bump Steer"))
+                //    {
+                //        setupChange_CV.Master_Adj.Remove("Bump Steer");
+                //    }
+                //}
 
 
             } 
@@ -1413,7 +1428,9 @@ namespace Coding_Attempt_with_GUI
 
             else if (vGridControl1.FocusedRow == rowCasterAngle)
             {
-                CasterChangeRequested(Convert.ToDouble(vGridControl1.GetCellValue(vGridControl1.FocusedRow, vGridControl1.FocusedRecord)), AdjustmentType.Direct, AdjustmentTools.DirectValue);
+                ///<summary>For reasons I cannot understand I need to pass a negative sign below to make the code work in the right sign convention</summary>
+                double caster = -Convert.ToDouble(vGridControl1.GetCellValue(vGridControl1.FocusedRow, vGridControl1.FocusedRecord));
+                CasterChangeRequested(caster, AdjustmentType.Direct, AdjustmentTools.DirectValue);
             }
 
             else if (vGridControl1.FocusedRow == rowCasterAdjusterSelect)
@@ -1502,6 +1519,13 @@ namespace Coding_Attempt_with_GUI
 
         }
         #endregion
+
+
+        public void UpateSetupChangeClass()
+        {
+            setupChangeGUI.EditSetupChangeDeltas(setupChange_CV, Identifier);
+        }
+
 
         #region ---Adjuster Selection Events---
 

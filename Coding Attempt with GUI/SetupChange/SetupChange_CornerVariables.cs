@@ -132,7 +132,7 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         public bool constRideHeight;
 
-        public bool constBumpSteer;
+        public bool monitorBumpSteer;
 
 
 
@@ -299,6 +299,100 @@ namespace Coding_Attempt_with_GUI
             //LinkLengthsWhichHaveNotChanged.AddRange(new int[] { 1, 2, 3, 4 });
 
         }
+
+
+        public SetupChange_CornerVariables Clone()
+        {
+            SetupChange_CornerVariables tempCV = new SetupChange_CornerVariables();
+
+            tempCV.deltaKPI = this.deltaKPI;
+            tempCV.KPIChangeRequested = this.KPIChangeRequested;
+            tempCV.deltaTopFrontArm = this.deltaTopFrontArm;
+            tempCV.deltaTopRearArm = this.deltaTopRearArm;
+
+
+            tempCV.deltaCamber = this.deltaCamber;
+            tempCV.CamberChangeRequested = this.CamberChangeRequested;
+            tempCV.deltaCamberShims = this.deltaCamberShims;
+            tempCV.camberShimThickness = this.camberShimThickness;
+            tempCV.deltaCamberShimVectorLength = this.deltaCamberShimVectorLength;
+
+            tempCV.deltaCaster = this.deltaCaster;
+            tempCV.CasterChangeRequested = this.CasterChangeRequested;
+            tempCV.deltaBottmFrontArm = this.deltaBottmFrontArm;
+            tempCV.deltaBottomRearArm = this.deltaBottomRearArm;
+
+
+            tempCV.deltaToe = this.deltaToe;
+            tempCV.ToeChangeRequested = this.ToeChangeRequested;
+            tempCV.deltaToeLinkLength = this.deltaToeLinkLength;
+            tempCV.deltaToeShims = this.deltaToeShims;
+            tempCV.ToeShimThickness = this.ToeShimThickness;
+
+
+            tempCV.deltaRideHeight = this.deltaRideHeight;
+            tempCV.RHIChangeRequested = this.RHIChangeRequested;
+            tempCV.deltaPushrod = this.deltaPushrod;
+            tempCV.RideHeightChanged = this.RideHeightChanged;
+
+            tempCV.BumpSteerChangeRequested = this.BumpSteerChangeRequested;
+
+
+            tempCV.constKPI = this.constKPI;
+            tempCV.constCamber = this.constCamber;
+            tempCV.constCaster = this.constCaster;
+            tempCV.constToe = this.constToe;
+            tempCV.constRideHeight = this.constRideHeight;
+
+            tempCV.monitorBumpSteer = this.monitorBumpSteer;
+
+
+
+            tempCV.iterationsCamber = this.iterationsCamber;
+            tempCV.iterationsCaster = this.iterationsCaster;
+            tempCV.iterationsKPI = this.iterationsKPI;
+            tempCV.iterationsToe = this.iterationsToe;
+            tempCV.iterationsLinkLength = this.iterationsLinkLength;
+
+            tempCV.LinkLengthChanged = tempCV.LinkLengthChanged;
+
+            tempCV.LinkLengthsWhichHaveNotChanged = tempCV.LinkLengthsWhichHaveNotChanged;
+
+            tempCV.cornerName = this.cornerName;
+
+
+            tempCV.camberAdjustmentType = this.camberAdjustmentType;
+            tempCV.camberAdjustmentTool = this.camberAdjustmentTool;
+
+            tempCV.OverrideRandomSelectorForKPI = this.OverrideRandomSelectorForKPI;
+
+            tempCV.toeAdjustmentType = this.toeAdjustmentType;
+            tempCV.toeAdjustmentTool = this.toeAdjustmentTool;
+            tempCV.casterAdjustmentType = this.casterAdjustmentType;
+
+            tempCV.OverrideRandomSelectorForCaster = this.OverrideRandomSelectorForCaster;
+
+            tempCV.casterAdjustmentTool = this.casterAdjustmentTool;
+            tempCV.kpiAdjustmentType = this.kpiAdjustmentType;
+            tempCV.kpiAdjustmentTool = this.kpiAdjustmentTool;
+            tempCV.rideheightAdjustmentType = this.rideheightAdjustmentType;
+            tempCV.rideheightAdjustmentTool = this.rideheightAdjustmentTool;
+            tempCV.AdjToolsDictionary = this.AdjToolsDictionary;
+            
+
+            tempCV.Caster_KPI_Adj = this.Caster_KPI_Adj;
+            tempCV.Camber_Adj = this.Camber_Adj;
+            tempCV.Toe_Adj = this.Toe_Adj;
+            tempCV.BumpSteer_Adj = this.BumpSteer_Adj;
+            tempCV.BS_Params = this.BS_Params;
+
+
+            tempCV.Master_Adj = this.Master_Adj;
+
+            return tempCV;
+        }
+
+
 
 
 

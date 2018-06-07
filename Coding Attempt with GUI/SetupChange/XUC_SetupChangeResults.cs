@@ -142,7 +142,7 @@ namespace Coding_Attempt_with_GUI
 
 
             ///<summary>Setting the results of the Bump Steer</summary>
-            if (_cv.constBumpSteer || _cv.BumpSteerChangeRequested)
+            if (_cv.BumpSteerChangeRequested)
             {
                 _resultsGrid.SetCellValue(rowToeLinkInboard_x, 1, Convert.ToString(Math.Round(_setupOP.ToeLinkInboard.X, 3)));
                 rowToeLinkInboard_x.Visible = true;
@@ -160,7 +160,7 @@ namespace Coding_Attempt_with_GUI
 
         public void PlotBumpSteerGraph(SetupChange_Outputs _setupOP, SetupChange_CornerVariables _cv, XUC_SetupChangeResults _resultsGUI)
         {
-            if (_cv.BumpSteerChangeRequested)
+            if (_cv.monitorBumpSteer || _cv.BumpSteerChangeRequested) 
             {
                 ///<summary>If the Bump Steer Change is requested then setting the Enaled status to true so that the user can scroll and zoom the Bump Steer Contro </summary>
                 _resultsGUI.bumpSteerCurve1.Enabled = true;

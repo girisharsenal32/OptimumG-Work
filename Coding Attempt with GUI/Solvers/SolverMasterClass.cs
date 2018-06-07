@@ -1414,10 +1414,14 @@ namespace Coding_Attempt_with_GUI
             Identifier = 0;
 
             ///<summary>Assinging the <see cref="SetupChange_CornerVariables"/> class objects of each corner</summary>
-            _Vehicle.oc_FL[0].sccvOP = _FlCV;
-            _Vehicle.oc_FR[0].sccvOP = _FrCV;
-            _Vehicle.oc_RL[0].sccvOP = _RlCV;
-            _Vehicle.oc_RR[0].sccvOP = _RrCV;
+            _Vehicle.oc_FL[0].sccvOP = _FlCV.Clone();
+
+            _Vehicle.oc_FR[0].sccvOP = _FrCV.Clone();
+
+            _Vehicle.oc_RL[0].sccvOP = _RlCV.Clone();
+
+            _Vehicle.oc_RR[0].sccvOP = _RrCV.Clone();
+
 
             ///<summary>Assigning Correct orientation of Camber and Toe </summary>
             AssignOrientation_CamberToe(ref _Vehicle.oc_FL[0].sccvOP.deltaCamber, ref _Vehicle.oc_FL[0].sccvOP.deltaToe, _Vehicle.oc_FL[0].sccvOP.deltaCamber, _Vehicle.oc_FL[0].sccvOP.deltaToe, 1);
@@ -1431,12 +1435,13 @@ namespace Coding_Attempt_with_GUI
             AssignDirection_KPI(3, ref _Vehicle.oc_RL[0].sccvOP.deltaKPI);
             AssignDirection_KPI(4, ref _Vehicle.oc_RR[0].sccvOP.deltaKPI);
 
+            ///<remarks>For some reason the theory below is not valid. Still not sure about Sign Conventions!!!</remarks>
+
             ///<summary>Assigning direction to the Caster. Need this because Positive Caster for the User is CW Rotation for me. So I need to condition it before using </summary>
             _Vehicle.oc_FL[0].sccvOP.deltaCaster *= -1;
             _Vehicle.oc_FR[0].sccvOP.deltaCaster *= -1;
             _Vehicle.oc_RL[0].sccvOP.deltaCaster *= -1;
             _Vehicle.oc_RR[0].sccvOP.deltaCaster *= -1;
-
             ///<summary>
             ///---IMPORTANT---
             ///Remeber that for me Caster is negative because of CW rotation when viewed in Isometric view. But for some reason the Computed Caster is coming to be positive. 
@@ -1467,27 +1472,27 @@ namespace Coding_Attempt_with_GUI
 
 
             ///<summary>Performing a Primary Initialization Method so that, in case the Ride Height OR Pushrod is changed, it can be solved first</summary>
-            if (_FlCV.RideHeightChanged || _FrCV.RideHeightChanged || _RlCV.RideHeightChanged || _RrCV.RideHeightChanged)
+            if (/*_FlCV.RideHeightChanged || _FrCV.RideHeightChanged || _RlCV.RideHeightChanged || _RrCV.RideHeightChanged*/ true)
             {
                 Identifier = 1;
-                SetupChange_PrimaryInitializeMethod(_FlCV, _Vehicle.oc_FL /*,FinalCamberFL, FinalToeFL, FinalCasterFL, FinalKPIFL, Identifier, _Vehicle*/);
+                SetupChange_PrimaryInitializeMethod(_FlCV, _Vehicle.oc_FL );
                 FinalRideHeight_FL = SetupChange_GetRideHeightChange(_FlCV, SetupChange_DB_Master.AdjOptions.PushrodLine, SetupChange_DB_Master.AdjOptions.PushrodVector, _FlCV.rideheightAdjustmentType, _FlCV.rideheightAdjustmentTool, 1, out FinalPushrod_FL, SC_OC_FL);
 
                 Identifier = 2;
-                SetupChange_PrimaryInitializeMethod(_FrCV, _Vehicle.oc_FR /*,FinalCamberFR, FinalToeFR, FinalCasterFR, FinalKPIFR, Identifier, _Vehicle*/);
+                SetupChange_PrimaryInitializeMethod(_FrCV, _Vehicle.oc_FR );
                 FinalRideHeight_FR = SetupChange_GetRideHeightChange(_FrCV, SetupChange_DB_Master.AdjOptions.PushrodLine, SetupChange_DB_Master.AdjOptions.PushrodVector, _FrCV.rideheightAdjustmentType, _FrCV.rideheightAdjustmentTool, 2, out FinalPushrod_FR, SC_OC_FL);
 
                 Identifier = 3;
-                SetupChange_PrimaryInitializeMethod(_RlCV, _Vehicle.oc_RL /*,FinalCamberRL, FinalToeRL, FinalCasterRL, FinalKPIRL, Identifier, _Vehicle*/);
+                SetupChange_PrimaryInitializeMethod(_RlCV, _Vehicle.oc_RL );
                 FinalRideHeight_RL = SetupChange_GetRideHeightChange(_RlCV, SetupChange_DB_Master.AdjOptions.PushrodLine, SetupChange_DB_Master.AdjOptions.PushrodVector, _RlCV.rideheightAdjustmentType, _RlCV.rideheightAdjustmentTool, 3, out FinalPushrod_RL, SC_OC_FL);
 
                 Identifier = 4;
-                SetupChange_PrimaryInitializeMethod(_RrCV, _Vehicle.oc_RR /*,FinalCamberRR, FinalToeRR, FinalCasterRR, FinalKPIRR, Identifier, _Vehicle*/);
+                SetupChange_PrimaryInitializeMethod(_RrCV, _Vehicle.oc_RR );
                 FinalRideHeight_RR = SetupChange_GetRideHeightChange(_RrCV, SetupChange_DB_Master.AdjOptions.PushrodLine, SetupChange_DB_Master.AdjOptions.PushrodVector, _RrCV.rideheightAdjustmentType, _RrCV.rideheightAdjustmentTool, 4, out FinalPushrod_RR, SC_OC_FL);
 
                 SetupChange_RideHeightChange_Helper_SolveForRideHeightChanges(_Vehicle, FinalRideHeight_FL, FinalRideHeight_FR, FinalRideHeight_RL, FinalRideHeight_RR);
 
-
+                ///< remarks > For some reason the theory below is not valid. Still not sure about Sign Conventions!!!</ remarks >
                 ///<summary>
                 ///---IMPORTANT---
                 ///Remeber that for me Caster is negative because of CW rotation when viewed in Isometric view. But for some reason the Computed Caster is coming to be positive. 
@@ -1527,6 +1532,7 @@ namespace Coding_Attempt_with_GUI
             AssignAllFinalSetupParams(_Vehicle.oc_RR[0], 4, _Vehicle.oc_RR[0].sccvOP, FinalRideHeight_RR, FinalPushrod_RR);
 
             SetupChange_GUI.List_SetupChangeGUI[setupID].HideProgressForm();
+
 
         }
         #endregion

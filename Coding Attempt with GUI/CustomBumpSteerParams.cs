@@ -23,9 +23,6 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         public List<Angle> ToeAngles;
 
-        public List<Angle> ToeAnglesBump;
-
-        public List<Angle> ToeAnglesRebound;
 
 
         /// <summary>
@@ -53,10 +50,6 @@ namespace Coding_Attempt_with_GUI
             WheelDeflections = new List<double>();
 
             ToeAngles = new List<Angle>();
-
-            ToeAnglesBump = new List<Angle>();
-
-            ToeAnglesRebound = new List<Angle>();
         }
 
         #region Calculating the equation of the line of motion
@@ -82,36 +75,35 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_wdFromChart"></param>
         public void PopulateBumpSteerGraph(List<double> wdFromChart, List<double> toeAngleFromChart)
         {
-
-
-
+            ///<summary>Basically this is a count of a the number of Wheel Deflections which the user has created</summary>
             int NoOfDeflections = wdFromChart.Count;
 
+            ///<summary>This is the number of Steps that WILL exist between 2 points. This is calculated using the <see cref="StepSize"/> which the user selects</summary>
             int NoOfSteps;
 
+            ///<summary>Sorting the Wheel Deflections and the Toe Angles</summary>
             wdFromChart.Sort();
 
             toeAngleFromChart.Sort();
-
             
-
-            List<double> tempWdFromChart = new List<double>(/*new double[] { 0 }*/);
-
+            ///<summary>Temporary Wheel Deflection List which will be used to cmpute to all the intermediary Wheel Defelctions between 2 Wheel Deflection Points (using the equation of the line jjoining the 2 wheel def points</summary>
+            List<double> tempWdFromChart = new List<double>();
             tempWdFromChart.AddRange(wdFromChart.ToArray());
-            
 
+            ///<summary>Temporary Toe Angle List which will be used to cmpute to all the intermediary Toe Angles between 2 Toe Angle Points (using the equation of the line jjoining the 2 wheel def points</summary>
             List<double> tempToeAngleFromChart = new List<double>(/*new double[] { 0 }*/);
-
             tempToeAngleFromChart.AddRange(toeAngleFromChart.ToArray());
 
-            
+            ///<summary>The List which will hold the final wheel deflections</summary>
             List<double> deflections = new List<double>();
 
+            ///<summary>The List which will hold the final toe angles</summary>
             List<double> toeVariations = new List<double>();
 
 
             double NextX;
 
+            ///<summary>Computing the entire Wheel Deflection curve using all the points the user has created and using his desired step size</summary>
             for (int i = 0; i < NoOfDeflections - 1; i++) 
             {
                 ///<summary>Computing the Equation of the Line betweent he current and next plotted point</summary>
@@ -145,7 +137,6 @@ namespace Coding_Attempt_with_GUI
                 ToeAngles.Add(new Angle(toeVariations[i], AngleUnit.Degrees));
             }
 
-
             ///<summary> Populating the Wheel Deflections List</summary>
             WheelDeflections.Clear();
 
@@ -153,24 +144,11 @@ namespace Coding_Attempt_with_GUI
             {
                 WheelDeflections.Add(deflections[i]);
             }
-
-            //WheelDeflections.Add(0);
-
-            //ToeAngles.Add(new Angle());
-
+            
             ///<summary>Sorting the Toe Angles based on the sorting of Wheel Deflections</summary>
             SortToeList();
 
-            //ToeAngles.Insert(0, ToeAngles[0]);
-
-            //ToeAngles.Insert(ToeAngles.Count, ToeAngles[ToeAngles.Count - 1]);
-
-            //WheelDeflections.Insert(0, WheelDeflections[0]);
-
-            //WheelDeflections.Insert(WheelDeflections.Count, WheelDeflections[WheelDeflections.Count - 1]);
-
-            //SplitToeAngles();
-
+            ///<summary>Extending the Wheel Deflection from 0 to Max Positive value so I have a continuous profile to work with </summary>
             ExtendWheelDeflection(StepSize);
 
         }
@@ -222,38 +200,6 @@ namespace Coding_Attempt_with_GUI
                 ToeAngles.Insert(ToeAngles.Count - 1, ToeAngles[ToeAngles.Count - 1]); 
             }
 
-
-        }
-
-        /// <summary>
-        /// Method to split the <see cref="ToeAngles"/> into 2 seperate lists of Bump and Rebound
-        /// </summary>
-        private void SplitToeAngles()
-        {
-            ToeAnglesBump.Clear();
-
-            ToeAnglesRebound.Clear();
-
-            ///<summary>Splitting the Toe Angles into Bump</summary>
-            for (int i = 0; i < WheelDeflections.Count; i++)
-            {
-
-                if (WheelDeflections[i] >= 0) 
-                {
-                    ToeAnglesBump.Add(ToeAngles[i]); 
-                }
-            }
-
-            ///<remarks>Doing them in 2 different loops so that the value 0 will be added to both the lists</remarks>
-
-            ///<summary>Splitting the Toe Angles into Rebound</summary>
-            for (int i = 0; i < WheelDeflections.Count; i++)
-            {
-                if (WheelDeflections[i] <= 0)
-                {
-                    ToeAnglesRebound.Add(ToeAngles[i]);
-                }
-            }
 
         }
 
