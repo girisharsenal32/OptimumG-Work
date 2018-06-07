@@ -840,19 +840,19 @@ namespace Coding_Attempt_with_GUI
             #endregion
 
             #region ---Ride Height----
-            ///<summary>
-            ///---Ride Height--- Check Box Operations
-            /// </summary>
-            if (checkedListBoxControlConstraints.Items["Ride Height constant"].CheckState == CheckState.Checked)
-            {
-                setupChange_CV.constRideHeight = true;
-                setupChangeGUI.EditSetupChangeDeltas(setupChange_CV, Identifier);
-            }
-            else
-            {
-                setupChange_CV.constRideHeight = false;
-                setupChangeGUI.EditSetupChangeDeltas(setupChange_CV, Identifier);
-            }
+            /////<summary>
+            /////---Ride Height--- Check Box Operations
+            ///// </summary>
+            //if (checkedListBoxControlConstraints.Items["Ride Height constant"].CheckState == CheckState.Checked)
+            //{
+            //    setupChange_CV.constRideHeight = true;
+            //    setupChangeGUI.EditSetupChangeDeltas(setupChange_CV, Identifier);
+            //}
+            //else
+            //{
+            //    setupChange_CV.constRideHeight = false;
+            //    setupChangeGUI.EditSetupChangeDeltas(setupChange_CV, Identifier);
+            //}
             #endregion
 
             #region ---Bump Steer---
