@@ -35,7 +35,10 @@ namespace Coding_Attempt_with_GUI
             this.tabbedView1.QueryControl += tabbedView1_QueryControl;
             _r1 = this;
             dockPanelResults.Visibility = DockVisibility.Hidden;
-            //panelContainer1.Dock = DockingStyle.Fill;
+
+
+            dockPanelFL.Width = dockPanelFR.Width = this.Width / 2;
+            dockPanelRL.Width = dockPanelRR.Width = this.Width / 2;
 
         }
 

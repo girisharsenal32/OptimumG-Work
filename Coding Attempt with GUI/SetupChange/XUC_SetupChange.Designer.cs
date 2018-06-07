@@ -178,15 +178,15 @@
             this.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.barDockControlTop.Location = new System.Drawing.Point(0, 0);
             this.barDockControlTop.Manager = this.barManager1;
-            this.barDockControlTop.Size = new System.Drawing.Size(1634, 29);
+            this.barDockControlTop.Size = new System.Drawing.Size(1748, 29);
             // 
             // barDockControlBottom
             // 
             this.barDockControlBottom.CausesValidation = false;
             this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.barDockControlBottom.Location = new System.Drawing.Point(0, 839);
+            this.barDockControlBottom.Location = new System.Drawing.Point(0, 845);
             this.barDockControlBottom.Manager = this.barManager1;
-            this.barDockControlBottom.Size = new System.Drawing.Size(1634, 0);
+            this.barDockControlBottom.Size = new System.Drawing.Size(1748, 0);
             // 
             // barDockControlLeft
             // 
@@ -194,15 +194,15 @@
             this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.barDockControlLeft.Location = new System.Drawing.Point(0, 29);
             this.barDockControlLeft.Manager = this.barManager1;
-            this.barDockControlLeft.Size = new System.Drawing.Size(0, 810);
+            this.barDockControlLeft.Size = new System.Drawing.Size(0, 816);
             // 
             // barDockControlRight
             // 
             this.barDockControlRight.CausesValidation = false;
             this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this.barDockControlRight.Location = new System.Drawing.Point(1634, 29);
+            this.barDockControlRight.Location = new System.Drawing.Point(1748, 29);
             this.barDockControlRight.Manager = this.barManager1;
-            this.barDockControlRight.Size = new System.Drawing.Size(0, 810);
+            this.barDockControlRight.Size = new System.Drawing.Size(0, 816);
             // 
             // dockPanelResults
             // 
@@ -290,8 +290,8 @@
             this.panelContainer1.ID = new System.Guid("39ac1302-c696-4b83-8dc6-10104b4d5691");
             this.panelContainer1.Location = new System.Drawing.Point(0, 29);
             this.panelContainer1.Name = "panelContainer1";
-            this.panelContainer1.OriginalSize = new System.Drawing.Size(1569, 200);
-            this.panelContainer1.Size = new System.Drawing.Size(1569, 810);
+            this.panelContainer1.OriginalSize = new System.Drawing.Size(1748, 200);
+            this.panelContainer1.Size = new System.Drawing.Size(1748, 816);
             this.panelContainer1.Text = "panelContainer1";
             // 
             // panelContainer2
@@ -304,8 +304,8 @@
             this.panelContainer2.ID = new System.Guid("2279a82a-96a3-41bb-a674-e4c3b9dad113");
             this.panelContainer2.Location = new System.Drawing.Point(0, 0);
             this.panelContainer2.Name = "panelContainer2";
-            this.panelContainer2.OriginalSize = new System.Drawing.Size(1634, 405);
-            this.panelContainer2.Size = new System.Drawing.Size(1569, 405);
+            this.panelContainer2.OriginalSize = new System.Drawing.Size(1619, 405);
+            this.panelContainer2.Size = new System.Drawing.Size(1748, 408);
             this.panelContainer2.Text = "panelContainer2";
             // 
             // dockPanelFL
@@ -318,8 +318,8 @@
             this.dockPanelFL.Location = new System.Drawing.Point(0, 0);
             this.dockPanelFL.Name = "dockPanelFL";
             this.dockPanelFL.Options.ShowCloseButton = false;
-            this.dockPanelFL.OriginalSize = new System.Drawing.Size(818, 405);
-            this.dockPanelFL.Size = new System.Drawing.Size(785, 405);
+            this.dockPanelFL.OriginalSize = new System.Drawing.Size(810, 405);
+            this.dockPanelFL.Size = new System.Drawing.Size(875, 408);
             this.dockPanelFL.Text = "Front Left Inputs";
             // 
             // dockPanel1_Container
@@ -327,7 +327,7 @@
             this.dockPanel1_Container.Controls.Add(this.SetupChangeFL);
             this.dockPanel1_Container.Location = new System.Drawing.Point(4, 23);
             this.dockPanel1_Container.Name = "dockPanel1_Container";
-            this.dockPanel1_Container.Size = new System.Drawing.Size(776, 377);
+            this.dockPanel1_Container.Size = new System.Drawing.Size(866, 380);
             this.dockPanel1_Container.TabIndex = 0;
             // 
             // SetupChangeFL
@@ -336,7 +336,7 @@
             this.SetupChangeFL.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetupChangeFL.Location = new System.Drawing.Point(0, 0);
             this.SetupChangeFL.Name = "SetupChangeFL";
-            this.SetupChangeFL.Size = new System.Drawing.Size(776, 377);
+            this.SetupChangeFL.Size = new System.Drawing.Size(866, 380);
             this.SetupChangeFL.TabIndex = 0;
             // 
             // dockPanelFR
@@ -347,11 +347,11 @@
             this.dockPanelFR.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
             this.dockPanelFR.FloatVertical = true;
             this.dockPanelFR.ID = new System.Guid("37a5b0e3-4dc6-4a74-ba7b-b7dbf49ccf63");
-            this.dockPanelFR.Location = new System.Drawing.Point(785, 0);
+            this.dockPanelFR.Location = new System.Drawing.Point(875, 0);
             this.dockPanelFR.Name = "dockPanelFR";
             this.dockPanelFR.Options.ShowCloseButton = false;
-            this.dockPanelFR.OriginalSize = new System.Drawing.Size(816, 405);
-            this.dockPanelFR.Size = new System.Drawing.Size(784, 405);
+            this.dockPanelFR.OriginalSize = new System.Drawing.Size(809, 405);
+            this.dockPanelFR.Size = new System.Drawing.Size(873, 408);
             this.dockPanelFR.Text = "Front Right Inputs";
             // 
             // dockPanel2_Container
@@ -359,7 +359,7 @@
             this.dockPanel2_Container.Controls.Add(this.SetupChangeFR);
             this.dockPanel2_Container.Location = new System.Drawing.Point(4, 25);
             this.dockPanel2_Container.Name = "dockPanel2_Container";
-            this.dockPanel2_Container.Size = new System.Drawing.Size(775, 375);
+            this.dockPanel2_Container.Size = new System.Drawing.Size(864, 378);
             this.dockPanel2_Container.TabIndex = 0;
             // 
             // SetupChangeFR
@@ -368,7 +368,7 @@
             this.SetupChangeFR.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetupChangeFR.Location = new System.Drawing.Point(0, 0);
             this.SetupChangeFR.Name = "SetupChangeFR";
-            this.SetupChangeFR.Size = new System.Drawing.Size(775, 375);
+            this.SetupChangeFR.Size = new System.Drawing.Size(864, 378);
             this.SetupChangeFR.TabIndex = 0;
             // 
             // panelContainer3
@@ -378,10 +378,10 @@
             this.panelContainer3.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
             this.panelContainer3.FloatVertical = true;
             this.panelContainer3.ID = new System.Guid("f8799b82-9cf1-4495-b94f-723f52a88387");
-            this.panelContainer3.Location = new System.Drawing.Point(0, 405);
+            this.panelContainer3.Location = new System.Drawing.Point(0, 408);
             this.panelContainer3.Name = "panelContainer3";
-            this.panelContainer3.OriginalSize = new System.Drawing.Size(1634, 405);
-            this.panelContainer3.Size = new System.Drawing.Size(1569, 405);
+            this.panelContainer3.OriginalSize = new System.Drawing.Size(1619, 405);
+            this.panelContainer3.Size = new System.Drawing.Size(1748, 408);
             this.panelContainer3.Text = "panelContainer3";
             // 
             // dockPanelRL
@@ -393,8 +393,8 @@
             this.dockPanelRL.Location = new System.Drawing.Point(0, 0);
             this.dockPanelRL.Name = "dockPanelRL";
             this.dockPanelRL.Options.ShowCloseButton = false;
-            this.dockPanelRL.OriginalSize = new System.Drawing.Size(818, 405);
-            this.dockPanelRL.Size = new System.Drawing.Size(785, 405);
+            this.dockPanelRL.OriginalSize = new System.Drawing.Size(810, 405);
+            this.dockPanelRL.Size = new System.Drawing.Size(875, 408);
             this.dockPanelRL.Text = "Rear Left Inputs";
             // 
             // dockPanel3_Container
@@ -402,7 +402,7 @@
             this.dockPanel3_Container.Controls.Add(this.SetupChangeRL);
             this.dockPanel3_Container.Location = new System.Drawing.Point(4, 23);
             this.dockPanel3_Container.Name = "dockPanel3_Container";
-            this.dockPanel3_Container.Size = new System.Drawing.Size(776, 378);
+            this.dockPanel3_Container.Size = new System.Drawing.Size(866, 381);
             this.dockPanel3_Container.TabIndex = 0;
             // 
             // SetupChangeRL
@@ -411,7 +411,7 @@
             this.SetupChangeRL.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetupChangeRL.Location = new System.Drawing.Point(0, 0);
             this.SetupChangeRL.Name = "SetupChangeRL";
-            this.SetupChangeRL.Size = new System.Drawing.Size(776, 378);
+            this.SetupChangeRL.Size = new System.Drawing.Size(866, 381);
             this.SetupChangeRL.TabIndex = 0;
             // 
             // dockPanelRR
@@ -419,11 +419,11 @@
             this.dockPanelRR.Controls.Add(this.controlContainer1);
             this.dockPanelRR.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
             this.dockPanelRR.ID = new System.Guid("b2cfa4f9-e93e-4646-9e3c-7113d10dd2f6");
-            this.dockPanelRR.Location = new System.Drawing.Point(785, 0);
+            this.dockPanelRR.Location = new System.Drawing.Point(875, 0);
             this.dockPanelRR.Name = "dockPanelRR";
             this.dockPanelRR.Options.ShowCloseButton = false;
-            this.dockPanelRR.OriginalSize = new System.Drawing.Size(816, 405);
-            this.dockPanelRR.Size = new System.Drawing.Size(784, 405);
+            this.dockPanelRR.OriginalSize = new System.Drawing.Size(809, 405);
+            this.dockPanelRR.Size = new System.Drawing.Size(873, 408);
             this.dockPanelRR.Text = "Rear Right Inputs";
             // 
             // controlContainer1
@@ -431,7 +431,7 @@
             this.controlContainer1.Controls.Add(this.SetupChangeRR);
             this.controlContainer1.Location = new System.Drawing.Point(4, 23);
             this.controlContainer1.Name = "controlContainer1";
-            this.controlContainer1.Size = new System.Drawing.Size(775, 378);
+            this.controlContainer1.Size = new System.Drawing.Size(864, 381);
             this.controlContainer1.TabIndex = 0;
             // 
             // SetupChangeRR
@@ -440,7 +440,7 @@
             this.SetupChangeRR.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetupChangeRR.Location = new System.Drawing.Point(0, 0);
             this.SetupChangeRR.Name = "SetupChangeRR";
-            this.SetupChangeRR.Size = new System.Drawing.Size(775, 378);
+            this.SetupChangeRR.Size = new System.Drawing.Size(864, 381);
             this.SetupChangeRR.TabIndex = 0;
             // 
             // documentManager1
@@ -466,13 +466,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.Controls.Add(this.panelContainer1);
             this.Controls.Add(this.barDockControlLeft);
             this.Controls.Add(this.barDockControlRight);
             this.Controls.Add(this.barDockControlBottom);
             this.Controls.Add(this.barDockControlTop);
             this.Name = "XUC_SetupChange";
-            this.Size = new System.Drawing.Size(1634, 839);
+            this.Size = new System.Drawing.Size(1748, 845);
             this.Load += new System.EventHandler(this.XUC_SetupChange_Load);
             ((System.ComponentModel.ISupportInitialize)(this.document3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).EndInit();
