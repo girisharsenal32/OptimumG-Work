@@ -135,7 +135,8 @@ namespace Coding_Attempt_with_GUI
 
         internal void FloatOutputDockPanel()
         {
-            dockPanelResults.Show();
+            dockPanelResults.Visibility = DockVisibility.Visible;
+            dockPanelResults.DockedAsTabbedDocument = false;
             dockPanelResults.Dock = DockingStyle.Float;
         }
 

@@ -165,7 +165,7 @@
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Caster constant"),
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Toe constant"),
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Ride Height constant"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Bump Steer Constant")});
+            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Monitor Bump Steer")});
             this.checkedListBoxControlConstraints.Location = new System.Drawing.Point(0, 188);
             this.checkedListBoxControlConstraints.Name = "checkedListBoxControlConstraints";
             this.checkedListBoxControlConstraints.Size = new System.Drawing.Size(128, 168);
@@ -194,7 +194,6 @@
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Caster Change"),
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Toe Change"),
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Ride Height Change"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Link Length Change"),
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Bump Steer Change")});
             this.checkedListBoxControlChanges.Location = new System.Drawing.Point(0, 0);
             this.checkedListBoxControlChanges.Name = "checkedListBoxControlChanges";

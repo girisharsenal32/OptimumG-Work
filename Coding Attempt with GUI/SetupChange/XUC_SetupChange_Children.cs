@@ -528,8 +528,8 @@ namespace Coding_Attempt_with_GUI
                 bsCurve.GetParentObjectData(setupChange_CV);
 
                 rowBumpSteerAdjuster.Enabled = true;
-                checkedListBoxControlConstraints.Items["Bump Steer Constant"].CheckState = CheckState.Unchecked;
-                checkedListBoxControlConstraints.Items["Bump Steer Constant"].Enabled = false;
+                checkedListBoxControlConstraints.Items["Monitor Bump Steer"].CheckState = CheckState.Unchecked;
+                checkedListBoxControlConstraints.Items["Monitor Bump Steer"].Enabled = false;
 
                 if (!setupChange_CV.Master_Adj.ContainsKey("Bump Steer"))
                 {
@@ -544,18 +544,18 @@ namespace Coding_Attempt_with_GUI
                 //rowBumpSteerAdjuster.Enabled = false;
                 //vGridControl1.SetCellValue(rowBumpSteerAdjuster, 1, null);
 
-                if (checkedListBoxControlConstraints.Items["Bump Steer Constant"].CheckState == CheckState.Unchecked)
-                {
+                //if (checkedListBoxControlConstraints.Items["Monitor Bump Steer"].CheckState == CheckState.Unchecked)
+                //{
                     Deactivate_BumpSteer_Adjusters();
 
                     if (setupChange_CV.Master_Adj.ContainsKey("Bump Steer"))
                     {
                         setupChange_CV.Master_Adj.Remove("Bump Steer");
                     }
-                }
+                //}
 
-                //checkedListBoxControlConstraints.Items["Bump Steer Constant"].CheckState = CheckState.Unchecked;
-                checkedListBoxControlConstraints.Items["Bump Steer Constant"].Enabled = true;
+                //checkedListBoxControlConstraints.Items["Monitor Bump Steer"].CheckState = CheckState.Unchecked;
+                checkedListBoxControlConstraints.Items["Monitor Bump Steer"].Enabled = true;
 
 
 
@@ -564,37 +564,37 @@ namespace Coding_Attempt_with_GUI
 
 
             #region NOT NEEDED-LinkLength
-            if (checkedListBoxControlChanges.Items["Link Length Change"].CheckState == CheckState.Checked)
-            {
-                rowTopFront.Enabled = true;
-                rowTopRear.Enabled = true;
-                rowBottomFron.Enabled = true;
-                rowBottomRear.Enabled = true;
-                rowPushrod.Enabled = true;
-                rowToeLinkLength.Enabled = true;
-            }
-            else if (checkedListBoxControlChanges.Items["Link Length Change"].CheckState == CheckState.Unchecked)
-            {
-                rowTopFront.Enabled = false;
-                vGridControl1.SetCellValue(rowTopFront, 1, null);
-                rowTopFront.Properties.Value = null;
-                rowTopRear.Enabled = false;
-                vGridControl1.SetCellValue(rowTopRear, 1, null);
-                rowTopRear.Properties.Value = null;
-                rowBottomFron.Enabled = false;
-                vGridControl1.SetCellValue(rowBottomFron, 1, null);
-                rowBottomFron.Properties.Value = null;
-                rowBottomRear.Enabled = false;
-                vGridControl1.SetCellValue(rowBottomRear, 1, null);
-                rowBottomRear.Properties.Value = null;
-                rowPushrod.Enabled = false;
-                vGridControl1.SetCellValue(rowPushrod, 1, null);
-                rowPushrod.Properties.Value = null;
-                rowToeLinkLength.Enabled = false;
-                vGridControl1.SetCellValue(rowToeLinkLength, 1, null);
-                rowToeLinkLength.Properties.Value = null;
+            //if (checkedListBoxControlChanges.Items["Link Length Change"].CheckState == CheckState.Checked)
+            //{
+            //    rowTopFront.Enabled = true;
+            //    rowTopRear.Enabled = true;
+            //    rowBottomFron.Enabled = true;
+            //    rowBottomRear.Enabled = true;
+            //    rowPushrod.Enabled = true;
+            //    rowToeLinkLength.Enabled = true;
+            //}
+            //else if (checkedListBoxControlChanges.Items["Link Length Change"].CheckState == CheckState.Unchecked)
+            //{
+            //    rowTopFront.Enabled = false;
+            //    vGridControl1.SetCellValue(rowTopFront, 1, null);
+            //    rowTopFront.Properties.Value = null;
+            //    rowTopRear.Enabled = false;
+            //    vGridControl1.SetCellValue(rowTopRear, 1, null);
+            //    rowTopRear.Properties.Value = null;
+            //    rowBottomFron.Enabled = false;
+            //    vGridControl1.SetCellValue(rowBottomFron, 1, null);
+            //    rowBottomFron.Properties.Value = null;
+            //    rowBottomRear.Enabled = false;
+            //    vGridControl1.SetCellValue(rowBottomRear, 1, null);
+            //    rowBottomRear.Properties.Value = null;
+            //    rowPushrod.Enabled = false;
+            //    vGridControl1.SetCellValue(rowPushrod, 1, null);
+            //    rowPushrod.Properties.Value = null;
+            //    rowToeLinkLength.Enabled = false;
+            //    vGridControl1.SetCellValue(rowToeLinkLength, 1, null);
+            //    rowToeLinkLength.Properties.Value = null;
 
-            } 
+            //} 
             #endregion
 
             Kinematics_Software_New.ComboboxSetupChangeOperations_Invoker();
@@ -859,7 +859,7 @@ namespace Coding_Attempt_with_GUI
             ///<summary>
             ///---Bump Steer--- Check Box Operationa
             /// </summary>
-            if (checkedListBoxControlConstraints.Items["Bump Steer Constant"].CheckState == CheckState.Checked)
+            if (checkedListBoxControlConstraints.Items["Monitor Bump Steer"].CheckState == CheckState.Checked)
             {
                 setupChange_CV.monitorBumpSteer = true;
 
