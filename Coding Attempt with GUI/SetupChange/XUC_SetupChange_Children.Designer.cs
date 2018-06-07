@@ -85,6 +85,7 @@
             this.categoryRideHeightChange = new DevExpress.XtraVerticalGrid.Rows.CategoryRow();
             this.rowRideHeightChangeMethod = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.rowRideHeight = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.rowPushrod = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.rowDamperEyeToPerch = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.categoryLinkLengths = new DevExpress.XtraVerticalGrid.Rows.CategoryRow();
             this.rowTopFront = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
@@ -92,7 +93,6 @@
             this.rowBottomFron = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.rowBottomRear = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.rowToeLinkLength = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
-            this.rowPushrod = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.categoryBumpSteer = new DevExpress.XtraVerticalGrid.Rows.CategoryRow();
             this.rowBumpSteerChart = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
             this.rowBumpSteerAdjuster = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
@@ -208,7 +208,7 @@
             this.vGridControl1.Appearance.RowHeaderPanel.Font = new System.Drawing.Font("Tahoma", 9F);
             this.vGridControl1.Appearance.RowHeaderPanel.Options.UseFont = true;
             this.vGridControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
-            this.vGridControl1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.vGridControl1.Cursor = System.Windows.Forms.Cursors.SizeNS;
             this.vGridControl1.Dock = System.Windows.Forms.DockStyle.Left;
             this.vGridControl1.Location = new System.Drawing.Point(132, 0);
             this.vGridControl1.Name = "vGridControl1";
@@ -656,6 +656,7 @@
             this.categoryRideHeightChange.ChildRows.AddRange(new DevExpress.XtraVerticalGrid.Rows.BaseRow[] {
             this.rowRideHeightChangeMethod,
             this.rowRideHeight,
+            this.rowPushrod,
             this.rowDamperEyeToPerch});
             this.categoryRideHeightChange.Height = 10;
             this.categoryRideHeightChange.Name = "categoryRideHeightChange";
@@ -669,6 +670,7 @@
             this.rowRideHeightChangeMethod.Name = "rowRideHeightChangeMethod";
             this.rowRideHeightChangeMethod.Properties.Caption = "Change Method";
             this.rowRideHeightChangeMethod.Properties.RowEdit = this.rIComboBoxAdjustmentTypeRideHeight;
+            this.rowRideHeightChangeMethod.Visible = false;
             // 
             // rowRideHeight
             // 
@@ -679,6 +681,14 @@
             this.rowRideHeight.Properties.Format.FormatString = "n3";
             this.rowRideHeight.Properties.Format.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.rowRideHeight.Properties.RowEdit = this.r1TextboxRideHeight;
+            // 
+            // rowPushrod
+            // 
+            this.rowPushrod.Name = "rowPushrod";
+            this.rowPushrod.Properties.Caption = "Pushrod Length (mm)";
+            this.rowPushrod.Properties.Format.FormatString = "n3";
+            this.rowPushrod.Properties.Format.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.rowPushrod.Visible = false;
             // 
             // rowDamperEyeToPerch
             // 
@@ -700,8 +710,7 @@
             this.rowTopRear,
             this.rowBottomFron,
             this.rowBottomRear,
-            this.rowToeLinkLength,
-            this.rowPushrod});
+            this.rowToeLinkLength});
             this.categoryLinkLengths.Expanded = false;
             this.categoryLinkLengths.Name = "categoryLinkLengths";
             this.categoryLinkLengths.Properties.Caption = "Link Length Change";
@@ -746,14 +755,6 @@
             this.rowToeLinkLength.Properties.Caption = "Toe Link Length (mm)";
             this.rowToeLinkLength.Properties.Format.FormatString = "n3";
             this.rowToeLinkLength.Properties.Format.FormatType = DevExpress.Utils.FormatType.Numeric;
-            // 
-            // rowPushrod
-            // 
-            this.rowPushrod.Enabled = false;
-            this.rowPushrod.Name = "rowPushrod";
-            this.rowPushrod.Properties.Caption = "Pushrod Length (mm)";
-            this.rowPushrod.Properties.Format.FormatString = "n3";
-            this.rowPushrod.Properties.Format.FormatType = DevExpress.Utils.FormatType.Numeric;
             // 
             // categoryBumpSteer
             // 
@@ -864,9 +865,11 @@
             // 
             // bsCurve
             // 
+            this.bsCurve.Cursor = System.Windows.Forms.Cursors.Default;
             this.bsCurve.CustomBumpSteerCurve = false;
             this.bsCurve.Dock = System.Windows.Forms.DockStyle.Fill;
             this.bsCurve.Enabled = false;
+            this.bsCurve.IsOutputChart = false;
             this.bsCurve.Location = new System.Drawing.Point(378, 0);
             this.bsCurve.Name = "bsCurve";
             this.bsCurve.seriesPointsInChart = null;

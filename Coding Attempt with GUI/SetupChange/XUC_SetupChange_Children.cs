@@ -481,17 +481,18 @@ namespace Coding_Attempt_with_GUI
             ///</summary>
             if (checkedListBoxControlChanges.Items["Ride Height Change"].CheckState == CheckState.Checked)
             {
-                rowRideHeightChangeMethod.Enabled = true;
+                //rowRideHeightChangeMethod.Enabled = true;
                 //rowRideHeight.Enabled = true;
                 //rowDamperEyeToPerch.Enabled = false;
+                rowRideHeight.Enabled = true;
                 checkedListBoxControlConstraints.Items["Ride Height constant"].CheckState = CheckState.Unchecked;
                 checkedListBoxControlConstraints.Items["Ride Height constant"].Enabled = false;
             }
             else if (checkedListBoxControlChanges.Items["Ride Height Change"].CheckState == CheckState.Unchecked)
             {
-                rowRideHeightChangeMethod.Enabled = false;
-                vGridControl1.SetCellValue(rowRideHeightChangeMethod, 1, null);
-                rowRideHeightChangeMethod.Properties.Value = null;
+                //rowRideHeightChangeMethod.Enabled = false;
+                //vGridControl1.SetCellValue(rowRideHeightChangeMethod, 1, null);
+                //rowRideHeightChangeMethod.Properties.Value = null;
                 rowRideHeight.Enabled = false;
                 vGridControl1.SetCellValue(rowRideHeight, 1, null);
                 rowRideHeight.Properties.Value = null;
@@ -1139,196 +1140,196 @@ namespace Coding_Attempt_with_GUI
 
           
         #region Link Length Changed methods. NOT NEEDED
-        private void LinkLengthChanged()
-        {
-            double ToeLinkLength = Convert.ToDouble(vGridControl1.GetCellValue(rowToeLinkLength, 1));
-            double PushrodLength = Convert.ToDouble(vGridControl1.GetCellValue(rowPushrod, 1));
-            double TopFrontArm = Convert.ToDouble(vGridControl1.GetCellValue(rowTopFront, 1));
-            double TopRearArm = Convert.ToDouble(vGridControl1.GetCellValue(rowTopRear, 1));
-            double BottomFrontArm = Convert.ToDouble(vGridControl1.GetCellValue(rowBottomFron, 1));
-            double BottomRearArm = Convert.ToDouble(vGridControl1.GetCellValue(rowBottomRear, 1));
+        //private void LinkLengthChanged()
+        //{
+        //    double ToeLinkLength = Convert.ToDouble(vGridControl1.GetCellValue(rowToeLinkLength, 1));
+        //    double PushrodLength = Convert.ToDouble(vGridControl1.GetCellValue(rowPushrod, 1));
+        //    double TopFrontArm = Convert.ToDouble(vGridControl1.GetCellValue(rowTopFront, 1));
+        //    double TopRearArm = Convert.ToDouble(vGridControl1.GetCellValue(rowTopRear, 1));
+        //    double BottomFrontArm = Convert.ToDouble(vGridControl1.GetCellValue(rowBottomFron, 1));
+        //    double BottomRearArm = Convert.ToDouble(vGridControl1.GetCellValue(rowBottomRear, 1));
 
-            //WillCauseEndlessLoop = true;
-            setupChange_CV.LinkLengthChanged = true;
-            if (TopFrontArm != 0)
-            {
-                setupChange_CV.deltaTopFrontArm = Convert.ToDouble(vGridControl1.GetCellValue(rowTopFront, 1));
-                setupChange_CV.LinkLengthsWhichHaveNotChanged.Remove(1);
-                RemoveFromRICombobox("Top Front Arm", rIComboBoxWishboneSelecter);
-                rowKPICasterAdjusterSelect.Properties.Value = null;
-                rowCasterAdjusterSelect.Properties.Value = null;
+        //    //WillCauseEndlessLoop = true;
+        //    setupChange_CV.LinkLengthChanged = true;
+        //    if (TopFrontArm != 0)
+        //    {
+        //        setupChange_CV.deltaTopFrontArm = Convert.ToDouble(vGridControl1.GetCellValue(rowTopFront, 1));
+        //        setupChange_CV.LinkLengthsWhichHaveNotChanged.Remove(1);
+        //        RemoveFromRICombobox("Top Front Arm", rIComboBoxWishboneSelecter);
+        //        rowKPICasterAdjusterSelect.Properties.Value = null;
+        //        rowCasterAdjusterSelect.Properties.Value = null;
 
-            }
-            else
-            {
-                setupChange_CV.deltaTopFrontArm = Convert.ToDouble(vGridControl1.GetCellValue(rowTopFront, 1));
-                if (!setupChange_CV.LinkLengthsWhichHaveNotChanged.Contains(1))
-                {
-                    setupChange_CV.LinkLengthsWhichHaveNotChanged.Add(1);
-                }
-                AddToRIComboBox("Top Front Arm", rIComboBoxWishboneSelecter);
-            }
-
-
-            if (TopRearArm != 0)
-            {
-                setupChange_CV.deltaTopRearArm = Convert.ToDouble(vGridControl1.GetCellValue(rowTopRear, 1));
-                setupChange_CV.LinkLengthsWhichHaveNotChanged.Remove(2);
-                RemoveFromRICombobox("Top Rear Arm", rIComboBoxWishboneSelecter); /*WillCauseEndlessLoop = true;*/
-
-            }
-            else
-            {
-                setupChange_CV.deltaTopRearArm = Convert.ToDouble(vGridControl1.GetCellValue(rowTopRear, 1));
-                if (!setupChange_CV.LinkLengthsWhichHaveNotChanged.Contains(2))
-                {
-                    setupChange_CV.LinkLengthsWhichHaveNotChanged.Add(2);
-                }
-                AddToRIComboBox("Top Rear Arm", rIComboBoxWishboneSelecter);
-            }
+        //    }
+        //    else
+        //    {
+        //        setupChange_CV.deltaTopFrontArm = Convert.ToDouble(vGridControl1.GetCellValue(rowTopFront, 1));
+        //        if (!setupChange_CV.LinkLengthsWhichHaveNotChanged.Contains(1))
+        //        {
+        //            setupChange_CV.LinkLengthsWhichHaveNotChanged.Add(1);
+        //        }
+        //        AddToRIComboBox("Top Front Arm", rIComboBoxWishboneSelecter);
+        //    }
 
 
-            if (BottomFrontArm != 0)
-            {
-                setupChange_CV.deltaBottmFrontArm = Convert.ToDouble(vGridControl1.GetCellValue(rowBottomFron, 1));
-                setupChange_CV.LinkLengthsWhichHaveNotChanged.Remove(3);
-                RemoveFromRICombobox("Bottom Front Arm", rIComboBoxWishboneSelecter); 
-                rowKPICasterAdjusterSelect.Properties.Value = null;
-                rowCasterAdjusterSelect.Properties.Value = null;
-            }
-            else
-            {
-                setupChange_CV.deltaBottmFrontArm = Convert.ToDouble(vGridControl1.GetCellValue(rowBottomFron, 1));
-                if (!setupChange_CV.LinkLengthsWhichHaveNotChanged.Contains(3))
-                {
-                    setupChange_CV.LinkLengthsWhichHaveNotChanged.Add(3);
-                }
-                AddToRIComboBox("Bottom Front Arm", rIComboBoxWishboneSelecter);
-            }
+        //    if (TopRearArm != 0)
+        //    {
+        //        setupChange_CV.deltaTopRearArm = Convert.ToDouble(vGridControl1.GetCellValue(rowTopRear, 1));
+        //        setupChange_CV.LinkLengthsWhichHaveNotChanged.Remove(2);
+        //        RemoveFromRICombobox("Top Rear Arm", rIComboBoxWishboneSelecter); /*WillCauseEndlessLoop = true;*/
+
+        //    }
+        //    else
+        //    {
+        //        setupChange_CV.deltaTopRearArm = Convert.ToDouble(vGridControl1.GetCellValue(rowTopRear, 1));
+        //        if (!setupChange_CV.LinkLengthsWhichHaveNotChanged.Contains(2))
+        //        {
+        //            setupChange_CV.LinkLengthsWhichHaveNotChanged.Add(2);
+        //        }
+        //        AddToRIComboBox("Top Rear Arm", rIComboBoxWishboneSelecter);
+        //    }
 
 
-            if (BottomRearArm != 0)
-            {
-                setupChange_CV.deltaBottomRearArm = Convert.ToDouble(vGridControl1.GetCellValue(rowBottomRear, 1));
-                setupChange_CV.LinkLengthsWhichHaveNotChanged.Remove(4);
-                RemoveFromRICombobox("Bottom Rear Arm", rIComboBoxWishboneSelecter); 
-                rowKPICasterAdjusterSelect.Properties.Value = null;
-                rowCasterAdjusterSelect.Properties.Value = null;
-            }
-            else
-            {
-                setupChange_CV.deltaBottomRearArm = Convert.ToDouble(vGridControl1.GetCellValue(rowBottomRear, 1));
-                if (!setupChange_CV.LinkLengthsWhichHaveNotChanged.Contains(4))
-                {
-                    setupChange_CV.LinkLengthsWhichHaveNotChanged.Add(4);
-                }
-                AddToRIComboBox("Bottom Rear Arm", rIComboBoxWishboneSelecter);
-            }
+        //    if (BottomFrontArm != 0)
+        //    {
+        //        setupChange_CV.deltaBottmFrontArm = Convert.ToDouble(vGridControl1.GetCellValue(rowBottomFron, 1));
+        //        setupChange_CV.LinkLengthsWhichHaveNotChanged.Remove(3);
+        //        RemoveFromRICombobox("Bottom Front Arm", rIComboBoxWishboneSelecter); 
+        //        rowKPICasterAdjusterSelect.Properties.Value = null;
+        //        rowCasterAdjusterSelect.Properties.Value = null;
+        //    }
+        //    else
+        //    {
+        //        setupChange_CV.deltaBottmFrontArm = Convert.ToDouble(vGridControl1.GetCellValue(rowBottomFron, 1));
+        //        if (!setupChange_CV.LinkLengthsWhichHaveNotChanged.Contains(3))
+        //        {
+        //            setupChange_CV.LinkLengthsWhichHaveNotChanged.Add(3);
+        //        }
+        //        AddToRIComboBox("Bottom Front Arm", rIComboBoxWishboneSelecter);
+        //    }
 
 
-            if (PushrodLength != 0)
-            {
-                setupChange_CV.deltaPushrod = Convert.ToDouble(vGridControl1.GetCellValue(rowPushrod, 1));
-                rowRideHeight.Properties.Value = null;
-                rowRideHeight.Enabled = false;
-                rowDamperEyeToPerch.Properties.Value = null;
-                rowDamperEyeToPerch.Enabled = false;
-                rowRideHeightChangeMethod.Properties.Value = null;
-                rowRideHeightChangeMethod.Enabled = false;
-                setupChange_CV.RideHeightChanged = true;
-                setupChange_CV.rideheightAdjustmentType = AdjustmentType.Indirect;
-                setupChange_CV.rideheightAdjustmentTool = AdjustmentTools.PushrodLength;
-            }
-            else
-            {
-                setupChange_CV.deltaPushrod = Convert.ToDouble(vGridControl1.GetCellValue(rowPushrod, 1));
-                if (checkedListBoxControlChanges.Items["Ride Height Change"].CheckState == CheckState.Checked)
-                {
-                    setupChange_CV.RideHeightChanged = false;
-                    rowRideHeightChangeMethod.Enabled = true;
-
-                }
-            }
+        //    if (BottomRearArm != 0)
+        //    {
+        //        setupChange_CV.deltaBottomRearArm = Convert.ToDouble(vGridControl1.GetCellValue(rowBottomRear, 1));
+        //        setupChange_CV.LinkLengthsWhichHaveNotChanged.Remove(4);
+        //        RemoveFromRICombobox("Bottom Rear Arm", rIComboBoxWishboneSelecter); 
+        //        rowKPICasterAdjusterSelect.Properties.Value = null;
+        //        rowCasterAdjusterSelect.Properties.Value = null;
+        //    }
+        //    else
+        //    {
+        //        setupChange_CV.deltaBottomRearArm = Convert.ToDouble(vGridControl1.GetCellValue(rowBottomRear, 1));
+        //        if (!setupChange_CV.LinkLengthsWhichHaveNotChanged.Contains(4))
+        //        {
+        //            setupChange_CV.LinkLengthsWhichHaveNotChanged.Add(4);
+        //        }
+        //        AddToRIComboBox("Bottom Rear Arm", rIComboBoxWishboneSelecter);
+        //    }
 
 
-            if (ToeLinkLength != 0)
-            {
-                setupChange_CV.deltaToeLinkLength = Convert.ToDouble(vGridControl1.GetCellValue(rowToeLinkLength, 1));
-                setupChange_CV.toeAdjustmentType = AdjustmentType.Indirect;
-                setupChange_CV.toeAdjustmentTool = AdjustmentTools.ToeLinkLength;
-                rowToeAngle.Properties.Value = null;
-                setupChange_CV.ToeChangeRequested = true;
-                rowToeAngle.Enabled = false;
-                checkedListBoxControlChanges.Items["Toe Change"].CheckState = CheckState.Unchecked;
-                checkedListBoxControlChanges.Items["Toe Change"].Enabled = false;
-                checkedListBoxControlConstraints.Items["Toe constant"].CheckState = CheckState.Unchecked;
-                checkedListBoxControlConstraints.Items["Toe constant"].Enabled = false;
-            }
-            else
-            {
-                setupChange_CV.deltaToeLinkLength = Convert.ToDouble(vGridControl1.GetCellValue(rowToeLinkLength, 1));
-                checkedListBoxControlChanges.Items["Toe Change"].Enabled = true;
-                checkedListBoxControlConstraints.Items["Toe constant"].Enabled = true;
-                setupChange_CV.ToeChangeRequested = false;
-                if (checkedListBoxControlChanges.Items["Toe Change"].CheckState == CheckState.Checked)
-                {
-                    rowToeAngle.Enabled = true;
-                }
-            }
+        //    if (PushrodLength != 0)
+        //    {
+        //        setupChange_CV.deltaPushrod = Convert.ToDouble(vGridControl1.GetCellValue(rowPushrod, 1));
+        //        rowRideHeight.Properties.Value = null;
+        //        rowRideHeight.Enabled = false;
+        //        rowDamperEyeToPerch.Properties.Value = null;
+        //        rowDamperEyeToPerch.Enabled = false;
+        //        rowRideHeightChangeMethod.Properties.Value = null;
+        //        rowRideHeightChangeMethod.Enabled = false;
+        //        setupChange_CV.RideHeightChanged = true;
+        //        setupChange_CV.rideheightAdjustmentType = AdjustmentType.Indirect;
+        //        setupChange_CV.rideheightAdjustmentTool = AdjustmentTools.PushrodLength;
+        //    }
+        //    else
+        //    {
+        //        setupChange_CV.deltaPushrod = Convert.ToDouble(vGridControl1.GetCellValue(rowPushrod, 1));
+        //        if (checkedListBoxControlChanges.Items["Ride Height Change"].CheckState == CheckState.Checked)
+        //        {
+        //            setupChange_CV.RideHeightChanged = false;
+        //            rowRideHeightChangeMethod.Enabled = true;
 
-            if (setupChange_CV.LinkLengthsWhichHaveNotChanged.Count == 0)
-            {
+        //        }
+        //    }
+
+
+        //    if (ToeLinkLength != 0)
+        //    {
+        //        setupChange_CV.deltaToeLinkLength = Convert.ToDouble(vGridControl1.GetCellValue(rowToeLinkLength, 1));
+        //        setupChange_CV.toeAdjustmentType = AdjustmentType.Indirect;
+        //        setupChange_CV.toeAdjustmentTool = AdjustmentTools.ToeLinkLength;
+        //        rowToeAngle.Properties.Value = null;
+        //        setupChange_CV.ToeChangeRequested = true;
+        //        rowToeAngle.Enabled = false;
+        //        checkedListBoxControlChanges.Items["Toe Change"].CheckState = CheckState.Unchecked;
+        //        checkedListBoxControlChanges.Items["Toe Change"].Enabled = false;
+        //        checkedListBoxControlConstraints.Items["Toe constant"].CheckState = CheckState.Unchecked;
+        //        checkedListBoxControlConstraints.Items["Toe constant"].Enabled = false;
+        //    }
+        //    else
+        //    {
+        //        setupChange_CV.deltaToeLinkLength = Convert.ToDouble(vGridControl1.GetCellValue(rowToeLinkLength, 1));
+        //        checkedListBoxControlChanges.Items["Toe Change"].Enabled = true;
+        //        checkedListBoxControlConstraints.Items["Toe constant"].Enabled = true;
+        //        setupChange_CV.ToeChangeRequested = false;
+        //        if (checkedListBoxControlChanges.Items["Toe Change"].CheckState == CheckState.Checked)
+        //        {
+        //            rowToeAngle.Enabled = true;
+        //        }
+        //    }
+
+        //    if (setupChange_CV.LinkLengthsWhichHaveNotChanged.Count == 0)
+        //    {
  
-                rowKPIAngle.Properties.Value = null;
-                rowKPICasterAdjusterSelect.Properties.Value = null;
-                rowCasterAngle.Properties.Value = null;
-                rowCasterAdjusterSelect.Properties.Value = null;
+        //        rowKPIAngle.Properties.Value = null;
+        //        rowKPICasterAdjusterSelect.Properties.Value = null;
+        //        rowCasterAngle.Properties.Value = null;
+        //        rowCasterAdjusterSelect.Properties.Value = null;
 
-                checkedListBoxControlChanges.Items["KPI Change"].CheckState = CheckState.Unchecked; 
-                checkedListBoxControlChanges.Items["Caster Change"].CheckState = CheckState.Unchecked; 
-                checkedListBoxControlConstraints.Items["KPI constant"].CheckState = CheckState.Unchecked; 
-                checkedListBoxControlConstraints.Items["Caster constant"].CheckState = CheckState.Unchecked; 
+        //        checkedListBoxControlChanges.Items["KPI Change"].CheckState = CheckState.Unchecked; 
+        //        checkedListBoxControlChanges.Items["Caster Change"].CheckState = CheckState.Unchecked; 
+        //        checkedListBoxControlConstraints.Items["KPI constant"].CheckState = CheckState.Unchecked; 
+        //        checkedListBoxControlConstraints.Items["Caster constant"].CheckState = CheckState.Unchecked; 
 
-                checkedListBoxControlChanges.Items["KPI Change"].Enabled = false;
-                checkedListBoxControlChanges.Items["Caster Change"].Enabled = false;
-                checkedListBoxControlConstraints.Items["KPI constant"].Enabled = false;
-                checkedListBoxControlConstraints.Items["Caster constant"].Enabled = false;
-
-
-            }
-            else
-            {
-                checkedListBoxControlChanges.Items["KPI Change"].Enabled = true;
-                checkedListBoxControlChanges.Items["Caster Change"].Enabled = true;
-                checkedListBoxControlConstraints.Items["KPI constant"].Enabled = true;
-                checkedListBoxControlConstraints.Items["Caster constant"].Enabled = true;
-            }
-
-            if (setupChange_CV.LinkLengthsWhichHaveNotChanged.Count == 3)
-            {
-
-            }
-
-            setupChange_CV.LinkLengthChanged = true;
+        //        checkedListBoxControlChanges.Items["KPI Change"].Enabled = false;
+        //        checkedListBoxControlChanges.Items["Caster Change"].Enabled = false;
+        //        checkedListBoxControlConstraints.Items["KPI constant"].Enabled = false;
+        //        checkedListBoxControlConstraints.Items["Caster constant"].Enabled = false;
 
 
+        //    }
+        //    else
+        //    {
+        //        checkedListBoxControlChanges.Items["KPI Change"].Enabled = true;
+        //        checkedListBoxControlChanges.Items["Caster Change"].Enabled = true;
+        //        checkedListBoxControlConstraints.Items["KPI constant"].Enabled = true;
+        //        checkedListBoxControlConstraints.Items["Caster constant"].Enabled = true;
+        //    }
+
+        //    if (setupChange_CV.LinkLengthsWhichHaveNotChanged.Count == 3)
+        //    {
+
+        //    }
+
+        //    setupChange_CV.LinkLengthChanged = true;
 
 
-            if (TopFrontArm == 0 && TopRearArm == 0 && BottomFrontArm == 0 && BottomRearArm == 0 && (ToeLinkLength == 0) && (PushrodLength == 0))
-            {
-                setupChange_CV.LinkLengthChanged = false;
-            }
-
-            if (setupChange_CV.LinkLengthsWhichHaveNotChanged.Count == 1)
-            {
-                checkedListBoxControlChanges.Items["KPI Change"].CheckState = CheckState.Unchecked;
-                checkedListBoxControlChanges.Items["Caster Change"].CheckState = CheckState.Unchecked;
-                checkedListBoxControlConstraints.Items["KPI constant"].CheckState = CheckState.Unchecked;
-                checkedListBoxControlConstraints.Items["Caster constant"].CheckState = CheckState.Unchecked;
-            }
 
 
-        }
+        //    if (TopFrontArm == 0 && TopRearArm == 0 && BottomFrontArm == 0 && BottomRearArm == 0 && (ToeLinkLength == 0) && (PushrodLength == 0))
+        //    {
+        //        setupChange_CV.LinkLengthChanged = false;
+        //    }
+
+        //    if (setupChange_CV.LinkLengthsWhichHaveNotChanged.Count == 1)
+        //    {
+        //        checkedListBoxControlChanges.Items["KPI Change"].CheckState = CheckState.Unchecked;
+        //        checkedListBoxControlChanges.Items["Caster Change"].CheckState = CheckState.Unchecked;
+        //        checkedListBoxControlConstraints.Items["KPI constant"].CheckState = CheckState.Unchecked;
+        //        checkedListBoxControlConstraints.Items["Caster constant"].CheckState = CheckState.Unchecked;
+        //    }
+
+
+        //}
 
         #endregion
 
@@ -1448,11 +1449,11 @@ namespace Coding_Attempt_with_GUI
                 RideHeightChangeRequested(Convert.ToDouble(vGridControl1.GetCellValue(vGridControl1.FocusedRow, vGridControl1.FocusedRecord)), AdjustmentType.Direct, AdjustmentTools.DirectValue);
             }
 
-            else if (vGridControl1.FocusedRow == rowTopFront || vGridControl1.FocusedRow == rowTopRear || vGridControl1.FocusedRow == rowBottomFron || vGridControl1.FocusedRow == rowBottomRear || vGridControl1.FocusedRow == rowPushrod || vGridControl1.FocusedRow == rowToeLinkLength)
-            {
+            //else if (vGridControl1.FocusedRow == rowTopFront || vGridControl1.FocusedRow == rowTopRear || vGridControl1.FocusedRow == rowBottomFron || vGridControl1.FocusedRow == rowBottomRear || vGridControl1.FocusedRow == rowPushrod || vGridControl1.FocusedRow == rowToeLinkLength)
+            //{
                 
-                LinkLengthChanged();
-            }
+            //    LinkLengthChanged();
+            //}
 
             else if (vGridControl1.FocusedRow == rowTopFrontArm)
             {
@@ -1642,29 +1643,6 @@ namespace Coding_Attempt_with_GUI
 
 
 
-        private void rIComboBoxAdjustmentTypeRideHeight_Leave(object sender, EventArgs e)
-        {
-            string adjType = Convert.ToString(vGridControl1.GetCellValue(vGridControl1.FocusedRow, vGridControl1.FocusedRecord));
-
-            if (vGridControl1.FocusedRow == rowRideHeightChangeMethod)
-            {
-                if (adjType == "Direct")
-                {
-                    rowRideHeight.Enabled = true;
-                    rowDamperEyeToPerch.Enabled = false;
-                    vGridControl1.SetCellValue(rowDamperEyeToPerch, 1, null);
-                    rowDamperEyeToPerch.Properties.Value = null;
-
-                }
-                else if (adjType == "Indirect")
-                {
-                    rowRideHeight.Enabled = false;
-                    rowDamperEyeToPerch.Enabled = true;
-                    vGridControl1.SetCellValue(rowRideHeight, 1, null);
-                    rowRideHeight.Properties.Value = null;
-                }
-            }
-        }
 
         #region Not Needed Now
         private void rIComboBoxAdjustmentTypeCamber_Leave(object sender, EventArgs e)
@@ -1699,6 +1677,34 @@ namespace Coding_Attempt_with_GUI
             //}
 
 
+        }
+
+
+        private void rIComboBoxAdjustmentTypeRideHeight_Leave(object sender, EventArgs e)
+        {
+            string adjType = Convert.ToString(vGridControl1.GetCellValue(vGridControl1.FocusedRow, vGridControl1.FocusedRecord));
+
+            if (vGridControl1.FocusedRow == rowRideHeightChangeMethod)
+            {
+                if (adjType == "Direct")
+                {
+                    rowRideHeight.Enabled = true;
+                    rowDamperEyeToPerch.Enabled = false;
+                    vGridControl1.SetCellValue(rowDamperEyeToPerch, 1, null);
+                    rowDamperEyeToPerch.Properties.Value = null;
+                    rowPushrod.Visible = false;
+                }
+                else if (adjType == "Indirect")
+                {
+                    rowRideHeight.Enabled = false;
+                    //rowDamperEyeToPerch.Enabled = true;
+                    vGridControl1.SetCellValue(rowRideHeight, 1, null);
+                    rowRideHeight.Properties.Value = null;
+                    rowPushrod.Visible = true;
+                    rowPushrod.Enabled = true;
+
+                }
+            }
         }
         #endregion
 

@@ -1406,7 +1406,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_RrCV">Rear Right corner Setup Change values requested by the user</param>
         /// <param name="_Vehicle"Object of the <see cref="Vehicle"/> class</param>
         public void SetupChange_PrimaryInvoker(SetupChange_CornerVariables _FlCV, SetupChange_CornerVariables _FrCV, SetupChange_CornerVariables _RlCV, SetupChange_CornerVariables _RrCV, Vehicle _Vehicle)
-        {
+         {
             int setupID = _Vehicle.vehicleSetupChange.SetupChangeID - 1;
 
             SetupChange_NoOfGenerations = 50;
@@ -1437,6 +1437,11 @@ namespace Coding_Attempt_with_GUI
             _Vehicle.oc_RL[0].sccvOP.deltaCaster *= -1;
             _Vehicle.oc_RR[0].sccvOP.deltaCaster *= -1;
 
+            ///<summary>
+            ///---IMPORTANT---
+            ///Remeber that for me Caster is negative because of CW rotation when viewed in Isometric view. But for some reason the Computed Caster is coming to be positive. 
+            ///So I am adding the negative sign below to all the 4 Casters of each corner.
+            /// </summary>
             _Vehicle.oc_FL[0].Caster *= -1;
             _Vehicle.oc_FR[0].Caster *= -1;
             _Vehicle.oc_RL[0].Caster *= -1;
@@ -1451,37 +1456,47 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Finding the final values of the Setup Parameters by adding the changes in the corresponding parameters which the user has requested</summary>
             SetupChange_AssignNewSetupValues(_Vehicle.oc_RR, _RrCV, ref FinalCamberRR, ref FinalToeRR, ref FinalCasterRR, ref FinalKPIRR);
 
+            ///<remarks>The <see cref="SC_OC_FL"/> object needs to be initialized as it needs to be passed as a parameter in the below line of code of Ride Height</remarks>
+            SC_OC_FL = new SetupChange_Outputs();
+            ///<remarks>The <see cref="SC_OC_FR"/> object needs to be initialized as it needs to be passed as a parameter in the below line of code of Ride Height</remarks>
+            SC_OC_FR = new SetupChange_Outputs();
+            ///<remarks>The <see cref="SC_OC_RL"/> object needs to be initialized as it needs to be passed as a parameter in the below line of code of Ride Height</remarks>
+            SC_OC_RL = new SetupChange_Outputs();
+            ///<remarks>The <see cref="SC_OC_RR"/> object needs to be initialized as it needs to be passed as a parameter in the below line of code of Ride Height</remarks>
+            SC_OC_RR = new SetupChange_Outputs();
+
 
             ///<summary>Performing a Primary Initialization Method so that, in case the Ride Height OR Pushrod is changed, it can be solved first</summary>
             if (_FlCV.RideHeightChanged || _FrCV.RideHeightChanged || _RlCV.RideHeightChanged || _RrCV.RideHeightChanged)
             {
                 Identifier = 1;
                 SetupChange_PrimaryInitializeMethod(_FlCV, _Vehicle.oc_FL /*,FinalCamberFL, FinalToeFL, FinalCasterFL, FinalKPIFL, Identifier, _Vehicle*/);
-                ///<remarks>The <see cref="SC_OC_FL"/> object needs to be initialized as it needs to be passed as a parameter in the below line of code</remarks>
-                SC_OC_FL = new SetupChange_Outputs();
                 FinalRideHeight_FL = SetupChange_GetRideHeightChange(_FlCV, SetupChange_DB_Master.AdjOptions.PushrodLine, SetupChange_DB_Master.AdjOptions.PushrodVector, _FlCV.rideheightAdjustmentType, _FlCV.rideheightAdjustmentTool, 1, out FinalPushrod_FL, SC_OC_FL);
 
                 Identifier = 2;
-                ///<remarks>The <see cref="SC_OC_FR"/> object needs to be initialized as it needs to be passed as a parameter in the below line of code</remarks>
-                SC_OC_FR = new SetupChange_Outputs();
                 SetupChange_PrimaryInitializeMethod(_FrCV, _Vehicle.oc_FR /*,FinalCamberFR, FinalToeFR, FinalCasterFR, FinalKPIFR, Identifier, _Vehicle*/);
                 FinalRideHeight_FR = SetupChange_GetRideHeightChange(_FrCV, SetupChange_DB_Master.AdjOptions.PushrodLine, SetupChange_DB_Master.AdjOptions.PushrodVector, _FrCV.rideheightAdjustmentType, _FrCV.rideheightAdjustmentTool, 2, out FinalPushrod_FR, SC_OC_FL);
 
                 Identifier = 3;
-                ///<remarks>The <see cref="SC_OC_RL"/> object needs to be initialized as it needs to be passed as a parameter in the below line of code</remarks>
-                SC_OC_RL = new SetupChange_Outputs();
                 SetupChange_PrimaryInitializeMethod(_RlCV, _Vehicle.oc_RL /*,FinalCamberRL, FinalToeRL, FinalCasterRL, FinalKPIRL, Identifier, _Vehicle*/);
                 FinalRideHeight_RL = SetupChange_GetRideHeightChange(_RlCV, SetupChange_DB_Master.AdjOptions.PushrodLine, SetupChange_DB_Master.AdjOptions.PushrodVector, _RlCV.rideheightAdjustmentType, _RlCV.rideheightAdjustmentTool, 3, out FinalPushrod_RL, SC_OC_FL);
 
                 Identifier = 4;
-                ///<remarks>The <see cref="SC_OC_RR"/> object needs to be initialized as it needs to be passed as a parameter in the below line of code</remarks>
-                SC_OC_RR = new SetupChange_Outputs();
                 SetupChange_PrimaryInitializeMethod(_RrCV, _Vehicle.oc_RR /*,FinalCamberRR, FinalToeRR, FinalCasterRR, FinalKPIRR, Identifier, _Vehicle*/);
                 FinalRideHeight_RR = SetupChange_GetRideHeightChange(_RrCV, SetupChange_DB_Master.AdjOptions.PushrodLine, SetupChange_DB_Master.AdjOptions.PushrodVector, _RrCV.rideheightAdjustmentType, _RrCV.rideheightAdjustmentTool, 4, out FinalPushrod_RR, SC_OC_FL);
 
                 SetupChange_RideHeightChange_Helper_SolveForRideHeightChanges(_Vehicle, FinalRideHeight_FL, FinalRideHeight_FR, FinalRideHeight_RL, FinalRideHeight_RR);
 
 
+                ///<summary>
+                ///---IMPORTANT---
+                ///Remeber that for me Caster is negative because of CW rotation when viewed in Isometric view. But for some reason the Computed Caster is coming to be positive. 
+                ///So I am adding the negative sign below to all the 4 Casters of each corner.
+                /// </summary>
+                _Vehicle.oc_FL[0].Caster *= -1;
+                _Vehicle.oc_FR[0].Caster *= -1;
+                _Vehicle.oc_RL[0].Caster *= -1;
+                _Vehicle.oc_RR[0].Caster *= -1;
 
                 SetupChange_EditSetupValues(_Vehicle.oc_FL[0], FinalCamberFL, FinalToeFL, FinalCasterFL, FinalKPIFL);
                 SetupChange_EditSetupValues(_Vehicle.oc_FR[0], FinalCamberFR, FinalToeFR, FinalCasterFR, FinalKPIFR);
