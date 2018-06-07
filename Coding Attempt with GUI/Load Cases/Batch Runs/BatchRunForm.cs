@@ -114,7 +114,7 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Method to get the Vehicle item from the <see cref="comboBoxVehicleBatchRun"/>. Called by the <see cref="comboBoxVehicleBatchRun_SelectedIndexChanged(object, EventArgs)"/> and the <see cref="SolveBatchRun_PrelimCheck(int)"/>
         /// </summary>
-        private void GetVehicleItem()
+        public void GetVehicleItem()
         {
             R1 = Kinematics_Software_New.AssignFormVariable();
 
@@ -261,6 +261,9 @@ namespace Coding_Attempt_with_GUI
         /// <param name="brIndex">Index of the <see cref="BatchRunGUI.batchRuns_GUI"/> obtained from the <see cref="Kinematics_Software_New.navBarGroupLoadCaseBatchRun"/></param>
         private void BatchRun_Solver(int brIndex)
         {
+
+            //ClearResidues(BatchRunloadCases[i_LoadCase].runResults_FL)
+
             ///<summary>Performing preliminary Operations similar to <see cref="Kinematics_Software_New.PreliminaryVehicleChecks"/></summary>
             BatchRun_PrelimOperations(brIndex);
             toolStripProgressBar1.ProgressBar.Increment(5);
@@ -274,6 +277,9 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Solving the Kinematics with a new Load Case every time </summary>
             for (int i_LoadCase = 0; i_LoadCase < BatchRunloadCases.Count; i_LoadCase++)
             {
+
+                ClearResidues(BatchRunloadCases[i_LoadCase].runResults_FL, BatchRunloadCases[i_LoadCase].runResults_FR, BatchRunloadCases[i_LoadCase].runResults_RL, BatchRunloadCases[i_LoadCase].runResults_RR);
+
                 ///<summary>Assigining the new LoadCase inside the <see cref="BatchRunloadCases"/> List</summary>
                 BatchRunGUI.batchRuns_GUI[brIndex].batchRunVehicle.vehicleLoadCase = null;
                 BatchRunGUI.batchRuns_GUI[brIndex].batchRunVehicle.vehicleLoadCase = BatchRunloadCases[i_LoadCase];
@@ -367,6 +373,16 @@ namespace Coding_Attempt_with_GUI
             toolStripProgressBar1.ProgressBar.Update();
         }
 
+        private void ClearResidues(BatchRunResults _resultsFL, BatchRunResults _resultsFR, BatchRunResults _resultsRL, BatchRunResults _resultsRR)
+        {
+            _resultsFL.ClearResidue();
+
+            _resultsFR.ClearResidue();
+
+            _resultsRL.ClearResidue();
+
+            _resultsRR.ClearResidue();
+        }
         /// <summary>
         /// Method to Calculate the Suspension Forces for each <see cref="OutputClass"/> object inside the  <see cref="List{T}"/> of <see cref="OutputClass"/> inside each of the corners of the <see cref="BatchRunGUI.batchRunVehicle"/>
         /// </summary>

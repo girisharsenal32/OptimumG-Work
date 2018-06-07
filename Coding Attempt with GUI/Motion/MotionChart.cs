@@ -24,12 +24,27 @@ namespace Coding_Attempt_with_GUI
         public MotionChart()
         {
             InitializeComponent();
+
         }
 
         public MotionChart(MotionGUI _motionGUI)
         {
             InitializeComponent();
             motionChart_MotionGUI = _motionGUI;
+
+            /////<summary>Creating 2 points in the chart right at the start. This is done so that if user creates a motion item but doesn't create any points on the chart, then the software won't fail</summary>
+            //AddPointToChart(chartControl1, 0, 0, 0);
+            //AddPointToChart(chartControl1, 100, 0, 0);
+            //motionChart_MotionGUI.MotionCreateOrEdit(false, DeflectionExists, SteeringExist);
+
+        }
+
+        private void MotionChart_Load(object sender, EventArgs e)
+        {
+            ///<summary>Creating 2 points in the chart right at the start. This is done so that if user creates a motion item but doesn't create any points on the chart, then the software won't fail</summary>
+            //AddPointToChart(chartControl1, 0, 0, 0);
+            //AddPointToChart(chartControl1, 100, 0, 0);
+            //motionChart_MotionGUI.MotionCreateOrEdit(false, DeflectionExists, SteeringExist);
         }
 
         public void AddPointToChart(ChartControl _chart, double _x, double _y, int _seriesNo)
@@ -123,6 +138,8 @@ namespace Coding_Attempt_with_GUI
         {
 
         }
+
+
 
         private void chartControl1_MouseUp(object sender, MouseEventArgs e)
         {

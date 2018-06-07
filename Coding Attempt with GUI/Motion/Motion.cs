@@ -110,7 +110,7 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
         #region Calculating the entire motion of the Vehicle
-        private void GetMotion()
+        public void GetMotion()
         {
             Final_WheelDeflectionsY = new List<double>();
             Final_WheelDeflectionsX = new List<double>();

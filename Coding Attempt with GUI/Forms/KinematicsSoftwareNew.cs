@@ -101,7 +101,7 @@ namespace Coding_Attempt_with_GUI
             {
                 MotionExists = false;
                 InputOriginY.Text = Convert.ToString(1033);
-                Motion.List_Motion.Insert(Motion.MotionCounter, new Motion());
+                //Motion.List_Motion.Insert(Motion.MotionCounter, new Motion());
                 ribbonPageGroupSetupChange.Visible = true;
                 ChangeTracker++;
                 //ribbonPageGroupRecalculate.Visible = true;
@@ -4473,8 +4473,11 @@ namespace Coding_Attempt_with_GUI
             BatchRunGUI.batchRuns_GUI[index].InitializeBatchRunForm(LoadCase.List_LoadCases);
             BatchRunGUI.batchRuns_GUI[index].HandleGUI(navBarControlSimulation, navBarGroupLoadCaseBatchRun);
 
-            BatchRunGUI.batchRuns_GUI[index].batchRun.ShowDialog();
+
             BatchRunGUI.batchRunBeingCreated = false;
+
+            BatchRunGUI.batchRuns_GUI[index].batchRun.ShowDialog();
+            //BatchRunGUI.batchRunBeingCreated = false;
 
             BatchRunGUI.Counter++;
 
@@ -6137,6 +6140,7 @@ namespace Coding_Attempt_with_GUI
 
             return _vehicleList;
         }
+
         /// <summary>
         /// Method to assign the Input Items
         /// </summary>
@@ -6693,11 +6697,22 @@ namespace Coding_Attempt_with_GUI
                     if (index != -1)
                     {
                         BatchRunGUI.batchRuns_GUI[i_BR].batchRun.comboBoxVehicleBatchRun.SelectedIndex = index;
+                        if (!BatchRunGUI.batchRunBeingCreated)
+                        {
+                            BatchRunGUI.batchRuns_GUI[i_BR].batchRun.GetVehicleItem();
+                        }
+
                     }
                     else
                     {
                         BatchRunGUI.batchRuns_GUI[i_BR].batchRun.comboBoxVehicleBatchRun.SelectedIndex = 0;
+                        if (!BatchRunGUI.batchRunBeingCreated)
+                        {
+                            BatchRunGUI.batchRuns_GUI[i_BR].batchRun.GetVehicleItem();
+                        }
                     }
+
+
                 }
             }
             ChangeTracker++;
@@ -7526,7 +7541,15 @@ namespace Coding_Attempt_with_GUI
             Motion.List_Motion.Insert(index, new Motion("Motion", index + 1));
 
             MotionGUI.List_MotionGUI[index].HandleGUI(navBarGroupMotion, navBarControlSimulation, this, index);
+
+            ///<summary>Creating 2 points in the chart right at the start. This is done so that if user creates a motion item but doesn't create any points on the chart, then the software won't fail</summary>
+            //MotionGUI.List_MotionGUI[index].motionGUI_MotionChart.AddPointToChart(MotionGUI.List_MotionGUI[index].motionGUI_MotionChart.chartControl1, 0, 0, 0);
+            //MotionGUI.List_MotionGUI[index].motionGUI_MotionChart.AddPointToChart(MotionGUI.List_MotionGUI[index].motionGUI_MotionChart.chartControl1, 100, 0, 0);
+
             Motion.List_Motion[index].GetWheelDeflectionAndSteer(MotionGUI.List_MotionGUI[index], true, false, false);
+
+            ///<summary>Calling this method so that if user creates a motion item but doesn't create any points on the chart, then the software won't fail</summary>
+            Motion.List_Motion[index].GetMotion();
 
             comboBoxSimulationMotionOperations();
             ComboboxBatchRunVehicleOperations();
@@ -7541,7 +7564,7 @@ namespace Coding_Attempt_with_GUI
         {
             R1.FormVariableUpdater();
             R1.comboBoxSimulationMotionOperations();
-            R1.ComboboxBatchRunVehicleOperations();
+            R1.comboBoxBatchRunMotionOperations();
         }
 
         #region Motion Combobox Operations

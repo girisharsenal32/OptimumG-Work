@@ -85,6 +85,48 @@ namespace Coding_Attempt_with_GUI
         public Dictionary<string, Dictionary<string, double>> OutputChannels = new Dictionary<string, Dictionary<string, double>>();
 
 
+
+
+        /// <summary>
+        /// This method is used to clear out every single list in this class. This is done to prevent Residue error
+        /// </summary>
+        public void ClearResidue()
+        {
+            LowerFront = new List<double>(); LowerRear = new List<double>(); UpperFront = new List<double>(); UpperRear = new List<double>(); PushRod = new List<double>(); ToeLink = new List<double>(); DamperForce = new List<double>(); ARBDroopLink = new List<double>();
+
+            LowerFront_x = new List<double>(); LowerFront_y = new List<double>(); LowerFront_z = new List<double>();
+
+            LowerRear_x = new List<double>(); LowerRear_y = new List<double>(); LowerRear_z = new List<double>();
+
+            UpperFront_x = new List<double>(); UpperFront_y = new List<double>(); UpperFront_z = new List<double>();
+
+            UpperRear_x = new List<double>(); UpperRear_y = new List<double>(); UpperRear_z = new List<double>();
+
+            PushRod_x = new List<double>(); PushRod_y = new List<double>(); PushRod_z = new List<double>();
+
+            DamperForce_x = new List<double>(); DamperForce_y = new List<double>(); DamperForce_z = new List<double>();
+
+            ARBDroopLink_x = new List<double>(); ARBDroopLink_y = new List<double>(); ARBDroopLink_z = new List<double>();
+
+            ToeLink_x = new List<double>(); ToeLink_y = new List<double>(); ToeLink_z = new List<double>();
+
+            UBJ_x = new List<double>(); UBJ_y = new List<double>(); UBJ_z = new List<double>();
+
+            LBJ_x = new List<double>(); LBJ_y = new List<double>(); LBJ_z = new List<double>();
+
+            RackInboard1_x = new List<double>(); RackInboard1_y = new List<double>(); RackInboard1_z = new List<double>();
+
+            RackInboard2_x = new List<double>(); RackInboard2_y = new List<double>(); RackInboard2_z = new List<double>();
+
+            ARBInboard1_x = new List<double>(); ARBInboard1_y = new List<double>(); ARBInboard1_z = new List<double>();
+
+            ARBInboard2_x = new List<double>(); ARBInboard2_y = new List<double>(); ARBInboard2_z = new List<double>();
+
+            SColumnInboard1_x = new List<double>(); SColumnInboard1_y = new List<double>(); SColumnInboard1_z = new List<double>();
+
+            SColumnInboard2_x = new List<double>(); SColumnInboard2_y = new List<double>(); SColumnInboard2_z = new List<double>();
+        }
+
         /// <summary>
         /// Method to assign the Suspension Forces to the Batch Run Results
         /// </summary>

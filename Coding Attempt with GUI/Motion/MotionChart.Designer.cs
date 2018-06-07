@@ -3249,6 +3249,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MotionChart";
             this.Size = new System.Drawing.Size(990, 685);
+            this.Load += new System.EventHandler(this.MotionChart_Load);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chartControl1_MouseClick);
             ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(lineSeriesView1)).EndInit();
