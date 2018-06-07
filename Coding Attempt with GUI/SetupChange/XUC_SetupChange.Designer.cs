@@ -30,10 +30,18 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(XUC_SetupChange));
-            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
+            this.document3 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager(this.components);
-            this.dockPanel1 = new DevExpress.XtraBars.Docking.DockPanel();
+            this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
+            this.bar1 = new DevExpress.XtraBars.Bar();
+            this.barButtonDisplayResults = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonHideResults = new DevExpress.XtraBars.BarButtonItem();
+            this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
+            this.dockPanelResults = new DevExpress.XtraBars.Docking.DockPanel();
             this.controlContainer2 = new DevExpress.XtraBars.Docking.ControlContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.SetupChangeRR_Results = new Coding_Attempt_with_GUI.XUC_SetupChangeResults();
@@ -58,11 +66,11 @@
             this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager(this.components);
             this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
             this.document2 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
-            this.document3 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
-            this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.document3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
-            this.dockPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
+            this.dockPanelResults.SuspendLayout();
             this.controlContainer2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panelContainer1.SuspendLayout();
@@ -79,9 +87,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.document2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.document3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
             this.SuspendLayout();
+            // 
+            // document3
+            // 
+            this.document3.Caption = "Results";
+            this.document3.ControlName = "dockPanel1";
+            this.document3.FloatLocation = new System.Drawing.Point(556, -693);
+            this.document3.FloatSize = new System.Drawing.Size(629, 468);
+            this.document3.Properties.AllowClose = DevExpress.Utils.DefaultBoolean.False;
+            this.document3.Properties.AllowFloat = DevExpress.Utils.DefaultBoolean.True;
+            this.document3.Properties.AllowFloatOnDoubleClick = DevExpress.Utils.DefaultBoolean.True;
             // 
             // document1
             // 
@@ -100,8 +116,9 @@
             | DevExpress.Utils.Controls.SnapMode.Screens) 
             | DevExpress.Utils.Controls.SnapMode.SnapForms)));
             this.dockManager1.Form = this;
+            this.dockManager1.MenuManager = this.barManager1;
             this.dockManager1.RootPanels.AddRange(new DevExpress.XtraBars.Docking.DockPanel[] {
-            this.dockPanel1,
+            this.dockPanelResults,
             this.panelContainer1});
             this.dockManager1.TopZIndexControls.AddRange(new string[] {
             "DevExpress.XtraBars.BarDockControl",
@@ -115,30 +132,103 @@
             "DevExpress.XtraBars.Navigation.TileNavPane",
             "DevExpress.XtraBars.TabFormControl"});
             // 
-            // dockPanel1
+            // barManager1
             // 
-            this.dockPanel1.Appearance.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.dockPanel1.Appearance.Options.UseFont = true;
-            this.dockPanel1.Controls.Add(this.controlContainer2);
-            this.dockPanel1.DockedAsTabbedDocument = true;
-            this.dockPanel1.FloatLocation = new System.Drawing.Point(1535, 529);
-            this.dockPanel1.FloatSize = new System.Drawing.Size(629, 468);
-            this.dockPanel1.ID = new System.Guid("6716d508-2a52-4fc8-b0c5-80f8c1876062");
-            this.dockPanel1.Image = ((System.Drawing.Image)(resources.GetObject("dockPanel1.Image")));
-            this.dockPanel1.Name = "dockPanel1";
-            this.dockPanel1.Options.ShowCloseButton = false;
-            this.dockPanel1.OriginalSize = new System.Drawing.Size(78, 200);
-            this.dockPanel1.SavedDock = DevExpress.XtraBars.Docking.DockingStyle.Left;
-            this.dockPanel1.SavedIndex = 0;
-            this.dockPanel1.Text = "Results";
-            this.dockPanel1.Click += new System.EventHandler(this.dockPanel1_Click);
+            this.barManager1.Bars.AddRange(new DevExpress.XtraBars.Bar[] {
+            this.bar1});
+            this.barManager1.DockControls.Add(this.barDockControlTop);
+            this.barManager1.DockControls.Add(this.barDockControlBottom);
+            this.barManager1.DockControls.Add(this.barDockControlLeft);
+            this.barManager1.DockControls.Add(this.barDockControlRight);
+            this.barManager1.DockManager = this.dockManager1;
+            this.barManager1.Form = this;
+            this.barManager1.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
+            this.barButtonHideResults,
+            this.barButtonDisplayResults});
+            this.barManager1.MaxItemId = 3;
+            // 
+            // bar1
+            // 
+            this.bar1.BarName = "Tools";
+            this.bar1.DockCol = 0;
+            this.bar1.DockRow = 0;
+            this.bar1.DockStyle = DevExpress.XtraBars.BarDockStyle.Top;
+            this.bar1.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
+            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonDisplayResults),
+            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonHideResults)});
+            this.bar1.Text = "Tools";
+            // 
+            // barButtonDisplayResults
+            // 
+            this.barButtonDisplayResults.Caption = "Display Results";
+            this.barButtonDisplayResults.Id = 2;
+            this.barButtonDisplayResults.Name = "barButtonDisplayResults";
+            this.barButtonDisplayResults.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonDisplayResults_ItemClick);
+            // 
+            // barButtonHideResults
+            // 
+            this.barButtonHideResults.Caption = "Hide Results";
+            this.barButtonHideResults.Id = 1;
+            this.barButtonHideResults.Name = "barButtonHideResults";
+            this.barButtonHideResults.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonHideResults_ItemClick);
+            // 
+            // barDockControlTop
+            // 
+            this.barDockControlTop.CausesValidation = false;
+            this.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.barDockControlTop.Location = new System.Drawing.Point(0, 0);
+            this.barDockControlTop.Manager = this.barManager1;
+            this.barDockControlTop.Size = new System.Drawing.Size(1634, 29);
+            // 
+            // barDockControlBottom
+            // 
+            this.barDockControlBottom.CausesValidation = false;
+            this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.barDockControlBottom.Location = new System.Drawing.Point(0, 839);
+            this.barDockControlBottom.Manager = this.barManager1;
+            this.barDockControlBottom.Size = new System.Drawing.Size(1634, 0);
+            // 
+            // barDockControlLeft
+            // 
+            this.barDockControlLeft.CausesValidation = false;
+            this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
+            this.barDockControlLeft.Location = new System.Drawing.Point(0, 29);
+            this.barDockControlLeft.Manager = this.barManager1;
+            this.barDockControlLeft.Size = new System.Drawing.Size(0, 810);
+            // 
+            // barDockControlRight
+            // 
+            this.barDockControlRight.CausesValidation = false;
+            this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
+            this.barDockControlRight.Location = new System.Drawing.Point(1634, 29);
+            this.barDockControlRight.Manager = this.barManager1;
+            this.barDockControlRight.Size = new System.Drawing.Size(0, 810);
+            // 
+            // dockPanelResults
+            // 
+            this.dockPanelResults.Appearance.Font = new System.Drawing.Font("Tahoma", 9F);
+            this.dockPanelResults.Appearance.Options.UseFont = true;
+            this.dockPanelResults.Controls.Add(this.controlContainer2);
+            this.dockPanelResults.Dock = DevExpress.XtraBars.Docking.DockingStyle.Float;
+            this.dockPanelResults.FloatLocation = new System.Drawing.Point(530, -750);
+            this.dockPanelResults.FloatSize = new System.Drawing.Size(629, 468);
+            this.dockPanelResults.ID = new System.Guid("6716d508-2a52-4fc8-b0c5-80f8c1876062");
+            this.dockPanelResults.Image = ((System.Drawing.Image)(resources.GetObject("dockPanelResults.Image")));
+            this.dockPanelResults.Location = new System.Drawing.Point(0, 0);
+            this.dockPanelResults.Name = "dockPanelResults";
+            this.dockPanelResults.Options.ShowCloseButton = false;
+            this.dockPanelResults.OriginalSize = new System.Drawing.Size(78, 200);
+            this.dockPanelResults.SavedIndex = 0;
+            this.dockPanelResults.SavedMdiDocument = true;
+            this.dockPanelResults.Size = new System.Drawing.Size(629, 468);
+            this.dockPanelResults.Text = "Results";
             // 
             // controlContainer2
             // 
             this.controlContainer2.Controls.Add(this.tableLayoutPanel1);
-            this.controlContainer2.Location = new System.Drawing.Point(0, 0);
+            this.controlContainer2.Location = new System.Drawing.Point(4, 24);
             this.controlContainer2.Name = "controlContainer2";
-            this.controlContainer2.Size = new System.Drawing.Size(227, 811);
+            this.controlContainer2.Size = new System.Drawing.Size(621, 440);
             this.controlContainer2.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -156,31 +246,31 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(227, 811);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(621, 440);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // SetupChangeRR_Results
             // 
             this.SetupChangeRR_Results.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SetupChangeRR_Results.Location = new System.Drawing.Point(116, 408);
+            this.SetupChangeRR_Results.Location = new System.Drawing.Point(313, 223);
             this.SetupChangeRR_Results.Name = "SetupChangeRR_Results";
-            this.SetupChangeRR_Results.Size = new System.Drawing.Size(108, 400);
+            this.SetupChangeRR_Results.Size = new System.Drawing.Size(305, 214);
             this.SetupChangeRR_Results.TabIndex = 3;
             // 
             // SetupChangeRL_Results
             // 
             this.SetupChangeRL_Results.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SetupChangeRL_Results.Location = new System.Drawing.Point(3, 408);
+            this.SetupChangeRL_Results.Location = new System.Drawing.Point(3, 223);
             this.SetupChangeRL_Results.Name = "SetupChangeRL_Results";
-            this.SetupChangeRL_Results.Size = new System.Drawing.Size(107, 400);
+            this.SetupChangeRL_Results.Size = new System.Drawing.Size(304, 214);
             this.SetupChangeRL_Results.TabIndex = 2;
             // 
             // SetupChangeFR_Results
             // 
             this.SetupChangeFR_Results.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SetupChangeFR_Results.Location = new System.Drawing.Point(116, 3);
+            this.SetupChangeFR_Results.Location = new System.Drawing.Point(313, 3);
             this.SetupChangeFR_Results.Name = "SetupChangeFR_Results";
-            this.SetupChangeFR_Results.Size = new System.Drawing.Size(108, 399);
+            this.SetupChangeFR_Results.Size = new System.Drawing.Size(305, 214);
             this.SetupChangeFR_Results.TabIndex = 1;
             // 
             // SetupChangeFL_Results
@@ -188,7 +278,7 @@
             this.SetupChangeFL_Results.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetupChangeFL_Results.Location = new System.Drawing.Point(3, 3);
             this.SetupChangeFL_Results.Name = "SetupChangeFL_Results";
-            this.SetupChangeFL_Results.Size = new System.Drawing.Size(107, 399);
+            this.SetupChangeFL_Results.Size = new System.Drawing.Size(304, 214);
             this.SetupChangeFL_Results.TabIndex = 0;
             // 
             // panelContainer1
@@ -198,10 +288,10 @@
             this.panelContainer1.Dock = DevExpress.XtraBars.Docking.DockingStyle.Left;
             this.panelContainer1.FloatSize = new System.Drawing.Size(411, 206);
             this.panelContainer1.ID = new System.Guid("39ac1302-c696-4b83-8dc6-10104b4d5691");
-            this.panelContainer1.Location = new System.Drawing.Point(0, 0);
+            this.panelContainer1.Location = new System.Drawing.Point(0, 29);
             this.panelContainer1.Name = "panelContainer1";
-            this.panelContainer1.OriginalSize = new System.Drawing.Size(1401, 200);
-            this.panelContainer1.Size = new System.Drawing.Size(1401, 839);
+            this.panelContainer1.OriginalSize = new System.Drawing.Size(1569, 200);
+            this.panelContainer1.Size = new System.Drawing.Size(1569, 810);
             this.panelContainer1.Text = "panelContainer1";
             // 
             // panelContainer2
@@ -214,8 +304,8 @@
             this.panelContainer2.ID = new System.Guid("2279a82a-96a3-41bb-a674-e4c3b9dad113");
             this.panelContainer2.Location = new System.Drawing.Point(0, 0);
             this.panelContainer2.Name = "panelContainer2";
-            this.panelContainer2.OriginalSize = new System.Drawing.Size(1556, 420);
-            this.panelContainer2.Size = new System.Drawing.Size(1401, 420);
+            this.panelContainer2.OriginalSize = new System.Drawing.Size(1634, 405);
+            this.panelContainer2.Size = new System.Drawing.Size(1569, 405);
             this.panelContainer2.Text = "panelContainer2";
             // 
             // dockPanelFL
@@ -228,8 +318,8 @@
             this.dockPanelFL.Location = new System.Drawing.Point(0, 0);
             this.dockPanelFL.Name = "dockPanelFL";
             this.dockPanelFL.Options.ShowCloseButton = false;
-            this.dockPanelFL.OriginalSize = new System.Drawing.Size(778, 420);
-            this.dockPanelFL.Size = new System.Drawing.Size(701, 420);
+            this.dockPanelFL.OriginalSize = new System.Drawing.Size(818, 405);
+            this.dockPanelFL.Size = new System.Drawing.Size(785, 405);
             this.dockPanelFL.Text = "Front Left Inputs";
             // 
             // dockPanel1_Container
@@ -237,7 +327,7 @@
             this.dockPanel1_Container.Controls.Add(this.SetupChangeFL);
             this.dockPanel1_Container.Location = new System.Drawing.Point(4, 23);
             this.dockPanel1_Container.Name = "dockPanel1_Container";
-            this.dockPanel1_Container.Size = new System.Drawing.Size(692, 392);
+            this.dockPanel1_Container.Size = new System.Drawing.Size(776, 377);
             this.dockPanel1_Container.TabIndex = 0;
             // 
             // SetupChangeFL
@@ -246,7 +336,7 @@
             this.SetupChangeFL.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetupChangeFL.Location = new System.Drawing.Point(0, 0);
             this.SetupChangeFL.Name = "SetupChangeFL";
-            this.SetupChangeFL.Size = new System.Drawing.Size(692, 392);
+            this.SetupChangeFL.Size = new System.Drawing.Size(776, 377);
             this.SetupChangeFL.TabIndex = 0;
             // 
             // dockPanelFR
@@ -257,11 +347,11 @@
             this.dockPanelFR.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
             this.dockPanelFR.FloatVertical = true;
             this.dockPanelFR.ID = new System.Guid("37a5b0e3-4dc6-4a74-ba7b-b7dbf49ccf63");
-            this.dockPanelFR.Location = new System.Drawing.Point(701, 0);
+            this.dockPanelFR.Location = new System.Drawing.Point(785, 0);
             this.dockPanelFR.Name = "dockPanelFR";
             this.dockPanelFR.Options.ShowCloseButton = false;
-            this.dockPanelFR.OriginalSize = new System.Drawing.Size(778, 420);
-            this.dockPanelFR.Size = new System.Drawing.Size(700, 420);
+            this.dockPanelFR.OriginalSize = new System.Drawing.Size(816, 405);
+            this.dockPanelFR.Size = new System.Drawing.Size(784, 405);
             this.dockPanelFR.Text = "Front Right Inputs";
             // 
             // dockPanel2_Container
@@ -269,7 +359,7 @@
             this.dockPanel2_Container.Controls.Add(this.SetupChangeFR);
             this.dockPanel2_Container.Location = new System.Drawing.Point(4, 25);
             this.dockPanel2_Container.Name = "dockPanel2_Container";
-            this.dockPanel2_Container.Size = new System.Drawing.Size(691, 390);
+            this.dockPanel2_Container.Size = new System.Drawing.Size(775, 375);
             this.dockPanel2_Container.TabIndex = 0;
             // 
             // SetupChangeFR
@@ -278,7 +368,7 @@
             this.SetupChangeFR.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetupChangeFR.Location = new System.Drawing.Point(0, 0);
             this.SetupChangeFR.Name = "SetupChangeFR";
-            this.SetupChangeFR.Size = new System.Drawing.Size(691, 390);
+            this.SetupChangeFR.Size = new System.Drawing.Size(775, 375);
             this.SetupChangeFR.TabIndex = 0;
             // 
             // panelContainer3
@@ -288,10 +378,10 @@
             this.panelContainer3.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
             this.panelContainer3.FloatVertical = true;
             this.panelContainer3.ID = new System.Guid("f8799b82-9cf1-4495-b94f-723f52a88387");
-            this.panelContainer3.Location = new System.Drawing.Point(0, 420);
+            this.panelContainer3.Location = new System.Drawing.Point(0, 405);
             this.panelContainer3.Name = "panelContainer3";
-            this.panelContainer3.OriginalSize = new System.Drawing.Size(1556, 419);
-            this.panelContainer3.Size = new System.Drawing.Size(1401, 419);
+            this.panelContainer3.OriginalSize = new System.Drawing.Size(1634, 405);
+            this.panelContainer3.Size = new System.Drawing.Size(1569, 405);
             this.panelContainer3.Text = "panelContainer3";
             // 
             // dockPanelRL
@@ -303,8 +393,8 @@
             this.dockPanelRL.Location = new System.Drawing.Point(0, 0);
             this.dockPanelRL.Name = "dockPanelRL";
             this.dockPanelRL.Options.ShowCloseButton = false;
-            this.dockPanelRL.OriginalSize = new System.Drawing.Size(778, 419);
-            this.dockPanelRL.Size = new System.Drawing.Size(701, 419);
+            this.dockPanelRL.OriginalSize = new System.Drawing.Size(818, 405);
+            this.dockPanelRL.Size = new System.Drawing.Size(785, 405);
             this.dockPanelRL.Text = "Rear Left Inputs";
             // 
             // dockPanel3_Container
@@ -312,7 +402,7 @@
             this.dockPanel3_Container.Controls.Add(this.SetupChangeRL);
             this.dockPanel3_Container.Location = new System.Drawing.Point(4, 23);
             this.dockPanel3_Container.Name = "dockPanel3_Container";
-            this.dockPanel3_Container.Size = new System.Drawing.Size(692, 392);
+            this.dockPanel3_Container.Size = new System.Drawing.Size(776, 378);
             this.dockPanel3_Container.TabIndex = 0;
             // 
             // SetupChangeRL
@@ -321,7 +411,7 @@
             this.SetupChangeRL.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetupChangeRL.Location = new System.Drawing.Point(0, 0);
             this.SetupChangeRL.Name = "SetupChangeRL";
-            this.SetupChangeRL.Size = new System.Drawing.Size(692, 392);
+            this.SetupChangeRL.Size = new System.Drawing.Size(776, 378);
             this.SetupChangeRL.TabIndex = 0;
             // 
             // dockPanelRR
@@ -329,11 +419,11 @@
             this.dockPanelRR.Controls.Add(this.controlContainer1);
             this.dockPanelRR.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
             this.dockPanelRR.ID = new System.Guid("b2cfa4f9-e93e-4646-9e3c-7113d10dd2f6");
-            this.dockPanelRR.Location = new System.Drawing.Point(701, 0);
+            this.dockPanelRR.Location = new System.Drawing.Point(785, 0);
             this.dockPanelRR.Name = "dockPanelRR";
             this.dockPanelRR.Options.ShowCloseButton = false;
-            this.dockPanelRR.OriginalSize = new System.Drawing.Size(778, 419);
-            this.dockPanelRR.Size = new System.Drawing.Size(700, 419);
+            this.dockPanelRR.OriginalSize = new System.Drawing.Size(816, 405);
+            this.dockPanelRR.Size = new System.Drawing.Size(784, 405);
             this.dockPanelRR.Text = "Rear Right Inputs";
             // 
             // controlContainer1
@@ -341,7 +431,7 @@
             this.controlContainer1.Controls.Add(this.SetupChangeRR);
             this.controlContainer1.Location = new System.Drawing.Point(4, 23);
             this.controlContainer1.Name = "controlContainer1";
-            this.controlContainer1.Size = new System.Drawing.Size(691, 392);
+            this.controlContainer1.Size = new System.Drawing.Size(775, 378);
             this.controlContainer1.TabIndex = 0;
             // 
             // SetupChangeRR
@@ -350,26 +440,20 @@
             this.SetupChangeRR.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SetupChangeRR.Location = new System.Drawing.Point(0, 0);
             this.SetupChangeRR.Name = "SetupChangeRR";
-            this.SetupChangeRR.Size = new System.Drawing.Size(691, 392);
+            this.SetupChangeRR.Size = new System.Drawing.Size(775, 378);
             this.SetupChangeRR.TabIndex = 0;
             // 
             // documentManager1
             // 
             this.documentManager1.ContainerControl = this;
+            this.documentManager1.MenuManager = this.barManager1;
             this.documentManager1.View = this.tabbedView1;
             this.documentManager1.ViewCollection.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseView[] {
             this.tabbedView1});
             // 
             // tabbedView1
             // 
-            this.tabbedView1.DocumentGroups.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup[] {
-            this.documentGroup1});
-            this.tabbedView1.Documents.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseDocument[] {
-            this.document3});
             this.tabbedView1.RootContainer.Element = null;
-            dockingContainer1.Element = this.documentGroup1;
-            this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
-            dockingContainer1});
             // 
             // document2
             // 
@@ -378,32 +462,23 @@
             this.document2.FloatLocation = new System.Drawing.Point(1247, 529);
             this.document2.FloatSize = new System.Drawing.Size(629, 468);
             // 
-            // document3
-            // 
-            this.document3.Caption = "Results";
-            this.document3.ControlName = "dockPanel1";
-            this.document3.FloatLocation = new System.Drawing.Point(1535, 529);
-            this.document3.FloatSize = new System.Drawing.Size(629, 468);
-            this.document3.Properties.AllowClose = DevExpress.Utils.DefaultBoolean.False;
-            this.document3.Properties.AllowFloat = DevExpress.Utils.DefaultBoolean.True;
-            this.document3.Properties.AllowFloatOnDoubleClick = DevExpress.Utils.DefaultBoolean.True;
-            // 
-            // documentGroup1
-            // 
-            this.documentGroup1.Items.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document[] {
-            this.document3});
-            // 
             // XUC_SetupChange
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panelContainer1);
+            this.Controls.Add(this.barDockControlLeft);
+            this.Controls.Add(this.barDockControlRight);
+            this.Controls.Add(this.barDockControlBottom);
+            this.Controls.Add(this.barDockControlTop);
             this.Name = "XUC_SetupChange";
             this.Size = new System.Drawing.Size(1634, 839);
             this.Load += new System.EventHandler(this.XUC_SetupChange_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.document3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).EndInit();
-            this.dockPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
+            this.dockPanelResults.ResumeLayout(false);
             this.controlContainer2.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panelContainer1.ResumeLayout(false);
@@ -420,9 +495,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.document2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.document3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -442,7 +516,7 @@
         public XUC_SetupChange_Children SetupChangeRL;
         public XUC_SetupChange_Children SetupChangeRR;
         private DevExpress.XtraBars.Docking.DockPanel panelContainer2;
-        private DevExpress.XtraBars.Docking.DockPanel dockPanel1;
+        private DevExpress.XtraBars.Docking.DockPanel dockPanelResults;
         private DevExpress.XtraBars.Docking.ControlContainer controlContainer2;
         private DevExpress.XtraBars.Docking2010.DocumentManager documentManager1;
         private DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView tabbedView1;
@@ -454,7 +528,14 @@
         public XUC_SetupChangeResults SetupChangeFR_Results;
         public XUC_SetupChangeResults SetupChangeFL_Results;
         private DevExpress.XtraBars.Docking2010.Views.Tabbed.Document document2;
-        private DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup documentGroup1;
         private DevExpress.XtraBars.Docking2010.Views.Tabbed.Document document3;
+        private DevExpress.XtraBars.BarDockControl barDockControlLeft;
+        private DevExpress.XtraBars.BarManager barManager1;
+        private DevExpress.XtraBars.Bar bar1;
+        private DevExpress.XtraBars.BarDockControl barDockControlTop;
+        private DevExpress.XtraBars.BarDockControl barDockControlBottom;
+        private DevExpress.XtraBars.BarDockControl barDockControlRight;
+        private DevExpress.XtraBars.BarButtonItem barButtonHideResults;
+        private DevExpress.XtraBars.BarButtonItem barButtonDisplayResults;
     }
 }

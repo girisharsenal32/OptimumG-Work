@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using DevExpress.XtraVerticalGrid;
+using DevExpress.XtraBars.Docking;
+
 
 namespace Coding_Attempt_with_GUI
 {
@@ -32,6 +34,9 @@ namespace Coding_Attempt_with_GUI
             // Handling the QueryControl event that will populate all automatically generated Documents
             this.tabbedView1.QueryControl += tabbedView1_QueryControl;
             _r1 = this;
+            dockPanelResults.Visibility = DockVisibility.Hidden;
+            //panelContainer1.Dock = DockingStyle.Fill;
+
         }
 
         public void AssignCurrentUserControlState()
@@ -49,11 +54,6 @@ namespace Coding_Attempt_with_GUI
         void tabbedView1_QueryControl(object sender, DevExpress.XtraBars.Docking2010.Views.QueryControlEventArgs e)
         {
 
-
-        }
-
-        private void dockPanel1_Click(object sender, EventArgs e)
-        {
 
         }
 
@@ -125,11 +125,29 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Plotting the User's and Calculated Bump Steer Curve. If they are not requested, their count will be zero and it will be taken care of </summary>
             SetupChangeRR_Results.PlotBumpSteerGraph(setup_OP_RR, cvRR, SetupChangeRR_Results);
 
-
-
+            ///<summary>Displaying the Results Panel in a Floating Style</summary>
+            FloatOutputDockPanel();
 
         }
 
+        internal void FloatOutputDockPanel()
+        {
+            dockPanelResults.Show();
+            dockPanelResults.Dock = DockingStyle.Float;
+        }
 
+        private void barButtonDisplayResults_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            dockPanelResults.Visibility = DockVisibility.Visible;
+            dockPanelResults.DockedAsTabbedDocument = false;
+            dockPanelResults.Dock = DockingStyle.Float;
+            //dockPanelResults.MakeFloat(new Point();
+
+        }
+
+        private void barButtonHideResults_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            dockPanelResults.Visibility = DockVisibility.Hidden;
+        }
     }
 }
