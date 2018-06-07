@@ -1626,7 +1626,7 @@ namespace Coding_Attempt_with_GUI
                 
             }
         }
-        #endregion 
+        #endregion
         #endregion
 
 
@@ -1640,9 +1640,31 @@ namespace Coding_Attempt_with_GUI
 
 
 
-        
 
 
+        private void rIComboBoxAdjustmentTypeRideHeight_Leave(object sender, EventArgs e)
+        {
+            string adjType = Convert.ToString(vGridControl1.GetCellValue(vGridControl1.FocusedRow, vGridControl1.FocusedRecord));
+
+            if (vGridControl1.FocusedRow == rowRideHeightChangeMethod)
+            {
+                if (adjType == "Direct")
+                {
+                    rowRideHeight.Enabled = true;
+                    rowDamperEyeToPerch.Enabled = false;
+                    vGridControl1.SetCellValue(rowDamperEyeToPerch, 1, null);
+                    rowDamperEyeToPerch.Properties.Value = null;
+
+                }
+                else if (adjType == "Indirect")
+                {
+                    rowRideHeight.Enabled = false;
+                    rowDamperEyeToPerch.Enabled = true;
+                    vGridControl1.SetCellValue(rowRideHeight, 1, null);
+                    rowRideHeight.Properties.Value = null;
+                }
+            }
+        }
 
         #region Not Needed Now
         private void rIComboBoxAdjustmentTypeCamber_Leave(object sender, EventArgs e)
@@ -1677,30 +1699,6 @@ namespace Coding_Attempt_with_GUI
             //}
 
 
-        }
-
-        private void rIComboBoxAdjustmentTypeRideHeight_Leave(object sender, EventArgs e)
-        {
-            string adjType = Convert.ToString(vGridControl1.GetCellValue(vGridControl1.FocusedRow, vGridControl1.FocusedRecord));
-
-            if (vGridControl1.FocusedRow == rowRideHeightChangeMethod)
-            {
-                if (adjType == "Direct")
-                {
-                    rowRideHeight.Enabled = true;
-                    rowDamperEyeToPerch.Enabled = false;
-                    vGridControl1.SetCellValue(rowDamperEyeToPerch, 1, null);
-                    rowDamperEyeToPerch.Properties.Value = null;
-
-                }
-                else if (adjType == "Indirect")
-                {
-                    rowRideHeight.Enabled = false;
-                    rowDamperEyeToPerch.Enabled = true;
-                    vGridControl1.SetCellValue(rowRideHeight, 1, null);
-                    rowRideHeight.Properties.Value = null;
-                }
-            }
         }
         #endregion
 
