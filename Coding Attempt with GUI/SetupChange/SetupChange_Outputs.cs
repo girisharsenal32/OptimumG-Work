@@ -435,7 +435,7 @@ namespace Coding_Attempt_with_GUI
         {
             Ratio = _ratio;
 
-            Percentage = Ratio * 100;
+            Percentage = Math.Round(Ratio * 100, 3);
 
             ConvergenceStatus = Percentage.ToString();
         }

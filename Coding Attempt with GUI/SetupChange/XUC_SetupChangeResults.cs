@@ -162,32 +162,38 @@ namespace Coding_Attempt_with_GUI
         {
             if (_cv.monitorBumpSteer || _cv.BumpSteerChangeRequested) 
             {
-                ///<summary>If the Bump Steer Change is requested then setting the Enaled status to true so that the user can scroll and zoom the Bump Steer Contro </summary>
-                _resultsGUI.bumpSteerCurve1.Enabled = true;
-
-                _resultsGUI.bumpSteerCurve1.chartControl1.Series[0].Points.Clear();
-
-                ///<summary>Setting the <see cref="BumpSteerCurve.IsOutputChart"/> value to true to teach the CHart that the Output is calling it. 
-                ///---IMPORTANT--- This is an important step so that the accidentally clicking the control doesn;t create a series point
+                ///<summary>
+                ///Ensuring that the <see cref="SetupChange_Outputs.Calc_BumpSteerChart"/> is not null
+                ///Basically this ensures that the if the user Ran a simulation with Bump Steer Change but didn't create a BS Chart the software doesnt't fail
                 /// </summary>
-                _resultsGUI.bumpSteerCurve1.IsOutputChart = true;
-
-                ///<summary>Plotting the Computed Bump Steer Chart</summary>
-                for (int i = 0; i < _setupOP.Calc_BumpSteerChart.Count; i++)
+                if (_setupOP.Calc_BumpSteerChart != null)
                 {
-                    _resultsGUI.bumpSteerCurve1.AddPointToChart(_resultsGUI.bumpSteerCurve1.chartControl1, _cv.BS_Params.WheelDeflections[_cv.BS_Params.HighestBumpindex + i], _setupOP.Calc_BumpSteerChart[i].Degrees, 0, true);
+                    ///<summary>If the Bump Steer Change is requested then setting the Enaled status to true so that the user can scroll and zoom the Bump Steer Contro </summary>
+                    _resultsGUI.bumpSteerCurve1.Enabled = true;
+
+                    _resultsGUI.bumpSteerCurve1.chartControl1.Series[0].Points.Clear();
+
+                    ///<summary>Setting the <see cref="BumpSteerCurve.IsOutputChart"/> value to true to teach the CHart that the Output is calling it. 
+                    ///---IMPORTANT--- This is an important step so that the accidentally clicking the control doesn;t create a series point
+                    /// </summary>
+                    _resultsGUI.bumpSteerCurve1.IsOutputChart = true;
+
+                    for (int i = 0; i < _setupOP.Req_BumpSteerChart.Count; i++)
+                    {
+                        _resultsGUI.bumpSteerCurve1.AddPointToChart(_resultsGUI.bumpSteerCurve1.chartControl1, _cv.BS_Params.WheelDeflections[_cv.BS_Params.HighestBumpindex + i], _setupOP.Req_BumpSteerChart[i].Degrees, 0, true);
+                    }
+
+                    _resultsGUI.bumpSteerCurve1.AddSeriesToChart(_resultsGUI.bumpSteerCurve1.chartControl1);
+
+                    ///<summary>Plotting the Computed Bump Steer Chart</summary>
+                    for (int i = 0; i < _setupOP.Calc_BumpSteerChart.Count; i++)
+                    {
+                        _resultsGUI.bumpSteerCurve1.AddPointToChart(_resultsGUI.bumpSteerCurve1.chartControl1, _cv.BS_Params.WheelDeflections[_cv.BS_Params.HighestBumpindex + i], _setupOP.Calc_BumpSteerChart[i].Degrees, 1, true);
+                    }
+
+
+                    _resultsGUI.bumpSteerCurve1.Enabled = true; 
                 }
-
-                _resultsGUI.bumpSteerCurve1.AddSeriesToChart(_resultsGUI.bumpSteerCurve1.chartControl1);
-
-                
-
-                for (int i = 0; i < _setupOP.Req_BumpSteerChart.Count; i++)
-                {
-                    _resultsGUI.bumpSteerCurve1.AddPointToChart(_resultsGUI.bumpSteerCurve1.chartControl1, _cv.BS_Params.WheelDeflections[_cv.BS_Params.HighestBumpindex + i], _setupOP.Req_BumpSteerChart[i].Degrees, 1, true);
-                }
-
-                _resultsGUI.bumpSteerCurve1.Enabled = true;
             }
 
         }

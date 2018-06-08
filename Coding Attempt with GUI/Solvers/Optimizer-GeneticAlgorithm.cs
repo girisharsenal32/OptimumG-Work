@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
@@ -10,6 +11,8 @@ using devDept.Eyeshot.Entities;
 using devDept.Geometry;
 using MathNet.Spatial.Units;
 using MathNet.Numerics.LinearAlgebra;
+
+
 
 namespace Coding_Attempt_with_GUI
 {
@@ -689,7 +692,20 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Running the Algorithm</summary>
             if (GetChromsomeLength() != 0)
             {
-                GA.Run(Terminate);
+                ///<summary>
+                ///The IF statement is to ensure that the if a Bump Steer Change or Monitor Bump Steer is issued then the Wheel Deflection is not null and not 0
+                ///So basically this is to ensure that the user ( after selecting Change/Monitor Bump Steer also either clicks the Min BumpSteer Option or creates a curve)
+                /// </summary>
+                if ((Setup_CV.BumpSteerChangeRequested || Setup_CV.monitorBumpSteer) && (Setup_CV.BS_Params.WheelDeflections != null) && (Setup_CV.BS_Params.WheelDeflections.Count != 0))  
+                {
+                    GA.Run(Terminate); 
+                }
+                else
+                {
+                    MessageBox.Show("Bump Steer Curve Not Initialized");
+
+                }
+                
             }
             else
             {
@@ -813,7 +829,7 @@ namespace Coding_Attempt_with_GUI
         /// <returns>Returns <see cref=Boolean"/> to determine if the Algoritm should termine or not </returns>
         private bool TerminateAlgorithm(Population _population, int _currGeneration, long currEvaluation)
         {
-            if (_currGeneration > No_Generations || _population.MaximumFitness > 0.996)
+            if (_currGeneration > No_Generations || _population.MaximumFitness > 0.999)
             {
                 ///<summary>Extracting the BEST <see cref="Chromosome"/> from the <see cref="Population"/></summary>
                 var chromosome = _population.GetTop(1)[0];
@@ -1388,6 +1404,8 @@ namespace Coding_Attempt_with_GUI
             rmsError = ComputeRMSError();
             //EvaluateWishboneConstraints();
 
+            Setup_OP.Total_Conv = new Convergence(1 - rmsError);
+
             if (rmsError > 1)
             {
                 Setup_OP.Total_Conv = new Convergence(1 - rmsError);
@@ -1400,6 +1418,8 @@ namespace Coding_Attempt_with_GUI
 
                 return 0.99;
             }
+
+
             else return rmsError;
         }
 

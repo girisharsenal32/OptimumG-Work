@@ -197,8 +197,14 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Clearing the chart</summary>
             chartControl1.Series[0].Points.Clear();
 
+            ChartPoints_X.Clear();
+
+            ChartPoints_Y.Clear();
+
             ///<summary>Re-plotting the point 0,0</summary>
             AddPointToChart(chartControl1, 0, 0, 0, false);
+
+
         }
 
 
