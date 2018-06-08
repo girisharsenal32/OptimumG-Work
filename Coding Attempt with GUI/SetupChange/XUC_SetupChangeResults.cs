@@ -165,6 +165,8 @@ namespace Coding_Attempt_with_GUI
                 ///<summary>If the Bump Steer Change is requested then setting the Enaled status to true so that the user can scroll and zoom the Bump Steer Contro </summary>
                 _resultsGUI.bumpSteerCurve1.Enabled = true;
 
+                _resultsGUI.bumpSteerCurve1.chartControl1.Series[0].Points.Clear();
+
                 ///<summary>Setting the <see cref="BumpSteerCurve.IsOutputChart"/> value to true to teach the CHart that the Output is calling it. 
                 ///---IMPORTANT--- This is an important step so that the accidentally clicking the control doesn;t create a series point
                 /// </summary>
@@ -177,6 +179,8 @@ namespace Coding_Attempt_with_GUI
                 }
 
                 _resultsGUI.bumpSteerCurve1.AddSeriesToChart(_resultsGUI.bumpSteerCurve1.chartControl1);
+
+                
 
                 for (int i = 0; i < _setupOP.Req_BumpSteerChart.Count; i++)
                 {

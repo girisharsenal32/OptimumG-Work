@@ -121,7 +121,14 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_chart"></param>
         public void AddSeriesToChart(ChartControl _chart)
         {
-            _chart.Series.Add("Computed BS Curve", ViewType.Line);
+            if (!_chart.Series.Contains(_chart.Series["Computed BS Curve"]))
+            {
+                _chart.Series.Add("Computed BS Curve", ViewType.Line); 
+            }
+            else
+            {
+                _chart.Series["Computed BS Curve"].Points.Clear();
+            }
         }
 
         /// <summary>

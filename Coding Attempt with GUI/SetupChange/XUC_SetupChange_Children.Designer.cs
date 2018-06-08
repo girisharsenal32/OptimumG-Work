@@ -164,7 +164,6 @@
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Camber constant"),
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Caster constant"),
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Toe constant"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Ride Height constant"),
             new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Monitor Bump Steer")});
             this.checkedListBoxControlConstraints.Location = new System.Drawing.Point(0, 188);
             this.checkedListBoxControlConstraints.Name = "checkedListBoxControlConstraints";

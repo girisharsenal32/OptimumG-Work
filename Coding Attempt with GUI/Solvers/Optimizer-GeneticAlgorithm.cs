@@ -382,10 +382,10 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         public SetupChange_Outputs Setup_OP { get; set; }
 
-        /// <summary>
-        /// Requested Camber
-        /// </summary>
-        public Angle Req_Camber { get; set; }
+        ///// <summary>
+        ///// Requested Camber
+        ///// </summary>
+        //public Angle Req_Camber { get; set; }
         /// <summary>
         /// Calculated Camber after optimization
         /// </summary>
@@ -395,10 +395,10 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         public double CamberError { get; set; }
 
-        /// <summary>
-        /// Requested Caster
-        /// </summary>
-        public Angle Req_Caster { get; set; }
+        ///// <summary>
+        ///// Requested Caster
+        ///// </summary>
+        //public Angle Req_Caster { get; set; }
         /// <summary>
         /// Calculated Caster after optimization
         /// </summary>
@@ -408,10 +408,10 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         public double CasterError { get; set; }
 
-        /// <summary>
-        /// Requested KPI
-        /// </summary>
-        public Angle Req_KPI { get; set; }
+        ///// <summary>
+        ///// Requested KPI
+        ///// </summary>
+        //public Angle Req_KPI { get; set; }
         /// <summary>
         /// Calculated KPI after optimization
         /// </summary>
@@ -421,10 +421,10 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         public double KpiError { get; set; }
 
-        /// <summary>
-        /// Requested Toe
-        /// </summary>
-        public Angle Req_Toe { get; set; }
+        ///// <summary>
+        ///// Requested Toe
+        ///// </summary>
+        //public Angle Req_Toe { get; set; }
         /// <summary>
         /// Calculated Toe after optimization
         /// </summary>
@@ -434,9 +434,9 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         public double ToeError { get; set; }
 
-        /// <summary>
-        /// Requested Bump Steer Graph
-        /// </summary>
+        ///// <summary>
+        ///// Requested Bump Steer Graph
+        ///// </summary>
         //public List<Angle> Req_BumpSteerGraph { get; set; }
         /// <summary>
         /// Calculated Toe after Bump Steer Graph
@@ -538,13 +538,13 @@ namespace Coding_Attempt_with_GUI
             Setup_OP = _setupOP;
 
             ///<summary>Passing all the Requested Values of the Setup Change. If there is not value requested then the Required and Initial value of the Param is the same</summary>
-            Req_Camber = _fCamber;
+            Setup_OP.Req_Camber = _fCamber;
 
-            Req_Caster = _fCaster;
+            Setup_OP.Req_Caster = _fCaster;
 
-            Req_Toe = _fToe;
+            Setup_OP.Req_Toe = _fToe;
 
-            Req_KPI = _fKPI;
+            Setup_OP.Req_KPI = _fKPI;
 
             SetupID = _setupGUIID;
         }
@@ -1357,6 +1357,7 @@ namespace Coding_Attempt_with_GUI
 
         #endregion
 
+        #region -Main RMS Error Function-
         /// <summary>
         /// Main Error Calculating fucntion. 
         /// Computes the error of all the Setup Params which have been requested (and hence have their delegates initialized)
@@ -1438,7 +1439,8 @@ namespace Coding_Attempt_with_GUI
             //System.Math.Sqrt((System.Math.Pow(BumpSteerError, 2) + System.Math.Pow(CasterError, 2) + System.Math.Pow(ToeError, 2) + System.Math.Pow(CamberError, 2) + System.Math.Pow(KpiError, 2)));
 
             return rmsFinal;
-        }
+        } 
+        #endregion
 
         #region Not Needed BUT will sever as good validation tools 
         //Trial for Caster Change with Toe Constant Constraint
@@ -1634,14 +1636,14 @@ namespace Coding_Attempt_with_GUI
             Calc_Caster = new Angle(dCaster_New.Degrees + staticCaster.Degrees, AngleUnit.Degrees);
 
             ///<summary>Computing the Caster Error</summary>
-            CasterError = ((dCaster_New.Degrees + staticCaster.Degrees) - (Req_Caster.Degrees)) / Req_Caster.Degrees;
+            CasterError = ((dCaster_New.Degrees + staticCaster.Degrees) - (Setup_OP.Req_Caster.Degrees)) / Setup_OP.Req_Caster.Degrees;
 
             if (Setup_CV.constCaster || Setup_CV.CasterChangeRequested) 
             {
                 ///<summary>Setting the Caster COnvergence</summary>
                 Setup_OP.Caster_Conv = new Convergence(1 - SetConvergenceError(CasterError));
-
             }
+
             /////<summary>Populating the <see cref="Ga_Values"/> DataTable</summary>
             //Ga_Values.Rows[SolutionCounter].SetField<double>("Caster", 1 - SetConvergenceError(CasterError));
 
@@ -1680,7 +1682,7 @@ namespace Coding_Attempt_with_GUI
             Calc_KPI = new Angle(dKPI_new.Degrees + staticKPI.Degrees, AngleUnit.Degrees);
 
             ///<summary>Calclating the KPI Error</summary>
-            KpiError = (((dKPI_new.Degrees + staticKPI.Degrees) - (Req_KPI.Degrees)) / (Req_KPI.Degrees));
+            KpiError = (((dKPI_new.Degrees + staticKPI.Degrees) - (Setup_OP.Req_KPI.Degrees)) / (Setup_OP.Req_KPI.Degrees));
 
             if (Setup_CV.KPIChangeRequested || Setup_CV.constKPI) 
             {
@@ -1729,7 +1731,7 @@ namespace Coding_Attempt_with_GUI
             /// NOT ANYMORE
             ///---IMPORTANT--- FOR NOW TOE ERROR IS CALCUALTED AS ABSOLUTE ERROR AND NOT RELATIVE ERROR LIKE CASTER ABOVE
             /// </remarks>
-            ToeError = (((dToe_New.Degrees + staticToe.Degrees) - (Req_Toe.Degrees)) / (Req_Toe.Degrees));
+            ToeError = (((dToe_New.Degrees + staticToe.Degrees) - (Setup_OP.Req_Toe.Degrees)) / (Setup_OP.Req_Toe.Degrees));
 
             if (Setup_CV.constToe || Setup_CV.ToeChangeRequested) 
             {
@@ -1774,7 +1776,7 @@ namespace Coding_Attempt_with_GUI
             Calc_Camber = new Angle(dCamber_New.Degrees + staticCamber.Degrees, AngleUnit.Degrees);
 
             ///<summary>Computing the Camber Error</summary>
-            CamberError = (((dCamber_New.Degrees + staticCamber.Degrees) - (Req_Camber.Degrees)) / (Req_Camber.Degrees));
+            CamberError = (((dCamber_New.Degrees + staticCamber.Degrees) - (Setup_OP.Req_Camber.Degrees)) / (Setup_OP.Req_Camber.Degrees));
 
             if (Setup_CV.CamberChangeRequested || Setup_CV.constCamber) 
             {
@@ -1988,6 +1990,9 @@ namespace Coding_Attempt_with_GUI
                 ///<summary>Setting the Bump Steer Convergence</summary>
                 Setup_OP.BumpSteer_Conv = new Convergence(1 - SetConvergenceError(FinalError)); 
             }
+
+            ///<summary>Passing the <see cref="Req_Camber"/> of the this class to the <see cref="SetupChange_Outputs.Req_BumpSteerChart"/></summary>
+            ///<remark>Don't need to do this here as the in THIS for the <see cref="SetupChange_Outputs.Req_BumpSteerChart"/> is what is being used right from the start</remark>
 
             Setup_OP.Calc_BumpSteerChart = _toeAngle;
 

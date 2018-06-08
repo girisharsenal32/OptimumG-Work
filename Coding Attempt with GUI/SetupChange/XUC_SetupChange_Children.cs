@@ -492,8 +492,8 @@ namespace Coding_Attempt_with_GUI
                 //rowRideHeight.Enabled = true;
                 //rowDamperEyeToPerch.Enabled = false;
                 rowRideHeight.Enabled = true;
-                checkedListBoxControlConstraints.Items["Ride Height constant"].CheckState = CheckState.Unchecked;
-                checkedListBoxControlConstraints.Items["Ride Height constant"].Enabled = false;
+                //checkedListBoxControlConstraints.Items["Ride Height constant"].CheckState = CheckState.Unchecked;
+                //checkedListBoxControlConstraints.Items["Ride Height constant"].Enabled = false;
             }
             else if (checkedListBoxControlChanges.Items["Ride Height Change"].CheckState == CheckState.Unchecked)
             {
@@ -506,8 +506,8 @@ namespace Coding_Attempt_with_GUI
                 rowDamperEyeToPerch.Enabled = false;
                 vGridControl1.SetCellValue(rowDamperEyeToPerch, 1, null);
                 rowDamperEyeToPerch.Properties.Value = null;
-                //checkedListBoxControlConstraints.Items["Ride Height constant"].CheckState = CheckState.Unchecked;
-                checkedListBoxControlConstraints.Items["Ride Height constant"].Enabled = true;
+                ////checkedListBoxControlConstraints.Items["Ride Height constant"].CheckState = CheckState.Unchecked;
+                //checkedListBoxControlConstraints.Items["Ride Height constant"].Enabled = true;
 
 
             }

@@ -8876,6 +8876,8 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Invoking the <see cref="Vehicle.SetupChangeInvoker(SetupChange)"/> method</summary>
             if (Proceed)
             {
+                progressBar.Hide();
+
                 Vehicle.Assembled_Vehicle.SetupChangeInvoker(Vehicle.Assembled_Vehicle.vehicleSetupChange);
 
                 try
