@@ -1516,15 +1516,27 @@ namespace Coding_Attempt_with_GUI
                                 if (navBarControlResults.ActiveGroup.Name == M1_Global.vehicleGUI[i_res].navBarGroup_Vehicle_Result.Name)
                                 {
                                     #region GUI
-                                    groupControl13.Show();
+                                    //groupControl13.Show();
                                     accordionControlVehicleItem.Hide();
-                                    sidePanel2.Show();
-                                    gridControl2.Show();
+                                    //sidePanel2.Show();
+                                    //gridControl2.Show();
                                     #endregion
 
-                                    int motionIndex = Vehicle.List_Vehicle[i_res].vehicle_Motion.MotionID - 1;
-                                    gridControl2.MainView = MotionGUI.List_MotionGUI[motionIndex].bandedGridView_Motion;
-                                    DisplayMotionView(Vehicle.List_Vehicle[i_res]);
+                                    if (Vehicle.List_Vehicle[i_res].vehicle_Motion != null)
+                                    {
+                                        int motionIndex = Vehicle.List_Vehicle[i_res].vehicle_Motion.MotionID - 1;
+                                        gridControl2.MainView = MotionGUI.List_MotionGUI[motionIndex].bandedGridView_Motion;
+                                        DisplayMotionView(Vehicle.List_Vehicle[i_res]);
+                                        sidePanel2.Show();
+
+                                        groupControl13.Show();
+                                    }
+                                    else
+                                    {
+                                        sidePanel2.Hide();
+
+                                        groupControl13.Hide();
+                                    }
                                 }
                             }
                         }
@@ -1636,7 +1648,18 @@ namespace Coding_Attempt_with_GUI
                         /// </remarks>
                         navBarControlResults.ActiveGroup = e.Group;
 
-                        DisplayMotionView(Vehicle.List_Vehicle[i_Motion]);
+                        if (Vehicle.List_Vehicle[i_Motion].Vehicle_MotionExists == true)
+                        {
+                            DisplayMotionView(Vehicle.List_Vehicle[i_Motion]);
+                            sidePanel2.Show();
+                            groupControl13.Show();
+                        }
+                        else
+                        {
+                            sidePanel2.Hide();
+                            groupControl13.Hide();
+                        }
+
                         break;
 
                     }
@@ -2042,8 +2065,8 @@ namespace Coding_Attempt_with_GUI
                                 if (navBarControlResults.ActiveGroup.Name == M1_Global.vehicleGUI[i_res].navBarGroup_Vehicle_Result.Name)
                                 {
                                     #region GUI
-                                    groupControl13.Show();
-                                    sidePanel2.Show();
+                                    //groupControl13.Show();
+                                    //sidePanel2.Show();
                                     //accordionControlTireStiffness.Hide();
                                     //accordionControlSuspensionCoordinatesFL.Hide();
                                     //accordionControlSuspensionCoordinatesFR.Hide();
@@ -2057,9 +2080,23 @@ namespace Coding_Attempt_with_GUI
                                     accordionControlVehicleItem.Hide();
                                     #endregion
 
-                                    int motionIndex = Vehicle.List_Vehicle[i_res].vehicle_Motion.MotionID - 1;
-                                    gridControl2.MainView = MotionGUI.List_MotionGUI[motionIndex].bandedGridView_Motion;
-                                    DisplayMotionView(Vehicle.List_Vehicle[i_res]);
+                                    if (Vehicle.List_Vehicle[i_res].vehicle_Motion != null)
+                                    {
+                                        int motionIndex = Vehicle.List_Vehicle[i_res].vehicle_Motion.MotionID - 1;
+                                        gridControl2.MainView = MotionGUI.List_MotionGUI[motionIndex].bandedGridView_Motion;
+                                        if (Vehicle.List_Vehicle[i_res].Vehicle_MotionExists == true)
+                                        {
+                                            DisplayMotionView(Vehicle.List_Vehicle[i_res]);
+                                            sidePanel2.Show();
+                                            groupControl13.Show();
+                                        }
+                                        else
+                                        {
+                                            sidePanel2.Hide();
+                                            groupControl13.Hide();
+                                        } 
+                                    }
+
                                 }
                             }
                         }
@@ -8729,7 +8766,20 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Cloning everything (<see cref="devDept.Eyeshot.Block"/> <see cref="devDept.Eyeshot.Layer"/> Imported Files) from the Input CAD</summary>
             if (M1_Global.vehicleGUI[VIndex].CadIsTobeImported)
             {
-                M1_Global.vehicleGUI[VIndex].CADVehicleOutputs.CloneOutputViewPort(M1_Global.vehicleGUI[VIndex].CADVehicleOutputs.viewportLayout1, M1_Global.vehicleGUI[VIndex].importCADForm.importCADViewport.viewportLayout1);
+                ///<summary>Try/Catch statement added here to ensure that if the Cloning of the CAD fails then the <see cref="VehicleGUI.OutputIGESPlotted"/> is set to True</summary>
+                try
+                {
+                    M1_Global.vehicleGUI[VIndex].CADVehicleOutputs.CloneOutputViewPort(M1_Global.vehicleGUI[VIndex].CADVehicleOutputs.viewportLayout1, M1_Global.vehicleGUI[VIndex].importCADForm.importCADViewport.viewportLayout1);
+                    ///<summary></summary>
+                    M1_Global.vehicleGUI[VIndex].OutputIGESPlotted = true;
+                }
+                catch (Exception)
+                {
+
+                    ///<summary></summary>
+                    M1_Global.vehicleGUI[VIndex].OutputIGESPlotted = false;
+                }
+
             }
             else
             {

@@ -717,11 +717,12 @@ namespace Coding_Attempt_with_GUI
 
                     ImportedCADTranslationHistory.Add(-Vehicle.List_Vehicle[_VehicleID - 1].oc_FL[opIndex].FinalRideHeight_1);
 
-                    for (int iTrans = 0; iTrans < importCADForm.importCADViewport.igesEntities.Count(); iTrans++)
+                    for (int i = 0; i < vehicleCADDrawer_Output.viewportLayout1.Blocks["VehicleCAD"].Entities.Count; i++)
                     {
-                        vehicleCADDrawer_Output.viewportLayout1.Entities[iTrans].Translate(0, -(ImportedCADTranslationHistory[ImportedCADTranslationHistory.Count - 1] - ImportedCADTranslationHistory[ImportedCADTranslationHistory.Count - 2]), 0);
-                        vehicleCADDrawer_Output.viewportLayout1.Refresh();
+                        vehicleCADDrawer_Output.viewportLayout1.Blocks["VehicleCAD"].Entities[i].Translate(0, -(ImportedCADTranslationHistory[ImportedCADTranslationHistory.Count - 1] - ImportedCADTranslationHistory[ImportedCADTranslationHistory.Count - 2]), 0);
                     }
+
+
                 }
 
                 vehicleCADDrawer_Output.viewportLayout1.Update();
