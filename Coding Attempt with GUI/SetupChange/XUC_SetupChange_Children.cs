@@ -258,6 +258,7 @@ namespace Coding_Attempt_with_GUI
             /// </summary>
             if (checkedListBoxControlChanges.Items["KPI Change"].CheckState == CheckState.Checked)
             {
+                setupChange_CV.KPIChangeRequested = true;
                 rowKPIAngle.Enabled = true;
                 rowKPICasterAdjusterSelect.Enabled = true;
                 checkedListBoxControlConstraints.Items["KPI constant"].CheckState = CheckState.Unchecked;
@@ -281,6 +282,7 @@ namespace Coding_Attempt_with_GUI
             }
             else if (checkedListBoxControlChanges.Items["KPI Change"].CheckState == CheckState.Unchecked)
             {
+                setupChange_CV.KPIChangeRequested = false;
                 rowKPIAngle.Enabled = false;
                 vGridControl1.SetCellValue(rowKPIAngle, 1, null);
                 rowKPIAngle.Properties.Value = null;
@@ -320,6 +322,7 @@ namespace Coding_Attempt_with_GUI
             /// </summary>
             if (checkedListBoxControlChanges.Items["Camber Change"].CheckState == CheckState.Checked)
             {
+                setupChange_CV.CamberChangeRequested = true;
                 //rowCamberChangeMethod.Enabled = true;
                 rowCamberAngle.Enabled = true;
                 rowCamberMount.Enabled = true;
@@ -337,6 +340,7 @@ namespace Coding_Attempt_with_GUI
             else if (checkedListBoxControlChanges.Items["Camber Change"].CheckState == CheckState.Unchecked)
             {
 
+                setupChange_CV.CamberChangeRequested = false;
                 rowCamberAngle.Enabled = false;
                 vGridControl1.SetCellValue(rowCamberAngle, 1, null);
                 rowCamberAngle.Properties.Value = null;
@@ -381,6 +385,8 @@ namespace Coding_Attempt_with_GUI
             /// </summary>
             if (checkedListBoxControlChanges.Items["Caster Change"].CheckState == CheckState.Checked)
             {
+                setupChange_CV.CasterChangeRequested = true;
+
                 rowCasterAngle.Enabled = true;
 
                 rowKPICasterAdjusterSelect.Enabled = true;
@@ -405,6 +411,8 @@ namespace Coding_Attempt_with_GUI
             }
             else if (checkedListBoxControlChanges.Items["Caster Change"].CheckState == CheckState.Unchecked)
             {
+
+                setupChange_CV.CasterChangeRequested = false;
                 rowCasterAngle.Enabled = false;
                 vGridControl1.SetCellValue(rowCasterAngle, 1, null);
                 rowCasterAngle.Properties.Value = null;
@@ -444,6 +452,7 @@ namespace Coding_Attempt_with_GUI
             /// </summary>
             if (checkedListBoxControlChanges.Items["Toe Change"].CheckState == CheckState.Checked)
             {
+                setupChange_CV.ToeChangeRequested = true;
                 //vGridControl1.Rows["rowToe"].Visible = true;
                 rowToeAngle.Enabled = true;
                 rowToeLink.Visible = true;
@@ -488,6 +497,7 @@ namespace Coding_Attempt_with_GUI
             ///</summary>
             if (checkedListBoxControlChanges.Items["Ride Height Change"].CheckState == CheckState.Checked)
             {
+                
                 //rowRideHeightChangeMethod.Enabled = true;
                 //rowRideHeight.Enabled = true;
                 //rowDamperEyeToPerch.Enabled = false;

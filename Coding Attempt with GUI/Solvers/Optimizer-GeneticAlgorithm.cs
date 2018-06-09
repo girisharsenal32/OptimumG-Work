@@ -696,15 +696,24 @@ namespace Coding_Attempt_with_GUI
                 ///The IF statement is to ensure that the if a Bump Steer Change or Monitor Bump Steer is issued then the Wheel Deflection is not null and not 0
                 ///So basically this is to ensure that the user ( after selecting Change/Monitor Bump Steer also either clicks the Min BumpSteer Option or creates a curve)
                 /// </summary>
-                if ((Setup_CV.BumpSteerChangeRequested || Setup_CV.monitorBumpSteer) && (Setup_CV.BS_Params.WheelDeflections != null) && (Setup_CV.BS_Params.WheelDeflections.Count != 0))  
+                /// 
+                if ((Setup_CV.BumpSteerChangeRequested || Setup_CV.monitorBumpSteer) && ((Setup_CV.BS_Params.WheelDeflections == null) || (Setup_CV.BS_Params.WheelDeflections.Count == 0)))
                 {
-                    GA.Run(Terminate); 
+                    MessageBox.Show("Bump Steer Curve Not Initialized");
                 }
                 else
                 {
-                    MessageBox.Show("Bump Steer Curve Not Initialized");
-
+                    GA.Run(Terminate);
                 }
+                //if ((Setup_CV.BumpSteerChangeRequested || Setup_CV.monitorBumpSteer) && (Setup_CV.BS_Params.WheelDeflections != null) && (Setup_CV.BS_Params.WheelDeflections.Count != 0))  
+                //{
+                //    GA.Run(Terminate); 
+                //}
+                //else
+                //{
+                //    MessageBox.Show("Bump Steer Curve Not Initialized");
+
+                //}
                 
             }
             else

@@ -1952,7 +1952,11 @@ namespace Coding_Attempt_with_GUI
             _finalPushrod = PushrodDelta;
 
             ///<summary>Setting the Convergence of the Ride Height as 100% because it is always going to converge as it is independent of other changes</summary>
-            _setupOP.RideHeight_Conv = new Convergence(1);
+            if (_reqChanges.RideHeightChanged == true)
+            {
+                _setupOP.RideHeight_Conv = new Convergence(1);
+            }
+            
 
             return _dRideHeight;
         }

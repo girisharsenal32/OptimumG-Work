@@ -77,21 +77,44 @@ namespace Coding_Attempt_with_GUI
                     _resultsGrid.SetCellValue(_resultsGUI.rowTopFrontAdj, 1, Convert.ToString(Math.Round(_setupOP.TopFrontLength, 3)));
                     _resultsGUI.rowTopFrontAdj.Visible = true;
                 }
+                else
+                {
+                    _resultsGUI.rowTopFrontAdj.Visible = false;
+                }
                 if (_cv.Master_Adj["Caster/KPI"].ContainsKey(AdjustmentTools.TopRearArm.ToString()))
                 {
                     _resultsGrid.SetCellValue(_resultsGUI.rowTopRearAdj, 1, Convert.ToString(Math.Round(_setupOP.TopRearLength, 3)));
                     _resultsGUI.rowTopRearAdj.Visible = true;
+                }
+                else
+                {
+                    _resultsGUI.rowTopRearAdj.Visible = false;
                 }
                 if (_cv.Master_Adj["Caster/KPI"].ContainsKey(AdjustmentTools.BottomFrontArm.ToString()))
                 {
                     _resultsGrid.SetCellValue(_resultsGUI.rowBottomFrontAdj, 1, Convert.ToString(Math.Round(_setupOP.BottomFrontLength, 3)));
                     _resultsGUI.rowBottomFrontAdj.Visible = true;
                 }
+                else
+                {
+                    _resultsGUI.rowBottomFrontAdj.Visible = false;
+                }
                 if (_cv.Master_Adj["Caster/KPI"].ContainsKey(AdjustmentTools.BottomRearArm.ToString()))
                 {
                     _resultsGrid.SetCellValue(_resultsGUI.rowBottomRearAdj, 1, Convert.ToString(Math.Round(_setupOP.BottomRearLength, 3)));
                     _resultsGUI.rowBottomRearAdj.Visible = true;
                 }
+                else
+                {
+                    _resultsGUI.rowBottomRearAdj.Visible = false;
+                }
+            }
+            else
+            {
+                _resultsGUI.rowTopFrontAdj.Visible = false;
+                _resultsGUI.rowTopRearAdj.Visible = false;
+                _resultsGUI.rowBottomFrontAdj.Visible = false;
+                _resultsGUI.rowBottomRearAdj.Visible = false;
             }
             _resultsGrid.SetCellValue(_resultsGUI.rowKPIConvergance, 1, _setupOP.KPI_Conv.ConvergenceStatus);
 
@@ -107,16 +130,31 @@ namespace Coding_Attempt_with_GUI
             {
                 if (_cv.Master_Adj["Camber"].ContainsKey(AdjustmentTools.TopCamberMount.ToString()))
                 {
-                    _resultsGrid.SetCellValue(rowTopCamberMount, 1, Convert.ToString(Math.Round(_setupOP.TopCamberShimsLength,3))); 
-                    _resultsGrid.SetCellValue(rowShimsTopCamberMount, 1, Convert.ToString(Math.Round(_setupOP.TopCamberShimsNo, 3)));
-                    rowTopCamberMount.Visible = true;
+                    _resultsGrid.SetCellValue(_resultsGUI.rowTopCamberMount, 1, Convert.ToString(Math.Round(_setupOP.TopCamberShimsLength,3))); 
+                    _resultsGrid.SetCellValue(_resultsGUI.rowShimsTopCamberMount, 1, Convert.ToString(Math.Round(_setupOP.TopCamberShimsNo, 3)));
+                    _resultsGUI.rowTopCamberMount.Visible = true;
+
+                }
+                else
+                {
+                    _resultsGUI.rowTopCamberMount.Visible = false;
                 }
                 if (_cv.Master_Adj["Camber"].ContainsKey(AdjustmentTools.BottomCamberMount.ToString()))
                 {
-                    _resultsGrid.SetCellValue(rowBottomCamberMount, 1, Convert.ToString(Math.Round(_setupOP.BottomCamberShimsLength, 3)));
-                    _resultsGrid.SetCellValue(rowShimsBottomCamberMount, 1, Convert.ToString(Math.Round(_setupOP.BottomCamberShimsNo, 3)));
-                    rowBottomCamberMount.Visible = true;
+                    _resultsGrid.SetCellValue(_resultsGUI.rowBottomCamberMount, 1, Convert.ToString(Math.Round(_setupOP.BottomCamberShimsLength, 3)));
+                    _resultsGrid.SetCellValue(_resultsGUI.rowShimsBottomCamberMount, 1, Convert.ToString(Math.Round(_setupOP.BottomCamberShimsNo, 3)));
+                    _resultsGUI.rowBottomCamberMount.Visible = true;
                 }
+                else
+                {
+                    _resultsGUI.rowBottomCamberMount.Visible = false;
+                }
+            }
+            else
+            {
+                _resultsGUI.rowTopCamberMount.Visible = false;
+                _resultsGUI.rowBottomCamberMount.Visible = false;
+
             }
             _resultsGrid.SetCellValue(_resultsGUI.rowCamberConvergance, 1, _setupOP.Camber_Conv.ConvergenceStatus);
             
@@ -127,9 +165,17 @@ namespace Coding_Attempt_with_GUI
             {
                 if (_cv.Master_Adj["Toe"].ContainsKey(AdjustmentTools.ToeLinkLength.ToString()))
                 {
-                    _resultsGrid.SetCellValue(rowToeLink, 1, Convert.ToString(Math.Round(_setupOP.ToeLinklength, 3)));
-                    rowToeLink.Visible = true;
+                    _resultsGrid.SetCellValue(_resultsGUI.rowToeLink, 1, Convert.ToString(Math.Round(_setupOP.ToeLinklength, 3)));
+                    _resultsGUI.rowToeLink.Visible = true;
                 }
+                else
+                {
+                    _resultsGUI.rowToeLink.Visible = false;
+                }
+            }
+            else
+            {
+                _resultsGUI.rowToeLink.Visible = false;
             }
             _resultsGrid.SetCellValue(_resultsGUI.rowToeConvergance, 1, _setupOP.Toe_Conv.ConvergenceStatus);
             
@@ -145,11 +191,17 @@ namespace Coding_Attempt_with_GUI
             if (_cv.BumpSteerChangeRequested)
             {
                 _resultsGrid.SetCellValue(rowToeLinkInboard_x, 1, Convert.ToString(Math.Round(_setupOP.ToeLinkInboard.X, 3)));
-                rowToeLinkInboard_x.Visible = true;
+                _resultsGUI.rowToeLinkInboard_x.Visible = true;
                 _resultsGrid.SetCellValue(rowToeLinkInboard_y, 1, Convert.ToString(Math.Round(_setupOP.ToeLinkInboard.Y, 3)));
-                rowToeLinkInboard_y.Visible = true;
+                _resultsGUI.rowToeLinkInboard_y.Visible = true;
                 _resultsGrid.SetCellValue(rowToeLinkInboard_z, 1, Convert.ToString(Math.Round(_setupOP.ToeLinkInboard.Z, 3)));
-                rowToeLinkInboard_z.Visible = true;
+                _resultsGUI.rowToeLinkInboard_z.Visible = true;
+            }
+            else
+            {
+                _resultsGUI.rowToeLinkInboard_x.Visible = false;
+                _resultsGUI.rowToeLinkInboard_y.Visible = false;
+                _resultsGUI.rowToeLinkInboard_z.Visible = false;
             }
 
             _resultsGrid.SetCellValue(rowBSConvergence, 1, _setupOP.BumpSteer_Conv.ConvergenceStatus);
