@@ -190,6 +190,7 @@ namespace Coding_Attempt_with_GUI
         }
         #endregion
 
+        #region Custom Clone Methods
         public void Clone_Outboard_FromDictionary(Dictionary<string, Point3D> _outboard)
         {
             G1x = _outboard["Pushrod"].X;
@@ -324,7 +325,8 @@ namespace Coding_Attempt_with_GUI
             RideHeightRefx = _scMajor.RideHeightRefx;
             RideHeightRefy = _scMajor.RideHeightRefy;
             RideHeightRefz = _scMajor.RideHeightRefz;
-        }
+        } 
+        #endregion
     }
 
     #region Enums to determine the Suepension Type

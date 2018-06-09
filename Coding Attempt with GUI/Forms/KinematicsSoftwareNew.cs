@@ -4513,6 +4513,21 @@ namespace Coding_Attempt_with_GUI
 
             BatchRunGUI.batchRunBeingCreated = false;
 
+
+            ///<summary>IF statement employed to check if the first Vehicle item inside the <see cref="BatchRunForm.comboBoxVehicleBatchRun"/> consisits of Motion or not. If not, then the motion combobox shoulndt be shown</summary>
+            if (BatchRunGUI.batchRuns_GUI[index].batchRun.comboBoxVehicleBatchRun != null && BatchRunGUI.batchRuns_GUI[index].batchRun.comboBoxVehicleBatchRun.SelectedItem != null)
+            {
+                Vehicle tempV = (Vehicle)BatchRunGUI.batchRuns_GUI[index].batchRun.comboBoxVehicleBatchRun.SelectedItem;
+                if (tempV.Vehicle_MotionExists)
+                {
+                    BatchRunGUI.batchRuns_GUI[index].batchRun.groupControlMotion.Show();
+                }
+                else
+                {
+                    BatchRunGUI.batchRuns_GUI[index].batchRun.groupControlMotion.Hide();
+                }
+            }
+
             BatchRunGUI.batchRuns_GUI[index].batchRun.ShowDialog();
             //BatchRunGUI.batchRunBeingCreated = false;
 

@@ -214,12 +214,12 @@
         private DevExpress.XtraEditors.GroupControl groupControlVehicle;
         public System.Windows.Forms.ComboBox comboBoxVehicleBatchRun;
         public DevExpress.XtraEditors.CheckedListBoxControl checkedListBoxLoadCases;
-        private DevExpress.XtraEditors.GroupControl groupControlMotion;
         public System.Windows.Forms.ComboBox comboBoxMotionBatchRun;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripLabel toolStripLabelOPChanel;
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
         public System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
         private DevExpress.XtraEditors.SimpleButton simpleButtonSelectAllLoadCases;
+        public DevExpress.XtraEditors.GroupControl groupControlMotion;
     }
 }
