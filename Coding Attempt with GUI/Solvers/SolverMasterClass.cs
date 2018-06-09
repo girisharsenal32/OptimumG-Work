@@ -1992,7 +1992,7 @@ namespace Coding_Attempt_with_GUI
 
         #region --OBSOLETE--   
 
-        ///---Actual Setup Change Methods & Helper Methods---
+        ///--- Setup Change Methods & Helper Methods employing 3D Geometry---
 
         /// <summary>
         /// Helper method to change the Link Length of the Primary Link being considered and also pass both the Primiary and Counter Link data to the 
