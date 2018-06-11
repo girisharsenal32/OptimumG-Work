@@ -342,7 +342,7 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// 
         /// </summary>
-        Dictionary<string, OptimizedCoordinate> UnsprungAssembly;
+        Dictionary<string, SetupChange_OptimizedCoordinate> UnsprungAssembly;
         /// <summary>
         /// 
         /// </summary>
@@ -367,7 +367,7 @@ namespace Coding_Attempt_with_GUI
         ///// </summary>
         //Dictionary<string, Opt_AdjToolParams> BumpSteerRequested;
 
-        Dictionary<string, Dictionary<string, Opt_AdjToolParams>> MasterDictionary;
+        Dictionary<string, Dictionary<string, SetupChange_AdjToolParams>> MasterDictionary;
 
         Dictionary<String, double> Opt_AdjToolValues;
 
@@ -524,7 +524,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_fCaster"></param>
         /// <param name="_fToe"></param>
         /// <param name="_fKPI"></param>
-        public void InitializeSetupParams(SetupChange_CornerVariables _reqChanges, SetupChange_Outputs _setupOP, Dictionary<string, Dictionary<string, Opt_AdjToolParams>> _masterD, Angle _fCamber, Angle _fCaster, Angle _fToe, Angle _fKPI, int _setupGUIID)
+        public void InitializeSetupParams(SetupChange_CornerVariables _reqChanges, SetupChange_Outputs _setupOP, Dictionary<string, Dictionary<string, SetupChange_AdjToolParams>> _masterD, Angle _fCamber, Angle _fCaster, Angle _fToe, Angle _fKPI, int _setupGUIID)
         {
             ///<summary>Assigning the <see cref="SetupChange_CornerVariables"/> object</summary>
             Setup_CV = _reqChanges;
@@ -872,7 +872,7 @@ namespace Coding_Attempt_with_GUI
             Point3D Lower = new Point3D(-20, -20, -20);
 
 
-            UnsprungAssembly = new Dictionary<string, OptimizedCoordinate>();
+            UnsprungAssembly = new Dictionary<string, SetupChange_OptimizedCoordinate>();
 
             ToeLinkInboard = new Point3D(SCM.N1x, SCM.N1y, SCM.N1z);
             ga_ToeLinkInboard = ToeLinkInboard.Clone() as Point3D;
@@ -888,37 +888,37 @@ namespace Coding_Attempt_with_GUI
 
             UBJ = new Point3D(SCM.F1x, SCM.F1y, SCM.F1z);
 
-            UnsprungAssembly.Add("UBJ", new OptimizedCoordinate(UBJ, Upper, Lower));
+            UnsprungAssembly.Add("UBJ", new SetupChange_OptimizedCoordinate(UBJ, Upper, Lower));
 
-            UnsprungAssembly.Add("TopCamberMount", new OptimizedCoordinate(UBJ.Clone() as Point3D, Upper, Lower));
+            UnsprungAssembly.Add("TopCamberMount", new SetupChange_OptimizedCoordinate(UBJ.Clone() as Point3D, Upper, Lower));
 
             Pushrod = new Point3D(SCM.G1x, SCM.G1y, SCM.G1z);
 
-            UnsprungAssembly.Add("Pushrod", new OptimizedCoordinate(Pushrod, Upper, Lower));
+            UnsprungAssembly.Add("Pushrod", new SetupChange_OptimizedCoordinate(Pushrod, Upper, Lower));
 
             PushrodShockMount = new Point3D(SCM.H1x, SCM.H1y, SCM.H1z);
 
             LBJ = new Point3D(SCM.E1x, SCM.E1y, SCM.E1z);
 
-            UnsprungAssembly.Add("BottomCamberMount", new OptimizedCoordinate(LBJ.Clone() as Point3D, Upper, Lower));
+            UnsprungAssembly.Add("BottomCamberMount", new SetupChange_OptimizedCoordinate(LBJ.Clone() as Point3D, Upper, Lower));
 
-            UnsprungAssembly.Add("LBJ", new OptimizedCoordinate(LBJ, Upper, Lower));
+            UnsprungAssembly.Add("LBJ", new SetupChange_OptimizedCoordinate(LBJ, Upper, Lower));
 
             WcStart = new Point3D(SCM.K1x, SCM.K1y, SCM.K1z);
 
-            UnsprungAssembly.Add("WcStart", new OptimizedCoordinate(WcStart, Upper, Lower));
+            UnsprungAssembly.Add("WcStart", new SetupChange_OptimizedCoordinate(WcStart, Upper, Lower));
 
             WcEnd = new Point3D(SCM.L1x, SCM.L1y, SCM.L1z);
 
-            UnsprungAssembly.Add("WcEnd", new OptimizedCoordinate(WcEnd, Upper, Lower));
+            UnsprungAssembly.Add("WcEnd", new SetupChange_OptimizedCoordinate(WcEnd, Upper, Lower));
 
             ToeLinkOutboard = new Point3D(SCM.M1x, SCM.M1y, SCM.M1z);
 
-            UnsprungAssembly.Add("ToeLinkOutboard", new OptimizedCoordinate(ToeLinkOutboard, Upper, Lower));
+            UnsprungAssembly.Add("ToeLinkOutboard", new SetupChange_OptimizedCoordinate(ToeLinkOutboard, Upper, Lower));
 
             ContactPatch = new Point3D(SCM.W1x, SCM.W1x, SCM.W1z);
 
-            UnsprungAssembly.Add("ContactPatch", new OptimizedCoordinate(ContactPatch, Upper, Lower));
+            UnsprungAssembly.Add("ContactPatch", new SetupChange_OptimizedCoordinate(ContactPatch, Upper, Lower));
 
 
             AxisLines = new Dictionary<string, Line>();
@@ -2055,75 +2055,6 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
     }
-
-    #region Auxillary Enums and Classes
-    public class OptimizedCoordinate
-    {
-        public string PointName;
-
-        public Point3D OptimizedCoordinates;
-
-        public Point3D NominalCoordinates;
-
-        public Point3D UpperCoordinateLimit;
-
-        public Point3D LowerCoordinateLimit;
-
-        public double UpperLinkLengthLimit_Front;
-
-        public double LowerLinkengthLimit_Front;
-
-        public double UpperLinkLengthLimit_Rear;
-
-        public double LowerLinkLengthLimit_Rear;
-
-        //public int BitSize;
-
-        public OptimizedCoordinate(Point3D _nominalCoord, Point3D _upperLimit, Point3D _lowerLimit/*, int _bitSize*/)
-        {
-            NominalCoordinates = _nominalCoord;
-
-            OptimizedCoordinates = NominalCoordinates.Clone() as Point3D;
-
-            UpperCoordinateLimit = _upperLimit;
-
-            LowerCoordinateLimit = _lowerLimit;
-
-            //BitSize = _bitSize;
-        }
-    }
-
-    public class Opt_AdjToolParams
-    {
-        public string ParamName { get; set; }
-
-        public double Nominal { get; set; }
-
-        public double Uppwer { get; set; }
-
-        public double Lower { get; set; }
-
-        public int BitSize { get; set; }
-
-        public double OptimizedIteration { get; set; }
-
-        public Opt_AdjToolParams() { }
-
-        public Opt_AdjToolParams(string _paramName, double _nominal, double _upper, double _lower, int _bitSiz)
-        {
-            ParamName = _paramName;
-
-            Nominal = _nominal;
-
-            Uppwer = _upper;
-
-            Lower = _lower;
-
-            BitSize = _bitSiz;
-        }
-    }
-
-    #endregion
 
 
 

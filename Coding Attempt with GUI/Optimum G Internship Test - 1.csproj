@@ -117,6 +117,7 @@
     <Reference Include="DevExpress.Printing.v17.1.Core, Version=17.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Utils.v17.1, Version=17.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Utils.v17.1.UI, Version=17.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpo.v17.1, Version=17.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraBars.v17.1, Version=17.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraCharts.v17.1, Version=17.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraCharts.v17.1.Extensions, Version=17.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
@@ -191,6 +192,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdjustableCoordinates.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AdjustableCoordinates.Designer.cs">
+      <DependentUpon>AdjustableCoordinates.cs</DependentUpon>
+    </Compile>
     <Compile Include="KinematicOptimization\KO_HelperClasses.cs" />
     <Compile Include="SetupChange\BumpSteerCurve.cs">
       <SubType>UserControl</SubType>
@@ -286,6 +293,7 @@
     <Compile Include="SetupChange\SetupChange_ProgressForm.Designer.cs">
       <DependentUpon>SetupChange_ProgressForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SetupChange\SetupChange_HelperClasses.cs" />
     <Compile Include="Simulation\Simulation.cs" />
     <Compile Include="Motion\MotionChart.cs">
       <SubType>UserControl</SubType>
@@ -553,6 +561,15 @@
     </Compile>
     <Compile Include="Solvers\Optimizer-GeneticAlgorithm.cs" />
     <Compile Include="Helper Classes\VehicleParamsAssigner.cs" />
+    <Compile Include="XUC_KinematicOptimization.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="XUC_KinematicOptimization.Designer.cs">
+      <DependentUpon>XUC_KinematicOptimization.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AdjustableCoordinates.resx">
+      <DependentUpon>AdjustableCoordinates.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SetupChange\BumpSteerCurve.resx">
       <DependentUpon>BumpSteerCurve.cs</DependentUpon>
     </EmbeddedResource>
@@ -658,6 +675,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Temp_BobillierMethod.resx">
       <DependentUpon>Temp_BobillierMethod.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XUC_KinematicOptimization.resx">
+      <DependentUpon>XUC_KinematicOptimization.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config">
       <SubType>Designer</SubType>

@@ -90,10 +90,10 @@ namespace Coding_Attempt_with_GUI
             CheckForBumpSteer();
             OptimizePoints();
 
-            for (int i = 0; i < cad1.viewportLayout1.Entities.Count; i++)
-            {
-                cad1.viewportLayout1.Entities[i].ColorMethod = colorMethodType.byEntity;
-            }
+            //for (int i = 0; i < cad1.viewportLayout1.Entities.Count; i++)
+            //{
+            //    cad1.viewportLayout1.Entities[i].ColorMethod = colorMethodType.byEntity;
+            //}
 
         }
 
@@ -180,7 +180,7 @@ namespace Coding_Attempt_with_GUI
 
             ToeLinkInboard = new Joint(new Point3D(SCM.N1x, SCM.N1y, SCM.N1z), 5, 2);
 
-            cad1.viewportLayout1.Entities.AddRange(new Entity[] { UBJ_Rear, LBJ_Rear, ToeLinkupright, TopFrontInboard, TopRearInboard, BottomFrontInboard, BottomRearInboard });
+            //cad1.viewportLayout1.Entities.AddRange(new Entity[] { UBJ_Rear, LBJ_Rear, ToeLinkupright, TopFrontInboard, TopRearInboard, BottomFrontInboard, BottomRearInboard });
         }
 
         /// <summary>
@@ -224,7 +224,7 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Extending the Line along both ends by an amount of 500 each</summary>
             CustomInfiniteLine.DrawInfiniteLine(InstantAxis, 500);
             Plane f = new Plane();
-            cad1.viewportLayout1.Entities.Add(InstantAxis);
+            //cad1.viewportLayout1.Entities.Add(InstantAxis);
             
             ///<summary>Determining the Instant Axis is Inoard or Outboard using the Contact Patch Coordinate and the Instant Axis Mid Point</summary>
             double ICDistance = ICSegment.MidPoint.DistanceTo(new Point3D());
@@ -271,7 +271,7 @@ namespace Coding_Attempt_with_GUI
             Bisector1 = new Line(InstantAxis.MidPoint.Clone() as Point3D, LBJ_Rear.Position.Clone() as Point3D);
             ///<summary>Rotating the Bisector Line by twice the amount of half the angle of the angle between the Top and Bottom Wishbone Planes</summary>
             Bisector1.Rotate(angle.Radians / 2, new Vector3D(InstantAxis.StartPoint.Clone() as Point3D, InstantAxis.EndPoint.Clone() as Point3D), InstantAxis.MidPoint);
-            cad1.viewportLayout1.Entities.Add(Bisector1);
+            //cad1.viewportLayout1.Entities.Add(Bisector1);
         }
 
         #region Delete IF not needed
@@ -299,7 +299,7 @@ namespace Coding_Attempt_with_GUI
         private void ConstructSteeringAxisINFLine()
         {
             SteeringAxis = new Line(UBJ_Rear.Position.Clone() as Point3D, LBJ_Rear.Position.Clone() as Point3D);
-            cad1.viewportLayout1.Entities.Add(SteeringAxis);
+            //cad1.viewportLayout1.Entities.Add(SteeringAxis);
         }
 
         /// <summary>
@@ -342,7 +342,7 @@ namespace Coding_Attempt_with_GUI
             PlanarEntity Plane1_Ent = new PlanarEntity(Plane1);
             Joint PointA_Ent = new Joint(PointA, 10, 2);
             PointA_Ent.Color = Color.AntiqueWhite;
-            cad1.viewportLayout1.Entities.AddRange(new Entity[] { Plane1_Ent, PointA_Ent });
+            //cad1.viewportLayout1.Entities.AddRange(new Entity[] { Plane1_Ent, PointA_Ent });
         }
 
         /// <summary>
@@ -386,7 +386,7 @@ namespace Coding_Attempt_with_GUI
 
             PlanarEntity PlaneRED_Ent = new PlanarEntity(PlaneRED);
             PlanarEntity PlaneRED2_Ent = new PlanarEntity(PlaneRED2);
-            cad1.viewportLayout1.Entities.AddRange(new Entity[] { PlaneRED_Ent, PlaneRED2_Ent });
+            //cad1.viewportLayout1.Entities.AddRange(new Entity[] { PlaneRED_Ent, PlaneRED2_Ent });
         }
 
         /// <summary>
@@ -421,7 +421,7 @@ namespace Coding_Attempt_with_GUI
             }
 
             PlanarEntity PlaneSTEERING_Ent = new PlanarEntity(PlaneSTEERING);
-            cad1.viewportLayout1.Entities.Add(PlaneSTEERING_Ent);
+            //cad1.viewportLayout1.Entities.Add(PlaneSTEERING_Ent);
 
         }
 
@@ -458,7 +458,7 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Creating a Bisector Line</summary>
             Bisector2 = LineForAngle_PlaneWISHBONE.Clone() as Line;
             Bisector2.Rotate(angleInRadians: Angle_PlaneSTEERING_PlaneWISHBONE.Radians / 2, axis: new Vector3D(InstantAxis.StartPoint.Clone() as Point3D, InstantAxis.EndPoint.Clone() as Point3D),center: InstantAxis.MidPoint);
-            cad1.viewportLayout1.Entities.Add(Bisector2);
+            //cad1.viewportLayout1.Entities.Add(Bisector2);
         }
 
         /// <summary>
@@ -540,7 +540,7 @@ namespace Coding_Attempt_with_GUI
             PlanarEntity PlaneB_Ent = new PlanarEntity(PlaneB);
             Joint PointB_Ent = new Joint(PointB, 5, 2);
             PointB_Ent.Color = Color.AntiqueWhite;
-            cad1.viewportLayout1.Entities.AddRange(new Entity[] { PlaneB_Ent, PointB_Ent });
+            //cad1.viewportLayout1.Entities.AddRange(new Entity[] { PlaneB_Ent, PointB_Ent });
         }
 
         /// <summary>
@@ -556,13 +556,13 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Computing the intersection of the <see cref="PlaneSTEERING"/> and the <see cref="PlaneB"/> which results in the <see cref="BobillierLine"/></summary>
             Plane.Intersection(PlaneB, PlaneSTEERING, out Segment3D BobillierSegment);
             BobillierLine = new Line(BobillierSegment);
-            cad1.viewportLayout1.SetView(viewType.Isometric);
+            //cad1.viewportLayout1.SetView(viewType.Isometric);
             ///<summary>Extending the <see cref="BobillierLine"/> by 500mm on each side</summary>
             CustomInfiniteLine.DrawInfiniteLine(BobillierLine, 500);
 
             Bar BobillierLine_Ent = new Bar(BobillierLine.StartPoint, BobillierLine.EndPoint, 4.5, 8);
             BobillierLine_Ent.Color = Color.AliceBlue;
-            cad1.viewportLayout1.Entities.Add(BobillierLine_Ent);
+            //cad1.viewportLayout1.Entities.Add(BobillierLine_Ent);
 
             BobillierLine.GetPointsByLength(1);
 
@@ -579,7 +579,10 @@ namespace Coding_Attempt_with_GUI
 
         }
 
+        private void cad1_Load(object sender, EventArgs e)
+        {
 
+        }
 
         private void OptimizePoints()
         {

@@ -237,19 +237,19 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Dictionary which holds the Adjustment Tools availble to the user to adjust Caster and/or KPI
         /// </summary>
-        public Dictionary<string, Opt_AdjToolParams> Caster_KPI_Adj;
+        public Dictionary<string, SetupChange_AdjToolParams> Caster_KPI_Adj;
         /// <summary>
         /// Dictionary which holds the Adjustment Tools availble to the user to adjust Camber
         /// </summary>
-        public Dictionary<string, Opt_AdjToolParams> Camber_Adj;
+        public Dictionary<string, SetupChange_AdjToolParams> Camber_Adj;
         /// <summary>
         /// Dictionary which holds the Adjustment Tools availble to the user to adjust Toe
         /// </summary>
-        public Dictionary<string, Opt_AdjToolParams> Toe_Adj;
+        public Dictionary<string, SetupChange_AdjToolParams> Toe_Adj;
         /// <summary>
         /// Dictionary which holds the Adjustment Tools availble to the user to adjust Bump Steer
         /// </summary>
-        public Dictionary<string, Opt_AdjToolParams> BumpSteer_Adj;
+        public Dictionary<string, SetupChange_AdjToolParams> BumpSteer_Adj;
         /// <summary>
         /// Object of the <see cref="CustomBumpSteerParams"/> Class
         /// </summary>
@@ -259,7 +259,7 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Master Dictionary which holds all the above Dictionary depending upon whether they are to be SETUP or not 
         /// </summary>
-        public Dictionary<string, Dictionary<string, Opt_AdjToolParams>> Master_Adj;
+        public Dictionary<string, Dictionary<string, SetupChange_AdjToolParams>> Master_Adj;
 
 
 
@@ -267,15 +267,15 @@ namespace Coding_Attempt_with_GUI
 
         public SetupChange_CornerVariables()
         {
-            Caster_KPI_Adj = new Dictionary<string, Opt_AdjToolParams>();
+            Caster_KPI_Adj = new Dictionary<string, SetupChange_AdjToolParams>();
 
-            Camber_Adj = new Dictionary<string, Opt_AdjToolParams>();
+            Camber_Adj = new Dictionary<string, SetupChange_AdjToolParams>();
 
-            Toe_Adj = new Dictionary<string, Opt_AdjToolParams>();
+            Toe_Adj = new Dictionary<string, SetupChange_AdjToolParams>();
 
-            BumpSteer_Adj = new Dictionary<string, Opt_AdjToolParams>();
+            BumpSteer_Adj = new Dictionary<string, SetupChange_AdjToolParams>();
 
-            Master_Adj = new Dictionary<string, Dictionary<string, Opt_AdjToolParams>>();
+            Master_Adj = new Dictionary<string, Dictionary<string, SetupChange_AdjToolParams>>();
 
             BS_Params = new CustomBumpSteerParams();
         }

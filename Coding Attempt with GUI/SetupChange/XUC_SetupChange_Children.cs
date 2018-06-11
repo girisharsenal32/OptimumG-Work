@@ -66,19 +66,19 @@ namespace Coding_Attempt_with_GUI
 
         private void InitializeDictionaries()
         {
-            setupChange_CV.Caster_KPI_Adj = new Dictionary<string, Opt_AdjToolParams>();
-            setupChange_CV.Caster_KPI_Adj.Add(AdjustmentTools.TopFrontArm.ToString(), new Opt_AdjToolParams(AdjustmentTools.TopFrontArm.ToString(), 0, 10, -10, BitSize));
+            setupChange_CV.Caster_KPI_Adj = new Dictionary<string, SetupChange_AdjToolParams>();
+            setupChange_CV.Caster_KPI_Adj.Add(AdjustmentTools.TopFrontArm.ToString(), new SetupChange_AdjToolParams(AdjustmentTools.TopFrontArm.ToString(), 0, 10, -10, BitSize));
 
-            setupChange_CV.Camber_Adj = new Dictionary<string, Opt_AdjToolParams>();
-            setupChange_CV.Camber_Adj.Add(AdjustmentTools.TopCamberMount.ToString(), new Opt_AdjToolParams(AdjustmentTools.TopCamberMount.ToString(), 0, 5, -5, BitSize));
+            setupChange_CV.Camber_Adj = new Dictionary<string, SetupChange_AdjToolParams>();
+            setupChange_CV.Camber_Adj.Add(AdjustmentTools.TopCamberMount.ToString(), new SetupChange_AdjToolParams(AdjustmentTools.TopCamberMount.ToString(), 0, 5, -5, BitSize));
 
-            setupChange_CV.Toe_Adj = new Dictionary<string, Opt_AdjToolParams>();
-            setupChange_CV.Toe_Adj.Add(AdjustmentTools.ToeLinkLength.ToString(), new Opt_AdjToolParams(AdjustmentTools.ToeLinkLength.ToString(), 0, 10, -10, BitSize));
+            setupChange_CV.Toe_Adj = new Dictionary<string, SetupChange_AdjToolParams>();
+            setupChange_CV.Toe_Adj.Add(AdjustmentTools.ToeLinkLength.ToString(), new SetupChange_AdjToolParams(AdjustmentTools.ToeLinkLength.ToString(), 0, 10, -10, BitSize));
 
-            setupChange_CV.BumpSteer_Adj = new Dictionary<string, Opt_AdjToolParams>();
-            setupChange_CV.BumpSteer_Adj.Add(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_x", new Opt_AdjToolParams(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_x", 232.12, 5, -5, BitSize));
-            setupChange_CV.BumpSteer_Adj.Add(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_y", new Opt_AdjToolParams(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_y", 124.4, 5, -5, BitSize));
-            setupChange_CV.BumpSteer_Adj.Add(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_z", new Opt_AdjToolParams(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_z", 60.8, 5, -5, BitSize));
+            setupChange_CV.BumpSteer_Adj = new Dictionary<string, SetupChange_AdjToolParams>();
+            setupChange_CV.BumpSteer_Adj.Add(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_x", new SetupChange_AdjToolParams(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_x", 232.12, 5, -5, BitSize));
+            setupChange_CV.BumpSteer_Adj.Add(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_y", new SetupChange_AdjToolParams(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_y", 124.4, 5, -5, BitSize));
+            setupChange_CV.BumpSteer_Adj.Add(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_z", new SetupChange_AdjToolParams(AdjustmentTools.ToeLinkInboardPoint.ToString() + "_z", 60.8, 5, -5, BitSize));
         }
 
         /// <summary>
@@ -1551,7 +1551,7 @@ namespace Coding_Attempt_with_GUI
             {
                 if (!setupChange_CV.Caster_KPI_Adj.ContainsKey(checkedItems[i].ToString()))
                 {
-                    setupChange_CV.Caster_KPI_Adj.Add(checkedItems[i].ToString(), new Opt_AdjToolParams(checkedItems[i].ToString(), 0, 10, -10, BitSize));
+                    setupChange_CV.Caster_KPI_Adj.Add(checkedItems[i].ToString(), new SetupChange_AdjToolParams(checkedItems[i].ToString(), 0, 10, -10, BitSize));
 
                 }
             }
@@ -1606,7 +1606,7 @@ namespace Coding_Attempt_with_GUI
             {
                 if (!setupChange_CV.Camber_Adj.ContainsKey(checkeditems[i].ToString()))
                 {
-                    setupChange_CV.Camber_Adj.Add(checkeditems[i].ToString(), new Opt_AdjToolParams(checkeditems[i].ToString(), 0, 5, -5, BitSize));
+                    setupChange_CV.Camber_Adj.Add(checkeditems[i].ToString(), new SetupChange_AdjToolParams(checkeditems[i].ToString(), 0, 5, -5, BitSize));
                 }
             }
 
@@ -1641,9 +1641,9 @@ namespace Coding_Attempt_with_GUI
             {
                 if (!setupChange_CV.BumpSteer_Adj.ContainsKey(checkeditems[i].ToString()))
                 {
-                    setupChange_CV.BumpSteer_Adj.Add(checkeditems[i].ToString() + "_x", new Opt_AdjToolParams(checkeditems[i].ToString() + "_x", 232.12, 5, -5, BitSize));
-                    setupChange_CV.BumpSteer_Adj.Add(checkeditems[i].ToString() + "_y", new Opt_AdjToolParams(checkeditems[i].ToString() + "_y", 124.4, 5, -5, BitSize));
-                    setupChange_CV.BumpSteer_Adj.Add(checkeditems[i].ToString() + "_z", new Opt_AdjToolParams(checkeditems[i].ToString() + "_z", 60.8, 5, -5, BitSize));
+                    setupChange_CV.BumpSteer_Adj.Add(checkeditems[i].ToString() + "_x", new SetupChange_AdjToolParams(checkeditems[i].ToString() + "_x", 232.12, 5, -5, BitSize));
+                    setupChange_CV.BumpSteer_Adj.Add(checkeditems[i].ToString() + "_y", new SetupChange_AdjToolParams(checkeditems[i].ToString() + "_y", 124.4, 5, -5, BitSize));
+                    setupChange_CV.BumpSteer_Adj.Add(checkeditems[i].ToString() + "_z", new SetupChange_AdjToolParams(checkeditems[i].ToString() + "_z", 60.8, 5, -5, BitSize));
                 }
             }
 
