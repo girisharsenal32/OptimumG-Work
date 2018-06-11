@@ -2057,19 +2057,6 @@ namespace Coding_Attempt_with_GUI
     }
 
     #region Auxillary Enums and Classes
-    enum WheelDeflectionType
-    {
-        Bump,
-        Rebound
-    };
-
-    public enum OptimizationParameter
-    {
-        CasterKPILinkLength,
-        Toe,
-        CasterKPILinkLengthToe
-    }
-
     public class OptimizedCoordinate
     {
         public string PointName;
