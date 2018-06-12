@@ -70,9 +70,25 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         public int BitSize { get; set; }
 
+        /// <summary>
+        /// Base Constructor
+        /// </summary>
+        public KO_AdjToolParams()
+        {
+            NominalCoordinates = new Point3D();
+
+            OptimizedCoordinates = new Point3D();
+
+            UpperCoordinateLimit = new Point3D();
+
+            LowerCoordinateLimit = new Point3D();
+
+
+        }
+
 
         /// <summary>
-        /// Constructor
+        /// Overloaded Constructor
         /// </summary>
         /// <param name="_nominalCoord">Nominal Coordinates of the Adjuster</param>
         /// <param name="_upperLimit">Upper Limit of Adjuster's Coordinates</param>

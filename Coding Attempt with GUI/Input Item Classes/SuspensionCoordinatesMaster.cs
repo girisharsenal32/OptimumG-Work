@@ -353,7 +353,23 @@ namespace Coding_Attempt_with_GUI
         SingleUV,
         DoubleUV,
         NoUV
-    } 
+    }
     #endregion
+
+    public enum CoordinateOptions
+    {
+        LowerFront,
+        LowerRear,
+        UpperFront,
+        UpperRear,
+        PushrodInboard,
+        ToeLinkInboard,
+        UBJ,
+        LBJ,
+        PushrodOutboard,
+        ToeLinkOutboard,
+        WheelCenter
+    }
+
 
 }

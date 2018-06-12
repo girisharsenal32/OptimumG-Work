@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.clb_InboardAdjPoints = new DevExpress.XtraEditors.CheckedListBoxControl();
-            this.cl_OutboardAdjPoints = new DevExpress.XtraEditors.CheckedListBoxControl();
+            this.clb_OutboardAdjPoints = new DevExpress.XtraEditors.CheckedListBoxControl();
             this.groupControlInboardPoints = new DevExpress.XtraEditors.GroupControl();
             this.groupControlOutboardPoints = new DevExpress.XtraEditors.GroupControl();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
@@ -47,7 +47,7 @@
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.simpleLabelItem1 = new DevExpress.XtraLayout.SimpleLabelItem();
             ((System.ComponentModel.ISupportInitialize)(this.clb_InboardAdjPoints)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cl_OutboardAdjPoints)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.clb_OutboardAdjPoints)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControlInboardPoints)).BeginInit();
             this.groupControlInboardPoints.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControlOutboardPoints)).BeginInit();
@@ -66,35 +66,25 @@
             // 
             // clb_InboardAdjPoints
             // 
+            this.clb_InboardAdjPoints.CheckOnClick = true;
             this.clb_InboardAdjPoints.Cursor = System.Windows.Forms.Cursors.Default;
             this.clb_InboardAdjPoints.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.clb_InboardAdjPoints.Items.AddRange(new DevExpress.XtraEditors.Controls.CheckedListBoxItem[] {
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Lower Front"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Lower Rear"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Upper Front"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Upper Rear"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Pushrod"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Toe Link")});
-            this.clb_InboardAdjPoints.Location = new System.Drawing.Point(2, 15);
+            this.clb_InboardAdjPoints.Location = new System.Drawing.Point(2, 20);
             this.clb_InboardAdjPoints.Name = "clb_InboardAdjPoints";
-            this.clb_InboardAdjPoints.Size = new System.Drawing.Size(140, 177);
+            this.clb_InboardAdjPoints.Size = new System.Drawing.Size(140, 172);
             this.clb_InboardAdjPoints.TabIndex = 0;
             this.clb_InboardAdjPoints.ItemCheck += new DevExpress.XtraEditors.Controls.ItemCheckEventHandler(this.clb_Inboard_ItemCheck);
             // 
-            // cl_OutboardAdjPoints
+            // clb_OutboardAdjPoints
             // 
-            this.cl_OutboardAdjPoints.Cursor = System.Windows.Forms.Cursors.Default;
-            this.cl_OutboardAdjPoints.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cl_OutboardAdjPoints.Items.AddRange(new DevExpress.XtraEditors.Controls.CheckedListBoxItem[] {
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Upper Ball Joint"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Lower Ball Joint"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Pushrod"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Toe Link"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("Wheel Center")});
-            this.cl_OutboardAdjPoints.Location = new System.Drawing.Point(2, 15);
-            this.cl_OutboardAdjPoints.Name = "cl_OutboardAdjPoints";
-            this.cl_OutboardAdjPoints.Size = new System.Drawing.Size(140, 139);
-            this.cl_OutboardAdjPoints.TabIndex = 1;
+            this.clb_OutboardAdjPoints.CheckOnClick = true;
+            this.clb_OutboardAdjPoints.Cursor = System.Windows.Forms.Cursors.Default;
+            this.clb_OutboardAdjPoints.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.clb_OutboardAdjPoints.Location = new System.Drawing.Point(2, 20);
+            this.clb_OutboardAdjPoints.Name = "clb_OutboardAdjPoints";
+            this.clb_OutboardAdjPoints.Size = new System.Drawing.Size(140, 134);
+            this.clb_OutboardAdjPoints.TabIndex = 1;
+            this.clb_OutboardAdjPoints.ItemCheck += new DevExpress.XtraEditors.Controls.ItemCheckEventHandler(this.clb_OutboardAdjPoints_ItemCheck);
             // 
             // groupControlInboardPoints
             // 
@@ -107,7 +97,7 @@
             // 
             // groupControlOutboardPoints
             // 
-            this.groupControlOutboardPoints.Controls.Add(this.cl_OutboardAdjPoints);
+            this.groupControlOutboardPoints.Controls.Add(this.clb_OutboardAdjPoints);
             this.groupControlOutboardPoints.Location = new System.Drawing.Point(12, 261);
             this.groupControlOutboardPoints.Name = "groupControlOutboardPoints";
             this.groupControlOutboardPoints.Size = new System.Drawing.Size(144, 156);
@@ -131,7 +121,6 @@
             // 
             // vGridControl1
             // 
-            this.vGridControl1.Cursor = System.Windows.Forms.Cursors.SizeNS;
             this.vGridControl1.Location = new System.Drawing.Point(160, 30);
             this.vGridControl1.Name = "vGridControl1";
             this.vGridControl1.RecordWidth = 131;
@@ -249,7 +238,7 @@
             this.Name = "AdjustableCoordinates";
             this.Size = new System.Drawing.Size(491, 446);
             ((System.ComponentModel.ISupportInitialize)(this.clb_InboardAdjPoints)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cl_OutboardAdjPoints)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.clb_OutboardAdjPoints)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControlInboardPoints)).EndInit();
             this.groupControlInboardPoints.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControlOutboardPoints)).EndInit();
@@ -271,7 +260,7 @@
         #endregion
 
         private DevExpress.XtraEditors.CheckedListBoxControl clb_InboardAdjPoints;
-        private DevExpress.XtraEditors.CheckedListBoxControl cl_OutboardAdjPoints;
+        private DevExpress.XtraEditors.CheckedListBoxControl clb_OutboardAdjPoints;
         private DevExpress.XtraEditors.GroupControl groupControlInboardPoints;
         private DevExpress.XtraEditors.GroupControl groupControlOutboardPoints;
         private DevExpress.XtraLayout.LayoutControl layoutControl1;

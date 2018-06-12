@@ -199,6 +199,7 @@
       <DependentUpon>AdjustableCoordinates.cs</DependentUpon>
     </Compile>
     <Compile Include="KinematicOptimization\KO_HelperClasses.cs" />
+    <Compile Include="KO_CornverVariables.cs" />
     <Compile Include="SetupChange\BumpSteerCurve.cs">
       <SubType>UserControl</SubType>
     </Compile>

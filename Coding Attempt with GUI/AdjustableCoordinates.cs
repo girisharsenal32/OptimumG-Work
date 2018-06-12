@@ -9,11 +9,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using DevExpress.XtraVerticalGrid.Rows;
+using DevExpress.XtraEditors.Controls;
+using devDept.Geometry;
 
 namespace Coding_Attempt_with_GUI
 {
     public partial class AdjustableCoordinates : XtraUserControl
     {
+        #region ---Declarations---
+
+        #region --Grid Control Requirements (Rows)---
         /// <summary>
         /// MultiEditorRow - Lower Front - Upper Limit
         /// </summary>
@@ -109,6 +114,10 @@ namespace Coding_Attempt_with_GUI
         List<CategoryRow> Inboard_CategoryRows;
 
         List<CategoryRow> Outboard_CategoryRows;
+        #endregion
+
+        public KO_CornverVariables KO_CV { get; set; } = new KO_CornverVariables();
+        #endregion
 
 
         public AdjustableCoordinates()
@@ -117,9 +126,17 @@ namespace Coding_Attempt_with_GUI
 
             InitializePropertyGrid();
 
+            InitializeListBoxes();
+
             category.Visible = false;
         }
 
+        public void GetParentObjectData(KO_CornverVariables _koCV)
+        {
+            KO_CV = _koCV;
+        }
+
+        #region ---GridControl Initializer Methods---
         /// <summary>
         /// Method to Initialize and Populate the <see cref="vGridControl1"/> (which displays to the user the range of all SELECTED Adjustable Coordinates) at Run Timi
         /// Done this way because creating the <see cref="vGridControl1"/> at Design is too complicated as there any many bugs
@@ -128,10 +145,12 @@ namespace Coding_Attempt_with_GUI
         {
             Inboard_CategoryRows = new List<CategoryRow>();
 
+            Outboard_CategoryRows = new List<CategoryRow>();
+
             ///<summary>Inboard Point GUI Row Creation</summary>
             c_LowerFront = CreateRows("Lower Front", out mr_LowerFront_UpperLimits, out mr_LowerFront_LowerLimits, out er_LowerFront_Upper, out er_LowerFront_Lower);
             vGridControl1.Rows.Add(c_LowerFront);
-            
+
             c_LowerRear = CreateRows("Lower Rear", out mr_LowerRear_UpperLimits, out mr_LowerRear_LowerLimits, out er_LowerRear_Upper, out er_LowerRear_Lower);
             vGridControl1.Rows.Add(c_LowerRear);
 
@@ -163,10 +182,12 @@ namespace Coding_Attempt_with_GUI
 
             c_WheelCenter = CreateRows("Wheel Center", out mr_WheelCenter_UpperLimits, out mr_WheelCenter_LowerLimits, out er_WheelCenter_Upper, out er_WheelCenter_Lower);
             vGridControl1.Rows.Add(c_WheelCenter);
-            
+
 
 
             vGridControl1.Refresh();
+
+            vGridControl1.CellValueChanged += VGridControl1_CellValueChanged;
 
             Inboard_CategoryRows.AddRange(new CategoryRow[] { c_LowerFront, c_LowerRear, c_UpperFront, c_UpperRear, c_PushrodInboard, c_ToeLinkInboard });
 
@@ -188,28 +209,36 @@ namespace Coding_Attempt_with_GUI
         {
             ///<summary>Creating the Upper Limit's Multi-Editor Row</summary>
             mr_Upper = new MultiEditorRow();
+            mr_Upper.Name = "UpperLimit";
 
             MultiEditorRowProperties m1 = new MultiEditorRowProperties();
             m1.Caption = "X";
+            m1.Value = (double)0;
             MultiEditorRowProperties m2 = new MultiEditorRowProperties();
             m2.Caption = "Y";
+            m2.Value = (double)0;
             MultiEditorRowProperties m3 = new MultiEditorRowProperties();
             m3.Caption = "Z";
+            m3.Value = (double)0;
 
             mr_Upper.PropertiesCollection.AddRange(new MultiEditorRowProperties[] { m1, m2, m3 });
             mr_Upper.Enabled = false;
 
-
+            
 
             ///<summary>Creating the Lower Limit's Multi-Editor Row</summary>
             mr_Lower = new MultiEditorRow();
+            mr_Lower.Name = "LowerLimit";
 
             MultiEditorRowProperties m4 = new MultiEditorRowProperties();
             m4.Caption = "X";
+            m4.Value = (double)0;
             MultiEditorRowProperties m5 = new MultiEditorRowProperties();
             m5.Caption = "Y";
+            m5.Value = (double)0;
             MultiEditorRowProperties m6 = new MultiEditorRowProperties();
             m6.Caption = "Z";
+            m6.Value = (double)0;
 
             mr_Lower.PropertiesCollection.AddRange(new MultiEditorRowProperties[] { m4, m5, m6 });
             mr_Lower.Enabled = false;
@@ -233,18 +262,276 @@ namespace Coding_Attempt_with_GUI
 
             ///<summary>The Category which will house all the above rowss</summary>
             CategoryRow category = new CategoryRow(_name);
-            
+            category.Name = _name;
             category.ChildRows.AddRange(new BaseRow[] { er_Upper, er_Lower });
+
 
             return category;
         }
+        #endregion
 
+        #region ---CheckedListBoxControl Initialization Methods---
+
+        private void InitializeListBoxes()
+        {
+            CheckedListBoxItem LowerFront = new CheckedListBoxItem(CoordinateOptions.LowerFront.ToString());
+            CheckedListBoxItem LowerRear = new CheckedListBoxItem(CoordinateOptions.LowerRear.ToString());
+            CheckedListBoxItem UpperFront = new CheckedListBoxItem(CoordinateOptions.UpperFront.ToString());
+            CheckedListBoxItem UpperRear = new CheckedListBoxItem(CoordinateOptions.UpperRear.ToString());
+            CheckedListBoxItem PushrodInboard = new CheckedListBoxItem(CoordinateOptions.PushrodInboard.ToString());
+            CheckedListBoxItem ToeLinkInboard= new CheckedListBoxItem(CoordinateOptions.ToeLinkInboard.ToString());
+
+            CheckedListBoxItem UBJ = new CheckedListBoxItem(CoordinateOptions.UBJ.ToString());
+            CheckedListBoxItem LBJ = new CheckedListBoxItem(CoordinateOptions.LBJ.ToString());
+            CheckedListBoxItem PushrodOutboard = new CheckedListBoxItem(CoordinateOptions.PushrodOutboard.ToString());
+            CheckedListBoxItem ToeLinkOutBoard = new CheckedListBoxItem(CoordinateOptions.ToeLinkOutboard.ToString());
+            CheckedListBoxItem WheelCenter = new CheckedListBoxItem(CoordinateOptions.WheelCenter.ToString());
+
+            clb_InboardAdjPoints.Items.AddRange(new CheckedListBoxItem[] { LowerFront, LowerRear, UpperFront, UpperRear, PushrodInboard, ToeLinkInboard });
+
+            clb_OutboardAdjPoints.Items.AddRange(new CheckedListBoxItem[] { UBJ, LBJ, PushrodOutboard, ToeLinkOutBoard, WheelCenter });
+        }
+
+        #endregion
+
+        #region ---Inboard Pick-Up Points GUI--- (Checked List Box Events and GridControl operations)---
+
+        /// <summary>
+        /// Event fired when the <see cref="clb_InboardAdjPoints"/>'s Item's Checkstate Changeds
+        /// Contains calls to activate or de-activate the Adjusters present in the <see cref="vGridControl1"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void clb_Inboard_ItemCheck(object sender, DevExpress.XtraEditors.Controls.ItemCheckEventArgs e)
         {
-            if ((string)clb_InboardAdjPoints.Items[e.Index].Value == "Lower Front") 
+            int index = e.Index;
+
+            if (clb_InboardAdjPoints.Items[e.Index].CheckState == CheckState.Checked)
             {
+                Activate_InboardPointAdjusters(index);
+                Add_InboardPointAdj_ToDictionary(index);
+            }
+            else
+            {
+                Deactivate_InboardAdjusters(index);
+                Remove_InboardPointAdj_ToDictionary(index);
+            }
+        }
+
+        /// <summary>
+        /// Method to Activate the Adjusters present in the <see cref="vGridControl1"/>
+        /// </summary>
+        /// <param name="_index">Index of the <see cref="clb_InboardAdjPoints"/> item whose checkstate was set to Checked</param>
+        private void Activate_InboardPointAdjusters(int _index)
+        {
+            EditorRow upper = Inboard_CategoryRows[_index].ChildRows[0] as EditorRow;
+            EditorRow lower = Inboard_CategoryRows[_index].ChildRows[1] as EditorRow;
+
+            upper.Enabled = true;
+
+            lower.Enabled = true;
+
+            MultiEditorRow upperXYZ = Inboard_CategoryRows[_index].ChildRows[0].ChildRows[0] as MultiEditorRow;
+            MultiEditorRow lowerXYZ = Inboard_CategoryRows[_index].ChildRows[1].ChildRows[0] as MultiEditorRow;
+
+            upperXYZ.Enabled = true;
+            lowerXYZ.Enabled = true;
+        }
+
+        /// <summary>
+        /// Method to add Adjuster to the Dictionary
+        /// </summary>
+        /// <param name="_index"></param>
+        private void Add_InboardPointAdj_ToDictionary(int _index)
+        {
+            string coordname = clb_InboardAdjPoints.Items[_index].Value as string;
+
+            if (!KO_CV.KO_MasterAdjs.ContainsKey(coordname))
+            {
+                KO_CV.KO_MasterAdjs.Add(coordname, new KO_AdjToolParams());
+            }
+
+        }
+
+        /// <summary>
+        /// Method to De-activate the Adjusters present in the <see cref="vGridControl1"/>
+        /// </summary>
+        /// <param name="_index">Index of the <see cref="clb_InboardAdjPoints"/> item whose checkstate was set to Unchecked</param>
+        private void Deactivate_InboardAdjusters(int _index)
+        {
+            EditorRow upper = Inboard_CategoryRows[_index].ChildRows[0] as EditorRow;
+            EditorRow lower = Inboard_CategoryRows[_index].ChildRows[1] as EditorRow;
+
+            upper.Enabled = false;
+
+            lower.Enabled = false;
+
+            MultiEditorRow upperXYZ = Inboard_CategoryRows[_index].ChildRows[0].ChildRows[0] as MultiEditorRow;
+            MultiEditorRow lowerXYZ = Inboard_CategoryRows[_index].ChildRows[1].ChildRows[0] as MultiEditorRow;
+
+            upperXYZ.Enabled = false;
+            lowerXYZ.Enabled = false;
+        }
+
+        /// <summary>
+        /// Method to Remove the Adjuster from the Dictionary
+        /// </summary>
+        /// <param name="_index"></param>
+        private void Remove_InboardPointAdj_ToDictionary(int _index)
+        {
+            string coordName = clb_InboardAdjPoints.Items[_index].Value as string;
+
+            if (KO_CV.KO_MasterAdjs.ContainsKey(coordName))
+            {
+                KO_CV.KO_MasterAdjs.Remove(coordName);
+            }
+        }
+
+        #endregion
+
+        #region ---Outboard Pick-Up Points GUI--- (Checked List Box Events and GridControl operations)---
+
+        /// <summary>
+        /// Event fired when the <see cref="clb_OutboardAdjPoints"/>'s Item's Checkstate Changeds
+        /// Contains calls to activate or de-activate the Adjusters present in the <see cref="vGridControl1"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void clb_OutboardAdjPoints_ItemCheck(object sender, DevExpress.XtraEditors.Controls.ItemCheckEventArgs e)
+        {
+            int index = e.Index;
+
+            if (clb_OutboardAdjPoints.Items[index].CheckState == CheckState.Checked)
+            {
+                Activate_Outboarddjusters(index);
+                Add_OutboardAdj_ToDictionary(index);
+            }
+            else
+            {
+                Deactivate_OutboardAdjusters(index);
+                Remove_OutboardAdj_ToDictionary(index);
+            }
+        }
+
+        /// <summary>
+        /// Method to Activate the Adjusters present in the <see cref="vGridControl1"/>
+        /// </summary>
+        /// <param name="_index">Index of the <see cref="clb_OutboardAdjPoints"/> item whose checkstate was set to Checked</param>
+        private void Activate_Outboarddjusters(int _index)
+        {
+            EditorRow upper = Outboard_CategoryRows[_index].ChildRows[0] as EditorRow;
+            EditorRow lower = Inboard_CategoryRows[_index].ChildRows[1] as EditorRow;
+
+            upper.Enabled = true;
+
+            lower.Enabled = true;
+
+            MultiEditorRow upperXYZ = Outboard_CategoryRows[_index].ChildRows[0].ChildRows[0] as MultiEditorRow;
+            MultiEditorRow lowerXYZ = Outboard_CategoryRows[_index].ChildRows[1].ChildRows[0] as MultiEditorRow;
+
+            upperXYZ.Enabled = true;
+            lowerXYZ.Enabled = true;
+        }
+
+        /// <summary>
+        /// Method to add the Adjuster to the Dictionary
+        /// </summary>
+        /// <param name="_index"></param>
+        private void Add_OutboardAdj_ToDictionary(int _index)
+        {
+            string coordName = clb_OutboardAdjPoints.Items[_index].Value as string;
+
+            if (!KO_CV.KO_MasterAdjs.ContainsKey(coordName))
+            {
+                KO_CV.KO_MasterAdjs.Add(coordName, new KO_AdjToolParams());
+            }
+        }
+
+        /// <summary>
+        /// Method to De-activate the Adjusters present in the <see cref="vGridControl1"/>
+        /// </summary>
+        /// <param name="_index">Index of the <see cref="clb_OutboardAdjPoints"/> item whose checkstate was set to Unchecked</param>
+        private void Deactivate_OutboardAdjusters(int _index)
+        {
+            EditorRow upper = Outboard_CategoryRows[_index].ChildRows[0] as EditorRow;
+            EditorRow lower = Outboard_CategoryRows[_index].ChildRows[1] as EditorRow;
+
+            upper.Enabled = false;
+
+            lower.Enabled = false;
+
+            MultiEditorRow upperXYZ = Outboard_CategoryRows[_index].ChildRows[0].ChildRows[0] as MultiEditorRow;
+            MultiEditorRow lowerXYZ = Outboard_CategoryRows[_index].ChildRows[1].ChildRows[0] as MultiEditorRow;
+
+            upperXYZ.Enabled = false;
+            lowerXYZ.Enabled = false;
+        }
+
+        /// <summary>
+        /// Method to Remove the Adjuster from the Dictionary
+        /// </summary>
+        /// <param name="_index"></param>
+        private void Remove_OutboardAdj_ToDictionary(int _index)
+        {
+            string coordName = clb_OutboardAdjPoints.Items[_index].Value as string;
+
+            if (KO_CV.KO_MasterAdjs.ContainsKey(coordName))
+            {
+                KO_CV.KO_MasterAdjs.Remove(coordName);
+            }
+        }
+
+
+
+        #endregion
+
+        private void VGridControl1_CellValueChanged(object sender, DevExpress.XtraVerticalGrid.Events.CellValueChangedEventArgs e)
+        {
+            int mainIndex = 0;
+
+            if (vGridControl1.FocusedRow is MultiEditorRow)
+            {
+                MultiEditorRow row = vGridControl1.FocusedRow as MultiEditorRow;
+
+                EditorRow eRow = row.ParentRow as EditorRow;
+
+                CategoryRow cRow = eRow.ParentRow as CategoryRow;
+
+                string coordName = "";
+
+                if (Inboard_CategoryRows.Contains(cRow))
+                {
+                    mainIndex = Inboard_CategoryRows.IndexOf(cRow);
+
+                    coordName = clb_InboardAdjPoints.Items[mainIndex].Value as string;
+
+                }
+                else if (Outboard_CategoryRows.Contains(cRow))
+                {
+                    mainIndex = Outboard_CategoryRows.IndexOf(cRow);
+
+                    coordName = clb_OutboardAdjPoints.Items[mainIndex].Value as string;
+                }
+
+                if (KO_CV.KO_MasterAdjs.ContainsKey(coordName))
+                {
+                    if (row.Name == ("UpperLimit" + mainIndex)) 
+                    {
+                        KO_CV.KO_MasterAdjs[coordName].UpperCoordinateLimit = new Point3D((double)row.PropertiesCollection[0].Value,
+                                                                                          (double)row.PropertiesCollection[1].Value,
+                                                                                          (double)row.PropertiesCollection[2].Value);
+                    }
+                    else if (row.Name == ("LowerLimit" + mainIndex))
+                    {
+                        KO_CV.KO_MasterAdjs[coordName].LowerCoordinateLimit = new Point3D((double)row.PropertiesCollection[0].Value,
+                                                                                          (double)row.PropertiesCollection[1].Value,
+                                                                                          (double)row.PropertiesCollection[2].Value);
+                    }
+                }
+
 
             }
         }
+
     }
 }
