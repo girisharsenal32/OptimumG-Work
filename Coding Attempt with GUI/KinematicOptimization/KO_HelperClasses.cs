@@ -14,22 +14,22 @@ namespace Coding_Attempt_with_GUI
     }
 
     /// <summary>
-    /// Enum of <see cref="SuspensionParameter"/> for which the Suspension Coordinates would be Optimized for
+    /// Enum of <see cref="SuspensionParameters"/> for which the Suspension Coordinates would be Optimized for
     /// </summary>
-    public enum SuspensionParameter
+    public enum SuspensionParameters
     {
+        Ackermann,
         FrontRollCenter,
         RearRollCenter,
         LeftPitchCenter,
         RightPitchCenter,
         CamberVariation,
         BumpSteer,
-        Ackermann,
         SpringDeflection
     };
 
     /// <summary>
-    /// Enum to determine whether the user is requesting for a Static <see cref="SuspensionParameter"/> or a variation of the <see cref="SuspensionParameter"/>
+    /// Enum to determine whether the user is requesting for a Static <see cref="SuspensionParameters"/> or a variation of the <see cref="SuspensionParameters"/>
     /// </summary>
     public enum SuspensionParameterMode
     {

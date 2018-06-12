@@ -116,7 +116,8 @@ namespace Coding_Attempt_with_GUI
         List<CategoryRow> Outboard_CategoryRows;
         #endregion
 
-        public KO_CornverVariables KO_CV { get; set; } = new KO_CornverVariables();
+        public KO_CornverVariables KO_CV;
+
         #endregion
 
 
@@ -129,6 +130,7 @@ namespace Coding_Attempt_with_GUI
             InitializeListBoxes();
 
             category.Visible = false;
+
         }
 
         public void GetParentObjectData(KO_CornverVariables _koCV)
