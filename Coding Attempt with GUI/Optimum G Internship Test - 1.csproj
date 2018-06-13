@@ -205,8 +205,8 @@
     <Compile Include="KinematicOptimization\KO_AdjustableCoordinates.Designer.cs">
       <DependentUpon>KO_AdjustableCoordinates.cs</DependentUpon>
     </Compile>
-    <Compile Include="KinematicOptimization\KO_HelperClasses.cs" />
-    <Compile Include="KinematicOptimization\KO_CornverVariables.cs" />
+    <Compile Include="KinematicOptimization\Helper Classes\KO_HelperClasses.cs" />
+    <Compile Include="KinematicOptimization\Helper Classes\KO_CornverVariables.cs" />
     <Compile Include="KinematicOptimization\ParametersAndImportance.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -217,7 +217,7 @@
     <Compile Include="KinematicOptimization\KinematicsOptimization_GUI.cs" />
     <Compile Include="KO_Optimizer.cs" />
     <Compile Include="KO_Outputs.cs" />
-    <Compile Include="KO_SimulationParams.cs" />
+    <Compile Include="KinematicOptimization\Helper Classes\KO_SimulationParams.cs" />
     <Compile Include="Master_Optimizer.cs" />
     <Compile Include="SetupChange\BumpSteerCurve.cs">
       <SubType>UserControl</SubType>
@@ -808,7 +808,9 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="KinematicOptimization\GUI Items\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

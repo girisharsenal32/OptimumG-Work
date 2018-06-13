@@ -22,14 +22,14 @@ namespace Coding_Attempt_with_GUI
         /// <para>This variable determines the Upper Limit off ALL the Heave Charts</para>
         /// <para>It is crucial that ALL the Heave Charts have the same Upper Value, Lower Value and Range</para>
         /// </summary>
-        public double Chart_Global_Heave_Upper { get; set; }
+        public double Maximum_Heave_Deflection { get; set; }
 
         /// <summary>
         /// <para>---IMPORTANT---</para>
         /// <para>This variable determines the Lower Limit off ALL the Heave Charts</para>
         /// <para>It is crucial that ALL the Heave Charts have the same Upper Value, Lower Value and Range</para>
         /// </summary>
-        public double Chart_Global_Heave_Lower { get; set; }
+        public double Minimum_Heave_Deflection { get; set; }
 
 
         /// <summary>
@@ -37,22 +37,22 @@ namespace Coding_Attempt_with_GUI
         /// <para>This variable determines the Upper Limit off ALL the Steering Charts</para>
         /// <para>It is crucial that ALL the Steering Charts have the same Upper Value, Lower Value and Range</para>
         /// </summary>
-        public double Chart_Global_Steering_Upper { get; set; }
+        public double Maximum_Steering_Angle { get; set; }
 
         /// <summary>
         /// <para>---IMPORTANT---</para>
         /// <para>This variable determines the Upper Limit off ALL the Steering Charts</para>
         /// <para>It is crucial that ALL the Steering Charts have the same Upper Value, Lower Value and Range</para>
         /// </summary>
-        public double Chart_Global_Steering_Lower { get; set; }
+        public double Minimum_Steering_Angle { get; set; }
 
         /// <summary>
-        /// Step Size calculated for the Heave based on the <see cref="Chart_Global_Heave_Upper"/> & <see cref="Chart_Global_Heave_Lower"/>
+        /// Step Size calculated for the Heave based on the <see cref="Maximum_Heave_Deflection"/> & <see cref="Minimum_Heave_Deflection"/>
         /// </summary>
         public int StepSize_Heave { get; set; }
 
         /// <summary>
-        /// Step Size calculated for the Steering based on the <see cref="Chart_Global_Steering_Upper"/> & <see cref="Chart_Global_Steering_Lower"/>
+        /// Step Size calculated for the Steering based on the <see cref="Maximum_Steering_Angle"/> & <see cref="Minimum_Steering_Angle"/>
         /// </summary>
         public int StepSize_Steering { get; set; }
 

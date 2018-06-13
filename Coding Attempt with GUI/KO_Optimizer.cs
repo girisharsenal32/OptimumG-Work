@@ -10,13 +10,30 @@ namespace Coding_Attempt_with_GUI
 {
     public class KO_Optimizer : Master_Optimizer
     {
+        /// <summary>
+        /// Object of the <see cref="KO_CornverVariables"/> containing ALL relevant information of the Front Left Corner
+        /// </summary>
         public KO_CornverVariables KO_CV_FL;
 
+        /// <summary>
+        /// Object of the <see cref="KO_CornverVariables"/> containing ALL relevant information of the Front Right Corner
+        /// </summary>
         public KO_CornverVariables KO_CV_FR;
 
+        /// <summary>
+        /// Object of the <see cref="KO_CornverVariables"/> containing ALL relevant information of the Rear Left Corner
+        /// </summary>
         public KO_CornverVariables KO_CV_RL;
 
+        /// <summary>
+        /// Object of the <see cref="KO_CornverVariables"/> containing ALL relevant information of the Rear Right Corner
+        /// </summary>
         public KO_CornverVariables KO_CV_RR;
+
+        /// <summary>
+        /// Number of Iterations that the Kinemaic Solver is going to Run for 
+        /// </summary>
+        public int NumberOfIterations;
 
         /// <summary>
         /// <para>---1st--- This mehod is to be called First</para>
@@ -57,11 +74,12 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_koCVFR"></param>
         /// <param name="_koCVRL"></param>
         /// <param name="_koCVRR"></param>
-        public void Initialize_CornverVariables(Vehicle _vehicle, KO_CornverVariables _koCVFL, KO_CornverVariables _koCVFR, KO_CornverVariables _koCVRL, KO_CornverVariables _koCVRR)
+        public void Initialize_CornverVariables(Vehicle _vehicle, KO_SimulationParams _koSim, KO_CornverVariables _koCVFL, KO_CornverVariables _koCVFR, KO_CornverVariables _koCVRL, KO_CornverVariables _koCVRR)
         {
             Vehicle = _vehicle;
 
             KO_CV_FL = _koCVFL;
+            KO_CV_FL.InitializeVehicleCornerParams(Vehicle, VehicleCorner.FrontLeft,_koCVFL)
 
             KO_CV_FR = _koCVFR;
 

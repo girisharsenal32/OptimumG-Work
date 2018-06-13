@@ -49,7 +49,7 @@ namespace Coding_Attempt_with_GUI
 
 
         /// <summary>
-        /// 
+        /// Constructor
         /// </summary>
         public KO_CornverVariables()
         {
@@ -60,7 +60,15 @@ namespace Coding_Attempt_with_GUI
             KO_ReqParams_Importance = new Dictionary<SuspensionParameters, double>();
         }
 
-        public VehicleCornerParams InitializeVehicleCornerParams(Vehicle _vehicle, VehicleCorner _vCorner)
+        /// <summary>
+        /// Method to Intialze the Corner Components of a given corner of a Vehicle
+        /// </summary>
+        /// <param name="_vehicle">The <see cref="Vehicle"/> class' object</param>
+        /// <param name="_vCorner">Corner of the Vhicle</param>
+        /// <param name="_numberOfIterations">Number of iterations that the Kinematic Solver (<see cref="DoubleWishboneKinematicsSolver"/></param> or <see cref="McPhersonKinematicsSolver"/> is going to 
+        /// run for 
+        /// <returns>Returns an object of the <see cref="VehicleCornerParams"/> Class</returns>
+        public VehicleCornerParams InitializeVehicleCornerParams(Vehicle _vehicle, VehicleCorner _vCorner, int _numberOfIterations)
         {
             Dictionary<string, object> tempVehicleParams = VehicleParamsAssigner.AssignVehicleParams_PreKinematicsSolver(_vCorner, _vehicle, 0);
 
@@ -87,7 +95,7 @@ namespace Coding_Attempt_with_GUI
 
             vCornerParams.OC = tempVehicleParams["OutputClass"] as List<OutputClass>;
 
-            vCornerParams.OC_BumpSteer = VehicleParamsAssigner.AssignVehicleParams_Custom_OC_BumpSteer(vCornerParams.SCM, _vCorner, _vehicle, Setup_CV.BS_Params.WheelDeflections.Count);
+            vCornerParams.OC_BumpSteer = VehicleParamsAssigner.AssignVehicleParams_Custom_OC_BumpSteer(vCornerParams.SCM, _vCorner, _vehicle, /*Setup_CV.BS_Params.WheelDeflections.Count*/_numberOfIterations);
 
             vCornerParams.Identifier = (int)tempVehicleParams["Identifier"];
 
