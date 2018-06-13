@@ -279,7 +279,7 @@ namespace Coding_Attempt_with_GUI
 
         /// <summary>
         /// Method to assign ORIENTATION to the Angles according to the User's Convention and then initialize the angles 
-        /// The goal is that, if a Setup Angle is requested then these angles below will be overridden by the <see cref="OptimizerGeneticAlgorithm"/>'s results and then later will be conditioned with the right orientation
+        /// The goal is that, if a Setup Angle is requested then these angles below will be overridden by the <see cref="SetupChange_Optimizer"/>'s results and then later will be conditioned with the right orientation
         /// BUT, if a Setup ANgle is not requested, then initalizing it and conditioning it with right direction here itself will be useful as then it will simply have to be displayed in the Final Output Stage
         /// </summary>
         /// <param name="_fCamber"></param>

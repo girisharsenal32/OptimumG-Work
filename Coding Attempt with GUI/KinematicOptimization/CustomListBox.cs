@@ -11,7 +11,7 @@ using DevExpress.XtraEditors;
 
 namespace Coding_Attempt_with_GUI
 {
-    public partial class AdjustableListBox : XtraUserControl
+    public partial class CustomListBox : XtraUserControl
     {
         //public List<SuspensionParameters> Req_Params_Importance { get; set; }
 
@@ -23,7 +23,7 @@ namespace Coding_Attempt_with_GUI
 
         //public AdjustableListBox CounterList_LeftRight { get; set; }
 
-        public AdjustableListBox()
+        public CustomListBox()
         {
             InitializeComponent();
 

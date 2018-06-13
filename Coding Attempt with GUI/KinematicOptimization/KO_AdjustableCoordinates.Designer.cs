@@ -1,6 +1,6 @@
 ﻿namespace Coding_Attempt_with_GUI
 {
-    partial class AdjustableCoordinates
+    partial class KO_AdjustableCoordinates
     {
         /// <summary> 
         /// Required designer variable.

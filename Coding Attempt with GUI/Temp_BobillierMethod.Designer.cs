@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.adjustableCoordinates1 = new Coding_Attempt_with_GUI.AdjustableCoordinates();
+            this.adjustableCoordinates1 = new Coding_Attempt_with_GUI.KO_AdjustableCoordinates();
             this.SuspendLayout();
             // 
             // adjustableCoordinates1
@@ -53,6 +53,6 @@
 
         #endregion
 
-        private AdjustableCoordinates adjustableCoordinates1;
+        private KO_AdjustableCoordinates adjustableCoordinates1;
     }
 }

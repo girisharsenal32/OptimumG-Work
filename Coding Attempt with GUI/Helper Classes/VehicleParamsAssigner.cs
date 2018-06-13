@@ -153,23 +153,6 @@ namespace Coding_Attempt_with_GUI
 
             oc = _vehicle.Initialize_IndependantOutputClass(noOfOCSteps, (int)_vCorner, _scm);
 
-            //if (_vCorner == VehicleCorner.FrontLeft)
-            //{
-            //    oc = _vehicle.oc_FL;
-            //}
-            //else if (_vCorner == VehicleCorner.FrontRight)
-            //{
-            //    oc = _vehicle.oc_FR;
-            //}
-            //else if (_vCorner == VehicleCorner.RearLeft)
-            //{
-            //    oc = _vehicle.oc_RL;
-            //}
-            //else if (_vCorner == VehicleCorner.RearRight)
-            //{
-            //    oc = _vehicle.oc_RR;
-            //}
-
             return oc;
 
         }

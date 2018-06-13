@@ -56,14 +56,25 @@ namespace Coding_Attempt_with_GUI
         CheckedListBoxItem SpringDeflection;
         #endregion
 
+        /// <summary>
+        /// Object of the <see cref="KO_CornverVariables"/> representing the Front Left COrner
+        /// </summary>
         public KO_CornverVariables KO_CV_FL { get; set; }
 
+        /// <summary>
+        /// Object of the <see cref="KO_CornverVariables"/> representing the Front Right COrner
+        /// </summary>
         public KO_CornverVariables KO_CV_FR { get; set; }
 
+        /// <summary>
+        /// Object of the <see cref="KO_CornverVariables"/> representing the Rear Left COrner
+        /// </summary>
         public KO_CornverVariables KO_CV_RL { get; set; }
 
+        /// <summary>
+        /// Object of the <see cref="KO_CornverVariables"/> representing the Rear Right COrner
+        /// </summary>
         public KO_CornverVariables KO_CV_RR { get; set; }
-
 
 
         public ParametersAndImportance()
@@ -102,7 +113,7 @@ namespace Coding_Attempt_with_GUI
 
             KO_CV_RR = _rrCV;
 
-            ///<summary>Passing the Corner Variables Object to the <see cref="AdjustableListBox"/> User Control</summary>
+            ///<summary>Passing the Corner Variables Object to the <see cref="CustomListBox"/> User Control</summary>
             adjustableListBoxFL.GetCornerVariableObject(KO_CV_FL/*, VehicleCorner.FrontLeft*/);
 
             adjustableListBoxFR.GetCornerVariableObject(KO_CV_FR/*, VehicleCorner.FrontRight*/);

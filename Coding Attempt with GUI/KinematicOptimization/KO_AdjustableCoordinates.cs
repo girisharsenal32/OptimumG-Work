@@ -14,7 +14,7 @@ using devDept.Geometry;
 
 namespace Coding_Attempt_with_GUI
 {
-    public partial class AdjustableCoordinates : XtraUserControl
+    public partial class KO_AdjustableCoordinates : XtraUserControl
     {
         #region ---Declarations---
 
@@ -121,7 +121,7 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
 
-        public AdjustableCoordinates()
+        public KO_AdjustableCoordinates()
         {
             InitializeComponent();
 

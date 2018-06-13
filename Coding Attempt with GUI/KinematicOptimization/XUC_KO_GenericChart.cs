@@ -13,7 +13,7 @@ using DevExpress.XtraCharts;
 
 namespace Coding_Attempt_with_GUI
 {
-    public partial class XUC_KO_GenericChart : DevExpress.XtraEditors.XtraUserControl
+    public partial class XUC_KO_GenericChart : XtraUserControl
     {
 
         #region --Chart Params--

@@ -193,17 +193,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomCamberCurve.cs" />
-    <Compile Include="KinematicOptimization\AdjustableListBox.cs">
+    <Compile Include="KinematicOptimization\CustomListBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="KinematicOptimization\AdjustableListBox.Designer.cs">
-      <DependentUpon>AdjustableListBox.cs</DependentUpon>
+    <Compile Include="KinematicOptimization\CustomListBox.Designer.cs">
+      <DependentUpon>CustomListBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="KinematicOptimization\AdjustableCoordinates.cs">
+    <Compile Include="KinematicOptimization\KO_AdjustableCoordinates.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="KinematicOptimization\AdjustableCoordinates.Designer.cs">
-      <DependentUpon>AdjustableCoordinates.cs</DependentUpon>
+    <Compile Include="KinematicOptimization\KO_AdjustableCoordinates.Designer.cs">
+      <DependentUpon>KO_AdjustableCoordinates.cs</DependentUpon>
     </Compile>
     <Compile Include="KinematicOptimization\KO_HelperClasses.cs" />
     <Compile Include="KinematicOptimization\KO_CornverVariables.cs" />
@@ -213,6 +213,12 @@
     <Compile Include="KinematicOptimization\ParametersAndImportance.Designer.cs">
       <DependentUpon>ParametersAndImportance.cs</DependentUpon>
     </Compile>
+    <Compile Include="KinematicOptimization\KinematicsOptimization.cs" />
+    <Compile Include="KinematicOptimization\KinematicsOptimization_GUI.cs" />
+    <Compile Include="KO_Optimizer.cs" />
+    <Compile Include="KO_Outputs.cs" />
+    <Compile Include="KO_SimulationParams.cs" />
+    <Compile Include="Master_Optimizer.cs" />
     <Compile Include="SetupChange\BumpSteerCurve.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -573,7 +579,7 @@
     <Compile Include="Temp_BobillierMethod.Designer.cs">
       <DependentUpon>Temp_BobillierMethod.cs</DependentUpon>
     </Compile>
-    <Compile Include="Solvers\Optimizer-GeneticAlgorithm.cs" />
+    <Compile Include="Solvers\SetupChange_Optimizer.cs" />
     <Compile Include="Helper Classes\VehicleParamsAssigner.cs" />
     <Compile Include="KinematicOptimization\XUC_KinematicOptimization.cs">
       <SubType>UserControl</SubType>
@@ -599,11 +605,13 @@
     <Compile Include="KinematicOptimization\XUC_KO_GenericChart.Designer.cs">
       <DependentUpon>XUC_KO_GenericChart.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="KinematicOptimization\AdjustableListBox.resx">
-      <DependentUpon>AdjustableListBox.cs</DependentUpon>
+    <Compile Include="VehicleCentralParams.cs" />
+    <Compile Include="VehicleCornerParams.cs" />
+    <EmbeddedResource Include="KinematicOptimization\CustomListBox.resx">
+      <DependentUpon>CustomListBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="KinematicOptimization\AdjustableCoordinates.resx">
-      <DependentUpon>AdjustableCoordinates.cs</DependentUpon>
+    <EmbeddedResource Include="KinematicOptimization\KO_AdjustableCoordinates.resx">
+      <DependentUpon>KO_AdjustableCoordinates.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="KinematicOptimization\XUC_KinematicOptimization.resx">
       <DependentUpon>XUC_KinematicOptimization.cs</DependentUpon>

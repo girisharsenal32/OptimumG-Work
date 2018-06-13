@@ -16,7 +16,7 @@ using MathNet.Numerics.LinearAlgebra;
 
 namespace Coding_Attempt_with_GUI
 {
-    public class OptimizerGeneticAlgorithm
+    public class SetupChange_Optimizer
     {
         #region ---DECLARATIONS---
 
@@ -482,7 +482,7 @@ namespace Coding_Attempt_with_GUI
 
         /// <summary>
         /// <para>---1st--- This mehod is to be called First</para>
-        /// <para>The Constructor of the <see cref="OptimizerGeneticAlgorithm"/> Class</para>
+        /// <para>The Constructor of the <see cref="SetupChange_Optimizer"/> Class</para>
         /// </summary>
         /// <param name="_crossover">Percentage of the Population which is going to be subject to Crossover</param>
         /// <param name="_mutation">Percentage of the Population which is going to be subject to Random Mutation</param>
@@ -491,7 +491,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_chromoseLength"> <para>Chromosome Length of the <see cref="Population"/></para>
         /// <para>Decided based on 2 things: The number of Genes and the bit size required for each Gene</para>
         /// <para>https://gaframework.org/wiki/index.php/How_to_Encode_Parameters for more information</para> </param>
-        public OptimizerGeneticAlgorithm(double _crossover, double _mutation, int _elites, int _noOfGenerations)
+        public SetupChange_Optimizer(double _crossover, double _mutation, int _elites, int _noOfGenerations)
         {
             CrossOverProbability = _crossover;
 

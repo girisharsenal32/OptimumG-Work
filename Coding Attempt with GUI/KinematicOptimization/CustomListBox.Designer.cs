@@ -1,6 +1,6 @@
 ﻿namespace Coding_Attempt_with_GUI
 {
-    partial class AdjustableListBox
+    partial class CustomListBox
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdjustableListBox));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CustomListBox));
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.simpleButtonUP = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButtonDown = new DevExpress.XtraEditors.SimpleButton();

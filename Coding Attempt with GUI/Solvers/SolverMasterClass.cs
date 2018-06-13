@@ -163,9 +163,9 @@ namespace Coding_Attempt_with_GUI
 
         #region Setup Change - OptimizationGeneticAlgorithm Class Object
         /// <summary>
-        /// Object of the <see cref="OptimizerGeneticAlgorithm"/> Class which performs the Optimization using the Genetic Algorithm
+        /// Object of the <see cref="SetupChange_Optimizer"/> Class which performs the Optimization using the Genetic Algorithm
         /// </summary>
-        OptimizerGeneticAlgorithm ga;
+        SetupChange_Optimizer ga;
         #endregion
 
         #region SetupChange- Vehicle Model Object
@@ -1636,7 +1636,7 @@ namespace Coding_Attempt_with_GUI
         }
 
         /// <summary>
-        /// Method to Initialize the object of the <see cref="OptimizerGeneticAlgorithm"/> Class which by extension initializes the Genetic Algorithm
+        /// Method to Initialize the object of the <see cref="SetupChange_Optimizer"/> Class which by extension initializes the Genetic Algorithm
         /// </summary>
         /// <param name="_vehicle">Vehicle Object</param>
         /// <param name="identifier">Corner Identifier</param>
@@ -1660,12 +1660,12 @@ namespace Coding_Attempt_with_GUI
             SC_OC_Temp.InitializeAngles(finalCamber, finalToe, finalCaster, finalKPI);
 
             ///<summary>Initialize the Genetic Algorithm's Properties and Operators</summary>
-            ga = new OptimizerGeneticAlgorithm(0.85, 0.05, 5, SetupChange_NoOfGenerations);
+            ga = new SetupChange_Optimizer(0.85, 0.05, 5, SetupChange_NoOfGenerations);
 
             ///<summary>Initializing the requirements of the USER in terms of Setup and Tools available to adjust</summary>
             ga.InitializeSetupParams(_requestedChanges, SC_OC_Temp, _requestedChanges.Master_Adj, finalCamber, finalCaster, finalToe, finalKPI, _setupID);
 
-            ///<summary>Initializing the Vehicle of the <see cref="OptimizerGeneticAlgorithm"/> class along with all of it's properties</summary>
+            ///<summary>Initializing the Vehicle of the <see cref="SetupChange_Optimizer"/> class along with all of it's properties</summary>
             ga.InitializeVehicleParams((VehicleCorner)identifier, _vehicle);
 
             ga.Set_ErrorsToEvaluate();
@@ -3385,7 +3385,7 @@ namespace Coding_Attempt_with_GUI
 
 
             ///<summary>
-            ///---IMPORTANT--- The final values of ALL the Setup Params are assigned in the <see cref="OptimizerGeneticAlgorithm"/> Class. <see cref="SetupChange_Init_GeneticAlgorithmClass(Vehicle, int, SetupChange_CornerVariables, Angle, Angle, Angle, Angle)"/>
+            ///---IMPORTANT--- The final values of ALL the Setup Params are assigned in the <see cref="SetupChange_Optimizer"/> Class. <see cref="SetupChange_Init_GeneticAlgorithmClass(Vehicle, int, SetupChange_CornerVariables, Angle, Angle, Angle, Angle)"/>
             ///method for explanation as to why this is done in the Optimizer Class.
             ///Below the Initial Values of the Setup Params are assigned after giving them the right direction
             /// </summary>

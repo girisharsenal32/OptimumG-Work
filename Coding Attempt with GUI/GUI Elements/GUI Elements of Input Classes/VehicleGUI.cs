@@ -728,9 +728,10 @@ namespace Coding_Attempt_with_GUI
                         {
                             BlockReference br = vehicleCADDrawer_Output.viewportLayout1.Entities[i] as BlockReference;
                             br.Translate(0, -(ImportedCADTranslationHistory[ImportedCADTranslationHistory.Count - 1] - ImportedCADTranslationHistory[ImportedCADTranslationHistory.Count - 2]), 0);
-                            
+                            br.Regen(0);        
                         }
                     }
+                    
 
 
                 }

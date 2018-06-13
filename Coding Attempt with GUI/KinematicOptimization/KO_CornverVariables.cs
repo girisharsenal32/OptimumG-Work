@@ -27,9 +27,30 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         public Dictionary<SuspensionParameters, double> KO_ReqParams_Importance { get; set; }
 
+        /// <summary>
+        /// Object of the <see cref="VehicleCornerParams"/> Class containing ALL the Front Left Corner Compontnents
+        /// </summary>
+        public VehicleCornerParams VeicleParams_FL { get; set; }
+
+        /// <summary>
+        /// Object of the <see cref="VehicleCornerParams"/> Class containing ALL the Front Right Corner Compontnents
+        /// </summary>
+        public VehicleCornerParams VeicleParams_FR { get; set; }
+
+        /// <summary>
+        /// Object of the <see cref="VehicleCornerParams"/> Class containing ALL the Rear Left Corner Compontnents
+        /// </summary>
+        public VehicleCornerParams VeicleParams_RL { get; set; }
+
+        /// <summary>
+        /// Object of the <see cref="VehicleCornerParams"/> Class containing ALL the Rear Right Corner Compontnents
+        /// </summary>
+        public VehicleCornerParams VeicleParams_RR { get; set; }
 
 
-
+        /// <summary>
+        /// 
+        /// </summary>
         public KO_CornverVariables()
         {
             KO_MasterAdjs = new Dictionary<string, KO_AdjToolParams>();
@@ -38,5 +59,43 @@ namespace Coding_Attempt_with_GUI
 
             KO_ReqParams_Importance = new Dictionary<SuspensionParameters, double>();
         }
+
+        public VehicleCornerParams InitializeVehicleCornerParams(Vehicle _vehicle, VehicleCorner _vCorner)
+        {
+            Dictionary<string, object> tempVehicleParams = VehicleParamsAssigner.AssignVehicleParams_PreKinematicsSolver(_vCorner, _vehicle, 0);
+
+            VehicleCornerParams vCornerParams = new VehicleCornerParams();
+
+            ///<summary>Passing the <see cref="Dictionary{TKey, TValue}"/> of Vehicle Params's objects into the right Parameter</summary>
+            vCornerParams.SCM = tempVehicleParams["SuspensionCoordinateMaster"] as SuspensionCoordinatesMaster;
+
+            vCornerParams.SCM_Clone = new SuspensionCoordinatesMaster();
+            vCornerParams.SCM_Clone.Clone(vCornerParams.SCM);
+
+            vCornerParams.Tire = tempVehicleParams["Tire"] as Tire;
+
+            vCornerParams.Spring = tempVehicleParams["Spring"] as Spring;
+
+            vCornerParams.Damper = tempVehicleParams["Damper"] as Damper;
+
+            vCornerParams.ARB = tempVehicleParams["AntirollBar"] as AntiRollBar;
+            vCornerParams.ARBRate_Nmm = (double)tempVehicleParams["ARB_Rate_Nmm"];
+
+            vCornerParams.WA = tempVehicleParams["WheelAlignment"] as WheelAlignment;
+
+            ///<remarks>Chassis is not a part of the <see cref="VehicleCornerParams"/> and hence it is taken care of outside of this method just like the <see cref="Vehicle"/></remarks>
+
+            vCornerParams.OC = tempVehicleParams["OutputClass"] as List<OutputClass>;
+
+            vCornerParams.OC_BumpSteer = VehicleParamsAssigner.AssignVehicleParams_Custom_OC_BumpSteer(vCornerParams.SCM, _vCorner, _vehicle, Setup_CV.BS_Params.WheelDeflections.Count);
+
+            vCornerParams.Identifier = (int)tempVehicleParams["Identifier"];
+
+            return vCornerParams;
+        }
+        
+
+
+
     }
 }
