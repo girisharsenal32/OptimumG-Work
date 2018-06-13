@@ -31,6 +31,11 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         public double Minimum_Heave_Deflection { get; set; }
 
+        /// <summary>
+        /// This variable holds the information regarding the index of the <see cref="Maximum_Heave_Deflection"/>
+        /// </summary>
+        public int Max_HeaveDeflection_Index { get; set; }
+
 
         /// <summary>
         /// <para>---IMPORTANT---</para>
@@ -47,6 +52,11 @@ namespace Coding_Attempt_with_GUI
         public double Minimum_Steering_Angle { get; set; }
 
         /// <summary>
+        /// This variable holds information regarding the index of the <see cref="Maximum_Steering_Angle"/>
+        /// </summary>
+        public int Max_SteeringAngle_Index { get; set; }
+
+        /// <summary>
         /// Step Size calculated for the Heave based on the <see cref="Maximum_Heave_Deflection"/> & <see cref="Minimum_Heave_Deflection"/>
         /// </summary>
         public int StepSize_Heave { get; set; }
@@ -55,6 +65,8 @@ namespace Coding_Attempt_with_GUI
         /// Step Size calculated for the Steering based on the <see cref="Maximum_Steering_Angle"/> & <see cref="Minimum_Steering_Angle"/>
         /// </summary>
         public int StepSize_Steering { get; set; }
+
+
 
 
     }

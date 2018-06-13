@@ -9,43 +9,70 @@ namespace Coding_Attempt_with_GUI
 {
     public class KO_CornverVariables
     {
+        #region ---Declarations---
+
+        public VehicleCorner VCorner { get; set; }
+
+        public int Identifier { get; set; }
+
+        #region --Suspension Parameters--
         /// <summary>
         /// <para>Master <see cref="Dictionary{String, KO_AdjToolParams}"/> which holds ALL the coordinate information of the Adjustable coordinates</para> 
         /// <para>This dictionary is crucial and will be used in the Main Optimizer Class</para>
         /// </summary>
-        public Dictionary<string,KO_AdjToolParams> KO_MasterAdjs { get; set; }
+        public Dictionary<string, KO_AdjToolParams> KO_MasterAdjs;
 
         /// <summary>
         /// <para><see cref="List{SuspensionParameters}"/> of ALL the parameters requested by the User</para>
         /// <para>This List is crucial and will be used in the Main Optimization Class</para>
         /// <para>---IMPORTANT--- This list will also house the <see cref="SuspensionParameters"/> in the RIGHT ORDER OF IMPORTANCE</para>
         /// </summary>
-        public List<SuspensionParameters> KO_ReqParams { get; set; }
+        public List<SuspensionParameters> KO_ReqParams;
 
         /// <summary>
         /// <para><see cref="Dictionary{SuspensionParameters, Double}"/> which holds the IMportance of each of the <see cref="SuspensionParameters"/></para>
         /// </summary>
-        public Dictionary<SuspensionParameters, double> KO_ReqParams_Importance { get; set; }
+        public Dictionary<SuspensionParameters, double> KO_ReqParams_Importance;
+        #endregion
 
+        #region --Vehicle Corner Components--
         /// <summary>
         /// Object of the <see cref="VehicleCornerParams"/> Class containing ALL the Front Left Corner Compontnents
         /// </summary>
-        public VehicleCornerParams VeicleParams_FL { get; set; }
+        public VehicleCornerParams VeicleParams_FL;
 
         /// <summary>
         /// Object of the <see cref="VehicleCornerParams"/> Class containing ALL the Front Right Corner Compontnents
         /// </summary>
-        public VehicleCornerParams VeicleParams_FR { get; set; }
+        public VehicleCornerParams VeicleParams_FR;
 
         /// <summary>
         /// Object of the <see cref="VehicleCornerParams"/> Class containing ALL the Rear Left Corner Compontnents
         /// </summary>
-        public VehicleCornerParams VeicleParams_RL { get; set; }
+        public VehicleCornerParams VeicleParams_RL;
 
         /// <summary>
         /// Object of the <see cref="VehicleCornerParams"/> Class containing ALL the Rear Right Corner Compontnents
         /// </summary>
-        public VehicleCornerParams VeicleParams_RR { get; set; }
+        public VehicleCornerParams VeicleParams_RR;
+        #endregion
+
+        #region --Parameter Variation Curves--
+
+        /// <summary>
+        /// Object of the <see cref="CustomBumpSteerParams"/> which contains information regarding the Custom Curve of BUmp Steer which the user has generated
+        /// </summary>
+        public CustomBumpSteerParams BumpSteerCurve;
+
+        /// <summary>
+        /// Object of the <see cref="CustomCamberCurve"/> which contains information regarding the Custom Curve of Camber which the user has generated
+        /// </summary>
+        public CustomCamberCurve CamberCurve;   
+
+        #endregion
+
+
+        #endregion
 
 
         /// <summary>

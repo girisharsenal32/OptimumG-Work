@@ -50,6 +50,9 @@ namespace Coding_Attempt_with_GUI
         public KO_CornverVariables KO_CV_RR_GUI { get; set; }
 
 
+        public XUC_KinematicOptimization xuc_KO;
+
+
         public KinematicsOptimization_GUI(){}
 
 
@@ -66,6 +69,11 @@ namespace Coding_Attempt_with_GUI
             KO_CV_RL_GUI = new KO_CornverVariables();
 
             KO_CV_RR_GUI = new KO_CornverVariables();
+
+            KO_SimParams = new KO_SimulationParams();
+
+            xuc_KO = new XUC_KinematicOptimization();
+
         }
 
 

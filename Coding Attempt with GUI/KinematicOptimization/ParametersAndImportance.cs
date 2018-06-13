@@ -77,6 +77,7 @@ namespace Coding_Attempt_with_GUI
         public KO_CornverVariables KO_CV_RR { get; set; }
 
 
+        #region ---Initialization Methods---
         public ParametersAndImportance()
         {
             InitializeComponent();
@@ -124,7 +125,7 @@ namespace Coding_Attempt_with_GUI
 
         }
 
-        #region ---Checked List Box Contorl Initialization---
+        #region -Initialization - Checked List Box Contorl-
         /// <summary>
         /// Method to initialise all the required <see cref="CheckedListBoxItem"/> for each of the 4 <see cref="CheckedListBoxControl"/>s
         /// </summary>
@@ -190,7 +191,9 @@ namespace Coding_Attempt_with_GUI
             Initialize_CLB_Items();
 
             clb_RR.Items.AddRange(new CheckedListBoxItem[] { /*RearRollCenter, */ /*RightPitchCenter,*/ Camber, BumpSteer, SpringDeflection });
-        } 
+        }
+        #endregion 
+
         #endregion
 
 

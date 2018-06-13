@@ -30,6 +30,8 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         public KO_CornverVariables KO_CV_RR;
 
+        public KO_SimulationParams KO_SimParams;
+
         /// <summary>
         /// Number of Iterations that the Kinemaic Solver is going to Run for 
         /// </summary>
@@ -78,14 +80,22 @@ namespace Coding_Attempt_with_GUI
         {
             Vehicle = _vehicle;
 
+            KO_SimParams = _koSim;
+
             KO_CV_FL = _koCVFL;
-            KO_CV_FL.InitializeVehicleCornerParams(Vehicle, VehicleCorner.FrontLeft,_koCVFL)
+            KO_CV_FL.InitializeVehicleCornerParams(Vehicle, VehicleCorner.FrontLeft, KO_SimParams.NumberOfIterations_KinematicSolver);
 
             KO_CV_FR = _koCVFR;
+            KO_CV_FR.InitializeVehicleCornerParams(Vehicle, VehicleCorner.FrontRight, KO_SimParams.NumberOfIterations_KinematicSolver);
 
             KO_CV_RL = _koCVRL;
+            KO_CV_RL.InitializeVehicleCornerParams(Vehicle, VehicleCorner.RearLeft, KO_SimParams.NumberOfIterations_KinematicSolver);
 
             KO_CV_RR = _koCVRR;
+            KO_CV_RR.InitializeVehicleCornerParams(Vehicle, VehicleCorner.RearRight, KO_SimParams.NumberOfIterations_KinematicSolver);
+
+
+
         }
 
     }
