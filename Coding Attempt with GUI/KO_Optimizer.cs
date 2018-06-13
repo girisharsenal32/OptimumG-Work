@@ -80,21 +80,40 @@ namespace Coding_Attempt_with_GUI
         {
             Vehicle = _vehicle;
 
+            Chassis = _vehicle.chassis_vehicle;
+
             KO_SimParams = _koSim;
 
+            ///<summary>Initializing the <see cref="KO_CornverVariables"/> object</summary>
             KO_CV_FL = _koCVFL;
-            KO_CV_FL.InitializeVehicleCornerParams(Vehicle, VehicleCorner.FrontLeft, KO_SimParams.NumberOfIterations_KinematicSolver);
+            ///<summary>Initializing the <see cref="VehicleCornerParams"/> object of the <see cref="KO_CornverVariables"/> Class</summary>
+            KO_CV_FL.VCornerParams = KO_CV_FL.Initialize_VehicleCornerParams(Vehicle, VehicleCorner.FrontLeft, KO_SimParams.NumberOfIterations_KinematicSolver);
+            ///<see cref="Initializing the <see cref="KO_AdjToolParams.NominalCoordinates"/> of the <see cref="KO_CornverVariables.KO_MasterAdjs"/> "/>
+            KO_CV_FL.Initialize_AdjusterCoordinates(KO_CV_FL.VCornerParams);
 
+
+            ///<summary>Initializing the <see cref="KO_CornverVariables"/> object</summary>
             KO_CV_FR = _koCVFR;
-            KO_CV_FR.InitializeVehicleCornerParams(Vehicle, VehicleCorner.FrontRight, KO_SimParams.NumberOfIterations_KinematicSolver);
+            ///<summary>Initializing the <see cref="VehicleCornerParams"/> object of the <see cref="KO_CornverVariables"/> Class</summary>
+            KO_CV_FR.VCornerParams = KO_CV_FR.Initialize_VehicleCornerParams(Vehicle, VehicleCorner.FrontRight, KO_SimParams.NumberOfIterations_KinematicSolver);
+            ///<see cref="Initializing the <see cref="KO_AdjToolParams.NominalCoordinates"/> of the <see cref="KO_CornverVariables.KO_MasterAdjs"/> "/>
+            KO_CV_FR.Initialize_AdjusterCoordinates(KO_CV_FR.VCornerParams);
 
+
+            ///<summary>Initializing the <see cref="KO_CornverVariables"/> object</summary>
             KO_CV_RL = _koCVRL;
-            KO_CV_RL.InitializeVehicleCornerParams(Vehicle, VehicleCorner.RearLeft, KO_SimParams.NumberOfIterations_KinematicSolver);
+            ///<summary>Initializing the <see cref="VehicleCornerParams"/> object of the <see cref="KO_CornverVariables"/> Class</summary>
+            KO_CV_RL.VCornerParams = KO_CV_RL.Initialize_VehicleCornerParams(Vehicle, VehicleCorner.RearLeft, KO_SimParams.NumberOfIterations_KinematicSolver);
+            ///<see cref="Initializing the <see cref="KO_AdjToolParams.NominalCoordinates"/> of the <see cref="KO_CornverVariables.KO_MasterAdjs"/> "/>
+            KO_CV_RL.Initialize_AdjusterCoordinates(KO_CV_RL.VCornerParams);
 
+            
+            ///<summary>Initializing the <see cref="KO_CornverVariables"/> object</summary>
             KO_CV_RR = _koCVRR;
-            KO_CV_RR.InitializeVehicleCornerParams(Vehicle, VehicleCorner.RearRight, KO_SimParams.NumberOfIterations_KinematicSolver);
-
-
+            ///<summary>Initializing the <see cref="VehicleCornerParams"/> object of the <see cref="KO_CornverVariables"/> Class</summary>
+            KO_CV_RR.VCornerParams = KO_CV_RR.Initialize_VehicleCornerParams(Vehicle, VehicleCorner.RearRight, KO_SimParams.NumberOfIterations_KinematicSolver);
+            ///<see cref="Initializing the <see cref="KO_AdjToolParams.NominalCoordinates"/> of the <see cref="KO_CornverVariables.KO_MasterAdjs"/> "/>
+            KO_CV_RR.Initialize_AdjusterCoordinates(KO_CV_RR.VCornerParams);
 
         }
 

@@ -39,22 +39,7 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Object of the <see cref="VehicleCornerParams"/> Class containing ALL the Front Left Corner Compontnents
         /// </summary>
-        public VehicleCornerParams VeicleParams_FL;
-
-        /// <summary>
-        /// Object of the <see cref="VehicleCornerParams"/> Class containing ALL the Front Right Corner Compontnents
-        /// </summary>
-        public VehicleCornerParams VeicleParams_FR;
-
-        /// <summary>
-        /// Object of the <see cref="VehicleCornerParams"/> Class containing ALL the Rear Left Corner Compontnents
-        /// </summary>
-        public VehicleCornerParams VeicleParams_RL;
-
-        /// <summary>
-        /// Object of the <see cref="VehicleCornerParams"/> Class containing ALL the Rear Right Corner Compontnents
-        /// </summary>
-        public VehicleCornerParams VeicleParams_RR;
+        public VehicleCornerParams VCornerParams;
         #endregion
 
         #region --Parameter Variation Curves--
@@ -95,7 +80,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_numberOfIterations">Number of iterations that the Kinematic Solver (<see cref="DoubleWishboneKinematicsSolver"/></param> or <see cref="McPhersonKinematicsSolver"/> is going to 
         /// run for 
         /// <returns>Returns an object of the <see cref="VehicleCornerParams"/> Class</returns>
-        public VehicleCornerParams InitializeVehicleCornerParams(Vehicle _vehicle, VehicleCorner _vCorner, int _numberOfIterations)
+        public VehicleCornerParams Initialize_VehicleCornerParams(Vehicle _vehicle, VehicleCorner _vCorner, int _numberOfIterations)
         {
             Dictionary<string, object> tempVehicleParams = VehicleParamsAssigner.AssignVehicleParams_PreKinematicsSolver(_vCorner, _vehicle, 0);
 
@@ -126,9 +111,43 @@ namespace Coding_Attempt_with_GUI
 
             vCornerParams.Identifier = (int)tempVehicleParams["Identifier"];
 
+            vCornerParams.InitializePointsAndDictionary();
+
             return vCornerParams;
         }
-        
+
+        /// <summary>
+        /// Method to Initialize the <see cref="KO_AdjToolParams.NominalCoordinates"/> of the <see cref="KO_MasterAdjs"/> Dictionary using the <see cref="VehicleCornerParams.InboardAssembly"/> and the <see cref="VehicleCornerParams.OutboardAssembly"/>
+        /// </summary>
+        /// <param name="_vCornerParams">Object of the <see cref="VehicleCornerParams"/> Class used to initalize the <see cref="KO_AdjToolParams.NominalCoordinates"/></param>
+        public void Initialize_AdjusterCoordinates(VehicleCornerParams _vCornerParams)
+        {
+            foreach (string coordinate in KO_MasterAdjs.Keys)
+            {
+                foreach (string outboardCoord in _vCornerParams.OutboardAssembly.Keys)
+                {
+                    if (outboardCoord == coordinate)
+                    {
+                        KO_MasterAdjs[coordinate].NominalCoordinates = _vCornerParams.OutboardAssembly[outboardCoord];
+                        KO_MasterAdjs[coordinate].OptimizedCoordinates= _vCornerParams.OutboardAssembly[outboardCoord];
+                    }
+                }
+
+                foreach (string coordName in KO_MasterAdjs.Keys)
+                {
+                    foreach (string inboardCoord in _vCornerParams.InboardAssembly.Keys)
+                    {
+                        if (inboardCoord == coordName)
+                        {
+                            KO_MasterAdjs[coordName].NominalCoordinates = _vCornerParams.InboardAssembly[inboardCoord];
+                            KO_MasterAdjs[coordName].OptimizedCoordinates= _vCornerParams.InboardAssembly[inboardCoord];
+                        }
+                    }
+                }
+                
+
+            }
+        }
 
 
 

@@ -282,6 +282,9 @@ namespace Coding_Attempt_with_GUI
             CheckedListBoxItem UpperRear = new CheckedListBoxItem(CoordinateOptions.UpperRear.ToString());
             CheckedListBoxItem PushrodInboard = new CheckedListBoxItem(CoordinateOptions.PushrodInboard.ToString());
             CheckedListBoxItem ToeLinkInboard= new CheckedListBoxItem(CoordinateOptions.ToeLinkInboard.ToString());
+            CheckedListBoxItem DamperShockMount = new CheckedListBoxItem(CoordinateOptions.DamperShockMount.ToString());
+            CheckedListBoxItem DamperBellCrank = new CheckedListBoxItem(CoordinateOptions.DamperBellCrank.ToString());
+
 
             CheckedListBoxItem UBJ = new CheckedListBoxItem(CoordinateOptions.UBJ.ToString());
             CheckedListBoxItem LBJ = new CheckedListBoxItem(CoordinateOptions.LBJ.ToString());
@@ -289,7 +292,7 @@ namespace Coding_Attempt_with_GUI
             CheckedListBoxItem ToeLinkOutBoard = new CheckedListBoxItem(CoordinateOptions.ToeLinkOutboard.ToString());
             CheckedListBoxItem WheelCenter = new CheckedListBoxItem(CoordinateOptions.WheelCenter.ToString());
 
-            clb_InboardAdjPoints.Items.AddRange(new CheckedListBoxItem[] { LowerFront, LowerRear, UpperFront, UpperRear, PushrodInboard, ToeLinkInboard });
+            clb_InboardAdjPoints.Items.AddRange(new CheckedListBoxItem[] { LowerFront, LowerRear, UpperFront, UpperRear, PushrodInboard, ToeLinkInboard, DamperShockMount,DamperBellCrank });
 
             clb_OutboardAdjPoints.Items.AddRange(new CheckedListBoxItem[] { UBJ, LBJ, PushrodOutboard, ToeLinkOutBoard, WheelCenter });
         }
