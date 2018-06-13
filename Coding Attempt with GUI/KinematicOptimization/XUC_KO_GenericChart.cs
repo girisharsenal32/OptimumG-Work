@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
-using System.Linq;
 using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DevExpress.XtraEditors;
 using DevExpress.XtraCharts;
-using MathNet.Spatial.Units;
+
 
 namespace Coding_Attempt_with_GUI
 {
-    public partial class BumpSteerCurve : DevExpress.XtraEditors.XtraUserControl
+    public partial class XUC_KO_GenericChart : DevExpress.XtraEditors.XtraUserControl
     {
 
         #region --Chart Params--
@@ -48,49 +49,20 @@ namespace Coding_Attempt_with_GUI
         /// Boolean to determine if the Chart is being plotted by the USER during input or by solver during Output Display
         /// </summary>
         public bool IsOutputChart { get; set; }
-
         #endregion
-
-        public CustomBumpSteerParams BumpSteerParms;
-
-        SetupChange_CornerVariables Setup_CV;
-        
 
         /// <summary>
         /// Object which would contain the Series Points of the Chart
         /// </summary>
         public SeriesPointCollection seriesPointsInChart { get; set; }
 
-        public bool CustomBumpSteerCurve { get; set; }
-
-        public BumpSteerCurve()
+        public XUC_KO_GenericChart()
         {
             InitializeComponent();
-
-            ChartPoints_X = new List<double>();
-
-            ChartPoints_Y = new List<double>();
-
-            BumpSteerParms = new CustomBumpSteerParams();
-
-            //AddPointToChart(chartControl1, 0, 0, 0, false);
-        }
-
-        /// <summary>
-        /// Method to initialize the Parent Data of the Bump Steer Chart
-        /// ---IMP---This is used only for the Input section of the Setup Change and not the Output Section
-        /// </summary>
-        /// <param name="_setupCV"></param>
-        public void GetParentObjectData(SetupChange_CornerVariables _setupCV)
-        {
-            Setup_CV = _setupCV;
-
-            Setup_CV.BS_Params = BumpSteerParms;
-
-            AddPointToChart(chartControl1, 0, 0, 0, false);
         }
 
 
+        #region ---Add Points to Chart Methods---
         /// <summary>
         /// Method to add points to the Chart
         /// </summary>
@@ -108,26 +80,13 @@ namespace Coding_Attempt_with_GUI
 
                 ChartPoints_Y.Add(_y);
 
-                BumpSteerParms.PopulateBumpSteerGraph(ChartPoints_X, ChartPoints_Y); 
+                //BumpSteerParms.PopulateBumpSteerGraph(ChartPoints_X, ChartPoints_Y);
             }
 
         }
-        /// <summary>
-        /// Method to add a new Series to the Chart
-        /// </summary>
-        /// <param name="_chart"></param>
-        public void AddSeriesToChart(ChartControl _chart)
-        {
-            if (!_chart.Series.Contains(_chart.Series["Computed BS Curve"]))
-            {
-                _chart.Series.Add("Computed BS Curve", ViewType.Line); 
-            }
-            else
-            {
-                _chart.Series["Computed BS Curve"].Points.Clear();
-            }
-        }
+        #endregion
 
+        #region ---Chart Click Events---
         /// <summary>
         /// Event raised during the MouseClick event inside the chart
         /// ----Chart is disabled during Output Plotting and hence this won't fired---
@@ -136,7 +95,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="e"></param>
         private void chartControl1_MouseClick(object sender, MouseEventArgs e)
         {
-            if (!IsOutputChart) 
+            if (!IsOutputChart)
             {
                 if (e.Button == MouseButtons.Right)
                 {
@@ -149,17 +108,19 @@ namespace Coding_Attempt_with_GUI
                     LineSeriesView line = new LineSeriesView();
 
                     seriesPointsInChart = chartControl1.Series[0].Points;
-                    CustomBumpSteerCurve = true;
-                } 
-            }
-        }
 
+                }
+            }
+        } 
+        #endregion
+
+        #region ---Plot No Variation Chart Events---
         /// <summary>
         /// Event raised when the <see cref="simpleButtonPlotMinBS"/> is clicked
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void simpleButtonMinBumpSteerChart_Click(object sender, EventArgs e)
+        private void simpleButtonNOVariationChart_Click(object sender, EventArgs e)
         {
             PlotMinBumpSteerChart();
         }
@@ -173,9 +134,10 @@ namespace Coding_Attempt_with_GUI
             AddPointToChart(chartControl1, 25, 0, 0, false);
 
             AddPointToChart(chartControl1, -25, 0, 0, false);
-        }
+        } 
+        #endregion
 
-
+        #region ---Clear Chart Events---
         /// <summary>
         /// Event fired when the <see cref="simpleButtonClearCharrt"/> button is clicked
         /// </summary>
@@ -184,6 +146,11 @@ namespace Coding_Attempt_with_GUI
         private void simpleButtonClearCharrt_Click(object sender, EventArgs e)
         {
             ClearChart();
+
+            ChartPoints_X = new List<double>();
+
+            ChartPoints_Y = new List<double>();
+
         }
 
         /// <summary>
@@ -201,55 +168,16 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Re-plotting the point 0,0</summary>
             AddPointToChart(chartControl1, 0, 0, 0, false);
 
+        } 
+        #endregion
 
-        }
-
-
-        #region ---Chart Params Text Changed Events---
-        private void textBoxStepSize_Leave(object sender, EventArgs e)
-        {
-            SetStepSize();
-        }
-        private void textBoxStepSize_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                SetStepSize();
-            }
-        }
-
-        private void SetStepSize()
-        {
-            if (Int32.TryParse(textBoxStepSize.Text, out int result))
-            {
-                if (result < 0)
-                {
-                    MessageBox.Show("Step Size can't be negative");
-                }
-                else
-                {
-                    StepSize = result;
-
-                    Setup_CV.BS_Params.StepSize = StepSize;
-
-                }
-            }
-            else
-            {
-                MessageBox.Show("Please Enter Numeric Values");
-            }
-        }
-
-
-
-
-
-        private void textBoxXUpperLimit_Leave(object sender, EventArgs e)
-        {
-            SetXUpperLimit();
-        }
-
-        private void textBoxXUpperLimit_KeyDown(object sender, KeyEventArgs e)
+        #region ---Chart Parameters Text Changed Events---
+        /// <summary>
+        /// Upper Limit X Textbox Change Events
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBoxXUpper_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -257,9 +185,14 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
+        private void textBoxXUpper_Leave(object sender, EventArgs e)
+        {
+            SetXUpperLimit();
+        }
+
         private void SetXUpperLimit()
         {
-            if (Double.TryParse(textBoxXUpperLimit.Text, out double result))
+            if (Double.TryParse(textBoxXUpper.Text, out double result))
             {
                 if (result < 0)
                 {
@@ -284,16 +217,12 @@ namespace Coding_Attempt_with_GUI
 
 
 
-
-
-
-
-        private void textBoxXLowerLimit_Leave(object sender, EventArgs e)
-        {
-            SetXLowerLimit();
-        }
-
-        private void textBoxXLowerLimit_KeyDown(object sender, KeyEventArgs e)
+        /// <summary>
+        /// Lower Limit X Textbox Changed Events
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBoxXLower_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -301,9 +230,14 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
+        private void textBoxXLower_Leave(object sender, EventArgs e)
+        {
+            SetXLowerLimit();
+        }
+
         private void SetXLowerLimit()
         {
-            if (Double.TryParse(textBoxXLowerLimit.Text, out double result))
+            if (Double.TryParse(textBoxXLower.Text, out double result))
             {
                 if (result > 0)
                 {
@@ -329,25 +263,27 @@ namespace Coding_Attempt_with_GUI
 
 
 
-
-
-
-
-        private void textBoxYUpperLimit_Leave(object sender, EventArgs e)
-        {
-            SetYUpperLimit();
-        }
-
-        private void textBoxYUpperLimit_KeyDown(object sender, KeyEventArgs e)
+        /// <summary>
+        /// Upper Limit Y Textbox Changed Events
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBoxYUpper_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 SetYUpperLimit();
             }
         }
+
+        private void textBoxYUpper_Leave(object sender, EventArgs e)
+        {
+            SetYUpperLimit();
+        }
+
         private void SetYUpperLimit()
         {
-            if (Double.TryParse(textBoxYUpperLimit.Text, out double result))
+            if (Double.TryParse(textBoxYUpper.Text, out double result))
             {
                 if (result < 0)
                 {
@@ -374,12 +310,12 @@ namespace Coding_Attempt_with_GUI
 
 
 
-        private void textBoxYLowerLimit_Leave(object sender, EventArgs e)
-        {
-            SetYLowerLimit();
-        }
-
-        private void textBoxYLowerLimit_KeyDown(object sender, KeyEventArgs e)
+        /// <summary>
+        /// Lower Limit Y Textbox Changed Events
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBoxYLower_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -387,9 +323,14 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
+        private void textBoxYLower_Leave(object sender, EventArgs e)
+        {
+            SetYLowerLimit();
+        }
+
         private void SetYLowerLimit()
         {
-            if (Double.TryParse(textBoxYLowerLimit.Text, out double result))
+            if (Double.TryParse(textBoxYLower.Text, out double result))
             {
                 if (result > 0)
                 {
@@ -409,13 +350,15 @@ namespace Coding_Attempt_with_GUI
             {
                 MessageBox.Show("Please Enter Numeric Values");
             }
-        }
-
-        private void groupControlBSChart_Paint(object sender, PaintEventArgs e)
-        {
-
         } 
         #endregion
+
+
+
+
+
+
+
 
 
     }

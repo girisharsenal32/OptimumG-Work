@@ -11,16 +11,11 @@ using DevExpress.XtraEditors;
 
 namespace Coding_Attempt_with_GUI
 {
-    public partial class XUC_KinematicOptimization : DevExpress.XtraEditors.XtraUserControl
+    public partial class XUC_KO_BS : DevExpress.XtraEditors.XtraUserControl
     {
-        public XUC_KinematicOptimization()
+        public XUC_KO_BS()
         {
             InitializeComponent();
-        }
-
-        private void dockPanelAckermann_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

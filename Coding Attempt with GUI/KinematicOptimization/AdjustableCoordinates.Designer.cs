@@ -106,8 +106,7 @@
             // 
             // layoutControl1
             // 
-            this.layoutControl1.Appearance.Control.BorderColor = System.Drawing.Color.Red;
-            this.layoutControl1.Appearance.Control.Options.UseBorderColor = true;
+            this.layoutControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(236)))), ((int)(((byte)(239)))));
             this.layoutControl1.Controls.Add(this.vGridControl1);
             this.layoutControl1.Controls.Add(this.groupControlOutboardPoints);
             this.layoutControl1.Controls.Add(this.groupControlInboardPoints);
@@ -121,6 +120,7 @@
             // 
             // vGridControl1
             // 
+            this.vGridControl1.Cursor = System.Windows.Forms.Cursors.SizeNS;
             this.vGridControl1.Location = new System.Drawing.Point(160, 30);
             this.vGridControl1.Name = "vGridControl1";
             this.vGridControl1.RecordWidth = 131;

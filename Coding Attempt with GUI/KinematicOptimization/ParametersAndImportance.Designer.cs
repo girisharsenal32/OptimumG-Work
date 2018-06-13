@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.xuC_KinematicOptimization1 = new Coding_Attempt_with_GUI.XUC_KinematicOptimization();
             this.simpleButtonCancel = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButtonOK = new DevExpress.XtraEditors.SimpleButton();
             this.adjustableListBoxRR = new Coding_Attempt_with_GUI.AdjustableListBox();
@@ -65,6 +66,7 @@
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.clb_RR)).BeginInit();
@@ -97,10 +99,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.xuC_KinematicOptimization1);
             this.layoutControl1.Controls.Add(this.simpleButtonCancel);
             this.layoutControl1.Controls.Add(this.simpleButtonOK);
             this.layoutControl1.Controls.Add(this.adjustableListBoxRR);
@@ -115,22 +119,29 @@
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(1358, 765);
+            this.layoutControl1.Size = new System.Drawing.Size(1348, 738);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
+            // xuC_KinematicOptimization1
+            // 
+            this.xuC_KinematicOptimization1.Location = new System.Drawing.Point(701, 12);
+            this.xuC_KinematicOptimization1.Name = "xuC_KinematicOptimization1";
+            this.xuC_KinematicOptimization1.Size = new System.Drawing.Size(635, 714);
+            this.xuC_KinematicOptimization1.TabIndex = 18;
+            // 
             // simpleButtonCancel
             // 
-            this.simpleButtonCancel.Location = new System.Drawing.Point(656, 731);
+            this.simpleButtonCancel.Location = new System.Drawing.Point(654, 704);
             this.simpleButtonCancel.Name = "simpleButtonCancel";
-            this.simpleButtonCancel.Size = new System.Drawing.Size(690, 22);
+            this.simpleButtonCancel.Size = new System.Drawing.Size(43, 22);
             this.simpleButtonCancel.StyleController = this.layoutControl1;
             this.simpleButtonCancel.TabIndex = 17;
             this.simpleButtonCancel.Text = "Cancel";
             // 
             // simpleButtonOK
             // 
-            this.simpleButtonOK.Location = new System.Drawing.Point(629, 731);
+            this.simpleButtonOK.Location = new System.Drawing.Point(627, 704);
             this.simpleButtonOK.Name = "simpleButtonOK";
             this.simpleButtonOK.Size = new System.Drawing.Size(23, 22);
             this.simpleButtonOK.StyleController = this.layoutControl1;
@@ -139,38 +150,42 @@
             // 
             // adjustableListBoxRR
             // 
-            this.adjustableListBoxRR.Location = new System.Drawing.Point(535, 392);
+            this.adjustableListBoxRR.KO_CV = null;
+            this.adjustableListBoxRR.Location = new System.Drawing.Point(535, 379);
             this.adjustableListBoxRR.Name = "adjustableListBoxRR";
-            this.adjustableListBoxRR.Size = new System.Drawing.Size(811, 330);
+            this.adjustableListBoxRR.Size = new System.Drawing.Size(162, 316);
             this.adjustableListBoxRR.TabIndex = 15;
             // 
             // adjustableListBoxRL
             // 
-            this.adjustableListBoxRL.Location = new System.Drawing.Point(369, 392);
+            this.adjustableListBoxRL.KO_CV = null;
+            this.adjustableListBoxRL.Location = new System.Drawing.Point(369, 379);
             this.adjustableListBoxRL.Name = "adjustableListBoxRL";
-            this.adjustableListBoxRL.Size = new System.Drawing.Size(162, 330);
+            this.adjustableListBoxRL.Size = new System.Drawing.Size(162, 316);
             this.adjustableListBoxRL.TabIndex = 14;
             // 
             // adjustableListBoxFR
             // 
+            this.adjustableListBoxFR.KO_CV = null;
             this.adjustableListBoxFR.Location = new System.Drawing.Point(535, 50);
             this.adjustableListBoxFR.Name = "adjustableListBoxFR";
-            this.adjustableListBoxFR.Size = new System.Drawing.Size(811, 321);
+            this.adjustableListBoxFR.Size = new System.Drawing.Size(162, 308);
             this.adjustableListBoxFR.TabIndex = 13;
             // 
             // adjustableListBoxFL
             // 
+            this.adjustableListBoxFL.KO_CV = null;
             this.adjustableListBoxFL.Location = new System.Drawing.Point(369, 50);
             this.adjustableListBoxFL.Name = "adjustableListBoxFL";
-            this.adjustableListBoxFL.Size = new System.Drawing.Size(162, 321);
+            this.adjustableListBoxFL.Size = new System.Drawing.Size(162, 308);
             this.adjustableListBoxFL.TabIndex = 12;
             // 
             // clb_RR
             // 
             this.clb_RR.Cursor = System.Windows.Forms.Cursors.Default;
-            this.clb_RR.Location = new System.Drawing.Point(178, 392);
+            this.clb_RR.Location = new System.Drawing.Point(178, 379);
             this.clb_RR.Name = "clb_RR";
-            this.clb_RR.Size = new System.Drawing.Size(162, 335);
+            this.clb_RR.Size = new System.Drawing.Size(162, 321);
             this.clb_RR.StyleController = this.layoutControl1;
             this.clb_RR.TabIndex = 7;
             this.clb_RR.ItemCheck += new DevExpress.XtraEditors.Controls.ItemCheckEventHandler(this.clb_RR_ItemCheck);
@@ -178,9 +193,9 @@
             // clb_RL
             // 
             this.clb_RL.Cursor = System.Windows.Forms.Cursors.Default;
-            this.clb_RL.Location = new System.Drawing.Point(12, 392);
+            this.clb_RL.Location = new System.Drawing.Point(12, 379);
             this.clb_RL.Name = "clb_RL";
-            this.clb_RL.Size = new System.Drawing.Size(162, 335);
+            this.clb_RL.Size = new System.Drawing.Size(162, 321);
             this.clb_RL.StyleController = this.layoutControl1;
             this.clb_RL.TabIndex = 6;
             this.clb_RL.ItemCheck += new DevExpress.XtraEditors.Controls.ItemCheckEventHandler(this.clb_RL_ItemCheck);
@@ -190,7 +205,7 @@
             this.clb_FR.Cursor = System.Windows.Forms.Cursors.Default;
             this.clb_FR.Location = new System.Drawing.Point(178, 50);
             this.clb_FR.Name = "clb_FR";
-            this.clb_FR.Size = new System.Drawing.Size(162, 321);
+            this.clb_FR.Size = new System.Drawing.Size(162, 308);
             this.clb_FR.StyleController = this.layoutControl1;
             this.clb_FR.TabIndex = 5;
             this.clb_FR.ItemCheck += new DevExpress.XtraEditors.Controls.ItemCheckEventHandler(this.clb_FR_ItemCheck);
@@ -200,7 +215,7 @@
             this.clb_FL.Cursor = System.Windows.Forms.Cursors.Default;
             this.clb_FL.Location = new System.Drawing.Point(12, 50);
             this.clb_FL.Name = "clb_FL";
-            this.clb_FL.Size = new System.Drawing.Size(162, 321);
+            this.clb_FL.Size = new System.Drawing.Size(162, 308);
             this.clb_FL.StyleController = this.layoutControl1;
             this.clb_FL.TabIndex = 4;
             this.clb_FL.ItemCheck += new DevExpress.XtraEditors.Controls.ItemCheckEventHandler(this.clb_FL_ItemCheck);
@@ -234,10 +249,11 @@
             this.layoutControlItem7,
             this.layoutControlItem8,
             this.layoutControlItem9,
-            this.layoutControlItem10});
+            this.layoutControlItem10,
+            this.layoutControlItem11});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(1358, 765);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(1348, 738);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // simpleLabelItem1
@@ -262,7 +278,7 @@
             this.simpleLabelItem2.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.simpleLabelItem2.Location = new System.Drawing.Point(357, 0);
             this.simpleLabelItem2.Name = "simpleLabelItem2";
-            this.simpleLabelItem2.Size = new System.Drawing.Size(981, 21);
+            this.simpleLabelItem2.Size = new System.Drawing.Size(332, 21);
             this.simpleLabelItem2.Text = "Parameter Importance";
             this.simpleLabelItem2.TextSize = new System.Drawing.Size(162, 17);
             // 
@@ -271,7 +287,7 @@
             this.layoutControlItem1.Control = this.clb_FL;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 38);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(166, 325);
+            this.layoutControlItem1.Size = new System.Drawing.Size(166, 312);
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
             // 
@@ -280,25 +296,25 @@
             this.layoutControlItem2.Control = this.clb_FR;
             this.layoutControlItem2.Location = new System.Drawing.Point(166, 38);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(166, 325);
+            this.layoutControlItem2.Size = new System.Drawing.Size(166, 312);
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem2.TextVisible = false;
             // 
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.clb_RL;
-            this.layoutControlItem3.Location = new System.Drawing.Point(0, 380);
+            this.layoutControlItem3.Location = new System.Drawing.Point(0, 367);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(166, 339);
+            this.layoutControlItem3.Size = new System.Drawing.Size(166, 325);
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextVisible = false;
             // 
             // layoutControlItem4
             // 
             this.layoutControlItem4.Control = this.clb_RR;
-            this.layoutControlItem4.Location = new System.Drawing.Point(166, 380);
+            this.layoutControlItem4.Location = new System.Drawing.Point(166, 367);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(166, 339);
+            this.layoutControlItem4.Size = new System.Drawing.Size(166, 325);
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem4.TextVisible = false;
             // 
@@ -335,7 +351,7 @@
             this.simpleLabelItem5.AppearanceItemCaption.Options.UseFont = true;
             this.simpleLabelItem5.AppearanceItemCaption.Options.UseTextOptions = true;
             this.simpleLabelItem5.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.simpleLabelItem5.Location = new System.Drawing.Point(0, 363);
+            this.simpleLabelItem5.Location = new System.Drawing.Point(0, 350);
             this.simpleLabelItem5.Name = "simpleLabelItem5";
             this.simpleLabelItem5.Size = new System.Drawing.Size(166, 17);
             this.simpleLabelItem5.Text = "Rear Left Parameters";
@@ -348,7 +364,7 @@
             this.simpleLabelItem6.AppearanceItemCaption.Options.UseFont = true;
             this.simpleLabelItem6.AppearanceItemCaption.Options.UseTextOptions = true;
             this.simpleLabelItem6.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.simpleLabelItem6.Location = new System.Drawing.Point(166, 363);
+            this.simpleLabelItem6.Location = new System.Drawing.Point(166, 350);
             this.simpleLabelItem6.Name = "simpleLabelItem6";
             this.simpleLabelItem6.Size = new System.Drawing.Size(166, 17);
             this.simpleLabelItem6.Text = "Rear Right Parameters";
@@ -357,23 +373,23 @@
             // splitterItem1
             // 
             this.splitterItem1.AllowHotTrack = true;
-            this.splitterItem1.Location = new System.Drawing.Point(357, 714);
+            this.splitterItem1.Location = new System.Drawing.Point(357, 687);
             this.splitterItem1.Name = "splitterItem1";
-            this.splitterItem1.Size = new System.Drawing.Size(981, 5);
+            this.splitterItem1.Size = new System.Drawing.Size(332, 5);
             // 
             // splitterItem2
             // 
             this.splitterItem2.AllowHotTrack = true;
             this.splitterItem2.Location = new System.Drawing.Point(342, 0);
             this.splitterItem2.Name = "splitterItem2";
-            this.splitterItem2.Size = new System.Drawing.Size(5, 719);
+            this.splitterItem2.Size = new System.Drawing.Size(5, 692);
             // 
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
             this.emptySpaceItem1.Location = new System.Drawing.Point(347, 0);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(10, 719);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(10, 692);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // simpleLabelItem7
@@ -396,7 +412,7 @@
             this.simpleLabelItem8.AppearanceItemCaption.Options.UseFont = true;
             this.simpleLabelItem8.AppearanceItemCaption.Options.UseTextOptions = true;
             this.simpleLabelItem8.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.simpleLabelItem8.Location = new System.Drawing.Point(357, 363);
+            this.simpleLabelItem8.Location = new System.Drawing.Point(357, 350);
             this.simpleLabelItem8.Name = "simpleLabelItem8";
             this.simpleLabelItem8.Size = new System.Drawing.Size(166, 17);
             this.simpleLabelItem8.Text = "RL Parameter Importance";
@@ -411,7 +427,7 @@
             this.simpleLabelItem9.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.simpleLabelItem9.Location = new System.Drawing.Point(523, 21);
             this.simpleLabelItem9.Name = "simpleLabelItem9";
-            this.simpleLabelItem9.Size = new System.Drawing.Size(815, 17);
+            this.simpleLabelItem9.Size = new System.Drawing.Size(166, 17);
             this.simpleLabelItem9.Text = "FR Parameter Importance";
             this.simpleLabelItem9.TextSize = new System.Drawing.Size(162, 13);
             // 
@@ -422,9 +438,9 @@
             this.simpleLabelItem10.AppearanceItemCaption.Options.UseFont = true;
             this.simpleLabelItem10.AppearanceItemCaption.Options.UseTextOptions = true;
             this.simpleLabelItem10.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.simpleLabelItem10.Location = new System.Drawing.Point(523, 363);
+            this.simpleLabelItem10.Location = new System.Drawing.Point(523, 350);
             this.simpleLabelItem10.Name = "simpleLabelItem10";
-            this.simpleLabelItem10.Size = new System.Drawing.Size(815, 17);
+            this.simpleLabelItem10.Size = new System.Drawing.Size(166, 17);
             this.simpleLabelItem10.Text = "RR Parameter Importance";
             this.simpleLabelItem10.TextSize = new System.Drawing.Size(162, 13);
             // 
@@ -433,15 +449,15 @@
             this.emptySpaceItem2.AllowHotTrack = false;
             this.emptySpaceItem2.Location = new System.Drawing.Point(332, 0);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(10, 719);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(10, 692);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem3
             // 
             this.emptySpaceItem3.AllowHotTrack = false;
-            this.emptySpaceItem3.Location = new System.Drawing.Point(0, 719);
+            this.emptySpaceItem3.Location = new System.Drawing.Point(0, 692);
             this.emptySpaceItem3.Name = "emptySpaceItem3";
-            this.emptySpaceItem3.Size = new System.Drawing.Size(617, 26);
+            this.emptySpaceItem3.Size = new System.Drawing.Size(615, 26);
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem5
@@ -449,7 +465,7 @@
             this.layoutControlItem5.Control = this.adjustableListBoxFL;
             this.layoutControlItem5.Location = new System.Drawing.Point(357, 38);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(166, 325);
+            this.layoutControlItem5.Size = new System.Drawing.Size(166, 312);
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextVisible = false;
             // 
@@ -458,32 +474,32 @@
             this.layoutControlItem6.Control = this.adjustableListBoxFR;
             this.layoutControlItem6.Location = new System.Drawing.Point(523, 38);
             this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(815, 325);
+            this.layoutControlItem6.Size = new System.Drawing.Size(166, 312);
             this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem6.TextVisible = false;
             // 
             // layoutControlItem7
             // 
             this.layoutControlItem7.Control = this.adjustableListBoxRL;
-            this.layoutControlItem7.Location = new System.Drawing.Point(357, 380);
+            this.layoutControlItem7.Location = new System.Drawing.Point(357, 367);
             this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(166, 334);
+            this.layoutControlItem7.Size = new System.Drawing.Size(166, 320);
             this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem7.TextVisible = false;
             // 
             // layoutControlItem8
             // 
             this.layoutControlItem8.Control = this.adjustableListBoxRR;
-            this.layoutControlItem8.Location = new System.Drawing.Point(523, 380);
+            this.layoutControlItem8.Location = new System.Drawing.Point(523, 367);
             this.layoutControlItem8.Name = "layoutControlItem8";
-            this.layoutControlItem8.Size = new System.Drawing.Size(815, 334);
+            this.layoutControlItem8.Size = new System.Drawing.Size(166, 320);
             this.layoutControlItem8.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem8.TextVisible = false;
             // 
             // layoutControlItem9
             // 
             this.layoutControlItem9.Control = this.simpleButtonOK;
-            this.layoutControlItem9.Location = new System.Drawing.Point(617, 719);
+            this.layoutControlItem9.Location = new System.Drawing.Point(615, 692);
             this.layoutControlItem9.Name = "layoutControlItem9";
             this.layoutControlItem9.Size = new System.Drawing.Size(27, 26);
             this.layoutControlItem9.TextSize = new System.Drawing.Size(0, 0);
@@ -492,20 +508,30 @@
             // layoutControlItem10
             // 
             this.layoutControlItem10.Control = this.simpleButtonCancel;
-            this.layoutControlItem10.Location = new System.Drawing.Point(644, 719);
+            this.layoutControlItem10.Location = new System.Drawing.Point(642, 692);
             this.layoutControlItem10.Name = "layoutControlItem10";
-            this.layoutControlItem10.Size = new System.Drawing.Size(694, 26);
+            this.layoutControlItem10.Size = new System.Drawing.Size(47, 26);
             this.layoutControlItem10.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem10.TextVisible = false;
+            // 
+            // layoutControlItem11
+            // 
+            this.layoutControlItem11.Control = this.xuC_KinematicOptimization1;
+            this.layoutControlItem11.Location = new System.Drawing.Point(689, 0);
+            this.layoutControlItem11.Name = "layoutControlItem11";
+            this.layoutControlItem11.Size = new System.Drawing.Size(639, 718);
+            this.layoutControlItem11.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem11.TextVisible = false;
             // 
             // ParametersAndImportance
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1358, 765);
+            this.ClientSize = new System.Drawing.Size(1348, 738);
             this.Controls.Add(this.layoutControl1);
             this.Name = "ParametersAndImportance";
             this.Text = "Suspension Parameters & Importance";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.clb_RR)).EndInit();
@@ -538,6 +564,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -581,5 +608,7 @@
         private DevExpress.XtraEditors.SimpleButton simpleButtonOK;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem9;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem10;
+        private XUC_KinematicOptimization xuC_KinematicOptimization1;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem11;
     }
 }

@@ -15,7 +15,7 @@ namespace Coding_Attempt_with_GUI
     {
         //public List<SuspensionParameters> Req_Params_Importance { get; set; }
 
-        public VehicleCorner VCorner { get; set; }
+        //public VehicleCorner VCorner { get; set; }
 
         public KO_CornverVariables KO_CV { get; set; }
 
@@ -34,11 +34,11 @@ namespace Coding_Attempt_with_GUI
         /// Method to obtain <see cref="KO_CornverVariables"/> object corresponding to correct Vehicle Corner of which this class is a part of 
         /// </summary>
         /// <param name="_koCV"></param>
-        public void GetCornerVariableObject(KO_CornverVariables _koCV, VehicleCorner _vCorner)
+        public void GetCornerVariableObject(KO_CornverVariables _koCV/*, VehicleCorner _vCorner*/)
         {
             KO_CV = _koCV;
 
-            VCorner = _vCorner;
+            //VCorner = _vCorner;
         }
 
         /// <summary>

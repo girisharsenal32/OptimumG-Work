@@ -64,6 +64,8 @@ namespace Coding_Attempt_with_GUI
 
         public KO_CornverVariables KO_CV_RR { get; set; }
 
+
+
         public ParametersAndImportance()
         {
             InitializeComponent();
@@ -104,13 +106,13 @@ namespace Coding_Attempt_with_GUI
             KO_CV_RR = _rrCV;
 
             ///<summary>Passing the Corner Variables Object to the <see cref="AdjustableListBox"/> User Control</summary>
-            adjustableListBoxFL.GetCornerVariableObject(KO_CV_FL, VehicleCorner.FrontLeft);
+            adjustableListBoxFL.GetCornerVariableObject(KO_CV_FL/*, VehicleCorner.FrontLeft*/);
 
-            adjustableListBoxFR.GetCornerVariableObject(KO_CV_FR, VehicleCorner.FrontRight);
+            adjustableListBoxFR.GetCornerVariableObject(KO_CV_FR/*, VehicleCorner.FrontRight*/);
 
-            adjustableListBoxRL.GetCornerVariableObject(KO_CV_RL, VehicleCorner.RearLeft);
+            adjustableListBoxRL.GetCornerVariableObject(KO_CV_RL/*, VehicleCorner.RearLeft*/);
 
-            adjustableListBoxRR.GetCornerVariableObject(KO_CV_RR, VehicleCorner.RearRight);
+            adjustableListBoxRR.GetCornerVariableObject(KO_CV_RR/*, VehicleCorner.RearRight*/);
 
         }
 

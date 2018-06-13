@@ -170,7 +170,7 @@
             this.chartControl1.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
         series1};
             this.chartControl1.SeriesTemplate.LegendName = "Default Legend";
-            this.chartControl1.Size = new System.Drawing.Size(602, 439);
+            this.chartControl1.Size = new System.Drawing.Size(550, 412);
             this.chartControl1.TabIndex = 0;
             this.chartControl1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chartControl1_MouseClick);
             // 
@@ -183,7 +183,7 @@
             this.groupControlBSChart.Controls.Add(this.chartControl1);
             this.groupControlBSChart.Location = new System.Drawing.Point(12, 22);
             this.groupControlBSChart.Name = "groupControlBSChart";
-            this.groupControlBSChart.Size = new System.Drawing.Size(606, 461);
+            this.groupControlBSChart.Size = new System.Drawing.Size(554, 434);
             this.groupControlBSChart.TabIndex = 1;
             this.groupControlBSChart.Text = "Bump Steer Chart";
             this.groupControlBSChart.Paint += new System.Windows.Forms.PaintEventHandler(this.groupControlBSChart_Paint);
@@ -199,19 +199,21 @@
             this.layoutControl1.Controls.Add(this.textBoxXUpperLimit);
             this.layoutControl1.Controls.Add(this.groupControlBSChart);
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.layoutControl1.HiddenItems.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem6});
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(591, 317, 450, 400);
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(718, 495);
+            this.layoutControl1.Size = new System.Drawing.Size(668, 468);
             this.layoutControl1.TabIndex = 2;
             this.layoutControl1.Text = "layoutControl1";
             // 
             // simpleButtonClearCharrt
             // 
-            this.simpleButtonClearCharrt.Location = new System.Drawing.Point(622, 290);
+            this.simpleButtonClearCharrt.Location = new System.Drawing.Point(570, 283);
             this.simpleButtonClearCharrt.Name = "simpleButtonClearCharrt";
-            this.simpleButtonClearCharrt.Size = new System.Drawing.Size(84, 22);
+            this.simpleButtonClearCharrt.Size = new System.Drawing.Size(86, 22);
             this.simpleButtonClearCharrt.StyleController = this.layoutControl1;
             this.simpleButtonClearCharrt.TabIndex = 6;
             this.simpleButtonClearCharrt.Text = "Clear Chart";
@@ -219,9 +221,9 @@
             // 
             // simpleButtonPlotMinBS
             // 
-            this.simpleButtonPlotMinBS.Location = new System.Drawing.Point(622, 254);
+            this.simpleButtonPlotMinBS.Location = new System.Drawing.Point(570, 247);
             this.simpleButtonPlotMinBS.Name = "simpleButtonPlotMinBS";
-            this.simpleButtonPlotMinBS.Size = new System.Drawing.Size(84, 22);
+            this.simpleButtonPlotMinBS.Size = new System.Drawing.Size(86, 22);
             this.simpleButtonPlotMinBS.StyleController = this.layoutControl1;
             this.simpleButtonPlotMinBS.TabIndex = 5;
             this.simpleButtonPlotMinBS.Text = "Min. BumpSteer";
@@ -229,7 +231,7 @@
             // 
             // textBoxStepSize
             // 
-            this.textBoxStepSize.Location = new System.Drawing.Point(670, 52);
+            this.textBoxStepSize.Location = new System.Drawing.Point(609, 50);
             this.textBoxStepSize.Name = "textBoxStepSize";
             this.textBoxStepSize.Size = new System.Drawing.Size(36, 20);
             this.textBoxStepSize.TabIndex = 0;
@@ -239,9 +241,9 @@
             // 
             // textBoxYLowerLimit
             // 
-            this.textBoxYLowerLimit.Location = new System.Drawing.Point(670, 202);
+            this.textBoxYLowerLimit.Location = new System.Drawing.Point(618, 197);
             this.textBoxYLowerLimit.Name = "textBoxYLowerLimit";
-            this.textBoxYLowerLimit.Size = new System.Drawing.Size(36, 20);
+            this.textBoxYLowerLimit.Size = new System.Drawing.Size(38, 20);
             this.textBoxYLowerLimit.TabIndex = 4;
             this.textBoxYLowerLimit.Text = "-6";
             this.textBoxYLowerLimit.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxYLowerLimit_KeyDown);
@@ -249,9 +251,9 @@
             // 
             // textBoxYUpperLimit
             // 
-            this.textBoxYUpperLimit.Location = new System.Drawing.Point(670, 178);
+            this.textBoxYUpperLimit.Location = new System.Drawing.Point(618, 173);
             this.textBoxYUpperLimit.Name = "textBoxYUpperLimit";
-            this.textBoxYUpperLimit.Size = new System.Drawing.Size(36, 20);
+            this.textBoxYUpperLimit.Size = new System.Drawing.Size(38, 20);
             this.textBoxYUpperLimit.TabIndex = 3;
             this.textBoxYUpperLimit.Text = "6";
             this.textBoxYUpperLimit.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxYUpperLimit_KeyDown);
@@ -259,9 +261,9 @@
             // 
             // textBoxXLowerLimit
             // 
-            this.textBoxXLowerLimit.Location = new System.Drawing.Point(670, 127);
+            this.textBoxXLowerLimit.Location = new System.Drawing.Point(618, 124);
             this.textBoxXLowerLimit.Name = "textBoxXLowerLimit";
-            this.textBoxXLowerLimit.Size = new System.Drawing.Size(36, 20);
+            this.textBoxXLowerLimit.Size = new System.Drawing.Size(38, 20);
             this.textBoxXLowerLimit.TabIndex = 2;
             this.textBoxXLowerLimit.Text = "-25";
             this.textBoxXLowerLimit.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxXLowerLimit_KeyDown);
@@ -269,9 +271,9 @@
             // 
             // textBoxXUpperLimit
             // 
-            this.textBoxXUpperLimit.Location = new System.Drawing.Point(670, 103);
+            this.textBoxXUpperLimit.Location = new System.Drawing.Point(618, 100);
             this.textBoxXUpperLimit.Name = "textBoxXUpperLimit";
-            this.textBoxXUpperLimit.Size = new System.Drawing.Size(36, 20);
+            this.textBoxXUpperLimit.Size = new System.Drawing.Size(38, 20);
             this.textBoxXUpperLimit.TabIndex = 1;
             this.textBoxXUpperLimit.Text = "25";
             this.textBoxXUpperLimit.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxXUpperLimit_KeyDown);
@@ -291,7 +293,6 @@
             this.layoutControlItem4,
             this.layoutControlItem5,
             this.emptySpaceItem5,
-            this.layoutControlItem6,
             this.simpleLabelItem1,
             this.emptySpaceItem6,
             this.emptySpaceItem4,
@@ -300,7 +301,7 @@
             this.layoutControlItem8});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "Root";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(718, 495);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(668, 468);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // layoutControlItem1
@@ -308,82 +309,82 @@
             this.layoutControlItem1.Control = this.groupControlBSChart;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 10);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(610, 465);
+            this.layoutControlItem1.Size = new System.Drawing.Size(558, 438);
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
             // 
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(610, 17);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(558, 17);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(88, 23);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(90, 21);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem3
             // 
             this.emptySpaceItem3.AllowHotTrack = false;
-            this.emptySpaceItem3.Location = new System.Drawing.Point(610, 139);
+            this.emptySpaceItem3.Location = new System.Drawing.Point(558, 136);
             this.emptySpaceItem3.Name = "emptySpaceItem3";
-            this.emptySpaceItem3.Size = new System.Drawing.Size(88, 27);
+            this.emptySpaceItem3.Size = new System.Drawing.Size(90, 25);
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem2
             // 
             this.layoutControlItem2.Control = this.textBoxXUpperLimit;
-            this.layoutControlItem2.Location = new System.Drawing.Point(610, 91);
+            this.layoutControlItem2.Location = new System.Drawing.Point(558, 88);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(88, 24);
+            this.layoutControlItem2.Size = new System.Drawing.Size(90, 24);
             this.layoutControlItem2.Text = "X : Upper";
             this.layoutControlItem2.TextSize = new System.Drawing.Size(45, 13);
             // 
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.textBoxXLowerLimit;
-            this.layoutControlItem3.Location = new System.Drawing.Point(610, 115);
+            this.layoutControlItem3.Location = new System.Drawing.Point(558, 112);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(88, 24);
+            this.layoutControlItem3.Size = new System.Drawing.Size(90, 24);
             this.layoutControlItem3.Text = "X : Lower";
             this.layoutControlItem3.TextSize = new System.Drawing.Size(45, 13);
             // 
             // emptySpaceItem2
             // 
             this.emptySpaceItem2.AllowHotTrack = false;
-            this.emptySpaceItem2.Location = new System.Drawing.Point(610, 214);
+            this.emptySpaceItem2.Location = new System.Drawing.Point(558, 209);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(88, 28);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(90, 26);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem4
             // 
             this.layoutControlItem4.Control = this.textBoxYUpperLimit;
-            this.layoutControlItem4.Location = new System.Drawing.Point(610, 166);
+            this.layoutControlItem4.Location = new System.Drawing.Point(558, 161);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(88, 24);
+            this.layoutControlItem4.Size = new System.Drawing.Size(90, 24);
             this.layoutControlItem4.Text = "Y : Upper";
             this.layoutControlItem4.TextSize = new System.Drawing.Size(45, 13);
             // 
             // layoutControlItem5
             // 
             this.layoutControlItem5.Control = this.textBoxYLowerLimit;
-            this.layoutControlItem5.Location = new System.Drawing.Point(610, 190);
+            this.layoutControlItem5.Location = new System.Drawing.Point(558, 185);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(88, 24);
+            this.layoutControlItem5.Size = new System.Drawing.Size(90, 24);
             this.layoutControlItem5.Text = "Y : Lower";
             this.layoutControlItem5.TextSize = new System.Drawing.Size(45, 13);
             // 
             // emptySpaceItem5
             // 
             this.emptySpaceItem5.AllowHotTrack = false;
-            this.emptySpaceItem5.Location = new System.Drawing.Point(610, 64);
+            this.emptySpaceItem5.Location = new System.Drawing.Point(558, 38);
             this.emptySpaceItem5.Name = "emptySpaceItem5";
-            this.emptySpaceItem5.Size = new System.Drawing.Size(88, 27);
+            this.emptySpaceItem5.Size = new System.Drawing.Size(90, 50);
             this.emptySpaceItem5.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem6
             // 
             this.layoutControlItem6.Control = this.textBoxStepSize;
-            this.layoutControlItem6.Location = new System.Drawing.Point(610, 40);
+            this.layoutControlItem6.Location = new System.Drawing.Point(549, 38);
             this.layoutControlItem6.Name = "layoutControlItem6";
             this.layoutControlItem6.Size = new System.Drawing.Size(88, 24);
             this.layoutControlItem6.Text = "Step Size";
@@ -398,9 +399,9 @@
             this.simpleLabelItem1.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.simpleLabelItem1.AppearanceItemCaption.TextOptions.Trimming = DevExpress.Utils.Trimming.Word;
             this.simpleLabelItem1.AppearanceItemCaption.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
-            this.simpleLabelItem1.Location = new System.Drawing.Point(610, 0);
+            this.simpleLabelItem1.Location = new System.Drawing.Point(558, 0);
             this.simpleLabelItem1.Name = "simpleLabelItem1";
-            this.simpleLabelItem1.Size = new System.Drawing.Size(88, 17);
+            this.simpleLabelItem1.Size = new System.Drawing.Size(90, 17);
             this.simpleLabelItem1.Text = "Chart";
             this.simpleLabelItem1.TextSize = new System.Drawing.Size(45, 13);
             // 
@@ -409,40 +410,40 @@
             this.emptySpaceItem6.AllowHotTrack = false;
             this.emptySpaceItem6.Location = new System.Drawing.Point(0, 0);
             this.emptySpaceItem6.Name = "emptySpaceItem6";
-            this.emptySpaceItem6.Size = new System.Drawing.Size(610, 10);
+            this.emptySpaceItem6.Size = new System.Drawing.Size(558, 10);
             this.emptySpaceItem6.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem4
             // 
             this.emptySpaceItem4.AllowHotTrack = false;
-            this.emptySpaceItem4.Location = new System.Drawing.Point(610, 268);
+            this.emptySpaceItem4.Location = new System.Drawing.Point(558, 261);
             this.emptySpaceItem4.Name = "emptySpaceItem4";
-            this.emptySpaceItem4.Size = new System.Drawing.Size(88, 10);
+            this.emptySpaceItem4.Size = new System.Drawing.Size(90, 10);
             this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem7
             // 
             this.layoutControlItem7.Control = this.simpleButtonPlotMinBS;
-            this.layoutControlItem7.Location = new System.Drawing.Point(610, 242);
+            this.layoutControlItem7.Location = new System.Drawing.Point(558, 235);
             this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(88, 26);
+            this.layoutControlItem7.Size = new System.Drawing.Size(90, 26);
             this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem7.TextVisible = false;
             // 
             // emptySpaceItem7
             // 
             this.emptySpaceItem7.AllowHotTrack = false;
-            this.emptySpaceItem7.Location = new System.Drawing.Point(610, 304);
+            this.emptySpaceItem7.Location = new System.Drawing.Point(558, 297);
             this.emptySpaceItem7.Name = "emptySpaceItem7";
-            this.emptySpaceItem7.Size = new System.Drawing.Size(88, 171);
+            this.emptySpaceItem7.Size = new System.Drawing.Size(90, 151);
             this.emptySpaceItem7.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem8
             // 
             this.layoutControlItem8.Control = this.simpleButtonClearCharrt;
-            this.layoutControlItem8.Location = new System.Drawing.Point(610, 278);
+            this.layoutControlItem8.Location = new System.Drawing.Point(558, 271);
             this.layoutControlItem8.Name = "layoutControlItem8";
-            this.layoutControlItem8.Size = new System.Drawing.Size(88, 26);
+            this.layoutControlItem8.Size = new System.Drawing.Size(90, 26);
             this.layoutControlItem8.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem8.TextVisible = false;
             // 
@@ -453,7 +454,7 @@
             this.Controls.Add(this.layoutControl1);
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.Name = "BumpSteerCurve";
-            this.Size = new System.Drawing.Size(718, 495);
+            this.Size = new System.Drawing.Size(668, 468);
             ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(lineSeriesView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(series1)).EndInit();
