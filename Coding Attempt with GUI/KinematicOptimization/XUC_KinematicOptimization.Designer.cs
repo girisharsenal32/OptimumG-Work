@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer2 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
+            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer3 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
             this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(this.components);
             this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.document8 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
@@ -51,6 +51,10 @@
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.simpleLabelItem5 = new DevExpress.XtraLayout.SimpleLabelItem();
+            this.simpleLabelItem6 = new DevExpress.XtraLayout.SimpleLabelItem();
+            this.simpleLabelItem7 = new DevExpress.XtraLayout.SimpleLabelItem();
+            this.simpleLabelItem8 = new DevExpress.XtraLayout.SimpleLabelItem();
             this.dockPanelRC = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel2_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.dockPanelPC = new DevExpress.XtraBars.Docking.DockPanel();
@@ -80,10 +84,6 @@
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager(this.components);
             this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
-            this.simpleLabelItem5 = new DevExpress.XtraLayout.SimpleLabelItem();
-            this.simpleLabelItem6 = new DevExpress.XtraLayout.SimpleLabelItem();
-            this.simpleLabelItem7 = new DevExpress.XtraLayout.SimpleLabelItem();
-            this.simpleLabelItem8 = new DevExpress.XtraLayout.SimpleLabelItem();
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.document8)).BeginInit();
@@ -102,6 +102,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem8)).BeginInit();
             this.dockPanelRC.SuspendLayout();
             this.dockPanelPC.SuspendLayout();
             this.dockPanelBS.SuspendLayout();
@@ -123,10 +127,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem8)).BeginInit();
             this.SuspendLayout();
             // 
             // documentGroup1
@@ -245,7 +245,7 @@
             this.dockPanelAdjCoordinates.OriginalSize = new System.Drawing.Size(200, 200);
             this.dockPanelAdjCoordinates.SavedIndex = 0;
             this.dockPanelAdjCoordinates.SavedMdiDocument = true;
-            this.dockPanelAdjCoordinates.Size = new System.Drawing.Size(1364, 735);
+            this.dockPanelAdjCoordinates.Size = new System.Drawing.Size(1364, 726);
             this.dockPanelAdjCoordinates.Text = "Adjustable Coordinates";
             // 
             // dockPanel1_Container
@@ -253,7 +253,7 @@
             this.dockPanel1_Container.Controls.Add(this.layoutControl1);
             this.dockPanel1_Container.Location = new System.Drawing.Point(0, 0);
             this.dockPanel1_Container.Name = "dockPanel1_Container";
-            this.dockPanel1_Container.Size = new System.Drawing.Size(1364, 735);
+            this.dockPanel1_Container.Size = new System.Drawing.Size(1364, 726);
             this.dockPanel1_Container.TabIndex = 0;
             // 
             // layoutControl1
@@ -266,7 +266,7 @@
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(1364, 735);
+            this.layoutControl1.Size = new System.Drawing.Size(1364, 726);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
@@ -277,9 +277,9 @@
             this.adjustableCoordinates4.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(187)))), ((int)(((byte)(0)))));
             this.adjustableCoordinates4.Appearance.Options.UseBackColor = true;
             this.adjustableCoordinates4.Appearance.Options.UseBorderColor = true;
-            this.adjustableCoordinates4.Location = new System.Drawing.Point(683, 380);
+            this.adjustableCoordinates4.Location = new System.Drawing.Point(683, 376);
             this.adjustableCoordinates4.Name = "adjustableCoordinates4";
-            this.adjustableCoordinates4.Size = new System.Drawing.Size(669, 343);
+            this.adjustableCoordinates4.Size = new System.Drawing.Size(669, 338);
             this.adjustableCoordinates4.TabIndex = 4;
             // 
             // adjustableCoordinates3
@@ -289,9 +289,9 @@
             this.adjustableCoordinates3.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(161)))), ((int)(((byte)(241)))));
             this.adjustableCoordinates3.Appearance.Options.UseBackColor = true;
             this.adjustableCoordinates3.Appearance.Options.UseBorderColor = true;
-            this.adjustableCoordinates3.Location = new System.Drawing.Point(12, 380);
+            this.adjustableCoordinates3.Location = new System.Drawing.Point(12, 376);
             this.adjustableCoordinates3.Name = "adjustableCoordinates3";
-            this.adjustableCoordinates3.Size = new System.Drawing.Size(667, 343);
+            this.adjustableCoordinates3.Size = new System.Drawing.Size(667, 338);
             this.adjustableCoordinates3.TabIndex = 3;
             // 
             // adjustableCoordinates2
@@ -303,7 +303,7 @@
             this.adjustableCoordinates2.Appearance.Options.UseBorderColor = true;
             this.adjustableCoordinates2.Location = new System.Drawing.Point(683, 30);
             this.adjustableCoordinates2.Name = "adjustableCoordinates2";
-            this.adjustableCoordinates2.Size = new System.Drawing.Size(669, 328);
+            this.adjustableCoordinates2.Size = new System.Drawing.Size(669, 324);
             this.adjustableCoordinates2.TabIndex = 2;
             // 
             // adjustableCoordinates1
@@ -315,7 +315,7 @@
             this.adjustableCoordinates1.Appearance.Options.UseBorderColor = true;
             this.adjustableCoordinates1.Location = new System.Drawing.Point(12, 30);
             this.adjustableCoordinates1.Name = "adjustableCoordinates1";
-            this.adjustableCoordinates1.Size = new System.Drawing.Size(667, 328);
+            this.adjustableCoordinates1.Size = new System.Drawing.Size(667, 324);
             this.adjustableCoordinates1.TabIndex = 0;
             // 
             // layoutControlGroup1
@@ -333,7 +333,7 @@
             this.simpleLabelItem8});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(1364, 735);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(1364, 726);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // layoutControlItem1
@@ -341,7 +341,7 @@
             this.layoutControlItem1.Control = this.adjustableCoordinates1;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 18);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(671, 332);
+            this.layoutControlItem1.Size = new System.Drawing.Size(671, 328);
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
             // 
@@ -350,27 +350,90 @@
             this.layoutControlItem2.Control = this.adjustableCoordinates2;
             this.layoutControlItem2.Location = new System.Drawing.Point(671, 18);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(673, 332);
+            this.layoutControlItem2.Size = new System.Drawing.Size(673, 328);
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem2.TextVisible = false;
             // 
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.adjustableCoordinates3;
-            this.layoutControlItem3.Location = new System.Drawing.Point(0, 368);
+            this.layoutControlItem3.Location = new System.Drawing.Point(0, 364);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(671, 347);
+            this.layoutControlItem3.Size = new System.Drawing.Size(671, 342);
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextVisible = false;
             // 
             // layoutControlItem4
             // 
             this.layoutControlItem4.Control = this.adjustableCoordinates4;
-            this.layoutControlItem4.Location = new System.Drawing.Point(671, 368);
+            this.layoutControlItem4.Location = new System.Drawing.Point(671, 364);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(673, 347);
+            this.layoutControlItem4.Size = new System.Drawing.Size(673, 342);
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem4.TextVisible = false;
+            // 
+            // simpleLabelItem5
+            // 
+            this.simpleLabelItem5.AllowHotTrack = false;
+            this.simpleLabelItem5.AppearanceItemCaption.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(83)))), ((int)(((byte)(20)))));
+            this.simpleLabelItem5.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.simpleLabelItem5.AppearanceItemCaption.Options.UseBackColor = true;
+            this.simpleLabelItem5.AppearanceItemCaption.Options.UseFont = true;
+            this.simpleLabelItem5.AppearanceItemCaption.Options.UseTextOptions = true;
+            this.simpleLabelItem5.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.simpleLabelItem5.Location = new System.Drawing.Point(0, 0);
+            this.simpleLabelItem5.Name = "simpleLabelItem5";
+            this.simpleLabelItem5.Size = new System.Drawing.Size(671, 18);
+            this.simpleLabelItem5.Text = "Front Left";
+            this.simpleLabelItem5.TextSize = new System.Drawing.Size(71, 14);
+            // 
+            // simpleLabelItem6
+            // 
+            this.simpleLabelItem6.AllowHotTrack = false;
+            this.simpleLabelItem6.AppearanceItemCaption.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(124)))), ((int)(((byte)(187)))), ((int)(((byte)(0)))));
+            this.simpleLabelItem6.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.simpleLabelItem6.AppearanceItemCaption.Options.UseBackColor = true;
+            this.simpleLabelItem6.AppearanceItemCaption.Options.UseFont = true;
+            this.simpleLabelItem6.AppearanceItemCaption.Options.UseTextOptions = true;
+            this.simpleLabelItem6.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.simpleLabelItem6.Location = new System.Drawing.Point(671, 0);
+            this.simpleLabelItem6.Name = "simpleLabelItem6";
+            this.simpleLabelItem6.Size = new System.Drawing.Size(673, 18);
+            this.simpleLabelItem6.Text = "Front Right";
+            this.simpleLabelItem6.TextSize = new System.Drawing.Size(71, 14);
+            // 
+            // simpleLabelItem7
+            // 
+            this.simpleLabelItem7.AllowHotTrack = false;
+            this.simpleLabelItem7.AppearanceItemCaption.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(187)))), ((int)(((byte)(0)))));
+            this.simpleLabelItem7.AppearanceItemCaption.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(187)))), ((int)(((byte)(0)))));
+            this.simpleLabelItem7.AppearanceItemCaption.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(187)))), ((int)(((byte)(0)))));
+            this.simpleLabelItem7.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.simpleLabelItem7.AppearanceItemCaption.Options.UseBackColor = true;
+            this.simpleLabelItem7.AppearanceItemCaption.Options.UseBorderColor = true;
+            this.simpleLabelItem7.AppearanceItemCaption.Options.UseFont = true;
+            this.simpleLabelItem7.AppearanceItemCaption.Options.UseTextOptions = true;
+            this.simpleLabelItem7.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.simpleLabelItem7.Location = new System.Drawing.Point(671, 350);
+            this.simpleLabelItem7.Name = "simpleLabelItem7";
+            this.simpleLabelItem7.Size = new System.Drawing.Size(673, 18);
+            this.simpleLabelItem7.Text = "Rear Right";
+            this.simpleLabelItem7.TextSize = new System.Drawing.Size(71, 14);
+            // 
+            // simpleLabelItem8
+            // 
+            this.simpleLabelItem8.AllowHotTrack = false;
+            this.simpleLabelItem8.AppearanceItemCaption.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(161)))), ((int)(((byte)(241)))));
+            this.simpleLabelItem8.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.simpleLabelItem8.AppearanceItemCaption.Options.UseBackColor = true;
+            this.simpleLabelItem8.AppearanceItemCaption.Options.UseFont = true;
+            this.simpleLabelItem8.AppearanceItemCaption.Options.UseTextOptions = true;
+            this.simpleLabelItem8.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.simpleLabelItem8.Location = new System.Drawing.Point(0, 350);
+            this.simpleLabelItem8.Name = "simpleLabelItem8";
+            this.simpleLabelItem8.Size = new System.Drawing.Size(671, 18);
+            this.simpleLabelItem8.Text = "Rear Left";
+            this.simpleLabelItem8.TextSize = new System.Drawing.Size(71, 14);
             // 
             // dockPanelRC
             // 
@@ -450,14 +513,14 @@
             this.dockPanelSpringDef.SavedIndex = 1;
             this.dockPanelSpringDef.SavedParent = this.dockPanelAckermann;
             this.dockPanelSpringDef.SavedTabbed = true;
-            this.dockPanelSpringDef.Size = new System.Drawing.Size(1364, 735);
+            this.dockPanelSpringDef.Size = new System.Drawing.Size(1364, 726);
             this.dockPanelSpringDef.Text = "Spring Deflection";
             // 
             // dockPanel7_Container
             // 
             this.dockPanel7_Container.Location = new System.Drawing.Point(0, 0);
             this.dockPanel7_Container.Name = "dockPanel7_Container";
-            this.dockPanel7_Container.Size = new System.Drawing.Size(1364, 735);
+            this.dockPanel7_Container.Size = new System.Drawing.Size(1364, 726);
             this.dockPanel7_Container.TabIndex = 0;
             // 
             // dockPanelAckermann
@@ -472,7 +535,7 @@
             this.dockPanelAckermann.OriginalSize = new System.Drawing.Size(200, 200);
             this.dockPanelAckermann.SavedIndex = 6;
             this.dockPanelAckermann.SavedMdiDocument = true;
-            this.dockPanelAckermann.Size = new System.Drawing.Size(1364, 735);
+            this.dockPanelAckermann.Size = new System.Drawing.Size(1364, 726);
             this.dockPanelAckermann.Text = "Ackermann";
             this.dockPanelAckermann.Click += new System.EventHandler(this.dockPanelAckermann_Click);
             // 
@@ -480,7 +543,7 @@
             // 
             this.dockPanel6_Container.Location = new System.Drawing.Point(0, 0);
             this.dockPanel6_Container.Name = "dockPanel6_Container";
-            this.dockPanel6_Container.Size = new System.Drawing.Size(1364, 735);
+            this.dockPanel6_Container.Size = new System.Drawing.Size(1364, 726);
             this.dockPanel6_Container.TabIndex = 0;
             // 
             // dockPanelCamber
@@ -496,7 +559,7 @@
             this.dockPanelCamber.OriginalSize = new System.Drawing.Size(200, 200);
             this.dockPanelCamber.SavedIndex = 5;
             this.dockPanelCamber.SavedMdiDocument = true;
-            this.dockPanelCamber.Size = new System.Drawing.Size(1364, 735);
+            this.dockPanelCamber.Size = new System.Drawing.Size(1364, 726);
             this.dockPanelCamber.Text = "Camber";
             // 
             // dockPanel4_Container
@@ -504,7 +567,7 @@
             this.dockPanel4_Container.Controls.Add(this.layoutControl2);
             this.dockPanel4_Container.Location = new System.Drawing.Point(0, 0);
             this.dockPanel4_Container.Name = "dockPanel4_Container";
-            this.dockPanel4_Container.Size = new System.Drawing.Size(1364, 735);
+            this.dockPanel4_Container.Size = new System.Drawing.Size(1364, 726);
             this.dockPanel4_Container.TabIndex = 0;
             // 
             // layoutControl2
@@ -518,7 +581,7 @@
             this.layoutControl2.Name = "layoutControl2";
             this.layoutControl2.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(966, 412, 450, 400);
             this.layoutControl2.Root = this.layoutControlGroup2;
-            this.layoutControl2.Size = new System.Drawing.Size(1364, 735);
+            this.layoutControl2.Size = new System.Drawing.Size(1364, 726);
             this.layoutControl2.TabIndex = 0;
             this.layoutControl2.Text = "Front Left";
             // 
@@ -526,27 +589,27 @@
             // 
             this.xuC_KO_Camber4.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(187)))), ((int)(((byte)(0)))));
             this.xuC_KO_Camber4.Appearance.Options.UseBackColor = true;
-            this.xuC_KO_Camber4.Location = new System.Drawing.Point(681, 510);
+            this.xuC_KO_Camber4.Location = new System.Drawing.Point(682, 516);
             this.xuC_KO_Camber4.Name = "xuC_KO_Camber4";
-            this.xuC_KO_Camber4.Size = new System.Drawing.Size(654, 458);
+            this.xuC_KO_Camber4.Size = new System.Drawing.Size(653, 464);
             this.xuC_KO_Camber4.TabIndex = 4;
             // 
             // xuC_KO_Camber3
             // 
             this.xuC_KO_Camber3.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(124)))), ((int)(((byte)(187)))), ((int)(((byte)(0)))));
             this.xuC_KO_Camber3.Appearance.Options.UseBackColor = true;
-            this.xuC_KO_Camber3.Location = new System.Drawing.Point(681, 30);
+            this.xuC_KO_Camber3.Location = new System.Drawing.Point(682, 30);
             this.xuC_KO_Camber3.Name = "xuC_KO_Camber3";
-            this.xuC_KO_Camber3.Size = new System.Drawing.Size(654, 458);
+            this.xuC_KO_Camber3.Size = new System.Drawing.Size(653, 464);
             this.xuC_KO_Camber3.TabIndex = 2;
             // 
             // xuC_KO_Camber2
             // 
             this.xuC_KO_Camber2.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(161)))), ((int)(((byte)(241)))));
             this.xuC_KO_Camber2.Appearance.Options.UseBackColor = true;
-            this.xuC_KO_Camber2.Location = new System.Drawing.Point(12, 510);
+            this.xuC_KO_Camber2.Location = new System.Drawing.Point(12, 516);
             this.xuC_KO_Camber2.Name = "xuC_KO_Camber2";
-            this.xuC_KO_Camber2.Size = new System.Drawing.Size(660, 458);
+            this.xuC_KO_Camber2.Size = new System.Drawing.Size(660, 464);
             this.xuC_KO_Camber2.TabIndex = 3;
             // 
             // xuC_KO_Camber1
@@ -555,7 +618,7 @@
             this.xuC_KO_Camber1.Appearance.Options.UseBackColor = true;
             this.xuC_KO_Camber1.Location = new System.Drawing.Point(12, 30);
             this.xuC_KO_Camber1.Name = "xuC_KO_Camber1";
-            this.xuC_KO_Camber1.Size = new System.Drawing.Size(660, 458);
+            this.xuC_KO_Camber1.Size = new System.Drawing.Size(660, 464);
             this.xuC_KO_Camber1.TabIndex = 0;
             // 
             // layoutControlGroup2
@@ -574,7 +637,7 @@
             this.layoutControlItem8});
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup2.Name = "Root";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(1347, 980);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(1347, 992);
             this.layoutControlGroup2.TextVisible = false;
             // 
             // simpleLabelItem1
@@ -601,9 +664,9 @@
             this.simpleLabelItem2.AppearanceItemCaption.Options.UseFont = true;
             this.simpleLabelItem2.AppearanceItemCaption.Options.UseTextOptions = true;
             this.simpleLabelItem2.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.simpleLabelItem2.Location = new System.Drawing.Point(669, 0);
+            this.simpleLabelItem2.Location = new System.Drawing.Point(670, 0);
             this.simpleLabelItem2.Name = "simpleLabelItem2";
-            this.simpleLabelItem2.Size = new System.Drawing.Size(658, 18);
+            this.simpleLabelItem2.Size = new System.Drawing.Size(657, 18);
             this.simpleLabelItem2.Text = "Front Right";
             this.simpleLabelItem2.TextSize = new System.Drawing.Size(71, 14);
             // 
@@ -616,7 +679,7 @@
             this.simpleLabelItem3.AppearanceItemCaption.Options.UseFont = true;
             this.simpleLabelItem3.AppearanceItemCaption.Options.UseTextOptions = true;
             this.simpleLabelItem3.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.simpleLabelItem3.Location = new System.Drawing.Point(0, 480);
+            this.simpleLabelItem3.Location = new System.Drawing.Point(0, 486);
             this.simpleLabelItem3.Name = "simpleLabelItem3";
             this.simpleLabelItem3.Size = new System.Drawing.Size(664, 18);
             this.simpleLabelItem3.Text = "Rear Left";
@@ -631,9 +694,9 @@
             this.simpleLabelItem4.AppearanceItemCaption.Options.UseFont = true;
             this.simpleLabelItem4.AppearanceItemCaption.Options.UseTextOptions = true;
             this.simpleLabelItem4.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.simpleLabelItem4.Location = new System.Drawing.Point(669, 480);
+            this.simpleLabelItem4.Location = new System.Drawing.Point(670, 486);
             this.simpleLabelItem4.Name = "simpleLabelItem4";
-            this.simpleLabelItem4.Size = new System.Drawing.Size(658, 18);
+            this.simpleLabelItem4.Size = new System.Drawing.Size(657, 18);
             this.simpleLabelItem4.Text = "Rear Right";
             this.simpleLabelItem4.TextSize = new System.Drawing.Size(71, 14);
             // 
@@ -642,41 +705,41 @@
             this.splitterItem1.AllowHotTrack = true;
             this.splitterItem1.Location = new System.Drawing.Point(664, 0);
             this.splitterItem1.Name = "splitterItem1";
-            this.splitterItem1.Size = new System.Drawing.Size(5, 960);
+            this.splitterItem1.Size = new System.Drawing.Size(6, 972);
             // 
             // layoutControlItem5
             // 
             this.layoutControlItem5.Control = this.xuC_KO_Camber1;
             this.layoutControlItem5.Location = new System.Drawing.Point(0, 18);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(664, 462);
+            this.layoutControlItem5.Size = new System.Drawing.Size(664, 468);
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextVisible = false;
             // 
             // layoutControlItem6
             // 
             this.layoutControlItem6.Control = this.xuC_KO_Camber2;
-            this.layoutControlItem6.Location = new System.Drawing.Point(0, 498);
+            this.layoutControlItem6.Location = new System.Drawing.Point(0, 504);
             this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(664, 462);
+            this.layoutControlItem6.Size = new System.Drawing.Size(664, 468);
             this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem6.TextVisible = false;
             // 
             // layoutControlItem7
             // 
             this.layoutControlItem7.Control = this.xuC_KO_Camber3;
-            this.layoutControlItem7.Location = new System.Drawing.Point(669, 18);
+            this.layoutControlItem7.Location = new System.Drawing.Point(670, 18);
             this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(658, 462);
+            this.layoutControlItem7.Size = new System.Drawing.Size(657, 468);
             this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem7.TextVisible = false;
             // 
             // layoutControlItem8
             // 
             this.layoutControlItem8.Control = this.xuC_KO_Camber4;
-            this.layoutControlItem8.Location = new System.Drawing.Point(669, 498);
+            this.layoutControlItem8.Location = new System.Drawing.Point(670, 504);
             this.layoutControlItem8.Name = "layoutControlItem8";
-            this.layoutControlItem8.Size = new System.Drawing.Size(658, 462);
+            this.layoutControlItem8.Size = new System.Drawing.Size(657, 468);
             this.layoutControlItem8.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem8.TextVisible = false;
             // 
@@ -700,72 +763,9 @@
             this.document4,
             this.document1});
             this.tabbedView1.RootContainer.Element = null;
-            dockingContainer2.Element = this.documentGroup1;
+            dockingContainer3.Element = this.documentGroup1;
             this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
-            dockingContainer2});
-            // 
-            // simpleLabelItem5
-            // 
-            this.simpleLabelItem5.AllowHotTrack = false;
-            this.simpleLabelItem5.AppearanceItemCaption.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(83)))), ((int)(((byte)(20)))));
-            this.simpleLabelItem5.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.simpleLabelItem5.AppearanceItemCaption.Options.UseBackColor = true;
-            this.simpleLabelItem5.AppearanceItemCaption.Options.UseFont = true;
-            this.simpleLabelItem5.AppearanceItemCaption.Options.UseTextOptions = true;
-            this.simpleLabelItem5.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.simpleLabelItem5.Location = new System.Drawing.Point(0, 0);
-            this.simpleLabelItem5.Name = "simpleLabelItem5";
-            this.simpleLabelItem5.Size = new System.Drawing.Size(671, 18);
-            this.simpleLabelItem5.Text = "Front Left";
-            this.simpleLabelItem5.TextSize = new System.Drawing.Size(71, 14);
-            // 
-            // simpleLabelItem6
-            // 
-            this.simpleLabelItem6.AllowHotTrack = false;
-            this.simpleLabelItem6.AppearanceItemCaption.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(124)))), ((int)(((byte)(187)))), ((int)(((byte)(0)))));
-            this.simpleLabelItem6.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.simpleLabelItem6.AppearanceItemCaption.Options.UseBackColor = true;
-            this.simpleLabelItem6.AppearanceItemCaption.Options.UseFont = true;
-            this.simpleLabelItem6.AppearanceItemCaption.Options.UseTextOptions = true;
-            this.simpleLabelItem6.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.simpleLabelItem6.Location = new System.Drawing.Point(671, 0);
-            this.simpleLabelItem6.Name = "simpleLabelItem6";
-            this.simpleLabelItem6.Size = new System.Drawing.Size(673, 18);
-            this.simpleLabelItem6.Text = "Front Right";
-            this.simpleLabelItem6.TextSize = new System.Drawing.Size(71, 14);
-            // 
-            // simpleLabelItem7
-            // 
-            this.simpleLabelItem7.AllowHotTrack = false;
-            this.simpleLabelItem7.AppearanceItemCaption.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(187)))), ((int)(((byte)(0)))));
-            this.simpleLabelItem7.AppearanceItemCaption.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(187)))), ((int)(((byte)(0)))));
-            this.simpleLabelItem7.AppearanceItemCaption.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(187)))), ((int)(((byte)(0)))));
-            this.simpleLabelItem7.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.simpleLabelItem7.AppearanceItemCaption.Options.UseBackColor = true;
-            this.simpleLabelItem7.AppearanceItemCaption.Options.UseBorderColor = true;
-            this.simpleLabelItem7.AppearanceItemCaption.Options.UseFont = true;
-            this.simpleLabelItem7.AppearanceItemCaption.Options.UseTextOptions = true;
-            this.simpleLabelItem7.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.simpleLabelItem7.Location = new System.Drawing.Point(671, 350);
-            this.simpleLabelItem7.Name = "simpleLabelItem7";
-            this.simpleLabelItem7.Size = new System.Drawing.Size(673, 18);
-            this.simpleLabelItem7.Text = "Rear Right";
-            this.simpleLabelItem7.TextSize = new System.Drawing.Size(71, 14);
-            // 
-            // simpleLabelItem8
-            // 
-            this.simpleLabelItem8.AllowHotTrack = false;
-            this.simpleLabelItem8.AppearanceItemCaption.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(161)))), ((int)(((byte)(241)))));
-            this.simpleLabelItem8.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.simpleLabelItem8.AppearanceItemCaption.Options.UseBackColor = true;
-            this.simpleLabelItem8.AppearanceItemCaption.Options.UseFont = true;
-            this.simpleLabelItem8.AppearanceItemCaption.Options.UseTextOptions = true;
-            this.simpleLabelItem8.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.simpleLabelItem8.Location = new System.Drawing.Point(0, 350);
-            this.simpleLabelItem8.Name = "simpleLabelItem8";
-            this.simpleLabelItem8.Size = new System.Drawing.Size(671, 18);
-            this.simpleLabelItem8.Text = "Rear Left";
-            this.simpleLabelItem8.TextSize = new System.Drawing.Size(71, 14);
+            dockingContainer3});
             // 
             // XUC_KinematicOptimization
             // 
@@ -791,6 +791,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem8)).EndInit();
             this.dockPanelRC.ResumeLayout(false);
             this.dockPanelPC.ResumeLayout(false);
             this.dockPanelBS.ResumeLayout(false);
@@ -812,10 +816,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem8)).EndInit();
             this.ResumeLayout(false);
 
         }

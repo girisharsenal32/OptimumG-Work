@@ -70,9 +70,6 @@ namespace Coding_Attempt_with_GUI
         {
             InitializeComponent();
 
-            ///<summary>Initializing the <see cref="CheckedListBoxItem"/>s required to populate the 4 <see cref="CheckedListBoxControl"/>s</summary>
-            Initialize_CLB_Items();
-
             ///<summary>Populating the <see cref="clb_FL"/></summary>
             Initialize_CLB_FL();
 
@@ -144,6 +141,9 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         private void Initialize_CLB_FL()
         {
+            ///<summary>Initializing the <see cref="CheckedListBoxItem"/>s required to populate the 4 <see cref="CheckedListBoxControl"/>s</summary>
+            Initialize_CLB_Items();
+
             clb_FL.Items.AddRange(new CheckedListBoxItem[] { FrontRollCenter, LeftPitchCenter, Camber, BumpSteer, Ackermann, SpringDeflection });
         }
 
@@ -152,7 +152,10 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         private void Initialize_CLB_FR()
         {
-            clb_FR.Items.AddRange(new CheckedListBoxItem[] { /*FrontRollCenter, */RightPitchCenter, Camber, BumpSteer, Ackermann, SpringDeflection });
+            ///<summary>Initializing the <see cref="CheckedListBoxItem"/>s required to populate the 4 <see cref="CheckedListBoxControl"/>s</summary>
+            Initialize_CLB_Items();
+
+            clb_FR.Items.AddRange(new CheckedListBoxItem[] { /*FrontRollCenter, */RightPitchCenter, Camber, BumpSteer/*, Ackermann*/, SpringDeflection });
         }
 
 
@@ -161,6 +164,9 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         private void Initialize_CLB_RL()
         {
+            ///<summary>Initializing the <see cref="CheckedListBoxItem"/>s required to populate the 4 <see cref="CheckedListBoxControl"/>s</summary>
+            Initialize_CLB_Items();
+
             clb_RL.Items.AddRange(new CheckedListBoxItem[] { RearRollCenter, /*LeftPitchCenter,*/ Camber, BumpSteer, SpringDeflection });
         }
 
@@ -169,6 +175,9 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         private void Initialize_CLB_RR()
         {
+            ///<summary>Initializing the <see cref="CheckedListBoxItem"/>s required to populate the 4 <see cref="CheckedListBoxControl"/>s</summary>
+            Initialize_CLB_Items();
+
             clb_RR.Items.AddRange(new CheckedListBoxItem[] { /*RearRollCenter, */ /*RightPitchCenter,*/ Camber, BumpSteer, SpringDeflection });
         } 
         #endregion

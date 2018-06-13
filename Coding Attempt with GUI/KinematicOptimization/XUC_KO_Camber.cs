@@ -9,11 +9,17 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using DevExpress.XtraCharts;
+using MathNet.Spatial.Units;
 
 namespace Coding_Attempt_with_GUI
 {
-    public partial class XUC_KO_Camber : DevExpress.XtraEditors.XtraUserControl
+    public partial class XUC_KO_Camber : XtraUserControl
     {
+        /// <summary>
+        /// Object of the <see cref="CustomCamberCurve"/> Class which contains information regarding the Heave/Steering Profile and corresponding Camber Curves
+        /// </summary>
+        public CustomCamberCurve CamberCurve { get; set; }
+
         public XUC_KO_Camber()
         {
             InitializeComponent();
@@ -23,6 +29,12 @@ namespace Coding_Attempt_with_GUI
 
             ///<summary>Customizing the Chart to Accept Steering Camber Variation</summary>
             Initialize_SteeringChartParams();
+
+            CamberCurve = new CustomCamberCurve();
+
+            xuC_KO_CamberHeave.Profile = MotionProfiles.Heave;
+
+            xuC_KO_CamberSteering.Profile = MotionProfiles.Steering;
         }
 
         /// <summary>
@@ -71,6 +83,25 @@ namespace Coding_Attempt_with_GUI
             steeringDiag.AxisY.Title.Text = "Camber Angle (deg)";
 
         }
+
+        /// <summary>
+        /// Internam method to create the Heave Profile and Corresponding Camber Angles using <see cref="CustomCamberCurve.WheelDeflections"/> and <see cref="CustomCamberCurve.CamberAnglesHeave"/>
+        /// </summary>
+        private void UpdateHeaveChart()
+        {
+            CamberCurve.Populate_CamerVariation_Heave(xuC_KO_CamberHeave.ChartPoints_X, xuC_KO_CamberHeave.ChartPoints_Y);
+        }
+
+        /// <summary>
+        /// Internam method to create the Steering Profile and Corresponding Camber Angles using <see cref="CustomCamberCurve.SteeringWheelAngles"/> and <see cref="CustomCamberCurve.CamberAnglesSteering"/>
+        /// </summary>
+
+        private void UpdateSteeringChart()
+        {
+            CamberCurve.Populate_CamerVariation_Steering(xuC_KO_CamberSteering.ChartPoints_X, xuC_KO_CamberSteering.ChartPoints_Y);
+        }
+
+
 
 
     }

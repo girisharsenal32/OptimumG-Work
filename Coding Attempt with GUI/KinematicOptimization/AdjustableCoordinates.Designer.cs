@@ -120,7 +120,7 @@
             // 
             // vGridControl1
             // 
-            this.vGridControl1.Cursor = System.Windows.Forms.Cursors.SizeNS;
+            this.vGridControl1.Cursor = System.Windows.Forms.Cursors.Default;
             this.vGridControl1.Location = new System.Drawing.Point(160, 30);
             this.vGridControl1.Name = "vGridControl1";
             this.vGridControl1.RecordWidth = 131;

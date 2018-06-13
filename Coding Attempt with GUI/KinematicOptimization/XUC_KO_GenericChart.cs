@@ -40,15 +40,22 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Array containing the X Coordinates of the Chart
         /// </summary>
-        List<double> ChartPoints_X { get; set; }
+        public List<double> ChartPoints_X { get; set; }
         /// <summary>
         /// Array containing the Y Coordinates of the Chart
         /// </summary>
-        List<double> ChartPoints_Y { get; set; }
+        public List<double> ChartPoints_Y { get; set; }
         /// <summary>
         /// Boolean to determine if the Chart is being plotted by the USER during input or by solver during Output Display
         /// </summary>
         public bool IsOutputChart { get; set; }
+
+        /// <summary>
+        /// Object of the <see cref="MotionProfiles"/> which determines which type of Motion profile is going to be depicted by this CHart
+        /// </summary>
+        public MotionProfiles Profile { get; set; }
+
+
         #endregion
 
         /// <summary>

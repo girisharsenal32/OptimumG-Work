@@ -17,7 +17,7 @@ namespace Coding_Attempt_with_GUI
 
         //public VehicleCorner VCorner { get; set; }
 
-        public KO_CornverVariables KO_CV { get; set; }
+        public KO_CornverVariables KO_CV { get; set; } 
 
         //public AdjustableListBox CounterList_FrontRear { get; set; }
 
@@ -73,12 +73,14 @@ namespace Coding_Attempt_with_GUI
                 if (_index != 1) 
                 {
                     listBoxControl1.Items.Remove(selectedItem);
-                    listBoxControl1.Items.Insert(_index - 1, selectedItem); 
+                    listBoxControl1.Items.Insert(_index - 1, selectedItem);
+                    listBoxControl1.SelectedIndex = _index - 1;
                 }
                 else
                 {
                     listBoxControl1.Items.Remove(selectedItem);
                     listBoxControl1.Items.Insert(0, selectedItem);
+                    listBoxControl1.SelectedIndex = 0;
                 }
 
             }
@@ -115,19 +117,21 @@ namespace Coding_Attempt_with_GUI
                 if (_index != listBoxControl1.Items.Count - 2) 
                 {
                     listBoxControl1.Items.Remove(selectedItem);
-                    listBoxControl1.Items.Insert(_index + 1, selectedItem); 
+                    listBoxControl1.Items.Insert(_index + 1, selectedItem);
+                    listBoxControl1.SelectedIndex = _index + 1;
                 }
                 else
                 {
                     listBoxControl1.Items.Remove(selectedItem);
                     listBoxControl1.Items.Add(selectedItem);
+                    listBoxControl1.SelectedItem = selectedItem;
                 }
             }
         }
 
         public void listBoxControl1_Validated(object sender, EventArgs e)
         {
-            UpdateCornverVariablesObject();
+            //UpdateCornverVariablesObject();
         }
 
         private void UpdateCornverVariablesObject()
@@ -136,7 +140,18 @@ namespace Coding_Attempt_with_GUI
 
             for (int i = 0; i < listBoxControl1.Items.Count; i++)
             {
-                KO_CV.KO_ReqParams.Add((SuspensionParameters)listBoxControl1.Items[i]);
+
+                Array parameters = Enum.GetValues(typeof(SuspensionParameters));
+
+                for (int j = 0; j < parameters.Length; j++)
+                {
+                    if (parameters.GetValue(j).ToString() == listBoxControl1.Items[i].ToString())
+                    {
+                        KO_CV.KO_ReqParams.Add((SuspensionParameters)parameters.GetValue(j));
+                    }
+                }
+
+                
             }
 
         }

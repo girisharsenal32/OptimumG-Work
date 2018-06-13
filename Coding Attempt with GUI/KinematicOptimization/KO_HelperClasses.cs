@@ -37,6 +37,14 @@ namespace Coding_Attempt_with_GUI
         Variation
     };
 
+    public enum MotionProfiles
+    {
+        Heave,
+        Steering,
+        Roll,
+        Pitch
+    }
+
     /// <summary>
     /// <para>Class which stores information regarding the <see cref="Point3D'"/> Adjusters of the <see cref="KinematicOptimization"/></para>
     /// <para>These are the Pick-Up Points of the Suspension</para>

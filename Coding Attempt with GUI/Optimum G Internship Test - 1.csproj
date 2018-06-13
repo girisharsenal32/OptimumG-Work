@@ -192,6 +192,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomCamberCurve.cs" />
     <Compile Include="KinematicOptimization\AdjustableListBox.cs">
       <SubType>UserControl</SubType>
     </Compile>

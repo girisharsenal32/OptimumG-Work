@@ -116,7 +116,7 @@ namespace Coding_Attempt_with_GUI
         List<CategoryRow> Outboard_CategoryRows;
         #endregion
 
-        public KO_CornverVariables KO_CV;
+        public KO_CornverVariables KO_CV = new KO_CornverVariables();
 
         #endregion
 
