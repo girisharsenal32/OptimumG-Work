@@ -29,7 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer3 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
+            Coding_Attempt_with_GUI.CustomCamberCurve customCamberCurve1 = new Coding_Attempt_with_GUI.CustomCamberCurve();
+            Coding_Attempt_with_GUI.CustomCamberCurve customCamberCurve2 = new Coding_Attempt_with_GUI.CustomCamberCurve();
+            Coding_Attempt_with_GUI.CustomCamberCurve customCamberCurve3 = new Coding_Attempt_with_GUI.CustomCamberCurve();
+            Coding_Attempt_with_GUI.CustomCamberCurve customCamberCurve4 = new Coding_Attempt_with_GUI.CustomCamberCurve();
+            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
             this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(this.components);
             this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.document8 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
@@ -236,16 +240,14 @@
             // dockPanelAdjCoordinates
             // 
             this.dockPanelAdjCoordinates.Controls.Add(this.dockPanel1_Container);
-            this.dockPanelAdjCoordinates.Dock = DevExpress.XtraBars.Docking.DockingStyle.Float;
             this.dockPanelAdjCoordinates.DockedAsTabbedDocument = true;
+            this.dockPanelAdjCoordinates.Enabled = false;
             this.dockPanelAdjCoordinates.FloatLocation = new System.Drawing.Point(237, 147);
             this.dockPanelAdjCoordinates.ID = new System.Guid("e2de54a7-ae56-44d2-9b06-02ebf36f32b2");
-            this.dockPanelAdjCoordinates.Location = new System.Drawing.Point(0, 0);
             this.dockPanelAdjCoordinates.Name = "dockPanelAdjCoordinates";
             this.dockPanelAdjCoordinates.OriginalSize = new System.Drawing.Size(200, 200);
             this.dockPanelAdjCoordinates.SavedIndex = 0;
             this.dockPanelAdjCoordinates.SavedMdiDocument = true;
-            this.dockPanelAdjCoordinates.Size = new System.Drawing.Size(1364, 726);
             this.dockPanelAdjCoordinates.Text = "Adjustable Coordinates";
             // 
             // dockPanel1_Container
@@ -253,7 +255,7 @@
             this.dockPanel1_Container.Controls.Add(this.layoutControl1);
             this.dockPanel1_Container.Location = new System.Drawing.Point(0, 0);
             this.dockPanel1_Container.Name = "dockPanel1_Container";
-            this.dockPanel1_Container.Size = new System.Drawing.Size(1364, 726);
+            this.dockPanel1_Container.Size = new System.Drawing.Size(1364, 735);
             this.dockPanel1_Container.TabIndex = 0;
             // 
             // layoutControl1
@@ -266,7 +268,7 @@
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(1364, 726);
+            this.layoutControl1.Size = new System.Drawing.Size(1364, 735);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
@@ -277,9 +279,9 @@
             this.adjustableCoordinates4.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(187)))), ((int)(((byte)(0)))));
             this.adjustableCoordinates4.Appearance.Options.UseBackColor = true;
             this.adjustableCoordinates4.Appearance.Options.UseBorderColor = true;
-            this.adjustableCoordinates4.Location = new System.Drawing.Point(683, 376);
+            this.adjustableCoordinates4.Location = new System.Drawing.Point(683, 378);
             this.adjustableCoordinates4.Name = "adjustableCoordinates4";
-            this.adjustableCoordinates4.Size = new System.Drawing.Size(669, 338);
+            this.adjustableCoordinates4.Size = new System.Drawing.Size(669, 345);
             this.adjustableCoordinates4.TabIndex = 4;
             // 
             // adjustableCoordinates3
@@ -289,9 +291,9 @@
             this.adjustableCoordinates3.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(161)))), ((int)(((byte)(241)))));
             this.adjustableCoordinates3.Appearance.Options.UseBackColor = true;
             this.adjustableCoordinates3.Appearance.Options.UseBorderColor = true;
-            this.adjustableCoordinates3.Location = new System.Drawing.Point(12, 376);
+            this.adjustableCoordinates3.Location = new System.Drawing.Point(12, 378);
             this.adjustableCoordinates3.Name = "adjustableCoordinates3";
-            this.adjustableCoordinates3.Size = new System.Drawing.Size(667, 338);
+            this.adjustableCoordinates3.Size = new System.Drawing.Size(667, 345);
             this.adjustableCoordinates3.TabIndex = 3;
             // 
             // adjustableCoordinates2
@@ -303,7 +305,7 @@
             this.adjustableCoordinates2.Appearance.Options.UseBorderColor = true;
             this.adjustableCoordinates2.Location = new System.Drawing.Point(683, 30);
             this.adjustableCoordinates2.Name = "adjustableCoordinates2";
-            this.adjustableCoordinates2.Size = new System.Drawing.Size(669, 324);
+            this.adjustableCoordinates2.Size = new System.Drawing.Size(669, 326);
             this.adjustableCoordinates2.TabIndex = 2;
             // 
             // adjustableCoordinates1
@@ -315,7 +317,7 @@
             this.adjustableCoordinates1.Appearance.Options.UseBorderColor = true;
             this.adjustableCoordinates1.Location = new System.Drawing.Point(12, 30);
             this.adjustableCoordinates1.Name = "adjustableCoordinates1";
-            this.adjustableCoordinates1.Size = new System.Drawing.Size(667, 324);
+            this.adjustableCoordinates1.Size = new System.Drawing.Size(667, 326);
             this.adjustableCoordinates1.TabIndex = 0;
             // 
             // layoutControlGroup1
@@ -333,7 +335,7 @@
             this.simpleLabelItem8});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(1364, 726);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(1364, 735);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // layoutControlItem1
@@ -341,7 +343,7 @@
             this.layoutControlItem1.Control = this.adjustableCoordinates1;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 18);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(671, 328);
+            this.layoutControlItem1.Size = new System.Drawing.Size(671, 330);
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
             // 
@@ -350,25 +352,25 @@
             this.layoutControlItem2.Control = this.adjustableCoordinates2;
             this.layoutControlItem2.Location = new System.Drawing.Point(671, 18);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(673, 328);
+            this.layoutControlItem2.Size = new System.Drawing.Size(673, 330);
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem2.TextVisible = false;
             // 
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.adjustableCoordinates3;
-            this.layoutControlItem3.Location = new System.Drawing.Point(0, 364);
+            this.layoutControlItem3.Location = new System.Drawing.Point(0, 366);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(671, 342);
+            this.layoutControlItem3.Size = new System.Drawing.Size(671, 349);
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextVisible = false;
             // 
             // layoutControlItem4
             // 
             this.layoutControlItem4.Control = this.adjustableCoordinates4;
-            this.layoutControlItem4.Location = new System.Drawing.Point(671, 364);
+            this.layoutControlItem4.Location = new System.Drawing.Point(671, 366);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(673, 342);
+            this.layoutControlItem4.Size = new System.Drawing.Size(673, 349);
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem4.TextVisible = false;
             // 
@@ -414,7 +416,7 @@
             this.simpleLabelItem7.AppearanceItemCaption.Options.UseFont = true;
             this.simpleLabelItem7.AppearanceItemCaption.Options.UseTextOptions = true;
             this.simpleLabelItem7.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.simpleLabelItem7.Location = new System.Drawing.Point(671, 350);
+            this.simpleLabelItem7.Location = new System.Drawing.Point(671, 348);
             this.simpleLabelItem7.Name = "simpleLabelItem7";
             this.simpleLabelItem7.Size = new System.Drawing.Size(673, 18);
             this.simpleLabelItem7.Text = "Rear Right";
@@ -429,7 +431,7 @@
             this.simpleLabelItem8.AppearanceItemCaption.Options.UseFont = true;
             this.simpleLabelItem8.AppearanceItemCaption.Options.UseTextOptions = true;
             this.simpleLabelItem8.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.simpleLabelItem8.Location = new System.Drawing.Point(0, 350);
+            this.simpleLabelItem8.Location = new System.Drawing.Point(0, 348);
             this.simpleLabelItem8.Name = "simpleLabelItem8";
             this.simpleLabelItem8.Size = new System.Drawing.Size(671, 18);
             this.simpleLabelItem8.Text = "Rear Left";
@@ -438,16 +440,13 @@
             // dockPanelRC
             // 
             this.dockPanelRC.Controls.Add(this.dockPanel2_Container);
-            this.dockPanelRC.Dock = DevExpress.XtraBars.Docking.DockingStyle.Float;
             this.dockPanelRC.DockedAsTabbedDocument = true;
             this.dockPanelRC.FloatLocation = new System.Drawing.Point(406, 150);
             this.dockPanelRC.ID = new System.Guid("e8da7d7d-b8d7-419c-82f6-9645b18932ba");
-            this.dockPanelRC.Location = new System.Drawing.Point(0, 0);
             this.dockPanelRC.Name = "dockPanelRC";
             this.dockPanelRC.OriginalSize = new System.Drawing.Size(200, 200);
             this.dockPanelRC.SavedIndex = 1;
             this.dockPanelRC.SavedMdiDocument = true;
-            this.dockPanelRC.Size = new System.Drawing.Size(1364, 735);
             this.dockPanelRC.Text = "Roll Center";
             // 
             // dockPanel2_Container
@@ -513,14 +512,14 @@
             this.dockPanelSpringDef.SavedIndex = 1;
             this.dockPanelSpringDef.SavedParent = this.dockPanelAckermann;
             this.dockPanelSpringDef.SavedTabbed = true;
-            this.dockPanelSpringDef.Size = new System.Drawing.Size(1364, 726);
+            this.dockPanelSpringDef.Size = new System.Drawing.Size(1364, 735);
             this.dockPanelSpringDef.Text = "Spring Deflection";
             // 
             // dockPanel7_Container
             // 
             this.dockPanel7_Container.Location = new System.Drawing.Point(0, 0);
             this.dockPanel7_Container.Name = "dockPanel7_Container";
-            this.dockPanel7_Container.Size = new System.Drawing.Size(1364, 726);
+            this.dockPanel7_Container.Size = new System.Drawing.Size(1364, 735);
             this.dockPanel7_Container.TabIndex = 0;
             // 
             // dockPanelAckermann
@@ -535,7 +534,7 @@
             this.dockPanelAckermann.OriginalSize = new System.Drawing.Size(200, 200);
             this.dockPanelAckermann.SavedIndex = 6;
             this.dockPanelAckermann.SavedMdiDocument = true;
-            this.dockPanelAckermann.Size = new System.Drawing.Size(1364, 726);
+            this.dockPanelAckermann.Size = new System.Drawing.Size(1364, 735);
             this.dockPanelAckermann.Text = "Ackermann";
             this.dockPanelAckermann.Click += new System.EventHandler(this.dockPanelAckermann_Click);
             // 
@@ -543,23 +542,21 @@
             // 
             this.dockPanel6_Container.Location = new System.Drawing.Point(0, 0);
             this.dockPanel6_Container.Name = "dockPanel6_Container";
-            this.dockPanel6_Container.Size = new System.Drawing.Size(1364, 726);
+            this.dockPanel6_Container.Size = new System.Drawing.Size(1364, 735);
             this.dockPanel6_Container.TabIndex = 0;
             // 
             // dockPanelCamber
             // 
             this.dockPanelCamber.Controls.Add(this.dockPanel4_Container);
-            this.dockPanelCamber.Dock = DevExpress.XtraBars.Docking.DockingStyle.Float;
             this.dockPanelCamber.DockedAsTabbedDocument = true;
+            this.dockPanelCamber.Enabled = false;
             this.dockPanelCamber.FloatLocation = new System.Drawing.Point(569, 154);
             this.dockPanelCamber.FloatSize = new System.Drawing.Size(96, 172);
             this.dockPanelCamber.ID = new System.Guid("19a4a20b-90e6-484d-94ac-14fd75cb6515");
-            this.dockPanelCamber.Location = new System.Drawing.Point(0, 0);
             this.dockPanelCamber.Name = "dockPanelCamber";
             this.dockPanelCamber.OriginalSize = new System.Drawing.Size(200, 200);
             this.dockPanelCamber.SavedIndex = 5;
             this.dockPanelCamber.SavedMdiDocument = true;
-            this.dockPanelCamber.Size = new System.Drawing.Size(1364, 726);
             this.dockPanelCamber.Text = "Camber";
             // 
             // dockPanel4_Container
@@ -567,7 +564,7 @@
             this.dockPanel4_Container.Controls.Add(this.layoutControl2);
             this.dockPanel4_Container.Location = new System.Drawing.Point(0, 0);
             this.dockPanel4_Container.Name = "dockPanel4_Container";
-            this.dockPanel4_Container.Size = new System.Drawing.Size(1364, 726);
+            this.dockPanel4_Container.Size = new System.Drawing.Size(1364, 735);
             this.dockPanel4_Container.TabIndex = 0;
             // 
             // layoutControl2
@@ -581,7 +578,7 @@
             this.layoutControl2.Name = "layoutControl2";
             this.layoutControl2.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(966, 412, 450, 400);
             this.layoutControl2.Root = this.layoutControlGroup2;
-            this.layoutControl2.Size = new System.Drawing.Size(1364, 726);
+            this.layoutControl2.Size = new System.Drawing.Size(1364, 735);
             this.layoutControl2.TabIndex = 0;
             this.layoutControl2.Text = "Front Left";
             // 
@@ -589,36 +586,40 @@
             // 
             this.xuC_KO_Camber4.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(187)))), ((int)(((byte)(0)))));
             this.xuC_KO_Camber4.Appearance.Options.UseBackColor = true;
-            this.xuC_KO_Camber4.Location = new System.Drawing.Point(682, 516);
+            this.xuC_KO_Camber4.CamberCurve = customCamberCurve1;
+            this.xuC_KO_Camber4.Location = new System.Drawing.Point(681, 419);
             this.xuC_KO_Camber4.Name = "xuC_KO_Camber4";
-            this.xuC_KO_Camber4.Size = new System.Drawing.Size(653, 464);
+            this.xuC_KO_Camber4.Size = new System.Drawing.Size(654, 367);
             this.xuC_KO_Camber4.TabIndex = 4;
             // 
             // xuC_KO_Camber3
             // 
             this.xuC_KO_Camber3.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(124)))), ((int)(((byte)(187)))), ((int)(((byte)(0)))));
             this.xuC_KO_Camber3.Appearance.Options.UseBackColor = true;
-            this.xuC_KO_Camber3.Location = new System.Drawing.Point(682, 30);
+            this.xuC_KO_Camber3.CamberCurve = customCamberCurve2;
+            this.xuC_KO_Camber3.Location = new System.Drawing.Point(681, 30);
             this.xuC_KO_Camber3.Name = "xuC_KO_Camber3";
-            this.xuC_KO_Camber3.Size = new System.Drawing.Size(653, 464);
+            this.xuC_KO_Camber3.Size = new System.Drawing.Size(654, 367);
             this.xuC_KO_Camber3.TabIndex = 2;
             // 
             // xuC_KO_Camber2
             // 
             this.xuC_KO_Camber2.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(161)))), ((int)(((byte)(241)))));
             this.xuC_KO_Camber2.Appearance.Options.UseBackColor = true;
-            this.xuC_KO_Camber2.Location = new System.Drawing.Point(12, 516);
+            this.xuC_KO_Camber2.CamberCurve = customCamberCurve3;
+            this.xuC_KO_Camber2.Location = new System.Drawing.Point(12, 419);
             this.xuC_KO_Camber2.Name = "xuC_KO_Camber2";
-            this.xuC_KO_Camber2.Size = new System.Drawing.Size(660, 464);
+            this.xuC_KO_Camber2.Size = new System.Drawing.Size(660, 367);
             this.xuC_KO_Camber2.TabIndex = 3;
             // 
             // xuC_KO_Camber1
             // 
             this.xuC_KO_Camber1.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(83)))), ((int)(((byte)(20)))));
             this.xuC_KO_Camber1.Appearance.Options.UseBackColor = true;
+            this.xuC_KO_Camber1.CamberCurve = customCamberCurve4;
             this.xuC_KO_Camber1.Location = new System.Drawing.Point(12, 30);
             this.xuC_KO_Camber1.Name = "xuC_KO_Camber1";
-            this.xuC_KO_Camber1.Size = new System.Drawing.Size(660, 464);
+            this.xuC_KO_Camber1.Size = new System.Drawing.Size(660, 367);
             this.xuC_KO_Camber1.TabIndex = 0;
             // 
             // layoutControlGroup2
@@ -637,7 +638,7 @@
             this.layoutControlItem8});
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup2.Name = "Root";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(1347, 992);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(1347, 798);
             this.layoutControlGroup2.TextVisible = false;
             // 
             // simpleLabelItem1
@@ -664,9 +665,9 @@
             this.simpleLabelItem2.AppearanceItemCaption.Options.UseFont = true;
             this.simpleLabelItem2.AppearanceItemCaption.Options.UseTextOptions = true;
             this.simpleLabelItem2.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.simpleLabelItem2.Location = new System.Drawing.Point(670, 0);
+            this.simpleLabelItem2.Location = new System.Drawing.Point(669, 0);
             this.simpleLabelItem2.Name = "simpleLabelItem2";
-            this.simpleLabelItem2.Size = new System.Drawing.Size(657, 18);
+            this.simpleLabelItem2.Size = new System.Drawing.Size(658, 18);
             this.simpleLabelItem2.Text = "Front Right";
             this.simpleLabelItem2.TextSize = new System.Drawing.Size(71, 14);
             // 
@@ -679,7 +680,7 @@
             this.simpleLabelItem3.AppearanceItemCaption.Options.UseFont = true;
             this.simpleLabelItem3.AppearanceItemCaption.Options.UseTextOptions = true;
             this.simpleLabelItem3.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.simpleLabelItem3.Location = new System.Drawing.Point(0, 486);
+            this.simpleLabelItem3.Location = new System.Drawing.Point(0, 389);
             this.simpleLabelItem3.Name = "simpleLabelItem3";
             this.simpleLabelItem3.Size = new System.Drawing.Size(664, 18);
             this.simpleLabelItem3.Text = "Rear Left";
@@ -694,9 +695,9 @@
             this.simpleLabelItem4.AppearanceItemCaption.Options.UseFont = true;
             this.simpleLabelItem4.AppearanceItemCaption.Options.UseTextOptions = true;
             this.simpleLabelItem4.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.simpleLabelItem4.Location = new System.Drawing.Point(670, 486);
+            this.simpleLabelItem4.Location = new System.Drawing.Point(669, 389);
             this.simpleLabelItem4.Name = "simpleLabelItem4";
-            this.simpleLabelItem4.Size = new System.Drawing.Size(657, 18);
+            this.simpleLabelItem4.Size = new System.Drawing.Size(658, 18);
             this.simpleLabelItem4.Text = "Rear Right";
             this.simpleLabelItem4.TextSize = new System.Drawing.Size(71, 14);
             // 
@@ -705,41 +706,41 @@
             this.splitterItem1.AllowHotTrack = true;
             this.splitterItem1.Location = new System.Drawing.Point(664, 0);
             this.splitterItem1.Name = "splitterItem1";
-            this.splitterItem1.Size = new System.Drawing.Size(6, 972);
+            this.splitterItem1.Size = new System.Drawing.Size(5, 778);
             // 
             // layoutControlItem5
             // 
             this.layoutControlItem5.Control = this.xuC_KO_Camber1;
             this.layoutControlItem5.Location = new System.Drawing.Point(0, 18);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(664, 468);
+            this.layoutControlItem5.Size = new System.Drawing.Size(664, 371);
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextVisible = false;
             // 
             // layoutControlItem6
             // 
             this.layoutControlItem6.Control = this.xuC_KO_Camber2;
-            this.layoutControlItem6.Location = new System.Drawing.Point(0, 504);
+            this.layoutControlItem6.Location = new System.Drawing.Point(0, 407);
             this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(664, 468);
+            this.layoutControlItem6.Size = new System.Drawing.Size(664, 371);
             this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem6.TextVisible = false;
             // 
             // layoutControlItem7
             // 
             this.layoutControlItem7.Control = this.xuC_KO_Camber3;
-            this.layoutControlItem7.Location = new System.Drawing.Point(670, 18);
+            this.layoutControlItem7.Location = new System.Drawing.Point(669, 18);
             this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(657, 468);
+            this.layoutControlItem7.Size = new System.Drawing.Size(658, 371);
             this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem7.TextVisible = false;
             // 
             // layoutControlItem8
             // 
             this.layoutControlItem8.Control = this.xuC_KO_Camber4;
-            this.layoutControlItem8.Location = new System.Drawing.Point(670, 504);
+            this.layoutControlItem8.Location = new System.Drawing.Point(669, 407);
             this.layoutControlItem8.Name = "layoutControlItem8";
-            this.layoutControlItem8.Size = new System.Drawing.Size(657, 468);
+            this.layoutControlItem8.Size = new System.Drawing.Size(658, 371);
             this.layoutControlItem8.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem8.TextVisible = false;
             // 
@@ -763,14 +764,15 @@
             this.document4,
             this.document1});
             this.tabbedView1.RootContainer.Element = null;
-            dockingContainer3.Element = this.documentGroup1;
+            dockingContainer1.Element = this.documentGroup1;
             this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
-            dockingContainer3});
+            dockingContainer1});
             // 
             // XUC_KinematicOptimization
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Enabled = false;
             this.Name = "XUC_KinematicOptimization";
             this.Size = new System.Drawing.Size(1370, 763);
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).EndInit();

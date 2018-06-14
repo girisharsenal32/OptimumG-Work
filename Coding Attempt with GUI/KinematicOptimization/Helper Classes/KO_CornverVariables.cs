@@ -7,6 +7,13 @@ using devDept.Geometry;
 
 namespace Coding_Attempt_with_GUI
 {
+    /// <summary>
+    /// <para>This Class Houses all the Items pertaining to a Corner of the Vehicle</para>
+    /// <para>Items Include</para>
+    /// <para>-> INPUTS :- All User Requested Suspension Parameters, their Static Values/Curves etc. and their Importance</para>
+    /// <para>-> Adjusters :- All User Specified Adjusters</para>
+    /// <para>-> Vehicle Corner Components</para>
+    /// </summary>
     public class KO_CornverVariables
     {
         #region ---Declarations---

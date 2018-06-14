@@ -11,26 +11,50 @@ namespace Coding_Attempt_with_GUI
     public class KO_Optimizer : Master_Optimizer
     {
         /// <summary>
-        /// Object of the <see cref="KO_CornverVariables"/> containing ALL relevant information of the Front Left Corner
+        /// Local Object of the <see cref="KO_CornverVariables"/> containing ALL relevant information of the Front Left Corner
         /// </summary>
-        public KO_CornverVariables KO_CV_FL;
+        KO_CornverVariables KO_CV_FL;
 
         /// <summary>
-        /// Object of the <see cref="KO_CornverVariables"/> containing ALL relevant information of the Front Right Corner
+        /// Local Object of the <see cref="KO_CornverVariables"/> containing ALL relevant information of the Front Right Corner
         /// </summary>
-        public KO_CornverVariables KO_CV_FR;
+        KO_CornverVariables KO_CV_FR;
 
         /// <summary>
-        /// Object of the <see cref="KO_CornverVariables"/> containing ALL relevant information of the Rear Left Corner
+        /// Local Object of the <see cref="KO_CornverVariables"/> containing ALL relevant information of the Rear Left Corner
         /// </summary>
-        public KO_CornverVariables KO_CV_RL;
+        KO_CornverVariables KO_CV_RL;
 
         /// <summary>
-        /// Object of the <see cref="KO_CornverVariables"/> containing ALL relevant information of the Rear Right Corner
+        /// Local Object of the <see cref="KO_CornverVariables"/> containing ALL relevant information of the Rear Right Corner
         /// </summary>
-        public KO_CornverVariables KO_CV_RR;
+        KO_CornverVariables KO_CV_RR;
 
+        /// <summary>
+        /// Local Object of the <see cref="KO_SimulationParams"/> 
+        /// </summary>
         public KO_SimulationParams KO_SimParams;
+
+        /// <summary>
+        /// Object of the <see cref="KO_Outputs"/> Class which will store all the Outputs of the Front Left Corner
+        /// </summary>
+        public KO_Outputs KO_OP_FL { get; set; }
+
+        /// <summary>
+        /// Object of the <see cref="KO_Outputs"/> Class which will store all the Outputs of the Front Right Corner
+        /// </summary>
+        public KO_Outputs KO_OP_FR { get; set; }
+
+        /// <summary>
+        /// Object of the <see cref="KO_Outputs"/> Class which will store all the Outputs of the Rear left Corner
+        /// </summary>
+        public KO_Outputs KO_OP_RL { get; set; }
+
+        /// <summary>
+        /// Object of the <see cref="KO_Outputs"/> Class which will store all the Outputs of the Rear Right Corner
+        /// </summary>
+        public KO_Outputs KO_OP_RR { get; set; }
+
 
         /// <summary>
         /// Number of Iterations that the Kinemaic Solver is going to Run for 
@@ -116,6 +140,9 @@ namespace Coding_Attempt_with_GUI
             KO_CV_RR.Initialize_AdjusterCoordinates(KO_CV_RR.VCornerParams);
 
         }
+
+
+        
 
     }
 }

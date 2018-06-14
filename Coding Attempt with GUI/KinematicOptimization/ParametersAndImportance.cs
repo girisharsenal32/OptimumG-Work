@@ -103,7 +103,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_frCV"></param>
         /// <param name="_rlCV"></param>
         /// <param name="_rrCV"></param>
-        public void GetParentObjectData(KO_CornverVariables _flCV, KO_CornverVariables _frCV, KO_CornverVariables _rlCV, KO_CornverVariables _rrCV)
+        public void SetCornerVariables(KO_CornverVariables _flCV, KO_CornverVariables _frCV, KO_CornverVariables _rlCV, KO_CornverVariables _rrCV)
         {
             ///<summary>Initializing the <see cref="KO_CornverVariables"/> object of each corner</summary>
             KO_CV_FL = _flCV;
@@ -195,8 +195,6 @@ namespace Coding_Attempt_with_GUI
         #endregion 
 
         #endregion
-
-
 
         #region ---Checked List Box Control Item Check Events---
         /// <summary>
@@ -315,7 +313,12 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
 
-        
+
+
+
+
+
+
 
     }
 }

@@ -25,37 +25,56 @@ namespace Coding_Attempt_with_GUI
         public static int Counter_GUI { get; set; }
 
         /// <summary>
+        /// Static List which holds all the <see cref="KinematicsOptimization_GUI"/> class objects
+        /// </summary>
+        public static List<KinematicsOptimization_GUI> List_KO_GUI = new List<KinematicsOptimization_GUI>();
+
+        /// <summary>
         /// Object of the <see cref="KO_SimulationParams"/> which stores the information regarding Number of Iterations etc.
         /// </summary>
-        public KO_SimulationParams KO_SimParams { get; set; }
+        public KO_SimulationParams KO_SimParams;
 
         /// <summary>
         /// <see cref="KO_CornverVariables"/>  GUI Object of the Front Left Corner
         /// </summary>
-        public KO_CornverVariables KO_CV_FL_GUI { get; set; }
-        
+        public KO_CornverVariables KO_CV_FL_GUI;
+
         /// <summary>
         /// <see cref="KO_CornverVariables"/>  GUI Object of the Front Right Corner
         /// </summary>
-        public KO_CornverVariables KO_CV_FR_GUI { get; set; }
-        
+        public KO_CornverVariables KO_CV_FR_GUI;
+
         /// <summary>
         /// <see cref="KO_CornverVariables"/> GUI  Object of the Rear Left Corner
         /// </summary>
-        public KO_CornverVariables KO_CV_RL_GUI { get; set; }
-     
+        public KO_CornverVariables KO_CV_RL_GUI;
+
         /// <summary>
         /// <see cref="KO_CornverVariables"/> GUI Object of the Rear Right Corner
         /// </summary>
-        public KO_CornverVariables KO_CV_RR_GUI { get; set; }
+        public KO_CornverVariables KO_CV_RR_GUI;
 
-
+        /// <summary>
+        /// The <see cref="XUC_KinematicOptimization"/> UserControl 
+        /// </summary>
         public XUC_KinematicOptimization xuc_KO;
 
+        /// <summary>
+        /// Object of the <see cref="ParametersAndImportance"/> Form where the user can select the Parameters and set their Importance
+        /// </summary>
+        public ParametersAndImportance Param_Imp_Form;
+
+
+
+        
 
         public KinematicsOptimization_GUI(){}
 
-
+        /// <summary>
+        /// Overloaded Constructor
+        /// </summary>
+        /// <param name="_name">Name of <see cref="KinematicsOptimization_GUI"/></param>
+        /// <param name="_id">ID of the <see cref="KinematicsOptimization_GUI"/></param>
         public KinematicsOptimization_GUI(string _name, int _id)
         {
             Name_GUI = _name;
@@ -73,6 +92,11 @@ namespace Coding_Attempt_with_GUI
             KO_SimParams = new KO_SimulationParams();
 
             xuc_KO = new XUC_KinematicOptimization();
+
+            Param_Imp_Form = new ParametersAndImportance();
+
+            ///<summary>Passing the <see cref="KO_CornverVariables"/> Objects of the 4 corners to the <see cref="Param_Imp_Form"/></summary>
+            Param_Imp_Form.SetCornerVariables(KO_CV_FL_GUI, KO_CV_FR_GUI, KO_CV_RL_GUI, KO_CV_RR_GUI);
 
         }
 
