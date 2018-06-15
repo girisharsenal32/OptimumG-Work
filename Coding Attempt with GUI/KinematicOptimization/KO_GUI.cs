@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Coding_Attempt_with_GUI
 {
-    public class KinematicsOptimization_GUI
+    public class KO_GUI
     {
 
         /// <summary>
@@ -25,9 +25,9 @@ namespace Coding_Attempt_with_GUI
         public static int Counter_GUI { get; set; }
 
         /// <summary>
-        /// Static List which holds all the <see cref="KinematicsOptimization_GUI"/> class objects
+        /// Static List which holds all the <see cref="KO_GUI"/> class objects
         /// </summary>
-        public static List<KinematicsOptimization_GUI> List_KO_GUI = new List<KinematicsOptimization_GUI>();
+        public static List<KO_GUI> List_KO_GUI = new List<KO_GUI>();
 
         /// <summary>
         /// Object of the <see cref="KO_SimulationParams"/> which stores the information regarding Number of Iterations etc.
@@ -68,14 +68,14 @@ namespace Coding_Attempt_with_GUI
 
         
 
-        public KinematicsOptimization_GUI(){}
+        public KO_GUI(){}
 
         /// <summary>
         /// Overloaded Constructor
         /// </summary>
-        /// <param name="_name">Name of <see cref="KinematicsOptimization_GUI"/></param>
-        /// <param name="_id">ID of the <see cref="KinematicsOptimization_GUI"/></param>
-        public KinematicsOptimization_GUI(string _name, int _id)
+        /// <param name="_name">Name of <see cref="KO_GUI"/></param>
+        /// <param name="_id">ID of the <see cref="KO_GUI"/></param>
+        public KO_GUI(string _name, int _id)
         {
             Name_GUI = _name;
 

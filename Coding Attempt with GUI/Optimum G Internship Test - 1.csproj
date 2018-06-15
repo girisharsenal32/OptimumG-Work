@@ -213,8 +213,8 @@
     <Compile Include="KinematicOptimization\ParametersAndImportance.Designer.cs">
       <DependentUpon>ParametersAndImportance.cs</DependentUpon>
     </Compile>
-    <Compile Include="KinematicOptimization\KinematicsOptimization.cs" />
-    <Compile Include="KinematicOptimization\KinematicsOptimization_GUI.cs" />
+    <Compile Include="KinematicOptimization\KO.cs" />
+    <Compile Include="KinematicOptimization\KO_GUI.cs" />
     <Compile Include="Solvers\OptimizationAlgorithms\KO_Optimizer.cs" />
     <Compile Include="KinematicOptimization\Outputs\KO_Outputs.cs" />
     <Compile Include="KinematicOptimization\Helper Classes\KO_SimulationParams.cs" />

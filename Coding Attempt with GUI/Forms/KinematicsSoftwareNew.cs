@@ -12442,27 +12442,32 @@ namespace Coding_Attempt_with_GUI
 
         private void barButtonItem9_ItemClick(object sender, ItemClickEventArgs e)
         {
-            int index = KinematicsOptimization_GUI.Counter_GUI;
+            if (Vehicle.List_Vehicle.Count != 0)
+            {
+                int index = KO_GUI.Counter_GUI;
 
-            ///<summary>Constrcuting the <see cref="KinematicsOptimization_GUI"/> Class and the <see cref="KinematicsOptimization"/> Class </summary>
-            KinematicsOptimization_GUI.List_KO_GUI.Add(new KinematicsOptimization_GUI("KinematicOptimization_GUI" + index + 1, index + 1));
+                ///<summary>Constrcuting the <see cref="KO_GUI"/> Class and the <see cref="KO"/> Class </summary>
+                KO_GUI.List_KO_GUI.Add(new KO_GUI("KinematicOptimization_GUI" + index + 1, index + 1));
 
-            KinematicsOptimization.List_KO.Add(new KinematicsOptimization("KinematicOptimization" + index + 1, index + 1));
+                KO.List_KO.Add(new KO("KinematicOptimization" + index + 1, index + 1));
 
-            ///<summary>Displaying the Form to the User (on a temp basis rightnow)</summary>
-            KinematicsOptimization_GUI.List_KO_GUI[index].Param_Imp_Form.Show();
+                ///<summary>Displaying the Form to the User (on a temp basis rightnow)</summary>
+                KO_GUI.List_KO_GUI[index].Param_Imp_Form.Show();
 
-            ///<summary>Initializing the <see cref="KO_CornverVariables"/> objects of the <see cref="KinematicsOptimization"/> Class</summary>
-            KinematicsOptimization.List_KO[index].Init_Update_CornerVariables(KinematicsOptimization_GUI.List_KO_GUI[index].KO_CV_FL_GUI, KinematicsOptimization_GUI.List_KO_GUI[index].KO_CV_FR_GUI,
-                                                                              KinematicsOptimization_GUI.List_KO_GUI[index].KO_CV_RL_GUI, KinematicsOptimization_GUI.List_KO_GUI[index].KO_CV_RR_GUI);
+                ///<summary>Initializing the <see cref="KO_CornverVariables"/> objects of the <see cref="KO"/> Class</summary>
+                KO.List_KO[index].Init_Update_CornerVariables(KO_GUI.List_KO_GUI[index].KO_CV_FL_GUI, KO_GUI.List_KO_GUI[index].KO_CV_FR_GUI,
+                                                                                  KO_GUI.List_KO_GUI[index].KO_CV_RL_GUI, KO_GUI.List_KO_GUI[index].KO_CV_RR_GUI);
 
-            ///<summary>initializing the <see cref="KO_SimulationParams"/> of the <see cref="KinematicsOptimization"/> Class</summary>
-            KinematicsOptimization.List_KO[index].Init_Update_Simulationparameters(KinematicsOptimization_GUI.List_KO_GUI[index].KO_SimParams);
+                ///<summary>initializing the <see cref="KO_SimulationParams"/> of the <see cref="KO"/> Class</summary>
+                KO.List_KO[index].Init_Update_Simulationparameters(KO_GUI.List_KO_GUI[index].KO_SimParams);
 
-            ///<summary>Updating the Counter</summary>
-            KinematicsOptimization_GUI.Counter_GUI++;
-            KinematicsOptimization.Counter++;
+                KO.List_KO[index].Init_KOVehicle(Vehicle.List_Vehicle[0]);
 
+                ///<summary>Updating the Counter</summary>
+                KO_GUI.Counter_GUI++;
+                KO.Counter++;
+
+            }
 
 
             //Temp_BobillierMethod tempBob = new Temp_BobillierMethod();
