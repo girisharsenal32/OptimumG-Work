@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using devDept.Geometry;
+using MathNet.Spatial.Units;
 
 namespace Coding_Attempt_with_GUI
 {
@@ -22,7 +23,7 @@ namespace Coding_Attempt_with_GUI
 
         public int Identifier { get; set; }
 
-        #region --Suspension Parameters--
+        #region --Suspension Parameters - Parameters Requested by the User--
         /// <summary>
         /// <para>Master <see cref="Dictionary{String, KO_AdjToolParams}"/> which holds ALL the coordinate information of the Adjustable coordinates</para> 
         /// <para>This dictionary is crucial and will be used in the Main Optimizer Class</para>
@@ -42,27 +43,75 @@ namespace Coding_Attempt_with_GUI
         public Dictionary<SuspensionParameters, double> KO_ReqParams_Importance;
         #endregion
 
-        #region --Vehicle Corner Components--
-        /// <summary>
-        /// Object of the <see cref="VehicleCornerParams"/> Class containing ALL the Front Left Corner Compontnents
-        /// </summary>
-        public VehicleCornerParams VCornerParams;
-        #endregion
+        #region Suspension Parameters - Parameter's Input Values provided by User
 
-        #region --Parameter Variation Curves--
+        //--Parameter Variation Curves--
 
         /// <summary>
         /// Object of the <see cref="CustomBumpSteerParams"/> which contains information regarding the Custom Curve of BUmp Steer which the user has generated
         /// </summary>
-        public CustomBumpSteerParams BumpSteerCurve;
+        public BumpSteerCurve BumpSteerCurve { get; set; }
 
         /// <summary>
         /// Object of the <see cref="CustomCamberCurve"/> which contains information regarding the Custom Curve of Camber which the user has generated
         /// </summary>
-        public CustomCamberCurve CamberCurve;   
+        public CustomCamberCurve CamberCurve { get; set; }
 
         #endregion
 
+        #region --Suspension Inputs provided by the User---
+
+        /// <summary>
+        /// Caster Angle as input by the user
+        /// </summary>
+        public Angle Caster { get; set; }
+
+        /// <summary>
+        /// KPI Angle as input by the user
+        /// </summary>
+        public Angle KPI { get; set; }
+
+        /// <summary>
+        /// Scrub Radius as input by the user
+        /// </summary>
+        public double ScrubRadius { get; set; }
+
+        /// <summary>
+        /// Caster or Mechanical Trail as input by the user
+        /// </summary>
+        public double CasterTrail { get; set; }
+
+        /// <summary>
+        /// IC Heignt in the FRONT VIEW as input by the user 
+        /// </summary>
+        public double ICHeight_FV { get; set; }
+
+        /// <summary>
+        /// Virtual Swing Arm Lenght in the FRONT VIEW input by the user
+        /// </summary>
+        public double VSAL_FV { get; set; }
+
+        /// <summary>
+        /// IC Height in the SIDE VIEW as input by the user
+        /// </summary>
+        public double ICHeight_SV { get; set; }
+
+        /// <summary>
+        /// Virtual Swing Arm Length in the SIDE VIEW as input by the user
+        /// </summary>
+        public double VSAL_SV { get; set; }
+
+
+        #endregion
+
+        #region --Vehicle Corner Components--
+        /// <summary>
+        /// Object of the <see cref="VehicleCornerParams"/> Class containing ALL the Front Left Corner Compontnents
+        /// </summary>
+        public VehicleCornerParams VCornerParams { get; set; }
+        #endregion
+
+        
 
         #endregion
 

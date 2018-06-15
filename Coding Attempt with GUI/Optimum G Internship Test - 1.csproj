@@ -605,7 +605,7 @@
     <Compile Include="KinematicOptimization\XUC_KO_GenericChart.Designer.cs">
       <DependentUpon>XUC_KO_GenericChart.cs</DependentUpon>
     </Compile>
-    <Compile Include="VehicleCentralParams.cs" />
+    <Compile Include="KinematicOptimization\Helper Classes\KO_CentralVariables.cs" />
     <Compile Include="VehicleCornerParams.cs" />
     <EmbeddedResource Include="KinematicOptimization\CustomListBox.resx">
       <DependentUpon>CustomListBox.cs</DependentUpon>
