@@ -53,6 +53,12 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         public Point3D PC_Right { get; set; }
 
+        /// <summary>
+        /// Ackermann given as a percentage of the Wheelbase
+        /// </summary>
+        public double Ackermann { get; set; }
+
+
 
 
     }

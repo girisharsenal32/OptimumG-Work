@@ -54,7 +54,8 @@ namespace Coding_Attempt_with_GUI
         public CustomBumpSteerParams BumpSteerParms;
 
         SetupChange_CornerVariables Setup_CV;
-        
+
+        KO_CornverVariables KO_CV;
 
         /// <summary>
         /// Object which would contain the Series Points of the Chart
@@ -86,6 +87,15 @@ namespace Coding_Attempt_with_GUI
             Setup_CV = _setupCV;
 
             Setup_CV.BS_Params = BumpSteerParms;
+
+            AddPointToChart(chartControl1, 0, 0, 0, false);
+        }
+
+        public void GetParentObjectData(KO_CornverVariables _koCV)
+        {
+            KO_CV = _koCV;
+
+            KO_CV.BumpSteerCurve = BumpSteerParms;
 
             AddPointToChart(chartControl1, 0, 0, 0, false);
         }

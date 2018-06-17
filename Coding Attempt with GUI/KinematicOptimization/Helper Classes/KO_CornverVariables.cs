@@ -43,14 +43,14 @@ namespace Coding_Attempt_with_GUI
         public Dictionary<SuspensionParameters, double> KO_ReqParams_Importance;
         #endregion
 
-        #region Suspension Parameters - Parameter's Input Values provided by User
+        #region --Suspension Parameters - Parameter's Input Values provided by User--
 
         //--Parameter Variation Curves--
 
         /// <summary>
         /// Object of the <see cref="CustomBumpSteerParams"/> which contains information regarding the Custom Curve of BUmp Steer which the user has generated
         /// </summary>
-        public BumpSteerCurve BumpSteerCurve { get; set; }
+        public CustomBumpSteerParams BumpSteerCurve { get; set; }
 
         /// <summary>
         /// Object of the <see cref="CustomCamberCurve"/> which contains information regarding the Custom Curve of Camber which the user has generated
