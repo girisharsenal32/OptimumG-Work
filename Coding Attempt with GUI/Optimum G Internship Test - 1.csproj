@@ -221,6 +221,12 @@
     </Compile>
     <Compile Include="KinematicOptimization\KO.cs" />
     <Compile Include="KinematicOptimization\KO_GUI.cs" />
+    <Compile Include="KO_DesignForm_AArmInboard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="KO_DesignForm_AArmInboard.Designer.cs">
+      <DependentUpon>KO_DesignForm_AArmInboard.cs</DependentUpon>
+    </Compile>
     <Compile Include="Solvers\OptimizationAlgorithms\KO_Optimizer.cs" />
     <Compile Include="KinematicOptimization\Outputs\KO_Outputs.cs" />
     <Compile Include="KinematicOptimization\Helper Classes\KO_SimulationParams.cs" />
@@ -633,6 +639,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="KinematicOptimization\ParametersAndImportance.resx">
       <DependentUpon>ParametersAndImportance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KO_DesignForm_AArmInboard.resx">
+      <DependentUpon>KO_DesignForm_AArmInboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SetupChange\BumpSteerCurve.resx">
       <DependentUpon>BumpSteerCurve.cs</DependentUpon>

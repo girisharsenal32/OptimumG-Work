@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using devDept.Geometry;
 using MathNet.Spatial.Units;
+using devDept.Eyeshot.Entities;
 
 namespace Coding_Attempt_with_GUI
 {
@@ -79,7 +80,7 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Caster or Mechanical Trail as input by the user
         /// </summary>
-        public double CasterTrail { get; set; }
+        public double MechTrail { get; set; }
 
         /// <summary>
         /// IC Heignt in the FRONT VIEW as input by the user 
@@ -101,16 +102,20 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         public double VSAL_SV { get; set; }
 
+        /// <summary>
+        /// <see cref="Point3D"/> representing the Contact Patch Initialized using the Track and Wheelbase
+        /// </summary>
+        public Point3D ContactPatch { get; set; }
 
         #endregion
 
-        #region --Vehicle Corner Components--
+        #region --Vehicle's Corner Components (Includes Tire, Spring, Damper, ARB, Wheel Alignment, Suspension Coordinates)--
         /// <summary>
         /// Object of the <see cref="VehicleCornerParams"/> Class containing ALL the Front Left Corner Compontnents
         /// </summary>
         public VehicleCornerParams VCornerParams { get; set; }
         #endregion
-
+        
         
 
         #endregion
@@ -126,7 +131,22 @@ namespace Coding_Attempt_with_GUI
             KO_ReqParams = new List<SuspensionParameters>();
 
             KO_ReqParams_Importance = new Dictionary<SuspensionParameters, double>();
+
+            BumpSteerCurve = new CustomBumpSteerParams();
+
+            CamberCurve = new CustomCamberCurve();
+
+            Caster = new Angle();
+
+            KPI = new Angle();
+
+            VCornerParams = new VehicleCornerParams();
+
+
+            ContactPatch = new Point3D();
+
         }
+
 
         /// <summary>
         /// Method to Intialze the Corner Components of a given corner of a Vehicle
@@ -167,10 +187,11 @@ namespace Coding_Attempt_with_GUI
 
             vCornerParams.Identifier = (int)tempVehicleParams["Identifier"];
 
-            vCornerParams.InitializePointsAndDictionary();
+            vCornerParams.Initialize_Points();
 
             return vCornerParams;
         }
+
 
         /// <summary>
         /// Method to Initialize the <see cref="KO_AdjToolParams.NominalCoordinates"/> of the <see cref="KO_MasterAdjs"/> Dictionary using the <see cref="VehicleCornerParams.InboardAssembly"/> and the <see cref="VehicleCornerParams.OutboardAssembly"/>
@@ -206,6 +227,38 @@ namespace Coding_Attempt_with_GUI
         }
 
 
+        /// <summary>
+        /// Method to compute a Point on a line using the Parametric Equation of the Line
+        /// </summary>
+        /// <param name="_scalar">The Scalae which represents the parameter "t" in the parametric equation</param>
+        /// <param name="_startPoint">The Start Point of the Line</param>
+        /// <param name="_lineToCompute">The Line being considered</param>
+        /// <returns></returns>
+        public Point3D Compute_PointOnLine_FromScalarParametric(double _scalar, Point3D _startPoint, Line _lineToCompute)
+        {
+            Point3D tempPoint = new Point3D();
+
+            Vector3D _vectorToCompute = new Vector3D(_lineToCompute.StartPoint, _lineToCompute.EndPoint);
+
+            _vectorToCompute.Normalize();
+
+            tempPoint = _startPoint+(_scalar*_vectorToCompute);
+
+            return tempPoint;
+        }
+
+
 
     }
+
+
+    public enum InboardInputFormat
+    {
+        IIO,
+        IOI,
+        OII,
+    }
+
+
+
 }

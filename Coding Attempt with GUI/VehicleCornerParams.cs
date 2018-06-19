@@ -159,10 +159,41 @@ namespace Coding_Attempt_with_GUI
         /// <see cref="Dictionary{String, Point3D}"/> of the All the Inboard Pick-Up Points
         /// </summary>
         public Dictionary<string, Point3D> InboardAssembly;
+        
+        
+        
         /// <summary>
         /// <see cref="Dictionary{String, Line}"/> of Lines reprsenting the Axis Lines originating the Wheel Center
         /// </summary>
         public Dictionary<string, Line> AxisLines_WheelCenter;
+
+        /// <summary>
+        /// <see cref="Line"/> representing the Steering Axis
+        /// </summary>
+        public Line SteeringAxis;
+
+        /// <summary>
+        /// Line representing the Front View VSAL
+        /// </summary>
+        public Line FV_IC_Line;
+
+        /// <summary>
+        /// Line representing the Side View VSAL
+        /// </summary>
+        public Line SV_IC_Line;
+
+        /// <summary>
+        /// Plane containing the Top Wishbones  
+        /// </summary>
+        public Plane TopWishbonePlane;
+
+        /// <summary>
+        /// Plne containing the Bottom Wishbones
+        /// </summary>
+        public Plane BottomWishbonePlane;
+
+
+        public InboardInputFormat InputFormat = InboardInputFormat.IIO;
 
 
 
@@ -173,7 +204,7 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Method to Initialize ALL the <see cref="Point3D"/>s and correspondong <see cref="Dictionary{String, Point3D}"/>s of the <see cref="VehicleCornerParams"/> Class
         /// </summary>
-        public void InitializePointsAndDictionary()
+        public void Initialize_Points()
         {
             OutboardAssembly = new Dictionary<string, Point3D>();
 
@@ -272,6 +303,92 @@ namespace Coding_Attempt_with_GUI
 
         }
 
+
+        public void Initialize_Dictionary()
+        {
+            OutboardAssembly = new Dictionary<string, Point3D>();
+
+            InboardAssembly = new Dictionary<string, Point3D>();
+
+
+
+            ///---INBOARD POINTS
+
+            ///Upper Front
+            InboardAssembly.Add(CoordinateOptions.UpperFront.ToString(), UpperFront);
+
+            ///Upper Rear
+            InboardAssembly.Add(CoordinateOptions.UpperRear.ToString(), UpperRear);
+
+            ///Lower Front
+            InboardAssembly.Add(CoordinateOptions.LowerFront.ToString(), LowerFront);
+
+            ///Lower Rear
+            InboardAssembly.Add(CoordinateOptions.LowerRear.ToString(), LowerRear);
+
+            ///Toe Link Inboard
+            InboardAssembly.Add(CoordinateOptions.ToeLinkInboard.ToString(), ToeLinkInboard);
+
+            ///Pushrod Inboard
+            InboardAssembly.Add(CoordinateOptions.PushrodInboard.ToString(), PushrodInboard);
+
+            ///Damper BellCrank
+            InboardAssembly.Add(CoordinateOptions.DamperBellCrank.ToString(), DamperBellCrank);
+
+            ///Damper Chassis Shock Mount
+            InboardAssembly.Add(CoordinateOptions.DamperShockMount.ToString(), DamperShockMount);
+
+
+            ///---OUTBOARD POINTS
+
+
+            ///UBJ
+            OutboardAssembly.Add(CoordinateOptions.UBJ.ToString(), UBJ);
+
+            ///Top Camber Mount
+            OutboardAssembly.Add(CoordinateOptions.TopCamberMount.ToString(), /*UBJ.Clone() as Point3D*/ TopCamberMount);
+
+            ///Pushrod Outboard
+            OutboardAssembly.Add(CoordinateOptions.PushrodOutboard.ToString(), PushrodOutboard);
+
+            ///LBJ
+            OutboardAssembly.Add(CoordinateOptions.LBJ.ToString(), LBJ);
+
+            ///Bottom Camber Mount
+            OutboardAssembly.Add(CoordinateOptions.BottomCamberMount.ToString(), BottomCamberMount);
+
+            ///Wheel Center
+            OutboardAssembly.Add(CoordinateOptions.WheelCenter.ToString(), WheelCenter);
+
+            ///Wheel Spindle End
+            OutboardAssembly.Add("WcEnd", WcEnd);
+
+            ///Toe Link Outboard
+            OutboardAssembly.Add(CoordinateOptions.ToeLinkOutboard.ToString(), ToeLinkOutboard);
+
+            ///Contact Patch
+            OutboardAssembly.Add("ContactPatch", ContactPatch);
+
+
+            AxisLines_WheelCenter = new Dictionary<string, Line>();
+
+            AxisLines_WheelCenter.Add("SteeringAxis", new Line(UBJ.Clone() as Point3D, LBJ.Clone() as Point3D));
+
+            AxisLines_WheelCenter.Add("SteeringAxis_Ref", new Line(UBJ.Clone() as Point3D, LBJ.Clone() as Point3D));
+
+            AxisLines_WheelCenter.Add("LateralAxis_WheelCenter", new Line(WheelCenter.Clone() as Point3D, new Point3D(WheelCenter.X + 100, WheelCenter.Y, WheelCenter.Z)));
+
+            AxisLines_WheelCenter.Add("WheelSpindle", new Line(WheelCenter.Clone() as Point3D, WcEnd.Clone() as Point3D));
+
+            AxisLines_WheelCenter.Add("WheelSpindle_Ref", new Line(WheelCenter.Clone() as Point3D, WcEnd.Clone() as Point3D));
+
+            AxisLines_WheelCenter.Add("VerticalAxis_WheelCenter", new Line(WheelCenter.Clone() as Point3D, new Point3D(WheelCenter.X, WheelCenter.Y + 100, WheelCenter.Z)));
+
+            AxisLines_WheelCenter.Add("LongitudinalAxis_WheelCenter", new Line(WheelCenter.Clone() as Point3D, new Point3D(WheelCenter.X, WheelCenter.Y, WheelCenter.Z + 100)));
+
+
+
+        }
 
 
 

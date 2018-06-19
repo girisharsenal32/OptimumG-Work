@@ -64,9 +64,13 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         public ParametersAndImportance Param_Imp_Form;
 
-
-
+        /// <summary>
+        /// Obbject of the <see cref="DesignForm"/> Form which will be used to create the Suspension from Scratch
+        /// </summary>
+        public DesignForm Design_Form;
         
+
+
 
         public KO_GUI(){}
 

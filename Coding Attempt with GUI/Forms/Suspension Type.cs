@@ -17,6 +17,89 @@ namespace Coding_Attempt_with_GUI
         public bool CreatedUsingMapping { get; set; }
         XUC_CoordinateMap coordinateMap;
 
+
+        #region --Properties--
+        /// <summary>
+        /// Front Double WIshbone Identifier
+        /// </summary>
+        public int DoubleWishboneFront { get; set; } = 1;
+
+        /// <summary>
+        /// Front McPherson Identifier
+        /// </summary>
+        public int McPhersonFront { get; set; }
+
+        /// <summary>
+        /// Rear Double Wishbone Identifier
+        /// </summary>
+        public int DoubleWishboneRear { get; set; } = 1;
+
+        /// <summary>
+        /// Rear McPherson Identifier
+        /// </summary>
+        public int McPhersonRear { get; set; }
+
+        /// <summary>
+        /// Front UARB Idetnfier
+        /// </summary>
+        public int UARBFront { get; set; } = 1;
+
+        /// <summary>
+        /// Front TARB Idetnfier
+        /// </summary>
+        public int TARBFront { get; set; }
+
+        /// <summary>
+        /// Rear UARB Idetnfier
+        /// </summary>
+        public int UARBRear { get; set; } = 1;
+
+        /// <summary>
+        /// Rear TARB Idetnfier
+        /// </summary>
+        public int TARBRear { get; set; }
+
+        /// <summary>
+        /// Front Pushrod Identifier
+        /// </summary>
+        public int PushrodFront { get; set; } = 1;
+
+        /// <summary>
+        /// Front Pullhrod Identifier
+        /// </summary>
+        public int PullrodFront { get; set; }
+
+        /// <summary>
+        /// Rear Pushrod Identifier
+        /// </summary>
+        public int PushrodRear { get; set; } = 1;
+
+        /// <summary>
+        /// Rear Pullrod Identifier
+        /// </summary>
+        public int PullrodRear { get; set; }
+
+        /// <summary>
+        /// Rack and Pinion type steering identifier
+        /// </summary>
+        public int RackAndPinion { get; set; } = 1;
+
+        /// <summary>
+        /// Number of Couplings
+        /// </summary>
+        public int NoOfCouplings { get; set; } = 2;
+
+        /// <summary>
+        /// Front Symmetry identifier
+        /// </summary>
+        public bool FrontSymmetry_Boolean { get; set; } = true;
+
+        /// <summary>
+        /// Rear Symmetry identifier
+        /// </summary>
+        public bool RearSymmetry_Boolean { get; set; } = true;
+        #endregion
+
         #region Constructor
         public SuspensionType(Kinematics_Software_New r1)
         {
@@ -80,12 +163,13 @@ namespace Coding_Attempt_with_GUI
 
             radioButton2UV_CheckedChanged(sender, e);
 
-        } 
+        }
         #endregion
 
         #region Code for GUI and to pass Geometry Identifier
 
-        int DoubleWishboneFront = 1;
+
+
         private void radioButtonDoubleWishboneFront_CheckedChanged(object sender, EventArgs e)
         {
 
@@ -104,7 +188,7 @@ namespace Coding_Attempt_with_GUI
 
         }
 
-        int McPhersonFront;
+
         private void radioButtonMcPhersonFront_CheckedChanged(object sender, EventArgs e)
         {
             accordionControlActuationTypeFront.Visible = false;
@@ -126,7 +210,7 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
-        int DoubleWishboneRear = 1;
+
         private void radioButtonDoubleWishboneRear_CheckedChanged(object sender, EventArgs e)
         {
             accordionControlActuationTypeRear.Visible = true;
@@ -142,7 +226,7 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
-        int McPhersonRear;
+
         private void radioButtonMcPhersonRear_CheckedChanged(object sender, EventArgs e)
         {
             accordionControlActuationTypeRear.Visible = false;
@@ -167,8 +251,7 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
         #region Code for GUI and to pass Steering Identifier
-        int RackAndPinion = 1;
-        int NoOfCouplings = 2;
+
 
         private void radioButton1UV_CheckedChanged(object sender, EventArgs e)
         {
@@ -197,7 +280,6 @@ namespace Coding_Attempt_with_GUI
 
         #region Code for GUI and to pass Actuation Identifier
 
-        int PushrodFront = 1;
         private void radioButtonPushrodFront_CheckedChanged(object sender, EventArgs e)
         {
             radioButtonUbarFront.Enabled = true;
@@ -213,7 +295,6 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
-        int PullrodFront;
         private void radioButtonPullrodFront_CheckedChanged(object sender, EventArgs e)
         {
             radioButtonUbarFront.Enabled = true;
@@ -229,7 +310,6 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
-        int PushrodRear = 1;
         private void radioButtonPushrodRear_CheckedChanged(object sender, EventArgs e)
         {
             radioButtonUbarRear.Enabled = true;
@@ -245,7 +325,6 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
-        int PullrodRear;
         private void radioButtonPullrodRear_CheckedChanged(object sender, EventArgs e)
         {
             radioButtonUbarRear.Enabled = true;
@@ -265,7 +344,7 @@ namespace Coding_Attempt_with_GUI
 
         #region Code for GUI and to pass Anti-Roll Bar Identifier
 
-        int UARBFront = 1;
+        
         private void radioButtonUbarFront_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButtonUbarFront.Checked==true)
@@ -278,7 +357,6 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
-        int TARBFront;
         private void radioButtonTARBFront_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButtonTARBFront.Checked == true)
@@ -291,7 +369,6 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
-        int UARBRear = 1;
         private void radioButtonUbarRear_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButtonUbarRear.Checked==true)
@@ -304,7 +381,6 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
-        int TARBRear;
         private void radioButtonTARBRear_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButtonTARBRear.Checked==true)
@@ -469,7 +545,7 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
         #region Symmetry Checkbox Events
-        public bool FrontSymmetry_Boolean;
+        
         private void FrontSymmetry_CheckedChanged(object sender, EventArgs e)
         {
             if (FrontSymmetry.Checked == true)
@@ -484,7 +560,7 @@ namespace Coding_Attempt_with_GUI
                 FrontSymmetry_Boolean = false;
             }
         }
-        public bool RearSymmetry_Boolean;
+        
         private void RearSymmetry_CheckedChanged(object sender, EventArgs e)
         {
             if (RearSymmetry.Checked == true)

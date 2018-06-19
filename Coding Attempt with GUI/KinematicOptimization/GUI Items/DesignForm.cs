@@ -9,25 +9,58 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using MathNet.Spatial.Units;
-
+using devDept.Geometry;
+using devDept.Eyeshot.Entities;
 
 namespace Coding_Attempt_with_GUI
 {
-    public partial class DesignForm : DevExpress.XtraEditors.XtraForm
+    public partial class DesignForm : XtraForm
     {
+        /// <summary>
+        /// Object of the <see cref="KO_CentralVariables"/> to holds the Input Paramters Central to the Vehicle
+        /// </summary>
         KO_CentralVariables KO_Central;
 
+        /// <summary>
+        /// Object of hte <see cref="KO_CornverVariables"/> Class to hold the SUspensio parameters of the Front Left Corner
+        /// </summary>
         KO_CornverVariables KO_CV_FL;
 
+        /// <summary>
+        /// Object of hte <see cref="KO_CornverVariables"/> Class to hold the SUspensio parameters of the Front Right Corner
+        /// </summary>
         KO_CornverVariables KO_CV_FR;
 
+        /// <summary>
+        /// Object of hte <see cref="KO_CornverVariables"/> Class to hold the SUspensio parameters of the Rear Left Corner
+        /// </summary>
         KO_CornverVariables KO_CV_RL;
 
+        /// <summary>
+        /// Object of hte <see cref="KO_CornverVariables"/> Class to hold the SUspensio parameters of the Rear Right Corner
+        /// </summary>
         KO_CornverVariables KO_CV_RR;
 
+
+        /// <summary>
+        /// Consturctor
+        /// </summary>
         public DesignForm()
         {
             InitializeComponent();
+
+            cad1.CreateControl();
+
+            cad1.viewportLayout1.ZoomFit();
+
+            wishboneInboardFL.Get_CornerVariablesObject(KO_CV_FL);
+
+            wishboneInboardFL.Get_CornerVariablesObject(KO_CV_FR);
+
+            wishboneInboardFL.Get_CornerVariablesObject(KO_CV_RL);
+
+            wishboneInboardFL.Get_CornerVariablesObject(KO_CV_RR);
+
         }
 
         /// <summary>
@@ -59,11 +92,22 @@ namespace Coding_Attempt_with_GUI
 
 
 
-        string NegativeError = "Please Enter Positive Values";
+        #region --Suspension Input Extraction Methods--
 
-        string NumericError = "Please Enter Numeric Values";
 
         #region --Validation Methods--
+
+
+        /// <summary>
+        /// <see cref="String"/> which holds the error message in case of a Negative value is entered in a <see cref="TextBox"/> where it is not accepted
+        /// </summary>
+        string NegativeError = "Please Enter Positive Values";
+
+        /// <summary>
+        /// <see cref="String"/> which holds the error message in case of a Non-Numeric is entered in a <see cref="TextBox"/> accepting only <see cref="Int32"/> or <see cref="Double"/>
+        /// </summary>
+        string NumericError = "Please Enter Numeric Values";
+
         /// <summary>
         /// Method to validate the <see cref="double"/> values from the <see cref="TextBox"/>
         /// </summary>
@@ -117,7 +161,10 @@ namespace Coding_Attempt_with_GUI
         }
         #endregion
 
-        #region ---Tab Page - Vehicle Parameters---
+        #region ---Tab Page - Vehicle Parameters - GUI Interaction---
+        
+        
+        #region Wheelbase
         //---Wheelbase Textbox Events
 
         private void tbWheelbase_Leave(object sender, EventArgs e)
@@ -140,6 +187,10 @@ namespace Coding_Attempt_with_GUI
                 if (Validatepositve_Double(tbWheelbase.Text))
                 {
                     KO_Central.WheelBase = Convert.ToDouble(tbWheelbase.Text);
+
+                    Set_KO_RollCenter();
+
+                    Plot_Wb();
                 }
                 else
                 {
@@ -151,9 +202,10 @@ namespace Coding_Attempt_with_GUI
                 MessageBox.Show(NumericError);
             }
         }
+        #endregion
 
 
-
+        #region Track Front
         //--Front Track Textbox Events
 
         private void tbTrackFront_KeyDown(object sender, KeyEventArgs e)
@@ -177,6 +229,11 @@ namespace Coding_Attempt_with_GUI
                 if (Validatepositve_Double(tbTrackFront.Text))
                 {
                     KO_Central.Track_Front = Convert.ToDouble(tbTrackFront.Text);
+
+                    Set_KO_PitchCenter();
+
+                    Plot_Tracks();
+
                 }
                 else
                 {
@@ -188,10 +245,10 @@ namespace Coding_Attempt_with_GUI
                 MessageBox.Show(NumericError);
             }
         }
+        #endregion
 
 
-
-
+        #region Track Rear
         //---Rear Track Textbox Events--
 
         private void tbTrackRear_Leave(object sender, EventArgs e)
@@ -214,6 +271,10 @@ namespace Coding_Attempt_with_GUI
                 if (Validatepositve_Double(tbTrackRear.Text))
                 {
                     KO_Central.Track_Rear = Convert.ToDouble(tbTrackRear.Text);
+
+                    Set_KO_PitchCenter();
+
+                    Plot_Tracks();
                 }
                 else
                 {
@@ -225,8 +286,10 @@ namespace Coding_Attempt_with_GUI
                 MessageBox.Show(NumericError);
             }
         }
+        #endregion
 
 
+        #region Roll Center Front
         //--Roll Center Front - Height and Lateral Offset
 
         private void tbRC_Front_Height_Leave(object sender, EventArgs e)
@@ -249,6 +312,9 @@ namespace Coding_Attempt_with_GUI
 
                 KO_Central.RC_Front.Y = Convert.ToDouble(tbRC_Front_Height.Text);
 
+                Set_KO_RollCenter();
+                
+                Plot_RCs();
             }
             else
             {
@@ -277,16 +343,19 @@ namespace Coding_Attempt_with_GUI
 
                 KO_Central.RC_Front.X = Convert.ToDouble(tbRC_Front_LatOff.Text);
 
+                Set_KO_RollCenter();
+
+                Plot_RCs();
             }
             else
             {
                 MessageBox.Show(NumericError);
             }
         }
+        #endregion
 
 
-
-
+        #region VSAL FV Front Left
         //--VSAL Front View of Front Left Wheel
 
         private void tbFV_VSAL_FL_Leave(object sender, EventArgs e)
@@ -309,16 +378,18 @@ namespace Coding_Attempt_with_GUI
 
                 KO_CV_FL.VSAL_FV = Convert.ToDouble(tbFV_VSAL_FL.Text);
 
+                Plot_VSAL_FV(KO_CV_FL.VCornerParams.FV_IC_Line, KO_CV_FL.VSAL_FV, KO_CV_FL.ContactPatch, KO_Central.RC_Front);
+
             }
             else
             {
                 MessageBox.Show(NumericError);
             }
         }
+        #endregion
 
 
-
-
+        #region VSAL FV Front Right
         //--VSAL Front Viw of Front Right
 
 
@@ -342,15 +413,18 @@ namespace Coding_Attempt_with_GUI
 
                 KO_CV_FR.VSAL_FV = Convert.ToDouble(tbFV_VSAL_FR.Text);
 
+                Plot_VSAL_FV(KO_CV_FR.VCornerParams.FV_IC_Line, KO_CV_FR.VSAL_FV, KO_CV_FR.ContactPatch, KO_Central.RC_Front);
+
             }
             else
             {
                 MessageBox.Show(NumericError);
             }
-        }
+        } 
+        #endregion
 
 
-
+        #region Roll Center Rear
         //---Roll Center Rear and Lateral Offset 
 
 
@@ -373,6 +447,10 @@ namespace Coding_Attempt_with_GUI
             if (DoubleValidation(tbRC_Rear_Height.Text))
             {
                 KO_Central.RC_Rear.Y = Convert.ToDouble(tbRC_Rear_Height.Text);
+
+                Set_KO_RollCenter();
+                
+                Plot_RCs();
             }
             else
             {
@@ -399,18 +477,20 @@ namespace Coding_Attempt_with_GUI
             if (DoubleValidation(tbRC_Rear_LatOff.Text))
             {
                 KO_Central.RC_Rear.X = Convert.ToDouble(tbRC_Rear_LatOff.Text);
+
+                Set_KO_RollCenter();
+
+                Plot_RCs();
             }
             else
             {
                 MessageBox.Show(NumericError);
             }
         }
+        #endregion
 
-
-
-
-
-
+       
+        #region VSAL FV Rear Left
         //---VSAL Front View of Rear Left
 
 
@@ -434,14 +514,18 @@ namespace Coding_Attempt_with_GUI
 
                 KO_CV_RL.VSAL_FV = Convert.ToDouble(tbFV_VSAL_RL.Text);
 
+                Plot_VSAL_FV(KO_CV_RL.VCornerParams.FV_IC_Line, KO_CV_RL.VSAL_FV, KO_CV_RL.ContactPatch, KO_Central.RC_Rear);
+
             }
             else
             {
                 MessageBox.Show(NumericError);
             }
         }
+        #endregion
 
 
+        #region VSAL FV Rear Right
         //---VSAL Front View of Rear Right
 
 
@@ -465,15 +549,18 @@ namespace Coding_Attempt_with_GUI
 
                 KO_CV_RR.VSAL_FV = Convert.ToDouble(tbFV_VSAL_RR.Text);
 
+                Plot_VSAL_FV(KO_CV_RR.VCornerParams.FV_IC_Line, KO_CV_RR.VSAL_FV, KO_CV_RR.ContactPatch, KO_Central.RC_Rear);
             }
             else
             {
                 MessageBox.Show(NumericError);
             }
-        }
+        } 
+        #endregion
 
 
-        //--- Pitch Center Left
+        #region Pitch Center Left
+        //--- Pitch Center Left - Height and Longitudinal Offset
 
 
         private void tbPC_Left_Height_Leave(object sender, EventArgs e)
@@ -496,6 +583,9 @@ namespace Coding_Attempt_with_GUI
 
                 KO_Central.PC_Left.Y = Convert.ToDouble(tbPC_Left_Height.Text);
 
+                Set_KO_PitchCenter();
+
+                Plot_PCs();
             }
             else
             {
@@ -524,14 +614,19 @@ namespace Coding_Attempt_with_GUI
 
                 KO_Central.PC_Left.Z = Convert.ToDouble(tbPC_Left_LongOff.Text);
 
+                Set_KO_PitchCenter();
+
+                Plot_PCs();
             }
             else
             {
                 MessageBox.Show(NumericError);
             }
         }
+        #endregion
 
 
+        #region VSAL SV Front Left
         //---VSAL Side View of Front Left
 
 
@@ -555,17 +650,20 @@ namespace Coding_Attempt_with_GUI
 
                 KO_CV_FL.VSAL_SV = Convert.ToDouble(tbSV_VSAL_FL.Text);
 
+                Plot_VSAL_SV(KO_CV_FL.VCornerParams.SV_IC_Line, KO_CV_FL.VSAL_SV, KO_CV_FL.ContactPatch, KO_Central.PC_Left);
+
             }
             else
             {
                 MessageBox.Show(NumericError);
             }
-        }
+        } 
+        #endregion
 
 
-        
+        #region VSAL SV Front Right
         //---VSAL Side View of Front Right
-        
+
 
         private void tbSV_VSAL_FR_KeyDown(object sender, KeyEventArgs e)
         {
@@ -587,17 +685,20 @@ namespace Coding_Attempt_with_GUI
 
                 KO_CV_FR.VSAL_SV = Convert.ToDouble(tbSV_VSAL_FR.Text);
 
+                Plot_VSAL_SV(KO_CV_FR.VCornerParams.SV_IC_Line, KO_CV_FR.VSAL_SV, KO_CV_FR.ContactPatch, KO_Central.PC_Right);
+
             }
             else
             {
                 MessageBox.Show(NumericError);
             }
 
-        }
+        } 
+        #endregion
 
-        
 
-        //---Pitch Center Right---
+        #region Pitch Center Right
+        //---Pitch Center Right - Height and Longitudinal Offset---
 
 
 
@@ -621,6 +722,9 @@ namespace Coding_Attempt_with_GUI
 
                 KO_Central.PC_Right.Y = Convert.ToDouble(tbPC_Right_Height.Text);
 
+                Set_KO_PitchCenter();
+
+                Plot_PCs();
             }
             else
             {
@@ -628,7 +732,6 @@ namespace Coding_Attempt_with_GUI
             }
 
         }
-
 
 
         private void tbPC_Right_Height_LongOff_Leave(object sender, EventArgs e)
@@ -651,15 +754,18 @@ namespace Coding_Attempt_with_GUI
 
                 KO_Central.PC_Right.Z = Convert.ToDouble(tbPC_Right_Height_LongOff.Text);
 
+                Set_KO_PitchCenter();
+
             }
             else
             {
                 MessageBox.Show(NumericError);
             }
         }
+        #endregion
 
 
-
+        #region VSAL VS Rear Left
         //---VSAL Side View of Rear Left---
 
 
@@ -684,6 +790,8 @@ namespace Coding_Attempt_with_GUI
                 if (Validatepositve_Double(tbSV_VSAL_RL.Text))
                 {
                     KO_CV_RL.VSAL_SV = Convert.ToDouble(tbSV_VSAL_RL.Text);
+
+                    Plot_VSAL_SV(KO_CV_RL.VCornerParams.SV_IC_Line, KO_CV_RL.VSAL_SV, KO_CV_RL.ContactPatch, KO_Central.PC_Left);
                 }
                 else
                 {
@@ -694,12 +802,11 @@ namespace Coding_Attempt_with_GUI
             {
                 MessageBox.Show(NumericError);
             }
-        }
+        } 
+        #endregion
 
 
-
-
-
+        #region VSAL SV Rear Right
 
         //---VSAL Side View of Rear Right
 
@@ -724,16 +831,19 @@ namespace Coding_Attempt_with_GUI
 
                 KO_CV_RR.VSAL_SV = Convert.ToDouble(tbSV_VSAL_RR.Text);
 
+                Plot_VSAL_SV(KO_CV_RR.VCornerParams.SV_IC_Line, KO_CV_RR.VSAL_SV, KO_CV_RR.ContactPatch, KO_Central.PC_Right);
+
             }
             else
             {
                 MessageBox.Show(NumericError);
             }
-        }
+        } 
+        #endregion
 
 
-
-        //---Ackermann
+        #region Ackermann
+        //---Ackermann---
 
 
         private void tbAckermann_Leave(object sender, EventArgs e)
@@ -766,16 +876,23 @@ namespace Coding_Attempt_with_GUI
             {
                 MessageBox.Show(NumericError);
             }
-        } 
+        }
         #endregion
 
-        #region ---Tab Page - Corner Parameters---
 
+        #endregion
+
+        #region ---Tab Page - Corner Parameters - GUI Interaction---
 
         //---Corner Parameters Tab Page GUI---
 
         #region --Front Left--
         //--FRONT LEFT
+
+        #region KPI
+
+        //---KPI---
+
 
         private void tbKPI_FL_Leave(object sender, EventArgs e)
         {
@@ -797,17 +914,26 @@ namespace Coding_Attempt_with_GUI
 
                 KO_CV_FL.KPI = new Angle(Convert.ToDouble(tbKPI_FL.Text), AngleUnit.Degrees);
 
+                Plot_SteeringAxis(KO_CV_FL.VCornerParams.SteeringAxis, KO_CV_FL.KPI, KO_CV_FL.Caster, KO_CV_FL.ScrubRadius, KO_CV_FL.MechTrail, KO_CV_FL.ContactPatch);
+
+                ///<summary>Handling condition of Symmetry</summary>
+                if (Sus_Type.FrontSymmetry_Boolean)
+                {
+                    KO_CV_FR.KPI = new Angle(Convert.ToDouble(tbKPI_FL.Text), AngleUnit.Degrees);
+                    Plot_SteeringAxis(KO_CV_FL.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.ContactPatch);
+                }
+
             }
             else
             {
                 MessageBox.Show(NumericError);
             }
         }
+        #endregion
 
+        #region Scrub Radius
 
-
-
-
+        //---Scrub Radius
 
         private void tbScrub_FL_KeyDown(object sender, KeyEventArgs e)
         {
@@ -829,6 +955,16 @@ namespace Coding_Attempt_with_GUI
                 if (Validatepositve_Double(tbScrub_FL.Text))
                 {
                     KO_CV_FL.ScrubRadius = Convert.ToDouble(tbScrub_FL.Text);
+
+                    Plot_SteeringAxis(KO_CV_FL.VCornerParams.SteeringAxis, KO_CV_FL.KPI, KO_CV_FL.Caster, KO_CV_FL.ScrubRadius, KO_CV_FL.MechTrail, KO_CV_FL.ContactPatch);
+
+                    ///<summary>Handling condition of Symmetry</summary>
+                    if (Sus_Type.FrontSymmetry_Boolean)
+                    {
+                        KO_CV_FR.ScrubRadius = Convert.ToDouble(tbScrub_FL.Text);
+                        Plot_SteeringAxis(KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.ContactPatch);
+                    }
+
                 }
                 else
                 {
@@ -840,8 +976,11 @@ namespace Coding_Attempt_with_GUI
                 MessageBox.Show(NumericError);
             }
         }
+        #endregion
 
+        #region Caster
 
+        //---Caster---
 
         private void tbCaster_FL_Leave(object sender, EventArgs e)
         {
@@ -861,14 +1000,27 @@ namespace Coding_Attempt_with_GUI
             if (DoubleValidation(tbCaster_FL.Text))
             {
                 KO_CV_FL.Caster = new Angle(Convert.ToDouble(tbCaster_FL.Text), AngleUnit.Degrees);
+
+                Plot_SteeringAxis(KO_CV_FL.VCornerParams.SteeringAxis, KO_CV_FL.KPI, KO_CV_FL.Caster, KO_CV_FL.ScrubRadius, KO_CV_FL.MechTrail, KO_CV_FL.ContactPatch);
+
+                ///<summary>Handling condition of Symmetry</summary>
+                if (Sus_Type.FrontSymmetry_Boolean)
+                {
+                    KO_CV_FR.Caster = new Angle(Convert.ToDouble(tbCaster_FL.Text), AngleUnit.Degrees);
+                    Plot_SteeringAxis(KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.ContactPatch);
+                }
+
             }
             else
             {
                 MessageBox.Show(NumericError);
             }
         }
+        #endregion
+        
+        #region Mechanical Trail
 
-
+        //---Mechanical Trail
 
         private void tbMechtrail_FL_Leave(object sender, EventArgs e)
         {
@@ -889,7 +1041,17 @@ namespace Coding_Attempt_with_GUI
             {
                 if (Validatepositve_Double(tbMechtrail_FL.Text))
                 {
-                    KO_CV_FL.CasterTrail = Convert.ToDouble(tbMechtrail_FL.Text);
+                    KO_CV_FL.MechTrail = Convert.ToDouble(tbMechtrail_FL.Text);
+
+                    Plot_SteeringAxis(KO_CV_FL.VCornerParams.SteeringAxis, KO_CV_FL.KPI, KO_CV_FL.Caster, KO_CV_FL.ScrubRadius, KO_CV_FL.MechTrail, KO_CV_FL.ContactPatch);
+
+                    ///<summary>Handling condition of Symmetry</summary>
+                    if (Sus_Type.FrontSymmetry_Boolean)
+                    {
+                        KO_CV_FR.MechTrail = Convert.ToDouble(tbMechtrail_FL.Text);
+                        Plot_SteeringAxis(KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.ContactPatch);
+                    }
+
                 }
                 else
                 {
@@ -903,11 +1065,119 @@ namespace Coding_Attempt_with_GUI
         }
         #endregion
 
+        #region UBJ and LBJ - Parametric
+
+        //---LBJ and UBJ---
+
+        private void tbUBJ_FL_Leave(object sender, EventArgs e)
+        {
+            Set_UBJParametric_FL();
+        }
+
+        private void tbUBJ_FL_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_UBJParametric_FL();
+            }
+        }
+
+        private void Set_UBJParametric_FL()
+        {
+            if (DoubleValidation(tbUBJ_FL.Text))
+            {
+                if (Validatepositve_Double(tbUBJ_FL.Text))
+                {
+                    KO_CV_FL.VCornerParams.UBJ = KO_CV_FL.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbUBJ_FL.Text), KO_CV_FL.ContactPatch, KO_CV_FL.VCornerParams.SteeringAxis);
+
+                    Plot_OutboardPoint(KO_CV_FL.VCornerParams.UBJ);
+
+                    Plot_WishbonePlane(KO_CV_FL.VCornerParams.TopWishbonePlane, KO_CV_FL.VCornerParams.UBJ, KO_CV_FL.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FL.VCornerParams.SV_IC_Line.EndPoint);
+
+                    if (Sus_Type.FrontSymmetry_Boolean)
+                    {
+                        KO_CV_FR.VCornerParams.UBJ = KO_CV_FR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbUBJ_FL.Text), KO_CV_FR.ContactPatch, KO_CV_FR.VCornerParams.SteeringAxis);
+
+                        Plot_OutboardPoint(KO_CV_FR.VCornerParams.UBJ);
+                    }
+                    else
+                    {
+                        ///<remarks>Added in Else Block because I want the user to see the Planes on the Right only for Assymetric Suspension</remarks>
+                        Plot_WishbonePlane(KO_CV_FR.VCornerParams.TopWishbonePlane, KO_CV_FR.VCornerParams.UBJ, KO_CV_FR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FR.VCornerParams.SV_IC_Line.EndPoint);
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show(NegativeError);
+                }
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+
+
+        private void tbLBJ_FL_Leave(object sender, EventArgs e)
+        {
+            Set_LBJParametric_FL();
+        }
+
+        private void tbLBJ_FL_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_LBJParametric_FL();
+            }
+        }
+
+        private void Set_LBJParametric_FL()
+        {
+            if (DoubleValidation(tbLBJ_FL.Text))
+            {
+                if (Validatepositve_Double(tbLBJ_FL.Text))
+                {
+                    KO_CV_FL.VCornerParams.LBJ = KO_CV_FL.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbLBJ_FL.Text), KO_CV_FL.ContactPatch, KO_CV_FL.VCornerParams.SteeringAxis);
+
+                    Plot_OutboardPoint(KO_CV_FL.VCornerParams.LBJ);
+
+                    Plot_WishbonePlane(KO_CV_FL.VCornerParams.BottomWishbonePlane, KO_CV_FL.VCornerParams.LBJ, KO_CV_FL.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FL.VCornerParams.SV_IC_Line.EndPoint);
+
+                    if (Sus_Type.FrontSymmetry_Boolean)
+                    {
+                        KO_CV_FR.VCornerParams.LBJ = KO_CV_FR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbUBJ_FL.Text), KO_CV_FR.ContactPatch, KO_CV_FR.VCornerParams.SteeringAxis);
+
+                        Plot_OutboardPoint(KO_CV_FR.VCornerParams.LBJ);
+                    }
+                    else
+                    {
+                        ///<remarks>Added in Else Block because I want the user to see the Planes on the Right only for Assymetric Suspension</remarks>
+                        Plot_WishbonePlane(KO_CV_FR.VCornerParams.BottomWishbonePlane, KO_CV_FR.VCornerParams.LBJ, KO_CV_FR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FR.VCornerParams.SV_IC_Line.EndPoint);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(NegativeError);
+                }
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+        #endregion
+
+        #endregion
+
         #region --Front Right--
         //--FRONT RIGHT--
 
 
 
+        #region KPI
         private void tbKPI_FR_Leave(object sender, EventArgs e)
         {
             Set_KPI_FR();
@@ -928,18 +1198,17 @@ namespace Coding_Attempt_with_GUI
 
                 KO_CV_FR.KPI = new Angle(Convert.ToDouble(tbKPI_FR.Text), AngleUnit.Degrees);
 
+                Plot_SteeringAxis(KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.ContactPatch);
+
             }
             else
             {
                 MessageBox.Show(NumericError);
             }
         }
+        #endregion
 
-
-
-
-
-
+        #region Scrub Radius
         private void tbScrub_FR_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -960,6 +1229,9 @@ namespace Coding_Attempt_with_GUI
                 if (Validatepositve_Double(tbScrub_FR.Text))
                 {
                     KO_CV_FR.ScrubRadius = Convert.ToDouble(tbScrub_FR.Text);
+
+                    Plot_SteeringAxis(KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.ContactPatch);
+
                 }
                 else
                 {
@@ -972,8 +1244,9 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
+        #endregion
 
-
+        #region Caster
         private void tbCaster_FR_Leave(object sender, EventArgs e)
         {
             Set_Caster_FR();
@@ -992,6 +1265,9 @@ namespace Coding_Attempt_with_GUI
             if (DoubleValidation(tbCaster_FR.Text))
             {
                 KO_CV_FR.Caster = new Angle(Convert.ToDouble(tbCaster_FR.Text), AngleUnit.Degrees);
+
+                Plot_SteeringAxis(KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.ContactPatch);
+
             }
             else
             {
@@ -999,8 +1275,9 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
+        #endregion
 
-
+        #region Mechanical Trail
         private void tbMechtrail_FR_Leave(object sender, EventArgs e)
         {
             Set_MechTrail_FR();
@@ -1020,7 +1297,10 @@ namespace Coding_Attempt_with_GUI
             {
                 if (Validatepositve_Double(tbMechtrail_FR.Text))
                 {
-                    KO_CV_FR.CasterTrail = Convert.ToDouble(tbMechtrail_FR.Text);
+                    KO_CV_FR.MechTrail = Convert.ToDouble(tbMechtrail_FR.Text);
+
+                    Plot_SteeringAxis(KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.ContactPatch);
+
                 }
                 else
                 {
@@ -1032,11 +1312,96 @@ namespace Coding_Attempt_with_GUI
                 MessageBox.Show(NumericError);
             }
         }
+
+        #endregion
+
+        #region UBJ and LBJ from parametric
+
+        private void tbUBJ_FR_Leave(object sender, EventArgs e)
+        {
+            Set_UBJParametric_FR();
+        }
+
+
+        private void tbUBJ_FR_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_UBJParametric_FR();
+            }
+        }
+
+        private void Set_UBJParametric_FR()
+        {
+            if (DoubleValidation(tbUBJ_FR.Text))
+            {
+                if (Validatepositve_Double(tbUBJ_FR.Text))
+                {
+                    KO_CV_FR.VCornerParams.UBJ = KO_CV_FR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbUBJ_FR.Text), KO_CV_FR.ContactPatch, KO_CV_FR.VCornerParams.SteeringAxis);
+
+                    Plot_OutboardPoint(KO_CV_FR.VCornerParams.UBJ);
+
+                    Plot_WishbonePlane(KO_CV_FR.VCornerParams.TopWishbonePlane, KO_CV_FR.VCornerParams.UBJ, KO_CV_FR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FR.VCornerParams.SV_IC_Line.EndPoint);
+
+                }
+                else
+                {
+                    MessageBox.Show(NegativeError);
+                }
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+
+
+        private void tbLBJ_FR_Leave(object sender, EventArgs e)
+        {
+            Set_LBJParametric_FR();
+        }
+
+        private void tbLBJ_FR_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_LBJParametric_FR();
+            }
+        }
+
+        private void Set_LBJParametric_FR()
+        {
+            if (DoubleValidation(tbLBJ_FR.Text))
+            {
+                if (Validatepositve_Double(tbLBJ_FR.Text))
+                {
+                    KO_CV_FR.VCornerParams.LBJ = KO_CV_FR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbLBJ_FR.Text), KO_CV_FR.ContactPatch, KO_CV_FR.VCornerParams.SteeringAxis);
+
+                    Plot_OutboardPoint(KO_CV_FR.VCornerParams.LBJ);
+
+                    Plot_WishbonePlane(KO_CV_FR.VCornerParams.BottomWishbonePlane, KO_CV_FR.VCornerParams.LBJ, KO_CV_FR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FR.VCornerParams.SV_IC_Line.EndPoint);
+
+                }
+                else
+                {
+                    MessageBox.Show(NegativeError);
+                }
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #region --Rear Left--
         //--REAR LEFT--
 
+        #region KPI
         private void tbKPI_RL_Leave(object sender, EventArgs e)
         {
             Set_KPI_RL();
@@ -1057,18 +1422,24 @@ namespace Coding_Attempt_with_GUI
 
                 KO_CV_RL.KPI = new Angle(Convert.ToDouble(tbKPI_RL.Text), AngleUnit.Degrees);
 
+                Plot_SteeringAxis(KO_CV_RL.VCornerParams.SteeringAxis, KO_CV_RL.KPI, KO_CV_RL.Caster, KO_CV_RL.ScrubRadius, KO_CV_RL.MechTrail, KO_CV_RL.ContactPatch);
+
+                ///<summary>Handling condition of Symmetry</summary>
+                if (Sus_Type.FrontSymmetry_Boolean)
+                {
+                    KO_CV_RR.KPI = new Angle(Convert.ToDouble(tbKPI_RL.Text), AngleUnit.Degrees);
+                    Plot_SteeringAxis(KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.ContactPatch);
+                }
+
             }
             else
             {
                 MessageBox.Show(NumericError);
             }
         }
-
-
-
-
-
-
+        #endregion
+        
+        #region Scrub Radius
         private void tbScrub_RL_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -1089,6 +1460,17 @@ namespace Coding_Attempt_with_GUI
                 if (Validatepositve_Double(tbScrub_RL.Text))
                 {
                     KO_CV_RL.ScrubRadius = Convert.ToDouble(tbScrub_RL.Text);
+
+                    Plot_SteeringAxis(KO_CV_RL.VCornerParams.SteeringAxis, KO_CV_RL.KPI, KO_CV_RL.Caster, KO_CV_RL.ScrubRadius, KO_CV_RL.MechTrail, KO_CV_RL.ContactPatch);
+
+                    ///<summary>Handling condition of Symmetry</summary>
+                    if (Sus_Type.FrontSymmetry_Boolean)
+                    {
+                        KO_CV_RR.ScrubRadius = Convert.ToDouble(tbScrub_RL.Text);
+                        Plot_SteeringAxis(KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.ContactPatch);
+                    }
+
+
                 }
                 else
                 {
@@ -1100,9 +1482,9 @@ namespace Coding_Attempt_with_GUI
                 MessageBox.Show(NumericError);
             }
         }
-
-
-
+        #endregion
+        
+        #region Caster
         private void tbCaster_RL_Leave(object sender, EventArgs e)
         {
             Set_Caster_RL();
@@ -1121,15 +1503,25 @@ namespace Coding_Attempt_with_GUI
             if (DoubleValidation(tbCaster_RL.Text))
             {
                 KO_CV_RL.Caster = new Angle(Convert.ToDouble(tbCaster_RL.Text), AngleUnit.Degrees);
+
+                Plot_SteeringAxis(KO_CV_RL.VCornerParams.SteeringAxis, KO_CV_RL.KPI, KO_CV_RL.Caster, KO_CV_RL.ScrubRadius, KO_CV_RL.MechTrail, KO_CV_RL.ContactPatch);
+
+                ///<summary>Handling condition of Symmetry</summary>
+                if (Sus_Type.FrontSymmetry_Boolean)
+                {
+                    KO_CV_RR.Caster = new Angle(Convert.ToDouble(tbCaster_RL.Text), AngleUnit.Degrees);
+                    Plot_SteeringAxis(KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.ContactPatch);
+                }
+
             }
             else
             {
                 MessageBox.Show(NumericError);
             }
         }
-
-
-
+        #endregion
+        
+        #region Mechanical Trail
         private void tbMechtrail_RL_Leave(object sender, EventArgs e)
         {
             Set_MechTrail_RL();
@@ -1149,7 +1541,18 @@ namespace Coding_Attempt_with_GUI
             {
                 if (Validatepositve_Double(tbMechtrail_RL.Text))
                 {
-                    KO_CV_RL.CasterTrail = Convert.ToDouble(tbMechtrail_RL.Text);
+                    KO_CV_RL.MechTrail = Convert.ToDouble(tbMechtrail_RL.Text);
+
+                    Plot_SteeringAxis(KO_CV_RL.VCornerParams.SteeringAxis, KO_CV_RL.KPI, KO_CV_RL.Caster, KO_CV_RL.ScrubRadius, KO_CV_RL.MechTrail, KO_CV_RL.ContactPatch);
+
+                    ///<summary>Handling condition of Symmetry</summary>
+                    if (Sus_Type.FrontSymmetry_Boolean)
+                    {
+                        KO_CV_RR.MechTrail = Convert.ToDouble(tbMechtrail_RL.Text);
+                        Plot_SteeringAxis(KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.ContactPatch);
+                    }
+
+
                 }
                 else
                 {
@@ -1163,9 +1566,117 @@ namespace Coding_Attempt_with_GUI
         }
         #endregion
 
+        #region UBJ and LBJ Parametric 
+
+        private void tbUBJ_RL_Leave(object sender, EventArgs e)
+        {
+            Set_UBJParametric_RL();
+        }
+
+        private void tbUBJ_RL_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_UBJParametric_RL();
+            }
+        }
+
+        private void Set_UBJParametric_RL()
+        {
+            if (DoubleValidation(tbUBJ_RL.Text))
+            {
+                if (Validatepositve_Double(tbUBJ_RL.Text))
+                {
+                    KO_CV_RL.VCornerParams.UBJ = KO_CV_RL.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbUBJ_RL.Text), KO_CV_RL.ContactPatch, KO_CV_RL.VCornerParams.SteeringAxis);
+
+                    Plot_OutboardPoint(KO_CV_RL.VCornerParams.UBJ);
+
+                    Plot_WishbonePlane(KO_CV_RL.VCornerParams.TopWishbonePlane, KO_CV_RL.VCornerParams.UBJ, KO_CV_RL.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RL.VCornerParams.SV_IC_Line.EndPoint);
+
+                    if (Sus_Type.RearSymmetry_Boolean)
+                    {
+                        KO_CV_RR.VCornerParams.UBJ = KO_CV_RR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbUBJ_RL.Text), KO_CV_RR.ContactPatch, KO_CV_RR.VCornerParams.SteeringAxis);
+
+                        Plot_OutboardPoint(KO_CV_RR.VCornerParams.UBJ);
+
+                    }
+                    else
+                    {
+                        ///<remarks>Added in Else Block because I want the user to see the Planes on the Right only for Assymetric Suspension</remarks>
+                        Plot_WishbonePlane(KO_CV_RR.VCornerParams.TopWishbonePlane, KO_CV_RR.VCornerParams.UBJ, KO_CV_RR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RR.VCornerParams.SV_IC_Line.EndPoint);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(NegativeError);
+                }
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+
+
+        private void tbLBJ_RL_Leave(object sender, EventArgs e)
+        {
+            Set_LBJParametric_RL();
+        }
+
+        private void tbLBJ_RL_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_LBJParametric_RL();
+            }
+        }
+
+        private void Set_LBJParametric_RL()
+        {
+            if (DoubleValidation(tbLBJ_RL.Text))
+            {
+                if (Validatepositve_Double(tbLBJ_RL.Text))
+                {
+                    KO_CV_RL.VCornerParams.LBJ = KO_CV_RL.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbLBJ_RL.Text), KO_CV_RL.ContactPatch, KO_CV_RL.VCornerParams.SteeringAxis);
+
+                    Plot_OutboardPoint(KO_CV_RL.VCornerParams.LBJ);
+
+                    Plot_WishbonePlane(KO_CV_RL.VCornerParams.BottomWishbonePlane, KO_CV_RL.VCornerParams.LBJ, KO_CV_RL.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RL.VCornerParams.SV_IC_Line.EndPoint);
+
+                    if (Sus_Type.FrontSymmetry_Boolean)
+                    {
+                        KO_CV_RR.VCornerParams.LBJ = KO_CV_RR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbLBJ_RL.Text), KO_CV_RR.ContactPatch, KO_CV_RR.VCornerParams.SteeringAxis);
+
+                        Plot_OutboardPoint(KO_CV_RR.VCornerParams.LBJ);
+                    }
+                    else
+                    {
+                        ///<remarks>Added in Else Block because I want the user to see the Planes on the Right only for Assymetric Suspension</remarks>
+                        Plot_WishbonePlane(KO_CV_RR.VCornerParams.BottomWishbonePlane, KO_CV_RR.VCornerParams.LBJ, KO_CV_RR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RR.VCornerParams.SV_IC_Line.EndPoint);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(NegativeError);
+                }
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+        #endregion
+
+
+
+        #endregion
+
         #region --Rear Right--
         //--REAR RIGHT--
 
+        #region KPI
         private void tbKPI_RR_Leave(object sender, EventArgs e)
         {
             Set_KPI_RR();
@@ -1185,6 +1696,7 @@ namespace Coding_Attempt_with_GUI
             {
 
                 KO_CV_RR.KPI = new Angle(Convert.ToDouble(tbKPI_RR.Text), AngleUnit.Degrees);
+                Plot_SteeringAxis(KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.ContactPatch);
 
             }
             else
@@ -1192,12 +1704,9 @@ namespace Coding_Attempt_with_GUI
                 MessageBox.Show(NumericError);
             }
         }
-
-
-
-
-
-
+        #endregion
+        
+        #region Scrub Radius
         private void tbScrub_RR_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -1218,6 +1727,8 @@ namespace Coding_Attempt_with_GUI
                 if (Validatepositve_Double(tbScrub_RR.Text))
                 {
                     KO_CV_RR.ScrubRadius = Convert.ToDouble(tbScrub_RR.Text);
+                    Plot_SteeringAxis(KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.ContactPatch);
+
                 }
                 else
                 {
@@ -1229,9 +1740,9 @@ namespace Coding_Attempt_with_GUI
                 MessageBox.Show(NumericError);
             }
         }
+        #endregion
 
-
-
+        #region Caster
         private void tbCaster_RR_Leave(object sender, EventArgs e)
         {
             Set_Caster_RR();
@@ -1250,15 +1761,17 @@ namespace Coding_Attempt_with_GUI
             if (DoubleValidation(tbCaster_RR.Text))
             {
                 KO_CV_RR.Caster = new Angle(Convert.ToDouble(tbCaster_RR.Text), AngleUnit.Degrees);
+                Plot_SteeringAxis(KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.ContactPatch);
+
             }
             else
             {
                 MessageBox.Show(NumericError);
             }
         }
+        #endregion
 
-
-
+        #region Mechanical Trail
         private void tbMechtrail_RR_Leave(object sender, EventArgs e)
         {
             Set_MechTrail_RR();
@@ -1278,7 +1791,51 @@ namespace Coding_Attempt_with_GUI
             {
                 if (Validatepositve_Double(tbMechtrail_RR.Text))
                 {
-                    KO_CV_RR.CasterTrail = Convert.ToDouble(tbMechtrail_RR.Text);
+                    KO_CV_RR.MechTrail = Convert.ToDouble(tbMechtrail_RR.Text);
+                    Plot_SteeringAxis(KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.ContactPatch);
+
+                }
+                else
+                {
+                    MessageBox.Show(NegativeError);
+                }
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+        #endregion
+
+        #region UBj and LBJ Parametric
+
+
+        private void tbUBJ_RR_Leave(object sender, EventArgs e)
+        {
+            Set_UBJParametric_RR();
+        }
+
+        private void tbUBJ_RR_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_UBJParametric_RR();
+            }
+        }
+
+        private void Set_UBJParametric_RR()
+        {
+            if (DoubleValidation(tbUBJ_RR.Text))
+            {
+                if (Validatepositve_Double(tbUBJ_RR.Text))
+                {
+                    KO_CV_RR.VCornerParams.UBJ = KO_CV_RR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbUBJ_RR.Text), KO_CV_RR.ContactPatch, KO_CV_RR.VCornerParams.SteeringAxis);
+
+                    Plot_OutboardPoint(KO_CV_RR.VCornerParams.UBJ);
+
+                    Plot_WishbonePlane(KO_CV_RR.VCornerParams.TopWishbonePlane, KO_CV_RR.VCornerParams.UBJ, KO_CV_RR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RR.VCornerParams.SV_IC_Line.EndPoint);
+
+
                 }
                 else
                 {
@@ -1292,15 +1849,429 @@ namespace Coding_Attempt_with_GUI
         }
 
 
+
+        private void tbLBJ_RR_Leave(object sender, EventArgs e)
+        {
+            Set_LBJParametric_RR();
+        }
+
+        private void tbLBJ_RR_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_LBJParametric_RR();
+            }
+        }
+
+        private void Set_LBJParametric_RR()
+        {
+            if (DoubleValidation(tbLBJ_RR.Text))
+            {
+                if (Validatepositve_Double(tbLBJ_RR.Text))
+                {
+                    KO_CV_RR.VCornerParams.LBJ = KO_CV_RR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbLBJ_RR.Text), KO_CV_RR.ContactPatch, KO_CV_RR.VCornerParams.SteeringAxis);
+
+                    Plot_OutboardPoint(KO_CV_RR.VCornerParams.LBJ);
+
+                    Plot_WishbonePlane(KO_CV_RR.VCornerParams.BottomWishbonePlane, KO_CV_RR.VCornerParams.LBJ, KO_CV_RR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RR.VCornerParams.SV_IC_Line.EndPoint);
+
+
+                }
+                else
+                {
+                    MessageBox.Show(NegativeError);
+                }
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+
+        #endregion
+
+        //--Rear Right EEN
+        #endregion
+
+        //---TAB PAGE - Conrer params End
+        #endregion
+
+        //---Suspension Input Extraction Methods---
+        #endregion
+
+
+        #region --CAD UserControl Plotter Methods--
+
+        #region -Vehicle Parameters-
+        /// <summary>
+        /// Plotting the Wheelbase
+        /// </summary>
+        private void Plot_Wb()
+        {
+            cad1.Init_Wheelbase(KO_Central.WheelBase);
+            //cad1.Plot_AllSuspensionParams();
+        }
+
+        /// <summary>
+        /// Plotting the Track Widths
+        /// </summary>
+        private void Plot_Tracks()
+        {
+            cad1.Init_Track(KO_Central.Track_Front, KO_Central.Track_Rear);
+            //cad1.Plot_AllSuspensionParams();
+
+        }
+
+        /// <summary>
+        /// Method to Plot the Roll Centers
+        /// </summary>
+        private void Plot_RCs()
+        {
+            cad1.Init_RollCenters(KO_Central.RC_Front, KO_Central.RC_Rear);
+            //cad1.Plot_AllSuspensionParams();
+
+        }
+
+        /// <summary>
+        /// Method to Plot the Pitch Centers
+        /// </summary>
+        private void Plot_PCs()
+        {
+            cad1.Init_PitchCenters(KO_Central.PC_Left, KO_Central.PC_Right);
+            //cad1.Plot_AllSuspensionParams();
+
+        }
+
+        /// <summary>
+        /// Method to Plot the VSAL of the FV
+        /// </summary>
+        /// <param name="_VSAL_FV_Length">VSAL Length in Front View</param>
+        /// <param name="_ConctactPatch"></param>
+        /// <param name="_RC"></param>
+        private void Plot_VSAL_FV(Line _FV_IC_Line, double _VSAL_FV_Length, Point3D _ConctactPatch, Point3D _RC)
+        {
+            cad1.Init_VSAL_FV(_FV_IC_Line, _VSAL_FV_Length, _ConctactPatch, _RC);
+        }
+
+        /// <summary>
+        /// Method to plot the VSAL of the SV
+        /// </summary>
+        /// <param name="_VSAL_SV_Length">VSAL Length in Side View</param>
+        /// <param name="_ConctactPatch"></param>
+        /// <param name="_PC"></param>
+        private void Plot_VSAL_SV(Line _SV_IC_Line, double _VSAL_SV_Length, Point3D _ConctactPatch, Point3D _PC)
+        {
+            cad1.Init_VSAL_SV(_SV_IC_Line, _VSAL_SV_Length, _ConctactPatch, _PC);
+        }
+        #endregion
+
+        #region -Corner Params-
+
+        /// <summary>
+        /// Method to Initialize and Plot the Steering Axis 
+        /// </summary>
+        /// <param name="_SteeringAxis">Steering Axis</param>
+        /// <param name="_KPI">KPI Angle</param>
+        /// <param name="_Caster">Caster Angle</param>
+        /// <param name="_ScrubRadius">Scrub Radius</param>
+        /// <param name="_MechTrail">Mechanical Trail</param>
+        /// <param name="_ContactPatch">Contact Patch</param>
+        private void Plot_SteeringAxis(Line _SteeringAxis, Angle _KPI, Angle _Caster, double _ScrubRadius, double _MechTrail, Point3D _ContactPatch)
+        {
+            cad1.Plot_SteeringAxis(_SteeringAxis, _KPI, _Caster, _ScrubRadius, _MechTrail, _ContactPatch);
+        }
+
+        /// <summary>
+        /// Method to Plot th Outboard point
+        /// </summary>
+        /// <param name="_outboardPoint"></param>
+        private void Plot_OutboardPoint(Point3D _outboardPoint)
+        {
+            cad1.Plot_OutboardPoint(_outboardPoint);
+        }
+
+        /// <summary>
+        /// Method to plot the Plane of the pair of wishbones being considered
+        /// </summary>
+        /// <param name="_WishbonePlane">Plane of the pair of wishbones being considered</param>
+        /// <param name="_Point1">First point making up the plane</param>
+        /// <param name="_Point2">Second point making up the plane</param>
+        /// <param name="_Point3">Third point making up the plane</param>
+        private void Plot_WishbonePlane(Plane _WishbonePlane, Point3D _Point1, Point3D _Point2, Point3D _Point3)
+        {
+            cad1.Plot_WishbonePlane(_WishbonePlane, _Point1, _Point2, _Point3);
+        }
+
         
         #endregion
 
         #endregion
 
 
+        #region ---Initialize Methods---
+
+        /// <summary>
+        /// Common Method to initialize the <see cref="KO_CornverVariables.ContactPatch"/> points
+        /// </summary>
+        private void Set_ContactPatch()
+        {
+            ///<summary>Using the Track Width to Set the Front Contact Patch</summary>
+            KO_CV_FL.ContactPatch.X = KO_Central.Track_Front / 2;
+
+            KO_CV_FR.ContactPatch.X = -KO_Central.Track_Front / 2;
+
+            ///<summary>Using the Rear Track to Set tthe Rear COntact Patch</summary>
+            KO_CV_RL.ContactPatch.X = KO_Central.Track_Rear / 2;
+
+            KO_CV_RR.ContactPatch.X = -KO_Central.Track_Rear / 2;
+            ///<summary>Uisng the Wheelbase to Set the RearC Contact Patch</summary>
+            KO_CV_RL.ContactPatch.Z = KO_Central.WheelBase;
+
+            KO_CV_RR.ContactPatch.Z = KO_Central.WheelBase;
+
+        }
+
+        /// <summary>
+        /// Method to set the Front and Rear Roll Center
+        /// </summary>
+        private void Set_KO_RollCenter()
+        {
+            KO_Central.Initialize_RC_Front(KO_Central.RC_Front.Y, KO_Central.RC_Front.X);
+
+            KO_Central.Initialize_RC_Rear(KO_Central.RC_Rear.Y, KO_Central.RC_Rear.X, KO_Central.WheelBase);
+        }
+
+        /// <summary>
+        /// Method to Set the Left and Right Pitch Center (based on Symmetry)
+        /// </summary>
+        private void Set_KO_PitchCenter()
+        {
+            if (Sus_Type.FrontSymmetry_Boolean && Sus_Type.RearSymmetry_Boolean)
+            {
+                KO_Central.Initialize_PC_Symmetric(KO_Central.PC_Left.Y, KO_Central.PC_Left.Z, KO_Central.Track_Front, KO_Central.Track_Rear);
+            }
+            else
+            {
+                KO_Central.Initialize_PC_Left(KO_Central.PC_Left.Y, KO_Central.PC_Left.Z, KO_Central.Track_Front, KO_Central.Track_Rear);
+
+                KO_Central.Initialize_PC_Right(KO_Central.PC_Right.Y, KO_Central.PC_Right.Z, KO_Central.Track_Front, KO_Central.Track_Rear);
+            }
+        }
 
 
+        private void Set_KO_SteeringAxis()
+        {
+
+        }
+        
 
 
+        #endregion
+
+
+        
+
+        private void simpleButtonSuspensiontemplate_Click(object sender, EventArgs e)
+        {
+            CreateSuspensionTemplate();
+
+            Activate_AllTextboxes();
+
+            Activate_AllTabPages();
+
+            if (Sus_Type.FrontSymmetry_Boolean && Sus_Type.RearSymmetry_Boolean)
+            {
+                SymmtryOperations();
+            }
+            else
+            {
+                AssymmetryOperations();
+            }
+
+        }
+
+        SuspensionType Sus_Type;
+
+        private void CreateSuspensionTemplate()
+        {
+            Kinematics_Software_New R1 = Kinematics_Software_New.AssignFormVariable();
+
+            Sus_Type = new SuspensionType(R1);
+
+            Sus_Type.Show();
+
+
+        }
+
+
+        #region ---GUI Operations---
+        /// <summary>
+        /// Method to Activate all the <see cref="TextBox"/>s of <see cref="xtraTabPageVehicleParams"/>
+        /// </summary>
+        private void Activate_AllTextboxes()
+        {
+            ///<summary>Activating WheelBase</summary>
+            tbWheelbase.Enabled = true;
+
+            ///<summary>Activating WheelBase</summary>
+            tbTrackFront.Enabled = true;
+            tbTrackRear.Enabled = true;
+
+            ///<summary>Activating Roll Center Front and FV VSALS</summary>
+            tbRC_Front_Height.Enabled = true;
+            tbRC_Front_LatOff.Enabled = true;
+            tbFV_VSAL_FL.Enabled = true;
+            tbFV_VSAL_FR.Enabled = true;
+
+            ///<summary>Activating Roll Center Rear and FV VSALS</summary>
+            tbRC_Rear_Height.Enabled = true;
+            tbRC_Rear_LatOff.Enabled = true;
+            tbFV_VSAL_RL.Enabled = true;
+            tbFV_VSAL_RR.Enabled = true;
+
+            ///<summary>Activating Pitch Center Left and SV VSALS</summary
+            tbPC_Left_Height.Enabled = true;
+            tbPC_Left_LongOff.Enabled = true;
+            tbSV_VSAL_FL.Enabled = true;
+            tbSV_VSAL_FR.Enabled = true;
+
+
+            ///<summary>Activating Pitch Center Right and SV VSALS</summary
+            tbPC_Right_Height.Enabled = true;
+            tbPC_Right_Height_LongOff.Enabled = true;
+            tbSV_VSAL_RL.Enabled = true;
+            tbSV_VSAL_RR.Enabled = true;
+
+
+            ///<summary>Activating Ackermann</summary>
+            tbAckermann.Enabled = true;
+
+
+        }
+
+        /// <summary>
+        /// Method to De-Activate all the <see cref="TextBox"/>s of <see cref="xtraTabPageVehicleParams"/>
+        /// </summary>
+        private void Deactivate_AllTextboxes()
+        {
+            ///<summary>De-activating WheelBase</summary>
+            tbWheelbase.Enabled = false;
+
+            ///<summary>De-activating WheelBase</summary>
+            tbTrackFront.Enabled = false;
+            tbTrackRear.Enabled = false;
+
+            ///<summary>De-activating Roll Center Front and FV VSALS</summary>
+            tbRC_Front_Height.Enabled = false;
+            tbRC_Front_LatOff.Enabled = false;
+            tbFV_VSAL_FL.Enabled = false;
+            tbFV_VSAL_FR.Enabled = false;
+
+            ///<summary>De-activating Roll Center Rear and FV VSALS</summary>
+            tbRC_Rear_Height.Enabled = false;
+            tbRC_Rear_LatOff.Enabled = false;
+            tbFV_VSAL_RL.Enabled = false;
+            tbFV_VSAL_RR.Enabled = false;
+
+            ///<summary>De-activating Pitch Center Left and SV VSALS</summary
+            tbPC_Left_Height.Enabled = false;
+            tbPC_Left_LongOff.Enabled = false;
+            tbSV_VSAL_FL.Enabled = false;
+            tbSV_VSAL_FR.Enabled = false;
+
+
+            ///<summary>De-activating Pitch Center Right and SV VSALS</summary
+            tbPC_Right_Height.Enabled = false;
+            tbPC_Right_Height_LongOff.Enabled = false;
+            tbSV_VSAL_RL.Enabled = false;
+            tbSV_VSAL_RR.Enabled = false;
+
+
+            ///<summary>De-activating Ackermann</summary>
+            tbAckermann.Enabled = false;
+
+        }
+
+        /// <summary>
+        /// Method to Activate all the TabPages
+        /// </summary>
+        private void Activate_AllTabPages()
+        {
+            xtraTabPageCornerParams.PageEnabled = true;
+
+            xtraTabPageInboardPoints.PageEnabled = true;
+
+            xtraTabPageBumpSteer.PageEnabled = true;
+        }
+
+        /// <summary>
+        /// Method to De-Activate all the TabPages
+        /// </summary>
+        private void Deactivate_AllTabPages()
+        {
+            xtraTabPageCornerParams.PageEnabled = false;
+
+            xtraTabPageInboardPoints.PageEnabled = false;
+
+            xtraTabPageBumpSteer.PageEnabled = false;
+        }
+
+        /// <summary>
+        /// Method to perform the GUI Operations of Hide incase of Symmetric Suspension
+        /// </summary>
+        /// <param name="_frontSymmetri"></param>
+        /// <param name="_rearSymmetric"></param>
+        private void SymmtryOperations()
+        {
+            layoutControlItemFV_VSAL_FR.HideToCustomization();
+
+            layoutControlItemFV_VSAL_RR.HideToCustomization();
+
+            layoutControlItemPC_Right_Height.HideToCustomization();
+
+            layoutControlItemPC_Right_LongOff.HideToCustomization();
+
+            layoutControlItemSV_VSAL_FR.HideToCustomization();
+
+            layoutControlItemSV_VSAL_RR.HideToCustomization();
+
+            layoutControl_CornerParams_FR.Hide();
+
+            layoutControl_CornerParams_RR.Hide();
+
+
+        }
+
+        /// <summary>
+        /// Method to perform the GUI operations of Show in case of Assymetric Suspension
+        /// </summary>
+        private void AssymmetryOperations()
+        {
+            layoutControlItemFV_VSAL_FR.ShowInCustomizationForm = true;
+
+            layoutControlItemFV_VSAL_RR.ShowInCustomizationForm = true;
+
+            layoutControlItemPC_Right_Height.ShowInCustomizationForm = true;
+
+            layoutControlItemPC_Right_LongOff.ShowInCustomizationForm = true;
+
+            layoutControlItemSV_VSAL_FR.ShowInCustomizationForm = true;
+
+            layoutControlItemSV_VSAL_RR.ShowInCustomizationForm = true;
+
+            layoutControl_CornerParams_FR.Show();
+
+            layoutControl_CornerParams_RR.Show();
+        }
+
+
+        
+        #endregion
+
+        private void simpleButtonUpdateSuspension_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

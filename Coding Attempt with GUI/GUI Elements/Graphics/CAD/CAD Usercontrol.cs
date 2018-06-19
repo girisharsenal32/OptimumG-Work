@@ -14,6 +14,7 @@ using MathNet.Spatial;
 using DevExpress.XtraBars.Docking;
 using System.Data;
 using System.Linq;
+using MathNet.Spatial.Units;
 
 namespace Coding_Attempt_with_GUI
 {
@@ -208,6 +209,7 @@ namespace Coding_Attempt_with_GUI
 
         #endregion
 
+        #region ---Initialization Methods---
         #region Constructor
         public CAD()
         {
@@ -260,6 +262,60 @@ namespace Coding_Attempt_with_GUI
             string Version = viewportLayout1.ProductVersion;
             InitializeLegendDataTable();
         }
+        #endregion
+
+        #region Initializing the Layers of the Entities which will be drawn onto the viewport
+        public void InitializeLayers()
+        {
+            try
+            {
+                Layer Joints = new Layer("Joints", Color.White);
+                Layer Bars = new Layer("Bars", Color.Orange);
+                Layer Triangles = new Layer("Triangles");
+                Layer Quads = new Layer("Quads");
+                Layer Surfaces = new Layer("Surfaces", Color.Magenta);
+                Layer IGES = new Layer("IGES");
+                Layer Solid3D = new Layer("Solid3D");
+
+                if (!viewportLayout1.Layers.Contains(Joints))
+                {
+                    viewportLayout1.Layers.Add(Joints);
+                }
+                if (!viewportLayout1.Layers.Contains(Bars))
+                {
+                    viewportLayout1.Layers.Add(Bars);
+                }
+                if (!viewportLayout1.Layers.Contains(Triangles))
+                {
+                    viewportLayout1.Layers.Add(Triangles);
+                }
+                if (!viewportLayout1.Layers.Contains(Quads))
+                {
+                    viewportLayout1.Layers.Add(Quads);
+                }
+                if (!viewportLayout1.Layers.Contains(Surfaces))
+                {
+                    viewportLayout1.Layers.Add(Surfaces);
+                }
+                if (!viewportLayout1.Layers.Contains(IGES))
+                {
+                    viewportLayout1.Layers.Add(IGES);
+                }
+                if (!viewportLayout1.Layers.Contains(Solid3D))
+                {
+                    viewportLayout1.Layers.Add(Solid3D);
+                }
+            }
+            catch (Exception)
+            {
+
+                ///<remarks>
+                /// In case layer is being readded
+                /// </remarks>
+            }
+
+        }
+        #endregion 
         #endregion
 
         #region Usercontrol Load Event
@@ -421,7 +477,7 @@ namespace Coding_Attempt_with_GUI
             PointOfRotation.Y = _chassisCoG.SuspendedMassCoGy;
             PointOfRotation.Z = _chassisCoG.SuspendedMassCoGz;
 
-            
+
         }
 
         #region Translate Operations. Contains the method to rotate the selected Block and the Inboard or Outboard Points with it
@@ -543,7 +599,6 @@ namespace Coding_Attempt_with_GUI
 
         }
         #endregion
-
 
         #region Rotate Operations. Containts method which rotate the entire SM or NSMs
         private void RotateObject_FormInvoker(object sender, EventArgs e)
@@ -744,58 +799,7 @@ namespace Coding_Attempt_with_GUI
 
         #endregion
 
-        #region Initializing the Layers of the Entities which will be drawn onto the viewport
-        public void InitializeLayers()
-        {
-            try
-            {
-                Layer Joints = new Layer("Joints", Color.White);
-                Layer Bars = new Layer("Bars", Color.Orange);
-                Layer Triangles = new Layer("Triangles");
-                Layer Quads = new Layer("Quads");
-                Layer Surfaces = new Layer("Surfaces", Color.Magenta);
-                Layer IGES = new Layer("IGES");
-                Layer Solid3D = new Layer("Solid3D");
 
-                if (!viewportLayout1.Layers.Contains(Joints))
-                {
-                    viewportLayout1.Layers.Add(Joints);
-                }
-                if (!viewportLayout1.Layers.Contains(Bars))
-                {
-                    viewportLayout1.Layers.Add(Bars);
-                }
-                if (!viewportLayout1.Layers.Contains(Triangles))
-                {
-                    viewportLayout1.Layers.Add(Triangles);
-                }
-                if (!viewportLayout1.Layers.Contains(Quads))
-                {
-                    viewportLayout1.Layers.Add(Quads);
-                }
-                if (!viewportLayout1.Layers.Contains(Surfaces))
-                {
-                    viewportLayout1.Layers.Add(Surfaces);
-                }
-                if (!viewportLayout1.Layers.Contains(IGES))
-                {
-                    viewportLayout1.Layers.Add(IGES);
-                }
-                if (!viewportLayout1.Layers.Contains(Solid3D))
-                {
-                    viewportLayout1.Layers.Add(Solid3D);
-                }
-            }
-            catch (Exception)
-            {
-
-                ///<remarks>
-                /// In case layer is being readded
-                /// </remarks>
-            }
-
-        }
-        #endregion
 
         #region Clone Method to Clone the Imported entities from the Input Viewport to the Output Viewport
         public void CloneOutputViewPort(ViewportLayout _outputViewPort, ViewportLayout _inputViewport)
@@ -823,6 +827,9 @@ namespace Coding_Attempt_with_GUI
 
         }
         #endregion
+
+        #region Plotter Methods
+
 
         #region Plotter or Drawer methods
 
@@ -893,7 +900,7 @@ namespace Coding_Attempt_with_GUI
             ///<summary>
             ///Wheel CP Coordinates of the Wheel being considered
             /// </summary>
-            Point3D momentArrowStart =  new Point3D(_startX, _startY, _startZ);
+            Point3D momentArrowStart = new Point3D(_startX, _startY, _startZ);
             Point3D momentArrowEnd_Mx = new Point3D(_startX, _startY, _startZ + 100);
             Point3D momentArrowEnd_My = new Point3D(_startX + 100, _startY, _startZ);
 
@@ -1069,7 +1076,7 @@ namespace Coding_Attempt_with_GUI
             }
 
             return Color.FromArgb(255, Convert.ToInt32(red), Convert.ToInt32(green), Convert.ToInt32(blue));
-        } 
+        }
         #endregion
 
         bool InputForcePassed = false;
@@ -1687,7 +1694,7 @@ namespace Coding_Attempt_with_GUI
 
         Line wheelAxis; Circle wheelCircleOuter, wheelCircleInner;
 
-         #region Drawing the Wheel
+        #region Drawing the Wheel
         private void PlotWheel(SuspensionCoordinatesMaster _scmPlotWheel, WheelAlignment _waPlotWheel, int _identifierPlotWheel, bool _isInitializing)
         {
             ///<summary>
@@ -1715,11 +1722,11 @@ namespace Coding_Attempt_with_GUI
 
             ///<summary>Creating a Circular Region with an Inner and Outer Circle</summary>
             devDept.Eyeshot.Entities.Region tireRegion = new devDept.Eyeshot.Entities.Region(wheelCircleOuter, wheelCircleInner);
-            
+
 
             ///<summary>Extruding the Circular Region</summary>
             Solid3D Tire = tireRegion.ExtrudeAsSolid3D((sign * 157.48), 0);
-            
+
 
             if (_waPlotWheel != null)
             {
@@ -2776,6 +2783,313 @@ namespace Coding_Attempt_with_GUI
 
         #endregion
 
+        #region ---Design Form Custom Plotter Methods---
+        public Line WheelbaseLine;
+
+        LinearDim WB;
+
+        public Line Track_Front;
+
+        public Line Track_Rear;
+
+        LinearDim Track_Front_Dim;
+
+        LinearDim Track_Rear_Dim;
+
+
+        //---Roll Center---
+        
+
+        public Joint RC_Front;
+
+        public Joint RC_Rear;
+
+
+        //---Pitch Center---
+
+
+        public Joint PC_Left;
+
+        public Joint PC_Right;
+
+
+        ////---Front and Side View Instant Center Lines--- 
+
+
+        //public Line FV_IC_Line_FL;
+
+        //public Line SV_IC_Line_FL;
+
+        //public Line FV_IC_Line_FR;
+
+        //public Line SV_IC_Line_FR;
+
+        //public Line FV_IC_Line_RL;
+
+        //public Line SV_IC_Line_RL;
+
+        //public Line FV_IC_Line_RR;
+
+        //public Line SV_IC_Line_RR;
+
+
+
+        ////---Steetring Axis Lines
+
+        //public Line SteeringAxis_FL;
+
+        //public Line SteeringAxis_FR;
+
+        //public Line SteeringAxis_RL;
+
+        //public Line SteeringAxis_RR;
+
+
+
+
+
+        private void AddOrRegen(Entity _entity, Color _color)
+        {
+            if (viewportLayout1.Entities.Contains(_entity))
+            {
+                viewportLayout1.Entities[viewportLayout1.Entities.IndexOf(_entity)].Regen(0);
+            }
+            else
+            {
+                viewportLayout1.Entities.Add(_entity, _color);
+            }
+
+            viewportLayout1.Invalidate();
+
+            viewportLayout1.ZoomFit();
+        }
+
+
+
+        /// <summary>
+        /// Method to Plot thw Wheelbase and it's dimension
+        /// </summary>
+        /// <param name="_wheelbase">The Wheelbase as input by the user</param>
+        public void Init_Wheelbase(double _wheelbase)
+        {
+            WheelbaseLine = new Line(new Point3D(), new Point3D(0, 0, _wheelbase));
+
+            WB = new LinearDim(Plane.XZ, WheelbaseLine.StartPoint, WheelbaseLine.EndPoint, WheelbaseLine.EndPoint, 2.5);
+
+            AddOrRegen(WheelbaseLine, Color.Orange);
+
+            AddOrRegen(WB, Color.Orange);
+
+        }
+
+        /// <summary>
+        /// Method to plot the Front the Rear Track Width's in the form of Lines and plot their corresponding dimensions
+        /// </summary>
+        /// <param name="_frontTrack">Front Track Width as input by the user</param>
+        /// <param name="_rearTrack">Rear Track Width as input by the user</param>
+        public void Init_Track(double _frontTrack, double _rearTrack)
+        {
+            Track_Front = new Line(new Point3D(_frontTrack / 2, 0, 0), new Point3D(-_frontTrack / 2, 0, 0));
+
+            Track_Rear = new Line(new Point3D(_rearTrack / 2, 0, 0), new Point3D(-_rearTrack / 2, 0, 0));
+
+            Track_Front_Dim = new LinearDim(Plane.XZ, Track_Front.StartPoint, Track_Front.EndPoint, Track_Front.EndPoint, 2.5);
+
+            Track_Rear_Dim = new LinearDim(Plane.XZ, Track_Rear.StartPoint, Track_Rear.EndPoint, Track_Rear.EndPoint, 2.5);
+
+
+
+            AddOrRegen(Track_Front, Color.Orange);
+
+            AddOrRegen(Track_Rear, Color.Orange);
+
+            AddOrRegen(Track_Front_Dim, Color.Orange);
+
+            AddOrRegen(Track_Rear_Dim, Color.Orange);
+
+
+        }
+
+        /// <summary>
+        /// Method to plot the Front and Rear Roll Center Positions in the form of Joints
+        /// </summary>
+        /// <param name="_frontRC">Front Roll Center <see cref="Point3D"/> as input by the user</param>
+        /// <param name="_rearRC">Rear Roll Center <see cref="Point3D"/> as input by the user</param>
+        public void Init_RollCenters(Point3D _frontRC, Point3D _rearRC)
+        {
+            RC_Front = new Joint(_frontRC, 6.5, 2);
+            RC_Front.ColorMethod = colorMethodType.byEntity;
+
+            AddOrRegen(RC_Front, Color.Purple);
+
+            RC_Rear = new Joint(_rearRC, 6.5, 2);
+            RC_Rear.ColorMethod = colorMethodType.byEntity;
+
+            AddOrRegen(RC_Rear, Color.Purple);
+
+        }
+
+        /// <summary>
+        /// Method to plot the Left and Right Pitch Center Position in the form of Joints
+        /// </summary>
+        /// <param name="_leftPC">Left Pitch Center <see cref="Point3D"/> as input by the user</param>
+        /// <param name="_rightPC">Right Pitch Center <see cref="Point3D"/> as input by the user</param>
+        public void Init_PitchCenters(Point3D _leftPC, Point3D _rightPC)
+        {
+            PC_Left = new Joint(_leftPC, 6.5, 2);
+            PC_Left.ColorMethod = colorMethodType.byEntity;
+
+            AddOrRegen(PC_Left, Color.Green);
+
+
+            PC_Right = new Joint(_rightPC, 6.5, 2);
+            PC_Right.ColorMethod = colorMethodType.byEntity;
+            AddOrRegen(PC_Left, Color.Green);
+
+
+        }
+
+        /// <summary>
+        ///Method to plot the Front View VSALs of any given corner
+        /// </summary>
+        /// <param name="_vsal_FV_Length">VSAL Lenght in the Front View</param>
+        /// <param name="_contactPatch">Contact Patch point of the Corner generated using Track and Wheelbase</param>
+        /// <param name="_rc">Roll Center</param>
+        public void Init_VSAL_FV(Line _fv_IC_Line, double _vsal_FV_Length, Point3D _contactPatch, Point3D _rc)
+        {
+            Segment3D FV_IC_Segment = new Segment3D(_contactPatch.Clone() as Point3D, _rc.Clone() as Point3D);
+
+
+            ///<remarks>
+            ///Need to add MINUS sign for the <paramref name="_vsal_FV_Length"/> because I am going to say that if the User wants a VSAL Length (for FL) moving towards the inside of a car then VSAL Length should be POSITIVE and if 
+            ///the VSAL is moving outside the Track then it should be MINUS. 
+            ///Since this is oppoiste to the Local Sign Convention (Positive means more leftward and hence outside the track, I need to addd MINUS sign)
+            /// </remarks>
+            Line FV_VSAL_Length = new Line(_contactPatch.Clone() as Point3D, new Point3D(-_vsal_FV_Length, _contactPatch.Y, _contactPatch.Z));
+
+
+
+
+            Angle FV_IC_VSAL = SetupChangeDatabase.AngleInRequiredView(Custom3DGeometry.GetMathNetVector3D(new Line(FV_IC_Segment)),
+                                                                       Custom3DGeometry.GetMathNetVector3D(FV_VSAL_Length),
+                                                                       Custom3DGeometry.GetMathNetVector3D(new Line(_contactPatch.Clone() as Point3D, new Point3D(_contactPatch.X, _contactPatch.Y, _contactPatch.Z + 100))));
+
+
+            Segment3D Perp_VSAL_FV = new Segment3D(FV_VSAL_Length.EndPoint.Clone() as Point3D, new Point3D(FV_VSAL_Length.EndPoint.X, FV_VSAL_Length.EndPoint.Y + (_vsal_FV_Length * Math.Tan(FV_IC_VSAL.Radians)), FV_VSAL_Length.EndPoint.Z));
+
+
+            FV_IC_Segment.ExtendTo(Perp_VSAL_FV.P1);
+
+
+            _fv_IC_Line = new Line(FV_IC_Segment);
+            _fv_IC_Line.ColorMethod = colorMethodType.byEntity;
+
+
+
+            AddOrRegen(_fv_IC_Line, Color.Purple);
+
+
+        }
+
+        /// <summary>
+        /// Method to Plot the Side View VSAL of any given corner
+        /// </summary>
+        /// <param name="_vsal_SV_Length">VSAL Lenght in the Side View</param>
+        /// <param name="_contactPatch">Contact Patch point of the Corner generated using Track and Wheelbase</param>
+        /// <param name="_pc">Pitch Center</param>
+        public void Init_VSAL_SV(Line _sv_IC_Line, double _vsal_SV_Length, Point3D _contactPatch, Point3D _pc)
+        {
+            Segment3D SV_IC_Segment = new Segment3D(_contactPatch.Clone() as Point3D, _pc.Clone() as Point3D);
+
+            ///<remarks>
+            ///Need to add MINUS sign for the <paramref name="_vsal_SV_Length"/> because I am going to say that if the User wants a VSAL Length (for FL) moving towards the inside of a car then VSAL Length should be POSITIVE and if 
+            ///the VSAL is moving outside the WHEELBASE then it should be MINUS. 
+            ///Since this is oppoiste to the Local Sign Convention (Positive means more forward and hence outside the Wheelbase, I need to addd MINUS sign)
+            /// </remarks>
+            Line SV_VSAL_Length = new Line(_contactPatch.Clone() as Point3D, new Point3D(-_vsal_SV_Length, _contactPatch.Y, _contactPatch.Z));
+
+
+            Angle SV_IC_VSAL = SetupChangeDatabase.AngleInRequiredView(Custom3DGeometry.GetMathNetVector3D(new Line(SV_IC_Segment)),
+                                                                       Custom3DGeometry.GetMathNetVector3D(SV_VSAL_Length),
+                                                                       Custom3DGeometry.GetMathNetVector3D(new Line(_contactPatch.Clone() as Point3D, new Point3D(_contactPatch.X + 100, _contactPatch.Y, _contactPatch.Z))));
+
+            Segment3D Perp_VSAL_SV = new Segment3D(SV_VSAL_Length.EndPoint.Clone() as Point3D, new Point3D(SV_VSAL_Length.EndPoint.X, SV_VSAL_Length.EndPoint.Y + (_vsal_SV_Length * Math.Tan(SV_IC_VSAL.Radians)), SV_VSAL_Length.EndPoint.Z));
+
+            SV_IC_Segment.ExtendTo(Perp_VSAL_SV.P1);
+
+            _sv_IC_Line = new Line(SV_IC_Segment);
+            _sv_IC_Line.ColorMethod = colorMethodType.byEntity;
+
+            AddOrRegen(_sv_IC_Line, Color.Green);
+
+
+        }
+
+        /// <summary>
+        /// Method to plot the Steering Axis and Align it in 3D Space according to the KPI, Caster, Mechanical Trail and Scrub Radius
+        /// </summary>
+        /// <param name="_kpi">KPI Angle</param>
+        /// <param name="_caster">Caster Angle</param>
+        /// <param name="_scrubRadius">Scrub Radius</param>
+        /// <param name="_mechTrail">Mechanical Trail</param>
+        public void Plot_SteeringAxis(Line _steeringAxis, Angle _kpi, Angle _caster, double _scrubRadius, double _mechTrail, Point3D _contactPatch)
+        {
+            _steeringAxis = new Line(_contactPatch.Clone() as Point3D, new Point3D(_contactPatch.X, _contactPatch.Y + 500, _contactPatch.Z));
+
+            _steeringAxis.Rotate(_kpi.Radians, _contactPatch, new Point3D(_contactPatch.X, _contactPatch.Y, _contactPatch.Z + 100));
+
+            _steeringAxis.Rotate(_caster.Radians, _contactPatch, new Point3D(_contactPatch.X + 100, _contactPatch.Y, _contactPatch.Z));
+
+            _steeringAxis.Translate(_scrubRadius, 0, 0);
+
+            _steeringAxis.Translate(0, 0, _mechTrail);
+            
+            AddOrRegen(_steeringAxis, Color.Red);
+
+        }
+
+        /// <summary>
+        /// Method to Plot any Outboard Point that is passed to this method
+        /// </summary>
+        /// <param name="_pointOutboard">Outboard Point to be Plotted</param>
+        public void Plot_OutboardPoint(Point3D _pointOutboard)
+        {
+            Joint tempJoint = new Joint(_pointOutboard, 5, 2);
+            tempJoint.ColorMethod = colorMethodType.byEntity;
+
+            AddOrRegen(tempJoint, Color.White);
+            
+        }
+
+        /// <summary>
+        /// Method to Plot a Planar Entity by creating a Plane using three Points.
+        /// Used t Plot the Top or Bottom Wishbone Plane
+        /// </summary>
+        /// <param name="_wishbonePlane">Plane of the pair of wishbones being considered</param>
+        /// <param name="_point1">First point making up the plane</param>
+        /// <param name="_point2">Second point making up the plane</param>
+        /// <param name="_point3">Third point making up the plane</param>
+        public void Plot_WishbonePlane(Plane _wishbonePlane, Point3D _point1, Point3D _point2, Point3D _point3)
+        {
+            _wishbonePlane = new Plane(_point1, _point2, _point3);
+
+            PlanarEntity _plane = new PlanarEntity(_wishbonePlane);
+            _plane.ColorMethod = colorMethodType.byEntity;
+
+            AddOrRegen(_plane, Color.Gold);
+        }
+
+
+
+
+
+
+
+        #endregion
+
+        #endregion
+
+        #region Coordinate Mapping and Un-Mapping methods
         #region Suspension Coordinate Mapping Functions
         Joint coordinatePoint;
         public bool MapSuspensionCoordinate()
@@ -3080,6 +3394,7 @@ namespace Coding_Attempt_with_GUI
                 return null;
             }
         }
+        #endregion 
         #endregion
 
         public void SelectMappedCoordinate(string _vehicleCorner, string _selectedCoordinate)
@@ -3109,6 +3424,9 @@ namespace Coding_Attempt_with_GUI
             }
 
         }
+
+        #region Viewport Conditioning Methods
+
 
         #region Output Imported CAD Clone operations 
         public void CloneImportedCAD(ref bool _FileHasBeenImported, ref bool _CADIsToBeImported, bool OutputIsCalling,/*, string _FileName*/Entity[] _igesEntitiesToClone)
@@ -3186,7 +3504,7 @@ namespace Coding_Attempt_with_GUI
 
             //viewportLayout1.Refresh();
 
-            
+
 
             #endregion
         }
@@ -3324,6 +3642,7 @@ namespace Coding_Attempt_with_GUI
 
         #endregion
 
+        #region Method to Release the Items SET AS CURRENT in the VIEWPORT
         /// <summary>
         /// Method to clear the <see cref="BlockReference"/> which is set as Current
         /// </summary>
@@ -3334,10 +3653,11 @@ namespace Coding_Attempt_with_GUI
 
             viewportLayout1.Update();
             viewportLayout1.Refresh();
-            
-            
-
         }
+        #endregion 
+
+
+        #endregion
 
         public void RefreshViewPort() => viewportLayout1.Refresh();
 
@@ -3647,10 +3967,11 @@ namespace Coding_Attempt_with_GUI
                 }
             }
 
-        } 
+        }
         #endregion
 
 
+        #region ---IMPORTANT--- This  method must be called EVERY TIME a Viewport is housed inside a Docking Panel
         public void ResizeVP()
         {
             viewportLayout1.Visible = false;
@@ -3659,27 +3980,29 @@ namespace Coding_Attempt_with_GUI
             Application.DoEvents();
             viewportLayout1.Size = mySize;
             viewportLayout1.Visible = true;
-        }
+        } 
+        #endregion
 
-
-
-
+        #region Serialization -- Not Used
         public CAD(SerializationInfo info, StreamingContext context)
         {
             //FileHasBeenImported = (bool)info.GetValue("FileHasBeenImported", typeof(bool));
             //CADToBeImported = (bool)info.GetValue("CADToBeImported", typeof(bool));
-            
+
         }
 
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             //info.AddValue("FileHasBeenImported", FileHasBeenImported);
             //info.AddValue("CADToBeImported", CADToBeImported);
-            
 
-        }
+
+        } 
+        #endregion
 
     }
+
+    #region Helper Enums
 
     /// <summary>
     /// Class containing <see cref="CustomData"/> of the Entities
@@ -3821,5 +4144,6 @@ namespace Coding_Attempt_with_GUI
         /// Both the Length and Colour will be scaled. 
         /// </summary>
         Both = 2
-    };
+    }; 
+    #endregion
 }

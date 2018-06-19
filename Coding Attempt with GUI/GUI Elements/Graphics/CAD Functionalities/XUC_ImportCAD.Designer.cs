@@ -296,7 +296,7 @@
             // 
             // panelContainer1
             // 
-            this.panelContainer1.ActiveChild = this.dockPanelImportSettings;
+            this.panelContainer1.ActiveChild = this.dockPanelMapSuspensionCoordinates;
             this.panelContainer1.Controls.Add(this.dockPanelImportSettings);
             this.panelContainer1.Controls.Add(this.dockPanelRotateObject);
             this.panelContainer1.Controls.Add(this.dockPanelTranslateObject);
