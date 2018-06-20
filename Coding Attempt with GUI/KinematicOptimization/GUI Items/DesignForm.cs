@@ -49,17 +49,21 @@ namespace Coding_Attempt_with_GUI
         {
             InitializeComponent();
 
+            Deactivate_AllTextboxes();
+
+            Deactivate_AllTabPages();
+
             cad1.CreateControl();
 
             cad1.viewportLayout1.ZoomFit();
 
-            wishboneInboardFL.Get_CornerVariablesObject(KO_CV_FL);
+            wishboneInboardFL.Get_ParentObjectData(KO_CV_FL, this);
 
-            wishboneInboardFL.Get_CornerVariablesObject(KO_CV_FR);
+            wishboneInboardFR.Get_ParentObjectData(KO_CV_FR, this);
 
-            wishboneInboardFL.Get_CornerVariablesObject(KO_CV_RL);
+            wishboneInboardRL.Get_ParentObjectData(KO_CV_RL, this);
 
-            wishboneInboardFL.Get_CornerVariablesObject(KO_CV_RR);
+            wishboneInboardRR.Get_ParentObjectData(KO_CV_RR, this);
 
         }
 
@@ -86,8 +90,6 @@ namespace Coding_Attempt_with_GUI
             bumpSteerCurveFL.GetParentObjectData(KO_CV_FL);
 
             bumpSteerCurveFL.GetParentObjectData(KO_CV_FR);
-
-
         }
 
 
@@ -879,7 +881,74 @@ namespace Coding_Attempt_with_GUI
         }
         #endregion
 
+        #region Pitman Trail Left
 
+        private void tbPitmanLeft_Leave(object sender, EventArgs e)
+        {
+            Set_PitmanTrail_Left();
+        }
+
+        private void tbPitmanLeft_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_PitmanTrail_Left();
+            }
+        }
+
+        private void Set_PitmanTrail_Left()
+        {
+            if (DoubleValidation(tbPitmanLeft.Text))
+            {
+
+                KO_CV_FL.PitmanTrail = Convert.ToDouble(tbPitmanLeft.Text);
+
+                if (Sus_Type.FrontSymmetry_Boolean)
+                {
+                    KO_CV_FR.PitmanTrail = Convert.ToDouble(tbPitmanLeft.Text);
+                }
+
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+        #endregion
+
+
+        #region Pitman Trail Right
+
+        private void tbPitmanRightLeave(object sender, EventArgs e)
+        {
+            Set_PitmanTrail_Right();
+        }
+
+        private void tbPitmanRight_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_PitmanTrail_Right();
+            }
+        }
+
+        private void Set_PitmanTrail_Right()
+        {
+            if (DoubleValidation(tbPitmanRight.Text))
+            {
+                KO_CV_FR.PitmanTrail = Convert.ToDouble(tbPitmanRight.Text);
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+        #endregion
+
+
+        //---END : Tab Page Vehicle Parameters---
         #endregion
 
         #region ---Tab Page - Corner Parameters - GUI Interaction---
@@ -1094,11 +1163,16 @@ namespace Coding_Attempt_with_GUI
 
                     Plot_WishbonePlane(KO_CV_FL.VCornerParams.TopWishbonePlane, KO_CV_FL.VCornerParams.UBJ, KO_CV_FL.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FL.VCornerParams.SV_IC_Line.EndPoint);
 
+                    KO_CV_FL.VCornerParams.Initialize_Dictionary();
+
                     if (Sus_Type.FrontSymmetry_Boolean)
                     {
                         KO_CV_FR.VCornerParams.UBJ = KO_CV_FR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbUBJ_FL.Text), KO_CV_FR.ContactPatch, KO_CV_FR.VCornerParams.SteeringAxis);
 
                         Plot_OutboardPoint(KO_CV_FR.VCornerParams.UBJ);
+
+                        KO_CV_FR.VCornerParams.Initialize_Dictionary();
+
                     }
                     else
                     {
@@ -1145,17 +1219,75 @@ namespace Coding_Attempt_with_GUI
 
                     Plot_WishbonePlane(KO_CV_FL.VCornerParams.BottomWishbonePlane, KO_CV_FL.VCornerParams.LBJ, KO_CV_FL.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FL.VCornerParams.SV_IC_Line.EndPoint);
 
+                    KO_CV_FL.VCornerParams.Initialize_Dictionary();
+
+
                     if (Sus_Type.FrontSymmetry_Boolean)
                     {
                         KO_CV_FR.VCornerParams.LBJ = KO_CV_FR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbUBJ_FL.Text), KO_CV_FR.ContactPatch, KO_CV_FR.VCornerParams.SteeringAxis);
 
                         Plot_OutboardPoint(KO_CV_FR.VCornerParams.LBJ);
+
+                        KO_CV_FR.VCornerParams.Initialize_Dictionary();
+
                     }
                     else
                     {
                         ///<remarks>Added in Else Block because I want the user to see the Planes on the Right only for Assymetric Suspension</remarks>
                         Plot_WishbonePlane(KO_CV_FR.VCornerParams.BottomWishbonePlane, KO_CV_FR.VCornerParams.LBJ, KO_CV_FR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FR.VCornerParams.SV_IC_Line.EndPoint);
                     }
+                }
+                else
+                {
+                    MessageBox.Show(NegativeError);
+                }
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+        #endregion
+
+        #region Wheel Center - Paramettric
+
+        private void tbWC_FL_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_WheelCenter_FL();
+            }
+        }
+
+        private void tbWC_FL_Leave(object sender, EventArgs e)
+        {
+            Set_WheelCenter_FL();
+        }
+
+        private void Set_WheelCenter_FL()
+        {
+            if (DoubleValidation(tbWC_FL.Text))
+            {
+                if (Validatepositve_Double(tbWC_FL.Text))
+                {
+                    KO_CV_FL.VCornerParams.WheelCenter = KO_CV_FL.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbWC_FL.Text), KO_CV_FL.ContactPatch, KO_CV_FL.VCornerParams.SteeringAxis);
+
+                    Plot_OutboardPoint(KO_CV_FL.VCornerParams.WheelCenter);
+
+                    KO_CV_FL.VCornerParams.Initialize_Dictionary();
+
+
+                    if (Sus_Type.FrontSymmetry_Boolean)
+                    {
+                        KO_CV_FR.VCornerParams.WheelCenter = KO_CV_FR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbWC_FL.Text), KO_CV_FR.ContactPatch, KO_CV_FR.VCornerParams.SteeringAxis);
+
+                        Plot_OutboardPoint(KO_CV_FR.VCornerParams.WheelCenter);
+
+                        KO_CV_FR.VCornerParams.Initialize_Dictionary();
+
+                    }
+
                 }
                 else
                 {
@@ -1343,6 +1475,9 @@ namespace Coding_Attempt_with_GUI
 
                     Plot_WishbonePlane(KO_CV_FR.VCornerParams.TopWishbonePlane, KO_CV_FR.VCornerParams.UBJ, KO_CV_FR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FR.VCornerParams.SV_IC_Line.EndPoint);
 
+
+                    KO_CV_FR.VCornerParams.Initialize_Dictionary();
+
                 }
                 else
                 {
@@ -1382,6 +1517,9 @@ namespace Coding_Attempt_with_GUI
 
                     Plot_WishbonePlane(KO_CV_FR.VCornerParams.BottomWishbonePlane, KO_CV_FR.VCornerParams.LBJ, KO_CV_FR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FR.VCornerParams.SV_IC_Line.EndPoint);
 
+                    KO_CV_FR.VCornerParams.Initialize_Dictionary();
+
+
                 }
                 else
                 {
@@ -1393,6 +1531,49 @@ namespace Coding_Attempt_with_GUI
                 MessageBox.Show(NumericError);
             }
         }
+
+        #endregion
+
+        #region Wheel Center - Parametric
+
+        private void tbWC_FR_Leave(object sender, EventArgs e)
+        {
+            Set_WheelCenter_FR();
+        }
+
+        private void tbWC_FR_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_WheelCenter_FR();
+            }
+        }
+
+        private void Set_WheelCenter_FR()
+        {
+            if (DoubleValidation(tbWC_FR.Text))
+            {
+                if (Validatepositve_Double(tbWC_FR.Text))
+                {
+
+                    KO_CV_FR.VCornerParams.WheelCenter = KO_CV_FR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbWC_FR.Text), KO_CV_FR.ContactPatch, KO_CV_FR.VCornerParams.SteeringAxis);
+
+                    Plot_OutboardPoint(KO_CV_FR.VCornerParams.WheelCenter);
+
+                    KO_CV_FL.VCornerParams.Initialize_Dictionary();
+
+                }
+                else
+                {
+                    MessageBox.Show(NegativeError);
+                }
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
 
         #endregion
 
@@ -1593,11 +1774,17 @@ namespace Coding_Attempt_with_GUI
 
                     Plot_WishbonePlane(KO_CV_RL.VCornerParams.TopWishbonePlane, KO_CV_RL.VCornerParams.UBJ, KO_CV_RL.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RL.VCornerParams.SV_IC_Line.EndPoint);
 
+                    KO_CV_RL.VCornerParams.Initialize_Dictionary();
+
+
                     if (Sus_Type.RearSymmetry_Boolean)
                     {
                         KO_CV_RR.VCornerParams.UBJ = KO_CV_RR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbUBJ_RL.Text), KO_CV_RR.ContactPatch, KO_CV_RR.VCornerParams.SteeringAxis);
 
                         Plot_OutboardPoint(KO_CV_RR.VCornerParams.UBJ);
+
+                        KO_CV_RR.VCornerParams.Initialize_Dictionary();
+
 
                     }
                     else
@@ -1644,11 +1831,17 @@ namespace Coding_Attempt_with_GUI
 
                     Plot_WishbonePlane(KO_CV_RL.VCornerParams.BottomWishbonePlane, KO_CV_RL.VCornerParams.LBJ, KO_CV_RL.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RL.VCornerParams.SV_IC_Line.EndPoint);
 
+
+                    KO_CV_RL .VCornerParams.Initialize_Dictionary();
+
                     if (Sus_Type.FrontSymmetry_Boolean)
                     {
                         KO_CV_RR.VCornerParams.LBJ = KO_CV_RR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbLBJ_RL.Text), KO_CV_RR.ContactPatch, KO_CV_RR.VCornerParams.SteeringAxis);
 
                         Plot_OutboardPoint(KO_CV_RR.VCornerParams.LBJ);
+
+                        KO_CV_RR.VCornerParams.Initialize_Dictionary();
+
                     }
                     else
                     {
@@ -1669,7 +1862,57 @@ namespace Coding_Attempt_with_GUI
 
         #endregion
 
+        #region Wheel Center - Parametric
 
+        private void tbWC_RL_Leave(object sender, EventArgs e)
+        {
+            Set_WheelCenter_RL();
+        }
+
+        private void tbWC_RL_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_WheelCenter_RL();
+            }
+        }
+
+        private void Set_WheelCenter_RL()
+        {
+            if (DoubleValidation(tbWC_RL.Text))
+            {
+                if (Validatepositve_Double(tbWC_RL.Text))
+                {
+                    KO_CV_RL.VCornerParams.WheelCenter = KO_CV_RL.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbWC_RL.Text), KO_CV_RL.ContactPatch, KO_CV_RL.VCornerParams.SteeringAxis);
+
+                    Plot_OutboardPoint(KO_CV_RL.VCornerParams.WheelCenter);
+
+                    KO_CV_RL.VCornerParams.Initialize_Dictionary();
+
+
+                    if (Sus_Type.FrontSymmetry_Boolean)
+                    {
+                        KO_CV_RR.VCornerParams.WheelCenter = KO_CV_RR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbWC_RL.Text), KO_CV_RR.ContactPatch, KO_CV_RR.VCornerParams.SteeringAxis);
+
+                        Plot_OutboardPoint(KO_CV_RR.VCornerParams.WheelCenter);
+
+                        KO_CV_RR.VCornerParams.Initialize_Dictionary();
+
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(NegativeError);
+                }
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+
+        #endregion
 
         #endregion
 
@@ -1834,6 +2077,7 @@ namespace Coding_Attempt_with_GUI
                     Plot_OutboardPoint(KO_CV_RR.VCornerParams.UBJ);
 
                     Plot_WishbonePlane(KO_CV_RR.VCornerParams.TopWishbonePlane, KO_CV_RR.VCornerParams.UBJ, KO_CV_RR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RR.VCornerParams.SV_IC_Line.EndPoint);
+                    KO_CV_RR.VCornerParams.Initialize_Dictionary();
 
 
                 }
@@ -1874,6 +2118,7 @@ namespace Coding_Attempt_with_GUI
                     Plot_OutboardPoint(KO_CV_RR.VCornerParams.LBJ);
 
                     Plot_WishbonePlane(KO_CV_RR.VCornerParams.BottomWishbonePlane, KO_CV_RR.VCornerParams.LBJ, KO_CV_RR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RR.VCornerParams.SV_IC_Line.EndPoint);
+                    KO_CV_RR.VCornerParams.Initialize_Dictionary();
 
 
                 }
@@ -1891,13 +2136,54 @@ namespace Coding_Attempt_with_GUI
 
         #endregion
 
+        #region Wheel Center - Parametric
+
+        private void tbWC_RR_Leave(object sender, EventArgs e)
+        {
+            Set_WheelCenter_RR();
+        }
+
+        private void tbWC_RR_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_WheelCenter_RR();
+            }
+        }
+
+        private void Set_WheelCenter_RR()
+        {
+            if (DoubleValidation(tbWC_RR.Text))
+            {
+                if (Validatepositve_Double(tbWC_RR.Text))
+                {
+                    KO_CV_RR.VCornerParams.WheelCenter = KO_CV_RR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbWC_RR.Text), KO_CV_RR.ContactPatch, KO_CV_RR.VCornerParams.SteeringAxis);
+
+                    Plot_OutboardPoint(KO_CV_RR.VCornerParams.WheelCenter);
+
+                    KO_CV_RR.VCornerParams.Initialize_Dictionary();
+
+                }
+                else
+                {
+                    MessageBox.Show(NegativeError);
+                }
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+        #endregion
+
         //--Rear Right EEN
         #endregion
 
-        //---TAB PAGE - Conrer params End
+        //---END : TAB PAGE - Conrer params---
         #endregion
 
-        //---Suspension Input Extraction Methods---
+        //---END : Suspension Input Extraction Methods---
         #endregion
 
 
@@ -2003,6 +2289,16 @@ namespace Coding_Attempt_with_GUI
             cad1.Plot_WishbonePlane(_WishbonePlane, _Point1, _Point2, _Point3);
         }
 
+        /// <summary>
+        /// Method to Plot the Inboard Point and create a Bar using it's corresponding Outboard Point
+        /// </summary>
+        /// <param name="_InboardPoint">Inboard Point</param>
+        /// <param name="_OutboardPoint">Corresponding Outboard Point</param>
+        public void Plot_InboardPoints(Point3D _InboardPoint, Point3D _OutboardPoint)
+        {
+            cad1.Plot_InboardWishbonePoint(_InboardPoint, _OutboardPoint);
+        }
+
         
         #endregion
 
@@ -2025,6 +2321,7 @@ namespace Coding_Attempt_with_GUI
             KO_CV_RL.ContactPatch.X = KO_Central.Track_Rear / 2;
 
             KO_CV_RR.ContactPatch.X = -KO_Central.Track_Rear / 2;
+
             ///<summary>Uisng the Wheelbase to Set the RearC Contact Patch</summary>
             KO_CV_RL.ContactPatch.Z = KO_Central.WheelBase;
 
@@ -2059,13 +2356,14 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
-
-        private void Set_KO_SteeringAxis()
-        {
-
-        }
         
-
+        /// <summary>
+        /// Method to compute the Outboard Toe Link Point once the ackermann and pitmann trails have been set 
+        /// </summary>
+        private void Set_OutboardToeLink()
+        {
+            KO_Central.Compute_OutboardToeLink(KO_CV_FL, KO_CV_FR, KO_CV_RL, KO_CV_RR);
+        }
 
         #endregion
 
@@ -2100,6 +2398,16 @@ namespace Coding_Attempt_with_GUI
             Sus_Type = new SuspensionType(R1);
 
             Sus_Type.Show();
+
+            if (Sus_Type.FrontSymmetry_Boolean)
+            {
+                wishboneInboardFL.Get_ParentObjectData(KO_CV_FL, KO_CV_FR, this);
+            }
+            if (Sus_Type.RearSymmetry_Boolean)
+            {
+                wishboneInboardRL.Get_ParentObjectData(KO_CV_RL, KO_CV_RR, this);
+            }
+
 
 
         }
@@ -2147,6 +2455,9 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Activating Ackermann</summary>
             tbAckermann.Enabled = true;
 
+            ///<summary>Activating Pitman Trail</summary>
+            tbPitmanLeft.Enabled = true;
+            tbPitmanRight.Enabled = true;
 
         }
 
@@ -2190,6 +2501,10 @@ namespace Coding_Attempt_with_GUI
 
             ///<summary>De-activating Ackermann</summary>
             tbAckermann.Enabled = false;
+
+            ///<summary>De-activating Pitman Trail</summary>
+            tbPitmanLeft.Enabled = false;
+            tbPitmanRight.Enabled = false;
 
         }
 
@@ -2236,10 +2551,17 @@ namespace Coding_Attempt_with_GUI
 
             layoutControlItemSV_VSAL_RR.HideToCustomization();
 
+            layoutControlItemPitman_Right.HideToCustomization();
+
             layoutControl_CornerParams_FR.Hide();
 
             layoutControl_CornerParams_RR.Hide();
 
+            wishboneInboardFR.Hide();
+
+            wishboneInboardRR.Hide();
+
+            bumpSteerCurveFR.Hide();
 
         }
 
@@ -2260,9 +2582,17 @@ namespace Coding_Attempt_with_GUI
 
             layoutControlItemSV_VSAL_RR.ShowInCustomizationForm = true;
 
+            layoutControlItemPitman_Right.ShowInCustomizationForm = true;
+
             layoutControl_CornerParams_FR.Show();
 
             layoutControl_CornerParams_RR.Show();
+
+            wishboneInboardFR.Show();
+
+            wishboneInboardRR.Show();
+
+            bumpSteerCurveFR.Show();
         }
 
 
@@ -2273,5 +2603,11 @@ namespace Coding_Attempt_with_GUI
         {
 
         }
+
+
+
+
+
+
     }
 }

@@ -515,8 +515,8 @@ namespace Coding_Attempt_with_GUI
         }
         #endregion
 
-        #region -Kinematic Solver Methods for Optimization-
-        public void Optimization_SteeringAxis(double _dTopFr, double _dTopRear, double _dBotFr, double _dBotRear, Vehicle _vehicleOut, int _identifierOut, OutputClass _ocOut, out Point3D _newUBJ, out Point3D _newLBJ)
+        #region -Kinematic Solver Methods for Setup Change Optimization-
+        public void SC_Optimization_SteeringAxis(double _dTopFr, double _dTopRear, double _dBotFr, double _dBotRear, Vehicle _vehicleOut, int _identifierOut, OutputClass _ocOut, out Point3D _newUBJ, out Point3D _newLBJ)
         {
             // TO CALCULATE THE NEW POSITION OF F i.e., TO CALCULATE F' or E' depending upon whether it is pullrod or  pushrod and if pushrod is housed by Lpper or Lower Wishbone 
             //XF1 = 0; YF1 = 0; ZF1 = 0; XE1 = 0; YE1 = 0; ZE1 = 0;
@@ -626,7 +626,7 @@ namespace Coding_Attempt_with_GUI
             else CalculateFinalMotionRatio(_ocOut, _ocOut.scmOP, true);
         }
 
-        public void Optimization_Pushrod(Vehicle _vehicleOut, int _identifierOut, OutputClass _ocOut, out Point3D _newPushrod)
+        public void SC_Optimization_Pushrod(Vehicle _vehicleOut, int _identifierOut, OutputClass _ocOut, out Point3D _newPushrod)
         {
             // TO CALCULATE THE NEW POSITION OF G i.e., TO CALCULATE G'
             // Vectors used -> G'H', G'B' & G'A'   
@@ -676,7 +676,7 @@ namespace Coding_Attempt_with_GUI
             _ocOut.scmOP.G1z = _newPushrod.Z;
         }
 
-        public void Optimization_ToeLink(double _dToeLink, Vehicle _vehicleOut, int _identifierOut, OutputClass _ocOut, out Point3D _newToeLink)
+        public void SC_Optimization_ToeLink(double _dToeLink, Vehicle _vehicleOut, int _identifierOut, OutputClass _ocOut, out Point3D _newToeLink)
         {
             // TO CALCULATE THE NEW POSITION OF M i.e., TO CALCULATE M'
             // Vectors used -> M'E', M'F' & M'N  
@@ -720,7 +720,7 @@ namespace Coding_Attempt_with_GUI
 
         }
 
-        public void Optimization_CamberMountTop(double _dCamberShims, Vehicle _vehicleOut, OutputClass _ocOut, out Point3D _newTCM)
+        public void SC_Optimization_CamberMountTop(double _dCamberShims, Vehicle _vehicleOut, OutputClass _ocOut, out Point3D _newTCM)
         {
             // TO CALCULATE THE NEW POSITION OF TCM i.e., TO CALCULATE TCM'
             // Vectors used -> TCM'F', TCM'E' & TCM'M  
@@ -756,7 +756,7 @@ namespace Coding_Attempt_with_GUI
 
         }
 
-        public void Optimization_CamberMountBottom(double _dCamberShims, Vehicle _vehicleOut, OutputClass _ocOut, out Point3D _newBCM)
+        public void SC_Optimization_CamberMountBottom(double _dCamberShims, Vehicle _vehicleOut, OutputClass _ocOut, out Point3D _newBCM)
         {
             // TO CALCULATE THE NEW POSITION OF BCM i.e., TO CALCULATE BCM'
             // Vectors used -> BCM'E', BCM'F' & BCM'M  
@@ -787,7 +787,7 @@ namespace Coding_Attempt_with_GUI
             _ocOut.scmOP.BCM1z = _newBCM.Z;
         }
 
-        public void Optimization_WheelSpindleStart(Vehicle _vehicleOut, OutputClass _ocOut, AdjustmentTools _adjTool, out Point3D _newSpindleStart)
+        public void SC_Optimization_WheelSpindleStart(Vehicle _vehicleOut, OutputClass _ocOut, AdjustmentTools _adjTool, out Point3D _newSpindleStart)
         {
             // TO CALCULATE THE NEW POSITION OF K i.e., TO CALCULATE K'
             // Vectors used -> K'TCM', K'BCM' & K'M  
@@ -820,7 +820,7 @@ namespace Coding_Attempt_with_GUI
 
         }
 
-        public void Optimization_WheelSpindleEnd(Vehicle _vehicleOut, OutputClass _ocOut, AdjustmentTools _adjTool, out Point3D _newSpindleEnd)
+        public void SC_Optimization_WheelSpindleEnd(Vehicle _vehicleOut, OutputClass _ocOut, AdjustmentTools _adjTool, out Point3D _newSpindleEnd)
         {
             // TO CALCULATE THE NEW POSITION OF L i.e., TO CALCULATE L'
             // Vectors used -> L'TCM', L'BCM' & L'M'   
@@ -854,7 +854,7 @@ namespace Coding_Attempt_with_GUI
             _ocOut.scmOP.L1z = _newSpindleEnd.Z;
         }
 
-        public void Optimization_ContatcPatch(Vehicle _vehicleOut, int _identifierOut, OutputClass _ocOut, out Point3D _newContactPatch)
+        public void SC_Optimization_ContatcPatch(Vehicle _vehicleOut, int _identifierOut, OutputClass _ocOut, out Point3D _newContactPatch)
         {
 
             //Contact Patch is seperately calculated because after an initial sweep of calculation of all points, the contact patch alone is recalculated to account for steering 
@@ -890,6 +890,239 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
         #endregion
+
+
+        //---Kinematic Design Optimization Methods
+
+
+
+        //--Bump Steer Evaluation during starting stages of Design--
+
+        ///<summary>
+        ///These computations involve a bottom up approach. That is the the assembly is assumed to be on a K&C plat where a Wheel deflectinn is applied
+        ///All the points are computed for movement of the Plate (Upwards and Downwards) 
+        ///The new Toe computed by this type of computation is the Bump Steer
+        /// </summary>
+
+        /// <summary>
+        /// <para>Method to Compute the LBJ Point during an Initial Stage Evaluation of the Bump Steer</para>
+        /// <para>This computation involves a bottom up approach. That is the the assembly is assumed to be on a K&C plat where a Wheel deflectinn is applied</para>
+        /// </summary>
+        /// <param name="_WheelDeflection">Wheel Def</param>
+        /// <param name="_newLBJ"></param>
+        public void KO_InitialStage_BumpSteer_LBJ(double _WheelDeflection, out Point3D _newLBJ)
+        {
+            _newLBJ = new Point3D();
+
+            Point3D S, T1, U1, V1, T2, U2, V2;
+
+            S = new Point3D(l_E1x, l_E1y, l_E1z);
+            T1 = new Point3D(S.X, 0, S.Z);
+            U1 = new Point3D(l_C1x, l_C1y, l_C1z);
+            V1 = new Point3D(l_D1x, l_D1y, l_D1z);
+            T2 = new Point3D(T1.X, T1.Y + _WheelDeflection, T1.Z);
+            U2 = new Point3D(l_C1x, l_C1y, l_C1z);
+            V2 = new Point3D(l_D1x, l_D1y, l_D1z);
+
+            ///<remarks>
+            ///The parameter <see cref="check1Y"/> of <see cref="QuadraticEquationSolver"/>'s Solver method 
+            ///is set to <see cref="T2.Y"/> because the LBJ can NEVER be below the Plate on which the Wheel (and hence the LBJ) rests
+            ///</remarks>
+            QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, T2.Y, false, out _newLBJ);
+
+        }
+
+
+        public void KO_InitialStage_BumpSteeer_UBJ(Point3D _newLBJ, out Point3D _newUBJ)
+        {
+            _newUBJ = new Point3D();
+
+            Point3D S, T1, U1, V1, T2, U2, V2;
+
+            S = new Point3D(l_F1x, l_F1y, l_F1z);
+            T1 = new Point3D(l_E1x, l_E1y, l_E1z);
+            U1 = new Point3D(l_A1x, l_A1y, l_A1z);
+            V1 = new Point3D(l_B1x, l_B1y, l_B1z);
+            T2 = new Point3D(_newLBJ.X, _newLBJ.Y, _newLBJ.Z);
+            U2 = new Point3D(l_A1x, l_A1y, l_A1z);
+            V2 = new Point3D(l_B1x, l_B1y, l_B1z);
+
+            QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, _newLBJ.Y, false, out _newUBJ);
+
+        }
+
+        public void KO_InitialStage_BumpSteer_ToeLinnkOutboard(double _wheelDeflection, Point3D _newLBJ, Point3D _newUBJ, out Point3D _toeLinkOutboard)
+        {
+            _toeLinkOutboard = new Point3D();
+
+            Point3D S, T1, U1, V1, T2, U2, V2;
+
+            S = new Point3D(l_M1x, l_M1y, l_M1z);
+            T1 = new Point3D(l_E1x, l_E1y, l_E1z);
+            U1 = new Point3D(l_F1x, l_F1y, l_F1z);
+            V1 = new Point3D(l_N1x,l_N1y,l_N1z);
+            T2 = new Point3D(_newLBJ.X, _newLBJ.Y, _newLBJ.Z);
+            U2 = new Point3D(_newUBJ.X, _newUBJ.Y, _newUBJ.Z);
+            V2 = new Point3D(l_N1x, l_N1y, l_N1z);
+
+            ///<remarks>
+            ///The parameter <see cref="check1Y"/> of <see cref="QuadraticEquationSolver"/>'s Solver method 
+            ///is set to <see cref="_wheelDeflection"/> because the ToeLinkOutboard can NEVER be below the Plate on which the Wheel (and hence the ToeLinkOutboard) rests
+            ///</remarks>
+            QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, _wheelDeflection, false, out _toeLinkOutboard);
+
+        }
+
+        public void KO_InitialStage_BumpSteer_WheelCenter(Point3D _newLBJ, Point3D _newUBJ, Point3D _newToeLinkOutboard, out Point3D _wheelCenter)
+        {
+            _wheelCenter = new Point3D();
+
+            Point3D S, T1, U1, V1, T2, U2, V2;
+
+            S = new Point3D(l_K1x, l_K1y, l_K1z);
+            T1 = new Point3D(l_E1x, l_E1y, l_E1z);
+            U1 = new Point3D(l_F1x, l_F1y, l_F1z);
+            V1 = new Point3D(l_M1x, l_M1y, l_M1z);
+            T2 = new Point3D(_newLBJ.X, _newLBJ.Y, _newLBJ.Z);
+            U2 = new Point3D(_newUBJ.X, _newUBJ.Y, _newUBJ.Z);
+            V2 = new Point3D(_newToeLinkOutboard.X, _newToeLinkOutboard.Y, _newToeLinkOutboard.Z);
+
+
+            QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, _newLBJ.Y, false, out _wheelCenter);
+
+        }
+
+
+        public void KO_InitialStage_BumpSteer_WheelSpindleEnd(Point3D _newLBJ, Point3D _newWheelCenter, Point3D _newToeLinkOutboard, out Point3D _wheelSpindleEnd)
+        {
+            _wheelSpindleEnd = new Point3D();
+
+            Point3D S, T1, U1, V1, T2, U2, V2;
+
+            S = new Point3D(L1x, L1y, L1z);
+            T1 = new Point3D(l_E1x, l_E1y, l_E1z);
+            U1 = new Point3D(l_K1x, l_K1y, l_K1z);
+            V1 = new Point3D(l_M1x, l_M1y, l_M1z);
+            T2 = new Point3D(_newLBJ.X, _newLBJ.Y, _newLBJ.Z);
+            U2 = new Point3D(_newWheelCenter.X, _newWheelCenter.Y, _newWheelCenter.Z);
+            V2 = new Point3D(_newToeLinkOutboard.X, _newToeLinkOutboard.Y, _newToeLinkOutboard.Z);
+
+
+            QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, _newLBJ.Y, false, out _wheelSpindleEnd);
+        }
+
+        public void KO_InitialStage_BumpSteer_ContactPatch(Point3D _newLBJ, Point3D _newWheelCenter, Point3D _newToeLinkOutboard, out Point3D _contactPatch)
+        {
+            _contactPatch = new Point3D();
+
+            Point3D S, T1, U1, V1, T2, U2, V2;
+
+            S = new Point3D(L1x, L1y, L1z);
+            T1 = new Point3D(l_E1x, l_E1y, l_E1z);
+            U1 = new Point3D(l_K1x, l_K1y, l_K1z);
+            V1 = new Point3D(l_M1x, l_M1y, l_M1z);
+            T2 = new Point3D(_newLBJ.X, _newLBJ.Y, _newLBJ.Z);
+            U2 = new Point3D(_newWheelCenter.X, _newWheelCenter.Y, _newWheelCenter.Z);
+            V2 = new Point3D(_newToeLinkOutboard.X, _newToeLinkOutboard.Y, _newToeLinkOutboard.Z);
+
+
+            QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, _newLBJ.Y, true, out _contactPatch);
+        }
+
+
+        #region Method to Calculate the Antiroll Bar Droop Link Forces
+        private void ArbDroopLinkForce(OutputClass _ocARB)
+        {
+            ///<remarks>
+            ///Declaring the Reaction Froces of the Bell Crank about the Pivot. Since it is a bearing which is present along the Z Axis, Mz is 0
+            ///Rx is also zero because it is a Hinge Support and hence there is no reaction force along the Lateral Axis
+            /// </remarks>
+            double Ry, Rz, Mx, My;
+
+            #region Initializng the Position Vectors
+            ///<remarks>
+            ///Represent the Position Vectors of the Damper, ARB and Pushrod Points on the bellcrank. They are the position vectors with respect to the Pivot Point, I
+            /// </remarks>
+            Vector3D Position_JI = new Vector3D(_ocARB.scmOP.J1x - _ocARB.scmOP.I1x, _ocARB.scmOP.J1y - _ocARB.scmOP.I1y, _ocARB.scmOP.J1z - _ocARB.scmOP.I1z);
+            Vector3D Position_OI = new Vector3D(_ocARB.scmOP.O1x - _ocARB.scmOP.I1x, _ocARB.scmOP.O1y - _ocARB.scmOP.I1y, _ocARB.scmOP.O1z - _ocARB.scmOP.I1z);
+            Vector3D Position_HI = new Vector3D(_ocARB.scmOP.H1x - _ocARB.scmOP.I1x, _ocARB.scmOP.H1y - _ocARB.scmOP.I1y, _ocARB.scmOP.H1z - _ocARB.scmOP.I1z);
+
+            ///<remarks>
+            ///Represent the Position Vectos of the Arb link and of the Damper Link . Basically, this is the position vector represent the entire link from start point to end point
+            /// </remarks>
+            Vector3D Position_OP = new Vector3D(_ocARB.scmOP.O1x - _ocARB.scmOP.P1x, _ocARB.scmOP.O1y - _ocARB.scmOP.P1y, _ocARB.scmOP.O1z - _ocARB.scmOP.P1z);
+            Vector3D Position_JJo = new Vector3D(_ocARB.scmOP.J1x - _ocARB.scmOP.JO1x, _ocARB.scmOP.J1y - _ocARB.scmOP.JO1y, _ocARB.scmOP.J1z - _ocARB.scmOP.JO1z);
+
+            ///<remarks>
+            ///Represents the Vector configuration of the Pushrod Forcd
+            /// </remarks>
+            Vector3D PushrodForce = new Vector3D(_ocARB.PushRod_x, _ocARB.PushRod_y, _ocARB.PushRod_z);
+            ///<remarks> If the Damper Force assignment below doesn't work then just multiply Pushrod with the Motion Ratio</remarks>
+            Vector3D DamperForce = new Vector3D(_ocARB.DamperForce_x, _ocARB.DamperForce_y, _ocARB.DamperForce_z);
+            #endregion
+
+            ///<remarks>
+            ///Calculating the cross products
+            /// </remarks>
+            Vector3D Cross_JIxDamperForce = Position_JI.CrossProduct(DamperForce);
+            Vector3D Cross_OIxOP = Position_OI.CrossProduct(Position_OP);
+            Vector3D Cross_HIxPushrod = Position_HI.CrossProduct(PushrodForce);
+
+
+            Matrix<double> LHS = Matrix<double>.Build.DenseOfArray(new double[,]
+                {
+                    { Position_OP.X, 1, 0, 0, 0, 0},
+                    { Position_OP.Y, 0, 1, 0, 0, 0},
+                    { Position_OP.Z, 0, 0, 1, 0, 0},
+                    { Cross_OIxOP.X, 0, 0, 0, 1, 0},
+                    { Cross_OIxOP.Y, 0, 0, 0, 0, 1},
+                    { Cross_OIxOP.Z, 0, 0, 0, 0, 0}
+                });
+
+            ///<remarks>
+            ///Initializing the RHS Matrix. Negative sign is added to show translation from LHS to RHS
+            /// </remarks>
+            Vector<double> RHS = Vector<double>.Build.Dense(new double[]
+                {
+                    -(DamperForce.X          +   PushrodForce.X),
+                    -(DamperForce.Y          +   PushrodForce.Y),
+                    -(DamperForce.Z          +   PushrodForce.Z),
+                    -(Cross_JIxDamperForce.X +   Cross_HIxPushrod.X),
+                    -(Cross_JIxDamperForce.Y +   Cross_HIxPushrod.Y),
+                    -(Cross_JIxDamperForce.Z +   Cross_HIxPushrod.Z)
+                });
+
+            Vector<double> Result = LHS.Solve(RHS);
+
+            _ocARB.ARBDroopLink = Result[0] * Position_OP.Length;
+            _ocARB.ARBDroopLink_x = _ocARB.ARBDroopLink * (Position_OP.X / Position_OP.Length);
+            _ocARB.ARBDroopLink_y = _ocARB.ARBDroopLink * (Position_OP.Y / Position_OP.Length);
+            _ocARB.ARBDroopLink_z = _ocARB.ARBDroopLink * (Position_OP.Z / Position_OP.Length);
+
+
+        }
+        #endregion
+
+        #region Method to Assign the Lateral, Longitudinal and Vertical Load fro the Load Case
+        /// <summary>
+        /// This method assigns the Forces and Moments that the user has defined (or predefined) during the Load Case creation
+        /// </summary>
+        /// <param name="_latForce">Total Tire Lateral Force as calculated from the Load Case</param>
+        /// <param name="_longForce">Total Tire Longitudinal Force as calculated from the Load Case</param>
+        /// <param name="_vertForce">Total Tire Vertical Force as calculated from the Load Case</param>
+        /// <param name="_mx">Tire Overturning Moment as defined in the Load Case</param>
+        /// <param name="_mz">Tire Self-Aligning Torque as defined in the Load Case</param>
+        public void AssignLoadCaseDW(double _latForce, double _longForce, double _vertForce, double _mx, double _mz)
+        {
+            LatForce = _latForce;
+            LongForce = _longForce;
+            VerticalForce = _vertForce;
+            Mx = _mx;
+            Mz = _mz;
+        }
+        #endregion
+
+        #region Kinematics - Double Wishbone
 
         #region Remaining Outboard Points
         /// <summary>
@@ -1051,101 +1284,6 @@ namespace Coding_Attempt_with_GUI
 
         }
         #endregion
-
-        #region Method to Calculate the Antiroll Bar Droop Link Forces
-        private void ArbDroopLinkForce(OutputClass _ocARB)
-        {
-            ///<remarks>
-            ///Declaring the Reaction Froces of the Bell Crank about the Pivot. Since it is a bearing which is present along the Z Axis, Mz is 0
-            ///Rx is also zero because it is a Hinge Support and hence there is no reaction force along the Lateral Axis
-            /// </remarks>
-            double Ry, Rz, Mx, My;
-
-            #region Initializng the Position Vectors
-            ///<remarks>
-            ///Represent the Position Vectors of the Damper, ARB and Pushrod Points on the bellcrank. They are the position vectors with respect to the Pivot Point, I
-            /// </remarks>
-            Vector3D Position_JI = new Vector3D(_ocARB.scmOP.J1x - _ocARB.scmOP.I1x, _ocARB.scmOP.J1y - _ocARB.scmOP.I1y, _ocARB.scmOP.J1z - _ocARB.scmOP.I1z);
-            Vector3D Position_OI = new Vector3D(_ocARB.scmOP.O1x - _ocARB.scmOP.I1x, _ocARB.scmOP.O1y - _ocARB.scmOP.I1y, _ocARB.scmOP.O1z - _ocARB.scmOP.I1z);
-            Vector3D Position_HI = new Vector3D(_ocARB.scmOP.H1x - _ocARB.scmOP.I1x, _ocARB.scmOP.H1y - _ocARB.scmOP.I1y, _ocARB.scmOP.H1z - _ocARB.scmOP.I1z);
-
-            ///<remarks>
-            ///Represent the Position Vectos of the Arb link and of the Damper Link . Basically, this is the position vector represent the entire link from start point to end point
-            /// </remarks>
-            Vector3D Position_OP = new Vector3D(_ocARB.scmOP.O1x - _ocARB.scmOP.P1x, _ocARB.scmOP.O1y - _ocARB.scmOP.P1y, _ocARB.scmOP.O1z - _ocARB.scmOP.P1z);
-            Vector3D Position_JJo = new Vector3D(_ocARB.scmOP.J1x - _ocARB.scmOP.JO1x, _ocARB.scmOP.J1y - _ocARB.scmOP.JO1y, _ocARB.scmOP.J1z - _ocARB.scmOP.JO1z);
-
-            ///<remarks>
-            ///Represents the Vector configuration of the Pushrod Forcd
-            /// </remarks>
-            Vector3D PushrodForce = new Vector3D(_ocARB.PushRod_x, _ocARB.PushRod_y, _ocARB.PushRod_z);
-            ///<remarks> If the Damper Force assignment below doesn't work then just multiply Pushrod with the Motion Ratio</remarks>
-            Vector3D DamperForce = new Vector3D(_ocARB.DamperForce_x, _ocARB.DamperForce_y, _ocARB.DamperForce_z);
-            #endregion
-
-            ///<remarks>
-            ///Calculating the cross products
-            /// </remarks>
-            Vector3D Cross_JIxDamperForce = Position_JI.CrossProduct(DamperForce);
-            Vector3D Cross_OIxOP = Position_OI.CrossProduct(Position_OP);
-            Vector3D Cross_HIxPushrod = Position_HI.CrossProduct(PushrodForce);
-
-
-            Matrix<double> LHS = Matrix<double>.Build.DenseOfArray(new double[,]
-                {
-                    { Position_OP.X, 1, 0, 0, 0, 0},
-                    { Position_OP.Y, 0, 1, 0, 0, 0},
-                    { Position_OP.Z, 0, 0, 1, 0, 0},
-                    { Cross_OIxOP.X, 0, 0, 0, 1, 0},
-                    { Cross_OIxOP.Y, 0, 0, 0, 0, 1},
-                    { Cross_OIxOP.Z, 0, 0, 0, 0, 0}
-                });
-
-            ///<remarks>
-            ///Initializing the RHS Matrix. Negative sign is added to show translation from LHS to RHS
-            /// </remarks>
-            Vector<double> RHS = Vector<double>.Build.Dense(new double[]
-                {
-                    -(DamperForce.X          +   PushrodForce.X),
-                    -(DamperForce.Y          +   PushrodForce.Y),
-                    -(DamperForce.Z          +   PushrodForce.Z),
-                    -(Cross_JIxDamperForce.X +   Cross_HIxPushrod.X),
-                    -(Cross_JIxDamperForce.Y +   Cross_HIxPushrod.Y),
-                    -(Cross_JIxDamperForce.Z +   Cross_HIxPushrod.Z)
-                });
-
-            Vector<double> Result = LHS.Solve(RHS);
-
-            _ocARB.ARBDroopLink = Result[0] * Position_OP.Length;
-            _ocARB.ARBDroopLink_x = _ocARB.ARBDroopLink * (Position_OP.X / Position_OP.Length);
-            _ocARB.ARBDroopLink_y = _ocARB.ARBDroopLink * (Position_OP.Y / Position_OP.Length);
-            _ocARB.ARBDroopLink_z = _ocARB.ARBDroopLink * (Position_OP.Z / Position_OP.Length);
-
-
-        }
-        #endregion
-
-        #region Method to Assign the Lateral, Longitudinal and Vertical Load fro the Load Case
-        /// <summary>
-        /// This method assigns the Forces and Moments that the user has defined (or predefined) during the Load Case creation
-        /// </summary>
-        /// <param name="_latForce">Total Tire Lateral Force as calculated from the Load Case</param>
-        /// <param name="_longForce">Total Tire Longitudinal Force as calculated from the Load Case</param>
-        /// <param name="_vertForce">Total Tire Vertical Force as calculated from the Load Case</param>
-        /// <param name="_mx">Tire Overturning Moment as defined in the Load Case</param>
-        /// <param name="_mz">Tire Self-Aligning Torque as defined in the Load Case</param>
-        public void AssignLoadCaseDW(double _latForce, double _longForce, double _vertForce, double _mx, double _mz)
-        {
-            LatForce = _latForce;
-            LongForce = _longForce;
-            VerticalForce = _vertForce;
-            Mx = _mx;
-            Mz = _mz;
-        }
-        #endregion
-
-        #region Kinematics - Double Wishbone
-
 
         public void AssignOptimizedSteeringPoints()
         {

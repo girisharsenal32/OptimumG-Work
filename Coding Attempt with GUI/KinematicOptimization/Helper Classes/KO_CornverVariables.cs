@@ -103,6 +103,11 @@ namespace Coding_Attempt_with_GUI
         public double VSAL_SV { get; set; }
 
         /// <summary>
+        /// Pitman Trail to compute the Outboard Toe Link Point
+        /// </summary>
+        public double PitmanTrail { get; set; }
+
+        /// <summary>
         /// <see cref="Point3D"/> representing the Contact Patch Initialized using the Track and Wheelbase
         /// </summary>
         public Point3D ContactPatch { get; set; }
@@ -117,7 +122,6 @@ namespace Coding_Attempt_with_GUI
         #endregion
         
         
-
         #endregion
 
 
@@ -246,6 +250,37 @@ namespace Coding_Attempt_with_GUI
 
             return tempPoint;
         }
+
+        /// <summary>
+        /// Method to complete a Point by using 2 Coordinates (passed as Input) and computing the 3rd Coordinate using the Equation of the Plane it lies in
+        /// </summary>
+        /// <param name="_wishbonePlane">Plane on which the Point lies in</param>
+        /// <param name="_inputFormat">Format the user wishes to use for computing the Point</param>
+        /// <param name="_pointToBeComputed">Point to be computed (with 2 coordinates input by the user)</param>
+        /// <returns>Returns fully computed point</returns>
+        public Point3D Compute_PointOnPlane(Plane _wishbonePlane, InboardInputFormat _inputFormat, Point3D _pointToBeComputed)
+        {
+            PlaneEquation _wishPlaneEq = _wishbonePlane.Equation;
+
+            double[] _wishPlaneEqArray = _wishPlaneEq.ToArray();
+
+            if (_inputFormat == InboardInputFormat.IIO)
+            {
+                _pointToBeComputed.Z = -((_wishPlaneEqArray[0] * +_pointToBeComputed.X) + (_wishPlaneEqArray[1] * +_pointToBeComputed.Y) + (_wishPlaneEqArray[3]));
+            }
+            else if (_inputFormat == InboardInputFormat.IOI)
+            {
+                _pointToBeComputed.Y = -((_wishPlaneEqArray[0] * +_pointToBeComputed.X) + (_wishPlaneEqArray[2] * +_pointToBeComputed.Z) + (_wishPlaneEqArray[3]));
+            }
+            else
+            {
+                _pointToBeComputed.X = -((_wishPlaneEqArray[1] * +_pointToBeComputed.Y) + (_wishPlaneEqArray[2] * +_pointToBeComputed.Z) + (_wishPlaneEqArray[3]));
+            }
+
+            return _pointToBeComputed;
+
+        }
+
 
 
 

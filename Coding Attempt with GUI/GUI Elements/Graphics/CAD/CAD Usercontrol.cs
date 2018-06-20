@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using devDept.Eyeshot;
@@ -3057,7 +3058,7 @@ namespace Coding_Attempt_with_GUI
             Joint tempJoint = new Joint(_pointOutboard, 5, 2);
             tempJoint.ColorMethod = colorMethodType.byEntity;
 
-            AddOrRegen(tempJoint, Color.White);
+            AddOrRegen(tempJoint, Color.Red);
             
         }
 
@@ -3079,7 +3080,23 @@ namespace Coding_Attempt_with_GUI
             AddOrRegen(_plane, Color.Gold);
         }
 
+        /// <summary>
+        /// Method to Plot the required Inboard Point and create a Bar using the Outboard Point which is passed 
+        /// </summary>
+        /// <param name="_inboardPoint">Inboard Point input by the User</param>
+        /// <param name="_corresOutboardPoint">Corresponding Outboard Point</param>
+        public void Plot_InboardWishbonePoint(Point3D _inboardPoint, Point3D _corresOutboardPoint)
+        {
+            Joint inboardJoint = new Joint(_inboardPoint, 5, 2);
+            inboardJoint.ColorMethod = colorMethodType.byEntity;
 
+            Bar wishboneArm = new Bar(_inboardPoint, _corresOutboardPoint, 4.5, 8);
+            wishboneArm.ColorMethod = colorMethodType.byEntity;
+
+            AddOrRegen(inboardJoint, Color.White);
+
+            AddOrRegen(wishboneArm, Color.Orange);
+        }
 
 
 

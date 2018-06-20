@@ -1547,42 +1547,42 @@ namespace Coding_Attempt_with_GUI
             ///<summary>
             /// ---Points F & E (UBJ and LBJ) computed with the new Link Lengths which have been proposed by the Optimizer. 
             /// </summary>
-            dwSolver.Optimization_SteeringAxis(ga_TopFront, ga_TopRear, ga_BottomFront, ga_BottomRear, Vehicle, Identifier, tempOC, out MathNet.Spatial.Euclidean.Point3D F, out MathNet.Spatial.Euclidean.Point3D E);
+            dwSolver.SC_Optimization_SteeringAxis(ga_TopFront, ga_TopRear, ga_BottomFront, ga_BottomRear, Vehicle, Identifier, tempOC, out MathNet.Spatial.Euclidean.Point3D F, out MathNet.Spatial.Euclidean.Point3D E);
 
             ///<summary>
             ///---Point G (Pushrod)
             /// </summary>
-            dwSolver.Optimization_Pushrod(Vehicle, Identifier, tempOC, out MathNet.Spatial.Euclidean.Point3D G);
+            dwSolver.SC_Optimization_Pushrod(Vehicle, Identifier, tempOC, out MathNet.Spatial.Euclidean.Point3D G);
 
             ///<summary>
             ///Point M (Toe Link) computed with the new Toe Link Inboard (N) point proposed by the Optimize
             ///</summary>
-            dwSolver.Optimization_ToeLink(ga_ToeLink, Vehicle, Identifier, tempOC, out MathNet.Spatial.Euclidean.Point3D M);
+            dwSolver.SC_Optimization_ToeLink(ga_ToeLink, Vehicle, Identifier, tempOC, out MathNet.Spatial.Euclidean.Point3D M);
 
             ///<summary>
             ///Point TCM (Camber Mount Top) computed with the new Shim Vector Length proposd by the Optimizer
             /// </summary>
-            dwSolver.Optimization_CamberMountTop(ga_TopCamberShims, Vehicle, tempOC, out MathNet.Spatial.Euclidean.Point3D TCM);
+            dwSolver.SC_Optimization_CamberMountTop(ga_TopCamberShims, Vehicle, tempOC, out MathNet.Spatial.Euclidean.Point3D TCM);
 
             ///<summary>
             ///Point BCM (Camber Mount Bottom) computed with the new Shim Vector Length proposd by the Optimizer
             /// </summary>
-            dwSolver.Optimization_CamberMountBottom(ga_BottomCamberShims, Vehicle, tempOC, out MathNet.Spatial.Euclidean.Point3D BCM);
+            dwSolver.SC_Optimization_CamberMountBottom(ga_BottomCamberShims, Vehicle, tempOC, out MathNet.Spatial.Euclidean.Point3D BCM);
 
             ///<summary>
             ///Point K (Wheel Spindle Start)
             /// </summary>
-            dwSolver.Optimization_WheelSpindleStart(Vehicle, tempOC, AdjustmentTools.TopCamberMount, out MathNet.Spatial.Euclidean.Point3D K);
+            dwSolver.SC_Optimization_WheelSpindleStart(Vehicle, tempOC, AdjustmentTools.TopCamberMount, out MathNet.Spatial.Euclidean.Point3D K);
 
             ///<summary>
             ///Point L (Wheel Spindle End)
             /// </summary>
-            dwSolver.Optimization_WheelSpindleEnd(Vehicle, tempOC, AdjustmentTools.TopCamberMount, out MathNet.Spatial.Euclidean.Point3D L);
+            dwSolver.SC_Optimization_WheelSpindleEnd(Vehicle, tempOC, AdjustmentTools.TopCamberMount, out MathNet.Spatial.Euclidean.Point3D L);
 
             ///<summary>
             ///Point W (Contact Patch)
             /// </summary>
-            dwSolver.Optimization_ContatcPatch(Vehicle, Identifier, tempOC, out MathNet.Spatial.Euclidean.Point3D W);
+            dwSolver.SC_Optimization_ContatcPatch(Vehicle, Identifier, tempOC, out MathNet.Spatial.Euclidean.Point3D W);
 
             ///<summary>Assigning all the computed points to a the <see cref="UnsprungAssembly"/> dictionary</summary>
             UnsprungAssembly["UBJ"].OptimizedCoordinates = new Point3D(F.X, F.Y, F.Z);
@@ -1875,7 +1875,7 @@ namespace Coding_Attempt_with_GUI
         }
 
         /// <summary>
-        /// Method to Extract the Toe Angles from the <see cref="OutputClass"/> and collate it inot the <see cref="Calc_BumpSteerGraph"/> list to be compared 
+        /// Method to Extract the Toe Angles from the <see cref="OutputClass"/> and collate it into the <see cref="Calc_BumpSteerGraph"/> list to be compared 
         /// </summary>
         /// <param name="_oc"></param>
         private void ExtractToeAngles(List<OutputClass> _oc)

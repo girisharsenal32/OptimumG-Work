@@ -221,11 +221,12 @@
     </Compile>
     <Compile Include="KinematicOptimization\KO.cs" />
     <Compile Include="KinematicOptimization\KO_GUI.cs" />
-    <Compile Include="KO_DesignForm_AArmInboard.cs">
+    <Compile Include="KO_Solver.cs" />
+    <Compile Include="Wishbone Inboard Input.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="KO_DesignForm_AArmInboard.Designer.cs">
-      <DependentUpon>KO_DesignForm_AArmInboard.cs</DependentUpon>
+    <Compile Include="Wishbone Inboard Input.Designer.cs">
+      <DependentUpon>Wishbone Inboard Input.cs</DependentUpon>
     </Compile>
     <Compile Include="Solvers\OptimizationAlgorithms\KO_Optimizer.cs" />
     <Compile Include="KinematicOptimization\Outputs\KO_Outputs.cs" />
@@ -640,8 +641,8 @@
     <EmbeddedResource Include="KinematicOptimization\ParametersAndImportance.resx">
       <DependentUpon>ParametersAndImportance.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="KO_DesignForm_AArmInboard.resx">
-      <DependentUpon>KO_DesignForm_AArmInboard.cs</DependentUpon>
+    <EmbeddedResource Include="Wishbone Inboard Input.resx">
+      <DependentUpon>Wishbone Inboard Input.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SetupChange\BumpSteerCurve.resx">
       <DependentUpon>BumpSteerCurve.cs</DependentUpon>

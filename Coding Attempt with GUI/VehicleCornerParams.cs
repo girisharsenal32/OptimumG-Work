@@ -202,9 +202,9 @@ namespace Coding_Attempt_with_GUI
         public VehicleCornerParams() {}
 
         /// <summary>
-        /// Method to Initialize ALL the <see cref="Point3D"/>s and correspondong <see cref="Dictionary{String, Point3D}"/>s of the <see cref="VehicleCornerParams"/> Class
+        /// Method to Initialize ALL the <see cref="Point3D"/>s using a <see cref="SuspensionCoordinatesMaster"/> object
         /// </summary>
-        public void Initialize_Points()
+        public void Initialize_Points(SuspensionCoordinatesMaster _scm)
         {
             OutboardAssembly = new Dictionary<string, Point3D>();
 
@@ -213,35 +213,35 @@ namespace Coding_Attempt_with_GUI
             ///---INBOARD POINTS
 
             ///Upper Front
-            UpperFront = new Point3D(SCM.A1x, SCM.A1y, SCM.A1z);
+            UpperFront = new Point3D(_scm.A1x, _scm.A1y, _scm.A1z);
             InboardAssembly.Add(CoordinateOptions.UpperFront.ToString(), UpperFront);
 
             ///Upper Rear
-            UpperRear = new Point3D(SCM.B1x, SCM.B1y, SCM.B1z);
+            UpperRear = new Point3D(_scm.B1x, _scm.B1y, _scm.B1z);
             InboardAssembly.Add(CoordinateOptions.UpperRear.ToString(), UpperRear);
 
             ///Lower Front
-            LowerFront = new Point3D(SCM.D1x, SCM.D1y, SCM.D1z);
+            LowerFront = new Point3D(_scm.D1x, _scm.D1y, _scm.D1z);
             InboardAssembly.Add(CoordinateOptions.LowerFront.ToString(), LowerFront);
 
             ///Lower Rear
-            LowerRear = new Point3D(SCM.C1x, SCM.C1y, SCM.C1z);
+            LowerRear = new Point3D(_scm.C1x, _scm.C1y, _scm.C1z);
             InboardAssembly.Add(CoordinateOptions.LowerRear.ToString(), LowerRear);
 
             ///Toe Link Inboard
-            ToeLinkInboard = new Point3D(SCM.N1x, SCM.N1y, SCM.N1z);
+            ToeLinkInboard = new Point3D(_scm.N1x, _scm.N1y, _scm.N1z);
             InboardAssembly.Add(CoordinateOptions.ToeLinkInboard.ToString(), ToeLinkInboard);
 
             ///Pushrod Inboard
-            PushrodInboard = new Point3D(SCM.H1x, SCM.H1y, SCM.H1z);
+            PushrodInboard = new Point3D(_scm.H1x, _scm.H1y, _scm.H1z);
             InboardAssembly.Add(CoordinateOptions.PushrodInboard.ToString(), PushrodInboard);
 
             ///Damper BellCrank
-            DamperBellCrank = new Point3D(SCM.J1x, SCM.J1y, SCM.J1z);
+            DamperBellCrank = new Point3D(_scm.J1x, _scm.J1y, _scm.J1z);
             InboardAssembly.Add(CoordinateOptions.DamperBellCrank.ToString(), DamperBellCrank);
 
             ///Damper Chassis Shock Mount
-            DamperShockMount = new Point3D(SCM.JO1x, SCM.JO1y, SCM.JO1z);
+            DamperShockMount = new Point3D(_scm.JO1x, _scm.JO1y, _scm.JO1z);
             InboardAssembly.Add(CoordinateOptions.DamperShockMount.ToString(), DamperShockMount);
 
 
@@ -249,39 +249,39 @@ namespace Coding_Attempt_with_GUI
             
 
             ///UBJ
-            UBJ = new Point3D(SCM.F1x, SCM.F1y, SCM.F1z);
+            UBJ = new Point3D(_scm.F1x, _scm.F1y, _scm.F1z);
             OutboardAssembly.Add(CoordinateOptions.UBJ.ToString(), UBJ);
 
             ///Top Camber Mount
-            TopCamberMount = new Point3D(SCM.TCM1x, SCM.TCM1y, SCM.TCM1z);
+            TopCamberMount = new Point3D(_scm.TCM1x, _scm.TCM1y, _scm.TCM1z);
             OutboardAssembly.Add(CoordinateOptions.TopCamberMount.ToString(), /*UBJ.Clone() as Point3D*/ TopCamberMount);
 
             ///Pushrod Outboard
-            PushrodOutboard = new Point3D(SCM.G1x, SCM.G1y, SCM.G1z);
+            PushrodOutboard = new Point3D(_scm.G1x, _scm.G1y, _scm.G1z);
             OutboardAssembly.Add(CoordinateOptions.PushrodOutboard.ToString(), PushrodOutboard);
 
             ///LBJ
-            LBJ = new Point3D(SCM.E1x, SCM.E1y, SCM.E1z);
+            LBJ = new Point3D(_scm.E1x, _scm.E1y, _scm.E1z);
             OutboardAssembly.Add(CoordinateOptions.LBJ.ToString(), LBJ);
 
             ///Bottom Camber Mount
-            BottomCamberMount = new Point3D(SCM.BCM1x, SCM.BCM1y, SCM.BCM1z);
+            BottomCamberMount = new Point3D(_scm.BCM1x, _scm.BCM1y, _scm.BCM1z);
             OutboardAssembly.Add(CoordinateOptions.BottomCamberMount.ToString(), BottomCamberMount);
 
             ///Wheel Center
-            WheelCenter = new Point3D(SCM.K1x, SCM.K1y, SCM.K1z);
+            WheelCenter = new Point3D(_scm.K1x, _scm.K1y, _scm.K1z);
             OutboardAssembly.Add(CoordinateOptions.WheelCenter.ToString(), WheelCenter);
 
             ///Wheel Spindle End
-            WcEnd = new Point3D(SCM.L1x, SCM.L1y, SCM.L1z);
+            WcEnd = new Point3D(_scm.L1x, _scm.L1y, _scm.L1z);
             OutboardAssembly.Add("WcEnd", WcEnd);
 
             ///Toe Link Outboard
-            ToeLinkOutboard = new Point3D(SCM.M1x, SCM.M1y, SCM.M1z);
+            ToeLinkOutboard = new Point3D(_scm.M1x, _scm.M1y, _scm.M1z);
             OutboardAssembly.Add(CoordinateOptions.ToeLinkOutboard.ToString(), ToeLinkOutboard);
 
             ///Contact Patch
-            ContactPatch = new Point3D(SCM.W1x, SCM.W1x, SCM.W1z);
+            ContactPatch = new Point3D(_scm.W1x, _scm.W1x, _scm.W1z);
             OutboardAssembly.Add("ContactPatch", ContactPatch);
 
 
@@ -303,7 +303,51 @@ namespace Coding_Attempt_with_GUI
 
         }
 
+        /// <summary>
+        /// Method to Initialize the Points as Empty 
+        /// </summary>
+        public void Initialize_Points()
+        {
+            UpperFront = new Point3D();
 
+            UpperRear = new Point3D();
+
+
+            LowerFront = new Point3D();
+
+            LowerRear = new Point3D();
+
+            ToeLinkInboard = new Point3D();
+
+            PushrodInboard = new Point3D();
+
+            DamperBellCrank = new Point3D();
+
+            DamperShockMount = new Point3D();
+
+            UBJ = new Point3D();
+
+            TopCamberMount = new Point3D();
+
+            PushrodOutboard = new Point3D();
+
+            LBJ = new Point3D();
+
+            BottomCamberMount = new Point3D();
+
+            WheelCenter = new Point3D();
+
+            WcEnd = new Point3D();
+
+            ToeLinkOutboard = new Point3D();
+
+            ContactPatch = new Point3D();
+
+        }
+
+        /// <summary>
+        /// Method to Initialize the <see cref="InboardAssembly"/> and <see cref="OutboardAssembly"/> <see cref="Dictionary{String, Point3D}"/>s
+        /// </summary>
         public void Initialize_Dictionary()
         {
             OutboardAssembly = new Dictionary<string, Point3D>();
@@ -361,7 +405,7 @@ namespace Coding_Attempt_with_GUI
             OutboardAssembly.Add(CoordinateOptions.WheelCenter.ToString(), WheelCenter);
 
             ///Wheel Spindle End
-            OutboardAssembly.Add("WcEnd", WcEnd);
+            OutboardAssembly.Add(CoordinateOptions.WheelSpindleEnd.ToString(), WcEnd);
 
             ///Toe Link Outboard
             OutboardAssembly.Add(CoordinateOptions.ToeLinkOutboard.ToString(), ToeLinkOutboard);

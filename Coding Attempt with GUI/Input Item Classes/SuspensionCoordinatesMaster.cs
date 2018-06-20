@@ -375,7 +375,9 @@ namespace Coding_Attempt_with_GUI
         BottomCamberMount,
         PushrodOutboard,
         ToeLinkOutboard,
-        WheelCenter
+        WheelCenter,
+        WheelSpindleEnd,
+        ContactPatch
     }
 
 

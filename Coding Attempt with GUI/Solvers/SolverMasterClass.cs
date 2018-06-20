@@ -282,6 +282,59 @@ namespace Coding_Attempt_with_GUI
             l_P1x = _scmAssign.P1x; l_P1y = _scmAssign.P1y; l_P1z = _scmAssign.P1z;
             l_W1x = _scmAssign.W1x; l_W1y = _scmAssign.W1y; l_W1z = _scmAssign.W1z;
         }
+
+        /// <summary>
+        /// Method to Assign the Local Coordinates of the Wishbone using the Dictionary of Points
+        /// </summary>
+        /// <param name="_inboardPoints"><see cref="Dictionary{String, Point3D}"/> of Inboard Pick-Up Points</param>
+        /// <param name="_outboardPoints"><see cref="Dictionary{String, Point3D}"/> of Outboad Pick-Up Points</param>
+        public void Assign_LocalCoordinateVariables_WishbonePoints(Dictionary<string, Point3D> _inboardPoints, Dictionary<string, Point3D> _outboardPoints)
+        {
+            ///<remarks>Assigning Inboard Pick-Up Points</remarks>
+            l_A1x = _inboardPoints[CoordinateOptions.UpperFront.ToString()].X;
+            l_A1y = _inboardPoints[CoordinateOptions.UpperFront.ToString()].Y;
+            l_A1z = _inboardPoints[CoordinateOptions.UpperFront.ToString()].Z;
+
+            l_B1x = _inboardPoints[CoordinateOptions.UpperRear.ToString()].X;
+            l_B1y = _inboardPoints[CoordinateOptions.UpperRear.ToString()].Y;
+            l_B1z = _inboardPoints[CoordinateOptions.UpperRear.ToString()].Z;
+
+            l_C1x = _inboardPoints[CoordinateOptions.LowerRear.ToString()].X;
+            l_C1y = _inboardPoints[CoordinateOptions.LowerRear.ToString()].Y;
+            l_C1z = _inboardPoints[CoordinateOptions.LowerRear.ToString()].Z;
+
+            l_D1x = _inboardPoints[CoordinateOptions.LowerFront.ToString()].X;
+            l_D1y = _inboardPoints[CoordinateOptions.LowerFront.ToString()].Y;
+            l_D1z = _inboardPoints[CoordinateOptions.LowerFront.ToString()].Z;
+
+            l_N1x = _inboardPoints[CoordinateOptions.ToeLinkInboard.ToString()].X;
+            l_N1y = _inboardPoints[CoordinateOptions.ToeLinkInboard.ToString()].Y;
+            l_N1z = _inboardPoints[CoordinateOptions.ToeLinkInboard.ToString()].Z;
+
+
+            ///<remarks>Assigning Outboard Pick Up Points</remarks>
+            l_E1x = _outboardPoints[CoordinateOptions.LBJ.ToString()].X;
+            l_E1y = _outboardPoints[CoordinateOptions.LBJ.ToString()].Y;
+            l_E1z = _outboardPoints[CoordinateOptions.LBJ.ToString()].Z;
+
+            l_F1x = _outboardPoints[CoordinateOptions.UBJ.ToString()].X;
+            l_F1y = _outboardPoints[CoordinateOptions.UBJ.ToString()].Y;
+            l_F1z = _outboardPoints[CoordinateOptions.UBJ.ToString()].Z;
+
+            l_M1x = _outboardPoints[CoordinateOptions.ToeLinkOutboard.ToString()].X;
+            l_M1y = _outboardPoints[CoordinateOptions.ToeLinkOutboard.ToString()].Y;
+            l_M1z = _outboardPoints[CoordinateOptions.ToeLinkOutboard.ToString()].Z;
+
+            l_K1x = _outboardPoints[CoordinateOptions.WheelCenter.ToString()].X;
+            l_K1y = _outboardPoints[CoordinateOptions.WheelCenter.ToString()].Y;
+            l_K1z = _outboardPoints[CoordinateOptions.WheelCenter.ToString()].Z;
+
+            L1x = _outboardPoints[CoordinateOptions.WheelCenter.ToString()].X;
+            L1y = _outboardPoints[CoordinateOptions.WheelCenter.ToString()].Y;
+            L1z = _outboardPoints[CoordinateOptions.WheelCenter.ToString()].Z;
+
+
+        }
         #endregion
 
 

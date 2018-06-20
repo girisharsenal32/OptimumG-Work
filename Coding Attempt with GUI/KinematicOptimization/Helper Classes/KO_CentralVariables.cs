@@ -17,6 +17,11 @@ namespace Coding_Attempt_with_GUI
     public class KO_CentralVariables
     {
         /// <summary>
+        /// Vehicle item onto which the Suspension Coordinates will be assembled
+        /// </summary>
+        public Vehicle Vehicle { get; set; }
+
+        /// <summary>
         /// Wheelbase of the Vehicle as input by the User
         /// </summary>
         public double WheelBase { get; set; }
@@ -87,6 +92,7 @@ namespace Coding_Attempt_with_GUI
             RC_Front.Z = 0;
         }
 
+
         /// <summary>
         /// Method to Initialize the Rear Roll Center in 3D
         /// </summary>
@@ -125,6 +131,8 @@ namespace Coding_Attempt_with_GUI
 
             PC_Right.Z = _left_PC_LongOffset;
         }
+
+
         /// <summary>
         /// Method to Initialize the LEFT Pitch Center for Assymmetric Suspension
         /// </summary>
@@ -140,6 +148,8 @@ namespace Coding_Attempt_with_GUI
 
             PC_Left.Z = _left_PC_LongOffset;
         }
+
+
         /// <summary>
         /// Method to Initialize the RIGHT Pitch Center for Assymmetric Suspension
         /// </summary>
@@ -157,6 +167,47 @@ namespace Coding_Attempt_with_GUI
 
         }
 
+
+        /// <summary>
+        /// Method to Compute the Outboard Toe Link Points using the Ackermann and Pitman Arm Length
+        /// </summary>
+        /// <param name="_kocvFL"><see cref="KO_CornverVariables"/> object of the Front Left</param>
+        /// <param name="_kocvFR"><see cref="KO_CornverVariables"/> object of the Front Right</param>
+        /// <param name="_kocvRL"><see cref="KO_CornverVariables"/> object of the Rear Left</param>
+        /// <param name="_kocvRR"><see cref="KO_CornverVariables"/> object of the Rear Right</param>
+        public void Compute_OutboardToeLink(KO_CornverVariables _kocvFL, KO_CornverVariables _kocvFR, KO_CornverVariables _kocvRL, KO_CornverVariables _kocvRR)
+        {
+            ///<summary>Translating the Ackermann Percentage to a Line poostion based on the Wheelbase</summary>
+            double ackermannLinePos = (Ackermann / 100) * WheelBase;
+
+
+            ///<summary>Computing the Rear Axle Line (approximating that the Rear Axle and Wheelbase is at the same position) </summary>
+            Line rearAxleLine = new Line(_kocvRL.VCornerParams.WheelCenter, _kocvRR.VCornerParams.WheelCenter);
+
+
+            ///<summary>Computing the Ackermann Line</summary>
+            Line ackermannLine = new Line(_kocvRL.VCornerParams.WheelCenter.Clone() as Point3D, _kocvRR.VCornerParams.WheelCenter.Clone() as Point3D);
+            ackermannLine.Translate(0, 0, (WheelBase - ackermannLinePos));
+
+
+            ///Creating the Pitman Lines of the Left and Right
+            Line pitmanLine_Left = new Line(ackermannLine.MidPoint, _kocvFL.VCornerParams.LBJ);
+            Line pitmanLine_Right = new Line(ackermannLine.MidPoint, _kocvFR.VCornerParams.LBJ);
+
+
+            ///<summary>Computing the Pitman Vector and its corresponding Unit Vector</summary>
+            Vector3D pitmanLineVector_Left = new Vector3D(pitmanLine_Left.StartPoint, pitmanLine_Left.EndPoint);
+            pitmanLineVector_Left.Normalize();
+            Vector3D pitmanLineVector_Right = new Vector3D(pitmanLine_Right.StartPoint, pitmanLine_Right.EndPoint);
+            pitmanLineVector_Right.Normalize();
+
+
+            ///<summary>Computing the Outboard Toe Link Point based on the Pitman Arm Lenght of the Left and Right</summary
+            _kocvFL.VCornerParams.ToeLinkOutboard = _kocvFL.VCornerParams.LBJ + (_kocvFL.PitmanTrail * pitmanLineVector_Left);
+            _kocvFR.VCornerParams.ToeLinkOutboard = _kocvFR.VCornerParams.LBJ + (_kocvFR.PitmanTrail * pitmanLineVector_Right);
+
+
+        }
 
 
 
