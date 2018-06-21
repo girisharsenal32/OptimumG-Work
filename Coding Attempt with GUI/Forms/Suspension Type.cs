@@ -14,7 +14,11 @@ namespace Coding_Attempt_with_GUI
     public partial class SuspensionType : DevExpress.XtraEditors.XtraForm
     {
         public Kinematics_Software_New R1;
-        public bool CreatedUsingMapping { get; set; }
+
+        public bool OnlyTemplate_ImportCAD { get; set; }
+
+        public bool OnlyTemplate_DesignMode { get; set; }
+
         XUC_CoordinateMap coordinateMap;
 
 
@@ -110,14 +114,22 @@ namespace Coding_Attempt_with_GUI
 
         }
 
-        public SuspensionType(bool _createdUsingMapping, XUC_CoordinateMap _coordinateMap)
+        public SuspensionType(bool _importCAD, XUC_CoordinateMap _coordinateMap)
         {
             R1 = Kinematics_Software_New.AssignFormVariable();
             InitializeComponent();
             InitializeVariables();
-            CreatedUsingMapping = _createdUsingMapping;
+            OnlyTemplate_ImportCAD = _importCAD;
             coordinateMap = _coordinateMap;
 
+        }
+
+        public SuspensionType(bool _onlyTemplate_DesignMode)
+        {
+            R1 = Kinematics_Software_New.AssignFormVariable();
+            InitializeComponent();
+            InitializeVariables();
+            OnlyTemplate_DesignMode = _onlyTemplate_DesignMode;
         }
 
         private void InitializeVariables()
@@ -433,7 +445,12 @@ namespace Coding_Attempt_with_GUI
                 {
                     FrontSymmetry_CheckedChanged(sender, e);
                     RearSymmetry_CheckedChanged(sender, e);
-                    if (!CreatedUsingMapping)
+
+                    if (OnlyTemplate_DesignMode)
+                    {
+                        goto END;
+                    }
+                    else if (!OnlyTemplate_ImportCAD)
                     {
                         CreatedSuspension_EntireSuspension(R1); 
                     }
@@ -441,6 +458,8 @@ namespace Coding_Attempt_with_GUI
                     {
                         CreateSuspension_OnlyTemplate();
                     }
+
+                    END:
                     this.Hide();
                     Reset();
                 }

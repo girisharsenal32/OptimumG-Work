@@ -45,7 +45,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_vehicle">The <see cref="Vehicle"/> item itself</param>
         public KO_BumpSteer_Solver(KO_CornverVariables _koCV, KO_CentralVariables _koCentral, KO_SimulationParams _simpParams, VehicleCorner _vCorner, SuspensionType _susType)
         {
-            DWSolver = new DoubleWishboneKinematicsSolver();
+            
 
             KO_CV = _koCV;
 

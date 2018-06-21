@@ -27,6 +27,10 @@ namespace Coding_Attempt_with_GUI
 
         public Point3D InboardPoint_Left;
 
+        public string InboardPointName;
+
+        public string WishboneArmName;
+
         public Point3D InboardPoint_Right;
 
         public InboardInputFormat InboardFormat { get; set; }
@@ -277,18 +281,26 @@ namespace Coding_Attempt_with_GUI
             if ((string)listBoxControlSuspensionCoordinate.SelectedItem == CoordinateOptions.UpperFront.ToString())
             {
                 InboardPoint_Left = KO_CV_Left.VCornerParams.UpperFront;
+
+                InboardPointName = CoordinateOptions.UpperFront.ToString();
             }
             else if ((string)listBoxControlSuspensionCoordinate.SelectedItem == CoordinateOptions.UpperRear.ToString())
             {
                 InboardPoint_Left = KO_CV_Left.VCornerParams.UpperRear;
+
+                InboardPointName = CoordinateOptions.UpperFront.ToString();
             }
             else if ((string)listBoxControlSuspensionCoordinate.SelectedItem == CoordinateOptions.LowerFront.ToString())
             {
                 InboardPoint_Left = KO_CV_Left.VCornerParams.LowerFront;
+
+                InboardPointName = CoordinateOptions.LowerFront.ToString();
             }
             else if ((string)listBoxControlSuspensionCoordinate.SelectedItem == CoordinateOptions.LowerRear.ToString())
             {
                 InboardPoint_Left = KO_CV_Left.VCornerParams.LowerRear;
+
+                InboardPointName = CoordinateOptions.LowerRear.ToString();
             }
 
             CurrentCoordinate = (CoordinateOptions)listBoxControlSuspensionCoordinate.SelectedItem;
@@ -336,13 +348,13 @@ namespace Coding_Attempt_with_GUI
             if (CurrentCoordinate == CoordinateOptions.UpperFront || CurrentCoordinate == CoordinateOptions.UpperRear)
             {
                 KO_CV_Left.Compute_PointOnPlane(KO_CV_Left.VCornerParams.TopWishbonePlane, KO_CV_Left.VCornerParams.InputFormat, InboardPoint_Left);
-                PlotPoint(InboardPoint_Left, KO_CV_Left.VCornerParams.UBJ);
+                PlotPoint(InboardPoint_Left, KO_CV_Left.VCornerParams.UBJ, InboardPointName, InboardPointName);
                 KO_CV_Left.VCornerParams.Initialize_Dictionary();
 
                 if (KO_CV_Right != null)
                 {
                     KO_CV_Right.Compute_PointOnPlane(KO_CV_Right.VCornerParams.TopWishbonePlane, KO_CV_Right.VCornerParams.InputFormat, InboardPoint_Right);
-                    PlotPoint(InboardPoint_Right, KO_CV_Right.VCornerParams.UBJ);
+                    PlotPoint(InboardPoint_Right, KO_CV_Right.VCornerParams.UBJ, InboardPointName, InboardPointName);
                     KO_CV_Right.VCornerParams.Initialize_Dictionary();
                 }
 
@@ -351,13 +363,13 @@ namespace Coding_Attempt_with_GUI
             else if (CurrentCoordinate == CoordinateOptions.LowerFront || CurrentCoordinate == CoordinateOptions.LowerRear)
             {
                 KO_CV_Left.Compute_PointOnPlane(KO_CV_Left.VCornerParams.BottomWishbonePlane, KO_CV_Left.VCornerParams.InputFormat, InboardPoint_Left);
-                PlotPoint(InboardPoint_Left, KO_CV_Left.VCornerParams.LBJ);
+                PlotPoint(InboardPoint_Left, KO_CV_Left.VCornerParams.LBJ, InboardPointName, InboardPointName);
                 KO_CV_Left.VCornerParams.Initialize_Dictionary();
 
                 if (KO_CV_Right != null)
                 {
                     KO_CV_Right.Compute_PointOnPlane(KO_CV_Right.VCornerParams.BottomWishbonePlane, KO_CV_Right.VCornerParams.InputFormat, InboardPoint_Right);
-                    PlotPoint(InboardPoint_Right, KO_CV_Right.VCornerParams.LBJ);
+                    PlotPoint(InboardPoint_Right, KO_CV_Right.VCornerParams.LBJ, InboardPointName, InboardPointName);
                     KO_CV_Right.VCornerParams.Initialize_Dictionary();
                 }
 
@@ -369,9 +381,9 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         /// <param name="_inBoard">Inboard Pick Up Point which has just  been initializd</param>
         /// <param name="_outBoard">Corresponding Outboard Point</param>
-        private void PlotPoint(Point3D _inBoard, Point3D _outBoard)
+        private void PlotPoint(Point3D _inBoard, Point3D _outBoard, string _inboardPointName, string _armname)
         {
-            Design_Form.Plot_InboardPoints(_inBoard, _outBoard);
+            Design_Form.Plot_InboardPoints(_inBoard, _outBoard, _inboardPointName, _armname);
         }
     }
 }

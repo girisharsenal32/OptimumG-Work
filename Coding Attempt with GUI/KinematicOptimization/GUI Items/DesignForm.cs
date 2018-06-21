@@ -41,6 +41,11 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         KO_CornverVariables KO_CV_RR;
 
+        /// <summary>
+        /// Object of the <see cref="CAD"/> user control which is going to be docked on teh <see cref="groupControlCAD"/>
+        /// </summary>
+        CAD cad1;
+
 
         /// <summary>
         /// Consturctor
@@ -53,7 +58,10 @@ namespace Coding_Attempt_with_GUI
 
             Deactivate_AllTabPages();
 
-            cad1.CreateControl();
+            cad1 = new CAD(true);
+            cad1.Dock = DockStyle.Fill;
+
+            groupControlCAD.Controls.Add(cad1);
 
             cad1.viewportLayout1.ZoomFit();
 
@@ -1159,9 +1167,9 @@ namespace Coding_Attempt_with_GUI
                 {
                     KO_CV_FL.VCornerParams.UBJ = KO_CV_FL.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbUBJ_FL.Text), KO_CV_FL.ContactPatch, KO_CV_FL.VCornerParams.SteeringAxis);
 
-                    Plot_OutboardPoint(KO_CV_FL.VCornerParams.UBJ);
+                    Plot_OutboardPoint(KO_CV_FL.VCornerParams.UBJ, "KO_CV_FL.VCornerParams.UBJ");
 
-                    Plot_WishbonePlane(KO_CV_FL.VCornerParams.TopWishbonePlane, KO_CV_FL.VCornerParams.UBJ, KO_CV_FL.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FL.VCornerParams.SV_IC_Line.EndPoint);
+                    Plot_WishbonePlane(KO_CV_FL.VCornerParams.TopWishbonePlane, KO_CV_FL.VCornerParams.UBJ, KO_CV_FL.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FL.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_FL.VCornerParams.TopWishbonePlane");
 
                     KO_CV_FL.VCornerParams.Initialize_Dictionary();
 
@@ -1169,7 +1177,7 @@ namespace Coding_Attempt_with_GUI
                     {
                         KO_CV_FR.VCornerParams.UBJ = KO_CV_FR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbUBJ_FL.Text), KO_CV_FR.ContactPatch, KO_CV_FR.VCornerParams.SteeringAxis);
 
-                        Plot_OutboardPoint(KO_CV_FR.VCornerParams.UBJ);
+                        Plot_OutboardPoint(KO_CV_FR.VCornerParams.UBJ, "KO_CV_FR.VCornerParams.UBJ");
 
                         KO_CV_FR.VCornerParams.Initialize_Dictionary();
 
@@ -1177,7 +1185,7 @@ namespace Coding_Attempt_with_GUI
                     else
                     {
                         ///<remarks>Added in Else Block because I want the user to see the Planes on the Right only for Assymetric Suspension</remarks>
-                        Plot_WishbonePlane(KO_CV_FR.VCornerParams.TopWishbonePlane, KO_CV_FR.VCornerParams.UBJ, KO_CV_FR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FR.VCornerParams.SV_IC_Line.EndPoint);
+                        Plot_WishbonePlane(KO_CV_FR.VCornerParams.TopWishbonePlane, KO_CV_FR.VCornerParams.UBJ, KO_CV_FR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FR.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_FR.VCornerParams.TopWishbonePlane");
                     }
 
                 }
@@ -1215,9 +1223,9 @@ namespace Coding_Attempt_with_GUI
                 {
                     KO_CV_FL.VCornerParams.LBJ = KO_CV_FL.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbLBJ_FL.Text), KO_CV_FL.ContactPatch, KO_CV_FL.VCornerParams.SteeringAxis);
 
-                    Plot_OutboardPoint(KO_CV_FL.VCornerParams.LBJ);
+                    Plot_OutboardPoint(KO_CV_FL.VCornerParams.LBJ, "KO_CV_FL.VCornerParams.LBJ");
 
-                    Plot_WishbonePlane(KO_CV_FL.VCornerParams.BottomWishbonePlane, KO_CV_FL.VCornerParams.LBJ, KO_CV_FL.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FL.VCornerParams.SV_IC_Line.EndPoint);
+                    Plot_WishbonePlane(KO_CV_FL.VCornerParams.BottomWishbonePlane, KO_CV_FL.VCornerParams.LBJ, KO_CV_FL.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FL.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_FL.VCornerParams.BottomWishbonePlane");
 
                     KO_CV_FL.VCornerParams.Initialize_Dictionary();
 
@@ -1226,7 +1234,7 @@ namespace Coding_Attempt_with_GUI
                     {
                         KO_CV_FR.VCornerParams.LBJ = KO_CV_FR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbUBJ_FL.Text), KO_CV_FR.ContactPatch, KO_CV_FR.VCornerParams.SteeringAxis);
 
-                        Plot_OutboardPoint(KO_CV_FR.VCornerParams.LBJ);
+                        Plot_OutboardPoint(KO_CV_FR.VCornerParams.LBJ, "KO_CV_FR.VCornerParams.LBJ");
 
                         KO_CV_FR.VCornerParams.Initialize_Dictionary();
 
@@ -1234,7 +1242,7 @@ namespace Coding_Attempt_with_GUI
                     else
                     {
                         ///<remarks>Added in Else Block because I want the user to see the Planes on the Right only for Assymetric Suspension</remarks>
-                        Plot_WishbonePlane(KO_CV_FR.VCornerParams.BottomWishbonePlane, KO_CV_FR.VCornerParams.LBJ, KO_CV_FR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FR.VCornerParams.SV_IC_Line.EndPoint);
+                        Plot_WishbonePlane(KO_CV_FR.VCornerParams.BottomWishbonePlane, KO_CV_FR.VCornerParams.LBJ, KO_CV_FR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FR.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_FR.VCornerParams.BottomWishbonePlane");
                     }
                 }
                 else
@@ -1273,7 +1281,7 @@ namespace Coding_Attempt_with_GUI
                 {
                     KO_CV_FL.VCornerParams.WheelCenter = KO_CV_FL.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbWC_FL.Text), KO_CV_FL.ContactPatch, KO_CV_FL.VCornerParams.SteeringAxis);
 
-                    Plot_OutboardPoint(KO_CV_FL.VCornerParams.WheelCenter);
+                    Plot_OutboardPoint(KO_CV_FL.VCornerParams.WheelCenter, "KO_CV_FL.VCornerParams.WheelCenter");
 
                     KO_CV_FL.VCornerParams.Initialize_Dictionary();
 
@@ -1282,7 +1290,7 @@ namespace Coding_Attempt_with_GUI
                     {
                         KO_CV_FR.VCornerParams.WheelCenter = KO_CV_FR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbWC_FL.Text), KO_CV_FR.ContactPatch, KO_CV_FR.VCornerParams.SteeringAxis);
 
-                        Plot_OutboardPoint(KO_CV_FR.VCornerParams.WheelCenter);
+                        Plot_OutboardPoint(KO_CV_FR.VCornerParams.WheelCenter, "KO_CV_FR.VCornerParams.WheelCenter");
 
                         KO_CV_FR.VCornerParams.Initialize_Dictionary();
 
@@ -1471,10 +1479,9 @@ namespace Coding_Attempt_with_GUI
                 {
                     KO_CV_FR.VCornerParams.UBJ = KO_CV_FR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbUBJ_FR.Text), KO_CV_FR.ContactPatch, KO_CV_FR.VCornerParams.SteeringAxis);
 
-                    Plot_OutboardPoint(KO_CV_FR.VCornerParams.UBJ);
+                    Plot_OutboardPoint(KO_CV_FR.VCornerParams.UBJ, "KO_CV_FR.VCornerParams.UBJ");
 
-                    Plot_WishbonePlane(KO_CV_FR.VCornerParams.TopWishbonePlane, KO_CV_FR.VCornerParams.UBJ, KO_CV_FR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FR.VCornerParams.SV_IC_Line.EndPoint);
-
+                    Plot_WishbonePlane(KO_CV_FR.VCornerParams.TopWishbonePlane, KO_CV_FR.VCornerParams.UBJ, KO_CV_FR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FR.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_FR.VCornerParams.TopWishbonePlane");
 
                     KO_CV_FR.VCornerParams.Initialize_Dictionary();
 
@@ -1513,9 +1520,9 @@ namespace Coding_Attempt_with_GUI
                 {
                     KO_CV_FR.VCornerParams.LBJ = KO_CV_FR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbLBJ_FR.Text), KO_CV_FR.ContactPatch, KO_CV_FR.VCornerParams.SteeringAxis);
 
-                    Plot_OutboardPoint(KO_CV_FR.VCornerParams.LBJ);
+                    Plot_OutboardPoint(KO_CV_FR.VCornerParams.LBJ, "KO_CV_FR.VCornerParams.LBJ");
 
-                    Plot_WishbonePlane(KO_CV_FR.VCornerParams.BottomWishbonePlane, KO_CV_FR.VCornerParams.LBJ, KO_CV_FR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FR.VCornerParams.SV_IC_Line.EndPoint);
+                    Plot_WishbonePlane(KO_CV_FR.VCornerParams.BottomWishbonePlane, KO_CV_FR.VCornerParams.LBJ, KO_CV_FR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FR.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_FR.VCornerParams.BottomWishbonePlane");
 
                     KO_CV_FR.VCornerParams.Initialize_Dictionary();
 
@@ -1558,7 +1565,7 @@ namespace Coding_Attempt_with_GUI
 
                     KO_CV_FR.VCornerParams.WheelCenter = KO_CV_FR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbWC_FR.Text), KO_CV_FR.ContactPatch, KO_CV_FR.VCornerParams.SteeringAxis);
 
-                    Plot_OutboardPoint(KO_CV_FR.VCornerParams.WheelCenter);
+                    Plot_OutboardPoint(KO_CV_FR.VCornerParams.WheelCenter, "KO_CV_FR.VCornerParams.WheelCenter");
 
                     KO_CV_FL.VCornerParams.Initialize_Dictionary();
 
@@ -1770,9 +1777,9 @@ namespace Coding_Attempt_with_GUI
                 {
                     KO_CV_RL.VCornerParams.UBJ = KO_CV_RL.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbUBJ_RL.Text), KO_CV_RL.ContactPatch, KO_CV_RL.VCornerParams.SteeringAxis);
 
-                    Plot_OutboardPoint(KO_CV_RL.VCornerParams.UBJ);
+                    Plot_OutboardPoint(KO_CV_RL.VCornerParams.UBJ, "KO_CV_RL.VCornerParams.UBJ");
 
-                    Plot_WishbonePlane(KO_CV_RL.VCornerParams.TopWishbonePlane, KO_CV_RL.VCornerParams.UBJ, KO_CV_RL.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RL.VCornerParams.SV_IC_Line.EndPoint);
+                    Plot_WishbonePlane(KO_CV_RL.VCornerParams.TopWishbonePlane, KO_CV_RL.VCornerParams.UBJ, KO_CV_RL.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RL.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_RL.VCornerParams.TopWishbonePlane");
 
                     KO_CV_RL.VCornerParams.Initialize_Dictionary();
 
@@ -1781,7 +1788,7 @@ namespace Coding_Attempt_with_GUI
                     {
                         KO_CV_RR.VCornerParams.UBJ = KO_CV_RR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbUBJ_RL.Text), KO_CV_RR.ContactPatch, KO_CV_RR.VCornerParams.SteeringAxis);
 
-                        Plot_OutboardPoint(KO_CV_RR.VCornerParams.UBJ);
+                        Plot_OutboardPoint(KO_CV_RR.VCornerParams.UBJ, "KO_CV_RR.VCornerParams.UBJ");
 
                         KO_CV_RR.VCornerParams.Initialize_Dictionary();
 
@@ -1790,7 +1797,7 @@ namespace Coding_Attempt_with_GUI
                     else
                     {
                         ///<remarks>Added in Else Block because I want the user to see the Planes on the Right only for Assymetric Suspension</remarks>
-                        Plot_WishbonePlane(KO_CV_RR.VCornerParams.TopWishbonePlane, KO_CV_RR.VCornerParams.UBJ, KO_CV_RR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RR.VCornerParams.SV_IC_Line.EndPoint);
+                        Plot_WishbonePlane(KO_CV_RR.VCornerParams.TopWishbonePlane, KO_CV_RR.VCornerParams.UBJ, KO_CV_RR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RR.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_RR.VCornerParams.TopWishbonePlane");
                     }
                 }
                 else
@@ -1827,9 +1834,9 @@ namespace Coding_Attempt_with_GUI
                 {
                     KO_CV_RL.VCornerParams.LBJ = KO_CV_RL.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbLBJ_RL.Text), KO_CV_RL.ContactPatch, KO_CV_RL.VCornerParams.SteeringAxis);
 
-                    Plot_OutboardPoint(KO_CV_RL.VCornerParams.LBJ);
+                    Plot_OutboardPoint(KO_CV_RL.VCornerParams.LBJ, "KO_CV_RL.VCornerParams.LBJ");
 
-                    Plot_WishbonePlane(KO_CV_RL.VCornerParams.BottomWishbonePlane, KO_CV_RL.VCornerParams.LBJ, KO_CV_RL.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RL.VCornerParams.SV_IC_Line.EndPoint);
+                    Plot_WishbonePlane(KO_CV_RL.VCornerParams.BottomWishbonePlane, KO_CV_RL.VCornerParams.LBJ, KO_CV_RL.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RL.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_RL.VCornerParams.BottomWishbonePlane");
 
 
                     KO_CV_RL .VCornerParams.Initialize_Dictionary();
@@ -1838,7 +1845,7 @@ namespace Coding_Attempt_with_GUI
                     {
                         KO_CV_RR.VCornerParams.LBJ = KO_CV_RR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbLBJ_RL.Text), KO_CV_RR.ContactPatch, KO_CV_RR.VCornerParams.SteeringAxis);
 
-                        Plot_OutboardPoint(KO_CV_RR.VCornerParams.LBJ);
+                        Plot_OutboardPoint(KO_CV_RR.VCornerParams.LBJ, "KO_CV_RR.VCornerParams.LBJ");
 
                         KO_CV_RR.VCornerParams.Initialize_Dictionary();
 
@@ -1846,7 +1853,7 @@ namespace Coding_Attempt_with_GUI
                     else
                     {
                         ///<remarks>Added in Else Block because I want the user to see the Planes on the Right only for Assymetric Suspension</remarks>
-                        Plot_WishbonePlane(KO_CV_RR.VCornerParams.BottomWishbonePlane, KO_CV_RR.VCornerParams.LBJ, KO_CV_RR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RR.VCornerParams.SV_IC_Line.EndPoint);
+                        Plot_WishbonePlane(KO_CV_RR.VCornerParams.BottomWishbonePlane, KO_CV_RR.VCornerParams.LBJ, KO_CV_RR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RR.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_RR.VCornerParams.BottomWishbonePlane");
                     }
                 }
                 else
@@ -1885,7 +1892,7 @@ namespace Coding_Attempt_with_GUI
                 {
                     KO_CV_RL.VCornerParams.WheelCenter = KO_CV_RL.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbWC_RL.Text), KO_CV_RL.ContactPatch, KO_CV_RL.VCornerParams.SteeringAxis);
 
-                    Plot_OutboardPoint(KO_CV_RL.VCornerParams.WheelCenter);
+                    Plot_OutboardPoint(KO_CV_RL.VCornerParams.WheelCenter, "KO_CV_RL.VCornerParams.WheelCenter");
 
                     KO_CV_RL.VCornerParams.Initialize_Dictionary();
 
@@ -1894,7 +1901,7 @@ namespace Coding_Attempt_with_GUI
                     {
                         KO_CV_RR.VCornerParams.WheelCenter = KO_CV_RR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbWC_RL.Text), KO_CV_RR.ContactPatch, KO_CV_RR.VCornerParams.SteeringAxis);
 
-                        Plot_OutboardPoint(KO_CV_RR.VCornerParams.WheelCenter);
+                        Plot_OutboardPoint(KO_CV_RR.VCornerParams.WheelCenter, "KO_CV_RR.VCornerParams.WheelCenter");
 
                         KO_CV_RR.VCornerParams.Initialize_Dictionary();
 
@@ -2074,9 +2081,9 @@ namespace Coding_Attempt_with_GUI
                 {
                     KO_CV_RR.VCornerParams.UBJ = KO_CV_RR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbUBJ_RR.Text), KO_CV_RR.ContactPatch, KO_CV_RR.VCornerParams.SteeringAxis);
 
-                    Plot_OutboardPoint(KO_CV_RR.VCornerParams.UBJ);
+                    Plot_OutboardPoint(KO_CV_RR.VCornerParams.UBJ, "KO_CV_RR.VCornerParams.UBJ");
 
-                    Plot_WishbonePlane(KO_CV_RR.VCornerParams.TopWishbonePlane, KO_CV_RR.VCornerParams.UBJ, KO_CV_RR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RR.VCornerParams.SV_IC_Line.EndPoint);
+                    Plot_WishbonePlane(KO_CV_RR.VCornerParams.TopWishbonePlane, KO_CV_RR.VCornerParams.UBJ, KO_CV_RR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RR.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_RR.VCornerParams.TopWishbonePlane");
                     KO_CV_RR.VCornerParams.Initialize_Dictionary();
 
 
@@ -2115,9 +2122,9 @@ namespace Coding_Attempt_with_GUI
                 {
                     KO_CV_RR.VCornerParams.LBJ = KO_CV_RR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbLBJ_RR.Text), KO_CV_RR.ContactPatch, KO_CV_RR.VCornerParams.SteeringAxis);
 
-                    Plot_OutboardPoint(KO_CV_RR.VCornerParams.LBJ);
+                    Plot_OutboardPoint(KO_CV_RR.VCornerParams.LBJ, "KO_CV_RR.VCornerParams.LBJ");
 
-                    Plot_WishbonePlane(KO_CV_RR.VCornerParams.BottomWishbonePlane, KO_CV_RR.VCornerParams.LBJ, KO_CV_RR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RR.VCornerParams.SV_IC_Line.EndPoint);
+                    Plot_WishbonePlane(KO_CV_RR.VCornerParams.BottomWishbonePlane, KO_CV_RR.VCornerParams.LBJ, KO_CV_RR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RR.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_RR.VCornerParams.BottomWishbonePlane");
                     KO_CV_RR.VCornerParams.Initialize_Dictionary();
 
 
@@ -2159,7 +2166,7 @@ namespace Coding_Attempt_with_GUI
                 {
                     KO_CV_RR.VCornerParams.WheelCenter = KO_CV_RR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbWC_RR.Text), KO_CV_RR.ContactPatch, KO_CV_RR.VCornerParams.SteeringAxis);
 
-                    Plot_OutboardPoint(KO_CV_RR.VCornerParams.WheelCenter);
+                    Plot_OutboardPoint(KO_CV_RR.VCornerParams.WheelCenter, "KO_CV_RR.VCornerParams.WheelCenter");
 
                     KO_CV_RR.VCornerParams.Initialize_Dictionary();
 
@@ -2272,9 +2279,9 @@ namespace Coding_Attempt_with_GUI
         /// Method to Plot th Outboard point
         /// </summary>
         /// <param name="_outboardPoint"></param>
-        private void Plot_OutboardPoint(Point3D _outboardPoint)
+        private void Plot_OutboardPoint(Point3D _outboardPoint, string _outBoardPointName)
         {
-            cad1.Plot_OutboardPoint(_outboardPoint);
+            cad1.Plot_OutboardPoint(_outboardPoint, _outBoardPointName);
         }
 
         /// <summary>
@@ -2284,9 +2291,9 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_Point1">First point making up the plane</param>
         /// <param name="_Point2">Second point making up the plane</param>
         /// <param name="_Point3">Third point making up the plane</param>
-        private void Plot_WishbonePlane(Plane _WishbonePlane, Point3D _Point1, Point3D _Point2, Point3D _Point3)
+        private void Plot_WishbonePlane(Plane _WishbonePlane, Point3D _Point1, Point3D _Point2, Point3D _Point3, string _WishbonePlaneName)
         {
-            cad1.Plot_WishbonePlane(_WishbonePlane, _Point1, _Point2, _Point3);
+            cad1.Plot_WishbonePlane(_WishbonePlane, _Point1, _Point2, _Point3, _WishbonePlaneName);
         }
 
         /// <summary>
@@ -2294,9 +2301,11 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         /// <param name="_InboardPoint">Inboard Point</param>
         /// <param name="_OutboardPoint">Corresponding Outboard Point</param>
-        public void Plot_InboardPoints(Point3D _InboardPoint, Point3D _OutboardPoint)
+        /// <param name="_InboardPointName">Name of the Inboard Point being Plotted</param>
+        /// <param name="_WishboneArmName">Name of the Wishbone Arm being plotted</param>
+        public void Plot_InboardPoints(Point3D _InboardPoint, Point3D _OutboardPoint, string _InboardPointName, string _WishboneArmName)
         {
-            cad1.Plot_InboardWishbonePoint(_InboardPoint, _OutboardPoint);
+            cad1.Plot_InboardWishbonePoint(_InboardPoint, _OutboardPoint, _InboardPointName, _WishboneArmName);
         }
 
         
@@ -2395,9 +2404,9 @@ namespace Coding_Attempt_with_GUI
         {
             Kinematics_Software_New R1 = Kinematics_Software_New.AssignFormVariable();
 
-            Sus_Type = new SuspensionType(R1);
+            Sus_Type = new SuspensionType(true);
 
-            Sus_Type.Show();
+            Sus_Type.ShowDialog();
 
             if (Sus_Type.FrontSymmetry_Boolean)
             {

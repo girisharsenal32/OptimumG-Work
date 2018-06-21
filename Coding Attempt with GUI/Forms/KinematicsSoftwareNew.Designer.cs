@@ -370,6 +370,7 @@
             this.GC = new Coding_Attempt_with_GUI.GraphicsCoordinatesJoint();
             this.GCArrow = new Coding_Attempt_with_GUI.Arrow_Force();
             this.GCBar = new Coding_Attempt_with_GUI.GraphicsCoorsdinatesBar();
+            this.radioButtonDesignMode = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.backstageViewControl1)).BeginInit();
             this.backstageViewControl1.SuspendLayout();
@@ -1393,13 +1394,14 @@
             // popupControlContainerSimulationType
             // 
             this.popupControlContainerSimulationType.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.popupControlContainerSimulationType.Controls.Add(this.radioButtonDesignMode);
             this.popupControlContainerSimulationType.Controls.Add(this.radioButtonSimulationMode);
             this.popupControlContainerSimulationType.Controls.Add(this.radioButtonSetupMode);
-            this.popupControlContainerSimulationType.Location = new System.Drawing.Point(1199, 232);
+            this.popupControlContainerSimulationType.Location = new System.Drawing.Point(883, 237);
             this.popupControlContainerSimulationType.Margin = new System.Windows.Forms.Padding(2);
             this.popupControlContainerSimulationType.Name = "popupControlContainerSimulationType";
             this.popupControlContainerSimulationType.Ribbon = this.ribbon;
-            this.popupControlContainerSimulationType.Size = new System.Drawing.Size(123, 67);
+            this.popupControlContainerSimulationType.Size = new System.Drawing.Size(127, 103);
             this.popupControlContainerSimulationType.TabIndex = 66;
             this.popupControlContainerSimulationType.Visible = false;
             // 
@@ -3373,6 +3375,18 @@
             this.GCBar.Size = new System.Drawing.Size(245, 120);
             this.GCBar.TabIndex = 77;
             // 
+            // radioButtonDesignMode
+            // 
+            this.radioButtonDesignMode.AutoSize = true;
+            this.radioButtonDesignMode.Location = new System.Drawing.Point(7, 67);
+            this.radioButtonDesignMode.Name = "radioButtonDesignMode";
+            this.radioButtonDesignMode.Size = new System.Drawing.Size(86, 17);
+            this.radioButtonDesignMode.TabIndex = 1;
+            this.radioButtonDesignMode.TabStop = true;
+            this.radioButtonDesignMode.Text = "Design mode";
+            this.radioButtonDesignMode.UseVisualStyleBackColor = true;
+            this.radioButtonDesignMode.CheckedChanged += new System.EventHandler(this.radioButtonDesignMode_CheckedChanged);
+            // 
             // Kinematics_Software_New
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3767,5 +3781,6 @@
         private GraphicsCoorsdinatesBar GCBar;
         private DevExpress.XtraBars.BarButtonItem barButtonItem9;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
+        private System.Windows.Forms.RadioButton radioButtonDesignMode;
     }
 }

@@ -55,6 +55,11 @@ namespace Coding_Attempt_with_GUI
         public KO_CornverVariables KO_CV_RR_GUI;
 
         /// <summary>
+        /// Object of the <see cref="KO_CentralVariables"/> class which holds important parameter info which is central to the Vehicle
+        /// </summary>
+        public KO_CentralVariables KO_Central;
+
+        /// <summary>
         /// The <see cref="XUC_KinematicOptimization"/> UserControl 
         /// </summary>
         public XUC_KinematicOptimization xuc_KO;
@@ -93,14 +98,20 @@ namespace Coding_Attempt_with_GUI
 
             KO_CV_RR_GUI = new KO_CornverVariables();
 
+            KO_Central = new KO_CentralVariables();
+
             KO_SimParams = new KO_SimulationParams();
 
-            xuc_KO = new XUC_KinematicOptimization();
+            //xuc_KO = new XUC_KinematicOptimization();
 
-            Param_Imp_Form = new ParametersAndImportance();
+            //Param_Imp_Form = new ParametersAndImportance();
 
-            ///<summary>Passing the <see cref="KO_CornverVariables"/> Objects of the 4 corners to the <see cref="Param_Imp_Form"/></summary>
-            Param_Imp_Form.SetCornerVariables(KO_CV_FL_GUI, KO_CV_FR_GUI, KO_CV_RL_GUI, KO_CV_RR_GUI);
+            Design_Form = new DesignForm();
+
+            Design_Form.Set_KO_Variables(KO_Central, KO_CV_FL_GUI, KO_CV_FR_GUI, KO_CV_RL_GUI, KO_CV_RR_GUI);
+
+            /////<summary>Passing the <see cref="KO_CornverVariables"/> Objects of the 4 corners to the <see cref="Param_Imp_Form"/></summary>
+            //Param_Imp_Form.SetCornerVariables(KO_CV_FL_GUI, KO_CV_FR_GUI, KO_CV_RL_GUI, KO_CV_RR_GUI);
 
         }
 

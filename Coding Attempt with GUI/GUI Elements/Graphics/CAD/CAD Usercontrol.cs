@@ -211,6 +211,7 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
         #region ---Initialization Methods---
+
         #region Constructor
         public CAD()
         {
@@ -251,6 +252,25 @@ namespace Coding_Attempt_with_GUI
             importCADForm.translateObject.GetCADObject(this);
 
         }
+
+        /// <summary>
+        /// Overloaded Constructor which is called only during the Design Mode of the Software. Ths only difference is that in this constructor the <see cref="ViewportLayout.CreateControl()"/>
+        /// method is called. 
+        /// </summary>
+        /// <param name="_createControl">No significane of this variable. Pass anything. Exists only to have a different method signature </param>
+        public CAD(bool _createControl)
+        {
+            InitializeComponent();
+            viewportLayout1.Unlock("US1-126DS-NQPVC-7XRN-S062");
+            InitializationCodes();
+
+            ///<summary>
+            ///In this special overloaded Constructor the CreateControl() method is called
+            ///This constructor is called during the Design Mode of the Software
+            /// </summary>
+            viewportLayout1.CreateControl();
+        }
+
 
         private void InitializationCodes()
         {
@@ -2851,11 +2871,26 @@ namespace Coding_Attempt_with_GUI
 
         private void AddOrRegen(Entity _entity, Color _color)
         {
-            if (viewportLayout1.Entities.Contains(_entity))
+            bool entityExists = false;
+            CustomData customData = _entity.EntityData as CustomData;
+
+            for (int i = 0; i < viewportLayout1.Entities.Count; i++)
             {
-                viewportLayout1.Entities[viewportLayout1.Entities.IndexOf(_entity)].Regen(0);
+                CustomData data = viewportLayout1.Entities[i].EntityData as CustomData;
+
+                if (data.Name == customData.Name)
+                {
+                    viewportLayout1.Entities.RemoveAt(i);
+
+                    viewportLayout1.Entities.Add(_entity, customData.EntityColor);
+
+                    entityExists = true;
+
+                    break;
+                }   
             }
-            else
+
+            if (entityExists == false)
             {
                 viewportLayout1.Entities.Add(_entity, _color);
             }
@@ -2874,8 +2909,12 @@ namespace Coding_Attempt_with_GUI
         public void Init_Wheelbase(double _wheelbase)
         {
             WheelbaseLine = new Line(new Point3D(), new Point3D(0, 0, _wheelbase));
+            WheelbaseLine.ColorMethod = colorMethodType.byEntity;
+            WheelbaseLine.EntityData = new CustomData("WheelbaseLine" + EntityTypes.Line.ToString(), EntityTypes.Line.ToString(), Color.Orange, new Point3D());
 
             WB = new LinearDim(Plane.XZ, WheelbaseLine.StartPoint, WheelbaseLine.EndPoint, WheelbaseLine.EndPoint, 2.5);
+            WB.ColorMethod = colorMethodType.byEntity;
+            WB.EntityData = new CustomData("WB" + EntityTypes.LineDimension.ToString(), EntityTypes.LineDimension.ToString(), Color.Orange);
 
             AddOrRegen(WheelbaseLine, Color.Orange);
 
@@ -2891,12 +2930,20 @@ namespace Coding_Attempt_with_GUI
         public void Init_Track(double _frontTrack, double _rearTrack)
         {
             Track_Front = new Line(new Point3D(_frontTrack / 2, 0, 0), new Point3D(-_frontTrack / 2, 0, 0));
+            Track_Front.ColorMethod = colorMethodType.byEntity;
+            Track_Front.EntityData = new CustomData("Track_Front" + EntityTypes.Line.ToString(),EntityTypes.LineDimension.ToString(), Color.Orange, new Vector3D(Track_Front.StartPoint, Track_Front.EndPoint), Track_Front.StartPoint);
 
             Track_Rear = new Line(new Point3D(_rearTrack / 2, 0, 0), new Point3D(-_rearTrack / 2, 0, 0));
+            Track_Rear.ColorMethod = colorMethodType.byEntity;
+            Track_Rear.EntityData = new CustomData("Track_Rear" + EntityTypes.Line.ToString(), EntityTypes.Line.ToString(), Color.Orange, new Vector3D(Track_Rear.StartPoint, Track_Rear.EndPoint), Track_Rear.StartPoint);
 
             Track_Front_Dim = new LinearDim(Plane.XZ, Track_Front.StartPoint, Track_Front.EndPoint, Track_Front.EndPoint, 2.5);
+            Track_Front_Dim.ColorMethod = colorMethodType.byEntity;
+            Track_Front_Dim.EntityData = new CustomData("Track_Front_Dim" + EntityTypes.LineDimension.ToString(), EntityTypes.LineDimension.ToString(), Color.Orange);
 
             Track_Rear_Dim = new LinearDim(Plane.XZ, Track_Rear.StartPoint, Track_Rear.EndPoint, Track_Rear.EndPoint, 2.5);
+            Track_Rear_Dim.ColorMethod = colorMethodType.byEntity;
+            Track_Rear_Dim.EntityData = new CustomData("Track_Rear_Dim" + EntityTypes.LineDimension.ToString(), EntityTypes.LineDimension.ToString(), Color.Orange);
 
 
 
@@ -2920,11 +2967,13 @@ namespace Coding_Attempt_with_GUI
         {
             RC_Front = new Joint(_frontRC, 6.5, 2);
             RC_Front.ColorMethod = colorMethodType.byEntity;
+            RC_Front.EntityData = new CustomData("RC_Front" + EntityTypes.Joint.ToString(), EntityTypes.Joint.ToString(), Color.Purple);
 
             AddOrRegen(RC_Front, Color.Purple);
 
             RC_Rear = new Joint(_rearRC, 6.5, 2);
             RC_Rear.ColorMethod = colorMethodType.byEntity;
+            RC_Rear.EntityData = new CustomData("RC_Rear" + EntityTypes.Joint.ToString(), EntityTypes.Joint.ToString(), Color.Purple);
 
             AddOrRegen(RC_Rear, Color.Purple);
 
@@ -2939,12 +2988,15 @@ namespace Coding_Attempt_with_GUI
         {
             PC_Left = new Joint(_leftPC, 6.5, 2);
             PC_Left.ColorMethod = colorMethodType.byEntity;
+            PC_Left.EntityData = new CustomData("PC_Left" + EntityTypes.Joint.ToString(), EntityTypes.Joint.ToString(), Color.Green);
 
             AddOrRegen(PC_Left, Color.Green);
 
 
             PC_Right = new Joint(_rightPC, 6.5, 2);
             PC_Right.ColorMethod = colorMethodType.byEntity;
+            PC_Right.EntityData = new CustomData("PC_Right" + EntityTypes.Joint.ToString(), EntityTypes.Joint.ToString(), Color.Green);
+
             AddOrRegen(PC_Left, Color.Green);
 
 
@@ -2953,10 +3005,11 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         ///Method to plot the Front View VSALs of any given corner
         /// </summary>
+        /// <param name="_fv_IC"><see cref="Line"/> representin the FV IC</param>
         /// <param name="_vsal_FV_Length">VSAL Lenght in the Front View</param>
         /// <param name="_contactPatch">Contact Patch point of the Corner generated using Track and Wheelbase</param>
         /// <param name="_rc">Roll Center</param>
-        public void Init_VSAL_FV(Line _fv_IC_Line, double _vsal_FV_Length, Point3D _contactPatch, Point3D _rc)
+        public void Init_VSAL_FV(Line _fv_IC, double _vsal_FV_Length, Point3D _contactPatch, Point3D _rc)
         {
             Segment3D FV_IC_Segment = new Segment3D(_contactPatch.Clone() as Point3D, _rc.Clone() as Point3D);
 
@@ -2982,12 +3035,12 @@ namespace Coding_Attempt_with_GUI
             FV_IC_Segment.ExtendTo(Perp_VSAL_FV.P1);
 
 
-            _fv_IC_Line = new Line(FV_IC_Segment);
-            _fv_IC_Line.ColorMethod = colorMethodType.byEntity;
+            _fv_IC = new Line(FV_IC_Segment);
+            _fv_IC.ColorMethod = colorMethodType.byEntity;
+            _fv_IC.EntityData = new CustomData("_fv_IC" + EntityTypes.Line.ToString(), EntityTypes.Line.ToString(), Color.Purple);
 
 
-
-            AddOrRegen(_fv_IC_Line, Color.Purple);
+            AddOrRegen(_fv_IC, Color.Purple);
 
 
         }
@@ -2995,10 +3048,11 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Method to Plot the Side View VSAL of any given corner
         /// </summary>
+        /// <param name="_sv_IC"><see cref="Line"/> representing the SV IC</param>
         /// <param name="_vsal_SV_Length">VSAL Lenght in the Side View</param>
         /// <param name="_contactPatch">Contact Patch point of the Corner generated using Track and Wheelbase</param>
         /// <param name="_pc">Pitch Center</param>
-        public void Init_VSAL_SV(Line _sv_IC_Line, double _vsal_SV_Length, Point3D _contactPatch, Point3D _pc)
+        public void Init_VSAL_SV(Line _sv_IC, double _vsal_SV_Length, Point3D _contactPatch, Point3D _pc)
         {
             Segment3D SV_IC_Segment = new Segment3D(_contactPatch.Clone() as Point3D, _pc.Clone() as Point3D);
 
@@ -3018,10 +3072,12 @@ namespace Coding_Attempt_with_GUI
 
             SV_IC_Segment.ExtendTo(Perp_VSAL_SV.P1);
 
-            _sv_IC_Line = new Line(SV_IC_Segment);
-            _sv_IC_Line.ColorMethod = colorMethodType.byEntity;
+            _sv_IC = new Line(SV_IC_Segment);
+            _sv_IC.ColorMethod = colorMethodType.byEntity;
+            _sv_IC.EntityData = new CustomData("_sv_IC" + EntityTypes.Line.ToString(), EntityTypes.Line.ToString(), Color.Purple);
 
-            AddOrRegen(_sv_IC_Line, Color.Green);
+
+            AddOrRegen(_sv_IC, Color.Green);
 
 
         }
@@ -3044,6 +3100,10 @@ namespace Coding_Attempt_with_GUI
             _steeringAxis.Translate(_scrubRadius, 0, 0);
 
             _steeringAxis.Translate(0, 0, _mechTrail);
+
+            _steeringAxis.EntityData = new CustomData("_steeringAxis" + EntityTypes.Line.ToString(), EntityTypes.Line.ToString(), Color.Red);
+
+            _steeringAxis.ColorMethod = colorMethodType.byEntity;
             
             AddOrRegen(_steeringAxis, Color.Red);
 
@@ -3053,10 +3113,11 @@ namespace Coding_Attempt_with_GUI
         /// Method to Plot any Outboard Point that is passed to this method
         /// </summary>
         /// <param name="_pointOutboard">Outboard Point to be Plotted</param>
-        public void Plot_OutboardPoint(Point3D _pointOutboard)
+        public void Plot_OutboardPoint(Point3D _pointOutboard, string _outboardPointName)
         {
             Joint tempJoint = new Joint(_pointOutboard, 5, 2);
             tempJoint.ColorMethod = colorMethodType.byEntity;
+            tempJoint.EntityData = new CustomData(_outboardPointName + EntityTypes.Joint.ToString(), EntityTypes.Joint.ToString(), Color.Red);
 
             AddOrRegen(tempJoint, Color.Red);
             
@@ -3070,12 +3131,13 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_point1">First point making up the plane</param>
         /// <param name="_point2">Second point making up the plane</param>
         /// <param name="_point3">Third point making up the plane</param>
-        public void Plot_WishbonePlane(Plane _wishbonePlane, Point3D _point1, Point3D _point2, Point3D _point3)
+        public void Plot_WishbonePlane(Plane _wishbonePlane, Point3D _point1, Point3D _point2, Point3D _point3, string _wishbonePlaneName)
         {
             _wishbonePlane = new Plane(_point1, _point2, _point3);
 
             PlanarEntity _plane = new PlanarEntity(_wishbonePlane);
             _plane.ColorMethod = colorMethodType.byEntity;
+            _plane.EntityData = new CustomData(_wishbonePlane + EntityTypes.PlanarEntity.ToString(), EntityTypes.PlanarEntity.ToString(), Color.Gold);
 
             AddOrRegen(_plane, Color.Gold);
         }
@@ -3085,13 +3147,15 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         /// <param name="_inboardPoint">Inboard Point input by the User</param>
         /// <param name="_corresOutboardPoint">Corresponding Outboard Point</param>
-        public void Plot_InboardWishbonePoint(Point3D _inboardPoint, Point3D _corresOutboardPoint)
+        public void Plot_InboardWishbonePoint(Point3D _inboardPoint, Point3D _corresOutboardPoint, string _inboardPointName, string _armName)
         {
             Joint inboardJoint = new Joint(_inboardPoint, 5, 2);
             inboardJoint.ColorMethod = colorMethodType.byEntity;
+            inboardJoint.EntityData = new CustomData(_inboardPointName, EntityTypes.Joint.ToString(), Color.Orange);
 
             Bar wishboneArm = new Bar(_inboardPoint, _corresOutboardPoint, 4.5, 8);
             wishboneArm.ColorMethod = colorMethodType.byEntity;
+            wishboneArm.EntityData = new CustomData(_armName + EntityTypes.Bar.ToString(), EntityTypes.Bar.ToString(), Color.Orange);
 
             AddOrRegen(inboardJoint, Color.White);
 
@@ -4035,10 +4099,6 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         public string CategoryNamne { get; set; }
         /// <summary>
-        /// Force Represented by the Entity
-        /// </summary>
-        public double Force { get; set; }
-        /// <summary>
         /// Colour borne by the Entity
         /// </summary>
         public Color EntityColor { get; set; }
@@ -4046,32 +4106,36 @@ namespace Coding_Attempt_with_GUI
         /// <para>Start Point of the Entity</para>
         /// <para>Needed only for Arrows</para>
         /// </summary>
-        public Point3D StartPoint { get; set; }
+        public Point3D StartPoint;
+        /// <summary>
+        /// Force Represented by the Entity
+        /// </summary>
+        public double Force;
         /// <summary>
         /// <para>Direction of the Entity</para>
         /// <para>Needed only for Arrows</para>
         /// </summary>
-        public Vector3D Direction { get; set; }
+        public Vector3D Direction;
         /// <summary>
         /// <para>Cylinder Length of the Entity</para>
         /// <para>Needed only for Arrows</para>
         /// </summary>
-        public double CylLength { get; set; }
+        public double CylLength;
         /// <summary>
         /// <para>Cylinder Radius of the Entity</para>
         /// <para>Needed only for Arrows</para>
         /// </summary>
-        public double CylRadius { get; set; }
+        public double CylRadius;
         /// <summary>
         /// <para>Cone Length of the Entity</para>
         /// <para>Needed only for Arrows</para>
         /// </summary>
-        public double ConeLength { get; set; }
+        public double ConeLength;
         /// <summary>
         /// <para>COne Radius of the Entity</para>
         /// <para>Needed only for Arrows</para>
         /// </summary>
-        public double ConeRadius { get; set; }
+        public double ConeRadius;
 
         /// <summary>
         /// Base Constructor
@@ -4079,36 +4143,32 @@ namespace Coding_Attempt_with_GUI
         public CustomData() { }
 
         /// <summary>
+        /// <para>---Bars---</para>
         /// <para>Overloaded Constructor #1</para>
         /// <para>Used for <see cref="Bar"/>s</para>
         /// </summary>
-        /// <param name="_name"></param>
-        /// <param name="_force"></param>
-        /// <param name="_entityColor"></param>
+        /// <param name="_name">Bar/Linkage Name</param>
+        /// <param name="_force">Force Value</param>
+        /// <param name="_entityColor">Colour of the Bar</param>
         public CustomData(string _name, string _catName, double _force, Color _entityColor)
         {
             Name = _name;
             CategoryNamne = _catName;
             Force = _force;
             EntityColor = _entityColor;
-            StartPoint = new Point3D();
-            CylLength = 0;
-            CylRadius = 0;
-            ConeLength = 0;
-            ConeRadius = 0;
         }
 
         /// <summary>
+        /// <para>---Arrows---</para>
         /// <para>Overloaded Constructor #2</para>
         /// <para>Used for <see cref="Arrow"/>s</para>
         /// </summary>
-        /// <param name="_name"></param>
-        /// <param name="_force"></param>
-        /// <param name="_entityColor"></param>
-        /// <param name="_startPoint"></param>
-        /// <param name="_endPoint"></param>
-        /// <param name="_cylLength"></param>
-        /// <param name="_cylRadius"></param>
+        /// <param name="_name">Arrow Name</param>
+        /// <param name="_force">Force Value</param>
+        /// <param name="_entityColor">Arrow Colour</param>
+        /// <param name="_startPoint">Arrow Start Point</param>
+        /// <param name="_cylLength">Arrow's Cylinder Length</param>
+        /// <param name="_cylRadius">Arrow's Cylinder Radius</param>
         public CustomData(string _name, double _force, string _catName, Color _entityColor, Point3D _startPoint, Vector3D _direction, double _cylLength, double _cylRadius, double _coneLength, double _conelRadius)
         {
             Name = _name;
@@ -4122,6 +4182,85 @@ namespace Coding_Attempt_with_GUI
             ConeLength = _coneLength;
             ConeRadius = _conelRadius;
         }
+
+        /// <summary>
+        ///<para>---Lines---</para>
+        /// <para>Overloaded Constructor #3</para>
+        /// </summary>
+        /// <param name="_name">Name of the Line</param>
+        /// <param name="_catName">Category name. Pass Line as String here</param>
+        /// <param name="_entityColour">Colour of the Entity</param>
+        /// <param name="_direction">Direction of the Line</param>
+        /// <param name="_startPoint">Start Point of the Line</param>
+        public CustomData(string _name, string _catName, Color _entityColour, Vector3D _direction, Point3D _startPoint)
+        {
+            Name = _name;
+
+            CategoryNamne = _catName;
+
+            EntityColor = _entityColour;
+
+            Direction = _direction;
+
+            StartPoint = _startPoint;
+        }
+
+        /// <summary>
+        /// <para>---Joints---</para>
+        /// <para>Overloaded Constructor #4</para>
+        /// </summary>
+        /// <param name="_name"></param>
+        /// <param name="_catName"></param>
+        /// <param name="_entityColor"></param>
+        /// <param name="_startPoint"></param>
+        public CustomData(string _name, string _catName, Color _entityColor, Point3D _startPoint)
+        {
+            Name = _name;
+
+            CategoryNamne = _catName;
+
+            EntityColor = _entityColor;
+
+            StartPoint = _startPoint;
+        }
+
+        /// <summary>
+        /// <para>---Dimension---</para>
+        /// <para>Overloaded Constructor #5</para>
+        /// </summary>
+        /// <param name="_name"></param>
+        /// <param name="_catName"></param>
+        /// <param name="_entityColor"></param>
+        public CustomData(string _name, string _catName, Color _entityColor)
+        {
+            Name = _name;
+
+            CategoryNamne = _catName;
+
+            EntityColor = _entityColor;
+        }
+
+        /// <summary>
+        /// <para>---Plane---</para>
+        /// <para>Overloaded Constructor #6</para>
+        /// </summary>
+        /// <param name="_name"></param>
+        /// <param name="_catName"></param>
+        /// <param name="_entityColor"></param>
+        /// <param name="_p1"></param>
+        /// <param name="_p2"></param>
+        /// <param name="_p3"></param>
+        public CustomData(string _name, string _catName, Color _entityColor, Point3D _p1, Point3D _p2, Point3D _p3)
+        {
+            Name = _name;
+
+            CategoryNamne = _catName;
+
+            EntityColor = _entityColor;
+
+            StartPoint = _p1;
+        }
+
 
     }
 
@@ -4161,6 +4300,22 @@ namespace Coding_Attempt_with_GUI
         /// Both the Length and Colour will be scaled. 
         /// </summary>
         Both = 2
-    }; 
+    };
+
+    /// <summary>
+    /// Enumeration of the Entities that are available in the <see cref="devDept.Eyeshot"/>
+    /// </summary>
+    public enum EntityTypes
+    {
+        Line,
+        LineDimension,
+        Bar,
+        Joint,
+        Triangle,
+        Quad,
+        Plane,
+        PlanarEntity
+    }
+
     #endregion
 }
