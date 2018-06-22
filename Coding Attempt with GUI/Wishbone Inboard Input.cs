@@ -17,53 +17,99 @@ namespace Coding_Attempt_with_GUI
         public KO_DesignForm_AArmInboard()
         {
             InitializeComponent();
+
+            Init_ListBox();
+
+            InboardPoint_Main = new Point3D();
+
+            InboardPoint_Counter = new Point3D();
         }
 
         private void Init_ListBox()
         {
             listBoxControlSuspensionCoordinate.Items.AddRange(new string[] {CoordinateOptions.UpperFront.ToString(), CoordinateOptions.UpperRear.ToString(),
                                                                             CoordinateOptions.LowerFront.ToString(),CoordinateOptions.LowerRear.ToString()});
+
+
+            //object _sender,
+
+            //listBoxControlSuspensionCoordinate_SelectedIndexChanged()
+
         }
 
-        public Point3D InboardPoint_Left;
+        public Point3D InboardPoint_Main;
+
+        public Point3D InboardPoint_Counter;
 
         public string InboardPointName;
 
         public string WishboneArmName;
 
-        public Point3D InboardPoint_Right;
-
         public InboardInputFormat InboardFormat { get; set; }
 
-        public KO_CornverVariables KO_CV_Left { get; set; }
+        public KO_CornverVariables KO_CV_Main { get; set; }
 
-        public KO_CornverVariables KO_CV_Right;
+        public KO_CornverVariables KO_CV_Counter;
+
+        VehicleCorner VCorner_Main;
+
+        VehicleCorner VCorner_Counter;
+
 
         public DesignForm Design_Form;
 
         CoordinateOptions CurrentCoordinate;
 
-
-        public void Get_ParentObjectData(KO_CornverVariables _koCV, DesignForm _designForm)
+        /// <summary>
+        /// ---Used for Assymetric Suspension---
+        /// Method to obtain the <see cref="KO_CornverVariables"/> object corresponding to the corner which is calling the functions of this class and the <see cref="DesignForm"/> object which is the parent of this UserControl
+        /// </summary>
+        /// <param name="_koCV">Object of the <see cref="KO_CornverVariables"/></param>
+        /// <param name="_designForm">Object of hte <see cref="DesignForm"/></param>
+        public void Get_ParentObjectData(KO_CornverVariables _koCV, DesignForm _designForm, VehicleCorner _vCorner)
         {
-            KO_CV_Left = _koCV;
+            VCorner_Main = _vCorner;
+
+            KO_CV_Main = _koCV;
+            KO_CV_Main.VCornerParams.Initialize_Points();
 
             Design_Form = _designForm;
+
+            Set_SelectedIndices();
         }
 
         /// <summary>
-        /// Overloaded Constructor to deal with Symmetry
+        /// ---Used for Symmetry---
+        /// Overloaded method which performs the exact same function as the method above except that it accepts a Counter object of the <see cref="KO_CornverVariables"/> class
+        /// Hence, if the Front Left <see cref="KO_CornverVariables"/> is passed then the counter <see cref="KO_CornverVariables"/> object of the Front Right must also be passed
         /// </summary>
         /// <param name="_koCVLeft"><see cref="KO_CornverVariables"/> object of the Left</param>
         /// <param name="_koCVRight"><see cref="KO_CornverVariables"/> object of the Right</param>
         /// <param name="_designForm">Object of the <see cref="DesignForm"/></param>
-        public void Get_ParentObjectData(KO_CornverVariables _koCVLeft, KO_CornverVariables _koCVRight, DesignForm _designForm)
+        public void Get_ParentObjectData(KO_CornverVariables _koCVLeft, KO_CornverVariables _koCVRight, DesignForm _designForm, VehicleCorner _vCorner, VehicleCorner _vCornerCounter)
         {
-            KO_CV_Left = _koCVLeft;
+            VCorner_Main = _vCorner;
 
-            KO_CV_Right = _koCVRight;
+            VCorner_Counter = _vCornerCounter;
+
+            KO_CV_Main = _koCVLeft;
+            KO_CV_Main.VCornerParams.Initialize_Points();
+
+
+            KO_CV_Counter = _koCVRight;
+            KO_CV_Counter.VCornerParams.Initialize_Points();
+
 
             Design_Form = _designForm;
+
+            Set_SelectedIndices();
+        }
+
+        private void Set_SelectedIndices()
+        {
+            listBoxControlSuspensionCoordinate.SelectedIndex = 0;
+
+            radioGroup1.SelectedIndex = -1;
         }
 
 
@@ -77,7 +123,12 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Assigning the Format of plotting the Inboard Point which the user selects</summary>
             if (radioGroup1.SelectedIndex == 0)
             {
-                KO_CV_Left.VCornerParams.InputFormat= InboardInputFormat.IIO;
+                KO_CV_Main.VCornerParams.InputFormat = InboardInputFormat.IIO;
+
+                ///<remarks>
+                ///Added here and inside each of the for loops because this Event is called during the construction of the <see cref="KO_DesignForm_AArmInboard"/> UserControl and at this time <see cref="KO_CV_Counter"/> is null
+                /// </remarks>
+                KO_CV_Counter.VCornerParams.InputFormat = KO_CV_Main.VCornerParams.InputFormat;
 
                 ///<remarks>Corresponding GUI activiites to allow inputs to only X and Y coordinates</remarks>
                 tbX.Enabled = true;
@@ -89,7 +140,12 @@ namespace Coding_Attempt_with_GUI
             }
             else if (radioGroup1.SelectedIndex == 1)
             {
-                KO_CV_Left.VCornerParams.InputFormat = InboardInputFormat.IOI;
+                KO_CV_Main.VCornerParams.InputFormat = InboardInputFormat.IOI;
+
+                ///<remarks>
+                ///Added here and inside each of the for loops because this Event is called during the construction of the <see cref="KO_DesignForm_AArmInboard"/> UserControl and at this time <see cref="KO_CV_Counter"/> is null
+                /// </remarks>
+                KO_CV_Counter.VCornerParams.InputFormat = KO_CV_Main.VCornerParams.InputFormat;
 
                 ///<remarks>Corresponding GUI activiites to allow inputs to only X and Z coordinates</remarks>
                 tbX.Enabled = true;
@@ -98,9 +154,14 @@ namespace Coding_Attempt_with_GUI
 
                 tbZ.Enabled = true;
             }
-            else
+            else if (radioGroup1.SelectedIndex == 2) 
             {
-                KO_CV_Left.VCornerParams.InputFormat = InboardInputFormat.OII;
+                KO_CV_Main.VCornerParams.InputFormat = InboardInputFormat.OII;
+
+                ///<remarks>
+                ///Added here and inside each of the for loops because this Event is called during the construction of the <see cref="KO_DesignForm_AArmInboard"/> UserControl and at this time <see cref="KO_CV_Counter"/> is null
+                /// </remarks>
+                KO_CV_Counter.VCornerParams.InputFormat = KO_CV_Main.VCornerParams.InputFormat;
 
                 ///<remarks>Corresponding GUI activiites to allow inputs to only Y and Z coordinates</remarks>
                 tbX.Enabled = false;
@@ -109,6 +170,16 @@ namespace Coding_Attempt_with_GUI
 
                 tbZ.Enabled = true;
             }
+            else
+            {
+                tbX.Enabled = false;
+
+                tbY.Enabled = false;
+
+                tbZ.Enabled = false;
+            }
+
+
         }
 
 
@@ -196,10 +267,12 @@ namespace Coding_Attempt_with_GUI
         }
 
         private void Set_X()
-        {
+            {
             if (DoubleValidation(tbX.Text))
             {
-                InboardPoint_Left.X = Convert.ToDouble(tbX.Text);
+                InboardPoint_Main.X = Convert.ToDouble(tbX.Text);
+
+                InboardPoint_Counter.X = -InboardPoint_Main.X;
             }
             else
             {
@@ -227,7 +300,10 @@ namespace Coding_Attempt_with_GUI
         {
             if (DoubleValidation(tbY.Text))
             {
-                InboardPoint_Left.Y = Convert.ToDouble(tbY.Text);
+                InboardPoint_Main.Y = Convert.ToDouble(tbY.Text);
+
+                InboardPoint_Counter.Y = InboardPoint_Main.Y;
+
             }
             else
             {
@@ -255,7 +331,10 @@ namespace Coding_Attempt_with_GUI
         {
             if (DoubleValidation(tbZ.Text))
             {
-                InboardPoint_Left.Z = Convert.ToDouble(tbZ.Text);
+                InboardPoint_Main.Z = Convert.ToDouble(tbZ.Text);
+
+                InboardPoint_Counter.Z = InboardPoint_Main.Z;
+
             }
             else
             {
@@ -280,36 +359,53 @@ namespace Coding_Attempt_with_GUI
         {
             if ((string)listBoxControlSuspensionCoordinate.SelectedItem == CoordinateOptions.UpperFront.ToString())
             {
-                InboardPoint_Left = KO_CV_Left.VCornerParams.UpperFront;
+                InboardPoint_Main = KO_CV_Main.VCornerParams.UpperFront;
 
                 InboardPointName = CoordinateOptions.UpperFront.ToString();
             }
             else if ((string)listBoxControlSuspensionCoordinate.SelectedItem == CoordinateOptions.UpperRear.ToString())
             {
-                InboardPoint_Left = KO_CV_Left.VCornerParams.UpperRear;
+                InboardPoint_Main = KO_CV_Main.VCornerParams.UpperRear;
 
-                InboardPointName = CoordinateOptions.UpperFront.ToString();
+                InboardPointName = CoordinateOptions.UpperRear.ToString();
             }
             else if ((string)listBoxControlSuspensionCoordinate.SelectedItem == CoordinateOptions.LowerFront.ToString())
             {
-                InboardPoint_Left = KO_CV_Left.VCornerParams.LowerFront;
+                InboardPoint_Main = KO_CV_Main.VCornerParams.LowerFront;
 
                 InboardPointName = CoordinateOptions.LowerFront.ToString();
             }
             else if ((string)listBoxControlSuspensionCoordinate.SelectedItem == CoordinateOptions.LowerRear.ToString())
             {
-                InboardPoint_Left = KO_CV_Left.VCornerParams.LowerRear;
+                InboardPoint_Main = KO_CV_Main.VCornerParams.LowerRear;
 
                 InboardPointName = CoordinateOptions.LowerRear.ToString();
             }
 
-            CurrentCoordinate = (CoordinateOptions)listBoxControlSuspensionCoordinate.SelectedItem;
+            Set_CurrentCoordinate();
 
-            Init_PointToTextbox(InboardPoint_Left);
+            Init_PointToTextbox(InboardPoint_Main);
 
             ///<remarks>The variable below will be used ONLY in case of Symmetry</remarks>
-            InboardPoint_Right = new Point3D(-InboardPoint_Left.X, InboardPoint_Left.Y, InboardPoint_Left.Z);
+            InboardPoint_Counter = new Point3D(-InboardPoint_Main.X, InboardPoint_Main.Y, InboardPoint_Main.Z);
 
+        }
+
+        /// <summary>
+        /// Method to determine whch of the <see cref="CoordinateOptions"/> is the current coordinate from the <see cref="listBoxControlSuspensionCoordinate"/> and 
+        /// set it to the <see cref="CurrentCoordinate"/> object 
+        /// </summary>
+        private void Set_CurrentCoordinate()
+        {
+            Array coordOptions = Enum.GetValues(typeof(CoordinateOptions));
+
+            for (int i = 0; i < coordOptions.Length; i++)
+            {
+                if (coordOptions.GetValue(i).ToString() == (string)listBoxControlSuspensionCoordinate.SelectedItem)
+                {
+                    CurrentCoordinate = (CoordinateOptions)i;
+                }
+            }
         }
 
 
@@ -347,30 +443,30 @@ namespace Coding_Attempt_with_GUI
         {
             if (CurrentCoordinate == CoordinateOptions.UpperFront || CurrentCoordinate == CoordinateOptions.UpperRear)
             {
-                KO_CV_Left.Compute_PointOnPlane(KO_CV_Left.VCornerParams.TopWishbonePlane, KO_CV_Left.VCornerParams.InputFormat, InboardPoint_Left);
-                PlotPoint(InboardPoint_Left, KO_CV_Left.VCornerParams.UBJ, InboardPointName, InboardPointName);
-                KO_CV_Left.VCornerParams.Initialize_Dictionary();
+                KO_CV_Main.Compute_PointOnPlane(KO_CV_Main.VCornerParams.TopWishbonePlane, KO_CV_Main.VCornerParams.InputFormat, InboardPoint_Main);
+                PlotPoint(InboardPoint_Main, KO_CV_Main.VCornerParams.UBJ, InboardPointName + VCorner_Main.ToString(), InboardPointName + VCorner_Main.ToString());
+                KO_CV_Main.VCornerParams.Initialize_Dictionary();
 
-                if (KO_CV_Right != null)
+                if (KO_CV_Counter != null)
                 {
-                    KO_CV_Right.Compute_PointOnPlane(KO_CV_Right.VCornerParams.TopWishbonePlane, KO_CV_Right.VCornerParams.InputFormat, InboardPoint_Right);
-                    PlotPoint(InboardPoint_Right, KO_CV_Right.VCornerParams.UBJ, InboardPointName, InboardPointName);
-                    KO_CV_Right.VCornerParams.Initialize_Dictionary();
+                    KO_CV_Counter.Compute_PointOnPlane(KO_CV_Counter.VCornerParams.TopWishbonePlane, KO_CV_Counter.VCornerParams.InputFormat, InboardPoint_Counter);
+                    PlotPoint(InboardPoint_Counter, KO_CV_Counter.VCornerParams.UBJ, InboardPointName + VCorner_Counter.ToString(), InboardPointName + VCorner_Counter.ToString());
+                    KO_CV_Counter.VCornerParams.Initialize_Dictionary();
                 }
 
 
             }
             else if (CurrentCoordinate == CoordinateOptions.LowerFront || CurrentCoordinate == CoordinateOptions.LowerRear)
             {
-                KO_CV_Left.Compute_PointOnPlane(KO_CV_Left.VCornerParams.BottomWishbonePlane, KO_CV_Left.VCornerParams.InputFormat, InboardPoint_Left);
-                PlotPoint(InboardPoint_Left, KO_CV_Left.VCornerParams.LBJ, InboardPointName, InboardPointName);
-                KO_CV_Left.VCornerParams.Initialize_Dictionary();
+                KO_CV_Main.Compute_PointOnPlane(KO_CV_Main.VCornerParams.BottomWishbonePlane, KO_CV_Main.VCornerParams.InputFormat, InboardPoint_Main);
+                PlotPoint(InboardPoint_Main, KO_CV_Main.VCornerParams.LBJ, InboardPointName + VCorner_Main.ToString(), InboardPointName + VCorner_Main.ToString());
+                KO_CV_Main.VCornerParams.Initialize_Dictionary();
 
-                if (KO_CV_Right != null)
+                if (KO_CV_Counter != null)
                 {
-                    KO_CV_Right.Compute_PointOnPlane(KO_CV_Right.VCornerParams.BottomWishbonePlane, KO_CV_Right.VCornerParams.InputFormat, InboardPoint_Right);
-                    PlotPoint(InboardPoint_Right, KO_CV_Right.VCornerParams.LBJ, InboardPointName, InboardPointName);
-                    KO_CV_Right.VCornerParams.Initialize_Dictionary();
+                    KO_CV_Counter.Compute_PointOnPlane(KO_CV_Counter.VCornerParams.BottomWishbonePlane, KO_CV_Counter.VCornerParams.InputFormat, InboardPoint_Counter);
+                    PlotPoint(InboardPoint_Counter, KO_CV_Counter.VCornerParams.LBJ, InboardPointName + VCorner_Counter.ToString(), InboardPointName + VCorner_Counter.ToString());
+                    KO_CV_Counter.VCornerParams.Initialize_Dictionary();
                 }
 
             }

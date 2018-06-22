@@ -416,19 +416,22 @@ namespace Coding_Attempt_with_GUI
 
             AxisLines_WheelCenter = new Dictionary<string, Line>();
 
-            AxisLines_WheelCenter.Add("SteeringAxis", new Line(UBJ.Clone() as Point3D, LBJ.Clone() as Point3D));
+            if (UBJ != null && LBJ != null && WheelCenter != null && WcEnd != null) 
+            {
+                AxisLines_WheelCenter.Add("SteeringAxis", new Line(UBJ.Clone() as Point3D, LBJ.Clone() as Point3D));
 
-            AxisLines_WheelCenter.Add("SteeringAxis_Ref", new Line(UBJ.Clone() as Point3D, LBJ.Clone() as Point3D));
+                AxisLines_WheelCenter.Add("SteeringAxis_Ref", new Line(UBJ.Clone() as Point3D, LBJ.Clone() as Point3D));
 
-            AxisLines_WheelCenter.Add("LateralAxis_WheelCenter", new Line(WheelCenter.Clone() as Point3D, new Point3D(WheelCenter.X + 100, WheelCenter.Y, WheelCenter.Z)));
+                AxisLines_WheelCenter.Add("LateralAxis_WheelCenter", new Line(WheelCenter.Clone() as Point3D, new Point3D(WheelCenter.X + 100, WheelCenter.Y, WheelCenter.Z)));
 
-            AxisLines_WheelCenter.Add("WheelSpindle", new Line(WheelCenter.Clone() as Point3D, WcEnd.Clone() as Point3D));
+                AxisLines_WheelCenter.Add("WheelSpindle", new Line(WheelCenter.Clone() as Point3D, WcEnd.Clone() as Point3D));
 
-            AxisLines_WheelCenter.Add("WheelSpindle_Ref", new Line(WheelCenter.Clone() as Point3D, WcEnd.Clone() as Point3D));
+                AxisLines_WheelCenter.Add("WheelSpindle_Ref", new Line(WheelCenter.Clone() as Point3D, WcEnd.Clone() as Point3D));
 
-            AxisLines_WheelCenter.Add("VerticalAxis_WheelCenter", new Line(WheelCenter.Clone() as Point3D, new Point3D(WheelCenter.X, WheelCenter.Y + 100, WheelCenter.Z)));
+                AxisLines_WheelCenter.Add("VerticalAxis_WheelCenter", new Line(WheelCenter.Clone() as Point3D, new Point3D(WheelCenter.X, WheelCenter.Y + 100, WheelCenter.Z)));
 
-            AxisLines_WheelCenter.Add("LongitudinalAxis_WheelCenter", new Line(WheelCenter.Clone() as Point3D, new Point3D(WheelCenter.X, WheelCenter.Y, WheelCenter.Z + 100)));
+                AxisLines_WheelCenter.Add("LongitudinalAxis_WheelCenter", new Line(WheelCenter.Clone() as Point3D, new Point3D(WheelCenter.X, WheelCenter.Y, WheelCenter.Z + 100)));  
+            }
 
 
 

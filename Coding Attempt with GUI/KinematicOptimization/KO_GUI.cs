@@ -90,13 +90,13 @@ namespace Coding_Attempt_with_GUI
 
             ID_GUI = _id;
 
-            KO_CV_FL_GUI = new KO_CornverVariables();
+            KO_CV_FL_GUI = new KO_CornverVariables(VehicleCorner.FrontLeft);
 
-            KO_CV_FR_GUI = new KO_CornverVariables();
+            KO_CV_FR_GUI = new KO_CornverVariables(VehicleCorner.FrontRight);
 
-            KO_CV_RL_GUI = new KO_CornverVariables();
+            KO_CV_RL_GUI = new KO_CornverVariables(VehicleCorner.RearLeft);
 
-            KO_CV_RR_GUI = new KO_CornverVariables();
+            KO_CV_RR_GUI = new KO_CornverVariables(VehicleCorner.RearRight);
 
             KO_Central = new KO_CentralVariables();
 

@@ -118,14 +118,14 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_rearTrack">Rear Track Width</param>
         public void Initialize_PC_Symmetric(double _left_PC_Height, double _left_PC_LongOffset, double _frontTrack, double _rearTrack)
         {
-            PC_Left.X = (_frontTrack + _rearTrack) / 2;
+            PC_Left.X = (_frontTrack /*+ _rearTrack*/) / 2;
 
             PC_Left.Y = _left_PC_Height;
 
             PC_Left.Z = _left_PC_LongOffset;
 
 
-            PC_Right.X = -(_frontTrack + _rearTrack) / 2;
+            PC_Right.X = -(_frontTrack /*+ _rearTrack*/) / 2;
 
             PC_Right.Y = _left_PC_Height;
 
@@ -169,13 +169,14 @@ namespace Coding_Attempt_with_GUI
 
 
         /// <summary>
-        /// Method to Compute the Outboard Toe Link Points using the Ackermann and Pitman Arm Length
+        /// <para>Placed inside <see cref="KO_CentralVariables"/> because we need to use literall all the 4 <see cref="KO_CornverVariables"/> to compute the Outboard Toe Link Points</para>
+        /// <para>Method to Compute the Outboard Toe Link Points using the Ackermann and Pitman Arm Length</para>
         /// </summary>
         /// <param name="_kocvFL"><see cref="KO_CornverVariables"/> object of the Front Left</param>
         /// <param name="_kocvFR"><see cref="KO_CornverVariables"/> object of the Front Right</param>
         /// <param name="_kocvRL"><see cref="KO_CornverVariables"/> object of the Rear Left</param>
         /// <param name="_kocvRR"><see cref="KO_CornverVariables"/> object of the Rear Right</param>
-        public void Compute_OutboardToeLink(KO_CornverVariables _kocvFL, KO_CornverVariables _kocvFR, KO_CornverVariables _kocvRL, KO_CornverVariables _kocvRR)
+        public void Compute_OutboardToeLink(ref KO_CornverVariables _kocvFL, ref KO_CornverVariables _kocvFR, ref KO_CornverVariables _kocvRL, ref KO_CornverVariables _kocvRR)
         {
             ///<summary>Translating the Ackermann Percentage to a Line poostion based on the Wheelbase</summary>
             double ackermannLinePos = (Ackermann / 100) * WheelBase;
@@ -187,7 +188,7 @@ namespace Coding_Attempt_with_GUI
 
             ///<summary>Computing the Ackermann Line</summary>
             Line ackermannLine = new Line(_kocvRL.VCornerParams.WheelCenter.Clone() as Point3D, _kocvRR.VCornerParams.WheelCenter.Clone() as Point3D);
-            ackermannLine.Translate(0, 0, (WheelBase - ackermannLinePos));
+            ackermannLine.Translate(0, 0, -(WheelBase - ackermannLinePos));
 
 
             ///Creating the Pitman Lines of the Left and Right
@@ -208,6 +209,8 @@ namespace Coding_Attempt_with_GUI
 
 
         }
+
+
 
 
 

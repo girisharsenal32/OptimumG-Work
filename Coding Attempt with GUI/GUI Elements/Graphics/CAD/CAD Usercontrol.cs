@@ -2872,6 +2872,7 @@ namespace Coding_Attempt_with_GUI
         private void AddOrRegen(Entity _entity, Color _color)
         {
             bool entityExists = false;
+
             CustomData customData = _entity.EntityData as CustomData;
 
             for (int i = 0; i < viewportLayout1.Entities.Count; i++)
@@ -2898,6 +2899,8 @@ namespace Coding_Attempt_with_GUI
             viewportLayout1.Invalidate();
 
             viewportLayout1.ZoomFit();
+
+            viewportLayout1.SetView(viewType.Isometric);
         }
 
 
@@ -2933,7 +2936,7 @@ namespace Coding_Attempt_with_GUI
             Track_Front.ColorMethod = colorMethodType.byEntity;
             Track_Front.EntityData = new CustomData("Track_Front" + EntityTypes.Line.ToString(),EntityTypes.LineDimension.ToString(), Color.Orange, new Vector3D(Track_Front.StartPoint, Track_Front.EndPoint), Track_Front.StartPoint);
 
-            Track_Rear = new Line(new Point3D(_rearTrack / 2, 0, 0), new Point3D(-_rearTrack / 2, 0, 0));
+            Track_Rear = new Line(new Point3D(_rearTrack / 2, 0, WheelbaseLine.EndPoint.Z), new Point3D(-_rearTrack / 2, 0, WheelbaseLine.EndPoint.Z));
             Track_Rear.ColorMethod = colorMethodType.byEntity;
             Track_Rear.EntityData = new CustomData("Track_Rear" + EntityTypes.Line.ToString(), EntityTypes.Line.ToString(), Color.Orange, new Vector3D(Track_Rear.StartPoint, Track_Rear.EndPoint), Track_Rear.StartPoint);
 
@@ -2997,7 +3000,7 @@ namespace Coding_Attempt_with_GUI
             PC_Right.ColorMethod = colorMethodType.byEntity;
             PC_Right.EntityData = new CustomData("PC_Right" + EntityTypes.Joint.ToString(), EntityTypes.Joint.ToString(), Color.Green);
 
-            AddOrRegen(PC_Left, Color.Green);
+            AddOrRegen(PC_Right, Color.Green);
 
 
         }
@@ -3009,7 +3012,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_vsal_FV_Length">VSAL Lenght in the Front View</param>
         /// <param name="_contactPatch">Contact Patch point of the Corner generated using Track and Wheelbase</param>
         /// <param name="_rc">Roll Center</param>
-        public void Init_VSAL_FV(Line _fv_IC, double _vsal_FV_Length, Point3D _contactPatch, Point3D _rc)
+        public void Init_VSAL_FV(out Line _fv_IC, double _vsal_FV_Length, Point3D _contactPatch, Point3D _rc, string _icLineName)
         {
             Segment3D FV_IC_Segment = new Segment3D(_contactPatch.Clone() as Point3D, _rc.Clone() as Point3D);
 
@@ -3019,7 +3022,7 @@ namespace Coding_Attempt_with_GUI
             ///the VSAL is moving outside the Track then it should be MINUS. 
             ///Since this is oppoiste to the Local Sign Convention (Positive means more leftward and hence outside the track, I need to addd MINUS sign)
             /// </remarks>
-            Line FV_VSAL_Length = new Line(_contactPatch.Clone() as Point3D, new Point3D(-_vsal_FV_Length, _contactPatch.Y, _contactPatch.Z));
+            Line FV_VSAL_Length = new Line(_contactPatch.Clone() as Point3D, new Point3D((_contactPatch.X - _vsal_FV_Length ), _contactPatch.Y, _contactPatch.Z));
 
 
 
@@ -3029,7 +3032,10 @@ namespace Coding_Attempt_with_GUI
                                                                        Custom3DGeometry.GetMathNetVector3D(new Line(_contactPatch.Clone() as Point3D, new Point3D(_contactPatch.X, _contactPatch.Y, _contactPatch.Z + 100))));
 
 
-            Segment3D Perp_VSAL_FV = new Segment3D(FV_VSAL_Length.EndPoint.Clone() as Point3D, new Point3D(FV_VSAL_Length.EndPoint.X, FV_VSAL_Length.EndPoint.Y + (_vsal_FV_Length * Math.Tan(FV_IC_VSAL.Radians)), FV_VSAL_Length.EndPoint.Z));
+            ///<remarks>
+            ///You need to take absolute value of the VSAL Length and the Angle as they could be negative based on the user input or the orientation. Hence to get unskewed results you need to take abs values
+            /// </remarks>
+            Segment3D Perp_VSAL_FV = new Segment3D(FV_VSAL_Length.EndPoint.Clone() as Point3D, new Point3D(FV_VSAL_Length.EndPoint.X, FV_VSAL_Length.EndPoint.Y + (Math.Abs(_vsal_FV_Length) * Math.Tan(Math.Abs(FV_IC_VSAL.Radians))), FV_VSAL_Length.EndPoint.Z));
 
 
             FV_IC_Segment.ExtendTo(Perp_VSAL_FV.P1);
@@ -3037,7 +3043,7 @@ namespace Coding_Attempt_with_GUI
 
             _fv_IC = new Line(FV_IC_Segment);
             _fv_IC.ColorMethod = colorMethodType.byEntity;
-            _fv_IC.EntityData = new CustomData("_fv_IC" + EntityTypes.Line.ToString(), EntityTypes.Line.ToString(), Color.Purple);
+            _fv_IC.EntityData = new CustomData(_icLineName + EntityTypes.Line.ToString(), EntityTypes.Line.ToString(), Color.Purple);
 
 
             AddOrRegen(_fv_IC, Color.Purple);
@@ -3052,7 +3058,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_vsal_SV_Length">VSAL Lenght in the Side View</param>
         /// <param name="_contactPatch">Contact Patch point of the Corner generated using Track and Wheelbase</param>
         /// <param name="_pc">Pitch Center</param>
-        public void Init_VSAL_SV(Line _sv_IC, double _vsal_SV_Length, Point3D _contactPatch, Point3D _pc)
+        public void Init_VSAL_SV(out Line _sv_IC, double _vsal_SV_Length, Point3D _contactPatch, Point3D _pc, string _icLineName)
         {
             Segment3D SV_IC_Segment = new Segment3D(_contactPatch.Clone() as Point3D, _pc.Clone() as Point3D);
 
@@ -3061,20 +3067,23 @@ namespace Coding_Attempt_with_GUI
             ///the VSAL is moving outside the WHEELBASE then it should be MINUS. 
             ///Since this is oppoiste to the Local Sign Convention (Positive means more forward and hence outside the Wheelbase, I need to addd MINUS sign)
             /// </remarks>
-            Line SV_VSAL_Length = new Line(_contactPatch.Clone() as Point3D, new Point3D(-_vsal_SV_Length, _contactPatch.Y, _contactPatch.Z));
+            Line SV_VSAL_Length = new Line(_contactPatch.Clone() as Point3D, new Point3D(_contactPatch.X, _contactPatch.Y, (_contactPatch.Z - _vsal_SV_Length)));
 
 
             Angle SV_IC_VSAL = SetupChangeDatabase.AngleInRequiredView(Custom3DGeometry.GetMathNetVector3D(new Line(SV_IC_Segment)),
                                                                        Custom3DGeometry.GetMathNetVector3D(SV_VSAL_Length),
                                                                        Custom3DGeometry.GetMathNetVector3D(new Line(_contactPatch.Clone() as Point3D, new Point3D(_contactPatch.X + 100, _contactPatch.Y, _contactPatch.Z))));
 
-            Segment3D Perp_VSAL_SV = new Segment3D(SV_VSAL_Length.EndPoint.Clone() as Point3D, new Point3D(SV_VSAL_Length.EndPoint.X, SV_VSAL_Length.EndPoint.Y + (_vsal_SV_Length * Math.Tan(SV_IC_VSAL.Radians)), SV_VSAL_Length.EndPoint.Z));
+            ///<remarks>
+            ///You need to take absolute value of the VSAL Length and the Angle as they could be negative based on the user input or the orientation. Hence to get unskewed results you need to take abs values
+            /// </remarks>
+            Segment3D Perp_VSAL_SV = new Segment3D(SV_VSAL_Length.EndPoint.Clone() as Point3D, new Point3D(SV_VSAL_Length.EndPoint.X, SV_VSAL_Length.EndPoint.Y + (Math.Abs(_vsal_SV_Length) * Math.Tan(Math.Abs(SV_IC_VSAL.Radians))), SV_VSAL_Length.EndPoint.Z));
 
             SV_IC_Segment.ExtendTo(Perp_VSAL_SV.P1);
 
             _sv_IC = new Line(SV_IC_Segment);
             _sv_IC.ColorMethod = colorMethodType.byEntity;
-            _sv_IC.EntityData = new CustomData("_sv_IC" + EntityTypes.Line.ToString(), EntityTypes.Line.ToString(), Color.Purple);
+            _sv_IC.EntityData = new CustomData(_icLineName + EntityTypes.Line.ToString(), EntityTypes.Line.ToString(), Color.Purple);
 
 
             AddOrRegen(_sv_IC, Color.Green);
@@ -3089,7 +3098,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_caster">Caster Angle</param>
         /// <param name="_scrubRadius">Scrub Radius</param>
         /// <param name="_mechTrail">Mechanical Trail</param>
-        public void Plot_SteeringAxis(Line _steeringAxis, Angle _kpi, Angle _caster, double _scrubRadius, double _mechTrail, Point3D _contactPatch)
+        public void Plot_SteeringAxis(out Line _steeringAxis, Angle _kpi, Angle _caster, double _scrubRadius, double _mechTrail, Point3D _contactPatch, string _steeringAxisName)
         {
             _steeringAxis = new Line(_contactPatch.Clone() as Point3D, new Point3D(_contactPatch.X, _contactPatch.Y + 500, _contactPatch.Z));
 
@@ -3101,7 +3110,7 @@ namespace Coding_Attempt_with_GUI
 
             _steeringAxis.Translate(0, 0, _mechTrail);
 
-            _steeringAxis.EntityData = new CustomData("_steeringAxis" + EntityTypes.Line.ToString(), EntityTypes.Line.ToString(), Color.Red);
+            _steeringAxis.EntityData = new CustomData(_steeringAxisName + EntityTypes.Line.ToString(), EntityTypes.Line.ToString(), Color.Red);
 
             _steeringAxis.ColorMethod = colorMethodType.byEntity;
             
@@ -3131,7 +3140,10 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_point1">First point making up the plane</param>
         /// <param name="_point2">Second point making up the plane</param>
         /// <param name="_point3">Third point making up the plane</param>
-        public void Plot_WishbonePlane(Plane _wishbonePlane, Point3D _point1, Point3D _point2, Point3D _point3, string _wishbonePlaneName)
+        /// <param name="_wishbonePlaneName">Name of the plane </param>
+        /// <param name="_plotPlane"><see cref="Boolean"/> to determine whether the Plane is to be plotted or not. This is necessary because for a Symmetric Suspension, 
+        /// plotting the Right sidees planes is unneccesary and will clutter the screen</param>
+        public void Plot_WishbonePlane(out Plane _wishbonePlane, Point3D _point1, Point3D _point2, Point3D _point3, string _wishbonePlaneName, bool _plotPlane)
         {
             _wishbonePlane = new Plane(_point1, _point2, _point3);
 
@@ -3139,7 +3151,10 @@ namespace Coding_Attempt_with_GUI
             _plane.ColorMethod = colorMethodType.byEntity;
             _plane.EntityData = new CustomData(_wishbonePlane + EntityTypes.PlanarEntity.ToString(), EntityTypes.PlanarEntity.ToString(), Color.Gold);
 
-            AddOrRegen(_plane, Color.Gold);
+            if (_plotPlane)
+            {
+                AddOrRegen(_plane, Color.Gold); 
+            }
         }
 
         /// <summary>
@@ -3162,7 +3177,27 @@ namespace Coding_Attempt_with_GUI
             AddOrRegen(wishboneArm, Color.Orange);
         }
 
+        /// <summary>
+        /// Method to plot the Inboard Toe Link Point and Toe Link 
+        /// </summary>
+        /// <param name="_inboardToeLinkPoint">Inboard Toe Link Point</param>
+        /// <param name="_outboardToeLinkPoint">Outboard Toe Link Point</param>
+        /// <param name="_inboardToeLinkPointName">Inboard Toe Link Point Name</param>
+        /// <param name="_toeLinkName">Toe Link Name</param>
+        public void Plot_InboardToeLink(Point3D _inboardToeLinkPoint, Point3D _outboardToeLinkPoint, string _inboardToeLinkPointName, string _toeLinkName)
+        {
+            Joint toeLinkInboard = new Joint(_inboardToeLinkPoint, 5, 2);
+            toeLinkInboard.ColorMethod = colorMethodType.byEntity;
+            toeLinkInboard.EntityData = new CustomData(_inboardToeLinkPointName + EntityTypes.Joint.ToString(), EntityTypes.Joint.ToString(), Color.White, _inboardToeLinkPoint);
 
+            Bar toeLink = new Bar(_inboardToeLinkPoint, _outboardToeLinkPoint, 5, 8);
+            toeLink.ColorMethod = colorMethodType.byEntity;
+            toeLink.EntityData = new CustomData(_toeLinkName + EntityTypes.Bar.ToString(), EntityTypes.Bar.ToString(), 0, Color.Orange);
+
+            AddOrRegen(toeLinkInboard, Color.White);
+
+            AddOrRegen(toeLink, Color.Orange);
+        }
 
 
 

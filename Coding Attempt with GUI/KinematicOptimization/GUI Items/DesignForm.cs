@@ -65,13 +65,7 @@ namespace Coding_Attempt_with_GUI
 
             cad1.viewportLayout1.ZoomFit();
 
-            wishboneInboardFL.Get_ParentObjectData(KO_CV_FL, this);
 
-            wishboneInboardFR.Get_ParentObjectData(KO_CV_FR, this);
-
-            wishboneInboardRL.Get_ParentObjectData(KO_CV_RL, this);
-
-            wishboneInboardRR.Get_ParentObjectData(KO_CV_RR, this);
 
         }
 
@@ -98,6 +92,14 @@ namespace Coding_Attempt_with_GUI
             bumpSteerCurveFL.GetParentObjectData(KO_CV_FL);
 
             bumpSteerCurveFL.GetParentObjectData(KO_CV_FR);
+
+            wishboneInboardFL.Get_ParentObjectData(KO_CV_FL, this, VehicleCorner.FrontLeft);
+
+            wishboneInboardFR.Get_ParentObjectData(KO_CV_FR, this, VehicleCorner.FrontRight);
+
+            wishboneInboardRL.Get_ParentObjectData(KO_CV_RL, this, VehicleCorner.RearLeft);
+
+            wishboneInboardRR.Get_ParentObjectData(KO_CV_RR, this, VehicleCorner.RearRight);
         }
 
 
@@ -179,24 +181,26 @@ namespace Coding_Attempt_with_GUI
 
         private void tbWheelbase_Leave(object sender, EventArgs e)
         {
-            SetWheelbase();
+            Set_Wheelbase();
         }
 
         private void tbWheelbase_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                SetWheelbase();
+                Set_Wheelbase();
             }
         }
 
-        private void SetWheelbase()
+        private void Set_Wheelbase()
         {
             if (DoubleValidation(tbWheelbase.Text))
             {
                 if (Validatepositve_Double(tbWheelbase.Text))
                 {
-                    KO_Central.WheelBase = Convert.ToDouble(tbWheelbase.Text);
+                    KO_Central.WheelBase = -Convert.ToDouble(tbWheelbase.Text);
+
+                    Set_ContactPatch();
 
                     Set_KO_RollCenter();
 
@@ -242,6 +246,8 @@ namespace Coding_Attempt_with_GUI
 
                     Set_KO_PitchCenter();
 
+                    Set_ContactPatch();
+
                     Plot_Tracks();
 
                 }
@@ -284,6 +290,8 @@ namespace Coding_Attempt_with_GUI
 
                     Set_KO_PitchCenter();
 
+                    Set_ContactPatch();
+
                     Plot_Tracks();
                 }
                 else
@@ -304,18 +312,18 @@ namespace Coding_Attempt_with_GUI
 
         private void tbRC_Front_Height_Leave(object sender, EventArgs e)
         {
-            Set_RC_Front_LatOff();
+            Set_RC_Front_Height();
         }
 
         private void tbRC_Front_Hight_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                Set_RC_Front_LatOff();
+                Set_RC_Front_Height();
             }
         }
 
-        private void Set_RC_Front_LatOff()
+        private void Set_RC_Front_Height()
         {
             if (DoubleValidation(tbRC_Front_Height.Text))
             {
@@ -335,18 +343,18 @@ namespace Coding_Attempt_with_GUI
 
         private void tbRC_Front_LatOff_Leave(object sender, EventArgs e)
         {
-            Set_RC_Front_LateralOff();
+            Set_RC_Front_LatOff();
         }
 
         private void tbRC_Front_LatOff_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                Set_RC_Front_LateralOff();
+                Set_RC_Front_LatOff();
             }
         }
 
-        private void Set_RC_Front_LateralOff()
+        private void Set_RC_Front_LatOff()
         {
             if (DoubleValidation(tbRC_Front_LatOff.Text))
             {
@@ -385,10 +393,28 @@ namespace Coding_Attempt_with_GUI
         {
             if (DoubleValidation(tbFV_VSAL_FL.Text))
             {
+                ///<remarks>
+                ///The positive sign is added for a reason. The user is going to specify the Length of the VSAL. This length is usually drawn towards the Right for FrontLeft Corner and towards the Left for FrontRight Corner
+                ///But the user is just going to enter a positive value since its a length. 
+                ///---IMPORTANT--- Now if the user wants an unconventional VSAL (towards the Left for FrontLeft and vice versa) then he/she will have to add a minus sign while entering the value
+                ///---IMPORTANT--- <see cref="CAD.Init_VSAL_FV(Line, double, Point3D, Point3D, string)"/> where the <see cref="KO_CornverVariables.VSAL_FV"/> is used. and you will understand 
+                /// </remarks>
+                KO_CV_FL.VSAL_FV = +Convert.ToDouble(tbFV_VSAL_FL.Text);
 
-                KO_CV_FL.VSAL_FV = Convert.ToDouble(tbFV_VSAL_FL.Text);
+                Plot_VSAL_FV(out KO_CV_FL.VCornerParams.FV_IC_Line, KO_CV_FL.VSAL_FV, KO_CV_FL.ContactPatch, KO_Central.RC_Front, "KO_CV_FL.VCornerParams.FV_IC_Line");
 
-                Plot_VSAL_FV(KO_CV_FL.VCornerParams.FV_IC_Line, KO_CV_FL.VSAL_FV, KO_CV_FL.ContactPatch, KO_Central.RC_Front);
+                if (Sus_Type.FrontSymmetry_Boolean)
+                {
+                    ///<remarks>
+                    ///The negative sign is added for a reason. The user is going to specify the Length of the VSAL. This length is usually drawn towards the Right for FrontLeft Corner and towards the Left for FrontRight Corner
+                    ///But the user is just going to enter a positive value since its a length. Hence we need to condition the value by adding a minus sign
+                    ///---IMPORTANT--- Now if the user wants an unconventional VSAL (towards the Left for FrontLeft and vice versa) then he/she will have to add a minus sign while entering the value
+                    ///---IMPORTANT--- <see cref="CAD.Init_VSAL_FV(Line, double, Point3D, Point3D, string)"/> where the <see cref="KO_CornverVariables.VSAL_FV"/> is used. and you will understand 
+                    /// </remarks>
+                    KO_CV_FR.VSAL_FV = -Convert.ToDouble(tbFV_VSAL_FL.Text);
+
+                    Plot_VSAL_FV(out KO_CV_FR.VCornerParams.FV_IC_Line, KO_CV_FR.VSAL_FV, KO_CV_FR.ContactPatch, KO_Central.RC_Front, "KO_CV_FR.VCornerParams.FV_IC_Line");
+                }
 
             }
             else
@@ -420,10 +446,15 @@ namespace Coding_Attempt_with_GUI
         {
             if (DoubleValidation(tbFV_VSAL_FR.Text))
             {
+                ///<remarks>
+                ///The negative sign is added for a reason. The user is going to specify the Length of the VSAL. This length is usually drawn towards the Right for FrontLeft Corner and towards the Left for FrontRight Corner
+                ///But the user is just going to enter a positive value since its a length. Hence we need to condition the value by adding a minus sign
+                ///---IMPORTANT--- Now if the user wants an unconventional VSAL (towards the Left for FrontLeft and vice versa) then he/she will have to add a minus sign while entering the value
+                ///---IMPORTANT--- <see cref="CAD.Init_VSAL_FV(Line, double, Point3D, Point3D, string)"/> where the <see cref="KO_CornverVariables.VSAL_FV"/> is used. and you will understand 
+                /// </remarks>
+                KO_CV_FR.VSAL_FV = -Convert.ToDouble(tbFV_VSAL_FR.Text);
 
-                KO_CV_FR.VSAL_FV = Convert.ToDouble(tbFV_VSAL_FR.Text);
-
-                Plot_VSAL_FV(KO_CV_FR.VCornerParams.FV_IC_Line, KO_CV_FR.VSAL_FV, KO_CV_FR.ContactPatch, KO_Central.RC_Front);
+                Plot_VSAL_FV(out KO_CV_FR.VCornerParams.FV_IC_Line, KO_CV_FR.VSAL_FV, KO_CV_FR.ContactPatch, KO_Central.RC_Front, "KO_CV_FR.VCornerParams.FV_IC_Line");
 
             }
             else
@@ -508,23 +539,41 @@ namespace Coding_Attempt_with_GUI
         {
             if (e.KeyCode == Keys.Enter)
             {
-                Set_FL_VSAL_RL();
+                Set_FV_VSAL_RL();
             }
         }
 
         private void tbFV_VSAL_RL_Leave(object sender, EventArgs e)
         {
-            Set_FL_VSAL_RL();
+            Set_FV_VSAL_RL();
         }
 
-        private void Set_FL_VSAL_RL()
+        private void Set_FV_VSAL_RL()
         {
             if (DoubleValidation(tbFV_VSAL_RL.Text))
             {
+                ///<remarks>
+                ///The positive sign is added for a reason. The user is going to specify the Length of the VSAL. This length is usually drawn towards the Right for FrontLeft Corner and towards the Left for FrontRight Corner
+                ///But the user is just going to enter a positive value since its a length
+                ///---IMPORTANT--- Now if the user wants an unconventional VSAL (towards the Left for FrontLeft and vice versa) then he/she will have to add a minus sign while entering the value. 
+                ///---IMPORTANT--- <see cref="CAD.Init_VSAL_FV(Line, double, Point3D, Point3D, string)"/> where the <see cref="KO_CornverVariables.VSAL_FV"/> is used. and you will understand 
+                /// </remarks>
+                KO_CV_RL.VSAL_FV = +Convert.ToDouble(tbFV_VSAL_RL.Text);
 
-                KO_CV_RL.VSAL_FV = Convert.ToDouble(tbFV_VSAL_RL.Text);
+                Plot_VSAL_FV(out KO_CV_RL.VCornerParams.FV_IC_Line, KO_CV_RL.VSAL_FV, KO_CV_RL.ContactPatch, KO_Central.RC_Rear, "KO_CV_RL.VCornerParams.FV_IC_Line");
 
-                Plot_VSAL_FV(KO_CV_RL.VCornerParams.FV_IC_Line, KO_CV_RL.VSAL_FV, KO_CV_RL.ContactPatch, KO_Central.RC_Rear);
+                if (Sus_Type.RearSymmetry_Boolean)
+                {
+                    ///<remarks>
+                    ///The negative sign is added for a reason. The user is going to specify the Length of the VSAL. This length is usually drawn towards the Right for FrontLeft Corner and towards the Left for FrontRight Corner
+                    ///But the user is just going to enter a positive value since its a length. Hence we need to condition the value by adding a minus sign
+                    ///---IMPORTANT--- Now if the user wants an unconventional VSAL (towards the Left for FrontLeft and vice versa) then he/she will have to add a minus sign while entering the value
+                    ///---IMPORTANT--- <see cref="CAD.Init_VSAL_FV(Line, double, Point3D, Point3D, string)"/> where the <see cref="KO_CornverVariables.VSAL_FV"/> is used. and you will understand 
+                    /// </remarks>
+                    KO_CV_RR.VSAL_FV = -Convert.ToDouble(tbFV_VSAL_RL.Text);
+
+                    Plot_VSAL_FV(out KO_CV_RR.VCornerParams.FV_IC_Line, KO_CV_RR.VSAL_FV, KO_CV_RR.ContactPatch, KO_Central.RC_Rear, "KO_CV_RR.VCornerParams.FV_IC_Line");
+                }
 
             }
             else
@@ -556,10 +605,15 @@ namespace Coding_Attempt_with_GUI
         {
             if (DoubleValidation(tbFV_VSAL_RR.Text))
             {
+                ///<remarks>
+                ///The negative sign is added for a reason. The user is going to specify the Length of the VSAL. This length is usually drawn towards the Right for FrontLeft Corner and towards the Left for FrontRight Corner
+                ///But the user is just going to enter a positive value since its a length. Hence we need to condition the value by adding a minus sign
+                ///---IMPORTANT--- Now if the user wants an unconventional VSAL (towards the Left for FrontLeft and vice versa) then he/she will have to add a minus sign while entering the value
+                ///---IMPORTANT--- <see cref="CAD.Init_VSAL_FV(Line, double, Point3D, Point3D, string)"/> where the <see cref="KO_CornverVariables.VSAL_FV"/> is used. and you will understand 
+                /// </remarks>
+                KO_CV_RR.VSAL_FV = -Convert.ToDouble(tbFV_VSAL_RR.Text);
 
-                KO_CV_RR.VSAL_FV = Convert.ToDouble(tbFV_VSAL_RR.Text);
-
-                Plot_VSAL_FV(KO_CV_RR.VCornerParams.FV_IC_Line, KO_CV_RR.VSAL_FV, KO_CV_RR.ContactPatch, KO_Central.RC_Rear);
+                Plot_VSAL_FV(out KO_CV_RR.VCornerParams.FV_IC_Line, KO_CV_RR.VSAL_FV, KO_CV_RR.ContactPatch, KO_Central.RC_Rear, "KO_CV_RR.VCornerParams.FV_IC_Line");
             }
             else
             {
@@ -622,7 +676,7 @@ namespace Coding_Attempt_with_GUI
             if (DoubleValidation(tbPC_Left_LongOff.Text))
             {
 
-                KO_Central.PC_Left.Z = Convert.ToDouble(tbPC_Left_LongOff.Text);
+                KO_Central.PC_Left.Z = -Convert.ToDouble(tbPC_Left_LongOff.Text);
 
                 Set_KO_PitchCenter();
 
@@ -657,53 +711,96 @@ namespace Coding_Attempt_with_GUI
         {
             if (DoubleValidation(tbSV_VSAL_FL.Text))
             {
+                ///<remarks>
+                ///The positive sign is added for a reason. The user is going to specifiy the Length of the SV VSAL. This VSAL according to the normal conventino goes rewards for the Front and comes frontward for the Rear. 
+                ///Hence, the positive is added to distinguish from the Rear (where as you will see later in the code, negative is added) so that VSAL is conditioned and can be use appropriately
+                ///---IMPORTANT--- Now if the user wants an unconventional VSAL (towards the Front for FrontLeft and vice versa) then he/she will have to add a minus sign while entering the value
+                ///---IMPORTANT--- <see cref="CAD.Init_VSAL_SV(Line, double, Point3D, Point3D, string)"/> where the <see cref="KO_CornverVariables.VSAL_SV"/> is used. and you will understand 
+                /// </remarks>
+                KO_CV_FL.VSAL_SV = +Convert.ToDouble(tbSV_VSAL_FL.Text);
 
-                KO_CV_FL.VSAL_SV = Convert.ToDouble(tbSV_VSAL_FL.Text);
+                Plot_VSAL_SV(out KO_CV_FL.VCornerParams.SV_IC_Line, KO_CV_FL.VSAL_SV, KO_CV_FL.ContactPatch, KO_Central.PC_Left, "KO_CV_FL.VCornerParams.SV_IC_Line");
 
-                Plot_VSAL_SV(KO_CV_FL.VCornerParams.SV_IC_Line, KO_CV_FL.VSAL_SV, KO_CV_FL.ContactPatch, KO_Central.PC_Left);
+                if (Sus_Type.FrontSymmetry_Boolean && Sus_Type.RearSymmetry_Boolean)
+                {
+                    ///<remarks>
+                    ///The positive sign is added for a reason. The user is going to specifiy the Length of the SV VSAL. This VSAL according to the normal conventino goes rewards for the Front and comes frontward for the Rear. 
+                    ///Hence, the positive is added to distinguish from the Rear (where as you will see later in the code, negative is added) so that VSAL is conditioned and can be use appropriately
+                    ///---IMPORTANT--- Now if the user wants an unconventional VSAL (towards the Front for FrontLeft and vice versa) then he/she will have to add a minus sign while entering the value
+                    ///---IMPORTANT--- <see cref="CAD.Init_VSAL_SV(Line, double, Point3D, Point3D, string)"/> where the <see cref="KO_CornverVariables.VSAL_SV"/> is used. and you will understand 
+                    /// </remarks>
+                    KO_CV_FR.VSAL_SV = +Convert.ToDouble(tbSV_VSAL_FL.Text);
+
+                    Plot_VSAL_SV(out KO_CV_FR.VCornerParams.SV_IC_Line, KO_CV_FR.VSAL_SV, KO_CV_FR.ContactPatch, KO_Central.PC_Right, "KO_CV_FR.VCornerParams.SV_IC_Line");
+                }
 
             }
             else
             {
                 MessageBox.Show(NumericError);
             }
-        } 
+        }
         #endregion
 
 
-        #region VSAL SV Front Right
-        //---VSAL Side View of Front Right
+        #region VSAL VS Rear Left
+        //---VSAL Side View of Rear Left---
 
 
-        private void tbSV_VSAL_FR_KeyDown(object sender, KeyEventArgs e)
+
+        private void tbSV_VSAL_RL_Leave(object sender, EventArgs e)
+        {
+            Set_SV_VSAL_RL();
+        }
+
+        private void tbSV_VSAL_RL_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                Set_SV_VSAL_FR();
+                Set_SV_VSAL_RL();
             }
         }
 
-        private void tbSV_VSAL_FR_Leave(object sender, EventArgs e)
+        private void Set_SV_VSAL_RL()
         {
-            Set_SV_VSAL_FR();
-        }
-
-        private void Set_SV_VSAL_FR()
-        {
-            if (DoubleValidation(tbSV_VSAL_FR.Text))
+            if (DoubleValidation(tbSV_VSAL_RL.Text))
             {
+                if (Validatepositve_Double(tbSV_VSAL_RL.Text))
+                {
+                    ///<remarks>
+                    ///The negative sign is added for a reason. The user is going to specifiy the Length of the SV VSAL. This VSAL according to the normal conventino goes rewards for the Front and comes frontward for the Rear. 
+                    ///Hence, the positive is added to distinguish from the Rear (where as you will see later in the code, negative is added) so that VSAL is conditioned and can be use appropriately
+                    ///---IMPORTANT--- Now if the user wants an unconventional VSAL (towards the Front for FrontLeft and vice versa) then he/she will have to add a minus sign while entering the value
+                    ///---IMPORTANT--- <see cref="CAD.Init_VSAL_SV(Line, double, Point3D, Point3D, string)"/> where the <see cref="KO_CornverVariables.VSAL_SV"/> is used. and you will understand 
+                    /// </remarks>
+                    KO_CV_RL.VSAL_SV = -Convert.ToDouble(tbSV_VSAL_RL.Text);
 
-                KO_CV_FR.VSAL_SV = Convert.ToDouble(tbSV_VSAL_FR.Text);
+                    Plot_VSAL_SV(out KO_CV_RL.VCornerParams.SV_IC_Line, KO_CV_RL.VSAL_SV, KO_CV_RL.ContactPatch, KO_Central.PC_Left, "KO_CV_RL.VCornerParams.SV_IC_Line");
 
-                Plot_VSAL_SV(KO_CV_FR.VCornerParams.SV_IC_Line, KO_CV_FR.VSAL_SV, KO_CV_FR.ContactPatch, KO_Central.PC_Right);
+                    if (Sus_Type.FrontSymmetry_Boolean && Sus_Type.RearSymmetry_Boolean)
+                    {
+                        ///<remarks>
+                        ///The negative sign is added for a reason. The user is going to specifiy the Length of the SV VSAL. This VSAL according to the normal conventino goes rewards for the Front and comes frontward for the Rear. 
+                        ///Hence, the positive is added to distinguish from the Rear (where as you will see later in the code, negative is added) so that VSAL is conditioned and can be use appropriately
+                        ///---IMPORTANT--- Now if the user wants an unconventional VSAL (towards the Front for FrontLeft and vice versa) then he/she will have to add a minus sign while entering the value
+                        ///---IMPORTANT--- <see cref="CAD.Init_VSAL_SV(Line, double, Point3D, Point3D, string)"/> where the <see cref="KO_CornverVariables.VSAL_SV"/> is used. and you will understand 
+                        /// </remarks>
+                        KO_CV_RR.VSAL_SV = -Convert.ToDouble(tbSV_VSAL_RL.Text);
 
+                        Plot_VSAL_SV(out KO_CV_RR.VCornerParams.SV_IC_Line, KO_CV_RR.VSAL_SV, KO_CV_RR.ContactPatch, KO_Central.PC_Right, "KO_CV_RR.VCornerParams.SV_IC_Line");
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show(NegativeError);
+                }
             }
             else
             {
                 MessageBox.Show(NumericError);
             }
-
-        } 
+        }
         #endregion
 
 
@@ -762,7 +859,7 @@ namespace Coding_Attempt_with_GUI
             if (DoubleValidation(tbPC_Right_Height_LongOff.Text))
             {
 
-                KO_Central.PC_Right.Z = Convert.ToDouble(tbPC_Right_Height_LongOff.Text);
+                KO_Central.PC_Right.Z = -Convert.ToDouble(tbPC_Right_Height_LongOff.Text);
 
                 Set_KO_PitchCenter();
 
@@ -775,44 +872,44 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
 
-        #region VSAL VS Rear Left
-        //---VSAL Side View of Rear Left---
+        #region VSAL SV Front Right
+        //---VSAL Side View of Front Right
 
 
-
-        private void tbSV_VSAL_RL_Leave(object sender, EventArgs e)
+        private void tbSV_VSAL_FR_KeyDown(object sender, KeyEventArgs e)
         {
-            Set_SV_VSAL_RL();
-        }
-
-        private void tbSV_VSAL_RL_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.End)
             {
-                Set_SV_VSAL_RL();
+                Set_SV_VSAL_FR();
             }
         }
 
-        private void Set_SV_VSAL_RL()
+        private void tbSV_VSAL_FR_Leave(object sender, EventArgs e)
         {
-            if (DoubleValidation(tbSV_VSAL_RL.Text))
-            {
-                if (Validatepositve_Double(tbSV_VSAL_RL.Text))
-                {
-                    KO_CV_RL.VSAL_SV = Convert.ToDouble(tbSV_VSAL_RL.Text);
+            Set_SV_VSAL_FR();
+        }
 
-                    Plot_VSAL_SV(KO_CV_RL.VCornerParams.SV_IC_Line, KO_CV_RL.VSAL_SV, KO_CV_RL.ContactPatch, KO_Central.PC_Left);
-                }
-                else
-                {
-                    MessageBox.Show(NegativeError);
-                }
+        private void Set_SV_VSAL_FR()
+        {
+            if (DoubleValidation(tbSV_VSAL_FR.Text))
+            {
+                ///<remarks>
+                ///The positive sign is added for a reason. The user is going to specifiy the Length of the SV VSAL. This VSAL according to the normal conventino goes rewards for the Front and comes frontward for the Rear. 
+                ///Hence, the positive is added to distinguish from the Rear (where as you will see later in the code, negative is added) so that VSAL is conditioned and can be use appropriately
+                ///---IMPORTANT--- Now if the user wants an unconventional VSAL (towards the Front for FrontLeft and vice versa) then he/she will have to add a minus sign while entering the value
+                ///---IMPORTANT--- <see cref="CAD.Init_VSAL_SV(Line, double, Point3D, Point3D, string)"/> where the <see cref="KO_CornverVariables.VSAL_SV"/> is used. and you will understand 
+                /// </remarks>
+                KO_CV_FR.VSAL_SV = +Convert.ToDouble(tbSV_VSAL_FR.Text);
+
+                Plot_VSAL_SV(out KO_CV_FR.VCornerParams.SV_IC_Line, KO_CV_FR.VSAL_SV, KO_CV_FR.ContactPatch, KO_Central.PC_Right, "KO_CV_FR.VCornerParams.SV_IC_Line");
+
             }
             else
             {
                 MessageBox.Show(NumericError);
             }
-        } 
+
+        }
         #endregion
 
 
@@ -838,10 +935,15 @@ namespace Coding_Attempt_with_GUI
         {
             if (DoubleValidation(tbSV_VSAL_RR.Text))
             {
+                ///<remarks>
+                ///The negative sign is added for a reason. The user is going to specifiy the Length of the SV VSAL. This VSAL according to the normal conventino goes rewards for the Front and comes frontward for the Rear. 
+                ///Hence, the positive is added to distinguish from the Rear (where as you will see later in the code, negative is added) so that VSAL is conditioned and can be use appropriately
+                ///---IMPORTANT--- Now if the user wants an unconventional VSAL (towards the Front for FrontLeft and vice versa) then he/she will have to add a minus sign while entering the value
+                ///---IMPORTANT--- <see cref="CAD.Init_VSAL_SV(Line, double, Point3D, Point3D, string)"/> where the <see cref="KO_CornverVariables.VSAL_SV"/> is used. and you will understand 
+                /// </remarks>
+                KO_CV_RR.VSAL_SV = -Convert.ToDouble(tbSV_VSAL_RR.Text);
 
-                KO_CV_RR.VSAL_SV = Convert.ToDouble(tbSV_VSAL_RR.Text);
-
-                Plot_VSAL_SV(KO_CV_RR.VCornerParams.SV_IC_Line, KO_CV_RR.VSAL_SV, KO_CV_RR.ContactPatch, KO_Central.PC_Right);
+                Plot_VSAL_SV(out KO_CV_RR.VCornerParams.SV_IC_Line, KO_CV_RR.VSAL_SV, KO_CV_RR.ContactPatch, KO_Central.PC_Right, "KO_CV_RR.VCornerParams.SV_IC_Line");
 
             }
             else
@@ -889,73 +991,6 @@ namespace Coding_Attempt_with_GUI
         }
         #endregion
 
-        #region Pitman Trail Left
-
-        private void tbPitmanLeft_Leave(object sender, EventArgs e)
-        {
-            Set_PitmanTrail_Left();
-        }
-
-        private void tbPitmanLeft_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                Set_PitmanTrail_Left();
-            }
-        }
-
-        private void Set_PitmanTrail_Left()
-        {
-            if (DoubleValidation(tbPitmanLeft.Text))
-            {
-
-                KO_CV_FL.PitmanTrail = Convert.ToDouble(tbPitmanLeft.Text);
-
-                if (Sus_Type.FrontSymmetry_Boolean)
-                {
-                    KO_CV_FR.PitmanTrail = Convert.ToDouble(tbPitmanLeft.Text);
-                }
-
-            }
-            else
-            {
-                MessageBox.Show(NumericError);
-            }
-        }
-
-        #endregion
-
-
-        #region Pitman Trail Right
-
-        private void tbPitmanRightLeave(object sender, EventArgs e)
-        {
-            Set_PitmanTrail_Right();
-        }
-
-        private void tbPitmanRight_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                Set_PitmanTrail_Right();
-            }
-        }
-
-        private void Set_PitmanTrail_Right()
-        {
-            if (DoubleValidation(tbPitmanRight.Text))
-            {
-                KO_CV_FR.PitmanTrail = Convert.ToDouble(tbPitmanRight.Text);
-            }
-            else
-            {
-                MessageBox.Show(NumericError);
-            }
-        }
-
-        #endregion
-
-
         //---END : Tab Page Vehicle Parameters---
         #endregion
 
@@ -991,13 +1026,17 @@ namespace Coding_Attempt_with_GUI
 
                 KO_CV_FL.KPI = new Angle(Convert.ToDouble(tbKPI_FL.Text), AngleUnit.Degrees);
 
-                Plot_SteeringAxis(KO_CV_FL.VCornerParams.SteeringAxis, KO_CV_FL.KPI, KO_CV_FL.Caster, KO_CV_FL.ScrubRadius, KO_CV_FL.MechTrail, KO_CV_FL.ContactPatch);
+                Plot_SteeringAxis(out KO_CV_FL.VCornerParams.SteeringAxis, KO_CV_FL.KPI, KO_CV_FL.Caster, KO_CV_FL.ScrubRadius, KO_CV_FL.MechTrail, KO_CV_FL.ContactPatch, "KO_CV_FL.VCornerParams.SteeringAxis");
 
                 ///<summary>Handling condition of Symmetry</summary>
                 if (Sus_Type.FrontSymmetry_Boolean)
                 {
-                    KO_CV_FR.KPI = new Angle(Convert.ToDouble(tbKPI_FL.Text), AngleUnit.Degrees);
-                    Plot_SteeringAxis(KO_CV_FL.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.ContactPatch);
+                    ///<remarks>
+                    ///Negative is added for a reason. For the user the KPI Angle translates to an inclination of the Steering Axis which is tilted to the car. 
+                    ///For the Left side this is a clockwise rotation which is positive. But for the RIGHT side this is a CCW rotation which is neggative. Hence the user input needs to be conditioned
+                    /// </remarks>
+                    KO_CV_FR.KPI = new Angle(-Convert.ToDouble(tbKPI_FL.Text), AngleUnit.Degrees);
+                    Plot_SteeringAxis(out KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.ContactPatch, "KO_CV_FR.VCornerParams.SteeringAxis");
                 }
 
             }
@@ -1031,15 +1070,22 @@ namespace Coding_Attempt_with_GUI
             {
                 if (Validatepositve_Double(tbScrub_FL.Text))
                 {
-                    KO_CV_FL.ScrubRadius = Convert.ToDouble(tbScrub_FL.Text);
+                    ///<remarks>
+                    ///Negative is added for a reason. For the user the Scrub Radius translates to the distance of the Steering Axis from the Contact Patch point which is also the half track 
+                    ///For the Left side if the distance is inward then for the right also it must be inward. If the negative sign isn't applied then the value will be treaded as positve and the for the Left, the Steering Axis
+                    ///will be translated more outward. 
+                    /// Hence the user input needs to be conditioned
+                    /// </remarks>
+                    KO_CV_FL.ScrubRadius = -Convert.ToDouble(tbScrub_FL.Text);
 
-                    Plot_SteeringAxis(KO_CV_FL.VCornerParams.SteeringAxis, KO_CV_FL.KPI, KO_CV_FL.Caster, KO_CV_FL.ScrubRadius, KO_CV_FL.MechTrail, KO_CV_FL.ContactPatch);
+                    Plot_SteeringAxis(out KO_CV_FL.VCornerParams.SteeringAxis, KO_CV_FL.KPI, KO_CV_FL.Caster, KO_CV_FL.ScrubRadius, KO_CV_FL.MechTrail, KO_CV_FL.ContactPatch, "KO_CV_FL.VCornerParams.SteeringAxis");
 
                     ///<summary>Handling condition of Symmetry</summary>
                     if (Sus_Type.FrontSymmetry_Boolean)
                     {
-                        KO_CV_FR.ScrubRadius = Convert.ToDouble(tbScrub_FL.Text);
-                        Plot_SteeringAxis(KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.ContactPatch);
+                        ///<summary>In order to maintain the convention of positive Scrub is translating the Steering Axis Inward, psoitive sign is applied</summary>
+                        KO_CV_FR.ScrubRadius = +Convert.ToDouble(tbScrub_FL.Text);
+                        Plot_SteeringAxis(out KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.ContactPatch, "KO_CV_FR.VCornerParams.SteeringAxis");
                     }
 
                 }
@@ -1076,15 +1122,24 @@ namespace Coding_Attempt_with_GUI
         {
             if (DoubleValidation(tbCaster_FL.Text))
             {
-                KO_CV_FL.Caster = new Angle(Convert.ToDouble(tbCaster_FL.Text), AngleUnit.Degrees);
+                ///<remarks>
+                ///Negative Sign is added for a Reason. For the user, positive Caster translates to the Steering Axis's top end (or UBJ) pointing MORE rearward than the bottom end (LBJ). 
+                ///This is for the solver a CW rotation which is negative. 
+                ///Hence the user input value must be conditioned
+                /// </remarks>
+                KO_CV_FL.Caster = new Angle(-Convert.ToDouble(tbCaster_FL.Text), AngleUnit.Degrees);
 
-                Plot_SteeringAxis(KO_CV_FL.VCornerParams.SteeringAxis, KO_CV_FL.KPI, KO_CV_FL.Caster, KO_CV_FL.ScrubRadius, KO_CV_FL.MechTrail, KO_CV_FL.ContactPatch);
+                Plot_SteeringAxis(out KO_CV_FL.VCornerParams.SteeringAxis, KO_CV_FL.KPI, KO_CV_FL.Caster, KO_CV_FL.ScrubRadius, KO_CV_FL.MechTrail, KO_CV_FL.ContactPatch, "KO_CV_FL.VCornerParams.SteeringAxis");
 
                 ///<summary>Handling condition of Symmetry</summary>
                 if (Sus_Type.FrontSymmetry_Boolean)
                 {
-                    KO_CV_FR.Caster = new Angle(Convert.ToDouble(tbCaster_FL.Text), AngleUnit.Degrees);
-                    Plot_SteeringAxis(KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.ContactPatch);
+                    ///<remarks>
+                    ///Negative Sign is added for a Reason. For the user, positive Caster translates to the Steering Axis's top end (or UBJ) pointing MORE rearward than the bottom end (LBJ). 
+                    ///This is for the solver a CW rotation which is negative. 
+                    ///Hence the user input value must be conditioned
+                    KO_CV_FR.Caster = new Angle(-Convert.ToDouble(tbCaster_FL.Text), AngleUnit.Degrees);
+                    Plot_SteeringAxis(out KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.ContactPatch, "KO_CV_FR.VCornerParams.SteeringAxis");
                 }
 
             }
@@ -1120,13 +1175,13 @@ namespace Coding_Attempt_with_GUI
                 {
                     KO_CV_FL.MechTrail = Convert.ToDouble(tbMechtrail_FL.Text);
 
-                    Plot_SteeringAxis(KO_CV_FL.VCornerParams.SteeringAxis, KO_CV_FL.KPI, KO_CV_FL.Caster, KO_CV_FL.ScrubRadius, KO_CV_FL.MechTrail, KO_CV_FL.ContactPatch);
+                    Plot_SteeringAxis(out KO_CV_FL.VCornerParams.SteeringAxis, KO_CV_FL.KPI, KO_CV_FL.Caster, KO_CV_FL.ScrubRadius, KO_CV_FL.MechTrail, KO_CV_FL.ContactPatch, "KO_CV_FL.VCornerParams.SteeringAxis");
 
                     ///<summary>Handling condition of Symmetry</summary>
                     if (Sus_Type.FrontSymmetry_Boolean)
                     {
                         KO_CV_FR.MechTrail = Convert.ToDouble(tbMechtrail_FL.Text);
-                        Plot_SteeringAxis(KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.ContactPatch);
+                        Plot_SteeringAxis(out KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.ContactPatch, "KO_CV_FR.VCornerParams.SteeringAxis");
                     }
 
                 }
@@ -1165,28 +1220,30 @@ namespace Coding_Attempt_with_GUI
             {
                 if (Validatepositve_Double(tbUBJ_FL.Text))
                 {
-                    KO_CV_FL.VCornerParams.UBJ = KO_CV_FL.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbUBJ_FL.Text), KO_CV_FL.ContactPatch, KO_CV_FL.VCornerParams.SteeringAxis);
+                    KO_CV_FL.VCornerParams.UBJ = KO_CV_FL.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbUBJ_FL.Text), KO_CV_FL.VCornerParams.SteeringAxis.StartPoint, KO_CV_FL.VCornerParams.SteeringAxis);
 
                     Plot_OutboardPoint(KO_CV_FL.VCornerParams.UBJ, "KO_CV_FL.VCornerParams.UBJ");
 
-                    Plot_WishbonePlane(KO_CV_FL.VCornerParams.TopWishbonePlane, KO_CV_FL.VCornerParams.UBJ, KO_CV_FL.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FL.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_FL.VCornerParams.TopWishbonePlane");
+                    Plot_WishbonePlane(out KO_CV_FL.VCornerParams.TopWishbonePlane, KO_CV_FL.VCornerParams.UBJ, KO_CV_FL.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FL.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_FL.VCornerParams.TopWishbonePlane", true);
 
                     KO_CV_FL.VCornerParams.Initialize_Dictionary();
 
                     if (Sus_Type.FrontSymmetry_Boolean)
                     {
-                        KO_CV_FR.VCornerParams.UBJ = KO_CV_FR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbUBJ_FL.Text), KO_CV_FR.ContactPatch, KO_CV_FR.VCornerParams.SteeringAxis);
+                        KO_CV_FR.VCornerParams.UBJ = KO_CV_FR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbUBJ_FL.Text), KO_CV_FR.VCornerParams.SteeringAxis.StartPoint, KO_CV_FR.VCornerParams.SteeringAxis);
 
                         Plot_OutboardPoint(KO_CV_FR.VCornerParams.UBJ, "KO_CV_FR.VCornerParams.UBJ");
+
+                        Plot_WishbonePlane(out KO_CV_FR.VCornerParams.TopWishbonePlane, KO_CV_FR.VCornerParams.UBJ, KO_CV_FR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FR.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_FR.VCornerParams.TopWishbonePlane", false);
 
                         KO_CV_FR.VCornerParams.Initialize_Dictionary();
 
                     }
-                    else
-                    {
-                        ///<remarks>Added in Else Block because I want the user to see the Planes on the Right only for Assymetric Suspension</remarks>
-                        Plot_WishbonePlane(KO_CV_FR.VCornerParams.TopWishbonePlane, KO_CV_FR.VCornerParams.UBJ, KO_CV_FR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FR.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_FR.VCornerParams.TopWishbonePlane");
-                    }
+                    //else
+                    //{
+                    //    ///<remarks>Added in Else Block because I want the user to see the Planes on the Right only for Assymetric Suspension</remarks>
+                    //    Plot_WishbonePlane(out KO_CV_FR.VCornerParams.TopWishbonePlane, KO_CV_FR.VCornerParams.UBJ, KO_CV_FR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FR.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_FR.VCornerParams.TopWishbonePlane");
+                    //}
 
                 }
                 else
@@ -1221,29 +1278,32 @@ namespace Coding_Attempt_with_GUI
             {
                 if (Validatepositve_Double(tbLBJ_FL.Text))
                 {
-                    KO_CV_FL.VCornerParams.LBJ = KO_CV_FL.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbLBJ_FL.Text), KO_CV_FL.ContactPatch, KO_CV_FL.VCornerParams.SteeringAxis);
+                    KO_CV_FL.VCornerParams.LBJ = KO_CV_FL.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbLBJ_FL.Text), KO_CV_FL.VCornerParams.SteeringAxis.StartPoint, KO_CV_FL.VCornerParams.SteeringAxis);
 
                     Plot_OutboardPoint(KO_CV_FL.VCornerParams.LBJ, "KO_CV_FL.VCornerParams.LBJ");
 
-                    Plot_WishbonePlane(KO_CV_FL.VCornerParams.BottomWishbonePlane, KO_CV_FL.VCornerParams.LBJ, KO_CV_FL.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FL.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_FL.VCornerParams.BottomWishbonePlane");
+                    Plot_WishbonePlane(out KO_CV_FL.VCornerParams.BottomWishbonePlane, KO_CV_FL.VCornerParams.LBJ, KO_CV_FL.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FL.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_FL.VCornerParams.BottomWishbonePlane", true);
 
                     KO_CV_FL.VCornerParams.Initialize_Dictionary();
 
 
                     if (Sus_Type.FrontSymmetry_Boolean)
                     {
-                        KO_CV_FR.VCornerParams.LBJ = KO_CV_FR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbUBJ_FL.Text), KO_CV_FR.ContactPatch, KO_CV_FR.VCornerParams.SteeringAxis);
+                        KO_CV_FR.VCornerParams.LBJ = KO_CV_FR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbLBJ_FL.Text), KO_CV_FR.VCornerParams.SteeringAxis.StartPoint, KO_CV_FR.VCornerParams.SteeringAxis);
 
                         Plot_OutboardPoint(KO_CV_FR.VCornerParams.LBJ, "KO_CV_FR.VCornerParams.LBJ");
+
+                        Plot_WishbonePlane(out KO_CV_FR.VCornerParams.BottomWishbonePlane, KO_CV_FR.VCornerParams.LBJ, KO_CV_FR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FR.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_FR.VCornerParams.BottomWishbonePlane",false);
+
 
                         KO_CV_FR.VCornerParams.Initialize_Dictionary();
 
                     }
-                    else
-                    {
-                        ///<remarks>Added in Else Block because I want the user to see the Planes on the Right only for Assymetric Suspension</remarks>
-                        Plot_WishbonePlane(KO_CV_FR.VCornerParams.BottomWishbonePlane, KO_CV_FR.VCornerParams.LBJ, KO_CV_FR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FR.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_FR.VCornerParams.BottomWishbonePlane");
-                    }
+                    //else
+                    //{
+                    //    ///<remarks>Added in Else Block because I want the user to see the Planes on the Right only for Assymetric Suspension</remarks>
+                    //    Plot_WishbonePlane(out KO_CV_FR.VCornerParams.BottomWishbonePlane, KO_CV_FR.VCornerParams.LBJ, KO_CV_FR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FR.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_FR.VCornerParams.BottomWishbonePlane");
+                    //}
                 }
                 else
                 {
@@ -1279,7 +1339,7 @@ namespace Coding_Attempt_with_GUI
             {
                 if (Validatepositve_Double(tbWC_FL.Text))
                 {
-                    KO_CV_FL.VCornerParams.WheelCenter = KO_CV_FL.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbWC_FL.Text), KO_CV_FL.ContactPatch, KO_CV_FL.VCornerParams.SteeringAxis);
+                    KO_CV_FL.VCornerParams.WheelCenter = KO_CV_FL.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbWC_FL.Text), KO_CV_FL.VCornerParams.SteeringAxis.StartPoint, KO_CV_FL.VCornerParams.SteeringAxis);
 
                     Plot_OutboardPoint(KO_CV_FL.VCornerParams.WheelCenter, "KO_CV_FL.VCornerParams.WheelCenter");
 
@@ -1288,7 +1348,7 @@ namespace Coding_Attempt_with_GUI
 
                     if (Sus_Type.FrontSymmetry_Boolean)
                     {
-                        KO_CV_FR.VCornerParams.WheelCenter = KO_CV_FR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbWC_FL.Text), KO_CV_FR.ContactPatch, KO_CV_FR.VCornerParams.SteeringAxis);
+                        KO_CV_FR.VCornerParams.WheelCenter = KO_CV_FR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbWC_FL.Text), KO_CV_FR.VCornerParams.SteeringAxis.StartPoint, KO_CV_FR.VCornerParams.SteeringAxis);
 
                         Plot_OutboardPoint(KO_CV_FR.VCornerParams.WheelCenter, "KO_CV_FR.VCornerParams.WheelCenter");
 
@@ -1315,8 +1375,6 @@ namespace Coding_Attempt_with_GUI
         #region --Front Right--
         //--FRONT RIGHT--
 
-
-
         #region KPI
         private void tbKPI_FR_Leave(object sender, EventArgs e)
         {
@@ -1335,10 +1393,13 @@ namespace Coding_Attempt_with_GUI
         {
             if (DoubleValidation(tbKPI_FR.Text))
             {
+                ///<remarks>
+                ///Negative is added for a reason. For the user the KPI Angle translates to an inclination of the Steering Axis which is tilted to the car. 
+                ///For the Left side this is a clockwise rotation which is positive. But for the RIGHT side this is a CCW rotation which is neggative. Hence the user input needs to be conditioned
+                /// </remarks>
+                KO_CV_FR.KPI = new Angle(-Convert.ToDouble(tbKPI_FR.Text), AngleUnit.Degrees);
 
-                KO_CV_FR.KPI = new Angle(Convert.ToDouble(tbKPI_FR.Text), AngleUnit.Degrees);
-
-                Plot_SteeringAxis(KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.ContactPatch);
+                Plot_SteeringAxis(out KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.ContactPatch, "KO_CV_FR.VCornerParams.SteeringAxis");
 
             }
             else
@@ -1370,7 +1431,7 @@ namespace Coding_Attempt_with_GUI
                 {
                     KO_CV_FR.ScrubRadius = Convert.ToDouble(tbScrub_FR.Text);
 
-                    Plot_SteeringAxis(KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.ContactPatch);
+                    Plot_SteeringAxis(out KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.ContactPatch, "KO_CV_FR.VCornerParams.SteeringAxis");
 
                 }
                 else
@@ -1404,9 +1465,13 @@ namespace Coding_Attempt_with_GUI
         {
             if (DoubleValidation(tbCaster_FR.Text))
             {
-                KO_CV_FR.Caster = new Angle(Convert.ToDouble(tbCaster_FR.Text), AngleUnit.Degrees);
+                ///<remarks>
+                ///Negative Sign is added for a Reason. For the user, positive Caster translates to the Steering Axis's top end (or UBJ) pointing MORE rearward than the bottom end (LBJ). 
+                ///This is for the solver a CW rotation which is negative. 
+                ///Hence the user input value must be conditioned
+                KO_CV_FR.Caster = new Angle(-Convert.ToDouble(tbCaster_FR.Text), AngleUnit.Degrees);
 
-                Plot_SteeringAxis(KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.ContactPatch);
+                Plot_SteeringAxis(out KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.ContactPatch, "KO_CV_FR.VCornerParams.SteeringAxis");
 
             }
             else
@@ -1439,7 +1504,7 @@ namespace Coding_Attempt_with_GUI
                 {
                     KO_CV_FR.MechTrail = Convert.ToDouble(tbMechtrail_FR.Text);
 
-                    Plot_SteeringAxis(KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.ContactPatch);
+                    Plot_SteeringAxis(out KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.ContactPatch, "KO_CV_FR.VCornerParams.SteeringAxis");
 
                 }
                 else
@@ -1477,11 +1542,11 @@ namespace Coding_Attempt_with_GUI
             {
                 if (Validatepositve_Double(tbUBJ_FR.Text))
                 {
-                    KO_CV_FR.VCornerParams.UBJ = KO_CV_FR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbUBJ_FR.Text), KO_CV_FR.ContactPatch, KO_CV_FR.VCornerParams.SteeringAxis);
+                    KO_CV_FR.VCornerParams.UBJ = KO_CV_FR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbUBJ_FR.Text), KO_CV_FR.VCornerParams.SteeringAxis.StartPoint, KO_CV_FR.VCornerParams.SteeringAxis);
 
                     Plot_OutboardPoint(KO_CV_FR.VCornerParams.UBJ, "KO_CV_FR.VCornerParams.UBJ");
 
-                    Plot_WishbonePlane(KO_CV_FR.VCornerParams.TopWishbonePlane, KO_CV_FR.VCornerParams.UBJ, KO_CV_FR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FR.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_FR.VCornerParams.TopWishbonePlane");
+                    Plot_WishbonePlane(out KO_CV_FR.VCornerParams.TopWishbonePlane, KO_CV_FR.VCornerParams.UBJ, KO_CV_FR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FR.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_FR.VCornerParams.TopWishbonePlane", true);
 
                     KO_CV_FR.VCornerParams.Initialize_Dictionary();
 
@@ -1518,11 +1583,11 @@ namespace Coding_Attempt_with_GUI
             {
                 if (Validatepositve_Double(tbLBJ_FR.Text))
                 {
-                    KO_CV_FR.VCornerParams.LBJ = KO_CV_FR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbLBJ_FR.Text), KO_CV_FR.ContactPatch, KO_CV_FR.VCornerParams.SteeringAxis);
+                    KO_CV_FR.VCornerParams.LBJ = KO_CV_FR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbLBJ_FR.Text), KO_CV_FR.VCornerParams.SteeringAxis.StartPoint, KO_CV_FR.VCornerParams.SteeringAxis);
 
                     Plot_OutboardPoint(KO_CV_FR.VCornerParams.LBJ, "KO_CV_FR.VCornerParams.LBJ");
 
-                    Plot_WishbonePlane(KO_CV_FR.VCornerParams.BottomWishbonePlane, KO_CV_FR.VCornerParams.LBJ, KO_CV_FR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FR.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_FR.VCornerParams.BottomWishbonePlane");
+                    Plot_WishbonePlane(out KO_CV_FR.VCornerParams.BottomWishbonePlane, KO_CV_FR.VCornerParams.LBJ, KO_CV_FR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FR.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_FR.VCornerParams.BottomWishbonePlane", true);
 
                     KO_CV_FR.VCornerParams.Initialize_Dictionary();
 
@@ -1563,11 +1628,11 @@ namespace Coding_Attempt_with_GUI
                 if (Validatepositve_Double(tbWC_FR.Text))
                 {
 
-                    KO_CV_FR.VCornerParams.WheelCenter = KO_CV_FR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbWC_FR.Text), KO_CV_FR.ContactPatch, KO_CV_FR.VCornerParams.SteeringAxis);
+                    KO_CV_FR.VCornerParams.WheelCenter = KO_CV_FR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbWC_FR.Text), KO_CV_FR.VCornerParams.SteeringAxis.StartPoint, KO_CV_FR.VCornerParams.SteeringAxis);
 
                     Plot_OutboardPoint(KO_CV_FR.VCornerParams.WheelCenter, "KO_CV_FR.VCornerParams.WheelCenter");
 
-                    KO_CV_FL.VCornerParams.Initialize_Dictionary();
+                    KO_CV_FR.VCornerParams.Initialize_Dictionary();
 
                 }
                 else
@@ -1610,13 +1675,17 @@ namespace Coding_Attempt_with_GUI
 
                 KO_CV_RL.KPI = new Angle(Convert.ToDouble(tbKPI_RL.Text), AngleUnit.Degrees);
 
-                Plot_SteeringAxis(KO_CV_RL.VCornerParams.SteeringAxis, KO_CV_RL.KPI, KO_CV_RL.Caster, KO_CV_RL.ScrubRadius, KO_CV_RL.MechTrail, KO_CV_RL.ContactPatch);
+                Plot_SteeringAxis(out KO_CV_RL.VCornerParams.SteeringAxis, KO_CV_RL.KPI, KO_CV_RL.Caster, KO_CV_RL.ScrubRadius, KO_CV_RL.MechTrail, KO_CV_RL.ContactPatch, "KO_CV_RL.VCornerParams.SteeringAxis");
 
                 ///<summary>Handling condition of Symmetry</summary>
                 if (Sus_Type.FrontSymmetry_Boolean)
                 {
-                    KO_CV_RR.KPI = new Angle(Convert.ToDouble(tbKPI_RL.Text), AngleUnit.Degrees);
-                    Plot_SteeringAxis(KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.ContactPatch);
+                    ///<remarks>
+                    ///Negative is added for a reason. For the user the KPI Angle translates to an inclination of the Steering Axis which is tilted to the car. 
+                    ///For the Left side this is a clockwise rotation which is positive. But for the RIGHT side this is a CCW rotation which is neggative. Hence the user input needs to be conditioned
+                    /// </remarks>
+                    KO_CV_RR.KPI = new Angle(-Convert.ToDouble(tbKPI_RL.Text), AngleUnit.Degrees);
+                    Plot_SteeringAxis(out KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.ContactPatch, "KO_CV_RR.VCornerParams.SteeringAxis");
                 }
 
             }
@@ -1647,15 +1716,21 @@ namespace Coding_Attempt_with_GUI
             {
                 if (Validatepositve_Double(tbScrub_RL.Text))
                 {
-                    KO_CV_RL.ScrubRadius = Convert.ToDouble(tbScrub_RL.Text);
+                    ///<remarks>
+                    ///Negative is added for a reason. For the user the Scrub Radius translates to the distance of the Steering Axis from the Contact Patch point which is also the half track 
+                    ///For the Left side if the distance is inward then for the right also it must be inward. If the negative sign isn't applied then the value will be treaded as positve and the for the Left, the Steering Axis
+                    ///will be translated more outward. 
+                    /// Hence the user input needs to be conditioned
+                    /// </remarks>
+                    KO_CV_RL.ScrubRadius = -Convert.ToDouble(tbScrub_RL.Text);
 
-                    Plot_SteeringAxis(KO_CV_RL.VCornerParams.SteeringAxis, KO_CV_RL.KPI, KO_CV_RL.Caster, KO_CV_RL.ScrubRadius, KO_CV_RL.MechTrail, KO_CV_RL.ContactPatch);
+                    Plot_SteeringAxis(out KO_CV_RL.VCornerParams.SteeringAxis, KO_CV_RL.KPI, KO_CV_RL.Caster, KO_CV_RL.ScrubRadius, KO_CV_RL.MechTrail, KO_CV_RL.ContactPatch, "KO_CV_RL.VCornerParams.SteeringAxis");
 
                     ///<summary>Handling condition of Symmetry</summary>
                     if (Sus_Type.FrontSymmetry_Boolean)
                     {
-                        KO_CV_RR.ScrubRadius = Convert.ToDouble(tbScrub_RL.Text);
-                        Plot_SteeringAxis(KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.ContactPatch);
+                        KO_CV_RR.ScrubRadius = +Convert.ToDouble(tbScrub_RL.Text);
+                        Plot_SteeringAxis(out KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.ContactPatch, "KO_CV_RR.VCornerParams.SteeringAxis");
                     }
 
 
@@ -1690,15 +1765,23 @@ namespace Coding_Attempt_with_GUI
         {
             if (DoubleValidation(tbCaster_RL.Text))
             {
-                KO_CV_RL.Caster = new Angle(Convert.ToDouble(tbCaster_RL.Text), AngleUnit.Degrees);
+                ///<remarks>
+                ///Negative Sign is added for a Reason. For the user, positive Caster translates to the Steering Axis's top end (or UBJ) pointing MORE rearward than the bottom end (LBJ). 
+                ///This is for the solver a CW rotation which is negative. 
+                ///Hence the user input value must be conditioned
+                KO_CV_RL.Caster = new Angle(-Convert.ToDouble(tbCaster_RL.Text), AngleUnit.Degrees);
 
-                Plot_SteeringAxis(KO_CV_RL.VCornerParams.SteeringAxis, KO_CV_RL.KPI, KO_CV_RL.Caster, KO_CV_RL.ScrubRadius, KO_CV_RL.MechTrail, KO_CV_RL.ContactPatch);
+                Plot_SteeringAxis(out KO_CV_RL.VCornerParams.SteeringAxis, KO_CV_RL.KPI, KO_CV_RL.Caster, KO_CV_RL.ScrubRadius, KO_CV_RL.MechTrail, KO_CV_RL.ContactPatch, "KO_CV_RL.VCornerParams.SteeringAxis");
 
                 ///<summary>Handling condition of Symmetry</summary>
                 if (Sus_Type.FrontSymmetry_Boolean)
                 {
-                    KO_CV_RR.Caster = new Angle(Convert.ToDouble(tbCaster_RL.Text), AngleUnit.Degrees);
-                    Plot_SteeringAxis(KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.ContactPatch);
+                    ///<remarks>
+                    ///Negative Sign is added for a Reason. For the user, positive Caster translates to the Steering Axis's top end (or UBJ) pointing MORE rearward than the bottom end (LBJ). 
+                    ///This is for the solver a CW rotation which is negative. 
+                    ///Hence the user input value must be conditioned
+                    KO_CV_RR.Caster = new Angle(-Convert.ToDouble(tbCaster_RL.Text), AngleUnit.Degrees);
+                    Plot_SteeringAxis(out KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.ContactPatch, "KO_CV_RR.VCornerParams.SteeringAxis");
                 }
 
             }
@@ -1731,13 +1814,13 @@ namespace Coding_Attempt_with_GUI
                 {
                     KO_CV_RL.MechTrail = Convert.ToDouble(tbMechtrail_RL.Text);
 
-                    Plot_SteeringAxis(KO_CV_RL.VCornerParams.SteeringAxis, KO_CV_RL.KPI, KO_CV_RL.Caster, KO_CV_RL.ScrubRadius, KO_CV_RL.MechTrail, KO_CV_RL.ContactPatch);
+                    Plot_SteeringAxis(out KO_CV_RL.VCornerParams.SteeringAxis, KO_CV_RL.KPI, KO_CV_RL.Caster, KO_CV_RL.ScrubRadius, KO_CV_RL.MechTrail, KO_CV_RL.ContactPatch, "KO_CV_RL.VCornerParams.SteeringAxis");
 
                     ///<summary>Handling condition of Symmetry</summary>
                     if (Sus_Type.FrontSymmetry_Boolean)
                     {
                         KO_CV_RR.MechTrail = Convert.ToDouble(tbMechtrail_RL.Text);
-                        Plot_SteeringAxis(KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.ContactPatch);
+                        Plot_SteeringAxis(out KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.ContactPatch, "KO_CV_RR.VCornerParams.SteeringAxis");
                     }
 
 
@@ -1775,30 +1858,32 @@ namespace Coding_Attempt_with_GUI
             {
                 if (Validatepositve_Double(tbUBJ_RL.Text))
                 {
-                    KO_CV_RL.VCornerParams.UBJ = KO_CV_RL.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbUBJ_RL.Text), KO_CV_RL.ContactPatch, KO_CV_RL.VCornerParams.SteeringAxis);
+                    KO_CV_RL.VCornerParams.UBJ = KO_CV_RL.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbUBJ_RL.Text), KO_CV_RL.VCornerParams.SteeringAxis.StartPoint, KO_CV_RL.VCornerParams.SteeringAxis);
 
                     Plot_OutboardPoint(KO_CV_RL.VCornerParams.UBJ, "KO_CV_RL.VCornerParams.UBJ");
 
-                    Plot_WishbonePlane(KO_CV_RL.VCornerParams.TopWishbonePlane, KO_CV_RL.VCornerParams.UBJ, KO_CV_RL.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RL.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_RL.VCornerParams.TopWishbonePlane");
+                    Plot_WishbonePlane(out KO_CV_RL.VCornerParams.TopWishbonePlane, KO_CV_RL.VCornerParams.UBJ, KO_CV_RL.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RL.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_RL.VCornerParams.TopWishbonePlane", true);
 
                     KO_CV_RL.VCornerParams.Initialize_Dictionary();
 
 
                     if (Sus_Type.RearSymmetry_Boolean)
                     {
-                        KO_CV_RR.VCornerParams.UBJ = KO_CV_RR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbUBJ_RL.Text), KO_CV_RR.ContactPatch, KO_CV_RR.VCornerParams.SteeringAxis);
+                        KO_CV_RR.VCornerParams.UBJ = KO_CV_RR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbUBJ_RL.Text), KO_CV_RR.VCornerParams.SteeringAxis.StartPoint, KO_CV_RR.VCornerParams.SteeringAxis);
 
                         Plot_OutboardPoint(KO_CV_RR.VCornerParams.UBJ, "KO_CV_RR.VCornerParams.UBJ");
+
+                        Plot_WishbonePlane(out KO_CV_RR.VCornerParams.TopWishbonePlane, KO_CV_RR.VCornerParams.UBJ, KO_CV_RR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RR.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_RR.VCornerParams.TopWishbonePlane", false);
 
                         KO_CV_RR.VCornerParams.Initialize_Dictionary();
 
 
                     }
-                    else
-                    {
-                        ///<remarks>Added in Else Block because I want the user to see the Planes on the Right only for Assymetric Suspension</remarks>
-                        Plot_WishbonePlane(KO_CV_RR.VCornerParams.TopWishbonePlane, KO_CV_RR.VCornerParams.UBJ, KO_CV_RR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RR.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_RR.VCornerParams.TopWishbonePlane");
-                    }
+                    //else
+                    //{
+                    //    ///<remarks>Added in Else Block because I want the user to see the Planes on the Right only for Assymetric Suspension</remarks>
+                    //    Plot_WishbonePlane(out KO_CV_RR.VCornerParams.TopWishbonePlane, KO_CV_RR.VCornerParams.UBJ, KO_CV_RR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RR.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_RR.VCornerParams.TopWishbonePlane");
+                    //}
                 }
                 else
                 {
@@ -1832,29 +1917,31 @@ namespace Coding_Attempt_with_GUI
             {
                 if (Validatepositve_Double(tbLBJ_RL.Text))
                 {
-                    KO_CV_RL.VCornerParams.LBJ = KO_CV_RL.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbLBJ_RL.Text), KO_CV_RL.ContactPatch, KO_CV_RL.VCornerParams.SteeringAxis);
+                    KO_CV_RL.VCornerParams.LBJ = KO_CV_RL.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbLBJ_RL.Text), KO_CV_RL.VCornerParams.SteeringAxis.StartPoint, KO_CV_RL.VCornerParams.SteeringAxis);
 
                     Plot_OutboardPoint(KO_CV_RL.VCornerParams.LBJ, "KO_CV_RL.VCornerParams.LBJ");
 
-                    Plot_WishbonePlane(KO_CV_RL.VCornerParams.BottomWishbonePlane, KO_CV_RL.VCornerParams.LBJ, KO_CV_RL.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RL.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_RL.VCornerParams.BottomWishbonePlane");
+                    Plot_WishbonePlane(out KO_CV_RL.VCornerParams.BottomWishbonePlane, KO_CV_RL.VCornerParams.LBJ, KO_CV_RL.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RL.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_RL.VCornerParams.BottomWishbonePlane", true);
 
 
                     KO_CV_RL .VCornerParams.Initialize_Dictionary();
 
                     if (Sus_Type.FrontSymmetry_Boolean)
                     {
-                        KO_CV_RR.VCornerParams.LBJ = KO_CV_RR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbLBJ_RL.Text), KO_CV_RR.ContactPatch, KO_CV_RR.VCornerParams.SteeringAxis);
+                        KO_CV_RR.VCornerParams.LBJ = KO_CV_RR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbLBJ_RL.Text), KO_CV_RR.VCornerParams.SteeringAxis.StartPoint, KO_CV_RR.VCornerParams.SteeringAxis);
 
                         Plot_OutboardPoint(KO_CV_RR.VCornerParams.LBJ, "KO_CV_RR.VCornerParams.LBJ");
+
+                        Plot_WishbonePlane(out KO_CV_RR.VCornerParams.BottomWishbonePlane, KO_CV_RR.VCornerParams.LBJ, KO_CV_RR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RR.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_RR.VCornerParams.BottomWishbonePlane", false);
 
                         KO_CV_RR.VCornerParams.Initialize_Dictionary();
 
                     }
-                    else
-                    {
-                        ///<remarks>Added in Else Block because I want the user to see the Planes on the Right only for Assymetric Suspension</remarks>
-                        Plot_WishbonePlane(KO_CV_RR.VCornerParams.BottomWishbonePlane, KO_CV_RR.VCornerParams.LBJ, KO_CV_RR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RR.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_RR.VCornerParams.BottomWishbonePlane");
-                    }
+                    //else
+                    //{
+                    //    ///<remarks>Added in Else Block because I want the user to see the Planes on the Right only for Assymetric Suspension</remarks>
+                    //    Plot_WishbonePlane(out KO_CV_RR.VCornerParams.BottomWishbonePlane, KO_CV_RR.VCornerParams.LBJ, KO_CV_RR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RR.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_RR.VCornerParams.BottomWishbonePlane");
+                    //}
                 }
                 else
                 {
@@ -1890,7 +1977,7 @@ namespace Coding_Attempt_with_GUI
             {
                 if (Validatepositve_Double(tbWC_RL.Text))
                 {
-                    KO_CV_RL.VCornerParams.WheelCenter = KO_CV_RL.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbWC_RL.Text), KO_CV_RL.ContactPatch, KO_CV_RL.VCornerParams.SteeringAxis);
+                    KO_CV_RL.VCornerParams.WheelCenter = KO_CV_RL.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbWC_RL.Text), KO_CV_RL.VCornerParams.SteeringAxis.StartPoint, KO_CV_RL.VCornerParams.SteeringAxis);
 
                     Plot_OutboardPoint(KO_CV_RL.VCornerParams.WheelCenter, "KO_CV_RL.VCornerParams.WheelCenter");
 
@@ -1899,7 +1986,7 @@ namespace Coding_Attempt_with_GUI
 
                     if (Sus_Type.FrontSymmetry_Boolean)
                     {
-                        KO_CV_RR.VCornerParams.WheelCenter = KO_CV_RR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbWC_RL.Text), KO_CV_RR.ContactPatch, KO_CV_RR.VCornerParams.SteeringAxis);
+                        KO_CV_RR.VCornerParams.WheelCenter = KO_CV_RR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbWC_RL.Text), KO_CV_RR.VCornerParams.SteeringAxis.StartPoint, KO_CV_RR.VCornerParams.SteeringAxis);
 
                         Plot_OutboardPoint(KO_CV_RR.VCornerParams.WheelCenter, "KO_CV_RR.VCornerParams.WheelCenter");
 
@@ -1944,9 +2031,12 @@ namespace Coding_Attempt_with_GUI
         {
             if (DoubleValidation(tbKPI_RR.Text))
             {
-
-                KO_CV_RR.KPI = new Angle(Convert.ToDouble(tbKPI_RR.Text), AngleUnit.Degrees);
-                Plot_SteeringAxis(KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.ContactPatch);
+                ///<remarks>
+                ///Negative is added for a reason. For the user the KPI Angle translates to an inclination of the Steering Axis which is tilted to the car. 
+                ///For the Left side this is a clockwise rotation which is positive. But for the RIGHT side this is a CCW rotation which is neggative. Hence the user input needs to be conditioned
+                /// </remarks>
+                KO_CV_RR.KPI = new Angle(-Convert.ToDouble(tbKPI_RR.Text), AngleUnit.Degrees);
+                Plot_SteeringAxis(out KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.ContactPatch, "KO_CV_RR.VCornerParams.SteeringAxis");
 
             }
             else
@@ -1977,7 +2067,7 @@ namespace Coding_Attempt_with_GUI
                 if (Validatepositve_Double(tbScrub_RR.Text))
                 {
                     KO_CV_RR.ScrubRadius = Convert.ToDouble(tbScrub_RR.Text);
-                    Plot_SteeringAxis(KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.ContactPatch);
+                    Plot_SteeringAxis(out KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.ContactPatch, "KO_CV_RR.VCornerParams.SteeringAxis");
 
                 }
                 else
@@ -2010,8 +2100,12 @@ namespace Coding_Attempt_with_GUI
         {
             if (DoubleValidation(tbCaster_RR.Text))
             {
-                KO_CV_RR.Caster = new Angle(Convert.ToDouble(tbCaster_RR.Text), AngleUnit.Degrees);
-                Plot_SteeringAxis(KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.ContactPatch);
+                ///<remarks>
+                ///Negative Sign is added for a Reason. For the user, positive Caster translates to the Steering Axis's top end (or UBJ) pointing MORE rearward than the bottom end (LBJ). 
+                ///This is for the solver a CW rotation which is negative. 
+                ///Hence the user input value must be conditioned
+                KO_CV_RR.Caster = new Angle(-Convert.ToDouble(tbCaster_RR.Text), AngleUnit.Degrees);
+                Plot_SteeringAxis(out KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.ContactPatch, "KO_CV_RR.VCornerParams.SteeringAxis");
 
             }
             else
@@ -2042,7 +2136,7 @@ namespace Coding_Attempt_with_GUI
                 if (Validatepositve_Double(tbMechtrail_RR.Text))
                 {
                     KO_CV_RR.MechTrail = Convert.ToDouble(tbMechtrail_RR.Text);
-                    Plot_SteeringAxis(KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.ContactPatch);
+                    Plot_SteeringAxis(out KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.ContactPatch, "KO_CV_RR.VCornerParams.SteeringAxis");
 
                 }
                 else
@@ -2079,11 +2173,12 @@ namespace Coding_Attempt_with_GUI
             {
                 if (Validatepositve_Double(tbUBJ_RR.Text))
                 {
-                    KO_CV_RR.VCornerParams.UBJ = KO_CV_RR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbUBJ_RR.Text), KO_CV_RR.ContactPatch, KO_CV_RR.VCornerParams.SteeringAxis);
+                    KO_CV_RR.VCornerParams.UBJ = KO_CV_RR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbUBJ_RR.Text), KO_CV_RR.VCornerParams.SteeringAxis.StartPoint, KO_CV_RR.VCornerParams.SteeringAxis);
 
                     Plot_OutboardPoint(KO_CV_RR.VCornerParams.UBJ, "KO_CV_RR.VCornerParams.UBJ");
 
-                    Plot_WishbonePlane(KO_CV_RR.VCornerParams.TopWishbonePlane, KO_CV_RR.VCornerParams.UBJ, KO_CV_RR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RR.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_RR.VCornerParams.TopWishbonePlane");
+                    Plot_WishbonePlane(out KO_CV_RR.VCornerParams.TopWishbonePlane, KO_CV_RR.VCornerParams.UBJ, KO_CV_RR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RR.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_RR.VCornerParams.TopWishbonePlane", true);
+
                     KO_CV_RR.VCornerParams.Initialize_Dictionary();
 
 
@@ -2120,11 +2215,11 @@ namespace Coding_Attempt_with_GUI
             {
                 if (Validatepositve_Double(tbLBJ_RR.Text))
                 {
-                    KO_CV_RR.VCornerParams.LBJ = KO_CV_RR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbLBJ_RR.Text), KO_CV_RR.ContactPatch, KO_CV_RR.VCornerParams.SteeringAxis);
+                    KO_CV_RR.VCornerParams.LBJ = KO_CV_RR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbLBJ_RR.Text), KO_CV_RR.VCornerParams.SteeringAxis.StartPoint, KO_CV_RR.VCornerParams.SteeringAxis);
 
                     Plot_OutboardPoint(KO_CV_RR.VCornerParams.LBJ, "KO_CV_RR.VCornerParams.LBJ");
 
-                    Plot_WishbonePlane(KO_CV_RR.VCornerParams.BottomWishbonePlane, KO_CV_RR.VCornerParams.LBJ, KO_CV_RR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RR.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_RR.VCornerParams.BottomWishbonePlane");
+                    Plot_WishbonePlane(out KO_CV_RR.VCornerParams.BottomWishbonePlane, KO_CV_RR.VCornerParams.LBJ, KO_CV_RR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RR.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_RR.VCornerParams.BottomWishbonePlane", true);
                     KO_CV_RR.VCornerParams.Initialize_Dictionary();
 
 
@@ -2164,7 +2259,7 @@ namespace Coding_Attempt_with_GUI
             {
                 if (Validatepositve_Double(tbWC_RR.Text))
                 {
-                    KO_CV_RR.VCornerParams.WheelCenter = KO_CV_RR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbWC_RR.Text), KO_CV_RR.ContactPatch, KO_CV_RR.VCornerParams.SteeringAxis);
+                    KO_CV_RR.VCornerParams.WheelCenter = KO_CV_RR.Compute_PointOnLine_FromScalarParametric(Convert.ToDouble(tbWC_RR.Text), KO_CV_RR.VCornerParams.SteeringAxis.StartPoint, KO_CV_RR.VCornerParams.SteeringAxis);
 
                     Plot_OutboardPoint(KO_CV_RR.VCornerParams.WheelCenter, "KO_CV_RR.VCornerParams.WheelCenter");
 
@@ -2188,6 +2283,179 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
         //---END : TAB PAGE - Conrer params---
+        #endregion
+
+        #region ---Tab Page - Toe Link Points---
+
+        #region Pitman Trail Left
+
+        private void tbPitmanLeft_Leave(object sender, EventArgs e)
+        {
+            Set_PitmanTrail_Left();
+        }
+
+        private void tbPitmanLeft_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_PitmanTrail_Left();
+            }
+        }
+
+        private void Set_PitmanTrail_Left()
+        {
+            if (DoubleValidation(tbPitmanLeft.Text))
+            {
+
+                KO_CV_FL.PitmanTrail = Convert.ToDouble(tbPitmanLeft.Text);
+
+                Set_OutboardToeLink();
+
+                //Plot_OutboardPoint(KO_CV_FL.VCornerParams.ToeLinkOutboard, "KO_CV_FL.VCornerParams.ToeLinkOutboard");
+
+                if (Sus_Type.FrontSymmetry_Boolean)
+                {
+                    KO_CV_FR.PitmanTrail = Convert.ToDouble(tbPitmanLeft.Text);
+
+                    Set_OutboardToeLink();
+
+                    Plot_OutboardPoint(KO_CV_FR.VCornerParams.ToeLinkOutboard, "KO_CV_FR.VCornerParams.ToeLinkOutboard");
+
+                }
+
+                Plot_OutboardPoint(KO_CV_FL.VCornerParams.ToeLinkOutboard, "KO_CV_FL.VCornerParams.ToeLinkOutboard");
+
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+        #endregion
+
+        #region Toe Link Length Left
+        private void tbToeLinkLength_FL_Leave(object sender, EventArgs e)
+        {
+            Set_ToeLinkLength_FL();
+        }
+
+        private void tbToeLinkLength_FL_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_ToeLinkLength_FL();
+            }
+        }
+
+        private void Set_ToeLinkLength_FL()
+        {
+            if (DoubleValidation(tbToeLinkLength_FL.Text))
+            {
+
+                KO_CV_FL.ToeLinkLength = Convert.ToDouble(tbToeLinkLength_FL.Text);
+
+                KO_CV_FL.Compute_InboardToeLink(out KO_CV_FL.VCornerParams.ToeLinkInboard, KO_CV_FL.VCornerParams.ToeLinkOutboard, KO_CV_FL.ToeLinkLength);
+
+                ///<remarks>
+                ///Toe Link is not drawn here because this is just an initial guess. The Optimizer will generate the final value of the Toe Link and then it will be drawn
+                ///</remarks>
+
+                if (Sus_Type.FrontSymmetry_Boolean)
+                {
+                    ///<remarks>
+                    ///Negative is added for a reason. When the user inputs the Toe Link Length it will always be positive. But for us we need the Toe Link Inboard point to always be on the Chassis side. 
+                    ///Hence negative is added for the Right side Link Length. <see cref="KO_CornverVariables.Compute_InboardToeLink(out Point3D, Point3D, double)"/> . 
+                    /// </remarks>
+                    KO_CV_FR.ToeLinkLength = -Convert.ToDouble(tbToeLinkLength_FL.Text);
+
+                    KO_CV_FR.Compute_InboardToeLink(out KO_CV_FR.VCornerParams.ToeLinkInboard, KO_CV_FR.VCornerParams.ToeLinkOutboard, KO_CV_FR.ToeLinkLength);
+
+                }
+
+
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+        #endregion
+
+        #region Pitman Trail Right
+
+        private void tbPitmanRightLeave(object sender, EventArgs e)
+        {
+            Set_PitmanTrail_Right();
+        }
+
+        private void tbPitmanRight_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_PitmanTrail_Right();
+            }
+        }
+
+        private void Set_PitmanTrail_Right()
+        {
+            if (DoubleValidation(tbPitmanRight.Text))
+            {
+                KO_CV_FR.PitmanTrail = Convert.ToDouble(tbPitmanRight.Text);
+
+                Set_OutboardToeLink();
+
+                Plot_OutboardPoint(KO_CV_FR.VCornerParams.ToeLinkOutboard, "KO_CV_FR.VCornerParams.ToeLinkOutboard");
+
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+        #endregion
+
+        #region Toe Link Length Right
+        private void tbToeLinkLength_FR_Leave(object sender, EventArgs e)
+        {
+            Set_ToeLinkLength_FR();
+        }
+
+        private void tbToeLinkLength_FR_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_ToeLinkLength_FR();
+            }
+        }
+
+        private void Set_ToeLinkLength_FR()
+        {
+            if (DoubleValidation(tbToeLinkLength_FR.Text))
+            {
+
+                ///<remarks>
+                ///Negative is added for a reason. When the user inputs the Toe Link Length it will always be positive. But for us we need the Toe Link Inboard point to always be on the Chassis side. 
+                ///Hence negative is added for the Right side Link Length. <see cref="KO_CornverVariables.Compute_InboardToeLink(out Point3D, Point3D, double)"/> . 
+                /// </remarks>
+                KO_CV_FR.ToeLinkLength = -Convert.ToDouble(tbToeLinkLength_FR.Text);
+
+                KO_CV_FR.Compute_InboardToeLink(out KO_CV_FR.VCornerParams.ToeLinkInboard, KO_CV_FR.VCornerParams.ToeLinkOutboard, KO_CV_FR.ToeLinkLength);
+
+                ///<remarks>
+                ///Toe Link is not drawn here because this is just an initial guess. The Optimizer will generate the final value of the Toe Link and then it will be drawn
+                ///</remarks>
+
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+        #endregion
+
+        //---END : Tab Page - Toe Link Points---
         #endregion
 
         //---END : Suspension Input Extraction Methods---
@@ -2242,9 +2510,9 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_VSAL_FV_Length">VSAL Length in Front View</param>
         /// <param name="_ConctactPatch"></param>
         /// <param name="_RC"></param>
-        private void Plot_VSAL_FV(Line _FV_IC_Line, double _VSAL_FV_Length, Point3D _ConctactPatch, Point3D _RC)
+        private void Plot_VSAL_FV(out Line _FV_IC_Line, double _VSAL_FV_Length, Point3D _ConctactPatch, Point3D _RC, string _ICLineName)
         {
-            cad1.Init_VSAL_FV(_FV_IC_Line, _VSAL_FV_Length, _ConctactPatch, _RC);
+            cad1.Init_VSAL_FV(out _FV_IC_Line, _VSAL_FV_Length, _ConctactPatch, _RC, _ICLineName);
         }
 
         /// <summary>
@@ -2253,10 +2521,12 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_VSAL_SV_Length">VSAL Length in Side View</param>
         /// <param name="_ConctactPatch"></param>
         /// <param name="_PC"></param>
-        private void Plot_VSAL_SV(Line _SV_IC_Line, double _VSAL_SV_Length, Point3D _ConctactPatch, Point3D _PC)
+        private void Plot_VSAL_SV(out Line _SV_IC_Line, double _VSAL_SV_Length, Point3D _ConctactPatch, Point3D _PC, string _IClineName)
         {
-            cad1.Init_VSAL_SV(_SV_IC_Line, _VSAL_SV_Length, _ConctactPatch, _PC);
+            cad1.Init_VSAL_SV(out _SV_IC_Line, _VSAL_SV_Length, _ConctactPatch, _PC, _IClineName);
         }
+
+        //---END : Vehicle Parameters 
         #endregion
 
         #region -Corner Params-
@@ -2270,9 +2540,9 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_ScrubRadius">Scrub Radius</param>
         /// <param name="_MechTrail">Mechanical Trail</param>
         /// <param name="_ContactPatch">Contact Patch</param>
-        private void Plot_SteeringAxis(Line _SteeringAxis, Angle _KPI, Angle _Caster, double _ScrubRadius, double _MechTrail, Point3D _ContactPatch)
+        private void Plot_SteeringAxis(out Line _SteeringAxis, Angle _KPI, Angle _Caster, double _ScrubRadius, double _MechTrail, Point3D _ContactPatch, string _SteeringAxisName)
         {
-            cad1.Plot_SteeringAxis(_SteeringAxis, _KPI, _Caster, _ScrubRadius, _MechTrail, _ContactPatch);
+            cad1.Plot_SteeringAxis(out _SteeringAxis, _KPI, _Caster, _ScrubRadius, _MechTrail, _ContactPatch, _SteeringAxisName);
         }
 
         /// <summary>
@@ -2291,9 +2561,9 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_Point1">First point making up the plane</param>
         /// <param name="_Point2">Second point making up the plane</param>
         /// <param name="_Point3">Third point making up the plane</param>
-        private void Plot_WishbonePlane(Plane _WishbonePlane, Point3D _Point1, Point3D _Point2, Point3D _Point3, string _WishbonePlaneName)
+        private void Plot_WishbonePlane(out Plane _WishbonePlane, Point3D _Point1, Point3D _Point2, Point3D _Point3, string _WishbonePlaneName, bool _PlotPlane)
         {
-            cad1.Plot_WishbonePlane(_WishbonePlane, _Point1, _Point2, _Point3, _WishbonePlaneName);
+            cad1.Plot_WishbonePlane(out _WishbonePlane, _Point1, _Point2, _Point3, _WishbonePlaneName, _PlotPlane);
         }
 
         /// <summary>
@@ -2308,9 +2578,10 @@ namespace Coding_Attempt_with_GUI
             cad1.Plot_InboardWishbonePoint(_InboardPoint, _OutboardPoint, _InboardPointName, _WishboneArmName);
         }
 
-        
+        //---END : Corner Params---
         #endregion
 
+        //---END : CAD UserControl Plotter Methods---
         #endregion
 
 
@@ -2321,16 +2592,19 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         private void Set_ContactPatch()
         {
+            //---Front Contact Patch---
+
             ///<summary>Using the Track Width to Set the Front Contact Patch</summary>
             KO_CV_FL.ContactPatch.X = KO_Central.Track_Front / 2;
 
             KO_CV_FR.ContactPatch.X = -KO_Central.Track_Front / 2;
 
+            //---Rear Contact Patch---
+
             ///<summary>Using the Rear Track to Set tthe Rear COntact Patch</summary>
             KO_CV_RL.ContactPatch.X = KO_Central.Track_Rear / 2;
 
             KO_CV_RR.ContactPatch.X = -KO_Central.Track_Rear / 2;
-
             ///<summary>Uisng the Wheelbase to Set the RearC Contact Patch</summary>
             KO_CV_RL.ContactPatch.Z = KO_Central.WheelBase;
 
@@ -2369,11 +2643,10 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Method to compute the Outboard Toe Link Point once the ackermann and pitmann trails have been set 
         /// </summary>
-        private void Set_OutboardToeLink()
+        public void Set_OutboardToeLink()
         {
-            KO_Central.Compute_OutboardToeLink(KO_CV_FL, KO_CV_FR, KO_CV_RL, KO_CV_RR);
+            KO_Central.Compute_OutboardToeLink(ref KO_CV_FL, ref KO_CV_FR, ref KO_CV_RL, ref KO_CV_RR);
         }
-
         #endregion
 
 
@@ -2410,11 +2683,11 @@ namespace Coding_Attempt_with_GUI
 
             if (Sus_Type.FrontSymmetry_Boolean)
             {
-                wishboneInboardFL.Get_ParentObjectData(KO_CV_FL, KO_CV_FR, this);
+                wishboneInboardFL.Get_ParentObjectData(KO_CV_FL, KO_CV_FR, this, VehicleCorner.FrontLeft, VehicleCorner.FrontRight);
             }
             if (Sus_Type.RearSymmetry_Boolean)
             {
-                wishboneInboardRL.Get_ParentObjectData(KO_CV_RL, KO_CV_RR, this);
+                wishboneInboardRL.Get_ParentObjectData(KO_CV_RL, KO_CV_RR, this, VehicleCorner.RearLeft, VehicleCorner.RearRight);
             }
 
 
@@ -2548,6 +2821,10 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_rearSymmetric"></param>
         private void SymmtryOperations()
         {
+            layoutControlItemRC_LatOff_Front.HideToCustomization();
+
+            layoutControlItemRC_LatOff_Rear.HideToCustomization();
+
             layoutControlItemFV_VSAL_FR.HideToCustomization();
 
             layoutControlItemFV_VSAL_RR.HideToCustomization();
@@ -2566,11 +2843,19 @@ namespace Coding_Attempt_with_GUI
 
             layoutControl_CornerParams_RR.Hide();
 
-            wishboneInboardFR.Hide();
+            layoutControlItemwishboneInboardFR.HideToCustomization();
+            //wishboneInboardFR.Hide();
+            layoutControlItemwishboneInboardFR.Height = 336;
 
-            wishboneInboardRR.Hide();
+            layoutControlItemwishboneInboardRR.HideToCustomization();
+            //wishboneInboardRR.Hide();
 
-            bumpSteerCurveFR.Hide();
+            simpleLabelItemwishboneInboardFR.HideToCustomization();
+
+            simpleLabelItemwishboneInboardRR.HideToCustomization();
+
+            layoutControlItembumpSteerCurveFR.HideToCustomization(); 
+            //bumpSteerCurveFR.Hide();
 
         }
 
@@ -2579,6 +2864,10 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         private void AssymmetryOperations()
         {
+            layoutControlItemRC_LatOff_Front.ShowInCustomizationForm = true;
+
+            layoutControlItemRC_LatOff_Rear.ShowInCustomizationForm = true;
+
             layoutControlItemFV_VSAL_FR.ShowInCustomizationForm = true;
 
             layoutControlItemFV_VSAL_RR.ShowInCustomizationForm = true;
@@ -2597,25 +2886,208 @@ namespace Coding_Attempt_with_GUI
 
             layoutControl_CornerParams_RR.Show();
 
-            wishboneInboardFR.Show();
+            layoutControlItemwishboneInboardFR.ShowInCustomizationForm = true;
+            layoutControlItemwishboneInboardFR.Height = 336;
 
-            wishboneInboardRR.Show();
+            layoutControlItemwishboneInboardRR.ShowInCustomizationForm = true;
 
-            bumpSteerCurveFR.Show();
+            simpleLabelItemwishboneInboardFR.ShowInCustomizationForm = true;
+
+            simpleLabelItemwishboneInboardRR.ShowInCustomizationForm = true;
+
+            layoutControlItembumpSteerCurveFR.ShowInCustomizationForm = true;
+
+            //wishboneInboardFR.Show();
+
+            //wishboneInboardRR.Show();
+
+            //bumpSteerCurveFR.Show();
         }
 
 
         
         #endregion
 
-        private void simpleButtonUpdateSuspension_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Event raised when the <see cref="simpleButtonUpdateSuspension_VehicleParams"/> is clicked. 
+        /// /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void simpleButtonUpdateSuspension_VehicleParams_Click(object sender, EventArgs e)
         {
+            AutoInit_VehicleParams();
+        }
+        /// <summary>
+        /// Event raised when the <see cref="simpleButtonUpdateSuspension_CornerParams_FL"/> is clicked. 
+        /// /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void simpleButtonUpdateSuspension_CornerParams_FL_Click(object sender, EventArgs e)
+        {
+            AutoInit_CornerParams_FL();
+        }
+        /// <summary>
+        /// Event raised when the <see cref="simpleButtonUpdateSuspension_CornerParams_FR"/> is clicked. 
+        /// /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void simpleButtonUpdateSuspension_CornerParams_FR_Click(object sender, EventArgs e)
+        {
+            AutoInit_CornerParams_FR();
+        }
+        /// <summary>
+        /// Event raised when the <see cref="simpleButtonUpdateSuspension_CornerParams_RL"/> is clicked. 
+        /// /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void simpleButtonUpdateSuspension_CornerParams_RL_Click(object sender, EventArgs e)
+        {
+            AutoInit_CornerParams_RL();
+        }
+        /// <summary>
+        /// Event raised when the <see cref="simpleButtonUpdateSuspension_CornerParams_RR"/> is clicked. 
+        /// /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void simpleButtonUpdateSuspension_CornerParams_RR_Click(object sender, EventArgs e)
+        {
+            AutoInit_CornerParams_RR();
+        }
+
+
+        /// <summary>
+        /// Method which initiales the First Stage of the Suspension Geometry
+        /// </summary>
+        private void AutoInit_VehicleParams()
+        {
+            Set_Wheelbase();
+
+            Set_TrackFront();
+
+            Set_TrackRear();
+
+            Set_RC_Front_Height();
+
+            Set_RC_Front_LatOff();
+
+            Set_FV_VSAL_FL();
+
+            Set_FV_VSAL_FR();
+
+            Set_RC_Rear_Height();
+
+            Set_RC_Rear_LatOff();
+
+            Set_FV_VSAL_RL();
+
+            Set_FV_VSAL_RR();
+
+            Set_PC_Left_Height();
+
+            Set_PC_Left_LongitudinalOff();
+
+            Set_SV_VSAL_FL();
+
+            Set_SV_VSAL_RL();
+
+            Set_PC_Right_Height();
+
+            Set_PC_Right_LongitudinalOff();
+
+            Set_SV_VSAL_FR();
+
+            Set_SV_VSAL_RR();
+
+            Set_Ackermann();
+        }
+
+        /// <summary>
+        /// Method which initiales the Second Stage of the Suspension Geometry for the Front Left
+        /// </summary>
+        private void AutoInit_CornerParams_FL()
+        {
+            Set_KPI_FL();
+
+            Set_Scrub_FL();
+
+            Set_Caster_FL();
+
+            Set_MechTrail_FL();
+
+            Set_UBJParametric_FL();
+
+            Set_LBJParametric_FL();
+
+            Set_WheelCenter_FL();
+        }
+
+        /// <summary>
+        /// Method which initiales the Second Stage of the Suspension Geometry for the Front Right
+        /// </summary>
+        private void AutoInit_CornerParams_FR()
+        {
+            Set_KPI_FR();
+
+            Set_Scrub_FR();
+
+            Set_Caster_FR();
+
+            Set_MechTrail_FR();
+
+            Set_UBJParametric_FR();
+
+            Set_LBJParametric_FR();
+
+            Set_WheelCenter_FR();
+        }
+
+        /// <summary>
+        /// Method which initiales the Second Stage of the Suspension Geometry for the Rear Left
+        /// </summary>
+        private void AutoInit_CornerParams_RL()
+        {
+            Set_KPI_RL();
+
+            Set_Scrub_RL();
+
+            Set_Caster_RL();
+
+            Set_MechTrail_RL();
+
+            Set_UBJParametric_RL();
+
+            Set_LBJParametric_RL();
+
+            Set_WheelCenter_RL();
+        }
+
+        /// <summary>
+        /// Method which initiales the Second Stage of the Suspension Geometry for the Rear RIght
+        /// </summary>
+        private void AutoInit_CornerParams_RR()
+        {
+            Set_KPI_RR();
+
+            Set_Scrub_RR();
+
+            Set_Caster_RR();
+
+            Set_MechTrail_RR();
+
+            Set_UBJParametric_RR();
+
+            Set_LBJParametric_RR();
+
+            Set_WheelCenter_RR();
 
         }
 
 
 
+        private void wishboneInboardFR_Load(object sender, EventArgs e)
+        {
 
+        }
 
 
     }

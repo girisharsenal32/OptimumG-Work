@@ -108,6 +108,12 @@ namespace Coding_Attempt_with_GUI
         public double PitmanTrail { get; set; }
 
         /// <summary>
+        /// Length of the Toe Link. This is used along with the <see cref="VehicleCornerParams.ToeLinkOutboard"/> to generate an initial guess for the <see cref="VehicleCornerParams.ToeLinkInboard"/>
+        /// so that the Optimizer can then optimize it for Bump Steer
+        /// </summary>
+        public double ToeLinkLength { get; set; }
+
+        /// <summary>
         /// <see cref="Point3D"/> representing the Contact Patch Initialized using the Track and Wheelbase
         /// </summary>
         public Point3D ContactPatch { get; set; }
@@ -120,16 +126,18 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         public VehicleCornerParams VCornerParams { get; set; }
         #endregion
-        
-        
+
+
         #endregion
 
 
         /// <summary>
         /// Constructor
         /// </summary>
-        public KO_CornverVariables()
+        public KO_CornverVariables(VehicleCorner _vCorner)
         {
+            VCorner = _vCorner;
+
             KO_MasterAdjs = new Dictionary<string, KO_AdjToolParams>();
 
             KO_ReqParams = new List<SuspensionParameters>();
@@ -145,7 +153,6 @@ namespace Coding_Attempt_with_GUI
             KPI = new Angle();
 
             VCornerParams = new VehicleCornerParams();
-
 
             ContactPatch = new Point3D();
 
@@ -266,22 +273,31 @@ namespace Coding_Attempt_with_GUI
 
             if (_inputFormat == InboardInputFormat.IIO)
             {
-                _pointToBeComputed.Z = -((_wishPlaneEqArray[0] * +_pointToBeComputed.X) + (_wishPlaneEqArray[1] * +_pointToBeComputed.Y) + (_wishPlaneEqArray[3]));
+                _pointToBeComputed.Z = (-((_wishPlaneEqArray[0] * +_pointToBeComputed.X) + (_wishPlaneEqArray[1] * +_pointToBeComputed.Y) + (_wishPlaneEqArray[3])) / (_wishPlaneEqArray[2]));
             }
             else if (_inputFormat == InboardInputFormat.IOI)
             {
-                _pointToBeComputed.Y = -((_wishPlaneEqArray[0] * +_pointToBeComputed.X) + (_wishPlaneEqArray[2] * +_pointToBeComputed.Z) + (_wishPlaneEqArray[3]));
+                _pointToBeComputed.Y = (-((_wishPlaneEqArray[0] * +_pointToBeComputed.X) + (_wishPlaneEqArray[2] * +_pointToBeComputed.Z) + (_wishPlaneEqArray[3])) / (_wishPlaneEqArray[1]));
             }
             else
             {
-                _pointToBeComputed.X = -((_wishPlaneEqArray[1] * +_pointToBeComputed.Y) + (_wishPlaneEqArray[2] * +_pointToBeComputed.Z) + (_wishPlaneEqArray[3]));
+                _pointToBeComputed.X = (-((_wishPlaneEqArray[1] * +_pointToBeComputed.Y) + (_wishPlaneEqArray[2] * +_pointToBeComputed.Z) + (_wishPlaneEqArray[3])) / (_wishPlaneEqArray[0]));
             }
 
             return _pointToBeComputed;
 
         }
 
-
+        /// <summary>
+        /// Method to Compute the Inboard Toe Link Point using the Outboard Toe Link Point and the Toe Link Length
+        /// </summary>
+        /// <param name="_inboardToeLink">Inboard Toe Link Point which is going to be initialized</param>
+        /// <param name="_outboardToeLink">Outboard Toe Link Point</param>
+        /// <param name="_toeLinkLength">Toe Link Length</param>
+        public void Compute_InboardToeLink(out Point3D _inboardToeLink, Point3D _outboardToeLink, double _toeLinkLength)
+        {
+            _inboardToeLink = new Point3D(_outboardToeLink.X - _toeLinkLength, _outboardToeLink.Y, _outboardToeLink.Z);
+        }   
 
 
     }

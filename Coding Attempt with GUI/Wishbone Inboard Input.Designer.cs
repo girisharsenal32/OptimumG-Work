@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.simpleButtonPlotPoint = new DevExpress.XtraEditors.SimpleButton();
             this.listBoxControlSuspensionCoordinate = new DevExpress.XtraEditors.ListBoxControl();
             this.tbX = new System.Windows.Forms.TextBox();
             this.tbZ = new System.Windows.Forms.TextBox();
@@ -43,7 +44,6 @@
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.simpleButtonPlotPoint = new DevExpress.XtraEditors.SimpleButton();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
@@ -77,6 +77,16 @@
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
+            // simpleButtonPlotPoint
+            // 
+            this.simpleButtonPlotPoint.Location = new System.Drawing.Point(195, 245);
+            this.simpleButtonPlotPoint.Name = "simpleButtonPlotPoint";
+            this.simpleButtonPlotPoint.Size = new System.Drawing.Size(76, 22);
+            this.simpleButtonPlotPoint.StyleController = this.layoutControl1;
+            this.simpleButtonPlotPoint.TabIndex = 9;
+            this.simpleButtonPlotPoint.Text = "Plot Point";
+            this.simpleButtonPlotPoint.Click += new System.EventHandler(this.simpleButtonPlotPoint_Click);
+            // 
             // listBoxControlSuspensionCoordinate
             // 
             this.listBoxControlSuspensionCoordinate.Cursor = System.Windows.Forms.Cursors.Default;
@@ -104,6 +114,8 @@
             this.tbZ.Name = "tbZ";
             this.tbZ.Size = new System.Drawing.Size(61, 20);
             this.tbZ.TabIndex = 6;
+            this.tbZ.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbZ_KeyDown);
+            this.tbZ.Leave += new System.EventHandler(this.tbZ_Leave);
             // 
             // tbY
             // 
@@ -112,6 +124,8 @@
             this.tbY.Name = "tbY";
             this.tbY.Size = new System.Drawing.Size(61, 20);
             this.tbY.TabIndex = 5;
+            this.tbY.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbY_KeyDown);
+            this.tbY.Leave += new System.EventHandler(this.tbY_Leave);
             // 
             // radioGroup1
             // 
@@ -181,7 +195,7 @@
             this.layoutControlItem2.Location = new System.Drawing.Point(120, 185);
             this.layoutControlItem2.Name = "layoutControlItem2";
             this.layoutControlItem2.Size = new System.Drawing.Size(143, 24);
-            this.layoutControlItem2.Text = "Y";
+            this.layoutControlItem2.Text = "     Y";
             this.layoutControlItem2.TextSize = new System.Drawing.Size(75, 13);
             // 
             // layoutControlItem3
@@ -190,7 +204,7 @@
             this.layoutControlItem3.Location = new System.Drawing.Point(120, 209);
             this.layoutControlItem3.Name = "layoutControlItem3";
             this.layoutControlItem3.Size = new System.Drawing.Size(143, 24);
-            this.layoutControlItem3.Text = "Z";
+            this.layoutControlItem3.Text = "     Z";
             this.layoutControlItem3.TextSize = new System.Drawing.Size(75, 13);
             // 
             // layoutControlItem4
@@ -199,7 +213,7 @@
             this.layoutControlItem4.Location = new System.Drawing.Point(120, 161);
             this.layoutControlItem4.Name = "layoutControlItem4";
             this.layoutControlItem4.Size = new System.Drawing.Size(143, 24);
-            this.layoutControlItem4.Text = "X";
+            this.layoutControlItem4.Text = "     X";
             this.layoutControlItem4.TextSize = new System.Drawing.Size(75, 13);
             // 
             // emptySpaceItem2
@@ -218,16 +232,6 @@
             this.layoutControlItem5.Size = new System.Drawing.Size(120, 259);
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextVisible = false;
-            // 
-            // simpleButtonPlotPoint
-            // 
-            this.simpleButtonPlotPoint.Location = new System.Drawing.Point(195, 245);
-            this.simpleButtonPlotPoint.Name = "simpleButtonPlotPoint";
-            this.simpleButtonPlotPoint.Size = new System.Drawing.Size(76, 22);
-            this.simpleButtonPlotPoint.StyleController = this.layoutControl1;
-            this.simpleButtonPlotPoint.TabIndex = 9;
-            this.simpleButtonPlotPoint.Text = "Plot Point";
-            this.simpleButtonPlotPoint.Click += new System.EventHandler(this.simpleButtonPlotPoint_Click);
             // 
             // layoutControlItem6
             // 
