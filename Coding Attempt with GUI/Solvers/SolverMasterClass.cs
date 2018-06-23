@@ -32,11 +32,11 @@ namespace Coding_Attempt_with_GUI
 
         #region Local Fixed Points Front Declaration
         public double l_A1x, l_A1y, l_A1z, l_B1x, l_B1y, l_B1z, l_C1x, l_C1y, l_C1z, l_D1x, l_D1y, l_D1z, l_JO1x, l_JO1y, l_JO1z, l_I1x, l_I1y, l_I1z, l_Q1x, l_Q1y, l_Q1z, l_N1x, l_N1y, l_N1z,
-                  l_Pin1x,l_Pin1y,l_Pin1z,l_UV1x,l_UV1y,l_UV1z,l_UV2x,l_UV2y,l_UV2z,l_STC1x,l_STC1y,l_STC1z, l_R1x, l_R1y, l_R1z, l_RideHeightRefx, l_RideHeightRefy, l_RideHeightRefz;
+                  l_Pin1x, l_Pin1y, l_Pin1z, l_UV1x, l_UV1y, l_UV1z, l_UV2x, l_UV2y, l_UV2z, l_STC1x, l_STC1y, l_STC1z, l_R1x, l_R1y, l_R1z, l_RideHeightRefx, l_RideHeightRefy, l_RideHeightRefz;
         #endregion
 
         #region Local Moving Points Front Declaration
-        public double l_J1x, l_J1y, l_J1z, l_H1x, l_H1y, l_H1z, l_O1x, l_O1y, l_O1z, l_G1x, l_G1y, l_G1z, l_F1x, l_F1y, l_F1z,l_TCM1x, l_TCM1y, l_TCM1z, l_E1x, l_E1y, l_E1z, l_BCM1x, l_BCM1y, l_BCM1z, l_M1x, l_M1y, l_M1z, l_K1x, l_K1y, l_K1z, l_P1x, l_P1y, l_P1z, l_W1x, l_W1y, l_W1z;
+        public double l_J1x, l_J1y, l_J1z, l_H1x, l_H1y, l_H1z, l_O1x, l_O1y, l_O1z, l_G1x, l_G1y, l_G1z, l_F1x, l_F1y, l_F1z, l_TCM1x, l_TCM1y, l_TCM1z, l_E1x, l_E1y, l_E1z, l_BCM1x, l_BCM1y, l_BCM1z, l_M1x, l_M1y, l_M1z, l_K1x, l_K1y, l_K1z, l_P1x, l_P1y, l_P1z, l_W1x, l_W1y, l_W1z;
         public double Lx = 0, Ly = 0, Lz = 0; // Initial Coordinates of Spindle End
         public double L1x, L1y, L1z; // Final Coordinated of Spindle End
         #endregion
@@ -48,7 +48,7 @@ namespace Coding_Attempt_with_GUI
         #region Local Variables to required to calculate Steering Angles 
         private double SteeringRatio;
         double Angle_InputOutputShaft, Angle_InputIntermediateShaft, Angle_IntermediateOutputShaft;
-        static double deltaAngle_Pinion, Angle_InternmediateShaft; 
+        static double deltaAngle_Pinion, Angle_InternmediateShaft;
         #endregion
 
         #region Local variables to calculate KPI and Caster
@@ -240,7 +240,7 @@ namespace Coding_Attempt_with_GUI
         double XW1 = 0, YW1 = 0, ZW1 = 0, XW2 = 0, YW2 = 0, ZW2 = 0;
 
         #endregion
-        
+
         #region ---INITIALIZER METHODS---
 
         #region Initializing the Local Coordinate Variables
@@ -270,9 +270,9 @@ namespace Coding_Attempt_with_GUI
         {
             scale_TCM_BCM = 1.0125;
             l_E1x = _scmAssign.E1x; l_E1y = _scmAssign.E1y; l_E1z = _scmAssign.E1z;
-            l_BCM1x = l_E1x * scale_TCM_BCM; l_BCM1y = l_E1y+4; l_BCM1z = l_E1z;
+            l_BCM1x = l_E1x * scale_TCM_BCM; l_BCM1y = l_E1y + 4; l_BCM1z = l_E1z;
             l_F1x = _scmAssign.F1x; l_F1y = _scmAssign.F1y; l_F1z = _scmAssign.F1z;
-            l_TCM1x = l_F1x * scale_TCM_BCM; l_TCM1y = l_F1y+4; l_TCM1z = l_F1z;
+            l_TCM1x = l_F1x * scale_TCM_BCM; l_TCM1y = l_F1y + 4; l_TCM1z = l_F1z;
             l_G1x = _scmAssign.G1x; l_G1y = _scmAssign.G1y; l_G1z = _scmAssign.G1z;
             l_H1x = _scmAssign.H1x; l_H1y = _scmAssign.H1y; l_H1z = _scmAssign.H1z;
             l_J1x = _scmAssign.J1x; l_J1y = _scmAssign.J1y; l_J1z = _scmAssign.J1z;
@@ -329,9 +329,9 @@ namespace Coding_Attempt_with_GUI
             l_K1y = _outboardPoints[CoordinateOptions.WheelCenter.ToString()].Y;
             l_K1z = _outboardPoints[CoordinateOptions.WheelCenter.ToString()].Z;
 
-            L1x = _outboardPoints[CoordinateOptions.WheelCenter.ToString()].X;
-            L1y = _outboardPoints[CoordinateOptions.WheelCenter.ToString()].Y;
-            L1z = _outboardPoints[CoordinateOptions.WheelCenter.ToString()].Z;
+            L1x = _outboardPoints[CoordinateOptions.WheelSpindleEnd.ToString()].X;
+            L1y = _outboardPoints[CoordinateOptions.WheelSpindleEnd.ToString()].Y;
+            L1z = _outboardPoints[CoordinateOptions.WheelSpindleEnd.ToString()].Z;
 
 
         }
@@ -349,7 +349,7 @@ namespace Coding_Attempt_with_GUI
             if (SimType != SimulationType.Optimization)
             {
                 StaticCamber = _waInitialize.StaticCamber * (Math.PI / 180);
-                StaticToe = _waInitialize.StaticToe * (Math.PI / 180); 
+                StaticToe = _waInitialize.StaticToe * (Math.PI / 180);
             }
             else
             {
@@ -417,7 +417,7 @@ namespace Coding_Attempt_with_GUI
 
                 E1F1_KPI = Math.Sqrt(Math.Pow((l_F1x - l_E1x), 2) + Math.Pow((l_F1y - l_E1y), 2));
                 WheelCentreVert_KPI = Math.Sqrt(/*Math.Pow((l_K1x - 0), 2) +*/ Math.Pow((l_K1y - 0), 2));
-                ocKPICaster.KPI = (Math.Acos((((l_F1x - l_E1x) * (l_K1x - l_K1x)) + ((l_F1y - l_E1y) * (l_K1y - 0))) / (E1F1_KPI * WheelCentreVert_KPI))); 
+                ocKPICaster.KPI = (Math.Acos((((l_F1x - l_E1x) * (l_K1x - l_K1x)) + ((l_F1y - l_E1y) * (l_K1y - 0))) / (E1F1_KPI * WheelCentreVert_KPI)));
             }
             else if (!IsDoubleWishbone)
             {
@@ -615,7 +615,7 @@ namespace Coding_Attempt_with_GUI
             }
             CoordinateTranslator.TranslateCoordinates_To_AnyCS(_ocTrans.scmOP, opX, opY, opZ);
             _ocTrans.FinalRideHeight_ForTrans += opY;
-        } 
+        }
         #endregion
 
         #region Calculating the Spindle End using the Camber and Toe Angles which are input by the user
@@ -637,13 +637,13 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_Opx"></param>
         /// <param name="_Opy"></param>
         /// <param name="_Opz"></param>
-        public void RotateSpindleVector(double _rotaboutZ, double _rotaboutY, bool _arbitraryAxis, double _axis1x, double _axis1y, double _axis1z, double _axis2x, double _axis2y, double _axis2z, double _Ipx, double _Ipy, double _Ipz,out double _Opx, out double _Opy, out double _Opz)
+        public void RotateSpindleVector(double _rotaboutZ, double _rotaboutY, bool _arbitraryAxis, double _axis1x, double _axis1y, double _axis1z, double _axis2x, double _axis2y, double _axis2z, double _Ipx, double _Ipy, double _Ipz, out double _Opx, out double _Opy, out double _Opz)
         {
             ///<remarks>This method initializes the Translational and Rotational Matrices required for the Transformation</remarks>
-            
+
 
             _Opx = 0; _Opy = 0; _Opz = 0;
-            
+
             double UnitX, UnitY, UnitZ, MagU;
 
             Matrix_TranslationCnT = new double[4, 4];
@@ -746,7 +746,7 @@ namespace Coding_Attempt_with_GUI
             ///<summary
             ///This method rotates a point about an arbitrary axis 
             ///</summary
-            
+
             for (i = 0; i < 4; i++) //Translation Matrix x RotiationZ Matrix
             {
                 for (j = 0; j < 4; j++)
@@ -802,7 +802,7 @@ namespace Coding_Attempt_with_GUI
             ///<summary
             ///This function rotates a point about the Z and Y axis
             ///</summary
-            
+
             for (i = 0; i < 4; i++) //Translation Matrix x RotiationZ Matrix
             {
                 for (j = 0; j < 4; j++)
@@ -1191,6 +1191,30 @@ namespace Coding_Attempt_with_GUI
 
 
         }
+
+        public void CalculatenewCamberAndToe_KO_Optimization(List<OutputClass> _ocNewCamberToe, int dummy2, Vehicle _vehicleCamberToe, int _identifier, Point3D _newWcEnd, Point3D _newWC)
+        {
+            if (dummy2 != 0)
+            {
+                K2L2_Toe = Math.Sqrt(Math.Pow((_newWcEnd.X - _newWC.X), 2) + Math.Pow((_newWcEnd.Z - _newWC.Z), 2));
+                K2L2_Camber = Math.Sqrt(Math.Pow((_newWcEnd.X - _newWC.X), 2) + Math.Pow((_newWcEnd.Y - _newWC.Y), 2));
+
+
+                K2L2_ToePrev = Math.Sqrt(Math.Pow((L1x - l_K1x), 2) + Math.Pow((L1z - l_K1z), 2));
+                K2L2_CamberPrev = Math.Sqrt(Math.Pow((L1x - l_K1x), 2) + Math.Pow((L1y - l_K1y), 2));
+
+                dToe = (Math.Acos((((L1x - l_K1x) * (_newWcEnd.X - _newWC.X)) + ((L1z - l_K1z) * (_newWcEnd.Z - _newWC.Z))) / (K2L2_ToePrev * K2L2_Toe)));
+                dCamber = (Math.Acos((((L1x - l_K1x) * (_newWcEnd.X - _newWC.X)) + ((L1y - l_K1y) * (_newWcEnd.Y - _newWC.Y))) / (K2L2_CamberPrev * K2L2_Camber)));
+
+                dCamber = AssignDirection_Camber(dCamber, _identifier, L1y - _vehicleCamberToe.OutputOrigin_y, _newWcEnd.Y);
+                dToe = AssignDirection_Toe(dToe, _identifier, L1z - _vehicleCamberToe.OutputOrigin_z, _newWcEnd.Z);
+
+                _ocNewCamberToe[dummy2].waOP.StaticCamber = (dCamber + _ocNewCamberToe[dummy2 - 1].waOP.StaticCamber);
+                _ocNewCamberToe[dummy2].waOP.StaticToe = (dToe + _ocNewCamberToe[dummy2 - 1].waOP.StaticToe);
+            }
+        }
+
+
         #endregion
 
         private double GetSteeringRatio(int Index, WheelAlignment _waSteeringRatio)
@@ -1459,7 +1483,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_RrCV">Rear Right corner Setup Change values requested by the user</param>
         /// <param name="_Vehicle"Object of the <see cref="Vehicle"/> class</param>
         public void SetupChange_PrimaryInvoker(SetupChange_CornerVariables _FlCV, SetupChange_CornerVariables _FrCV, SetupChange_CornerVariables _RlCV, SetupChange_CornerVariables _RrCV, Vehicle _Vehicle)
-         {
+        {
             int setupID = _Vehicle.vehicleSetupChange.SetupChangeID - 1;
 
             SetupChange_NoOfGenerations = 50;
@@ -1505,14 +1529,20 @@ namespace Coding_Attempt_with_GUI
             _Vehicle.oc_RL[0].Caster *= -1;
             _Vehicle.oc_RR[0].Caster *= -1;
 
+            ///<remarks>
+            ///
+            /// Below you will notive that for both the Right Corners I am using the <see cref="OutputClass.sccvOP"/> instead of the parameters of <paramref name="_FrCV"/>
+            /// This is because I am Playing it safe 
+            /// </remarks>
+
             ///<summary>Finding the final values of the Setup Parameters by adding the changes in the corresponding parameters which the user has requested</summary>
-            SetupChange_AssignNewSetupValues(_Vehicle.oc_FL, _FlCV, ref FinalCamberFL, ref FinalToeFL, ref FinalCasterFL, ref FinalKPIFL);
+            SetupChange_AssignNewSetupValues(_Vehicle.oc_FL, _FlCV/*_Vehicle.oc_FL[0].sccvOP*/, ref FinalCamberFL, ref FinalToeFL, ref FinalCasterFL, ref FinalKPIFL, 1);
             ///<summary>Finding the final values of the Setup Parameters by adding the changes in the corresponding parameters which the user has requested</summary>
-            SetupChange_AssignNewSetupValues(_Vehicle.oc_FR, _FrCV, ref FinalCamberFR, ref FinalToeFR, ref FinalCasterFR, ref FinalKPIFR);
+            SetupChange_AssignNewSetupValues(_Vehicle.oc_FR, _FrCV /*_Vehicle.oc_FR[0].sccvOP*/, ref FinalCamberFR, ref FinalToeFR, ref FinalCasterFR, ref FinalKPIFR, 2);
             ///<summary>Finding the final values of the Setup Parameters by adding the changes in the corresponding parameters which the user has requested</summary>
-            SetupChange_AssignNewSetupValues(_Vehicle.oc_RL, _RlCV, ref FinalCamberRL, ref FinalToeRL, ref FinalCasterRL, ref FinalKPIRL);
+            SetupChange_AssignNewSetupValues(_Vehicle.oc_RL, _RlCV /*_Vehicle.oc_RL[0].sccvOP*/, ref FinalCamberRL, ref FinalToeRL, ref FinalCasterRL, ref FinalKPIRL, 3);
             ///<summary>Finding the final values of the Setup Parameters by adding the changes in the corresponding parameters which the user has requested</summary>
-            SetupChange_AssignNewSetupValues(_Vehicle.oc_RR, _RrCV, ref FinalCamberRR, ref FinalToeRR, ref FinalCasterRR, ref FinalKPIRR);
+            SetupChange_AssignNewSetupValues(_Vehicle.oc_RR, _RrCV/*_Vehicle.oc_RR[0].sccvOP*/, ref FinalCamberRR, ref FinalToeRR, ref FinalCasterRR, ref FinalKPIRR, 4);
 
             ///<remarks>The <see cref="SC_OC_FL"/> object needs to be initialized as it needs to be passed as a parameter in the below line of code of Ride Height</remarks>
             SC_OC_FL = new SetupChange_Outputs();
@@ -1528,19 +1558,19 @@ namespace Coding_Attempt_with_GUI
             if (/*_FlCV.RideHeightChanged || _FrCV.RideHeightChanged || _RlCV.RideHeightChanged || _RrCV.RideHeightChanged*/ true)
             {
                 Identifier = 1;
-                SetupChange_PrimaryInitializeMethod(_FlCV, _Vehicle.oc_FL );
+                SetupChange_PrimaryInitializeMethod(_FlCV, _Vehicle.oc_FL);
                 FinalRideHeight_FL = SetupChange_GetRideHeightChange(_FlCV, SetupChange_DB_Master.AdjOptions.PushrodLine, SetupChange_DB_Master.AdjOptions.PushrodVector, _FlCV.rideheightAdjustmentType, _FlCV.rideheightAdjustmentTool, 1, out FinalPushrod_FL, SC_OC_FL);
 
                 Identifier = 2;
-                SetupChange_PrimaryInitializeMethod(_FrCV, _Vehicle.oc_FR );
+                SetupChange_PrimaryInitializeMethod(_FrCV, _Vehicle.oc_FR);
                 FinalRideHeight_FR = SetupChange_GetRideHeightChange(_FrCV, SetupChange_DB_Master.AdjOptions.PushrodLine, SetupChange_DB_Master.AdjOptions.PushrodVector, _FrCV.rideheightAdjustmentType, _FrCV.rideheightAdjustmentTool, 2, out FinalPushrod_FR, SC_OC_FL);
 
                 Identifier = 3;
-                SetupChange_PrimaryInitializeMethod(_RlCV, _Vehicle.oc_RL );
+                SetupChange_PrimaryInitializeMethod(_RlCV, _Vehicle.oc_RL);
                 FinalRideHeight_RL = SetupChange_GetRideHeightChange(_RlCV, SetupChange_DB_Master.AdjOptions.PushrodLine, SetupChange_DB_Master.AdjOptions.PushrodVector, _RlCV.rideheightAdjustmentType, _RlCV.rideheightAdjustmentTool, 3, out FinalPushrod_RL, SC_OC_FL);
 
                 Identifier = 4;
-                SetupChange_PrimaryInitializeMethod(_RrCV, _Vehicle.oc_RR );
+                SetupChange_PrimaryInitializeMethod(_RrCV, _Vehicle.oc_RR);
                 FinalRideHeight_RR = SetupChange_GetRideHeightChange(_RrCV, SetupChange_DB_Master.AdjOptions.PushrodLine, SetupChange_DB_Master.AdjOptions.PushrodVector, _RrCV.rideheightAdjustmentType, _RrCV.rideheightAdjustmentTool, 4, out FinalPushrod_RR, SC_OC_FL);
 
                 SetupChange_RideHeightChange_Helper_SolveForRideHeightChanges(_Vehicle, FinalRideHeight_FL, FinalRideHeight_FR, FinalRideHeight_RL, FinalRideHeight_RR);
@@ -1638,14 +1668,14 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         /// <param name="_oc"></param>
         /// <param name="_requestedChanges"></param>
-        private void SetupChange_AssignNewSetupValues(List<OutputClass> _oc, SetupChange_CornerVariables _requestedChanges, ref Angle _finalCamber, ref Angle _finalToe, ref Angle _finalCaster, ref Angle _finalKPI)
+        private void SetupChange_AssignNewSetupValues(List<OutputClass> _oc, SetupChange_CornerVariables _requestedChanges, ref Angle _finalCamber, ref Angle _finalToe, ref Angle _finalCaster, ref Angle _finalKPI, int _iden)
         {
             ///<summary>Calculating the Final Value of Camber that is requested by the User. No change in parameter's value if requested change is 0</summary>
             Angle deltaCamber = new Angle(_requestedChanges.deltaCamber, AngleUnit.Degrees);
             _finalCamber = new Angle(_oc[0].waOP.StaticCamber + deltaCamber.Radians, AngleUnit.Radians);
 
             ///<summary>Calculating the Final Value of Toe that is requested by the User. No change in parameter's value if requested change is 0</summary>
-             Angle deltaToeReq = new Angle(_requestedChanges.deltaToe, AngleUnit.Degrees);
+            Angle deltaToeReq = new Angle(_requestedChanges.deltaToe, AngleUnit.Degrees);
             _finalToe = new Angle(_oc[0].waOP.StaticToe + deltaToeReq.Radians, AngleUnit.Radians);
 
             ///<summary>Calculating the Final Value of Caster that is requested by the User. No change in parameter's value if requested change is 0</summary>
@@ -1654,7 +1684,20 @@ namespace Coding_Attempt_with_GUI
 
             ///<summary>Calculating the Final Value of KPI that is requested by the User. No change in parameter's value if requested change is 0</summary>
             Angle deltaKPI = new Angle(_requestedChanges.deltaKPI, AngleUnit.Degrees);
-            _finalKPI = new Angle(_oc[0].KPI + deltaKPI.Radians, AngleUnit.Radians);
+            ///<remarks>
+            ///The IF loop below is a Stop GAP method to solve an error I have havig regarding Sign Convention of KPI
+            ///Probably the reason is that I am conditioning the sign of <see cref="SetupChange_CornerVariables.deltaKPI"/> in the <see cref="SolverMasterClass.SetupChange_PrimaryInvoker(SetupChange_CornerVariables, SetupChange_CornerVariables, SetupChange_CornerVariables, SetupChange_CornerVariables, Vehicle)"/>
+            ///method and ALSO, my <see cref="DoubleWishboneKinematicsSolver"/> is condiition it once after solver the Suspnsion. Hence the over Conditioning is resulting in skewing of results and so the IFF loop below is emploed
+            /// </remarks>
+            if (_iden == 1 || _iden == 3)
+            {
+                _finalKPI = new Angle(_oc[0].KPI + deltaKPI.Radians, AngleUnit.Radians); 
+            }
+            else
+            {
+                _finalKPI = new Angle(_oc[0].KPI - deltaKPI.Radians, AngleUnit.Radians);
+
+            }
 
             ///<summary>Calculating the Final Value of Ride Height that is requested by the User. No change in parameter's value if requested change is 0</summary>
             _oc[0].FinalRideHeight += _requestedChanges.deltaRideHeight;

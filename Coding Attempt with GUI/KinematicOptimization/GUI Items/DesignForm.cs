@@ -42,11 +42,18 @@ namespace Coding_Attempt_with_GUI
         KO_CornverVariables KO_CV_RR;
 
         /// <summary>
+        /// Object of the< <see cref="KO_SimulationParams"/> which stores all the information regarding the Simulation Parameters such as Number of iterations etc
+        /// </summary>
+        KO_SimulationParams KO_SimParams;
+
+        /// <summary>
         /// Object of the <see cref="CAD"/> user control which is going to be docked on teh <see cref="groupControlCAD"/>
         /// </summary>
         CAD cad1;
 
+        ProgressBarControl ProgressBar;
 
+        #region ---Initialization Method---
         /// <summary>
         /// Consturctor
         /// </summary>
@@ -77,7 +84,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_koCVFR">Front Right object of the <see cref="KO_CornverVariables"/></param>
         /// <param name="_koCVRL">Rear Left object of the <see cref="KO_CornverVariables"/></param>
         /// <param name="_koCVRR">Rear Right object of the <see cref="KO_CornverVariables"/></param>
-        public void Set_KO_Variables(KO_CentralVariables _koCentral, KO_CornverVariables _koCVFL, KO_CornverVariables _koCVFR, KO_CornverVariables _koCVRL, KO_CornverVariables _koCVRR)
+        public void Set_KO_Variables(ref KO_CentralVariables _koCentral, ref KO_CornverVariables _koCVFL, ref KO_CornverVariables _koCVFR, ref KO_CornverVariables _koCVRL, ref KO_CornverVariables _koCVRR)
         {
             KO_Central = _koCentral;
 
@@ -102,10 +109,18 @@ namespace Coding_Attempt_with_GUI
             wishboneInboardRR.Get_ParentObjectData(KO_CV_RR, this, VehicleCorner.RearRight);
         }
 
+        /// <summary>
+        /// Method to initialize the <see cref="KO_SimulationParams"/> object of this class
+        /// </summary>
+        /// <param name="_koSimParams"></param>
+        public void Set_KO_SimulationParams(ref KO_SimulationParams _koSimParams)
+        {
+            KO_SimParams = _koSimParams;
+        } 
+        #endregion
 
 
-        #region --Suspension Input Extraction Methods--
-
+        #region ---Suspension Input Extraction AND Computation Methods---
 
         #region --Validation Methods--
 
@@ -173,9 +188,184 @@ namespace Coding_Attempt_with_GUI
         }
         #endregion
 
-        #region ---Tab Page - Vehicle Parameters - GUI Interaction---
-        
-        
+
+        #region ---Tab Page - Vehicle Parameters ---
+
+        #region Simulation Parameters
+
+        //---No Of Iterations---
+        private void tbNoOfIterations_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_NoOfIterations();
+            }
+        }
+        private void Set_NoOfIterations()
+        {
+            if (IntegerValidation(tbNoOfIterations.Text))
+            {
+                KO_SimParams.NumberOfIterations_KinematicSolver = Convert.ToInt32(tbNoOfIterations.Text);
+
+                KO_SimParams.StepSize_Heave = KO_SimParams.Compute_StepSize_Heave(KO_SimParams.Maximum_Heave_Deflection, KO_SimParams.Minimum_Heave_Deflection, KO_SimParams.NumberOfIterations_KinematicSolver);
+
+                Set_StepSize_Charts_Heave(KO_SimParams.StepSize_Heave);
+
+                KO_SimParams.StepSize_Steering = KO_SimParams.Compute_StepSize_Steering(KO_SimParams.Maximum_Steering_Angle, KO_SimParams.Minimum_Steering_Angle, KO_SimParams.NumberOfIterations_KinematicSolver);
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+
+        //---Max Heave---
+        private void tbMax_Heave_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_Max_Heave();
+            }
+        }
+        private void Set_Max_Heave()
+        {
+            if (DoubleValidation(tbMax_Heave.Text))
+            {
+                KO_SimParams.Maximum_Heave_Deflection = Convert.ToDouble(tbMax_Heave.Text);
+
+                KO_SimParams.StepSize_Heave = KO_SimParams.Compute_StepSize_Heave(KO_SimParams.Maximum_Heave_Deflection, KO_SimParams.Minimum_Heave_Deflection, KO_SimParams.NumberOfIterations_KinematicSolver);
+
+                Set_StepSize_Charts_Heave(KO_SimParams.StepSize_Heave);
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+
+        }
+
+
+        //---Min Heave---
+        private void tbMin_Heave_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_Min_Heave();
+            }
+        }
+        private void Set_Min_Heave()
+        {
+            if (DoubleValidation(tbMin_Heave.Text))
+            {
+                KO_SimParams.Minimum_Heave_Deflection = Convert.ToDouble(tbMin_Heave.Text);
+
+                KO_SimParams.StepSize_Heave = KO_SimParams.Compute_StepSize_Heave(KO_SimParams.Maximum_Heave_Deflection, KO_SimParams.Minimum_Heave_Deflection, KO_SimParams.NumberOfIterations_KinematicSolver);
+
+                Set_StepSize_Charts_Heave(KO_SimParams.StepSize_Heave);
+
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+        #region ---NOT USED---
+
+        //---NOT USED - Step Size Heave---
+        private void tbStepSize_Heave_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_StepSize_Heave();
+            }
+        }
+        private void Set_StepSize_Heave()
+        {
+            if (IntegerValidation(tbStepSize_Heave.Text))
+            {
+                KO_SimParams.StepSize_Heave = Convert.ToInt32(tbStepSize_Heave.Text);
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+        #endregion
+
+        //---Max Steering---
+        private void tbMax_Steering_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_Max_Steering();
+            }
+        }
+        private void Set_Max_Steering()
+        {
+            if (DoubleValidation(tbMax_Steering.Text))
+            {
+                KO_SimParams.Maximum_Steering_Angle = Convert.ToDouble(tbMax_Steering.Text);
+
+                KO_SimParams.StepSize_Steering = KO_SimParams.Compute_StepSize_Steering(KO_SimParams.Maximum_Steering_Angle, KO_SimParams.Minimum_Steering_Angle, KO_SimParams.NumberOfIterations_KinematicSolver);
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+        //---Min Steering---
+        private void tbMin_Steering_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_Min_Steeering();
+            }
+        }
+        private void Set_Min_Steeering()
+        {
+            if (DoubleValidation(tbMin_Steering.Text))
+            {
+                KO_SimParams.Minimum_Steering_Angle = Convert.ToDouble(tbMin_Steering.Text);
+
+                KO_SimParams.StepSize_Steering = KO_SimParams.Compute_StepSize_Steering(KO_SimParams.Maximum_Steering_Angle, KO_SimParams.Minimum_Steering_Angle, KO_SimParams.NumberOfIterations_KinematicSolver);
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+
+        #region ---NOT USED---
+        //---NOT USED - Step Size Steering---
+        private void tbStepSize_Steering_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_StepSize_Steering();
+            }
+        }
+        private void Set_StepSize_Steering()
+        {
+            if (IntegerValidation(tbStepSize_Steering.Text))
+            {
+                KO_SimParams.StepSize_Steering = Convert.ToInt32(tbStepSize_Steering.Text);
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+        #endregion
+
+
+        #endregion
+
+
         #region Wheelbase
         //---Wheelbase Textbox Events
 
@@ -331,7 +521,7 @@ namespace Coding_Attempt_with_GUI
                 KO_Central.RC_Front.Y = Convert.ToDouble(tbRC_Front_Height.Text);
 
                 Set_KO_RollCenter();
-                
+
                 Plot_RCs();
             }
             else
@@ -461,7 +651,7 @@ namespace Coding_Attempt_with_GUI
             {
                 MessageBox.Show(NumericError);
             }
-        } 
+        }
         #endregion
 
 
@@ -490,7 +680,7 @@ namespace Coding_Attempt_with_GUI
                 KO_Central.RC_Rear.Y = Convert.ToDouble(tbRC_Rear_Height.Text);
 
                 Set_KO_RollCenter();
-                
+
                 Plot_RCs();
             }
             else
@@ -530,7 +720,7 @@ namespace Coding_Attempt_with_GUI
         }
         #endregion
 
-       
+
         #region VSAL FV Rear Left
         //---VSAL Front View of Rear Left
 
@@ -619,7 +809,7 @@ namespace Coding_Attempt_with_GUI
             {
                 MessageBox.Show(NumericError);
             }
-        } 
+        }
         #endregion
 
 
@@ -950,7 +1140,7 @@ namespace Coding_Attempt_with_GUI
             {
                 MessageBox.Show(NumericError);
             }
-        } 
+        }
         #endregion
 
 
@@ -994,7 +1184,8 @@ namespace Coding_Attempt_with_GUI
         //---END : Tab Page Vehicle Parameters---
         #endregion
 
-        #region ---Tab Page - Corner Parameters - GUI Interaction---
+
+        #region ---Tab Page - Corner Parameters---
 
         //---Corner Parameters Tab Page GUI---
 
@@ -1149,7 +1340,7 @@ namespace Coding_Attempt_with_GUI
             }
         }
         #endregion
-        
+
         #region Mechanical Trail
 
         //---Mechanical Trail
@@ -1293,7 +1484,7 @@ namespace Coding_Attempt_with_GUI
 
                         Plot_OutboardPoint(KO_CV_FR.VCornerParams.LBJ, "KO_CV_FR.VCornerParams.LBJ");
 
-                        Plot_WishbonePlane(out KO_CV_FR.VCornerParams.BottomWishbonePlane, KO_CV_FR.VCornerParams.LBJ, KO_CV_FR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FR.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_FR.VCornerParams.BottomWishbonePlane",false);
+                        Plot_WishbonePlane(out KO_CV_FR.VCornerParams.BottomWishbonePlane, KO_CV_FR.VCornerParams.LBJ, KO_CV_FR.VCornerParams.FV_IC_Line.EndPoint, KO_CV_FR.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_FR.VCornerParams.BottomWishbonePlane", false);
 
 
                         KO_CV_FR.VCornerParams.Initialize_Dictionary();
@@ -1695,7 +1886,7 @@ namespace Coding_Attempt_with_GUI
             }
         }
         #endregion
-        
+
         #region Scrub Radius
         private void tbScrub_RL_KeyDown(object sender, KeyEventArgs e)
         {
@@ -1746,7 +1937,7 @@ namespace Coding_Attempt_with_GUI
             }
         }
         #endregion
-        
+
         #region Caster
         private void tbCaster_RL_Leave(object sender, EventArgs e)
         {
@@ -1791,7 +1982,7 @@ namespace Coding_Attempt_with_GUI
             }
         }
         #endregion
-        
+
         #region Mechanical Trail
         private void tbMechtrail_RL_Leave(object sender, EventArgs e)
         {
@@ -1924,7 +2115,7 @@ namespace Coding_Attempt_with_GUI
                     Plot_WishbonePlane(out KO_CV_RL.VCornerParams.BottomWishbonePlane, KO_CV_RL.VCornerParams.LBJ, KO_CV_RL.VCornerParams.FV_IC_Line.EndPoint, KO_CV_RL.VCornerParams.SV_IC_Line.EndPoint, "KO_CV_RL.VCornerParams.BottomWishbonePlane", true);
 
 
-                    KO_CV_RL .VCornerParams.Initialize_Dictionary();
+                    KO_CV_RL.VCornerParams.Initialize_Dictionary();
 
                     if (Sus_Type.FrontSymmetry_Boolean)
                     {
@@ -2045,7 +2236,7 @@ namespace Coding_Attempt_with_GUI
             }
         }
         #endregion
-        
+
         #region Scrub Radius
         private void tbScrub_RR_KeyDown(object sender, KeyEventArgs e)
         {
@@ -2285,6 +2476,7 @@ namespace Coding_Attempt_with_GUI
         //---END : TAB PAGE - Conrer params---
         #endregion
 
+
         #region ---Tab Page - Toe Link Points---
 
         #region Pitman Trail Left
@@ -2311,8 +2503,6 @@ namespace Coding_Attempt_with_GUI
 
                 Set_OutboardToeLink();
 
-                //Plot_OutboardPoint(KO_CV_FL.VCornerParams.ToeLinkOutboard, "KO_CV_FL.VCornerParams.ToeLinkOutboard");
-
                 if (Sus_Type.FrontSymmetry_Boolean)
                 {
                     KO_CV_FR.PitmanTrail = Convert.ToDouble(tbPitmanLeft.Text);
@@ -2321,9 +2511,13 @@ namespace Coding_Attempt_with_GUI
 
                     Plot_OutboardPoint(KO_CV_FR.VCornerParams.ToeLinkOutboard, "KO_CV_FR.VCornerParams.ToeLinkOutboard");
 
+                    KO_CV_FR.VCornerParams.Initialize_Dictionary();
+
                 }
 
                 Plot_OutboardPoint(KO_CV_FL.VCornerParams.ToeLinkOutboard, "KO_CV_FL.VCornerParams.ToeLinkOutboard");
+
+                KO_CV_FL.VCornerParams.Initialize_Dictionary();
 
             }
             else
@@ -2333,6 +2527,7 @@ namespace Coding_Attempt_with_GUI
         }
 
         #endregion
+
 
         #region Toe Link Length Left
         private void tbToeLinkLength_FL_Leave(object sender, EventArgs e)
@@ -2357,6 +2552,8 @@ namespace Coding_Attempt_with_GUI
 
                 KO_CV_FL.Compute_InboardToeLink(out KO_CV_FL.VCornerParams.ToeLinkInboard, KO_CV_FL.VCornerParams.ToeLinkOutboard, KO_CV_FL.ToeLinkLength);
 
+                KO_CV_FL.VCornerParams.Initialize_Dictionary();
+
                 ///<remarks>
                 ///Toe Link is not drawn here because this is just an initial guess. The Optimizer will generate the final value of the Toe Link and then it will be drawn
                 ///</remarks>
@@ -2371,6 +2568,8 @@ namespace Coding_Attempt_with_GUI
 
                     KO_CV_FR.Compute_InboardToeLink(out KO_CV_FR.VCornerParams.ToeLinkInboard, KO_CV_FR.VCornerParams.ToeLinkOutboard, KO_CV_FR.ToeLinkLength);
 
+                    KO_CV_FR.VCornerParams.Initialize_Dictionary();
+
                 }
 
 
@@ -2381,6 +2580,7 @@ namespace Coding_Attempt_with_GUI
             }
         }
         #endregion
+
 
         #region Pitman Trail Right
 
@@ -2407,6 +2607,8 @@ namespace Coding_Attempt_with_GUI
 
                 Plot_OutboardPoint(KO_CV_FR.VCornerParams.ToeLinkOutboard, "KO_CV_FR.VCornerParams.ToeLinkOutboard");
 
+                KO_CV_FR.VCornerParams.Initialize_Dictionary();
+
             }
             else
             {
@@ -2415,6 +2617,7 @@ namespace Coding_Attempt_with_GUI
         }
 
         #endregion
+
 
         #region Toe Link Length Right
         private void tbToeLinkLength_FR_Leave(object sender, EventArgs e)
@@ -2447,11 +2650,63 @@ namespace Coding_Attempt_with_GUI
                 ///Toe Link is not drawn here because this is just an initial guess. The Optimizer will generate the final value of the Toe Link and then it will be drawn
                 ///</remarks>
 
+                KO_CV_FR.VCornerParams.Initialize_Dictionary();
+
             }
             else
             {
                 MessageBox.Show(NumericError);
             }
+        }
+        #endregion
+
+
+        #region Toe Link Inboard FL
+        private void simpleButtonPlotToelinkInboard_FL_Click(object sender, EventArgs e)
+        {
+            Compute_InboardToeLinkPoint();
+        }
+
+        private void Compute_InboardToeLinkPoint()
+        {
+            KO_CV_FL.BumpSteerCurve = bumpSteerCurveFL.BumpSteerParms;
+
+            KO_CV_FL.Optimize_InboardToeLink(ref KO_CV_FL, ref KO_Central, ref KO_SimParams, VehicleCorner.FrontLeft, this);
+
+            Plot_InboardPoints(KO_CV_FL.VCornerParams.ToeLinkInboard, KO_CV_FL.VCornerParams.ToeLinkOutboard, "KO_CV_FL.VCornerParams.ToeLinkInboard", "KO_CV_FL.VCornerParams.ToeLink");
+
+            tbConvergence_BS_FL.Text = Convert.ToString(KO_CV_FL.BumpSteerConvergence.Percentage);
+
+            KO_CV_FL.VCornerParams.Initialize_Dictionary();
+
+            if (Sus_Type.FrontSymmetry_Boolean)
+            {
+                KO_CV_FR.VCornerParams.ToeLinkInboard = new Point3D(-KO_CV_FL.VCornerParams.ToeLinkInboard.X, KO_CV_FL.VCornerParams.ToeLinkInboard.Y, KO_CV_FL.VCornerParams.ToeLinkInboard.Z);
+
+                KO_CV_FR.VCornerParams.Initialize_Dictionary();
+
+                Plot_InboardPoints(KO_CV_FR.VCornerParams.ToeLinkInboard, KO_CV_FR.VCornerParams.ToeLinkOutboard, "KO_CV_FR.VCornerParams.ToeLinkInboard", "KO_CV_FR.VCornerParams.ToeLink");
+            }
+        }
+        #endregion
+
+
+        #region Toe Link Inboard FR
+        private void simpleButtonPlotToelinkInboard_FR_Click(object sender, EventArgs e)
+        {
+            Compute_InboardToeLink_FR();
+        }
+
+        private void Compute_InboardToeLink_FR()
+        {
+            KO_CV_FR.BumpSteerCurve = bumpSteerCurveFR.BumpSteerParms;
+
+            KO_CV_FR.Optimize_InboardToeLink(ref KO_CV_FR, ref KO_Central, ref KO_SimParams, VehicleCorner.FrontRight, this);
+
+            Plot_InboardPoints(KO_CV_FR.VCornerParams.ToeLinkInboard, KO_CV_FR.VCornerParams.ToeLinkOutboard, "KO_CV_FR.VCornerParams.ToeLinkInboard", "KO_CV_FR.VCornerParams.ToeLink");
+
+            tbConvergence_BS_FR.Text = Convert.ToString(KO_CV_FR.BumpSteerConvergence.Percentage);
+
         }
         #endregion
 
@@ -2462,7 +2717,7 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
 
-        #region --CAD UserControl Plotter Methods--
+        #region ---CAD UserControl Plotter Methods---
 
         #region -Vehicle Parameters-
         /// <summary>
@@ -2529,7 +2784,7 @@ namespace Coding_Attempt_with_GUI
         //---END : Vehicle Parameters 
         #endregion
 
-        #region -Corner Params-
+        #region -Corner Params & Toe Link Outboard Point-
 
         /// <summary>
         /// Method to Initialize and Plot the Steering Axis 
@@ -2566,6 +2821,13 @@ namespace Coding_Attempt_with_GUI
             cad1.Plot_WishbonePlane(out _WishbonePlane, _Point1, _Point2, _Point3, _WishbonePlaneName, _PlotPlane);
         }
 
+
+
+        //---END : Corner Params---
+        #endregion
+
+
+        #region - Inboard Points and Toe Link Inboard Point-
         /// <summary>
         /// Method to Plot the Inboard Point and create a Bar using it's corresponding Outboard Point
         /// </summary>
@@ -2577,9 +2839,8 @@ namespace Coding_Attempt_with_GUI
         {
             cad1.Plot_InboardWishbonePoint(_InboardPoint, _OutboardPoint, _InboardPointName, _WishboneArmName);
         }
-
-        //---END : Corner Params---
         #endregion
+
 
         //---END : CAD UserControl Plotter Methods---
         #endregion
@@ -2639,7 +2900,7 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
-        
+
         /// <summary>
         /// Method to compute the Outboard Toe Link Point once the ackermann and pitmann trails have been set 
         /// </summary>
@@ -2647,14 +2908,40 @@ namespace Coding_Attempt_with_GUI
         {
             KO_Central.Compute_OutboardToeLink(ref KO_CV_FL, ref KO_CV_FR, ref KO_CV_RL, ref KO_CV_RR);
         }
+
+        /// <summary>
+        /// Method to Set the StepSize of all the charts. <see cref="XUC_KO_GenericChart.StepSize"/> and <see cref="BumpSteerCurve.StepSize"/>
+        /// </summary>
+        /// <param name="_stepSizeHeave">Step Size of the Heave Chart</param>
+        public void Set_StepSize_Charts_Heave(double _stepSizeHeave)
+        {
+            bumpSteerCurveFL.StepSize = _stepSizeHeave;
+
+            bumpSteerCurveFL.BumpSteerParms.StepSize = bumpSteerCurveFL.StepSize;
+        }
+
+
+        public void Set_StepSize_Charts_Steeering(double _steSizeSteering)
+        {
+
+        }
+
+
         #endregion
 
 
-        
+        #region ---Suspension Creations - Includes Template Creation, Suspnsion Creation and Vehicle Suspension Initialization---
 
+        int SuspensionTemplateButtonClickCount = 0;
         private void simpleButtonSuspensiontemplate_Click(object sender, EventArgs e)
+
         {
-            CreateSuspensionTemplate();
+            if (SuspensionTemplateButtonClickCount == 0)
+            {
+                CreateSuspensionTemplate();
+            }
+
+            SuspensionTemplateButtonClickCount = 1;
 
             Activate_AllTextboxes();
 
@@ -2681,6 +2968,10 @@ namespace Coding_Attempt_with_GUI
 
             Sus_Type.ShowDialog();
 
+            CreateSuspensions();
+
+            AssignSuspensionToVehicle();
+
             if (Sus_Type.FrontSymmetry_Boolean)
             {
                 wishboneInboardFL.Get_ParentObjectData(KO_CV_FL, KO_CV_FR, this, VehicleCorner.FrontLeft, VehicleCorner.FrontRight);
@@ -2690,9 +2981,52 @@ namespace Coding_Attempt_with_GUI
                 wishboneInboardRL.Get_ParentObjectData(KO_CV_RL, KO_CV_RR, this, VehicleCorner.RearLeft, VehicleCorner.RearRight);
             }
 
+        }
+
+        private void CreateSuspensions()
+        {
+            Kinematics_Software_New R1 = Kinematics_Software_New.AssignFormVariable();
+
+            R1.scflGUI.Add(new SuspensionCoordinatesFrontGUI());
+            R1.scflGUI[R1.scflGUI.Count - 1].FrontSuspensionTypeGUI(Sus_Type);
+            SuspensionCoordinatesFront.Assy_List_SCFL.Add(new SuspensionCoordinatesFront(R1.scflGUI[R1.scflGUI.Count - 1]));
+            SuspensionCoordinatesFront.Assy_List_SCFL[SuspensionCoordinatesFront.Assy_List_SCFL.Count - 1].FrontSuspensionType(R1.scflGUI[R1.scflGUI.Count - 1]);
+
+            R1.scfrGUI.Add(new SuspensionCoordinatesFrontRightGUI());
+            R1.scfrGUI[R1.scfrGUI.Count - 1].FrontSuspensionTypeGUI(Sus_Type);
+            SuspensionCoordinatesFrontRight.Assy_List_SCFR.Add(new SuspensionCoordinatesFrontRight(R1.scfrGUI[R1.scfrGUI.Count - 1]));
+            SuspensionCoordinatesFrontRight.Assy_List_SCFR[SuspensionCoordinatesFrontRight.Assy_List_SCFR.Count - 1].FrontSuspensionType(R1.scfrGUI[R1.scfrGUI.Count - 1]);
+
+            R1.scrlGUI.Add(new SuspensionCoordinatesRearGUI());
+            R1.scrlGUI[R1.scrlGUI.Count - 1].RearSuspensionTypeGUI(Sus_Type);
+            SuspensionCoordinatesRear.Assy_List_SCRL.Add(new SuspensionCoordinatesRear(R1.scrlGUI[R1.scrlGUI.Count - 1]));
+            SuspensionCoordinatesRear.Assy_List_SCRL[SuspensionCoordinatesRear.Assy_List_SCRL.Count - 1].RearSuspensionType(R1.scrlGUI[R1.scrlGUI.Count - 1]);
+
+            R1.scrrGUI.Add(new SuspensionCoordinatesRearRightGUI());
+            R1.scrrGUI[R1.scrrGUI.Count - 1].RearSuspensionTypeGUI(Sus_Type);
+            SuspensionCoordinatesRearRight.Assy_List_SCRR.Add(new SuspensionCoordinatesRearRight(R1.scrrGUI[R1.scrrGUI.Count - 1]));
+            SuspensionCoordinatesRearRight.Assy_List_SCRR[SuspensionCoordinatesRearRight.Assy_List_SCRR.Count - 1].RearSuspensionTyppe(R1.scrrGUI[R1.scrrGUI.Count - 1]);
 
 
         }
+
+        private void AssignSuspensionToVehicle()
+        {
+            KO_Central.Vehicle.sc_FL = SuspensionCoordinatesFront.Assy_List_SCFL[SuspensionCoordinatesFront.Assy_List_SCFL.Count - 1];
+
+            KO_Central.Vehicle.sc_FR = SuspensionCoordinatesFrontRight.Assy_List_SCFR[SuspensionCoordinatesFrontRight.Assy_List_SCFR.Count - 1];
+
+            KO_Central.Vehicle.sc_RL = SuspensionCoordinatesRear.Assy_List_SCRL[SuspensionCoordinatesRear.Assy_List_SCRL.Count - 1];
+
+            KO_Central.Vehicle.sc_RR = SuspensionCoordinatesRearRight.Assy_List_SCRR[SuspensionCoordinatesRearRight.Assy_List_SCRR.Count - 1];
+        }
+
+        private void ModifySuspension(List<SuspensionCoordinatesMaster> _scm, List<SuspensionCoordinatesMasterGUI> _scm_GUI)
+        {
+
+        }
+
+        #endregion
 
 
         #region ---GUI Operations---
@@ -2844,19 +3178,19 @@ namespace Coding_Attempt_with_GUI
             layoutControl_CornerParams_RR.Hide();
 
             layoutControlItemwishboneInboardFR.HideToCustomization();
-            //wishboneInboardFR.Hide();
             layoutControlItemwishboneInboardFR.Height = 336;
 
             layoutControlItemwishboneInboardRR.HideToCustomization();
-            //wishboneInboardRR.Hide();
 
             simpleLabelItemwishboneInboardFR.HideToCustomization();
 
             simpleLabelItemwishboneInboardRR.HideToCustomization();
 
-            layoutControlItembumpSteerCurveFR.HideToCustomization(); 
-            //bumpSteerCurveFR.Hide();
+            layoutControlItembumpSteerCurveFR.HideToCustomization();
 
+            layoutControlItemToeLinkLength.HideToCustomization();
+
+            layoutControlItemConvergence_BS_FR.HideToCustomization();
         }
 
         /// <summary>
@@ -2897,16 +3231,15 @@ namespace Coding_Attempt_with_GUI
 
             layoutControlItembumpSteerCurveFR.ShowInCustomizationForm = true;
 
-            //wishboneInboardFR.Show();
+            layoutControlItemToeLinkLength.ShowInCustomizationForm = true;
 
-            //wishboneInboardRR.Show();
-
-            //bumpSteerCurveFR.Show();
+            layoutControlItemConvergence_BS_FR.ShowInCustomizationForm = true;
         }
 
 
-        
+
         #endregion
+
 
         /// <summary>
         /// Event raised when the <see cref="simpleButtonUpdateSuspension_VehicleParams"/> is clicked. 
@@ -3088,7 +3421,5 @@ namespace Coding_Attempt_with_GUI
         {
 
         }
-
-
     }
 }

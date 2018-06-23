@@ -35,7 +35,7 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Step Size of the Wheel Deflection
         /// </summary>
-        public int StepSize { get; set; }
+        public double StepSize { get; set; }
         /// <summary>
         /// Array containing the X Coordinates of the Chart
         /// </summary>
@@ -230,7 +230,7 @@ namespace Coding_Attempt_with_GUI
 
         private void SetStepSize()
         {
-            if (Int32.TryParse(textBoxStepSize.Text, out int result))
+            if (Double.TryParse(textBoxStepSize.Text, out double result))
             {
                 if (result < 0)
                 {

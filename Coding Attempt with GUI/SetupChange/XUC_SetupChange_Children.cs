@@ -283,6 +283,7 @@ namespace Coding_Attempt_with_GUI
             else if (checkedListBoxControlChanges.Items["KPI Change"].CheckState == CheckState.Unchecked)
             {
                 setupChange_CV.KPIChangeRequested = false;
+                setupChange_CV.deltaKPI = 0;
                 rowKPIAngle.Enabled = false;
                 vGridControl1.SetCellValue(rowKPIAngle, 1, null);
                 rowKPIAngle.Properties.Value = null;
@@ -346,7 +347,7 @@ namespace Coding_Attempt_with_GUI
                 rowCamberAngle.Properties.Value = null;
 
                 setupChange_CV.CamberChangeRequested = false;
-
+                setupChange_CV.deltaCamber = 0;
                 //rowNoOfShims.Enabled = false;
                 //vGridControl1.SetCellValue(rowNoOfShims, 1, null);
                 //rowNoOfShims.Properties.Value = null;
@@ -386,7 +387,7 @@ namespace Coding_Attempt_with_GUI
             if (checkedListBoxControlChanges.Items["Caster Change"].CheckState == CheckState.Checked)
             {
                 setupChange_CV.CasterChangeRequested = true;
-
+                
                 rowCasterAngle.Enabled = true;
 
                 rowKPICasterAdjusterSelect.Enabled = true;
@@ -413,6 +414,7 @@ namespace Coding_Attempt_with_GUI
             {
 
                 setupChange_CV.CasterChangeRequested = false;
+                setupChange_CV.deltaCaster = 0;
                 rowCasterAngle.Enabled = false;
                 vGridControl1.SetCellValue(rowCasterAngle, 1, null);
                 rowCasterAngle.Properties.Value = null;
@@ -455,7 +457,7 @@ namespace Coding_Attempt_with_GUI
                 setupChange_CV.ToeChangeRequested = true;
                 //vGridControl1.Rows["rowToe"].Visible = true;
                 rowToeAngle.Enabled = true;
-                rowToeLink.Visible = true;
+                Activate_Toe_Adjusters();
                 checkedListBoxControlConstraints.Items["Toe constant"].CheckState = CheckState.Unchecked;
                 checkedListBoxControlConstraints.Items["Toe constant"].Enabled = false;
 
@@ -471,8 +473,9 @@ namespace Coding_Attempt_with_GUI
                 rowToeAngle.Enabled = false;
                 vGridControl1.SetCellValue(rowToeAngle, 1, null);
                 rowToeAngle.Properties.Value = null;
-
+                Deactivate_Toe_Adjusters();
                 setupChange_CV.ToeChangeRequested = false;
+                setupChange_CV.deltaToe = 0;
 
                 if (checkedListBoxControlConstraints.Items["Toe constant"].CheckState == CheckState.Unchecked)
                 {
@@ -516,6 +519,7 @@ namespace Coding_Attempt_with_GUI
                 rowDamperEyeToPerch.Enabled = false;
                 vGridControl1.SetCellValue(rowDamperEyeToPerch, 1, null);
                 rowDamperEyeToPerch.Properties.Value = null;
+                setupChange_CV.deltaRideHeight = 0;
                 ////checkedListBoxControlConstraints.Items["Ride Height constant"].CheckState = CheckState.Unchecked;
                 //checkedListBoxControlConstraints.Items["Ride Height constant"].Enabled = true;
 

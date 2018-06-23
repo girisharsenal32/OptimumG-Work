@@ -440,7 +440,20 @@ namespace Coding_Attempt_with_GUI
             TARBIdentifierRear = r1.TARBRear_VehicleGUI;
             #endregion
 
-        } 
+        }
+        public void RearSuspensionTypeGUI(SuspensionType _susType)
+        {
+            RearSymmetryGUI = _susType.RearSymmetry_Boolean;
+
+            DoubleWishboneIdentifierRear = _susType.DoubleWishboneRear;
+            McPhersonIdentifierRear = _susType.McPhersonRear;
+
+            PushrodIdentifierRear = _susType.PushrodRear;
+            PullrodIdentifierRear = _susType.PullrodRear;
+
+            UARBIdentifierRear = _susType.UARBRear;
+            TARBIdentifierRear = _susType.TARBRear;
+        }
         #endregion
 
         #region Method to edit the Rear Left Suspension GUI

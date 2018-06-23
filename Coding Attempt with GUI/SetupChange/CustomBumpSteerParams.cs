@@ -38,7 +38,7 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Step Size of the Motion Analysis
         /// </summary>
-        public int StepSize = 1;
+        public double StepSize = 1;
 
         double slope, intercept, VerifyEQ;
 
@@ -204,7 +204,7 @@ namespace Coding_Attempt_with_GUI
         }
 
 
-        private void ExtendWheelDeflection(int _stepSize)
+        private void ExtendWheelDeflection(double _stepSize)
         {
             if (WheelDeflections.Count != 0)
             {

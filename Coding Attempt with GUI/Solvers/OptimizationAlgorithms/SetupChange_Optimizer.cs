@@ -189,7 +189,7 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Step Size of the Wheel Defelction.
         /// </summary>
-        int SuspensionEvalStepSize;
+        double SuspensionEvalStepSize;
         /// <summary>
         /// Upper Limit of Wheel Deflection
         /// </summary>
@@ -569,7 +569,7 @@ namespace Coding_Attempt_with_GUI
             SuspensionEvalUpperLimit = 25;
 
             ///<summary>Calculating the Number of iterations based on the <see cref="SuspensionEvalStepSize"/> the <see cref="SuspensionEvalUpperLimit"/> and the <see cref="SuspensionEvalLowerLimit"/></summary>
-            SuspensionEvalIterations = Setup_CV.BS_Params.WheelDeflections.Count / Setup_CV.BS_Params.StepSize;
+            SuspensionEvalIterations = Convert.ToInt32(Setup_CV.BS_Params.WheelDeflections.Count / Setup_CV.BS_Params.StepSize);
 
             Vehicle = _vehicle;
 
@@ -1641,7 +1641,7 @@ namespace Coding_Attempt_with_GUI
         }
         #endregion
 
-        #region -Computing the Caster Error-
+        #region ---Computing the Caster Error---
         /// <summary>
         /// Newly computed DELTA Caster Angle after all the Kinematics Computations have been made
         /// </summary>
@@ -1687,7 +1687,7 @@ namespace Coding_Attempt_with_GUI
         }
         #endregion
 
-        #region -Computing the KPI Error-
+        #region ---Computing the KPI Error---
         /// <summary>
         /// Newly computed DELTA KPI Angle after all the Kinematics Computations have been made
         /// </summary>
@@ -1939,7 +1939,24 @@ namespace Coding_Attempt_with_GUI
             /// </remarks>
             for (int i = 0; i < Setup_CV.BS_Params.ToeAngles.Count - 1; i++)
             {
-                Setup_OP.Req_BumpSteerChart.Add(new Angle(Setup_CV.BS_Params.ToeAngles[i].Degrees + StaticToe.Degrees, AngleUnit.Degrees));
+                ///<summary>
+                ///This IF Loop below is crucial
+                ///When the <see cref="SetupChange_Optimizer"/> runs the <see cref="DoubleWishboneKinematicsSolver"/> to compute the Toe Angles for the Wheel Defelction Range, the 
+                ///<see cref="SolverMasterClass.CalculatenewCamberAndToe_Rear(List{OutputClass}, int, Vehicle, int)"/> ALREADY HAS A CONDITIONING TOOL which makes the Left and Right Toe Angles according to the User's Convention 
+                ///that is both wheels inwars for Toe IN which is negative and both wheels outwards which is positive 
+                ///hence the Toe Angles come to me in the User convention system. 
+                ///So the IF LOOP below is needed
+                /// </summary>
+                if (VCorner == VehicleCorner.FrontLeft || VCorner == VehicleCorner.RearLeft)
+                {
+                    Setup_OP.Req_BumpSteerChart.Add(new Angle(Setup_CV.BS_Params.ToeAngles[i].Degrees + StaticToe.Degrees, AngleUnit.Degrees));
+                }
+                else
+                {
+                    Setup_OP.Req_BumpSteerChart.Add(new Angle(Setup_CV.BS_Params.ToeAngles[i].Degrees - StaticToe.Degrees, AngleUnit.Degrees));
+
+                }
+
             }
 
             ///<summary>Calling the method which performs the actual Euclidean Distance Error Computation</summary>

@@ -405,7 +405,7 @@ namespace Coding_Attempt_with_GUI
             OutboardAssembly.Add(CoordinateOptions.WheelCenter.ToString(), WheelCenter);
 
             ///Wheel Spindle End
-            OutboardAssembly.Add(CoordinateOptions.WheelSpindleEnd.ToString(), WcEnd);
+            OutboardAssembly.Add(CoordinateOptions.WheelSpindleEnd.ToString(), new Point3D(WheelCenter.X + 157, WheelCenter.Y, WheelCenter.Z));
 
             ///Toe Link Outboard
             OutboardAssembly.Add(CoordinateOptions.ToeLinkOutboard.ToString(), ToeLinkOutboard);
@@ -413,6 +413,7 @@ namespace Coding_Attempt_with_GUI
             ///Contact Patch
             OutboardAssembly.Add("ContactPatch", ContactPatch);
 
+            Round_DictionaryValues();
 
             AxisLines_WheelCenter = new Dictionary<string, Line>();
 
@@ -437,6 +438,23 @@ namespace Coding_Attempt_with_GUI
 
         }
 
+
+        private void Round_DictionaryValues()
+        {
+            foreach (string coordinate in InboardAssembly.Keys)
+            {
+                InboardAssembly[coordinate].X = Math.Round(InboardAssembly[coordinate].X, 3);
+                InboardAssembly[coordinate].Y = Math.Round(InboardAssembly[coordinate].Y, 3);
+                InboardAssembly[coordinate].Z = Math.Round(InboardAssembly[coordinate].Z, 3);
+            }
+
+            foreach (string coordinate in OutboardAssembly.Keys)
+            {
+                OutboardAssembly[coordinate].X = Math.Round(OutboardAssembly[coordinate].X, 3);
+                OutboardAssembly[coordinate].Y = Math.Round(OutboardAssembly[coordinate].Y, 3);
+                OutboardAssembly[coordinate].Z = Math.Round(OutboardAssembly[coordinate].Z, 3);
+            }
+        }
 
 
 

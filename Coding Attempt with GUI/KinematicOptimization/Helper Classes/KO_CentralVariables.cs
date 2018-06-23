@@ -19,7 +19,7 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Vehicle item onto which the Suspension Coordinates will be assembled
         /// </summary>
-        public Vehicle Vehicle { get; set; }
+        public Vehicle Vehicle;
 
         /// <summary>
         /// Wheelbase of the Vehicle as input by the User
@@ -68,6 +68,8 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         public KO_CentralVariables()
         {
+            Vehicle = new Vehicle();
+
             RC_Front = new Point3D();
 
             RC_Rear = new Point3D();

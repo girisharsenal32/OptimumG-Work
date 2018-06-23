@@ -448,7 +448,8 @@ namespace Coding_Attempt_with_GUI
 
                     if (OnlyTemplate_DesignMode)
                     {
-                        goto END;
+                        this.Hide();
+                        return;
                     }
                     else if (!OnlyTemplate_ImportCAD)
                     {
@@ -459,7 +460,7 @@ namespace Coding_Attempt_with_GUI
                         CreateSuspension_OnlyTemplate();
                     }
 
-                    END:
+                    
                     this.Hide();
                     Reset();
                 }

@@ -108,7 +108,9 @@ namespace Coding_Attempt_with_GUI
 
             Design_Form = new DesignForm();
 
-            Design_Form.Set_KO_Variables(KO_Central, KO_CV_FL_GUI, KO_CV_FR_GUI, KO_CV_RL_GUI, KO_CV_RR_GUI);
+            Design_Form.Set_KO_Variables(ref KO_Central, ref KO_CV_FL_GUI, ref KO_CV_FR_GUI, ref KO_CV_RL_GUI, ref KO_CV_RR_GUI);
+
+            Design_Form.Set_KO_SimulationParams(ref KO_SimParams);
 
             /////<summary>Passing the <see cref="KO_CornverVariables"/> Objects of the 4 corners to the <see cref="Param_Imp_Form"/></summary>
             //Param_Imp_Form.SetCornerVariables(KO_CV_FL_GUI, KO_CV_FR_GUI, KO_CV_RL_GUI, KO_CV_RR_GUI);

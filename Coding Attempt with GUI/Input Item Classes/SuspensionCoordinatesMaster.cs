@@ -12,8 +12,6 @@ namespace Coding_Attempt_with_GUI
     [Serializable()]
     public class SuspensionCoordinatesMaster
     {
-
-        
         public string _SCName { get; set; }
 
         #region Auto implemented propeties for Suspension Type

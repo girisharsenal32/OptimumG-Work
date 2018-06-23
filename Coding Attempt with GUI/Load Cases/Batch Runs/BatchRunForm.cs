@@ -887,5 +887,10 @@ namespace Coding_Attempt_with_GUI
                 checkedListBoxLoadCases.CheckAll();
             }
         }
+
+        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
     }
 }

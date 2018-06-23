@@ -118,6 +118,7 @@
             // comboBoxVehicleBatchRun
             // 
             this.comboBoxVehicleBatchRun.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBoxVehicleBatchRun.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxVehicleBatchRun.FormattingEnabled = true;
             this.comboBoxVehicleBatchRun.Location = new System.Drawing.Point(2, 20);
             this.comboBoxVehicleBatchRun.Name = "comboBoxVehicleBatchRun";
@@ -138,6 +139,7 @@
             // comboBoxMotionBatchRun
             // 
             this.comboBoxMotionBatchRun.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBoxMotionBatchRun.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxMotionBatchRun.FormattingEnabled = true;
             this.comboBoxMotionBatchRun.Location = new System.Drawing.Point(2, 20);
             this.comboBoxMotionBatchRun.Name = "comboBoxMotionBatchRun";
@@ -156,6 +158,7 @@
             this.toolStrip1.Size = new System.Drawing.Size(360, 25);
             this.toolStrip1.TabIndex = 5;
             this.toolStrip1.Text = "toolStrip1";
+            this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
             // 
             // toolStripLabelOPChanel
             // 

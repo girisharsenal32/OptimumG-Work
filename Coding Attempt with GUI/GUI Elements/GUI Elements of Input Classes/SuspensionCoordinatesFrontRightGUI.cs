@@ -70,7 +70,22 @@ namespace Coding_Attempt_with_GUI
             UARBIdentifierFront = r1.UARBFront_VehicleGUI;
             TARBIdentifierFront = r1.TARBFront_VehicleGUI;
             #endregion
-        } 
+        }
+        public void FrontSuspensionTypeGUI(SuspensionType _susType)
+        {
+            FrontSymmetryGUI = _susType.FrontSymmetry_Boolean;
+
+            DoubleWishboneIdentifierFront = _susType.DoubleWishboneFront;
+            McPhersonIdentifierFront = _susType.McPhersonFront;
+
+            PushrodIdentifierFront = _susType.PushrodFront;
+            PullrodIdentifierFront = _susType.PullrodFront;
+
+            UARBIdentifierFront = _susType.UARBFront;
+            TARBIdentifierFront = _susType.TARBFront;
+
+            NoOfCouplings = _susType.NoOfCouplings;
+        }
         #endregion
 
         #region Method to edit the Front Right Suspension GUI

@@ -294,7 +294,7 @@ namespace Coding_Attempt_with_GUI
 
             double tempKPI = _fKPI.Degrees;
 
-            SolverMasterClass.AssignOrientation_CamberToe(ref tempCamber, ref tempToe, tempCamber, tempToe, Identifier);
+            //SolverMasterClass.AssignOrientation_CamberToe(ref tempCamber, ref tempToe, tempCamber, tempToe, Identifier);
 
             Calc_Camber = new Angle(tempCamber, AngleUnit.Degrees);
 

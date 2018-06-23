@@ -15,7 +15,7 @@ namespace Coding_Attempt_with_GUI
         /// <para>Based on this variable the Number of Wheel Deflections AND Wheel Steers will be determined</para>
         /// <para>The Step Size is also determined by this</para>
         /// </summary>
-        public int NumberOfIterations_KinematicSolver { get; set; }
+        public int NumberOfIterations_KinematicSolver { get; set; } 
 
         /// <summary>
         /// <para>---IMPORTANT---</para>
@@ -59,15 +59,71 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Step Size calculated for the Heave based on the <see cref="Maximum_Heave_Deflection"/> & <see cref="Minimum_Heave_Deflection"/>
         /// </summary>
-        public int StepSize_Heave { get; set; }
+        public double StepSize_Heave { get; set; }
 
         /// <summary>
         /// Step Size calculated for the Steering based on the <see cref="Maximum_Steering_Angle"/> & <see cref="Minimum_Steering_Angle"/>
         /// </summary>
-        public int StepSize_Steering { get; set; }
+        public double StepSize_Steering { get; set; }
+
+
+        public KO_SimulationParams()
+        {
+            NumberOfIterations_KinematicSolver = 75;
+
+
+            Maximum_Heave_Deflection = 25;
+
+            Minimum_Heave_Deflection = -25;
+
+
+            Maximum_Steering_Angle = 120;
+
+            Minimum_Steering_Angle = -120;
+
+        }
 
 
 
+        /// <summary>
+        /// Method to compute the <see cref="StepSize_Heave"/>
+        /// </summary>
+        /// <param name="_maxHeave">Maximum Heave Deflection as input by the User</param>
+        /// <param name="_minHeave">Minimum Heave Deflection as input by the User</param>
+        /// <param name="_noOfIterations">Number of Iterations of the Kinematic Solver as input by the user</param>
+        /// <returns>Returns the Heave Step Size</returns>
+        public double Compute_StepSize_Heave(double _maxHeave, double _minHeave, int _noOfIterations)
+        {
+            ///<remarks>
+            ///The <see cref="_maxHeave"/> is considered twice for a reason. 
+            ///The <see cref="BumpSteerCurve"/> computes a Wheel Defelction Range starting from 0 to Max and then from Max to Min
+            ///Hence, in order to account for the portion ranging from 0 to Max, the <see cref="_maxHeave"/> is accounted for twice
+            ///<see cref="CustomBumpSteerParams.PopulateBumpSteerGraph(List{double}, List{double})"/> to understand how 0 to Max is accounted for 
+            /// </remarks>
+            double stepSizeHeave = (_maxHeave + _maxHeave - _minHeave) / _noOfIterations;
+
+            return stepSizeHeave;
+        }
+
+        /// <summary>
+        /// Method to compute the <see cref="StepSize_Steering"/> 
+        /// </summary>
+        /// <param name="_maxSteering">Maximum Steering Angle as input by the User</param>
+        /// <param name="_minSteering">Minimum Steering Angle as input by the User</param>
+        /// <param name="_noOfIterations">Number of Iterations of the Kinematic Solver as input by the user</param>
+        /// <returns>Returns the Steering Step Size</returns>
+        public double Compute_StepSize_Steering(double _maxSteering, double _minSteering, int _noOfIterations)
+        {
+            ///<remarks>
+            ///The <see cref="_maxSteering"/> is considered twice for a reason. 
+            ///The <see cref="BumpSteerCurve"/> computes a Wheel Defelction Range starting from 0 to Max and then from Max to Min
+            ///Hence, in order to account for the portion ranging from 0 to Max, the <see cref="_maxSteering"/> is accounted for twice
+            ///<see cref="CustomBumpSteerParams.PopulateBumpSteerGraph(List{double}, List{double})"/> to understand how 0 to Max is accounted for 
+            /// </remarks>
+            double stepSizeSteering = (_maxSteering + _maxSteering - _minSteering) / _noOfIterations;
+
+            return stepSizeSteering;
+        }
 
     }
 }

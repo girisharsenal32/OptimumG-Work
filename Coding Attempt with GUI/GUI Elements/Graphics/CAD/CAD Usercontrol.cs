@@ -3177,27 +3177,7 @@ namespace Coding_Attempt_with_GUI
             AddOrRegen(wishboneArm, Color.Orange);
         }
 
-        /// <summary>
-        /// Method to plot the Inboard Toe Link Point and Toe Link 
-        /// </summary>
-        /// <param name="_inboardToeLinkPoint">Inboard Toe Link Point</param>
-        /// <param name="_outboardToeLinkPoint">Outboard Toe Link Point</param>
-        /// <param name="_inboardToeLinkPointName">Inboard Toe Link Point Name</param>
-        /// <param name="_toeLinkName">Toe Link Name</param>
-        public void Plot_InboardToeLink(Point3D _inboardToeLinkPoint, Point3D _outboardToeLinkPoint, string _inboardToeLinkPointName, string _toeLinkName)
-        {
-            Joint toeLinkInboard = new Joint(_inboardToeLinkPoint, 5, 2);
-            toeLinkInboard.ColorMethod = colorMethodType.byEntity;
-            toeLinkInboard.EntityData = new CustomData(_inboardToeLinkPointName + EntityTypes.Joint.ToString(), EntityTypes.Joint.ToString(), Color.White, _inboardToeLinkPoint);
 
-            Bar toeLink = new Bar(_inboardToeLinkPoint, _outboardToeLinkPoint, 5, 8);
-            toeLink.ColorMethod = colorMethodType.byEntity;
-            toeLink.EntityData = new CustomData(_toeLinkName + EntityTypes.Bar.ToString(), EntityTypes.Bar.ToString(), 0, Color.Orange);
-
-            AddOrRegen(toeLinkInboard, Color.White);
-
-            AddOrRegen(toeLink, Color.Orange);
-        }
 
 
 

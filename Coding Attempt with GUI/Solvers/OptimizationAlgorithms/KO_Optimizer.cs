@@ -118,7 +118,7 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Initializing the <see cref="KO_CornverVariables"/> object</summary>
             KO_CV_FL = _koCVFL;
             ///<summary>Initializing the <see cref="VehicleCornerParams"/> object of the <see cref="KO_CornverVariables"/> Class</summary>
-            KO_CV_FL.VCornerParams = KO_CV_FL.Initialize_VehicleCornerParams(Vehicle, VehicleCorner.FrontLeft, KO_SimParams.NumberOfIterations_KinematicSolver);
+            KO_CV_FL.Initialize_VehicleCornerParams(ref KO_CV_FL, Vehicle, VehicleCorner.FrontLeft, KO_SimParams.NumberOfIterations_KinematicSolver);
             ///<see cref="Initializing the <see cref="KO_AdjToolParams.NominalCoordinates"/> of the <see cref="KO_CornverVariables.KO_MasterAdjs"/> "/>
             KO_CV_FL.Initialize_AdjusterCoordinates(KO_CV_FL.VCornerParams);
 
@@ -126,7 +126,7 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Initializing the <see cref="KO_CornverVariables"/> object</summary>
             KO_CV_FR = _koCVFR;
             ///<summary>Initializing the <see cref="VehicleCornerParams"/> object of the <see cref="KO_CornverVariables"/> Class</summary>
-            KO_CV_FR.VCornerParams = KO_CV_FR.Initialize_VehicleCornerParams(Vehicle, VehicleCorner.FrontRight, KO_SimParams.NumberOfIterations_KinematicSolver);
+            KO_CV_FR.Initialize_VehicleCornerParams(ref KO_CV_FR, Vehicle, VehicleCorner.FrontRight, KO_SimParams.NumberOfIterations_KinematicSolver);
             ///<see cref="Initializing the <see cref="KO_AdjToolParams.NominalCoordinates"/> of the <see cref="KO_CornverVariables.KO_MasterAdjs"/> "/>
             KO_CV_FR.Initialize_AdjusterCoordinates(KO_CV_FR.VCornerParams);
 
@@ -134,7 +134,7 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Initializing the <see cref="KO_CornverVariables"/> object</summary>
             KO_CV_RL = _koCVRL;
             ///<summary>Initializing the <see cref="VehicleCornerParams"/> object of the <see cref="KO_CornverVariables"/> Class</summary>
-            KO_CV_RL.VCornerParams = KO_CV_RL.Initialize_VehicleCornerParams(Vehicle, VehicleCorner.RearLeft, KO_SimParams.NumberOfIterations_KinematicSolver);
+            KO_CV_RL.Initialize_VehicleCornerParams(ref KO_CV_RL,Vehicle, VehicleCorner.RearLeft, KO_SimParams.NumberOfIterations_KinematicSolver);
             ///<see cref="Initializing the <see cref="KO_AdjToolParams.NominalCoordinates"/> of the <see cref="KO_CornverVariables.KO_MasterAdjs"/> "/>
             KO_CV_RL.Initialize_AdjusterCoordinates(KO_CV_RL.VCornerParams);
 
@@ -142,7 +142,7 @@ namespace Coding_Attempt_with_GUI
             ///<summary>Initializing the <see cref="KO_CornverVariables"/> object</summary>
             KO_CV_RR = _koCVRR;
             ///<summary>Initializing the <see cref="VehicleCornerParams"/> object of the <see cref="KO_CornverVariables"/> Class</summary>
-            KO_CV_RR.VCornerParams = KO_CV_RR.Initialize_VehicleCornerParams(Vehicle, VehicleCorner.RearRight, KO_SimParams.NumberOfIterations_KinematicSolver);
+            KO_CV_RR.Initialize_VehicleCornerParams(ref KO_CV_RR, Vehicle, VehicleCorner.RearRight, KO_SimParams.NumberOfIterations_KinematicSolver);
             ///<see cref="Initializing the <see cref="KO_AdjToolParams.NominalCoordinates"/> of the <see cref="KO_CornverVariables.KO_MasterAdjs"/> "/>
             KO_CV_RR.Initialize_AdjusterCoordinates(KO_CV_RR.VCornerParams);
 
@@ -249,6 +249,11 @@ namespace Coding_Attempt_with_GUI
         KO_CornverVariables KO_CV;
 
         /// <summary>
+        /// Object of the <see cref="KO_BumpSteer_Solver"/> Class which is the Parent SOlver which calls on the Optimization Methods
+        /// </summary>
+        KO_BumpSteer_Solver ParentSolver;
+
+        /// <summary>
         /// Object of the <see cref="KO_SimulationParams"/> which contains relevant information pertaining to the Simulation params such as number of iterations etc
         /// </summary>
         public KO_SimulationParams KO_SimParams;
@@ -264,7 +269,12 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         List<Angle> Calc_BumpSteerGraph;
 
+        /// <summary>
+        /// Inboard Toe Link Point which is being optimized
+        /// </summary>
+        Point3D InboardToeLink;
 
+        
 
         #region ---Initialization Methods---
 
@@ -309,22 +319,24 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_koCVFR"></param>
         /// <param name="_koCVRL"></param>
         /// <param name="_koCVRR"></param>
-        public void Initialize_CornverVariables(Vehicle _vehicle, KO_SimulationParams _koSim, KO_CornverVariables _koCV)
+        public void Initialize_CornverVariables(ref Vehicle _vehicle, ref KO_SimulationParams _koSim, ref KO_CornverVariables _koCV, KO_BumpSteer_Solver _koSolver)
         {
             Vehicle = _vehicle;
 
-            Chassis = _vehicle.chassis_vehicle;
+            //Chassis = _vehicle.chassis_vehicle;
 
             KO_SimParams = _koSim;
 
             ///<summary>Initializing the <see cref="KO_CornverVariables"/> object</summary>
             KO_CV = _koCV;
+
             ///<summary>Initializing the <see cref="VehicleCornerParams"/> object of the <see cref="KO_CornverVariables"/> Class</summary>
-            KO_CV.VCornerParams = KO_CV.Initialize_VehicleCornerParams(Vehicle, VehicleCorner.FrontLeft, KO_SimParams.NumberOfIterations_KinematicSolver);
+            KO_CV.Initialize_VehicleCornerParams(ref KO_CV, Vehicle, VehicleCorner.FrontLeft, KO_SimParams.NumberOfIterations_KinematicSolver);
+            
             ///<see cref="Initializing the <see cref="KO_AdjToolParams.NominalCoordinates"/> of the <see cref="KO_CornverVariables.KO_MasterAdjs"/> "/>
             KO_CV.Initialize_AdjusterCoordinates(KO_CV.VCornerParams);
 
-
+            ParentSolver = _koSolver;
 
         }
         
@@ -337,11 +349,13 @@ namespace Coding_Attempt_with_GUI
         {
             PopulationSize = _popSize;
 
-            Population = new Population(PopulationSize, 15, false, true);
+            Population = new Population(PopulationSize, 30, false, true);
 
             EvaluateFitnessOfGeneticAlforithm = EvaluateFitnessCurve;
 
             Terminate = TerminateAlgorithm;
+
+            GA = new GeneticAlgorithm(Population, EvaluateFitnessOfGeneticAlforithm);
 
             GA.OnGenerationComplete += GA_OnGenerationComplete;
 
@@ -374,24 +388,26 @@ namespace Coding_Attempt_with_GUI
             {
                 ///<summary>Extracting the Coordinates from the <see cref="Master_Optimizer.GA"/> generated Chromosome</summary>
                 ExtractFromChromosome(chromosome, out double x, out double y, out double z);
-                KO_CV.VCornerParams.ToeLinkInboard = new Point3D(x, y, z);
-                KO_CV.VCornerParams.InboardAssembly[CoordinateOptions.ToeLinkInboard.ToString()] = KO_CV.VCornerParams.ToeLinkInboard;
+                //KO_CV.VCornerParams.ToeLinkInboard = new Point3D(x, y, z);
+                InboardToeLink = new Point3D(x, y, z);
+                KO_CV.VCornerParams.InboardAssembly[CoordinateOptions.ToeLinkInboard.ToString()] = InboardToeLink;
 
-                ComputeError_BumpSteer();
+                fitness = 1 - ComputeError_BumpSteer();
+
+                KO_CV.BumpSteerConvergence = new Convergence(System.Math.Round(fitness, 2));
+
+                if (fitness > 1)
+                {
+                    return 1 - 0.99;
+                }
+                else if (fitness < 0)
+                {
+                    return 1 - 0.99;
+                }
 
             }
 
             return fitness;
-        }
-
-        /// <summary>
-        /// Evnent fired when <see cref="Master_Optimizer.GA"/> has solved the Genetic Algorithm
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void GA_OnRunComplete(object sender, GaEventArgs e)
-        {
-
         }
 
         /// <summary>
@@ -401,8 +417,53 @@ namespace Coding_Attempt_with_GUI
         /// <param name="e"></param>
         private void GA_OnGenerationComplete(object sender, GaEventArgs e)
         {
+            double Fitness = e.Population.MaximumFitness;
+
+            Point3D temp = InboardToeLink.Clone() as Point3D;
+
+            int Generations = e.Generation;
+
+            ///<summary>Extracting the BEST <see cref="Chromosome"/> from the <see cref="Population"/></summary>
+            var chromosome = e.Population.GetTop(1)[0];
+
+            ExtractFromChromosome(chromosome, out double x, out double y, out double z);
+            InboardToeLink = new Point3D(x, y, z);
+
+            EvaluateFitnessCurve(chromosome);
+
+            ParentSolver.UpdateProgressBar();
+        }
+
+        /// <summary>
+        /// Evnent fired when <see cref="Master_Optimizer.GA"/> has solved the Genetic Algorithm
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void GA_OnRunComplete(object sender, GaEventArgs e)
+        {
+            double Fitness = e.Population.MaximumFitness;
+
+            Point3D temp = InboardToeLink.Clone() as Point3D;
+
+            int Generations = e.Generation;
+
+            ///<summary>Extracting the BEST <see cref="Chromosome"/> from the <see cref="Population"/></summary>
+            var chromosome = e.Population.GetTop(1)[0];
+
+            ExtractFromChromosome(chromosome, out double x, out double y, out double z);
+            InboardToeLink = new Point3D(x, y, z);
+
+            EvaluateFitnessCurve(chromosome);
+
+            KO_CV.VCornerParams.ToeLinkInboard = InboardToeLink;
+
+            KO_CV.VCornerParams.InboardAssembly[CoordinateOptions.ToeLinkInboard.ToString()] = InboardToeLink;
+
+            ParentSolver.MaxProgressBar(No_Generations);
 
         }
+
+
 
         /// <summary>
         /// The PRIMARY Terminate function called by the <see cref="Master_Optimizer.GA"/>
@@ -413,7 +474,7 @@ namespace Coding_Attempt_with_GUI
         /// <returns></returns>
         private bool TerminateAlgorithm(Population _population, int _currGeneration, long currEvaluation)
         {
-            if (_currGeneration > 100)
+            if (_currGeneration > No_Generations)
             {
                 return true;
             }
@@ -451,8 +512,8 @@ namespace Coding_Attempt_with_GUI
             double lowerDeltaY = -100;
 
             double nominalZ = KO_CV.VCornerParams.ToeLinkInboard.Z;
-            double upperDeltaZ = 20;
-            double lowerDeltaZ = -2;
+            double upperDeltaZ = 100;
+            double lowerDeltaZ = -100;
 
             // range constant for x
             var rcx = GAF.Math.GetRangeConstant(upperDeltaX - lowerDeltaX, 10);
@@ -488,7 +549,7 @@ namespace Coding_Attempt_with_GUI
         {
             DWSolver = new DoubleWishboneKinematicsSolver();
 
-            BumpSteerSolver_FirstPass(KO_CV.BumpSteerCurve.WheelDeflections, KO_CV.VCornerParams.OC_BumpSteer, Vehicle, DWSolver);
+            BumpSteerSolver_FirstPass(KO_CV.BumpSteerCurve.WheelDeflections, Vehicle, DWSolver);
 
             ExtractToeAngles(KO_CV.VCornerParams.OC_BumpSteer);
 
@@ -498,19 +559,50 @@ namespace Coding_Attempt_with_GUI
 
         }
 
+        Dictionary<string, Point3D> TempOutboardAssembly;
+        List<double> WheelDeflection_Deltas;
+
         /// <summary>
         /// Method which calls the Solver methods for Kinematic pass to solve for Bump Steer
         /// </summary>
         /// <param name="_wheelDeflections"><see cref="List{Double}"/> of Wheel Deflections over which the Kinematics Computation is done </param>
         /// <param name="_OC"><see cref="List{OutputClass}"/></param>
         /// <param name="_Vehicle"><see cref="Vehicle"/> itemn</param>
-        public void BumpSteerSolver_FirstPass(List<double> _wheelDeflections, List<OutputClass> _OC, Vehicle _Vehicle, DoubleWishboneKinematicsSolver _DwSolver)
+        public void BumpSteerSolver_FirstPass(List<double> _wheelDeflections, Vehicle _Vehicle, DoubleWishboneKinematicsSolver _DwSolver)
         {
+            ///<summary>
+            ///Creating a Temporary Dictionary of Outboard Points. 
+            ///This is necessary because this is just a simulation to evaluate the Bump Steer. The actual Outboard Points don't need to change. If i use the <see cref="VehicleCornerParams.OutboardAssembly"/>
+            ///then it will be changed as the points changed and this is not desired
+            /// </summary>
+            TempOutboardAssembly = new Dictionary<string, Point3D>();
+            foreach (string coordinate in KO_CV.VCornerParams.OutboardAssembly.Keys)
+            {
+                TempOutboardAssembly.Add(coordinate, KO_CV.VCornerParams.OutboardAssembly[coordinate].Clone() as Point3D);
+            }
+
+            ///<summary>Creating a List which holds the DELTAS of wheel deflection as it is the deltas of deflection that we are concerned with and not the actual or Absolute Wheel Deflections</summary>
+            WheelDeflection_Deltas = new List<double>();
+
             for (int i = 0; i < _wheelDeflections.Count; i++)
             {
-                _DwSolver.CalculateInitialSpindleVector();
+                if (i==0)
+                {
+                    WheelDeflection_Deltas.Add(0);
+                }
+                else
+                {
+                    WheelDeflection_Deltas.Add(_wheelDeflections[i] - _wheelDeflections[i - 1]);
+                }
+            }
 
-                SolveKinematics_BumpSteerEval(_wheelDeflections[i], _OC, _Vehicle, (int)VCorner, _DwSolver);
+            ///<summary>Initializing the Local Coordinates of the <see cref="SolverMasterClass"/> computed so far</summary>
+            _DwSolver.Assign_LocalCoordinateVariables_WishbonePoints(KO_CV.VCornerParams.InboardAssembly, KO_CV.VCornerParams.OutboardAssembly);
+
+            for (int i = 0; i < WheelDeflection_Deltas.Count; i++)
+            {
+
+                SolveKinematics_BumpSteerEval(WheelDeflection_Deltas[i], _Vehicle, i, _DwSolver);
             }
 
         }
@@ -523,11 +615,13 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_vehicle">Vehicle Item</param>
         /// <param name="_index">Index at which the Motion. </param>
         /// <param name="_dwSolver"><see cref="DoubleWishboneKinematicsSolver"/> Object</param>
-        private void SolveKinematics_BumpSteerEval(double _wheelDeflection, List<OutputClass> _oc, Vehicle _vehicle, int _index, DoubleWishboneKinematicsSolver _dwSolver)
+        private void SolveKinematics_BumpSteerEval(double _wheelDeflection, Vehicle _vehicle, int _index, DoubleWishboneKinematicsSolver _dwSolver)
         {
 
-            ///<summary>Initializing the Local Coordinates of the <see cref="SolverMasterClass"/> computed so far</summary>
-            _dwSolver.Assign_LocalCoordinateVariables_WishbonePoints(KO_CV.VCornerParams.InboardAssembly, KO_CV.VCornerParams.OutboardAssembly);
+            /////<summary>Initializing the Local Coordinates of the <see cref="SolverMasterClass"/> computed so far</summary>
+            //_dwSolver.Assign_LocalCoordinateVariables_WishbonePoints(KO_CV.VCornerParams.InboardAssembly, KO_CV.VCornerParams.OutboardAssembly);
+
+            _dwSolver.CalculateInitialSpindleVector();
 
             ///Running a Kinematics Pass
             _dwSolver.KO_InitialStage_BumpSteer_LBJ(_wheelDeflection, out MathNet.Spatial.Euclidean.Point3D E);
@@ -542,13 +636,15 @@ namespace Coding_Attempt_with_GUI
 
             _dwSolver.KO_InitialStage_BumpSteer_ContactPatch(E, K, M, out MathNet.Spatial.Euclidean.Point3D W);
 
-            _dwSolver.CalculatenewCamberAndToe_Rear(_oc, _index, _vehicle, (int)VCorner);
+            //_dwSolver.CalculatenewCamberAndToe_Rear(_oc, _index, _vehicle, (int)VCorner);
 
+            _dwSolver.CalculatenewCamberAndToe_KO_Optimization(KO_CV.VCornerParams.OC_BumpSteer, _index, _vehicle, (int)VCorner, new Point3D(L.X, L.Y, L.Z), new Point3D(K.X, K.Y, K.Z));
 
 
             #region No need to store the variables like this during a Bump Steer Kinematics Run
             //KO_CV.VCornerParams.UBJ = new Point3D(F.X, F.Y, F.Z);
 
+            //KO_CV.VCornerParams.WheelCenter = new Point3D(K.X, K.Y, K.Z);
             //KO_CV.VCornerParams.LBJ = new Point3D(E.X, E.Y, E.Z);
 
             //KO_CV.VCornerParams.ToeLinkOutboard = new Point3D(M.X, M.Y, M.Z);
@@ -558,20 +654,24 @@ namespace Coding_Attempt_with_GUI
             //KO_CV.VCornerParams.ContactPatch = new Point3D(W.X, W.Y, W.Z);
 
 
-            /////<summary>Assigning all the computed points to a the <see cref="UnsprungAssembly"/> dictionary</summary>
-            //KO_CV.VCornerParams.OutboardAssembly[CoordinateOptions.UBJ.ToString()] = new Point3D(F.X, F.Y, F.Z);
 
-            //KO_CV.VCornerParams.OutboardAssembly[CoordinateOptions.LBJ.ToString()] = new Point3D(E.X, E.Y, E.Z);
 
-            //KO_CV.VCornerParams.OutboardAssembly[CoordinateOptions.ToeLinkOutboard.ToString()] = new Point3D(M.X, M.Y, M.Z);
+            ///<summary>Assigning all the computed points to a the <see cref="UnsprungAssembly"/> dictionary</summary>
+            TempOutboardAssembly[CoordinateOptions.UBJ.ToString()] = new Point3D(F.X, F.Y, F.Z);
 
-            //KO_CV.VCornerParams.OutboardAssembly[CoordinateOptions.WheelCenter.ToString()] = new Point3D(K.X, K.Y, K.Z);
+            TempOutboardAssembly[CoordinateOptions.LBJ.ToString()] = new Point3D(E.X, E.Y, E.Z);
 
-            //KO_CV.VCornerParams.OutboardAssembly[CoordinateOptions.WheelSpindleEnd.ToString()] = new Point3D(L.X, L.Y, L.Z);
+            TempOutboardAssembly[CoordinateOptions.ToeLinkOutboard.ToString()] = new Point3D(M.X, M.Y, M.Z);
 
-            //KO_CV.VCornerParams.OutboardAssembly[CoordinateOptions.ContactPatch.ToString()] = new Point3D(W.X, W.Y, W.Z);
-            //KO_CV.VCornerParams.WheelCenter = new Point3D(K.X, K.Y, K.Z); 
+            TempOutboardAssembly[CoordinateOptions.WheelCenter.ToString()] = new Point3D(K.X, K.Y, K.Z);
+
+            TempOutboardAssembly[CoordinateOptions.WheelSpindleEnd.ToString()] = new Point3D(L.X, L.Y, L.Z);
+
+            TempOutboardAssembly[CoordinateOptions.ContactPatch.ToString()] = new Point3D(W.X, W.Y, W.Z);
             #endregion
+
+            ///<summary>Initializing the Local Coordinates of the <see cref="SolverMasterClass"/> computed so far</summary>
+            _dwSolver.Assign_LocalCoordinateVariables_WishbonePoints(KO_CV.VCornerParams.InboardAssembly, TempOutboardAssembly);
 
         }
 

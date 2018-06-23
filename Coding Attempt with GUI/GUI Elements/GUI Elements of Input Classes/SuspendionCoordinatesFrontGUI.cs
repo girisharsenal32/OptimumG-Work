@@ -108,6 +108,22 @@ namespace Coding_Attempt_with_GUI
 
             #endregion
         }
+
+        public void FrontSuspensionTypeGUI(SuspensionType _susType)
+        {
+            FrontSymmetryGUI = _susType.FrontSymmetry_Boolean;
+
+            DoubleWishboneIdentifierFront = _susType.DoubleWishboneFront;
+            McPhersonIdentifierFront = _susType.McPhersonFront;
+
+            PushrodIdentifierFront = _susType.PushrodFront;
+            PullrodIdentifierFront = _susType.PullrodFront;
+
+            UARBIdentifierFront = _susType.UARBFront;
+            TARBIdentifierFront = _susType.TARBFront;
+
+            NoOfCouplings = _susType.NoOfCouplings;
+        }
         #endregion
 
         #region Method to edit the Front Left Suspension GUI

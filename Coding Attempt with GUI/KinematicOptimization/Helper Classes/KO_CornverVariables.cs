@@ -24,6 +24,11 @@ namespace Coding_Attempt_with_GUI
 
         public int Identifier { get; set; }
 
+        /// <summary>
+        /// Object of the <see cref="KO_BumpSteer_Solver"/> to call the methods to solve for Inboard Toe Link Point for a given Bump Steer Curve
+        /// </summary>
+        public KO_BumpSteer_Solver KO_BS_SOlver;
+
         #region --Suspension Parameters - Parameters Requested by the User--
         /// <summary>
         /// <para>Master <see cref="Dictionary{String, KO_AdjToolParams}"/> which holds ALL the coordinate information of the Adjustable coordinates</para> 
@@ -52,6 +57,11 @@ namespace Coding_Attempt_with_GUI
         /// Object of the <see cref="CustomBumpSteerParams"/> which contains information regarding the Custom Curve of BUmp Steer which the user has generated
         /// </summary>
         public CustomBumpSteerParams BumpSteerCurve { get; set; }
+
+        /// <summary>
+        /// Convergence of the Bump Steer
+        /// </summary>
+        public Convergence BumpSteerConvergence { get; set; }
 
         /// <summary>
         /// Object of the <see cref="CustomCamberCurve"/> which contains information regarding the Custom Curve of Camber which the user has generated
@@ -167,40 +177,40 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_numberOfIterations">Number of iterations that the Kinematic Solver (<see cref="DoubleWishboneKinematicsSolver"/></param> or <see cref="McPhersonKinematicsSolver"/> is going to 
         /// run for 
         /// <returns>Returns an object of the <see cref="VehicleCornerParams"/> Class</returns>
-        public VehicleCornerParams Initialize_VehicleCornerParams(Vehicle _vehicle, VehicleCorner _vCorner, int _numberOfIterations)
+        public void Initialize_VehicleCornerParams(ref KO_CornverVariables _koCV, Vehicle _vehicle, VehicleCorner _vCorner, int _numberOfIterations)
         {
-            Dictionary<string, object> tempVehicleParams = VehicleParamsAssigner.AssignVehicleParams_PreKinematicsSolver(_vCorner, _vehicle, 0);
+            Dictionary<string, object> tempVehicleParams = VehicleParamsAssigner.AssignVehicleParams_PreKinematicsSolver(_vCorner, _vehicle, _numberOfIterations);
 
-            VehicleCornerParams vCornerParams = new VehicleCornerParams();
+
 
             ///<summary>Passing the <see cref="Dictionary{TKey, TValue}"/> of Vehicle Params's objects into the right Parameter</summary>
-            vCornerParams.SCM = tempVehicleParams["SuspensionCoordinateMaster"] as SuspensionCoordinatesMaster;
+            _koCV.VCornerParams.SCM = tempVehicleParams["SuspensionCoordinateMaster"] as SuspensionCoordinatesMaster;
 
-            vCornerParams.SCM_Clone = new SuspensionCoordinatesMaster();
-            vCornerParams.SCM_Clone.Clone(vCornerParams.SCM);
+            _koCV.VCornerParams.SCM_Clone = new SuspensionCoordinatesMaster();
+            _koCV.VCornerParams.SCM_Clone.Clone(VCornerParams.SCM);
 
-            vCornerParams.Tire = tempVehicleParams["Tire"] as Tire;
+            _koCV.VCornerParams.Tire = tempVehicleParams["Tire"] as Tire;
 
-            vCornerParams.Spring = tempVehicleParams["Spring"] as Spring;
+            _koCV.VCornerParams.Spring = tempVehicleParams["Spring"] as Spring;
 
-            vCornerParams.Damper = tempVehicleParams["Damper"] as Damper;
+            _koCV.VCornerParams.Damper = tempVehicleParams["Damper"] as Damper;
 
-            vCornerParams.ARB = tempVehicleParams["AntirollBar"] as AntiRollBar;
-            vCornerParams.ARBRate_Nmm = (double)tempVehicleParams["ARB_Rate_Nmm"];
+            _koCV.VCornerParams.ARB = tempVehicleParams["AntirollBar"] as AntiRollBar;
+            _koCV.VCornerParams.ARBRate_Nmm = (double)tempVehicleParams["ARB_Rate_Nmm"];
 
-            vCornerParams.WA = tempVehicleParams["WheelAlignment"] as WheelAlignment;
+            _koCV.VCornerParams.WA = tempVehicleParams["WheelAlignment"] as WheelAlignment;
 
             ///<remarks>Chassis is not a part of the <see cref="VehicleCornerParams"/> and hence it is taken care of outside of this method just like the <see cref="Vehicle"/></remarks>
 
-            vCornerParams.OC = tempVehicleParams["OutputClass"] as List<OutputClass>;
+            _koCV.VCornerParams.OC = tempVehicleParams["OutputClass"] as List<OutputClass>;
 
-            vCornerParams.OC_BumpSteer = VehicleParamsAssigner.AssignVehicleParams_Custom_OC_BumpSteer(vCornerParams.SCM, _vCorner, _vehicle, /*Setup_CV.BS_Params.WheelDeflections.Count*/_numberOfIterations);
+            _koCV.VCornerParams.OC_BumpSteer = VehicleParamsAssigner.AssignVehicleParams_Custom_OC_BumpSteer(VCornerParams.SCM, _vCorner, _vehicle, /*Setup_CV.BS_Params.WheelDeflections.Count*/_numberOfIterations);
 
-            vCornerParams.Identifier = (int)tempVehicleParams["Identifier"];
+            _koCV.VCornerParams.Identifier = (int)tempVehicleParams["Identifier"];
 
-            vCornerParams.Initialize_Points();
+            //VCornerParams.Initialize_Points();
 
-            return vCornerParams;
+            //return VCornerParams;
         }
 
 
@@ -255,8 +265,11 @@ namespace Coding_Attempt_with_GUI
 
             tempPoint = _startPoint+(_scalar*_vectorToCompute);
 
+            tempPoint = Round_Point(tempPoint);
+
             return tempPoint;
         }
+
 
         /// <summary>
         /// Method to complete a Point by using 2 Coordinates (passed as Input) and computing the 3rd Coordinate using the Equation of the Plane it lies in
@@ -284,9 +297,12 @@ namespace Coding_Attempt_with_GUI
                 _pointToBeComputed.X = (-((_wishPlaneEqArray[1] * +_pointToBeComputed.Y) + (_wishPlaneEqArray[2] * +_pointToBeComputed.Z) + (_wishPlaneEqArray[3])) / (_wishPlaneEqArray[0]));
             }
 
+            _pointToBeComputed = Round_Point(_pointToBeComputed);
+
             return _pointToBeComputed;
 
         }
+
 
         /// <summary>
         /// Method to Compute the Inboard Toe Link Point using the Outboard Toe Link Point and the Toe Link Length
@@ -297,7 +313,32 @@ namespace Coding_Attempt_with_GUI
         public void Compute_InboardToeLink(out Point3D _inboardToeLink, Point3D _outboardToeLink, double _toeLinkLength)
         {
             _inboardToeLink = new Point3D(_outboardToeLink.X - _toeLinkLength, _outboardToeLink.Y, _outboardToeLink.Z);
-        }   
+
+            _inboardToeLink = Round_Point(_inboardToeLink);
+        }
+
+
+        public void Optimize_InboardToeLink(ref KO_CornverVariables _koCV, ref KO_CentralVariables _koCentral, ref KO_SimulationParams _koSimParams, VehicleCorner _vCorner, DesignForm _designForm)
+        {
+            KO_BS_SOlver = new KO_BumpSteer_Solver(ref _koCV, ref _koCentral, ref _koSimParams, _vCorner, ref _designForm);
+
+            _koCV.VCornerParams.ToeLinkInboard = Round_Point(_koCV.VCornerParams.ToeLinkInboard);
+        }
+
+        /// <summary>
+        /// Method to return a Point with EACH coordinated rounded to the 3rd decimal
+        /// </summary>
+        /// <param name="_point"></param>
+        /// <returns></returns>
+        public Point3D Round_Point(Point3D _point)
+        {
+            _point.X = Math.Round(_point.X, 3);
+            _point.Y = Math.Round(_point.Y, 3);
+            _point.Z = Math.Round(_point.Z, 3);
+
+            return _point;
+        }
+
 
 
     }

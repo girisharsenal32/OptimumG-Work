@@ -212,6 +212,11 @@ namespace Coding_Attempt_with_GUI
 
         public void PlotBumpSteerGraph(SetupChange_Outputs _setupOP, SetupChange_CornerVariables _cv, XUC_SetupChangeResults _resultsGUI)
         {
+            for (int i = 0; i < _resultsGUI.bumpSteerCurve1.chartControl1.Series.Count; i++)
+            {
+                _resultsGUI.bumpSteerCurve1.chartControl1.Series[i].Points.Clear();
+            }
+
             if (_cv.monitorBumpSteer || _cv.BumpSteerChangeRequested) 
             {
                 ///<summary>
