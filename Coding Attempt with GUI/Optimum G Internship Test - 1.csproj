@@ -199,11 +199,11 @@
     <Compile Include="KinematicOptimization\GUI Items\DesignForm.Designer.cs">
       <DependentUpon>DesignForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="KinematicOptimization\CustomListBox.cs">
+    <Compile Include="KinematicOptimization\CustomOrderableListBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="KinematicOptimization\CustomListBox.Designer.cs">
-      <DependentUpon>CustomListBox.cs</DependentUpon>
+    <Compile Include="KinematicOptimization\CustomOrderableListBox.Designer.cs">
+      <DependentUpon>CustomOrderableListBox.cs</DependentUpon>
     </Compile>
     <Compile Include="KinematicOptimization\KO_AdjustableCoordinates.cs">
       <SubType>UserControl</SubType>
@@ -221,17 +221,23 @@
     </Compile>
     <Compile Include="KinematicOptimization\KO.cs" />
     <Compile Include="KinematicOptimization\KO_GUI.cs" />
-    <Compile Include="KO_Solver.cs" />
-    <Compile Include="Wishbone Inboard Input.cs">
+    <Compile Include="KO_ActuationPoints.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Wishbone Inboard Input.Designer.cs">
-      <DependentUpon>Wishbone Inboard Input.cs</DependentUpon>
+    <Compile Include="KO_ActuationPoints.Designer.cs">
+      <DependentUpon>KO_ActuationPoints.cs</DependentUpon>
     </Compile>
-    <Compile Include="Solvers\OptimizationAlgorithms\KO_Optimizer.cs" />
+    <Compile Include="KinematicOptimization\Solvers\KO_Solver.cs" />
+    <Compile Include="KO_WishboneInboardPoints.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="KO_WishboneInboardPoints.Designer.cs">
+      <DependentUpon>KO_WishboneInboardPoints.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KinematicOptimization\Solvers\KO_Optimizer.cs" />
     <Compile Include="KinematicOptimization\Outputs\KO_Outputs.cs" />
     <Compile Include="KinematicOptimization\Helper Classes\KO_SimulationParams.cs" />
-    <Compile Include="Solvers\OptimizationAlgorithms\Master_Optimizer.cs" />
+    <Compile Include="Solvers\Optimization\Master_Optimizer.cs" />
     <Compile Include="SetupChange\BumpSteerCurve.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -592,7 +598,7 @@
     <Compile Include="Temp_BobillierMethod.Designer.cs">
       <DependentUpon>Temp_BobillierMethod.cs</DependentUpon>
     </Compile>
-    <Compile Include="Solvers\OptimizationAlgorithms\SetupChange_Optimizer.cs" />
+    <Compile Include="Solvers\Optimization\SetupChange_Optimizer.cs" />
     <Compile Include="Helper Classes\VehicleParamsAssigner.cs" />
     <Compile Include="KinematicOptimization\XUC_KinematicOptimization.cs">
       <SubType>UserControl</SubType>
@@ -620,8 +626,8 @@
     </Compile>
     <Compile Include="KinematicOptimization\Helper Classes\KO_CentralVariables.cs" />
     <Compile Include="VehicleCornerParams.cs" />
-    <EmbeddedResource Include="KinematicOptimization\CustomListBox.resx">
-      <DependentUpon>CustomListBox.cs</DependentUpon>
+    <EmbeddedResource Include="KinematicOptimization\CustomOrderableListBox.resx">
+      <DependentUpon>CustomOrderableListBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="KinematicOptimization\GUI Items\DesignForm.resx">
       <DependentUpon>DesignForm.cs</DependentUpon>
@@ -641,8 +647,11 @@
     <EmbeddedResource Include="KinematicOptimization\ParametersAndImportance.resx">
       <DependentUpon>ParametersAndImportance.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Wishbone Inboard Input.resx">
-      <DependentUpon>Wishbone Inboard Input.cs</DependentUpon>
+    <EmbeddedResource Include="KO_ActuationPoints.resx">
+      <DependentUpon>KO_ActuationPoints.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KO_WishboneInboardPoints.resx">
+      <DependentUpon>KO_WishboneInboardPoints.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SetupChange\BumpSteerCurve.resx">
       <DependentUpon>BumpSteerCurve.cs</DependentUpon>

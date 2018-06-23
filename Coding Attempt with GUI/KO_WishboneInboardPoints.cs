@@ -12,34 +12,40 @@ using devDept.Geometry;
 
 namespace Coding_Attempt_with_GUI
 {
-    public partial class KO_DesignForm_AArmInboard : XtraUserControl
+    public partial class KO_WishboneInboardPoints : XtraUserControl
     {
-        public KO_DesignForm_AArmInboard()
+
+        public DevelopmentStages CurrentDevStage { get; set; } = DevelopmentStages.ActuationPoints;
+
+        public KO_WishboneInboardPoints()
         {
             InitializeComponent();
 
-            Init_ListBox();
+            if (CurrentDevStage == DevelopmentStages.ActuationPoints)
+            {
+                Init_ListBox_WishboneInboardPoints();
+            }
 
-            InboardPoint_Main = new Point3D();
+            
 
-            InboardPoint_Counter = new Point3D();
+            
         }
 
-        private void Init_ListBox()
+        private void Init_ListBox_WishboneInboardPoints()
         {
             listBoxControlSuspensionCoordinate.Items.AddRange(new string[] {CoordinateOptions.UpperFront.ToString(), CoordinateOptions.UpperRear.ToString(),
                                                                             CoordinateOptions.LowerFront.ToString(),CoordinateOptions.LowerRear.ToString()});
-
-
-            //object _sender,
-
-            //listBoxControlSuspensionCoordinate_SelectedIndexChanged()
-
         }
 
-        public Point3D InboardPoint_Main;
 
-        public Point3D InboardPoint_Counter;
+        private void Init_Listbox_Actuationpoints()
+        {
+            listBoxControlSuspensionCoordinate.Items.AddRange(new string[] {CoordinateOptions.PushrodOutboard.ToString(), CoordinateOptions.DamperBellCrank.ToString()});
+        }
+
+        public Point3D InboardPoint_Main = new Point3D();
+
+        public Point3D InboardPoint_Counter = new Point3D();
 
         public string InboardPointName;
 
@@ -47,7 +53,7 @@ namespace Coding_Attempt_with_GUI
 
         public InboardInputFormat InboardFormat { get; set; }
 
-        public KO_CornverVariables KO_CV_Main { get; set; }
+        public KO_CornverVariables KO_CV_Main;
 
         public KO_CornverVariables KO_CV_Counter;
 
@@ -60,13 +66,14 @@ namespace Coding_Attempt_with_GUI
 
         CoordinateOptions CurrentCoordinate;
 
+        #region ---Initialization Methods---
         /// <summary>
         /// ---Used for Assymetric Suspension---
         /// Method to obtain the <see cref="KO_CornverVariables"/> object corresponding to the corner which is calling the functions of this class and the <see cref="DesignForm"/> object which is the parent of this UserControl
         /// </summary>
         /// <param name="_koCV">Object of the <see cref="KO_CornverVariables"/></param>
         /// <param name="_designForm">Object of hte <see cref="DesignForm"/></param>
-        public void Get_ParentObjectData(KO_CornverVariables _koCV, DesignForm _designForm, VehicleCorner _vCorner)
+        public void Get_ParentObjectData(KO_CornverVariables _koCV, DesignForm _designForm, VehicleCorner _vCorner, DevelopmentStages _devStage)
         {
             VCorner_Main = _vCorner;
 
@@ -76,6 +83,28 @@ namespace Coding_Attempt_with_GUI
             Design_Form = _designForm;
 
             Set_SelectedIndices();
+
+            CurrentDevStage = _devStage;
+
+            UpdateListBox();
+
+        }
+
+        /// <summary>
+        /// Method to Update the <see cref="listBoxControlSuspensionCoordinate"/> based on the <see cref="CurrentDevStage"/>
+        /// </summary>
+        private void UpdateListBox()
+        {
+            Init_Listbox_Actuationpoints();
+
+            if (CurrentDevStage == DevelopmentStages.ActuationPoints)
+            {
+                listBoxControlSuspensionCoordinate.Items.Clear();
+            }
+            else if (CurrentDevStage == DevelopmentStages.WishboneInboardPoints)
+            {
+                listBoxControlSuspensionCoordinate.Items.Clear();
+            }
         }
 
         /// <summary>
@@ -105,12 +134,16 @@ namespace Coding_Attempt_with_GUI
             Set_SelectedIndices();
         }
 
+        /// <summary>
+        /// Method to clear the selection from the <see cref="listBoxControlSuspensionCoordinate"/> and <see cref="radioGroup1"/>
+        /// </summary>
         private void Set_SelectedIndices()
         {
             listBoxControlSuspensionCoordinate.SelectedIndex = 0;
 
             radioGroup1.SelectedIndex = -1;
-        }
+        } 
+        #endregion
 
 
         /// <summary>
@@ -126,7 +159,7 @@ namespace Coding_Attempt_with_GUI
                 KO_CV_Main.VCornerParams.InputFormat = InboardInputFormat.IIO;
 
                 ///<remarks>
-                ///Added here and inside each of the for loops because this Event is called during the construction of the <see cref="KO_DesignForm_AArmInboard"/> UserControl and at this time <see cref="KO_CV_Counter"/> is null
+                ///Added here and inside each of the for loops because this Event is called during the construction of the <see cref="KO_WishboneInboardPoints"/> UserControl and at this time <see cref="KO_CV_Counter"/> is null
                 /// </remarks>
                 KO_CV_Counter.VCornerParams.InputFormat = KO_CV_Main.VCornerParams.InputFormat;
 
@@ -143,7 +176,7 @@ namespace Coding_Attempt_with_GUI
                 KO_CV_Main.VCornerParams.InputFormat = InboardInputFormat.IOI;
 
                 ///<remarks>
-                ///Added here and inside each of the for loops because this Event is called during the construction of the <see cref="KO_DesignForm_AArmInboard"/> UserControl and at this time <see cref="KO_CV_Counter"/> is null
+                ///Added here and inside each of the for loops because this Event is called during the construction of the <see cref="KO_WishboneInboardPoints"/> UserControl and at this time <see cref="KO_CV_Counter"/> is null
                 /// </remarks>
                 KO_CV_Counter.VCornerParams.InputFormat = KO_CV_Main.VCornerParams.InputFormat;
 
@@ -159,7 +192,7 @@ namespace Coding_Attempt_with_GUI
                 KO_CV_Main.VCornerParams.InputFormat = InboardInputFormat.OII;
 
                 ///<remarks>
-                ///Added here and inside each of the for loops because this Event is called during the construction of the <see cref="KO_DesignForm_AArmInboard"/> UserControl and at this time <see cref="KO_CV_Counter"/> is null
+                ///Added here and inside each of the for loops because this Event is called during the construction of the <see cref="KO_WishboneInboardPoints"/> UserControl and at this time <see cref="KO_CV_Counter"/> is null
                 /// </remarks>
                 KO_CV_Counter.VCornerParams.InputFormat = KO_CV_Main.VCornerParams.InputFormat;
 
@@ -381,6 +414,18 @@ namespace Coding_Attempt_with_GUI
 
                 InboardPointName = CoordinateOptions.LowerRear.ToString();
             }
+            else if ((string)listBoxControlSuspensionCoordinate.SelectedItem == CoordinateOptions.DamperBellCrank.ToString())
+            {
+                InboardPoint_Main = KO_CV_Main.Damper_Inboard = KO_CV_Main.VCornerParams.DamperBellCrank;
+
+                InboardPointName = CoordinateOptions.DamperBellCrank.ToString();
+            }
+            else if ((string)listBoxControlSuspensionCoordinate.SelectedItem == CoordinateOptions.PushrodOutboard.ToString())
+            {
+                InboardPoint_Main = KO_CV_Main.Pushrod_Outboard = KO_CV_Main.VCornerParams.PushrodOutboard;
+
+                InboardPointName = CoordinateOptions.PushrodOutboard.ToString();
+            }
 
             Set_CurrentCoordinate();
 
@@ -444,13 +489,13 @@ namespace Coding_Attempt_with_GUI
             if (CurrentCoordinate == CoordinateOptions.UpperFront || CurrentCoordinate == CoordinateOptions.UpperRear)
             {
                 KO_CV_Main.Compute_PointOnPlane(KO_CV_Main.VCornerParams.TopWishbonePlane, KO_CV_Main.VCornerParams.InputFormat, InboardPoint_Main);
-                PlotPoint(InboardPoint_Main, KO_CV_Main.VCornerParams.UBJ, InboardPointName + VCorner_Main.ToString(), InboardPointName + VCorner_Main.ToString());
+                PlotPoint_Inboard(InboardPoint_Main, KO_CV_Main.VCornerParams.UBJ, InboardPointName + VCorner_Main.ToString(), InboardPointName + VCorner_Main.ToString());
                 KO_CV_Main.VCornerParams.Initialize_Dictionary();
 
                 if (KO_CV_Counter != null)
                 {
                     KO_CV_Counter.Compute_PointOnPlane(KO_CV_Counter.VCornerParams.TopWishbonePlane, KO_CV_Counter.VCornerParams.InputFormat, InboardPoint_Counter);
-                    PlotPoint(InboardPoint_Counter, KO_CV_Counter.VCornerParams.UBJ, InboardPointName + VCorner_Counter.ToString(), InboardPointName + VCorner_Counter.ToString());
+                    PlotPoint_Inboard(InboardPoint_Counter, KO_CV_Counter.VCornerParams.UBJ, InboardPointName + VCorner_Counter.ToString(), InboardPointName + VCorner_Counter.ToString());
                     KO_CV_Counter.VCornerParams.Initialize_Dictionary();
                 }
 
@@ -459,15 +504,23 @@ namespace Coding_Attempt_with_GUI
             else if (CurrentCoordinate == CoordinateOptions.LowerFront || CurrentCoordinate == CoordinateOptions.LowerRear)
             {
                 KO_CV_Main.Compute_PointOnPlane(KO_CV_Main.VCornerParams.BottomWishbonePlane, KO_CV_Main.VCornerParams.InputFormat, InboardPoint_Main);
-                PlotPoint(InboardPoint_Main, KO_CV_Main.VCornerParams.LBJ, InboardPointName + VCorner_Main.ToString(), InboardPointName + VCorner_Main.ToString());
+                PlotPoint_Inboard(InboardPoint_Main, KO_CV_Main.VCornerParams.LBJ, InboardPointName + VCorner_Main.ToString(), InboardPointName + VCorner_Main.ToString());
                 KO_CV_Main.VCornerParams.Initialize_Dictionary();
 
                 if (KO_CV_Counter != null)
                 {
                     KO_CV_Counter.Compute_PointOnPlane(KO_CV_Counter.VCornerParams.BottomWishbonePlane, KO_CV_Counter.VCornerParams.InputFormat, InboardPoint_Counter);
-                    PlotPoint(InboardPoint_Counter, KO_CV_Counter.VCornerParams.LBJ, InboardPointName + VCorner_Counter.ToString(), InboardPointName + VCorner_Counter.ToString());
+                    PlotPoint_Inboard(InboardPoint_Counter, KO_CV_Counter.VCornerParams.LBJ, InboardPointName + VCorner_Counter.ToString(), InboardPointName + VCorner_Counter.ToString());
                     KO_CV_Counter.VCornerParams.Initialize_Dictionary();
                 }
+            }
+
+            else if (CurrentCoordinate == CoordinateOptions.DamperBellCrank)
+            {
+
+            }
+            else if (CurrentCoordinate == CoordinateOptions.PushrodOutboard)
+            {
 
             }
         }
@@ -477,9 +530,11 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         /// <param name="_inBoard">Inboard Pick Up Point which has just  been initializd</param>
         /// <param name="_outBoard">Corresponding Outboard Point</param>
-        private void PlotPoint(Point3D _inBoard, Point3D _outBoard, string _inboardPointName, string _armname)
+        private void PlotPoint_Inboard(Point3D _inBoard, Point3D _outBoard, string _inboardPointName, string _armname)
         {
             Design_Form.Plot_InboardPoints(_inBoard, _outBoard, _inboardPointName, _armname);
         }
+
+        
     }
 }

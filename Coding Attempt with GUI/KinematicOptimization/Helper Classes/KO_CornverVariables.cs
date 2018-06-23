@@ -124,6 +124,41 @@ namespace Coding_Attempt_with_GUI
         public double ToeLinkLength { get; set; }
 
         /// <summary>
+        /// Motion Ratio of the Suspension as input by the user
+        /// </summary>
+        public double MotionRatio_Spring { get; set; }
+
+        /// <summary>
+        /// Axis of the Vector as input by the user
+        /// </summary>
+        public Vector3D Rocker_Axis { get; set; }
+
+        /// <summary>
+        /// <para>---Important--- This point is also present in the <see cref="VCornerParams"/>. It is still declared here because the user is going to be providing this as an input</para>
+        /// <para>Center of the Rocker as input by the user</para>
+        /// </summary>
+        public Point3D Rocker_Center { get; set; }
+
+        /// <summary>
+        /// <para>---Important--- This point is also present in the <see cref="VCornerParams"/>. It is still declared here because the user is going to be providing this as an input</para>
+        /// <para>Damper Inboard Point as input by the user</para>
+        /// </summary>
+        public Point3D Damper_Inboard { get; set; }
+
+        /// <summary>
+        /// Static Length of the Damper as input by the user
+        /// </summary>
+        public double Damper_Length { get; set; }
+
+        /// <summary>
+        /// <para>---Important--- This point is also present in the <see cref="VCornerParams"/>. It is still declared here because the user is going to be providing this as an input</para>
+        /// <para>Pushrod Outboard Point as input by the user</para>
+        /// </summary>
+        public Point3D Pushrod_Outboard { get; set; }
+
+
+
+        /// <summary>
         /// <see cref="Point3D"/> representing the Contact Patch Initialized using the Track and Wheelbase
         /// </summary>
         public Point3D ContactPatch { get; set; }
@@ -163,6 +198,14 @@ namespace Coding_Attempt_with_GUI
             KPI = new Angle();
 
             VCornerParams = new VehicleCornerParams();
+
+            Rocker_Axis = new Vector3D();
+
+            Rocker_Center = new Vector3D();
+
+            Damper_Inboard = new Point3D();
+
+            Pushrod_Outboard = new Point3D();
 
             ContactPatch = new Point3D();
 

@@ -114,15 +114,19 @@ namespace Coding_Attempt_with_GUI
 
             BitSize = _bitSize;
         }
-
-
-
-
-
-
     }
 
+    public enum DevelopmentStages
+    {
+        WishboneInboardPoints,
+        ActuationPoints
+    };
 
+    public enum CoordinateAcceptanceFormat
+    {
+        Compute,
+        Impose
+    };
 
 
 }

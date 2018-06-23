@@ -51,8 +51,6 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         CAD cad1;
 
-        ProgressBarControl ProgressBar;
-
         #region ---Initialization Method---
         /// <summary>
         /// Consturctor
@@ -100,13 +98,23 @@ namespace Coding_Attempt_with_GUI
 
             bumpSteerCurveFL.GetParentObjectData(KO_CV_FR);
 
-            wishboneInboardFL.Get_ParentObjectData(KO_CV_FL, this, VehicleCorner.FrontLeft);
+            wishboneInboardFL.Get_ParentObjectData(KO_CV_FL, this, VehicleCorner.FrontLeft, DevelopmentStages.ActuationPoints);
 
-            wishboneInboardFR.Get_ParentObjectData(KO_CV_FR, this, VehicleCorner.FrontRight);
+            wishboneInboardFR.Get_ParentObjectData(KO_CV_FR, this, VehicleCorner.FrontRight, DevelopmentStages.ActuationPoints);
 
-            wishboneInboardRL.Get_ParentObjectData(KO_CV_RL, this, VehicleCorner.RearLeft);
+            wishboneInboardRL.Get_ParentObjectData(KO_CV_RL, this, VehicleCorner.RearLeft, DevelopmentStages.ActuationPoints);
 
-            wishboneInboardRR.Get_ParentObjectData(KO_CV_RR, this, VehicleCorner.RearRight);
+            wishboneInboardRR.Get_ParentObjectData(KO_CV_RR, this, VehicleCorner.RearRight, DevelopmentStages.ActuationPoints);
+
+            actuationPoints_FL.Get_ParentObject_Data(ref KO_Central, ref KO_CV_FL, this, VehicleCorner.FrontLeft);
+
+            actuationPoints_FR.Get_ParentObject_Data(ref KO_Central, ref KO_CV_FR, this, VehicleCorner.FrontRight);
+
+            actuationPoints_RL.Get_ParentObject_Data(ref KO_Central, ref KO_CV_RL, this, VehicleCorner.RearLeft);
+
+            actuationPoints_RR.Get_ParentObject_Data(ref KO_Central, ref KO_CV_RR, this, VehicleCorner.RearRight);
+
+
         }
 
         /// <summary>
@@ -3030,6 +3038,7 @@ namespace Coding_Attempt_with_GUI
 
 
         #region ---GUI Operations---
+
         /// <summary>
         /// Method to Activate all the <see cref="TextBox"/>s of <see cref="xtraTabPageVehicleParams"/>
         /// </summary>
@@ -3134,6 +3143,8 @@ namespace Coding_Attempt_with_GUI
             xtraTabPageInboardPoints.PageEnabled = true;
 
             xtraTabPageBumpSteer.PageEnabled = true;
+
+            xtraTabPageActuationPoints.PageEnabled = true;
         }
 
         /// <summary>
@@ -3146,6 +3157,8 @@ namespace Coding_Attempt_with_GUI
             xtraTabPageInboardPoints.PageEnabled = false;
 
             xtraTabPageBumpSteer.PageEnabled = false;
+
+            xtraTabPageActuationPoints.PageEnabled = false;
         }
 
         /// <summary>
@@ -3191,6 +3204,10 @@ namespace Coding_Attempt_with_GUI
             layoutControlItemToeLinkLength.HideToCustomization();
 
             layoutControlItemConvergence_BS_FR.HideToCustomization();
+
+            layoutControlItemActuationPointsFR.HideToCustomization();
+
+            layoutControlItemActuationPointsRR.HideToCustomization();
         }
 
         /// <summary>
@@ -3234,10 +3251,12 @@ namespace Coding_Attempt_with_GUI
             layoutControlItemToeLinkLength.ShowInCustomizationForm = true;
 
             layoutControlItemConvergence_BS_FR.ShowInCustomizationForm = true;
+
+            layoutControlItemActuationPointsFR.ShowInCustomizationForm = true;
+
+            layoutControlItemActuationPointsRR.ShowInCustomizationForm = true;
         }
-
-
-
+        
         #endregion
 
 
