@@ -110,12 +110,12 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Object of the <see cref="DoubleWishboneKinematicsSolver"/> Class used for all the Kinematics computations
         /// </summary>
-        public DoubleWishboneKinematicsSolver dwSolver = new DoubleWishboneKinematicsSolver();
+        public DoubleWishboneKinematicsSolver DWSolver = new DoubleWishboneKinematicsSolver();
 
         /// <summary>
         /// Object of the <see cref="McPhersonKinematicsSolver"/> Class used for McPherson Kinematic Computaions
         /// </summary>
-        public McPhersonKinematicsSolver mcpSolver = new McPhersonKinematicsSolver();
+        public McPhersonKinematicsSolver McPSolver = new McPhersonKinematicsSolver();
         #endregion
 
 

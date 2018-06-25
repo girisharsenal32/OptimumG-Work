@@ -3110,7 +3110,7 @@ namespace Coding_Attempt_with_GUI
 
             _steeringAxis.Translate(0, 0, _mechTrail);
 
-            _steeringAxis.EntityData = new CustomData(_steeringAxisName + EntityTypes.Line.ToString(), EntityTypes.Line.ToString(), Color.Red);
+            _steeringAxis.EntityData = new CustomData(_steeringAxisName + EntityTypes.Line.ToString(), EntityTypes.Line.ToString(), Color.Red, _steeringAxis.Direction, _steeringAxis.StartPoint);
 
             _steeringAxis.ColorMethod = colorMethodType.byEntity;
             
@@ -3143,7 +3143,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_wishbonePlaneName">Name of the plane </param>
         /// <param name="_plotPlane"><see cref="Boolean"/> to determine whether the Plane is to be plotted or not. This is necessary because for a Symmetric Suspension, 
         /// plotting the Right sidees planes is unneccesary and will clutter the screen</param>
-        public void Plot_WishbonePlane(out Plane _wishbonePlane, Point3D _point1, Point3D _point2, Point3D _point3, string _wishbonePlaneName, bool _plotPlane)
+        public void Plot_Plane(out Plane _wishbonePlane, Point3D _point1, Point3D _point2, Point3D _point3, string _wishbonePlaneName, bool _plotPlane)
         {
             _wishbonePlane = new Plane(_point1, _point2, _point3);
 
@@ -3177,8 +3177,23 @@ namespace Coding_Attempt_with_GUI
             AddOrRegen(wishboneArm, Color.Orange);
         }
 
+        /// <summary>
+        /// Method to Plot a <see cref="Vector3D"/> Axis in the form of a Line 
+        /// </summary>
+        /// <param name="_axisToPlot"><see cref="Vector3D"/> representing the Axis to be plotted</param>
+        /// <param name="_startPoint"><see cref="Point3D"/> representing the Start point of the Axis</param>
+        /// <param name="_axisName">Name of the Axis</param>
+        public void Plot_Axis(Vector3D _axisToPlot, Point3D _startPoint, Color _axisColour, string _axisName)
+        {
+            Point3D endPoint = new Point3D(_axisToPlot.X + _startPoint.X, _axisToPlot.Y + _startPoint.Y, _axisToPlot.Z + _startPoint.Z);
 
+            Line axisLine = new Line(_startPoint, endPoint);
+            axisLine.EntityData = new CustomData(_axisName, EntityTypes.Line.ToString(), _axisColour, axisLine.Direction, axisLine.StartPoint);
+            axisLine.ColorMethod = colorMethodType.byEntity;
+            axisLine.Color = _axisColour;
 
+            AddOrRegen(axisLine, _axisColour);
+        }
 
 
         #endregion

@@ -87,6 +87,10 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         public Point3D PushrodOutboard;
         /// <summary>
+        /// Only for MCPHERSON
+        /// </summary>
+        public Point3D DamperOutboard;
+        /// <summary>
         /// Lower Ball Joint
         /// </summary>
         public Point3D LBJ;
@@ -148,9 +152,13 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         public Point3D DamperBellCrank;
         /// <summary>
-        /// Only for MCPHERSON
+        /// Center or Pivot Point of the Rocker
         /// </summary>
-        public Point3D DamperOutboard;
+        public Point3D Rocker_Center;
+        /// <summary>
+        /// Vector representing the Axis of the Rocker
+        /// </summary>
+        public Vector3D Rocker_Axis_Vector;
         /// <summary>
         /// <see cref="Dictionary{String, Point3D}"/> of all the Outboard Points
         /// </summary>
@@ -192,8 +200,12 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         public Plane BottomWishbonePlane;
 
+        /// <summary>
+        /// Plane representing the Rocker Plane
+        /// </summary>
+        public Plane RockerPlane;
 
-        public InboardInputFormat InputFormat = InboardInputFormat.IIO;
+        public CoordinateInputFormat InputFormat = CoordinateInputFormat.IIO;
 
 
 
@@ -312,7 +324,6 @@ namespace Coding_Attempt_with_GUI
 
             UpperRear = new Point3D();
 
-
             LowerFront = new Point3D();
 
             LowerRear = new Point3D();
@@ -324,6 +335,10 @@ namespace Coding_Attempt_with_GUI
             DamperBellCrank = new Point3D();
 
             DamperShockMount = new Point3D();
+
+            Rocker_Center = new Point3D();
+
+            Rocker_Axis_Vector = new Vector3D();
 
             UBJ = new Point3D();
 

@@ -25,9 +25,9 @@ namespace Coding_Attempt_with_GUI
         public int Identifier { get; set; }
 
         /// <summary>
-        /// Object of the <see cref="KO_BumpSteer_Solver"/> to call the methods to solve for Inboard Toe Link Point for a given Bump Steer Curve
+        /// Object of the <see cref="KO_Solver"/> to call the methods to solve for Inboard Toe Link Point for a given Bump Steer Curve
         /// </summary>
-        public KO_BumpSteer_Solver KO_BS_SOlver;
+        public KO_Solver KO_BS_SOlver;
 
         #region --Suspension Parameters - Parameters Requested by the User--
         /// <summary>
@@ -124,37 +124,42 @@ namespace Coding_Attempt_with_GUI
         public double ToeLinkLength { get; set; }
 
         /// <summary>
+        /// Format of the Motion Ratio. That is, Wheel/Spring or Spring/Wheel
+        /// </summary>
+        public MotionRatioFormat MotionRatio_Format { get; set; }
+
+        /// <summary>
         /// Motion Ratio of the Suspension as input by the user
         /// </summary>
         public double MotionRatio_Spring { get; set; }
 
-        /// <summary>
-        /// Axis of the Vector as input by the user
-        /// </summary>
-        public Vector3D Rocker_Axis { get; set; }
+        ///// <summary>
+        ///// Axis of the Vector as input by the user
+        ///// </summary>
+        //public Vector3D Rocker_Axis { get; set; }
 
-        /// <summary>
-        /// <para>---Important--- This point is also present in the <see cref="VCornerParams"/>. It is still declared here because the user is going to be providing this as an input</para>
-        /// <para>Center of the Rocker as input by the user</para>
-        /// </summary>
-        public Point3D Rocker_Center { get; set; }
+        ///// <summary>
+        ///// <para>---Important--- This point is also present in the <see cref="VCornerParams"/>. It is still declared here because the user is going to be providing this as an input</para>
+        ///// <para>Center of the Rocker as input by the user</para>
+        ///// </summary>
+        //public Point3D Rocker_Center { get; set; }
 
-        /// <summary>
-        /// <para>---Important--- This point is also present in the <see cref="VCornerParams"/>. It is still declared here because the user is going to be providing this as an input</para>
-        /// <para>Damper Inboard Point as input by the user</para>
-        /// </summary>
-        public Point3D Damper_Inboard { get; set; }
+        ///// <summary>
+        ///// <para>---Important--- This point is also present in the <see cref="VCornerParams"/>. It is still declared here because the user is going to be providing this as an input</para>
+        ///// <para>Damper Inboard Point as input by the user</para>
+        ///// </summary>
+        //public Point3D Damper_Inboard { get; set; }
 
         /// <summary>
         /// Static Length of the Damper as input by the user
         /// </summary>
         public double Damper_Length { get; set; }
 
-        /// <summary>
-        /// <para>---Important--- This point is also present in the <see cref="VCornerParams"/>. It is still declared here because the user is going to be providing this as an input</para>
-        /// <para>Pushrod Outboard Point as input by the user</para>
-        /// </summary>
-        public Point3D Pushrod_Outboard { get; set; }
+        ///// <summary>
+        ///// <para>---Important--- This point is also present in the <see cref="VCornerParams"/>. It is still declared here because the user is going to be providing this as an input</para>
+        ///// <para>Pushrod Outboard Point as input by the user</para>
+        ///// </summary>
+        //public Point3D Pushrod_Outboard { get; set; }
 
 
 
@@ -199,13 +204,13 @@ namespace Coding_Attempt_with_GUI
 
             VCornerParams = new VehicleCornerParams();
 
-            Rocker_Axis = new Vector3D();
+            //Rocker_Axis = new Vector3D();
 
-            Rocker_Center = new Vector3D();
+            //Rocker_Center = new Vector3D();
 
-            Damper_Inboard = new Point3D();
+            //Damper_Inboard = new Point3D();
 
-            Pushrod_Outboard = new Point3D();
+            //Pushrod_Outboard = new Point3D();
 
             ContactPatch = new Point3D();
 
@@ -308,7 +313,7 @@ namespace Coding_Attempt_with_GUI
 
             tempPoint = _startPoint+(_scalar*_vectorToCompute);
 
-            tempPoint = Round_Point(tempPoint);
+            tempPoint = Round_Point(tempPoint, 3);
 
             return tempPoint;
         }
@@ -321,17 +326,17 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_inputFormat">Format the user wishes to use for computing the Point</param>
         /// <param name="_pointToBeComputed">Point to be computed (with 2 coordinates input by the user)</param>
         /// <returns>Returns fully computed point</returns>
-        public Point3D Compute_PointOnPlane(Plane _wishbonePlane, InboardInputFormat _inputFormat, Point3D _pointToBeComputed)
+        public Point3D Compute_PointOnPlane(Plane _wishbonePlane, CoordinateInputFormat _inputFormat, Point3D _pointToBeComputed)
         {
             PlaneEquation _wishPlaneEq = _wishbonePlane.Equation;
 
             double[] _wishPlaneEqArray = _wishPlaneEq.ToArray();
 
-            if (_inputFormat == InboardInputFormat.IIO)
+            if (_inputFormat == CoordinateInputFormat.IIO)
             {
                 _pointToBeComputed.Z = (-((_wishPlaneEqArray[0] * +_pointToBeComputed.X) + (_wishPlaneEqArray[1] * +_pointToBeComputed.Y) + (_wishPlaneEqArray[3])) / (_wishPlaneEqArray[2]));
             }
-            else if (_inputFormat == InboardInputFormat.IOI)
+            else if (_inputFormat == CoordinateInputFormat.IOI)
             {
                 _pointToBeComputed.Y = (-((_wishPlaneEqArray[0] * +_pointToBeComputed.X) + (_wishPlaneEqArray[2] * +_pointToBeComputed.Z) + (_wishPlaneEqArray[3])) / (_wishPlaneEqArray[1]));
             }
@@ -340,7 +345,7 @@ namespace Coding_Attempt_with_GUI
                 _pointToBeComputed.X = (-((_wishPlaneEqArray[1] * +_pointToBeComputed.Y) + (_wishPlaneEqArray[2] * +_pointToBeComputed.Z) + (_wishPlaneEqArray[3])) / (_wishPlaneEqArray[0]));
             }
 
-            _pointToBeComputed = Round_Point(_pointToBeComputed);
+            _pointToBeComputed = Round_Point(_pointToBeComputed, 3);
 
             return _pointToBeComputed;
 
@@ -357,27 +362,90 @@ namespace Coding_Attempt_with_GUI
         {
             _inboardToeLink = new Point3D(_outboardToeLink.X - _toeLinkLength, _outboardToeLink.Y, _outboardToeLink.Z);
 
-            _inboardToeLink = Round_Point(_inboardToeLink);
+            _inboardToeLink = Round_Point(_inboardToeLink, 3);
         }
 
 
         public void Optimize_InboardToeLink(ref KO_CornverVariables _koCV, ref KO_CentralVariables _koCentral, ref KO_SimulationParams _koSimParams, VehicleCorner _vCorner, DesignForm _designForm)
         {
-            KO_BS_SOlver = new KO_BumpSteer_Solver(ref _koCV, ref _koCentral, ref _koSimParams, _vCorner, ref _designForm);
+            KO_BS_SOlver = new KO_Solver(ref _koCV, ref _koCentral, ref _koSimParams, _vCorner, ref _designForm);
 
-            _koCV.VCornerParams.ToeLinkInboard = Round_Point(_koCV.VCornerParams.ToeLinkInboard);
+            _koCV.VCornerParams.ToeLinkInboard = Round_Point(_koCV.VCornerParams.ToeLinkInboard, 3);
         }
+
+
+        /// <summary>
+        /// Method to Compute a Plane using the 3 Points on the Plane
+        /// </summary>
+        /// <param name="_planeToCompute">The Plane to compute</param>
+        /// <param name="_p1">Point1 on the Plane</param>
+        /// <param name="_p2">Point2 on the Plane</param>
+        /// <param name="_p3">Point3 on the Plane</param>
+        public void Compute_Plane(out Plane _planeToCompute, Point3D _p1, Point3D _p2, Point3D _p3)
+        {
+            _planeToCompute = new Plane(_p1, _p2, _p3);
+        }
+
+
+        /// <summary>
+        /// Method to Compute a Plane using the Normal Vector and Center Plane
+        /// Used to compute the compute the Rocker Plane
+        /// </summary>
+        /// <param name="_planeToCompute">Plane to Compute</param>
+        /// <param name="_normalVectorToPlane">Vector Normal to the Plane</param>
+        /// <param name="_pointOnPlane">Point on the Plane</param>
+        public void Compute_Plane(out Plane _planeToCompute, Vector3D _normalVectorToPlane, Point3D _pointOnPlane)
+        {
+            _planeToCompute = new Plane();
+
+            if (_normalVectorToPlane != new Vector3D()) 
+            {
+                _planeToCompute = new Plane(_pointOnPlane, _normalVectorToPlane); 
+            }
+        }
+
+
+        /// <summary>
+        /// Method to check if a <see cref="Point3D"/> is on a <see cref="Plane"/>
+        /// Used to determine if the <see cref="CoordinateOptions.DamperBellCrank"/> if imposed by user is inside the <see cref="VehicleCornerParams.RockerPlane"/>
+        /// </summary>
+        /// <param name="_checkPlane">Plane on which point is being evaluated</param>
+        /// <param name="_checkPoint">Point being evaluated</param>
+        /// <returns>True if point is on plane</returns>
+        public bool IsOnPlane(Plane _checkPlane, Point3D _checkPoint)
+        {
+            double[] planeEQ = _checkPlane.Equation.ToArray();
+
+            Point3D tempCheckPoint = new Point3D(_checkPoint.X, _checkPoint.Y, 0);
+
+            tempCheckPoint.Z = (-(planeEQ[0] * tempCheckPoint.X) + (planeEQ[1] * tempCheckPoint.Y) + (planeEQ[3]) / (planeEQ[2]));
+
+            tempCheckPoint = Round_Point(tempCheckPoint,0);
+
+            _checkPoint = Round_Point(_checkPoint, 0);
+
+            if (tempCheckPoint.Z != _checkPoint.Z)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+
+        }
+
 
         /// <summary>
         /// Method to return a Point with EACH coordinated rounded to the 3rd decimal
         /// </summary>
         /// <param name="_point"></param>
         /// <returns></returns>
-        public Point3D Round_Point(Point3D _point)
+        public Point3D Round_Point(Point3D _point, int _decimalPlaces)
         {
-            _point.X = Math.Round(_point.X, 3);
-            _point.Y = Math.Round(_point.Y, 3);
-            _point.Z = Math.Round(_point.Z, 3);
+            _point.X = Math.Round(_point.X, _decimalPlaces);
+            _point.Y = Math.Round(_point.Y, _decimalPlaces);
+            _point.Z = Math.Round(_point.Z, _decimalPlaces);
 
             return _point;
         }
@@ -387,7 +455,7 @@ namespace Coding_Attempt_with_GUI
     }
 
 
-    public enum InboardInputFormat
+    public enum CoordinateInputFormat
     {
         IIO,
         IOI,

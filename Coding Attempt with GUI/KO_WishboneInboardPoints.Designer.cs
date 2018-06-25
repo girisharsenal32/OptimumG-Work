@@ -1,6 +1,6 @@
 ﻿namespace Coding_Attempt_with_GUI
 {
-    partial class KO_WishboneInboardPoints
+    partial class KO_WishbonePointsCalculator
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.simpleButtonPlotPoint = new DevExpress.XtraEditors.SimpleButton();
             this.listBoxControlSuspensionCoordinate = new DevExpress.XtraEditors.ListBoxControl();
             this.radioGroup1 = new DevExpress.XtraEditors.RadioGroup();
             this.tbZ = new System.Windows.Forms.TextBox();
@@ -38,12 +39,13 @@
             this.simpleLabelItem1 = new DevExpress.XtraLayout.SimpleLabelItem();
             this.simpleLabelItem3 = new DevExpress.XtraLayout.SimpleLabelItem();
             this.simpleLabelItem2 = new DevExpress.XtraLayout.SimpleLabelItem();
+            this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.listBoxControlSuspensionCoordinate)).BeginInit();
@@ -52,16 +54,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.simpleButtonPlotPoint);
             this.layoutControl1.Controls.Add(this.listBoxControlSuspensionCoordinate);
             this.layoutControl1.Controls.Add(this.radioGroup1);
             this.layoutControl1.Controls.Add(this.tbZ);
@@ -75,14 +79,25 @@
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
+            // simpleButtonPlotPoint
+            // 
+            this.simpleButtonPlotPoint.Location = new System.Drawing.Point(12, 211);
+            this.simpleButtonPlotPoint.Name = "simpleButtonPlotPoint";
+            this.simpleButtonPlotPoint.Size = new System.Drawing.Size(108, 22);
+            this.simpleButtonPlotPoint.StyleController = this.layoutControl1;
+            this.simpleButtonPlotPoint.TabIndex = 6;
+            this.simpleButtonPlotPoint.Text = "Plot Point";
+            this.simpleButtonPlotPoint.Click += new System.EventHandler(this.simpleButtonPlotPoint_Click);
+            // 
             // listBoxControlSuspensionCoordinate
             // 
             this.listBoxControlSuspensionCoordinate.Cursor = System.Windows.Forms.Cursors.Default;
             this.listBoxControlSuspensionCoordinate.Location = new System.Drawing.Point(12, 30);
             this.listBoxControlSuspensionCoordinate.Name = "listBoxControlSuspensionCoordinate";
-            this.listBoxControlSuspensionCoordinate.Size = new System.Drawing.Size(108, 170);
+            this.listBoxControlSuspensionCoordinate.Size = new System.Drawing.Size(108, 148);
             this.listBoxControlSuspensionCoordinate.StyleController = this.layoutControl1;
-            this.listBoxControlSuspensionCoordinate.TabIndex = 9;
+            this.listBoxControlSuspensionCoordinate.TabIndex = 1;
+            this.listBoxControlSuspensionCoordinate.SelectedIndexChanged += new System.EventHandler(this.listBoxControlSuspensionCoordinate_SelectedIndexChanged);
             // 
             // radioGroup1
             // 
@@ -94,32 +109,36 @@
             new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "X Out : Y In : Z In")});
             this.radioGroup1.Size = new System.Drawing.Size(140, 113);
             this.radioGroup1.StyleController = this.layoutControl1;
-            this.radioGroup1.TabIndex = 8;
+            this.radioGroup1.TabIndex = 2;
+            this.radioGroup1.SelectedIndexChanged += new System.EventHandler(this.radioGroup1_SelectedIndexChanged);
             // 
             // tbZ
             // 
+            this.tbZ.Enabled = false;
             this.tbZ.Location = new System.Drawing.Point(215, 213);
             this.tbZ.Name = "tbZ";
             this.tbZ.Size = new System.Drawing.Size(49, 20);
-            this.tbZ.TabIndex = 6;
+            this.tbZ.TabIndex = 5;
             this.tbZ.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbZ_KeyDown);
             this.tbZ.Leave += new System.EventHandler(this.tbZ_Leave);
             // 
             // tbY
             // 
+            this.tbY.Enabled = false;
             this.tbY.Location = new System.Drawing.Point(215, 189);
             this.tbY.Name = "tbY";
             this.tbY.Size = new System.Drawing.Size(49, 20);
-            this.tbY.TabIndex = 5;
+            this.tbY.TabIndex = 4;
             this.tbY.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbY_KeyDown);
             this.tbY.Leave += new System.EventHandler(this.tbY_Leave);
             // 
             // tbX
             // 
+            this.tbX.Enabled = false;
             this.tbX.Location = new System.Drawing.Point(215, 165);
             this.tbX.Name = "tbX";
             this.tbX.Size = new System.Drawing.Size(49, 20);
-            this.tbX.TabIndex = 4;
+            this.tbX.TabIndex = 3;
             this.tbX.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbX_KeyDown);
             this.tbX.Leave += new System.EventHandler(this.tbX_Leave);
             // 
@@ -136,7 +155,8 @@
             this.layoutControlItem1,
             this.layoutControlItem2,
             this.layoutControlItem3,
-            this.emptySpaceItem1});
+            this.emptySpaceItem1,
+            this.layoutControlItem6});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
             this.layoutControlGroup1.Size = new System.Drawing.Size(276, 245);
@@ -181,6 +201,24 @@
             this.simpleLabelItem2.Text = "Coordinates";
             this.simpleLabelItem2.TextSize = new System.Drawing.Size(88, 14);
             // 
+            // layoutControlItem5
+            // 
+            this.layoutControlItem5.Control = this.radioGroup1;
+            this.layoutControlItem5.Location = new System.Drawing.Point(112, 18);
+            this.layoutControlItem5.Name = "layoutControlItem5";
+            this.layoutControlItem5.Size = new System.Drawing.Size(144, 117);
+            this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem5.TextVisible = false;
+            // 
+            // layoutControlItem4
+            // 
+            this.layoutControlItem4.Control = this.listBoxControlSuspensionCoordinate;
+            this.layoutControlItem4.Location = new System.Drawing.Point(0, 18);
+            this.layoutControlItem4.Name = "layoutControlItem4";
+            this.layoutControlItem4.Size = new System.Drawing.Size(112, 152);
+            this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem4.TextVisible = false;
+            // 
             // layoutControlItem1
             // 
             this.layoutControlItem1.Control = this.tbX;
@@ -208,38 +246,29 @@
             this.layoutControlItem3.Text = "     Z";
             this.layoutControlItem3.TextSize = new System.Drawing.Size(88, 13);
             // 
-            // layoutControlItem5
-            // 
-            this.layoutControlItem5.Control = this.radioGroup1;
-            this.layoutControlItem5.Location = new System.Drawing.Point(112, 18);
-            this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(144, 117);
-            this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem5.TextVisible = false;
-            // 
-            // layoutControlItem4
-            // 
-            this.layoutControlItem4.Control = this.listBoxControlSuspensionCoordinate;
-            this.layoutControlItem4.Location = new System.Drawing.Point(0, 18);
-            this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(112, 174);
-            this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem4.TextVisible = false;
-            // 
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 192);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 170);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(112, 33);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(112, 29);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // KO_WishboneInboardPoints
+            // layoutControlItem6
+            // 
+            this.layoutControlItem6.Control = this.simpleButtonPlotPoint;
+            this.layoutControlItem6.Location = new System.Drawing.Point(0, 199);
+            this.layoutControlItem6.Name = "layoutControlItem6";
+            this.layoutControlItem6.Size = new System.Drawing.Size(112, 26);
+            this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem6.TextVisible = false;
+            // 
+            // KO_WishbonePointsCalculator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.layoutControl1);
-            this.Name = "KO_WishboneInboardPoints";
+            this.Name = "KO_WishbonePointsCalculator";
             this.Size = new System.Drawing.Size(276, 245);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
@@ -249,12 +278,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -274,8 +304,10 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
-        private DevExpress.XtraEditors.ListBoxControl listBoxControlSuspensionCoordinate;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
+        public DevExpress.XtraEditors.ListBoxControl listBoxControlSuspensionCoordinate;
+        private DevExpress.XtraEditors.SimpleButton simpleButtonPlotPoint;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
     }
 }

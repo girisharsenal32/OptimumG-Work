@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.tbDamperInboard_Y = new System.Windows.Forms.TextBox();
+            this.tbDamperInboard_Z = new System.Windows.Forms.TextBox();
+            this.tbDamperInboard_X = new System.Windows.Forms.TextBox();
+            this.simpleButtonComputePoint = new DevExpress.XtraEditors.SimpleButton();
             this.tbDamperStaticLength = new System.Windows.Forms.TextBox();
             this.radioGroupDamperInboardFormat = new DevExpress.XtraEditors.RadioGroup();
             this.tbRocker_Center_Y = new System.Windows.Forms.TextBox();
@@ -61,15 +65,20 @@
             this.simpleLabelItem6 = new DevExpress.XtraLayout.SimpleLabelItem();
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem6 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.simpleButtonComputePoint = new DevExpress.XtraEditors.SimpleButton();
             this.layoutControlItem12 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.simpleLabelItem7 = new DevExpress.XtraLayout.SimpleLabelItem();
             this.emptySpaceItem7 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.actuationPoints = new Coding_Attempt_with_GUI.KO_WishboneInboardPoints();
-            this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem8 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem9 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.splitterItem1 = new DevExpress.XtraLayout.SplitterItem();
+            this.layoutControlItemInboardDamper_X = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItemInboardDamper_Z = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItemInboardDamper_Y = new DevExpress.XtraLayout.LayoutControlItem();
+            this.simpleLabelItemInboardDamper = new DevExpress.XtraLayout.SimpleLabelItem();
+            this.emptySpaceItem10 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.actuationPointCompute = new Coding_Attempt_with_GUI.KO_WishbonePointsCalculator();
+            this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radioGroupDamperInboardFormat.Properties)).BeginInit();
@@ -100,15 +109,24 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemInboardDamper_X)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemInboardDamper_Z)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemInboardDamper_Y)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItemInboardDamper)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.tbDamperInboard_Y);
+            this.layoutControl1.Controls.Add(this.tbDamperInboard_Z);
+            this.layoutControl1.Controls.Add(this.tbDamperInboard_X);
             this.layoutControl1.Controls.Add(this.simpleButtonComputePoint);
-            this.layoutControl1.Controls.Add(this.actuationPoints);
+            this.layoutControl1.Controls.Add(this.actuationPointCompute);
             this.layoutControl1.Controls.Add(this.tbDamperStaticLength);
             this.layoutControl1.Controls.Add(this.radioGroupDamperInboardFormat);
             this.layoutControl1.Controls.Add(this.tbRocker_Center_Y);
@@ -127,9 +145,45 @@
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
+            // tbDamperInboard_Y
+            // 
+            this.tbDamperInboard_Y.Location = new System.Drawing.Point(200, 240);
+            this.tbDamperInboard_Y.Name = "tbDamperInboard_Y";
+            this.tbDamperInboard_Y.Size = new System.Drawing.Size(56, 20);
+            this.tbDamperInboard_Y.TabIndex = 18;
+            this.tbDamperInboard_Y.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbDamperInboard_Y_KeyDown);
+            this.tbDamperInboard_Y.Leave += new System.EventHandler(this.tbDamperInboard_Y_Leave);
+            // 
+            // tbDamperInboard_Z
+            // 
+            this.tbDamperInboard_Z.Location = new System.Drawing.Point(295, 240);
+            this.tbDamperInboard_Z.Name = "tbDamperInboard_Z";
+            this.tbDamperInboard_Z.Size = new System.Drawing.Size(53, 20);
+            this.tbDamperInboard_Z.TabIndex = 17;
+            this.tbDamperInboard_Z.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbDamperInboard_Z_KeyDown);
+            this.tbDamperInboard_Z.Leave += new System.EventHandler(this.tbDamperInboard_Z_Leave);
+            // 
+            // tbDamperInboard_X
+            // 
+            this.tbDamperInboard_X.Location = new System.Drawing.Point(101, 240);
+            this.tbDamperInboard_X.Name = "tbDamperInboard_X";
+            this.tbDamperInboard_X.Size = new System.Drawing.Size(60, 20);
+            this.tbDamperInboard_X.TabIndex = 16;
+            this.tbDamperInboard_X.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbDamperInboard_X_KeyDown);
+            this.tbDamperInboard_X.Leave += new System.EventHandler(this.tbDamperInboard_X_Leave);
+            // 
+            // simpleButtonComputePoint
+            // 
+            this.simpleButtonComputePoint.Location = new System.Drawing.Point(165, 527);
+            this.simpleButtonComputePoint.Name = "simpleButtonComputePoint";
+            this.simpleButtonComputePoint.Size = new System.Drawing.Size(211, 22);
+            this.simpleButtonComputePoint.StyleController = this.layoutControl1;
+            this.simpleButtonComputePoint.TabIndex = 15;
+            this.simpleButtonComputePoint.Text = "Compute Points";
+            // 
             // tbDamperStaticLength
             // 
-            this.tbDamperStaticLength.Location = new System.Drawing.Point(197, 243);
+            this.tbDamperStaticLength.Location = new System.Drawing.Point(197, 264);
             this.tbDamperStaticLength.Name = "tbDamperStaticLength";
             this.tbDamperStaticLength.Size = new System.Drawing.Size(117, 20);
             this.tbDamperStaticLength.TabIndex = 13;
@@ -138,7 +192,7 @@
             // 
             // radioGroupDamperInboardFormat
             // 
-            this.radioGroupDamperInboardFormat.Location = new System.Drawing.Point(197, 213);
+            this.radioGroupDamperInboardFormat.Location = new System.Drawing.Point(197, 210);
             this.radioGroupDamperInboardFormat.Name = "radioGroupDamperInboardFormat";
             this.radioGroupDamperInboardFormat.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
             new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "Compute"),
@@ -150,7 +204,7 @@
             // 
             // tbRocker_Center_Y
             // 
-            this.tbRocker_Center_Y.Location = new System.Drawing.Point(200, 151);
+            this.tbRocker_Center_Y.Location = new System.Drawing.Point(200, 149);
             this.tbRocker_Center_Y.Name = "tbRocker_Center_Y";
             this.tbRocker_Center_Y.Size = new System.Drawing.Size(56, 20);
             this.tbRocker_Center_Y.TabIndex = 11;
@@ -159,7 +213,7 @@
             // 
             // tbRocker_Center_X
             // 
-            this.tbRocker_Center_X.Location = new System.Drawing.Point(117, 151);
+            this.tbRocker_Center_X.Location = new System.Drawing.Point(117, 149);
             this.tbRocker_Center_X.Name = "tbRocker_Center_X";
             this.tbRocker_Center_X.Size = new System.Drawing.Size(44, 20);
             this.tbRocker_Center_X.TabIndex = 10;
@@ -168,7 +222,7 @@
             // 
             // tbRocker_Center_Z
             // 
-            this.tbRocker_Center_Z.Location = new System.Drawing.Point(295, 151);
+            this.tbRocker_Center_Z.Location = new System.Drawing.Point(295, 149);
             this.tbRocker_Center_Z.Name = "tbRocker_Center_Z";
             this.tbRocker_Center_Z.Size = new System.Drawing.Size(53, 20);
             this.tbRocker_Center_Z.TabIndex = 9;
@@ -177,7 +231,7 @@
             // 
             // bRocker_Axis_K
             // 
-            this.bRocker_Axis_K.Location = new System.Drawing.Point(295, 127);
+            this.bRocker_Axis_K.Location = new System.Drawing.Point(295, 125);
             this.bRocker_Axis_K.Name = "bRocker_Axis_K";
             this.bRocker_Axis_K.Size = new System.Drawing.Size(53, 20);
             this.bRocker_Axis_K.TabIndex = 8;
@@ -186,7 +240,7 @@
             // 
             // bRocker_Axis_J
             // 
-            this.bRocker_Axis_J.Location = new System.Drawing.Point(200, 127);
+            this.bRocker_Axis_J.Location = new System.Drawing.Point(200, 125);
             this.bRocker_Axis_J.Name = "bRocker_Axis_J";
             this.bRocker_Axis_J.Size = new System.Drawing.Size(56, 20);
             this.bRocker_Axis_J.TabIndex = 7;
@@ -195,7 +249,7 @@
             // 
             // bRocker_Axis_I
             // 
-            this.bRocker_Axis_I.Location = new System.Drawing.Point(117, 127);
+            this.bRocker_Axis_I.Location = new System.Drawing.Point(117, 125);
             this.bRocker_Axis_I.Name = "bRocker_Axis_I";
             this.bRocker_Axis_I.Size = new System.Drawing.Size(44, 20);
             this.bRocker_Axis_I.TabIndex = 6;
@@ -209,14 +263,14 @@
             this.radioGroupMotionRatio.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
             new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "Wheel / Shock"),
             new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "Shock / Wheel")});
-            this.radioGroupMotionRatio.Size = new System.Drawing.Size(229, 28);
+            this.radioGroupMotionRatio.Size = new System.Drawing.Size(229, 27);
             this.radioGroupMotionRatio.StyleController = this.layoutControl1;
             this.radioGroupMotionRatio.TabIndex = 5;
             this.radioGroupMotionRatio.SelectedIndexChanged += new System.EventHandler(this.radioGroupMotionRatio_SelectedIndexChanged);
             // 
             // tbMR
             // 
-            this.tbMR.Location = new System.Drawing.Point(147, 62);
+            this.tbMR.Location = new System.Drawing.Point(147, 61);
             this.tbMR.Name = "tbMR";
             this.tbMR.Size = new System.Drawing.Size(63, 20);
             this.tbMR.TabIndex = 4;
@@ -255,7 +309,13 @@
             this.simpleLabelItem7,
             this.emptySpaceItem7,
             this.emptySpaceItem8,
-            this.emptySpaceItem9});
+            this.emptySpaceItem9,
+            this.splitterItem1,
+            this.layoutControlItemInboardDamper_X,
+            this.layoutControlItemInboardDamper_Z,
+            this.layoutControlItemInboardDamper_Y,
+            this.simpleLabelItemInboardDamper,
+            this.emptySpaceItem10});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
             this.layoutControlGroup1.Size = new System.Drawing.Size(388, 561);
@@ -266,7 +326,7 @@
             this.layoutControlItem1.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.layoutControlItem1.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem1.Control = this.tbMR;
-            this.layoutControlItem1.Location = new System.Drawing.Point(0, 50);
+            this.layoutControlItem1.Location = new System.Drawing.Point(0, 49);
             this.layoutControlItem1.Name = "layoutControlItem1";
             this.layoutControlItem1.Size = new System.Drawing.Size(202, 24);
             this.layoutControlItem1.Text = "Motion Ratio (-)";
@@ -281,7 +341,7 @@
             this.layoutControlItem2.Control = this.radioGroupMotionRatio;
             this.layoutControlItem2.Location = new System.Drawing.Point(0, 18);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(368, 32);
+            this.layoutControlItem2.Size = new System.Drawing.Size(368, 31);
             this.layoutControlItem2.Text = "Motion Ratio Definition";
             this.layoutControlItem2.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
             this.layoutControlItem2.TextSize = new System.Drawing.Size(130, 13);
@@ -305,7 +365,7 @@
             this.layoutControlItem3.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.layoutControlItem3.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem3.Control = this.bRocker_Axis_I;
-            this.layoutControlItem3.Location = new System.Drawing.Point(70, 115);
+            this.layoutControlItem3.Location = new System.Drawing.Point(70, 113);
             this.layoutControlItem3.Name = "layoutControlItem3";
             this.layoutControlItem3.Size = new System.Drawing.Size(83, 24);
             this.layoutControlItem3.Text = "i";
@@ -318,7 +378,7 @@
             this.layoutControlItem4.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.layoutControlItem4.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem4.Control = this.bRocker_Axis_J;
-            this.layoutControlItem4.Location = new System.Drawing.Point(153, 115);
+            this.layoutControlItem4.Location = new System.Drawing.Point(153, 113);
             this.layoutControlItem4.Name = "layoutControlItem4";
             this.layoutControlItem4.Size = new System.Drawing.Size(95, 24);
             this.layoutControlItem4.Text = "j";
@@ -331,7 +391,7 @@
             this.layoutControlItem5.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.layoutControlItem5.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem5.Control = this.bRocker_Axis_K;
-            this.layoutControlItem5.Location = new System.Drawing.Point(248, 115);
+            this.layoutControlItem5.Location = new System.Drawing.Point(248, 113);
             this.layoutControlItem5.Name = "layoutControlItem5";
             this.layoutControlItem5.Size = new System.Drawing.Size(92, 24);
             this.layoutControlItem5.Text = "k";
@@ -346,7 +406,7 @@
             this.simpleLabelItem2.AppearanceItemCaption.Options.UseFont = true;
             this.simpleLabelItem2.AppearanceItemCaption.Options.UseTextOptions = true;
             this.simpleLabelItem2.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.simpleLabelItem2.Location = new System.Drawing.Point(0, 97);
+            this.simpleLabelItem2.Location = new System.Drawing.Point(0, 95);
             this.simpleLabelItem2.Name = "simpleLabelItem2";
             this.simpleLabelItem2.Size = new System.Drawing.Size(368, 18);
             this.simpleLabelItem2.Text = "Rocker";
@@ -355,9 +415,9 @@
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 74);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 73);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(368, 23);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(368, 22);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // simpleLabelItem3
@@ -365,7 +425,7 @@
             this.simpleLabelItem3.AllowHotTrack = false;
             this.simpleLabelItem3.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.simpleLabelItem3.AppearanceItemCaption.Options.UseFont = true;
-            this.simpleLabelItem3.Location = new System.Drawing.Point(0, 115);
+            this.simpleLabelItem3.Location = new System.Drawing.Point(0, 113);
             this.simpleLabelItem3.Name = "simpleLabelItem3";
             this.simpleLabelItem3.Size = new System.Drawing.Size(70, 24);
             this.simpleLabelItem3.Text = "Axis Vector";
@@ -377,7 +437,7 @@
             this.layoutControlItem6.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.layoutControlItem6.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem6.Control = this.tbRocker_Center_Z;
-            this.layoutControlItem6.Location = new System.Drawing.Point(248, 139);
+            this.layoutControlItem6.Location = new System.Drawing.Point(248, 137);
             this.layoutControlItem6.Name = "layoutControlItem6";
             this.layoutControlItem6.Size = new System.Drawing.Size(92, 24);
             this.layoutControlItem6.Text = "Z";
@@ -390,7 +450,7 @@
             this.layoutControlItem7.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.layoutControlItem7.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem7.Control = this.tbRocker_Center_X;
-            this.layoutControlItem7.Location = new System.Drawing.Point(70, 139);
+            this.layoutControlItem7.Location = new System.Drawing.Point(70, 137);
             this.layoutControlItem7.Name = "layoutControlItem7";
             this.layoutControlItem7.Size = new System.Drawing.Size(83, 24);
             this.layoutControlItem7.Text = "X";
@@ -403,7 +463,7 @@
             this.layoutControlItem8.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.layoutControlItem8.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem8.Control = this.tbRocker_Center_Y;
-            this.layoutControlItem8.Location = new System.Drawing.Point(153, 139);
+            this.layoutControlItem8.Location = new System.Drawing.Point(153, 137);
             this.layoutControlItem8.Name = "layoutControlItem8";
             this.layoutControlItem8.Size = new System.Drawing.Size(95, 24);
             this.layoutControlItem8.Text = "Y";
@@ -416,7 +476,7 @@
             this.simpleLabelItem4.AllowHotTrack = false;
             this.simpleLabelItem4.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.simpleLabelItem4.AppearanceItemCaption.Options.UseFont = true;
-            this.simpleLabelItem4.Location = new System.Drawing.Point(0, 139);
+            this.simpleLabelItem4.Location = new System.Drawing.Point(0, 137);
             this.simpleLabelItem4.Name = "simpleLabelItem4";
             this.simpleLabelItem4.Size = new System.Drawing.Size(70, 24);
             this.simpleLabelItem4.Text = "Center";
@@ -426,7 +486,7 @@
             // emptySpaceItem2
             // 
             this.emptySpaceItem2.AllowHotTrack = false;
-            this.emptySpaceItem2.Location = new System.Drawing.Point(340, 115);
+            this.emptySpaceItem2.Location = new System.Drawing.Point(340, 113);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
             this.emptySpaceItem2.Size = new System.Drawing.Size(28, 24);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
@@ -438,7 +498,7 @@
             this.simpleLabelItem5.AppearanceItemCaption.Options.UseFont = true;
             this.simpleLabelItem5.AppearanceItemCaption.Options.UseTextOptions = true;
             this.simpleLabelItem5.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.simpleLabelItem5.Location = new System.Drawing.Point(0, 183);
+            this.simpleLabelItem5.Location = new System.Drawing.Point(0, 180);
             this.simpleLabelItem5.Name = "simpleLabelItem5";
             this.simpleLabelItem5.Size = new System.Drawing.Size(368, 18);
             this.simpleLabelItem5.Text = "Damper";
@@ -449,7 +509,7 @@
             this.layoutControlItem9.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.layoutControlItem9.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem9.Control = this.radioGroupDamperInboardFormat;
-            this.layoutControlItem9.Location = new System.Drawing.Point(0, 201);
+            this.layoutControlItem9.Location = new System.Drawing.Point(0, 198);
             this.layoutControlItem9.Name = "layoutControlItem9";
             this.layoutControlItem9.Size = new System.Drawing.Size(368, 30);
             this.layoutControlItem9.Text = "Inboard Point Format";
@@ -462,7 +522,7 @@
             this.layoutControlItem10.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.layoutControlItem10.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem10.Control = this.tbDamperStaticLength;
-            this.layoutControlItem10.Location = new System.Drawing.Point(0, 231);
+            this.layoutControlItem10.Location = new System.Drawing.Point(0, 252);
             this.layoutControlItem10.Name = "layoutControlItem10";
             this.layoutControlItem10.OptionsToolTip.ToolTip = "Length of the Damper in Static Condition. That is when the Vehicle is on the Grou" +
     "nd and in Static Condition";
@@ -475,7 +535,7 @@
             // emptySpaceItem4
             // 
             this.emptySpaceItem4.AllowHotTrack = false;
-            this.emptySpaceItem4.Location = new System.Drawing.Point(306, 231);
+            this.emptySpaceItem4.Location = new System.Drawing.Point(306, 252);
             this.emptySpaceItem4.Name = "emptySpaceItem4";
             this.emptySpaceItem4.Size = new System.Drawing.Size(62, 24);
             this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
@@ -487,7 +547,7 @@
             this.simpleLabelItem6.AppearanceItemCaption.Options.UseFont = true;
             this.simpleLabelItem6.AppearanceItemCaption.Options.UseTextOptions = true;
             this.simpleLabelItem6.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.simpleLabelItem6.Location = new System.Drawing.Point(0, 267);
+            this.simpleLabelItem6.Location = new System.Drawing.Point(0, 303);
             this.simpleLabelItem6.Name = "simpleLabelItem6";
             this.simpleLabelItem6.Size = new System.Drawing.Size(368, 18);
             this.simpleLabelItem6.Text = "Actuation points";
@@ -496,27 +556,18 @@
             // emptySpaceItem3
             // 
             this.emptySpaceItem3.AllowHotTrack = false;
-            this.emptySpaceItem3.Location = new System.Drawing.Point(0, 255);
+            this.emptySpaceItem3.Location = new System.Drawing.Point(0, 276);
             this.emptySpaceItem3.Name = "emptySpaceItem3";
-            this.emptySpaceItem3.Size = new System.Drawing.Size(368, 12);
+            this.emptySpaceItem3.Size = new System.Drawing.Size(368, 27);
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem6
             // 
             this.emptySpaceItem6.AllowHotTrack = false;
-            this.emptySpaceItem6.Location = new System.Drawing.Point(0, 163);
+            this.emptySpaceItem6.Location = new System.Drawing.Point(0, 161);
             this.emptySpaceItem6.Name = "emptySpaceItem6";
-            this.emptySpaceItem6.Size = new System.Drawing.Size(368, 20);
+            this.emptySpaceItem6.Size = new System.Drawing.Size(368, 19);
             this.emptySpaceItem6.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // simpleButtonComputePoint
-            // 
-            this.simpleButtonComputePoint.Location = new System.Drawing.Point(165, 527);
-            this.simpleButtonComputePoint.Name = "simpleButtonComputePoint";
-            this.simpleButtonComputePoint.Size = new System.Drawing.Size(211, 22);
-            this.simpleButtonComputePoint.StyleController = this.layoutControl1;
-            this.simpleButtonComputePoint.TabIndex = 15;
-            this.simpleButtonComputePoint.Text = "Compute Points";
             // 
             // layoutControlItem12
             // 
@@ -530,9 +581,9 @@
             // emptySpaceItem5
             // 
             this.emptySpaceItem5.AllowHotTrack = false;
-            this.emptySpaceItem5.Location = new System.Drawing.Point(0, 470);
+            this.emptySpaceItem5.Location = new System.Drawing.Point(0, 487);
             this.emptySpaceItem5.Name = "emptySpaceItem5";
-            this.emptySpaceItem5.Size = new System.Drawing.Size(368, 27);
+            this.emptySpaceItem5.Size = new System.Drawing.Size(368, 10);
             this.emptySpaceItem5.TextSize = new System.Drawing.Size(0, 0);
             // 
             // simpleLabelItem7
@@ -556,28 +607,10 @@
             this.emptySpaceItem7.Size = new System.Drawing.Size(153, 26);
             this.emptySpaceItem7.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // actuationPoints
-            // 
-            this.actuationPoints.CurrentDevStage = Coding_Attempt_with_GUI.DevelopmentStages.WishboneInboardPoints;
-            this.actuationPoints.InboardFormat = Coding_Attempt_with_GUI.InboardInputFormat.IIO;
-            this.actuationPoints.Location = new System.Drawing.Point(12, 297);
-            this.actuationPoints.Name = "actuationPoints";
-            this.actuationPoints.Size = new System.Drawing.Size(364, 181);
-            this.actuationPoints.TabIndex = 14;
-            // 
-            // layoutControlItem11
-            // 
-            this.layoutControlItem11.Control = this.actuationPoints;
-            this.layoutControlItem11.Location = new System.Drawing.Point(0, 285);
-            this.layoutControlItem11.Name = "layoutControlItem11";
-            this.layoutControlItem11.Size = new System.Drawing.Size(368, 185);
-            this.layoutControlItem11.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem11.TextVisible = false;
-            // 
             // emptySpaceItem8
             // 
             this.emptySpaceItem8.AllowHotTrack = false;
-            this.emptySpaceItem8.Location = new System.Drawing.Point(340, 139);
+            this.emptySpaceItem8.Location = new System.Drawing.Point(340, 137);
             this.emptySpaceItem8.Name = "emptySpaceItem8";
             this.emptySpaceItem8.Size = new System.Drawing.Size(28, 24);
             this.emptySpaceItem8.TextSize = new System.Drawing.Size(0, 0);
@@ -585,10 +618,94 @@
             // emptySpaceItem9
             // 
             this.emptySpaceItem9.AllowHotTrack = false;
-            this.emptySpaceItem9.Location = new System.Drawing.Point(202, 50);
+            this.emptySpaceItem9.Location = new System.Drawing.Point(202, 49);
             this.emptySpaceItem9.Name = "emptySpaceItem9";
             this.emptySpaceItem9.Size = new System.Drawing.Size(166, 24);
             this.emptySpaceItem9.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // splitterItem1
+            // 
+            this.splitterItem1.AllowHotTrack = true;
+            this.splitterItem1.Location = new System.Drawing.Point(0, 482);
+            this.splitterItem1.Name = "splitterItem1";
+            this.splitterItem1.Size = new System.Drawing.Size(368, 5);
+            // 
+            // layoutControlItemInboardDamper_X
+            // 
+            this.layoutControlItemInboardDamper_X.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
+            this.layoutControlItemInboardDamper_X.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItemInboardDamper_X.Control = this.tbDamperInboard_X;
+            this.layoutControlItemInboardDamper_X.Location = new System.Drawing.Point(54, 228);
+            this.layoutControlItemInboardDamper_X.Name = "layoutControlItemInboardDamper_X";
+            this.layoutControlItemInboardDamper_X.Size = new System.Drawing.Size(99, 24);
+            this.layoutControlItemInboardDamper_X.Text = "X";
+            this.layoutControlItemInboardDamper_X.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
+            this.layoutControlItemInboardDamper_X.TextSize = new System.Drawing.Size(30, 20);
+            this.layoutControlItemInboardDamper_X.TextToControlDistance = 5;
+            // 
+            // layoutControlItemInboardDamper_Z
+            // 
+            this.layoutControlItemInboardDamper_Z.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
+            this.layoutControlItemInboardDamper_Z.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItemInboardDamper_Z.Control = this.tbDamperInboard_Z;
+            this.layoutControlItemInboardDamper_Z.Location = new System.Drawing.Point(248, 228);
+            this.layoutControlItemInboardDamper_Z.Name = "layoutControlItemInboardDamper_Z";
+            this.layoutControlItemInboardDamper_Z.Size = new System.Drawing.Size(92, 24);
+            this.layoutControlItemInboardDamper_Z.Text = "Z";
+            this.layoutControlItemInboardDamper_Z.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
+            this.layoutControlItemInboardDamper_Z.TextSize = new System.Drawing.Size(30, 20);
+            this.layoutControlItemInboardDamper_Z.TextToControlDistance = 5;
+            // 
+            // layoutControlItemInboardDamper_Y
+            // 
+            this.layoutControlItemInboardDamper_Y.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
+            this.layoutControlItemInboardDamper_Y.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItemInboardDamper_Y.Control = this.tbDamperInboard_Y;
+            this.layoutControlItemInboardDamper_Y.Location = new System.Drawing.Point(153, 228);
+            this.layoutControlItemInboardDamper_Y.Name = "layoutControlItemInboardDamper_Y";
+            this.layoutControlItemInboardDamper_Y.Size = new System.Drawing.Size(95, 24);
+            this.layoutControlItemInboardDamper_Y.Text = "Y";
+            this.layoutControlItemInboardDamper_Y.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
+            this.layoutControlItemInboardDamper_Y.TextSize = new System.Drawing.Size(30, 20);
+            this.layoutControlItemInboardDamper_Y.TextToControlDistance = 5;
+            // 
+            // simpleLabelItemInboardDamper
+            // 
+            this.simpleLabelItemInboardDamper.AllowHotTrack = false;
+            this.simpleLabelItemInboardDamper.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
+            this.simpleLabelItemInboardDamper.AppearanceItemCaption.Options.UseFont = true;
+            this.simpleLabelItemInboardDamper.Location = new System.Drawing.Point(0, 228);
+            this.simpleLabelItemInboardDamper.Name = "simpleLabelItemInboardDamper";
+            this.simpleLabelItemInboardDamper.Size = new System.Drawing.Size(54, 24);
+            this.simpleLabelItemInboardDamper.Text = "Inboard ";
+            this.simpleLabelItemInboardDamper.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
+            this.simpleLabelItemInboardDamper.TextSize = new System.Drawing.Size(50, 20);
+            // 
+            // emptySpaceItem10
+            // 
+            this.emptySpaceItem10.AllowHotTrack = false;
+            this.emptySpaceItem10.Location = new System.Drawing.Point(340, 228);
+            this.emptySpaceItem10.Name = "emptySpaceItem10";
+            this.emptySpaceItem10.Size = new System.Drawing.Size(28, 24);
+            this.emptySpaceItem10.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // actuationPointCompute
+            // 
+            this.actuationPointCompute.CurrentDevStage = Coding_Attempt_with_GUI.DevelopmentStages.WishboneInboardPoints;
+            this.actuationPointCompute.InputFormat = Coding_Attempt_with_GUI.CoordinateInputFormat.IIO;
+            this.actuationPointCompute.Location = new System.Drawing.Point(12, 333);
+            this.actuationPointCompute.Name = "actuationPointCompute";
+            this.actuationPointCompute.Size = new System.Drawing.Size(364, 157);
+            this.actuationPointCompute.TabIndex = 14;
+            // 
+            // layoutControlItem11
+            // 
+            this.layoutControlItem11.Control = this.actuationPointCompute;
+            this.layoutControlItem11.Location = new System.Drawing.Point(0, 321);
+            this.layoutControlItem11.Name = "layoutControlItem11";
+            this.layoutControlItem11.Size = new System.Drawing.Size(368, 161);
+            this.layoutControlItem11.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem11.TextVisible = false;
             // 
             // KO_ActuationPoints
             // 
@@ -627,9 +744,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemInboardDamper_X)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemInboardDamper_Z)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemInboardDamper_Y)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItemInboardDamper)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -669,7 +792,7 @@
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem4;
         private DevExpress.XtraLayout.SimpleLabelItem simpleLabelItem6;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem6;
-        private KO_WishboneInboardPoints actuationPoints;
+        private KO_WishbonePointsCalculator actuationPointCompute;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem11;
         private DevExpress.XtraEditors.SimpleButton simpleButtonComputePoint;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem12;
@@ -678,5 +801,14 @@
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem7;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem8;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem9;
+        private DevExpress.XtraLayout.SplitterItem splitterItem1;
+        private System.Windows.Forms.TextBox tbDamperInboard_Y;
+        private System.Windows.Forms.TextBox tbDamperInboard_Z;
+        private System.Windows.Forms.TextBox tbDamperInboard_X;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItemInboardDamper_X;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItemInboardDamper_Z;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItemInboardDamper_Y;
+        private DevExpress.XtraLayout.SimpleLabelItem simpleLabelItemInboardDamper;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem10;
     }
 }

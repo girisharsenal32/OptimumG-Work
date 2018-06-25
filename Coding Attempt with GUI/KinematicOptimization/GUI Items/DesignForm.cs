@@ -98,13 +98,13 @@ namespace Coding_Attempt_with_GUI
 
             bumpSteerCurveFL.GetParentObjectData(KO_CV_FR);
 
-            wishboneInboardFL.Get_ParentObjectData(KO_CV_FL, this, VehicleCorner.FrontLeft, DevelopmentStages.ActuationPoints);
+            wishboneInboardFL.Get_ParentObjectData(ref KO_CV_FL, this, VehicleCorner.FrontLeft, DevelopmentStages.ActuationPoints);
 
-            wishboneInboardFR.Get_ParentObjectData(KO_CV_FR, this, VehicleCorner.FrontRight, DevelopmentStages.ActuationPoints);
+            wishboneInboardFR.Get_ParentObjectData(ref KO_CV_FR, this, VehicleCorner.FrontRight, DevelopmentStages.ActuationPoints);
 
-            wishboneInboardRL.Get_ParentObjectData(KO_CV_RL, this, VehicleCorner.RearLeft, DevelopmentStages.ActuationPoints);
+            wishboneInboardRL.Get_ParentObjectData(ref KO_CV_RL, this, VehicleCorner.RearLeft, DevelopmentStages.ActuationPoints);
 
-            wishboneInboardRR.Get_ParentObjectData(KO_CV_RR, this, VehicleCorner.RearRight, DevelopmentStages.ActuationPoints);
+            wishboneInboardRR.Get_ParentObjectData(ref KO_CV_RR, this, VehicleCorner.RearRight, DevelopmentStages.ActuationPoints);
 
             actuationPoints_FL.Get_ParentObject_Data(ref KO_Central, ref KO_CV_FL, this, VehicleCorner.FrontLeft);
 
@@ -2812,7 +2812,7 @@ namespace Coding_Attempt_with_GUI
         /// Method to Plot th Outboard point
         /// </summary>
         /// <param name="_outboardPoint"></param>
-        private void Plot_OutboardPoint(Point3D _outboardPoint, string _outBoardPointName)
+        public void Plot_OutboardPoint(Point3D _outboardPoint, string _outBoardPointName)
         {
             cad1.Plot_OutboardPoint(_outboardPoint, _outBoardPointName);
         }
@@ -2826,16 +2826,13 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_Point3">Third point making up the plane</param>
         private void Plot_WishbonePlane(out Plane _WishbonePlane, Point3D _Point1, Point3D _Point2, Point3D _Point3, string _WishbonePlaneName, bool _PlotPlane)
         {
-            cad1.Plot_WishbonePlane(out _WishbonePlane, _Point1, _Point2, _Point3, _WishbonePlaneName, _PlotPlane);
+            cad1.Plot_Plane(out _WishbonePlane, _Point1, _Point2, _Point3, _WishbonePlaneName, _PlotPlane);
         }
-
-
 
         //---END : Corner Params---
         #endregion
 
-
-        #region - Inboard Points and Toe Link Inboard Point-
+        #region -Inboard Points and Toe Link Inboard Point-
         /// <summary>
         /// Method to Plot the Inboard Point and create a Bar using it's corresponding Outboard Point
         /// </summary>
@@ -2849,6 +2846,21 @@ namespace Coding_Attempt_with_GUI
         }
         #endregion
 
+        #region -Actuation Points-
+
+        /// <summary>
+        /// Method to Plot a <see cref="Vector3D"/> Axis in the form of a Line
+        /// </summary>
+        /// <param name="_AxisToPlot"><see cref="Vector3D"/> representing the Axis</param>
+        /// <param name="_StartPoint">Start <see cref="Point3D"/> of the Axis</param>
+        /// <param name="_AxisColour">Colour of the Axis</param>
+        /// <param name="_AxisName">Name of the Axis</param>
+        public void Plot_Axis(Vector3D _AxisToPlot, Point3D _StartPoint, Color _AxisColour, string _AxisName)
+        {
+            cad1.Plot_Axis(_AxisToPlot, _StartPoint, _AxisColour, _AxisName);
+        }
+
+        #endregion
 
         //---END : CAD UserControl Plotter Methods---
         #endregion
@@ -2982,11 +2994,15 @@ namespace Coding_Attempt_with_GUI
 
             if (Sus_Type.FrontSymmetry_Boolean)
             {
-                wishboneInboardFL.Get_ParentObjectData(KO_CV_FL, KO_CV_FR, this, VehicleCorner.FrontLeft, VehicleCorner.FrontRight);
+                wishboneInboardFL.Get_ParentObjectData(ref KO_CV_FL, ref KO_CV_FR, this, VehicleCorner.FrontLeft, VehicleCorner.FrontRight, DevelopmentStages.WishboneInboardPoints);
+
+                actuationPoints_FL.Get_ParentObject_Data(ref KO_Central, ref KO_CV_FL, ref KO_CV_FR, VehicleCorner.FrontLeft, VehicleCorner.FrontRight, this);
             }
             if (Sus_Type.RearSymmetry_Boolean)
             {
-                wishboneInboardRL.Get_ParentObjectData(KO_CV_RL, KO_CV_RR, this, VehicleCorner.RearLeft, VehicleCorner.RearRight);
+                wishboneInboardRL.Get_ParentObjectData(ref KO_CV_RL, ref KO_CV_RR, this, VehicleCorner.RearLeft, VehicleCorner.RearRight, DevelopmentStages.WishboneInboardPoints);
+
+                actuationPoints_RL.Get_ParentObject_Data(ref KO_Central, ref KO_CV_RL, ref KO_CV_RR, VehicleCorner.RearLeft, VehicleCorner.RearRight, this);
             }
 
         }
@@ -3203,11 +3219,19 @@ namespace Coding_Attempt_with_GUI
 
             layoutControlItemToeLinkLength.HideToCustomization();
 
+            simpleLabelItem_BS_FR.HideToCustomization();
+
             layoutControlItemConvergence_BS_FR.HideToCustomization();
+
+            layoutControlItemPlotToeLinkInboard_FR.HideToCustomization();
 
             layoutControlItemActuationPointsFR.HideToCustomization();
 
             layoutControlItemActuationPointsRR.HideToCustomization();
+
+            simpleLabelItemActuationPoint_FR.HideToCustomization();
+
+            simpleLabelItemActuationPoint_RR.HideToCustomization();
         }
 
         /// <summary>
@@ -3250,11 +3274,19 @@ namespace Coding_Attempt_with_GUI
 
             layoutControlItemToeLinkLength.ShowInCustomizationForm = true;
 
+            simpleLabelItem_BS_FR.ShowInCustomizationForm = true;
+
             layoutControlItemConvergence_BS_FR.ShowInCustomizationForm = true;
+
+            layoutControlItemPlotToeLinkInboard_FR.ShowInCustomizationForm = true;
 
             layoutControlItemActuationPointsFR.ShowInCustomizationForm = true;
 
             layoutControlItemActuationPointsRR.ShowInCustomizationForm = true;
+
+            simpleLabelItemActuationPoint_FR.ShowInCustomizationForm = true;
+
+            simpleLabelItemActuationPoint_RR.ShowInCustomizationForm = true;
         }
         
         #endregion

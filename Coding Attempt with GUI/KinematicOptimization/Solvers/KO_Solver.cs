@@ -10,7 +10,7 @@ using devDept.Geometry;
 
 namespace Coding_Attempt_with_GUI
 {
-    public class KO_BumpSteer_Solver : SolverMasterClass
+    public class KO_Solver : SolverMasterClass
     {
 
 
@@ -53,7 +53,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_koCV">Object of the <see cref="KO_CornverVariables"/> Class</param>
         /// <param name="_vCorner">Corner of the Vehicle which is being computed</param>
         /// <param name="_vehicle">The <see cref="Vehicle"/> item itself</param>
-        public KO_BumpSteer_Solver(ref KO_CornverVariables _koCV, ref KO_CentralVariables _koCentral, ref KO_SimulationParams _simpParams, VehicleCorner _vCorner, ref DesignForm _designForm)
+        public KO_Solver(ref KO_CornverVariables _koCV, ref KO_CentralVariables _koCentral, ref KO_SimulationParams _simpParams, VehicleCorner _vCorner, ref DesignForm _designForm)
         {
             KO_CV = _koCV;
 
@@ -68,6 +68,9 @@ namespace Coding_Attempt_with_GUI
             Initialize_Optimizer();
         }
 
+        /// <summary>
+        /// Method to Initialize the <see cref="KO_Optimizer_BumpSteer"/>
+        /// </summary>
         private void Initialize_Optimizer()
         {
             NoOptimizerGenerattions = 100;

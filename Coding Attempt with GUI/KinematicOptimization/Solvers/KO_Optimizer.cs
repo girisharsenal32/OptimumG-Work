@@ -13,245 +13,20 @@ namespace Coding_Attempt_with_GUI
     public class KO_Optimizer : Master_Optimizer
     {
         
-        
-        /// <summary>
-        /// Local Object of the <see cref="KO_CornverVariables"/> containing ALL relevant information of the Front Left Corner
-        /// </summary>
-        KO_CornverVariables KO_CV_FL;
-
-        /// <summary>
-        /// Local Object of the <see cref="KO_CornverVariables"/> containing ALL relevant information of the Front Right Corner
-        /// </summary>
-        KO_CornverVariables KO_CV_FR;
-
-        /// <summary>
-        /// Local Object of the <see cref="KO_CornverVariables"/> containing ALL relevant information of the Rear Left Corner
-        /// </summary>
-        KO_CornverVariables KO_CV_RL;
-
-        /// <summary>
-        /// Local Object of the <see cref="KO_CornverVariables"/> containing ALL relevant information of the Rear Right Corner
-        /// </summary>
-        KO_CornverVariables KO_CV_RR;
-
-        /// <summary>
-        /// Local Object of the <see cref="KO_SimulationParams"/> 
-        /// </summary>
-        public KO_SimulationParams KO_SimParams;
-
-        /// <summary>
-        /// Object of the <see cref="KO_Outputs"/> Class which will store all the Outputs of the Front Left Corner
-        /// </summary>
-        public KO_Outputs KO_OP_FL { get; set; }
-
-        /// <summary>
-        /// Object of the <see cref="KO_Outputs"/> Class which will store all the Outputs of the Front Right Corner
-        /// </summary>
-        public KO_Outputs KO_OP_FR { get; set; }
-
-        /// <summary>
-        /// Object of the <see cref="KO_Outputs"/> Class which will store all the Outputs of the Rear left Corner
-        /// </summary>
-        public KO_Outputs KO_OP_RL { get; set; }
-
-        /// <summary>
-        /// Object of the <see cref="KO_Outputs"/> Class which will store all the Outputs of the Rear Right Corner
-        /// </summary>
-        public KO_Outputs KO_OP_RR { get; set; }
-
-
-        /// <summary>
-        /// Number of Iterations that the Kinemaic Solver is going to Run for 
-        /// </summary>
-        public int NumberOfIterations;
-
-
-        #region ---Initialization Methods---
-
-        /// <summary>
-        /// <para>---1st--- This mehod is to be called First</para>
-        /// <para>The Constructor of the <see cref="SetupChange_Optimizer"/> Class</para>
-        /// </summary>
-        /// <param name="_crossover">Percentage of the Population which is going to be subject to Crossover</param>
-        /// <param name="_mutation">Percentage of the Population which is going to be subject to Random Mutation</param>
-        /// <param name="_elites">Percentage of the population which is going to be treated as Elite without an modifications to the Genes</param>
-        /// <param name="_popSize">Size of the Population</param>
-        /// <param name="_chromoseLength"> <para>Chromosome Length of the <see cref="Population"/></para>
-        /// <para>Decided based on 2 things: The number of Genes and the bit size required for each Gene</para>
-        /// <para>https://gaframework.org/wiki/index.php/How_to_Encode_Parameters for more information</para> </param>
-        public KO_Optimizer(double _crossover, double _mutation, int _elites, int _noOfGenerations)
-        {
-            CrossOverProbability = _crossover;
-
-            MutationProbability = _mutation;
-
-            ElitePercentage = _elites;
-
-            No_Generations = _noOfGenerations;
-
-            Elites = new Elite(ElitePercentage);
-
-            Crossovers = new Crossover(CrossOverProbability, false, CrossoverType.SinglePoint);
-
-            Mutations = new BinaryMutate(MutationProbability, false);
-
-            Opt_AdjToolValues = new Dictionary<string, double>();
-        }
-
-        /// <summary>
-        /// <para>---2nd---To be called 2nd </para>
-        /// <para>This method initializes the Objects of the <see cref="KO_CornverVariables"/> Class of each of the Corners</para>
-        /// </summary>
-        /// <param name="_vehicle">Object of the Vehicle class which will be used to initialize all the <see cref="KO_CornverVariables"/> Objects passed </param>
-        /// <param name="_koCVFL"></param>
-        /// <param name="_koCVFR"></param>
-        /// <param name="_koCVRL"></param>
-        /// <param name="_koCVRR"></param>
-        public void Initialize_CornverVariables(Vehicle _vehicle, KO_SimulationParams _koSim, KO_CornverVariables _koCVFL, KO_CornverVariables _koCVFR, KO_CornverVariables _koCVRL, KO_CornverVariables _koCVRR)
-        {
-            Vehicle = _vehicle;
-
-            Chassis = _vehicle.chassis_vehicle;
-
-            KO_SimParams = _koSim;
-
-            ///<summary>Initializing the <see cref="KO_CornverVariables"/> object</summary>
-            KO_CV_FL = _koCVFL;
-            ///<summary>Initializing the <see cref="VehicleCornerParams"/> object of the <see cref="KO_CornverVariables"/> Class</summary>
-            KO_CV_FL.Initialize_VehicleCornerParams(ref KO_CV_FL, Vehicle, VehicleCorner.FrontLeft, KO_SimParams.NumberOfIterations_KinematicSolver);
-            ///<see cref="Initializing the <see cref="KO_AdjToolParams.NominalCoordinates"/> of the <see cref="KO_CornverVariables.KO_MasterAdjs"/> "/>
-            KO_CV_FL.Initialize_AdjusterCoordinates(KO_CV_FL.VCornerParams);
-
-
-            ///<summary>Initializing the <see cref="KO_CornverVariables"/> object</summary>
-            KO_CV_FR = _koCVFR;
-            ///<summary>Initializing the <see cref="VehicleCornerParams"/> object of the <see cref="KO_CornverVariables"/> Class</summary>
-            KO_CV_FR.Initialize_VehicleCornerParams(ref KO_CV_FR, Vehicle, VehicleCorner.FrontRight, KO_SimParams.NumberOfIterations_KinematicSolver);
-            ///<see cref="Initializing the <see cref="KO_AdjToolParams.NominalCoordinates"/> of the <see cref="KO_CornverVariables.KO_MasterAdjs"/> "/>
-            KO_CV_FR.Initialize_AdjusterCoordinates(KO_CV_FR.VCornerParams);
-
-
-            ///<summary>Initializing the <see cref="KO_CornverVariables"/> object</summary>
-            KO_CV_RL = _koCVRL;
-            ///<summary>Initializing the <see cref="VehicleCornerParams"/> object of the <see cref="KO_CornverVariables"/> Class</summary>
-            KO_CV_RL.Initialize_VehicleCornerParams(ref KO_CV_RL,Vehicle, VehicleCorner.RearLeft, KO_SimParams.NumberOfIterations_KinematicSolver);
-            ///<see cref="Initializing the <see cref="KO_AdjToolParams.NominalCoordinates"/> of the <see cref="KO_CornverVariables.KO_MasterAdjs"/> "/>
-            KO_CV_RL.Initialize_AdjusterCoordinates(KO_CV_RL.VCornerParams);
-
-
-            ///<summary>Initializing the <see cref="KO_CornverVariables"/> object</summary>
-            KO_CV_RR = _koCVRR;
-            ///<summary>Initializing the <see cref="VehicleCornerParams"/> object of the <see cref="KO_CornverVariables"/> Class</summary>
-            KO_CV_RR.Initialize_VehicleCornerParams(ref KO_CV_RR, Vehicle, VehicleCorner.RearRight, KO_SimParams.NumberOfIterations_KinematicSolver);
-            ///<see cref="Initializing the <see cref="KO_AdjToolParams.NominalCoordinates"/> of the <see cref="KO_CornverVariables.KO_MasterAdjs"/> "/>
-            KO_CV_RR.Initialize_AdjusterCoordinates(KO_CV_RR.VCornerParams);
-
-        }
-
-
-        public void ConstructGeneticAlgorithm(int _popSize)
-        {
-            PopulationSize = _popSize;
-
-            Population = new Population(PopulationSize, 15, false, true);
-
-            EvaluateFitnessOfGeneticAlforithm = EvaluateFitnessCurve;
-
-            Terminate = TerminateAlgorithm;
-
-            GA.OnGenerationComplete += GA_OnGenerationComplete;
-
-            GA.OnRunComplete += GA_OnRunComplete;
-
-
-            GA.Operators.Add(Elites);
-            GA.Operators.Add(Crossovers);
-            GA.Operators.Add(Mutations);
-
-            GA.Run(Terminate);
-
-        }
-        #endregion
-
-        #region ---Genetic Algorithm Methods---
-
-        private double EvaluateFitnessCurve(Chromosome chromosome)
-        {
-            double fitness = -1;
-
-            if (chromosome != null)
-            {
-
-
-
-            }
-
-            return fitness;
-        }
-
-        private void GA_OnRunComplete(object sender, GaEventArgs e)
-        {
-
-        }
-
-        private void GA_OnGenerationComplete(object sender, GaEventArgs e)
-        {
-
-        }
-
-        private bool TerminateAlgorithm(Population _population, int _currGeneration, long currEvaluation)
-        {
-            if (_currGeneration > 100)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
-        }
-        #endregion
-
-
-
-        #region ---Helper Methods
-
-        private void ExtractFromChromosome(Chromosome chromosome, out double _x, out double _y, out double _z)
-        {
-            _x = 0;_y = 0;_z = 0; 
-        }
-
-        
-
-
-        #endregion
-
-
-
     }
 
     public class KO_Optimizer_BumpSteer : Master_Optimizer
     {
-        /// <summary>
-        /// Object of the <see cref="DoubleWishboneKinematicsSolver"/> to run the Kinematic Solver for Double Wishbone
-        /// </summary>
-        public DoubleWishboneKinematicsSolver DWSolver;
-
-        /// <summary>
-        /// Object of the <see cref="McPhersonKinematicsSolver"/> to run the Kinematic Solver for McPherson
-        /// </summary>
-        public McPhersonKinematicsSolver McPSolver;
-
+        #region ---Declarations---
         /// <summary>
         /// Object of the <see cref="KO_CornverVariables"/> Class containing all the relevant information of the Corner which is being considered here
         /// </summary>
         KO_CornverVariables KO_CV;
 
         /// <summary>
-        /// Object of the <see cref="KO_BumpSteer_Solver"/> Class which is the Parent SOlver which calls on the Optimization Methods
+        /// Object of the <see cref="KO_Solver"/> Class which is the Parent SOlver which calls on the Optimization Methods
         /// </summary>
-        KO_BumpSteer_Solver ParentSolver;
+        KO_Solver ParentSolver;
 
         /// <summary>
         /// Object of the <see cref="KO_SimulationParams"/> which contains relevant information pertaining to the Simulation params such as number of iterations etc
@@ -262,7 +37,7 @@ namespace Coding_Attempt_with_GUI
         /// Vehicle Corner
         /// </summary>
         VehicleCorner VCorner;
-        
+
         /// <summary>
         /// <see cref="List{Angle}"/> representing the Toe Angle variation for each deflection of the Wheel. 
         /// This is Bump Steer Graph which is computed for a given iteration of the <see cref="Master_Optimizer.GA"/> 
@@ -272,9 +47,10 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Inboard Toe Link Point which is being optimized
         /// </summary>
-        Point3D InboardToeLink;
+        Point3D InboardToeLink; 
+        #endregion
 
-        
+
 
         #region ---Initialization Methods---
 
@@ -319,7 +95,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_koCVFR"></param>
         /// <param name="_koCVRL"></param>
         /// <param name="_koCVRR"></param>
-        public void Initialize_CornverVariables(ref Vehicle _vehicle, ref KO_SimulationParams _koSim, ref KO_CornverVariables _koCV, KO_BumpSteer_Solver _koSolver)
+        public void Initialize_CornverVariables(ref Vehicle _vehicle, ref KO_SimulationParams _koSim, ref KO_CornverVariables _koCV, KO_Solver _koSolver)
         {
             Vehicle = _vehicle;
 
@@ -388,7 +164,6 @@ namespace Coding_Attempt_with_GUI
             {
                 ///<summary>Extracting the Coordinates from the <see cref="Master_Optimizer.GA"/> generated Chromosome</summary>
                 ExtractFromChromosome(chromosome, out double x, out double y, out double z);
-                //KO_CV.VCornerParams.ToeLinkInboard = new Point3D(x, y, z);
                 InboardToeLink = new Point3D(x, y, z);
                 KO_CV.VCornerParams.InboardAssembly[CoordinateOptions.ToeLinkInboard.ToString()] = InboardToeLink;
 
@@ -791,14 +566,135 @@ namespace Coding_Attempt_with_GUI
 
         #endregion
 
+    }
+
+    public class KO_Optimizer_ActuationPoints : Master_Optimizer
+    {
+
+        /// <summary>
+        /// Object of the <see cref="KO_CornverVariables"/> Class containing all the relevant information of the Corner which is being considered here
+        /// </summary>
+        KO_CornverVariables KO_CV;
+
+        /// <summary>
+        /// Object of the <see cref="KO_Solver"/> Class which is the Parent SOlver which calls on the Optimization Methods
+        /// </summary>
+        KO_Solver ParentSolver;
+
+        /// <summary>
+        /// Object of the <see cref="KO_SimulationParams"/> which contains relevant information pertaining to the Simulation params such as number of iterations etc
+        /// </summary>
+        public KO_SimulationParams KO_SimParams;
+
+        /// <summary>
+        /// Vehicle Corner
+        /// </summary>
+        VehicleCorner VCorner;
+
+
+        #region ---Initialization Methods---
+
+        /// <summary>
+        /// <para>---1st--- This mehod is to be called First</para>
+        /// <para>The Constructor of the <see cref="SetupChange_Optimizer"/> Class</para>
+        /// </summary>
+        /// <param name="_crossover">Percentage of the Population which is going to be subject to Crossover</param>
+        /// <param name="_mutation">Percentage of the Population which is going to be subject to Random Mutation</param>
+        /// <param name="_elites">Percentage of the population which is going to be treated as Elite without an modifications to the Genes</param>
+        /// <param name="_popSize">Size of the Population</param>
+        /// <param name="_chromoseLength"> <para>Chromosome Length of the <see cref="Population"/></para>
+        /// <para>Decided based on 2 things: The number of Genes and the bit size required for each Gene</para>
+        /// <para>https://gaframework.org/wiki/index.php/How_to_Encode_Parameters for more information</para> </param>
+        public KO_Optimizer_ActuationPoints(double _crossover, double _mutation, int _elites, int _noOfGenerations, VehicleCorner _vCorner)
+        {
+            CrossOverProbability = _crossover;
+
+            MutationProbability = _mutation;
+
+            ElitePercentage = _elites;
+
+            No_Generations = _noOfGenerations;
+
+            Elites = new Elite(ElitePercentage);
+
+            Crossovers = new Crossover(CrossOverProbability, false, CrossoverType.SinglePoint);
+
+            Mutations = new BinaryMutate(MutationProbability, false);
+
+            Opt_AdjToolValues = new Dictionary<string, double>();
+
+            VCorner = _vCorner;
+        }
+
+        /// <summary>
+        /// <para>---2nd---To be called 2nd </para>
+        /// <para>This method initializes the Objects of the <see cref="KO_CornverVariables"/> Class of each of the Corners</para>
+        /// </summary>
+        /// <param name="_vehicle">Object of the Vehicle class which will be used to initialize all the <see cref="KO_CornverVariables"/> Objects passed </param>
+        /// <param name="_koCV"></param>
+        /// <param name="_koCVFR"></param>
+        /// <param name="_koCVRL"></param>
+        /// <param name="_koCVRR"></param>
+        public void Initialize_CornverVariables(ref Vehicle _vehicle, ref KO_SimulationParams _koSim, ref KO_CornverVariables _koCV, KO_Solver _koSolver)
+        {
+            Vehicle = _vehicle;
+
+            //Chassis = _vehicle.chassis_vehicle;
+
+            KO_SimParams = _koSim;
+
+            ///<summary>Initializing the <see cref="KO_CornverVariables"/> object</summary>
+            KO_CV = _koCV;
+
+            ///<summary>Initializing the <see cref="VehicleCornerParams"/> object of the <see cref="KO_CornverVariables"/> Class</summary>
+            KO_CV.Initialize_VehicleCornerParams(ref KO_CV, Vehicle, VehicleCorner.FrontLeft, KO_SimParams.NumberOfIterations_KinematicSolver);
+
+            ///<see cref="Initializing the <see cref="KO_AdjToolParams.NominalCoordinates"/> of the <see cref="KO_CornverVariables.KO_MasterAdjs"/> "/>
+            KO_CV.Initialize_AdjusterCoordinates(KO_CV.VCornerParams);
+
+            ParentSolver = _koSolver;
+
+        }
+
+        /// <summary>
+        /// ---3rd--- To be called 3rd
+        /// Method to Constrcut the <see cref="GAF.GeneticAlgorithm"/>Class's object and assing it with the relevant operators, erroc functions etc
+        /// </summary>
+        /// <param name="_popSize">Size of the Population</param>
+        public void ConstructGeneticAlgorithm(int _popSize)
+        {
+            PopulationSize = _popSize;
+
+            Population = new Population(PopulationSize, 30, false, true);
+
+            EvaluateFitnessOfGeneticAlforithm = EvaluateFitnessCurve;
+
+            Terminate = TerminateAlgorithm;
+
+            GA = new GeneticAlgorithm(Population, EvaluateFitnessOfGeneticAlforithm);
+
+            GA.OnGenerationComplete += GA_OnGenerationComplete;
+
+            GA.OnRunComplete += GA_OnRunComplete;
+
+
+            GA.Operators.Add(Elites);
+            GA.Operators.Add(Crossovers);
+            GA.Operators.Add(Mutations);
+
+            GA.Run(Terminate);
+
+        }
+        #endregion
+
+
+        #region ---Genetic Algorithm Methods---
 
 
 
-
-
-
-
+        #endregion
 
     }
 
 }
+
