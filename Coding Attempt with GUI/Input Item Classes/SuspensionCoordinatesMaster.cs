@@ -364,6 +364,7 @@ namespace Coding_Attempt_with_GUI
         ToeLinkInboard,
         DamperShockMount,
         DamperBellCrank,
+        BellCrankPivot,
         DamperOutboard,
         UBJ,
         UBJ_2,

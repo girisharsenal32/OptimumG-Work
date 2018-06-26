@@ -58,9 +58,9 @@ namespace Coding_Attempt_with_GUI
         
 
         /// <summary>
-        /// Object of the <see cref="KO_Optimizer"/> Class which performs the Genetic Algorithm based optimization
+        /// Object of the <see cref="KO_Master_Optimizer"/> Class which performs the Genetic Algorithm based optimization
         /// </summary>
-        private KO_Optimizer Optimizer;
+        private KO_Master_Optimizer Optimizer;
 
 
         public KO() { }
@@ -111,11 +111,11 @@ namespace Coding_Attempt_with_GUI
 
 
         /// <summary>
-        /// Method to Initialize the <see cref="KO_Optimizer"/> CLass object to proceed with the Genetic Algorithm based Optimization
+        /// Method to Initialize the <see cref="KO_Master_Optimizer"/> CLass object to proceed with the Genetic Algorithm based Optimization
         /// </summary>
         public void Init_GeneticAlgorithm()
         {
-            Optimizer = new KO_Optimizer(0.85, 0.05, 5, 50);
+            Optimizer = new KO_Master_Optimizer(0.85, 0.05, 5, 50);
 
             Optimizer.Initialize_CornverVariables(KO_Vehicle, KO_SimParams, KO_CV_FL, KO_CV_FR, KO_CV_RL, KO_CV_RR);
 

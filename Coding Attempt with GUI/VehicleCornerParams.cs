@@ -397,6 +397,8 @@ namespace Coding_Attempt_with_GUI
             ///Damper Chassis Shock Mount
             InboardAssembly.Add(CoordinateOptions.DamperShockMount.ToString(), DamperShockMount);
 
+            ///Rocker Pivot Point
+            InboardAssembly.Add(CoordinateOptions.BellCrankPivot.ToString(), Rocker_Center);
 
             ///---OUTBOARD POINTS
 

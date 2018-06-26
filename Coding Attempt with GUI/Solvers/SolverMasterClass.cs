@@ -311,6 +311,14 @@ namespace Coding_Attempt_with_GUI
             l_N1y = _inboardPoints[CoordinateOptions.ToeLinkInboard.ToString()].Y;
             l_N1z = _inboardPoints[CoordinateOptions.ToeLinkInboard.ToString()].Z;
 
+            l_I1x = _inboardPoints[CoordinateOptions.BellCrankPivot.ToString()].X;
+            l_I1y = _inboardPoints[CoordinateOptions.BellCrankPivot.ToString()].Y;
+            l_I1z = _inboardPoints[CoordinateOptions.BellCrankPivot.ToString()].Z;
+
+            l_JO1x = _inboardPoints[CoordinateOptions.DamperShockMount.ToString()].X;
+            l_JO1y = _inboardPoints[CoordinateOptions.DamperShockMount.ToString()].Y;
+            l_JO1z = _inboardPoints[CoordinateOptions.DamperShockMount.ToString()].Z;
+
 
             ///<remarks>Assigning Outboard Pick Up Points</remarks>
             l_E1x = _outboardPoints[CoordinateOptions.LBJ.ToString()].X;
@@ -325,6 +333,10 @@ namespace Coding_Attempt_with_GUI
             l_M1y = _outboardPoints[CoordinateOptions.ToeLinkOutboard.ToString()].Y;
             l_M1z = _outboardPoints[CoordinateOptions.ToeLinkOutboard.ToString()].Z;
 
+            l_G1x = _outboardPoints[CoordinateOptions.PushrodOutboard.ToString()].X;
+            l_G1y = _outboardPoints[CoordinateOptions.PushrodOutboard.ToString()].Y;
+            l_G1z = _outboardPoints[CoordinateOptions.PushrodOutboard.ToString()].Z;
+
             l_K1x = _outboardPoints[CoordinateOptions.WheelCenter.ToString()].X;
             l_K1y = _outboardPoints[CoordinateOptions.WheelCenter.ToString()].Y;
             l_K1z = _outboardPoints[CoordinateOptions.WheelCenter.ToString()].Z;
@@ -332,6 +344,7 @@ namespace Coding_Attempt_with_GUI
             L1x = _outboardPoints[CoordinateOptions.WheelSpindleEnd.ToString()].X;
             L1y = _outboardPoints[CoordinateOptions.WheelSpindleEnd.ToString()].Y;
             L1z = _outboardPoints[CoordinateOptions.WheelSpindleEnd.ToString()].Z;
+
 
 
         }

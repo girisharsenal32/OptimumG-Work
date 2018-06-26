@@ -365,11 +365,15 @@ namespace Coding_Attempt_with_GUI
 
                 KO_CV_Main.Compute_Plane(out KO_CV_Main.VCornerParams.RockerPlane, KO_CV_Main.VCornerParams.Rocker_Axis_Vector, KO_CV_Main.VCornerParams.Rocker_Center);
 
+                KO_CV_Main.VCornerParams.Initialize_Dictionary();
+
                 if (Symmetry)
                 {
                     KO_CV_Counter.VCornerParams.Rocker_Center.Z = KO_CV_Main.VCornerParams.Rocker_Center.Z;
 
                     KO_CV_Counter.Compute_Plane(out KO_CV_Counter.VCornerParams.RockerPlane, KO_CV_Counter.VCornerParams.Rocker_Axis_Vector, KO_CV_Counter.VCornerParams.Rocker_Center);
+
+                    KO_CV_Counter.VCornerParams.Initialize_Dictionary();
                 }
 
                 Plot_Rocker_AxisAndCenter();
@@ -404,11 +408,17 @@ namespace Coding_Attempt_with_GUI
 
                 KO_CV_Main.Compute_Plane(out KO_CV_Main.VCornerParams.RockerPlane, KO_CV_Main.VCornerParams.Rocker_Axis_Vector, KO_CV_Main.VCornerParams.Rocker_Center);
 
+                KO_CV_Main.VCornerParams.Initialize_Dictionary();
+
+
                 if (Symmetry)
                 {
                     KO_CV_Counter.VCornerParams.Rocker_Center.X = -KO_CV_Main.VCornerParams.Rocker_Center.X;
 
                     KO_CV_Counter.Compute_Plane(out KO_CV_Counter.VCornerParams.RockerPlane, KO_CV_Counter.VCornerParams.Rocker_Axis_Vector, KO_CV_Counter.VCornerParams.Rocker_Center);
+
+                    KO_CV_Counter.VCornerParams.Initialize_Dictionary();
+
                 }
 
                 Plot_Rocker_AxisAndCenter();
@@ -443,11 +453,17 @@ namespace Coding_Attempt_with_GUI
 
                 KO_CV_Main.Compute_Plane(out KO_CV_Main.VCornerParams.RockerPlane, KO_CV_Main.VCornerParams.Rocker_Axis_Vector, KO_CV_Main.VCornerParams.Rocker_Center);
 
+                KO_CV_Main.VCornerParams.Initialize_Dictionary();
+
+
                 if (Symmetry)
                 {
                     KO_CV_Counter.VCornerParams.Rocker_Center.Y = KO_CV_Main.VCornerParams.Rocker_Center.Y;
 
                     KO_CV_Counter.Compute_Plane(out KO_CV_Counter.VCornerParams.RockerPlane, KO_CV_Counter.VCornerParams.Rocker_Axis_Vector, KO_CV_Counter.VCornerParams.Rocker_Center);
+
+                    KO_CV_Counter.VCornerParams.Initialize_Dictionary();
+
                 }
 
                 Plot_Rocker_AxisAndCenter();

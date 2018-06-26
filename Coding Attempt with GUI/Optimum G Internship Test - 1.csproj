@@ -193,6 +193,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomCamberCurve.cs" />
+    <Compile Include="IOptimizer_KO.cs" />
     <Compile Include="KinematicOptimization\GUI Items\DesignForm.cs">
       <SubType>Form</SubType>
     </Compile>

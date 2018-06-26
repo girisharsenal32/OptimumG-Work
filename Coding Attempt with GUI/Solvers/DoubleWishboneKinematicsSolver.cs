@@ -892,9 +892,8 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
 
+        #region ---Kinematic Design Optimization Methods---
         //---Kinematic Design Optimization Methods
-
-
 
         //--Bump Steer Evaluation during starting stages of Design--
 
@@ -910,7 +909,7 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         /// <param name="_WheelDeflection">Wheel Def</param>
         /// <param name="_newLBJ"></param>
-        public void KO_InitialStage_BumpSteer_LBJ(double _WheelDeflection, out Point3D _newLBJ)
+        public void KO_InitialStage_LBJ(double _WheelDeflection, out Point3D _newLBJ)
         {
             _newLBJ = new Point3D();
 
@@ -932,8 +931,12 @@ namespace Coding_Attempt_with_GUI
 
         }
 
-
-        public void KO_InitialStage_BumpSteeer_UBJ(Point3D _newLBJ, out Point3D _newUBJ)
+        /// <summary>
+        /// Method to compute the UBJ Point during tthe Initial Stage Evaluation of the Bump Steer
+        /// </summary>
+        /// <param name="_newLBJ">The new LBJ Point computed in the previous step</param>
+        /// <param name="_newUBJ"></param>
+        public void KO_InitialStage_UBJ(Point3D _newLBJ, out Point3D _newUBJ)
         {
             _newUBJ = new Point3D();
 
@@ -951,7 +954,8 @@ namespace Coding_Attempt_with_GUI
 
         }
 
-        public void KO_InitialStage_BumpSteer_ToeLinnkOutboard(double _wheelDeflection, Point3D _newLBJ, Point3D _newUBJ, out Point3D _toeLinkOutboard)
+
+        public void KO_InitialStage_ToeLinnkOutboard(double _wheelDeflection, Point3D _newLBJ, Point3D _newUBJ, out Point3D _toeLinkOutboard)
         {
             _toeLinkOutboard = new Point3D();
 
@@ -960,7 +964,7 @@ namespace Coding_Attempt_with_GUI
             S = new Point3D(l_M1x, l_M1y, l_M1z);
             T1 = new Point3D(l_E1x, l_E1y, l_E1z);
             U1 = new Point3D(l_F1x, l_F1y, l_F1z);
-            V1 = new Point3D(l_N1x,l_N1y,l_N1z);
+            V1 = new Point3D(l_N1x, l_N1y, l_N1z);
             T2 = new Point3D(_newLBJ.X, _newLBJ.Y, _newLBJ.Z);
             U2 = new Point3D(_newUBJ.X, _newUBJ.Y, _newUBJ.Z);
             V2 = new Point3D(l_N1x, l_N1y, l_N1z);
@@ -973,7 +977,8 @@ namespace Coding_Attempt_with_GUI
 
         }
 
-        public void KO_InitialStage_BumpSteer_WheelCenter(Point3D _newLBJ, Point3D _newUBJ, Point3D _newToeLinkOutboard, out Point3D _wheelCenter)
+
+        public void KO_InitialStage_WheelCenter(Point3D _newLBJ, Point3D _newUBJ, Point3D _newToeLinkOutboard, out Point3D _wheelCenter)
         {
             _wheelCenter = new Point3D();
 
@@ -993,7 +998,7 @@ namespace Coding_Attempt_with_GUI
         }
 
 
-        public void KO_InitialStage_BumpSteer_WheelSpindleEnd(Point3D _newLBJ, Point3D _newWheelCenter, Point3D _newToeLinkOutboard, out Point3D _wheelSpindleEnd)
+        public void KO_InitialStage_WheelSpindleEnd(Point3D _newLBJ, Point3D _newWheelCenter, Point3D _newToeLinkOutboard, out Point3D _wheelSpindleEnd)
         {
             _wheelSpindleEnd = new Point3D();
 
@@ -1009,6 +1014,59 @@ namespace Coding_Attempt_with_GUI
 
 
             QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, _newLBJ.Y, false, out _wheelSpindleEnd);
+        }
+
+        public void KO_InitialStage_PushPullOutboard(Point3D _newUBJ, Point3D _lbjForVerticalCheck, out Point3D _pushrodOutboard)
+        {
+            _pushrodOutboard = new Point3D();
+
+            Point3D S, T1, U1, V1, T2, U2, V2;
+
+            S = new Point3D(l_G1x, l_G1y, l_G1z);
+            T1 = new Point3D(l_F1x, l_F1y, l_F1z);
+            U1 = new Point3D(l_A1x, l_A1y, l_A1z);
+            V1 = new Point3D(l_B1x, l_B1y, l_B1z);
+            T2 = new Point3D(_newUBJ.X, _newUBJ.Y, _newUBJ.Z);
+            U2 = new Point3D(l_A1x, l_A1y, l_A1z);
+            V2 = new Point3D(l_B1x, l_B1y, l_B1z);
+
+            QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, _lbjForVerticalCheck.Y, false, out _pushrodOutboard);
+        }
+
+        public void KO_InitialStage_PushPullRocker(Point3D _newPushPullOutboard, Point3D _newUBJ, Point3D _lbjForVerticalCheck, out Point3D _pushPullInboard)
+        {
+            _pushPullInboard = new Point3D();
+
+            Point3D S, T1, U1, V1, T2, U2, V2;
+
+            S = new Point3D(l_H1x, l_H1y, l_H1z);
+            T1 = new Point3D(l_G1x, l_G1y, l_G1z);
+            U1 = new Point3D(l_F1x, l_F1y, l_F1z);
+            V1 = new Point3D(l_I1x, l_I1y, l_I1z);
+            T2 = new Point3D(_newPushPullOutboard.X, _newPushPullOutboard.Y, _newPushPullOutboard.Z);
+            U2 = new Point3D(_newUBJ.X, _newUBJ.Y, _newUBJ.Z);
+            V2 = new Point3D(l_I1x, l_I1y, l_I1z);
+
+            QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, _lbjForVerticalCheck.Y, false, out _pushPullInboard);
+
+        }
+
+
+        public void KO_InitialStage_DamperRocker(Point3D _newPushPullRocker, Point3D _newPushPullOutboard, Point3D _lbjForVerticalCheck, out Point3D _damperRocker)
+        {
+            _damperRocker = new Point3D();
+
+            Point3D S, T1, U1, V1, T2, U2, V2;
+            
+            S = new Point3D(l_J1x, l_J1y, l_J1z);
+            T1 = new Point3D(l_I1x, l_I1y, l_I1z);
+            U1 = new Point3D(l_H1x, l_H1y, l_H1z);
+            V1 = new Point3D(l_G1x, l_G1y, l_G1z);
+            T2 = new Point3D(l_I1x, l_I1y, l_I1z);
+            U2 = new Point3D(_newPushPullRocker.X, _newPushPullRocker.Y, _newPushPullRocker.Z);
+            V2 = new Point3D(_newPushPullOutboard.X, _newPushPullOutboard.Y, _newPushPullOutboard.Z);
+
+            QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, _lbjForVerticalCheck.Y, false, out _damperRocker);
         }
 
         public void KO_InitialStage_BumpSteer_ContactPatch(Point3D _newLBJ, Point3D _newWheelCenter, Point3D _newToeLinkOutboard, out Point3D _contactPatch)
@@ -1028,6 +1086,24 @@ namespace Coding_Attempt_with_GUI
 
             QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, _newLBJ.Y, true, out _contactPatch);
         }
+
+        /// <summary>
+        /// Method to compute the Spring Deflection using the newly computed <see cref="CoordinateOptions.DamperBellCrank"/> Point
+        /// </summary>
+        /// <param name="_newDamperRocker">Newly computed <see cref="CoordinateOptions.DamperBellCrank"/> Point</param>
+        /// <returns>The Spring Deflection</returns>
+        public double KO_InitialStage_ComputeSpringDeflection(Point3D _newDamperRocker)
+        {
+            Line3D damperLine_New = new Line3D(new Point3D(l_JO1x, l_JO1y, l_JO1z), _newDamperRocker);
+
+            Line3D damperLine_Prev = new Line3D(new Point3D(l_JO1x, l_JO1y, l_JO1z), new Point3D(l_J1x, l_J1y, l_J1z);
+
+            double springDefletion = damperLine_New.Length - damperLine_Prev.Length;
+
+            return springDefletion;
+        }
+
+        #endregion
 
 
         #region Method to Calculate the Antiroll Bar Droop Link Forces

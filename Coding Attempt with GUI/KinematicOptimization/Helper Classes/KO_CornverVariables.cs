@@ -435,6 +435,32 @@ namespace Coding_Attempt_with_GUI
 
         }
 
+        /// <summary>
+        /// This method computes the APPROXIMATE 2nd Point of a Link  given the length and the 1st point
+        /// The final coordinate of the 2nd point is computed using the Plane Equations.
+        /// Used for <see cref="CoordinateOptions.DamperBellCrank"/> and <see cref="CoordinateOptions.PushrodOutboard"/>
+        /// </summary>
+        /// <param name="_linkLength">Length of the Links whose 2nd point is being calculated. Pass negative value if <paramref name="_mainPoint"/> is the End Point and NOT Start Point</param>
+        /// <param name="_mainPoint">Main or 1st Point of the Link </param>
+        /// <param name="_correspondingPoint">Corresponding or 2nd Pointo on the Link</param>
+        public Point3D Compute_ApproxCorrespondingPoint_FromLinkLength(double _linkLength, Point3D _mainPoint, VehicleCorner _vCorner)
+        {
+            Point3D _correspondingPoint = new Point3D();
+
+            if (_vCorner == VehicleCorner.FrontLeft || _vCorner == VehicleCorner.RearLeft)
+            {
+                _correspondingPoint.X = _mainPoint.X + _linkLength;
+            }
+            else
+            {
+                _correspondingPoint.X = _mainPoint.X - _linkLength;
+            }
+
+            _correspondingPoint.Y = _mainPoint.Y;
+
+            return _correspondingPoint;
+        }
+
 
         /// <summary>
         /// Method to return a Point with EACH coordinated rounded to the 3rd decimal

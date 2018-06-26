@@ -1382,7 +1382,7 @@ namespace Coding_Attempt_with_GUI
 
         #endregion
 
-        #region -Main RMS Error Function-
+        #region --Main RMS Error Function---
         /// <summary>
         /// Main Error Calculating fucntion. 
         /// Computes the error of all the Setup Params which have been requested (and hence have their delegates initialized)
