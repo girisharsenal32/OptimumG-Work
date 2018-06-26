@@ -617,6 +617,7 @@ namespace Coding_Attempt_with_GUI
     public class KO_Optimizer_ActuationPoints : KO_Master_Optimizer, IOptimizer_KO
     {
 
+        #region ---Declarations---
         /// <summary>
         /// Object of the <see cref="KO_CornverVariables"/> Class containing all the relevant information of the Corner which is being considered here
         /// </summary>
@@ -676,7 +677,9 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Bitsize of each of the Variables which the Optimizer is trying to optimize
         /// </summary>
-        int BitSize;
+        int BitSize; 
+        #endregion
+
         
         #region ---Initialization Methods---
 
@@ -815,25 +818,6 @@ namespace Coding_Attempt_with_GUI
         }
 
         /// <summary>
-        /// Evnent fired when <see cref="IOptimizer.GA"/> has solved the Genetic Algorithm
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void GA_OnGenerationComplete(object sender, GaEventArgs e)
-        {
-            double Fitness = e.Population.MaximumFitness;
-
-            int Generations = e.Generation;
-
-            ///<summary>Extracting the BEST <see cref="Chromosome"/> from the <see cref="Population"/></summary>
-            var chromosome = e.Population.GetTop(1)[0];
-
-            EvaluateFitnessCurve(chromosome);
-
-            ParentSolver.MaxProgressBar(No_Generations);
-        }
-
-        /// <summary>
         /// Event fired when a particular Generation of the <see cref="IOptimizer.GA"/> has been solved 
         /// </summary>
         /// <param name="sender"></param>
@@ -850,6 +834,29 @@ namespace Coding_Attempt_with_GUI
             EvaluateFitnessCurve(chromosome);
 
             ParentSolver.UpdateProgressBar();
+        }
+
+        /// <summary>
+        /// Evnent fired when <see cref="IOptimizer.GA"/> has solved the Genetic Algorithm
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void GA_OnGenerationComplete(object sender, GaEventArgs e)
+        {
+            double Fitness = e.Population.MaximumFitness;
+
+            int Generations = e.Generation;
+
+            ///<summary>Extracting the BEST <see cref="Chromosome"/> from the <see cref="Population"/></summary>
+            var chromosome = e.Population.GetTop(1)[0];
+
+            EvaluateFitnessCurve(chromosome);
+
+            KO_CV.VCornerParams.Initialize_Dictionary();
+
+            ParentSolver.MaxProgressBar(No_Generations);
+
+
         }
 
         /// <summary>
@@ -872,6 +879,7 @@ namespace Coding_Attempt_with_GUI
         }
 
         #endregion
+
 
         #region ---Helper Methods--
 

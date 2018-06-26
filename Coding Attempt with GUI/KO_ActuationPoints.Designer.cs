@@ -33,6 +33,7 @@
             this.tbDamperInboard_Z = new System.Windows.Forms.TextBox();
             this.tbDamperInboard_X = new System.Windows.Forms.TextBox();
             this.simpleButtonComputePoint = new DevExpress.XtraEditors.SimpleButton();
+            this.actuationPointCompute = new Coding_Attempt_with_GUI.KO_WishbonePointsCalculator();
             this.tbDamperStaticLength = new System.Windows.Forms.TextBox();
             this.radioGroupDamperInboardFormat = new DevExpress.XtraEditors.RadioGroup();
             this.tbRocker_Center_Y = new System.Windows.Forms.TextBox();
@@ -65,6 +66,7 @@
             this.simpleLabelItem6 = new DevExpress.XtraLayout.SimpleLabelItem();
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem6 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem12 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.simpleLabelItem7 = new DevExpress.XtraLayout.SimpleLabelItem();
@@ -77,8 +79,6 @@
             this.layoutControlItemInboardDamper_Y = new DevExpress.XtraLayout.LayoutControlItem();
             this.simpleLabelItemInboardDamper = new DevExpress.XtraLayout.SimpleLabelItem();
             this.emptySpaceItem10 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.actuationPointCompute = new Coding_Attempt_with_GUI.KO_WishbonePointsCalculator();
-            this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radioGroupDamperInboardFormat.Properties)).BeginInit();
@@ -105,6 +105,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem7)).BeginInit();
@@ -117,7 +118,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemInboardDamper_Y)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItemInboardDamper)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
@@ -180,6 +180,16 @@
             this.simpleButtonComputePoint.StyleController = this.layoutControl1;
             this.simpleButtonComputePoint.TabIndex = 15;
             this.simpleButtonComputePoint.Text = "Compute Points";
+            this.simpleButtonComputePoint.Click += new System.EventHandler(this.simpleButtonComputePoint_Click);
+            // 
+            // actuationPointCompute
+            // 
+            this.actuationPointCompute.CurrentDevStage = Coding_Attempt_with_GUI.DevelopmentStages.WishboneInboardPoints;
+            this.actuationPointCompute.InputFormat = Coding_Attempt_with_GUI.CoordinateInputFormat.IIO;
+            this.actuationPointCompute.Location = new System.Drawing.Point(12, 333);
+            this.actuationPointCompute.Name = "actuationPointCompute";
+            this.actuationPointCompute.Size = new System.Drawing.Size(364, 157);
+            this.actuationPointCompute.TabIndex = 14;
             // 
             // tbDamperStaticLength
             // 
@@ -569,6 +579,15 @@
             this.emptySpaceItem6.Size = new System.Drawing.Size(368, 19);
             this.emptySpaceItem6.TextSize = new System.Drawing.Size(0, 0);
             // 
+            // layoutControlItem11
+            // 
+            this.layoutControlItem11.Control = this.actuationPointCompute;
+            this.layoutControlItem11.Location = new System.Drawing.Point(0, 321);
+            this.layoutControlItem11.Name = "layoutControlItem11";
+            this.layoutControlItem11.Size = new System.Drawing.Size(368, 161);
+            this.layoutControlItem11.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem11.TextVisible = false;
+            // 
             // layoutControlItem12
             // 
             this.layoutControlItem12.Control = this.simpleButtonComputePoint;
@@ -689,24 +708,6 @@
             this.emptySpaceItem10.Size = new System.Drawing.Size(28, 24);
             this.emptySpaceItem10.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // actuationPointCompute
-            // 
-            this.actuationPointCompute.CurrentDevStage = Coding_Attempt_with_GUI.DevelopmentStages.WishboneInboardPoints;
-            this.actuationPointCompute.InputFormat = Coding_Attempt_with_GUI.CoordinateInputFormat.IIO;
-            this.actuationPointCompute.Location = new System.Drawing.Point(12, 333);
-            this.actuationPointCompute.Name = "actuationPointCompute";
-            this.actuationPointCompute.Size = new System.Drawing.Size(364, 157);
-            this.actuationPointCompute.TabIndex = 14;
-            // 
-            // layoutControlItem11
-            // 
-            this.layoutControlItem11.Control = this.actuationPointCompute;
-            this.layoutControlItem11.Location = new System.Drawing.Point(0, 321);
-            this.layoutControlItem11.Name = "layoutControlItem11";
-            this.layoutControlItem11.Size = new System.Drawing.Size(368, 161);
-            this.layoutControlItem11.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem11.TextVisible = false;
-            // 
             // KO_ActuationPoints
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -740,6 +741,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem7)).EndInit();
@@ -752,7 +754,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemInboardDamper_Y)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItemInboardDamper)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
             this.ResumeLayout(false);
 
         }

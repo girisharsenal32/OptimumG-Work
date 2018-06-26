@@ -26,6 +26,8 @@ namespace Coding_Attempt_with_GUI
 
         VehicleCorner VCorner_Counter;
 
+        KO_SimulationParams KO_SimParams;
+
         bool Symmetry = false;
 
         #region --- Initialization Methods ---
@@ -39,12 +41,13 @@ namespace Coding_Attempt_with_GUI
 
 
         /// <summary>
+        /// ---Used for Assymetric Suspensions---
         /// Method to Obtain the object of the <see cref="DesignForm"/> which is the Parent of this Form and Assign Parent Object of <see cref="actuationPointCompute'"/>
         /// </summary>
         /// <param name="_KOCentral"></param>
         /// <param name="_KO_CV"></param>
         /// <param name="_designForm"></param>
-        public void Get_ParentObject_Data(ref KO_CentralVariables _KOCentral, ref KO_CornverVariables _KO_CV, DesignForm _designForm, VehicleCorner _vCorner)
+        public void Get_ParentObject_Data(ref KO_CentralVariables _KOCentral, ref KO_CornverVariables _KO_CV, DesignForm _designForm, VehicleCorner _vCorner, ref KO_SimulationParams _koSim)
         {
             KO_Central = _KOCentral;
 
@@ -55,6 +58,8 @@ namespace Coding_Attempt_with_GUI
             VCorner_Main = _vCorner;
 
             Symmetry = false;
+
+            KO_SimParams = _koSim;
 
             actuationPointCompute.Get_ParentObjectData(ref KO_CV_Main, ParentObject, VCorner_Main, DevelopmentStages.ActuationPoints);
 
@@ -70,7 +75,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_VCornerMain"></param>
         /// <param name="_VCornerCounter"></param>
         /// <param name="_designForm"></param>
-        public void Get_ParentObject_Data(ref KO_CentralVariables _KOCentral, ref KO_CornverVariables _KO_CV_Main, ref KO_CornverVariables _KO_CV_Counter, VehicleCorner _VCornerMain,VehicleCorner _VCornerCounter, DesignForm _designForm)
+        public void Get_ParentObject_Data(ref KO_CentralVariables _KOCentral, ref KO_CornverVariables _KO_CV_Main, ref KO_CornverVariables _KO_CV_Counter, VehicleCorner _VCornerMain,VehicleCorner _VCornerCounter, DesignForm _designForm ref KO_SimulationParams _koSim)
         {
             KO_Central = _KOCentral;
 
@@ -83,6 +88,8 @@ namespace Coding_Attempt_with_GUI
             VCorner_Counter = _VCornerCounter;
 
             Symmetry = true;
+
+            KO_SimParams = _koSim;
 
             actuationPointCompute.Get_ParentObjectData(ref _KO_CV_Main, ref _KO_CV_Counter, ParentObject, VCorner_Main, _VCornerCounter, DevelopmentStages.ActuationPoints);
         }
@@ -712,5 +719,43 @@ namespace Coding_Attempt_with_GUI
 
 
         #endregion
+
+        /// <summary>
+        /// Eventt fired when the <see cref="simpleButtonComputePoint"/> is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void simpleButtonComputePoint_Click(object sender, EventArgs e)
+        {
+            ComputeActuationPoints_Rocker();
+        }
+
+        /// <summary>
+        /// Method to Inboked the OPtimization methods and compute the Damper and Pushrod Rocker Points
+        /// </summary>
+        private void ComputeActuationPoints_Rocker()
+        {
+            KO_CV_Main.Optimize_Actuation_RockerPoints(ref KO_CV_Main, ref KO_Central, ref KO_SimParams, VCorner_Main, ParentObject);
+
+            ParentObject.Plot_InboardPoints(KO_CV_Main.VCornerParams.PushrodInboard, KO_CV_Main.VCornerParams.PushrodOutboard, "KO_CV_Main.VCornerParams.PushrodInboard" + VCorner_Main.ToString(), "Pushrod" + VCorner_Main.ToString());
+
+            ParentObject.Plot_InboardPoints(KO_CV_Main.VCornerParams.DamperBellCrank, KO_CV_Main.VCornerParams.DamperShockMount, "KO_CV_Main.VCornerParams.DamperBellCrank" + VCorner_Main.ToString(), "Damper" + VCorner_Main.ToString());
+
+            //--Add Convergence text here--
+
+            KO_CV_Main.VCornerParams.Initialize_Dictionary();
+
+            if (Symmetry)
+            {
+                KO_CV_Counter.Optimize_Actuation_RockerPoints(ref KO_CV_Counter, ref KO_Central, ref KO_SimParams, VCorner_Counter, ParentObject);
+
+                ParentObject.Plot_InboardPoints(KO_CV_Counter.VCornerParams.PushrodInboard, KO_CV_Counter.VCornerParams.PushrodOutboard, "KO_CV_Counter.VCornerParams.PushrodInboard" + VCorner_Counter.ToString(), "Pushrod" + VCorner_Counter.ToString());
+
+                ParentObject.Plot_InboardPoints(KO_CV_Counter.VCornerParams.DamperBellCrank, KO_CV_Counter.VCornerParams.DamperShockMount, "KO_CV_Counter.VCornerParams.DamperBellCrank" + VCorner_Counter.ToString(), "Damper" + VCorner_Counter.ToString());
+
+                KO_CV_Counter.VCornerParams.Initialize_Dictionary();
+
+            }
+        }
     }
 }

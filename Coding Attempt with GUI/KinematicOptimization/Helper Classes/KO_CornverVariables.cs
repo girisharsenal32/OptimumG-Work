@@ -27,7 +27,7 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Object of the <see cref="KO_Solver"/> to call the methods to solve for Inboard Toe Link Point for a given Bump Steer Curve
         /// </summary>
-        public KO_Solver KO_BS_SOlver;
+        public KO_Solver KO_SOlver;
 
         #region --Suspension Parameters - Parameters Requested by the User--
         /// <summary>
@@ -365,10 +365,17 @@ namespace Coding_Attempt_with_GUI
             _inboardToeLink = Round_Point(_inboardToeLink, 3);
         }
 
-
+        /// <summary>
+        /// Method to Invoke the Optimization Algorithm to compute the Inboard Toe Link Point for Minimum Bump Steer or User Requested Bump Steer
+        /// </summary>
+        /// <param name="_koCV">Object of the <see cref="KO_CornverVariables"/></param>
+        /// <param name="_koCentral">Object of the <see cref="KO_CentralVariables"/></param>
+        /// <param name="_koSimParams">Object of the <see cref="KO_SimulationParams"/></param>
+        /// <param name="_vCorner">Corner of the Vehicle which is caling this method</param>
+        /// <param name="_designForm">Object of the <see cref="DesignForm"/> which is the parent GUI form</param>
         public void Optimize_InboardToeLink(ref KO_CornverVariables _koCV, ref KO_CentralVariables _koCentral, ref KO_SimulationParams _koSimParams, VehicleCorner _vCorner, DesignForm _designForm)
         {
-            KO_BS_SOlver = new KO_Solver(ref _koCV, ref _koCentral, ref _koSimParams, _vCorner, ref _designForm);
+            KO_SOlver = new KO_Solver(ref _koCV, ref _koCentral, ref _koSimParams, _vCorner, ref _designForm, OptimizaionParameter.BumpSteer);
 
             _koCV.VCornerParams.ToeLinkInboard = Round_Point(_koCV.VCornerParams.ToeLinkInboard, 3);
         }
@@ -435,6 +442,7 @@ namespace Coding_Attempt_with_GUI
 
         }
 
+
         /// <summary>
         /// This method computes the APPROXIMATE 2nd Point of a Link  given the length and the 1st point
         /// The final coordinate of the 2nd point is computed using the Plane Equations.
@@ -476,6 +484,19 @@ namespace Coding_Attempt_with_GUI
             return _point;
         }
 
+
+        /// <summary>
+        /// Method to invoke the Optimization Algorithm mwthods to compute the Actuation points of Damper and Pushrod on the Rocker
+        /// </summary>
+        /// <param name="_koCV">Object of the <see cref="KO_CornverVariables"/></param>
+        /// <param name="_koCentral">Object of the <see cref="KO_CentralVariables"/></param>
+        /// <param name="_koSimParams">Object of the <see cref="KO_SimulationParams"/></param>
+        /// <param name="_vCorner">Corner of the Vehicle which is caling this method</param>
+        /// <param name="_designForm">Object of the <see cref="DesignForm"/> which is the parent GUI form</param>
+        public void Optimize_Actuation_RockerPoints(ref KO_CornverVariables _koCV, ref KO_CentralVariables _koCentral, ref KO_SimulationParams _koSimParams, VehicleCorner _vCorner, DesignForm _designForm)
+        {
+            KO_SOlver = new KO_Solver(ref _koCV, ref _koCentral, ref _koSimParams, _vCorner, ref _designForm, OptimizaionParameter.SpringMotionRatio);
+        }
 
 
     }

@@ -19,6 +19,8 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         public KO_Optimizer_BumpSteer BS_Optimization;
 
+        public KO_Optimizer_ActuationPoints Actuation_Opt;
+
         int NoOptimizerGenerattions;
 
         /// <summary>
@@ -46,6 +48,7 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         DesignForm Design_Form;
 
+        OptimizaionParameter optParam;
 
         /// <summary>
         /// Constructor
@@ -53,7 +56,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_koCV">Object of the <see cref="KO_CornverVariables"/> Class</param>
         /// <param name="_vCorner">Corner of the Vehicle which is being computed</param>
         /// <param name="_vehicle">The <see cref="Vehicle"/> item itself</param>
-        public KO_Solver(ref KO_CornverVariables _koCV, ref KO_CentralVariables _koCentral, ref KO_SimulationParams _simpParams, VehicleCorner _vCorner, ref DesignForm _designForm)
+        public KO_Solver(ref KO_CornverVariables _koCV, ref KO_CentralVariables _koCentral, ref KO_SimulationParams _simpParams, VehicleCorner _vCorner, ref DesignForm _designForm, OptimizaionParameter _optParam)
         {
             KO_CV = _koCV;
 
@@ -65,13 +68,26 @@ namespace Coding_Attempt_with_GUI
 
             Design_Form = _designForm;
 
-            Initialize_Optimizer();
+            optParam = _optParam;
+
+            if (optParam == OptimizaionParameter.BumpSteer)
+            {
+                Initialize_Optimizer_BS(); 
+            }
+            else if (optParam == OptimizaionParameter.SpringMotionRatio)
+            {
+                Initialize_Optimizer_ActuationPoints_RockerPoints();
+            }
+            else if (optParam == OptimizaionParameter.ARBMotionRatio)
+            {
+
+            }
         }
 
         /// <summary>
         /// Method to Initialize the <see cref="KO_Optimizer_BumpSteer"/>
         /// </summary>
-        private void Initialize_Optimizer()
+        private void Initialize_Optimizer_BS()
         {
             NoOptimizerGenerattions = 100;
 
@@ -82,6 +98,19 @@ namespace Coding_Attempt_with_GUI
             BS_Optimization.Initialize_CornverVariables(ref KO_Central.Vehicle, ref SimParams, ref KO_CV, this);
 
             BS_Optimization.ConstructGeneticAlgorithm(150);
+        }
+
+        private void Initialize_Optimizer_ActuationPoints_RockerPoints()
+        {
+            NoOptimizerGenerattions = 100;
+
+            InitializeProgressBarr();
+
+            Actuation_Opt = new KO_Optimizer_ActuationPoints(0.85, 0.05, 5, NoOptimizerGenerattions, VCorner);
+
+            Actuation_Opt.Initialize_CornverVariables(ref KO_Central.Vehicle, ref SimParams, ref KO_CV, this);
+
+            Actuation_Opt.ConstructGeneticAlgorithm(150);
         }
 
         /// <summary>

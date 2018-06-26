@@ -137,4 +137,11 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
     }
+
+    public enum OptimizaionParameter
+    {
+        BumpSteer, 
+        SpringMotionRatio, 
+        ARBMotionRatio
+    }
 }
