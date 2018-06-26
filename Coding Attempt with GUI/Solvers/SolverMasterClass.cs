@@ -319,6 +319,14 @@ namespace Coding_Attempt_with_GUI
             l_JO1y = _inboardPoints[CoordinateOptions.DamperShockMount.ToString()].Y;
             l_JO1z = _inboardPoints[CoordinateOptions.DamperShockMount.ToString()].Z;
 
+            l_H1x = _inboardPoints[CoordinateOptions.PushrodInboard.ToString()].X;
+            l_H1y = _inboardPoints[CoordinateOptions.PushrodInboard.ToString()].Y;
+            l_H1z = _inboardPoints[CoordinateOptions.PushrodInboard.ToString()].Z;
+
+            l_J1x = _inboardPoints[CoordinateOptions.DamperBellCrank.ToString()].X;
+            l_J1y = _inboardPoints[CoordinateOptions.DamperBellCrank.ToString()].Y;
+            l_J1z = _inboardPoints[CoordinateOptions.DamperBellCrank.ToString()].Z;
+
 
             ///<remarks>Assigning Outboard Pick Up Points</remarks>
             l_E1x = _outboardPoints[CoordinateOptions.LBJ.ToString()].X;

@@ -75,7 +75,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_VCornerMain"></param>
         /// <param name="_VCornerCounter"></param>
         /// <param name="_designForm"></param>
-        public void Get_ParentObject_Data(ref KO_CentralVariables _KOCentral, ref KO_CornverVariables _KO_CV_Main, ref KO_CornverVariables _KO_CV_Counter, VehicleCorner _VCornerMain,VehicleCorner _VCornerCounter, DesignForm _designForm ref KO_SimulationParams _koSim)
+        public void Get_ParentObject_Data(ref KO_CentralVariables _KOCentral, ref KO_CornverVariables _KO_CV_Main, ref KO_CornverVariables _KO_CV_Counter, VehicleCorner _VCornerMain, VehicleCorner _VCornerCounter, DesignForm _designForm, ref KO_SimulationParams _koSim)
         {
             KO_Central = _KOCentral;
 

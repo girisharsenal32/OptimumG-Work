@@ -566,11 +566,15 @@ namespace Coding_Attempt_with_GUI
             {
                 Point_Main = KO_CV_Main.Compute_PointOnPlane(KO_CV_Main.VCornerParams.TopWishbonePlane, KO_CV_Main.VCornerParams.InputFormat, Point_Main);
                 Plot_Point(Point_Main, KO_CV_Main.VCornerParams.UBJ, PointName + VCorner_Main.ToString(), PointName + VCorner_Main.ToString());
+                KO_CV_Main.VCornerParams.Initialize_Dictionary();
 
                 if (SymmetricSuspension)
                 {
                     Point_Counter = KO_CV_Counter.Compute_PointOnPlane(KO_CV_Counter.VCornerParams.TopWishbonePlane, KO_CV_Counter.VCornerParams.InputFormat, Point_Counter);
                     Plot_Point(Point_Counter, KO_CV_Counter.VCornerParams.UBJ, PointName + VCorner_Counter.ToString(), PointName + VCorner_Counter.ToString());
+
+                    KO_CV_Counter.VCornerParams.Initialize_Dictionary();
+
                 }
 
 
@@ -579,11 +583,15 @@ namespace Coding_Attempt_with_GUI
             {
                 Point_Main = KO_CV_Main.Compute_PointOnPlane(KO_CV_Main.VCornerParams.BottomWishbonePlane, KO_CV_Main.VCornerParams.InputFormat, Point_Main);
                 Plot_Point(Point_Main, KO_CV_Main.VCornerParams.LBJ, PointName + VCorner_Main.ToString(), PointName + VCorner_Main.ToString());
+                KO_CV_Main.VCornerParams.Initialize_Dictionary();
 
                 if (SymmetricSuspension)
                 {
                     Point_Counter = KO_CV_Counter.Compute_PointOnPlane(KO_CV_Counter.VCornerParams.BottomWishbonePlane, KO_CV_Counter.VCornerParams.InputFormat, Point_Counter);
                     Plot_Point(Point_Counter, KO_CV_Counter.VCornerParams.LBJ, PointName + VCorner_Counter.ToString(), PointName + VCorner_Counter.ToString());
+
+                    KO_CV_Counter.VCornerParams.Initialize_Dictionary();
+
                 }
             }
 
@@ -592,11 +600,13 @@ namespace Coding_Attempt_with_GUI
                 Point_Main = KO_CV_Main.Compute_PointOnPlane(KO_CV_Main.VCornerParams.RockerPlane, KO_CV_Main.VCornerParams.InputFormat, Point_Main);
 
                 ///<summary>Getting an Approx start point for the <see cref="CoordinateOptions.DamperBellCrank"/></summary>
-                KO_CV_Main.VCornerParams.DamperBellCrank = KO_CV_Main.Compute_ApproxCorrespondingPoint_FromLinkLength(KO_CV_Main.Damper_Length, KO_CV_Main.VCornerParams.DamperShockMount, VCorner_Main);
+                KO_CV_Main.VCornerParams.DamperBellCrank = KO_CV_Main.Compute_ApproxCorrespondingPoint_FromLinkLength(-KO_CV_Main.Damper_Length, KO_CV_Main.VCornerParams.DamperShockMount, VCorner_Main);
                 ///<summary>Getting the proper guess of the <see cref="CoordinateOptions.DamperBellCrank"/> using the plane equations</summary>
                 KO_CV_Main.VCornerParams.DamperBellCrank = KO_CV_Main.Compute_PointOnPlane(KO_CV_Main.VCornerParams.RockerPlane, CoordinateInputFormat.IIO, KO_CV_Main.VCornerParams.DamperBellCrank);
 
                 Plot_Point(Point_Main, PointName + VCorner_Main.ToString());
+
+                KO_CV_Main.VCornerParams.Initialize_Dictionary();
 
                 if (SymmetricSuspension)
                 {
@@ -608,6 +618,9 @@ namespace Coding_Attempt_with_GUI
                     KO_CV_Counter.VCornerParams.DamperBellCrank = KO_CV_Counter.Compute_PointOnPlane(KO_CV_Counter.VCornerParams.RockerPlane, CoordinateInputFormat.IIO, KO_CV_Counter.VCornerParams.DamperBellCrank);
 
                     Plot_Point(Point_Counter, PointName + VCorner_Counter.ToString());
+
+                    KO_CV_Counter.VCornerParams.Initialize_Dictionary();
+
                 }
             }
             else if (CurrentCoordinate == CoordinateOptions.PushrodOutboard)
@@ -615,11 +628,13 @@ namespace Coding_Attempt_with_GUI
                 Point_Main = KO_CV_Main.Compute_PointOnPlane(KO_CV_Main.VCornerParams.RockerPlane, KO_CV_Main.VCornerParams.InputFormat, Point_Main);
 
                 ///<summary>Getting an Approx Start Point for the <see cref="CoordinateOptions.PushrodInboard"/></summary>
-                KO_CV_Main.VCornerParams.PushrodInboard = KO_CV_Main.Compute_ApproxCorrespondingPoint_FromLinkLength(380, KO_CV_Main.VCornerParams.PushrodOutboard, VCorner_Main);
+                KO_CV_Main.VCornerParams.PushrodInboard = KO_CV_Main.Compute_ApproxCorrespondingPoint_FromLinkLength(350, KO_CV_Main.VCornerParams.PushrodOutboard, VCorner_Main);
                 ///<summary>Getting the proper guess of the <see cref="CoordinateOptions.DamperBellCrank"/> using the plane equations</summary>
                 KO_CV_Main.VCornerParams.PushrodInboard = KO_CV_Main.Compute_PointOnPlane(KO_CV_Main.VCornerParams.RockerPlane, CoordinateInputFormat.IIO, KO_CV_Main.VCornerParams.PushrodInboard);
 
                 Plot_Point(Point_Main, PointName + VCorner_Main.ToString());
+
+                KO_CV_Main.VCornerParams.Initialize_Dictionary();
 
                 if (SymmetricSuspension)
                 {
@@ -631,6 +646,8 @@ namespace Coding_Attempt_with_GUI
                     KO_CV_Counter.VCornerParams.PushrodInboard = KO_CV_Counter.Compute_PointOnPlane(KO_CV_Counter.VCornerParams.RockerPlane, CoordinateInputFormat.IIO, KO_CV_Counter.VCornerParams.PushrodInboard);
 
                     Plot_Point(Point_Counter, PointName + VCorner_Counter.ToString());
+
+                    KO_CV_Counter.VCornerParams.Initialize_Dictionary();
                 }
             }
 

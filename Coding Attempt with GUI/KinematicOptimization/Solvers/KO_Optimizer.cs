@@ -15,45 +15,45 @@ namespace Coding_Attempt_with_GUI
     public class KO_Master_Optimizer : IOptimizer
     {
         #region ---Interface Implementation---
-        public double CrossOverProbability { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public double CrossOverProbability { get; set; }
 
-        public Crossover Crossovers { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Crossover Crossovers { get; set; }
 
-        public double MutationProbability { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public double MutationProbability { get; set; }
 
-        public BinaryMutate Mutations { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public BinaryMutate Mutations { get; set; }
 
-        public int ElitePercentage { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int ElitePercentage { get; set; }
 
-        public Elite Elites { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Elite Elites { get; set; }
 
-        public int PopulationSize { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int PopulationSize { get; set; }
 
-        public Population Population { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Population Population { get; set; }
 
-        public int ChromosomeLength { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int ChromosomeLength { get; set; }
 
-        public GeneticAlgorithm GA { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public GeneticAlgorithm GA { get; set; }
 
-        public FitnessFunction EvaluateFitnessOfGeneticAlforithm { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public FitnessFunction EvaluateFitnessOfGeneticAlforithm { get; set; }
 
-        public TerminateFunction Terminate { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public TerminateFunction Terminate { get; set; }
 
-        public Dictionary<string, double> Opt_AdjToolValues { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Dictionary<string, double> Opt_AdjToolValues { get; set; }
 
-        public int No_Generations { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int No_Generations { get; set; }
 
-        public double MaximumErrorOfGeneration { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public double MaximumErrorOfGeneration { get; set; }
 
-        public int SolutionCounter { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int SolutionCounter { get; set; }
 
-        public DoubleWishboneKinematicsSolver DWSolver { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public DoubleWishboneKinematicsSolver DWSolver { get; set; }
 
-        public McPhersonKinematicsSolver McPSolver { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public McPhersonKinematicsSolver McPSolver { get; set; }
 
-        public Vehicle Vehicle { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Vehicle Vehicle { get; set; }
 
-        public Chassis Chassis { get => throw new NotImplementedException(); set => throw new NotImplementedException(); } 
+        public Chassis Chassis { get; set; } 
         #endregion
     }
 
@@ -655,6 +655,11 @@ namespace Coding_Attempt_with_GUI
         Dictionary<string, Point3D> TempOutboardAssembly;
 
         /// <summary>
+        /// Temporary Assembly of Inboard Coordinates
+        /// </summary>
+        Dictionary<string, Point3D> TempInboardAssembly;
+
+        /// <summary>
         /// <see cref="List{Double}"/> containing the deltas of all the wheel deflections
         /// </summary>
         List<double> WheelDeflection_Deltas;
@@ -765,9 +770,9 @@ namespace Coding_Attempt_with_GUI
 
             GA = new GeneticAlgorithm(Population, EvaluateFitnessOfGeneticAlforithm);
 
-            GA.OnGenerationComplete += GA_OnGenerationComplete; ;
+            GA.OnGenerationComplete += GA_OnGenerationComplete; 
 
-            GA.OnRunComplete += GA_OnRunComplete; ;
+            GA.OnRunComplete += GA_OnRunComplete;
 
 
             GA.Operators.Add(Elites);
@@ -804,14 +809,14 @@ namespace Coding_Attempt_with_GUI
 
                 KO_CV.BumpSteerConvergence = new Convergence(System.Math.Round(fitness, 2));
 
-                if (fitness > 1)
-                {
-                    return 1 - 0.99;
-                }
-                else if (fitness < 0)
-                {
-                    return 1 - 0.99;
-                }
+                //if (fitness > 1)
+                //{
+                //    return 1 - 0.99;
+                //}
+                //else if (fitness < 0)
+                //{
+                //    return 1 - 0.99;
+                //}
             }
 
             return fitness;
@@ -909,16 +914,16 @@ namespace Coding_Attempt_with_GUI
             ///Upper and Lower limits of the X Coordinate.
             ///Arbitrary as of no
             /// </remarks>
-            double upperDeltaX = 100;
-            double lowerDeltaX = -100;
+            double upperDeltaX = 400;
+            double lowerDeltaX = -400;
 
             double nominalY = KO_CV.VCornerParams.PushrodInboard.Y;
             ///<remarks>
             ///Upper and Lower limits of the X Coordinate.
             ///Arbitrary as of no
             /// </remarks>
-            double upperDeltaY = 100;
-            double lowerDeltaY = -100;
+            double upperDeltaY = 400;
+            double lowerDeltaY = -400;
 
             ///Range Constant for the Angle
             var rcAngle = GAF.Math.GetRangeConstant(upperAngle - lowerAngle, BitSize);
@@ -981,6 +986,7 @@ namespace Coding_Attempt_with_GUI
         private void Compute_PushrodInboardPoint()
         {
             KO_CV.VCornerParams.PushrodInboard = KO_CV.Compute_PointOnPlane(KO_CV.VCornerParams.RockerPlane, CoordinateInputFormat.IIO, PushrodRockerPoint);
+            KO_CV.VCornerParams.Initialize_Dictionary();
         }
 
         /// <summary>
@@ -990,7 +996,9 @@ namespace Coding_Attempt_with_GUI
         {
             Line damperLine = new Line(KO_CV.VCornerParams.DamperShockMount, KO_CV.VCornerParams.DamperBellCrank);
 
-            damperLine.Rotate(DamperRotationAngle.Radians, KO_CV.VCornerParams.Rocker_Axis_Vector);
+            damperLine.Rotate(DamperRotationAngle.Radians, KO_CV.VCornerParams.Rocker_Axis_Vector, damperLine.StartPoint);
+
+            KO_CV.VCornerParams.Initialize_Dictionary();
         }
 
 
@@ -1030,6 +1038,17 @@ namespace Coding_Attempt_with_GUI
                 TempOutboardAssembly.Add(coordinate, KO_CV.VCornerParams.OutboardAssembly[coordinate].Clone() as Point3D);
             }
 
+            ///<summary>
+            ///Creating a Temporary Dictionary of Outboard Points. 
+            ///This is necessary because this is just a simulation to evaluate the Bump Steer. The actual Outboard Points don't need to change. If i use the <see cref="VehicleCornerParams.OutboardAssembly"/>
+            ///then it will be changed as the points changed and this is not desired
+            /// </summary>
+            TempInboardAssembly = new Dictionary<string, Point3D>();
+            foreach (string coordinate in KO_CV.VCornerParams.InboardAssembly.Keys)
+            {
+                TempInboardAssembly.Add(coordinate, KO_CV.VCornerParams.InboardAssembly[coordinate].Clone() as Point3D);
+            }
+
             ///<summary>Creating a List which holds the DELTAS of wheel deflection as it is the deltas of deflection that we are concerned with and not the actual or Absolute Wheel Deflections</summary>
             WheelDeflection_Deltas = new List<double>();
 
@@ -1050,7 +1069,6 @@ namespace Coding_Attempt_with_GUI
 
             for (int i = 0; i < WheelDeflection_Deltas.Count; i++)
             {
-
                 SolveKinematics_MotionRatioEval(WheelDeflection_Deltas[i], _Vehicle, i, _DwSolver);
             }
 
@@ -1100,18 +1118,18 @@ namespace Coding_Attempt_with_GUI
 
             TempOutboardAssembly[CoordinateOptions.WheelSpindleEnd.ToString()] = new Point3D(L.X, L.Y, L.Z);
 
-            TempOutboardAssembly[CoordinateOptions.PushrodOutboard.ToString()] = new Point3D(G.X, G.Y, G.Z);
+            TempInboardAssembly[CoordinateOptions.PushrodOutboard.ToString()] = new Point3D(G.X, G.Y, G.Z);
 
-            TempOutboardAssembly[CoordinateOptions.PushrodInboard.ToString()] = new Point3D(H.X, H.Y, H.Z);
+            TempInboardAssembly[CoordinateOptions.PushrodInboard.ToString()] = new Point3D(H.X, H.Y, H.Z);
 
-            TempOutboardAssembly[CoordinateOptions.DamperBellCrank.ToString()] = new Point3D(J.X, J.Y, J.Z);
+            TempInboardAssembly[CoordinateOptions.DamperBellCrank.ToString()] = new Point3D(J.X, J.Y, J.Z);
 
 
             ///<summary>Computing and storing the Spring Deflections</summary>
             Calc_SpringDeflection_Deltas.Add(_dwSolver.KO_InitialStage_ComputeSpringDeflection(J));
 
             ///<summary>Initializing the Local Coordinates of the <see cref="SolverMasterClass"/> computed so far</summary>
-            _dwSolver.Assign_LocalCoordinateVariables_WishbonePoints(KO_CV.VCornerParams.InboardAssembly, TempOutboardAssembly);
+            _dwSolver.Assign_LocalCoordinateVariables_WishbonePoints(TempInboardAssembly, TempOutboardAssembly);
 
         }
 
@@ -1122,6 +1140,8 @@ namespace Coding_Attempt_with_GUI
         {
             ///<summary>Initializing a temporary List to perform some pre-processig activaties</summary>
             List<double> temp = new List<double>();
+
+            MotionRatio = new List<double>();
 
             ///<summary>
             ///---IMPORTANT---

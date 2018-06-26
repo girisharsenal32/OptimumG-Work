@@ -457,11 +457,11 @@ namespace Coding_Attempt_with_GUI
 
             if (_vCorner == VehicleCorner.FrontLeft || _vCorner == VehicleCorner.RearLeft)
             {
-                _correspondingPoint.X = _mainPoint.X + _linkLength;
+                _correspondingPoint.X = _mainPoint.X - _linkLength;
             }
             else
             {
-                _correspondingPoint.X = _mainPoint.X - _linkLength;
+                _correspondingPoint.X = _mainPoint.X + _linkLength;
             }
 
             _correspondingPoint.Y = _mainPoint.Y;

@@ -106,15 +106,13 @@ namespace Coding_Attempt_with_GUI
 
             wishboneInboardRR.Get_ParentObjectData(ref KO_CV_RR, this, VehicleCorner.RearRight, DevelopmentStages.ActuationPoints);
 
-            actuationPoints_FL.Get_ParentObject_Data(ref KO_Central, ref KO_CV_FL, this, VehicleCorner.FrontLeft);
+            actuationPoints_FL.Get_ParentObject_Data(ref KO_Central, ref KO_CV_FL, this, VehicleCorner.FrontLeft, ref KO_SimParams);
 
-            actuationPoints_FR.Get_ParentObject_Data(ref KO_Central, ref KO_CV_FR, this, VehicleCorner.FrontRight);
+            actuationPoints_FR.Get_ParentObject_Data(ref KO_Central, ref KO_CV_FR, this, VehicleCorner.FrontRight, ref KO_SimParams);
 
-            actuationPoints_RL.Get_ParentObject_Data(ref KO_Central, ref KO_CV_RL, this, VehicleCorner.RearLeft);
+            actuationPoints_RL.Get_ParentObject_Data(ref KO_Central, ref KO_CV_RL, this, VehicleCorner.RearLeft, ref KO_SimParams);
 
-            actuationPoints_RR.Get_ParentObject_Data(ref KO_Central, ref KO_CV_RR, this, VehicleCorner.RearRight);
-
-
+            actuationPoints_RR.Get_ParentObject_Data(ref KO_Central, ref KO_CV_RR, this, VehicleCorner.RearRight, ref KO_SimParams);
         }
 
         /// <summary>
@@ -2996,13 +2994,13 @@ namespace Coding_Attempt_with_GUI
             {
                 wishboneInboardFL.Get_ParentObjectData(ref KO_CV_FL, ref KO_CV_FR, this, VehicleCorner.FrontLeft, VehicleCorner.FrontRight, DevelopmentStages.WishboneInboardPoints);
 
-                actuationPoints_FL.Get_ParentObject_Data(ref KO_Central, ref KO_CV_FL, ref KO_CV_FR, VehicleCorner.FrontLeft, VehicleCorner.FrontRight, this);
+                actuationPoints_FL.Get_ParentObject_Data(ref KO_Central, ref KO_CV_FL, ref KO_CV_FR, VehicleCorner.FrontLeft, VehicleCorner.FrontRight, this, ref KO_SimParams);
             }
             if (Sus_Type.RearSymmetry_Boolean)
             {
                 wishboneInboardRL.Get_ParentObjectData(ref KO_CV_RL, ref KO_CV_RR, this, VehicleCorner.RearLeft, VehicleCorner.RearRight, DevelopmentStages.WishboneInboardPoints);
 
-                actuationPoints_RL.Get_ParentObject_Data(ref KO_Central, ref KO_CV_RL, ref KO_CV_RR, VehicleCorner.RearLeft, VehicleCorner.RearRight, this);
+                actuationPoints_RL.Get_ParentObject_Data(ref KO_Central, ref KO_CV_RL, ref KO_CV_RR, VehicleCorner.RearLeft, VehicleCorner.RearRight, this, ref KO_SimParams);
             }
 
         }

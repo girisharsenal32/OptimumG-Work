@@ -1038,14 +1038,14 @@ namespace Coding_Attempt_with_GUI
             _pushPullInboard = new Point3D();
 
             Point3D S, T1, U1, V1, T2, U2, V2;
-
+            
             S = new Point3D(l_H1x, l_H1y, l_H1z);
-            T1 = new Point3D(l_G1x, l_G1y, l_G1z);
-            U1 = new Point3D(l_F1x, l_F1y, l_F1z);
-            V1 = new Point3D(l_I1x, l_I1y, l_I1z);
-            T2 = new Point3D(_newPushPullOutboard.X, _newPushPullOutboard.Y, _newPushPullOutboard.Z);
-            U2 = new Point3D(_newUBJ.X, _newUBJ.Y, _newUBJ.Z);
-            V2 = new Point3D(l_I1x, l_I1y, l_I1z);
+            T1 = new Point3D(l_I1x, l_I1y, l_I1z);
+            U1 = new Point3D(l_G1x, l_G1y, l_G1z);
+            V1 = new Point3D(l_F1x, l_F1y, l_F1z);
+            T2 = new Point3D(l_I1x, l_I1y, l_I1z);
+            U2 = new Point3D(_newPushPullOutboard.X, _newPushPullOutboard.Y, _newPushPullOutboard.Z);
+            V2 = new Point3D(_newUBJ.X, _newUBJ.Y, _newUBJ.Z);
 
             QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, _lbjForVerticalCheck.Y, false, out _pushPullInboard);
 
@@ -1096,7 +1096,7 @@ namespace Coding_Attempt_with_GUI
         {
             Line3D damperLine_New = new Line3D(new Point3D(l_JO1x, l_JO1y, l_JO1z), _newDamperRocker);
 
-            Line3D damperLine_Prev = new Line3D(new Point3D(l_JO1x, l_JO1y, l_JO1z), new Point3D(l_J1x, l_J1y, l_J1z);
+            Line3D damperLine_Prev = new Line3D(new Point3D(l_JO1x, l_JO1y, l_JO1z), new Point3D(l_J1x, l_J1y, l_J1z));
 
             double springDefletion = damperLine_New.Length - damperLine_Prev.Length;
 
