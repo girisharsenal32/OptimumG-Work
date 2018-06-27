@@ -747,7 +747,9 @@ namespace Coding_Attempt_with_GUI
 
             if (Symmetry)
             {
-                KO_CV_Counter.Optimize_Actuation_RockerPoints(ref KO_CV_Counter, ref KO_Central, ref KO_SimParams, VCorner_Counter, ParentObject);
+                KO_CV_Counter.VCornerParams.PushrodInboard = new devDept.Geometry.Point3D(-KO_CV_Main.VCornerParams.PushrodInboard.X, KO_CV_Main.VCornerParams.PushrodInboard.Y, KO_CV_Main.VCornerParams.PushrodInboard.Z);
+
+                KO_CV_Counter.VCornerParams.DamperBellCrank = new devDept.Geometry.Point3D(-KO_CV_Main.VCornerParams.DamperBellCrank.X, KO_CV_Main.VCornerParams.DamperBellCrank.Y, KO_CV_Main.VCornerParams.DamperBellCrank.Z);
 
                 ParentObject.Plot_InboardPoints(KO_CV_Counter.VCornerParams.PushrodInboard, KO_CV_Counter.VCornerParams.PushrodOutboard, "KO_CV_Counter.VCornerParams.PushrodInboard" + VCorner_Counter.ToString(), "Pushrod" + VCorner_Counter.ToString());
 

@@ -1075,6 +1075,35 @@ namespace Coding_Attempt_with_GUI
                 _ocSteps.AngleOfRotation = 0;
             }
         }
+
+        /// <summary>
+        /// ---Used for Kinematic Design Optimization---
+        /// Method to compute the Angle of Rotation of the Rocker using the DELTA of Spring Deflection
+        /// </summary>
+        /// <param name="_dSpringDeflection">Delta of Spring Deflection</param>
+        /// <param name="_angleRot">Computed Angle of Rotation</param>
+        public void Compute_AngleofRot_Rocker(double _dSpringDeflection, out Angle _angleRot)
+        {
+            _angleRot = new Angle();
+
+            J1I = Math.Sqrt(Math.Pow((l_I1x - l_J1x), 2) + (Math.Pow((l_I1y - l_J1y), 2)) + (Math.Pow((l_I1z - l_J1z), 2)));
+            JoI = Math.Sqrt(Math.Pow((l_I1x - l_JO1x), 2) + (Math.Pow((l_I1y - l_JO1y), 2)) + (Math.Pow((l_I1z - l_JO1z), 2)));
+            J1Jo = Math.Sqrt(Math.Pow((l_J1x - l_JO1x), 2) + (Math.Pow((l_J1y - l_JO1y), 2)) + (Math.Pow((l_J1z - l_JO1z), 2)));
+
+
+            J2Jo = J1Jo - _dSpringDeflection;
+            J2Jo_Loop = J1Jo - _dSpringDeflection;
+
+            double AngleOfRotation = Math.Acos(((Math.Pow(J1I, 2) + Math.Pow(JoI, 2) - Math.Pow(J1Jo, 2)) / (2 * J1I * JoI))) - Math.Acos(((Math.Pow(J1I, 2) + Math.Pow(JoI, 2) - Math.Pow(J2Jo_Loop, 2)) / (2 * J1I * JoI)));
+
+            if (Double.IsNaN(AngleOfRotation) || Double.IsInfinity(AngleOfRotation))
+            {
+                AngleOfRotation = 0;
+            }
+
+            _angleRot = new Angle(AngleOfRotation, AngleUnit.Radians);
+        }
+
         #endregion
 
         #region ---This method is no longer required as the Steering Angles are calculated based on the Number of Universal Joints---
