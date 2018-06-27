@@ -991,7 +991,7 @@ namespace Coding_Attempt_with_GUI
             QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, 0, false, out _newUBJ);
         }
 
-        public void KO_InitialStage_ToeLinnkOutboard(double _wheelDeflection, Point3D _newLBJ, Point3D _newUBJ, out Point3D _toeLinkOutboard)
+        public void KO_InitialStage_BS_ToeLinnkOutboard(double _wheelDeflection, Point3D _newLBJ, Point3D _newUBJ, out Point3D _toeLinkOutboard)
         {
             _toeLinkOutboard = new Point3D();
 
@@ -1014,7 +1014,7 @@ namespace Coding_Attempt_with_GUI
         }
 
 
-        public void KO_InitialStage_WheelCenter(Point3D _newLBJ, Point3D _newUBJ, Point3D _newToeLinkOutboard, out Point3D _wheelCenter)
+        public void KO_InitialStage_BS_WheelCenter(Point3D _newLBJ, Point3D _newUBJ, Point3D _newToeLinkOutboard, out Point3D _wheelCenter)
         {
             _wheelCenter = new Point3D();
 
@@ -1034,7 +1034,7 @@ namespace Coding_Attempt_with_GUI
         }
 
 
-        public void KO_InitialStage_WheelSpindleEnd(Point3D _newLBJ, Point3D _newWheelCenter, Point3D _newToeLinkOutboard, out Point3D _wheelSpindleEnd)
+        public void KO_InitialStage_BS_WheelSpindleEnd(Point3D _newLBJ, Point3D _newWheelCenter, Point3D _newToeLinkOutboard, out Point3D _wheelSpindleEnd)
         {
             _wheelSpindleEnd = new Point3D();
 
@@ -1052,7 +1052,7 @@ namespace Coding_Attempt_with_GUI
             QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, _newLBJ.Y, false, out _wheelSpindleEnd);
         }
 
-        public void KO_InitialStage_PushPullOutboard(Point3D _newPushPullRocker, Point3D _lbjForVerticalCheck, out Point3D _pushrodOutboard)
+        public void KO_InitialStage_MR_PushPullOutboard(Point3D _newPushPullRocker, Point3D _lbjForVerticalCheck, out Point3D _pushrodOutboard)
         {
             _pushrodOutboard = new Point3D();
 
@@ -1067,6 +1067,24 @@ namespace Coding_Attempt_with_GUI
             V2 = new Point3D(l_B1x, l_B1y, l_B1z);
 
             QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, _lbjForVerticalCheck.Y, false, out _pushrodOutboard);
+        }
+
+        public void KO_InitialStage_MR_ARBLeverEnd(Point3D _newPushPullRocker, Point3D _newABRRocker,out Point3D _arbDroopLinkLeverPoint)
+        {
+            _arbDroopLinkLeverPoint = new Point3D();
+
+            Point3D S, T1, U1, V1, T2, U2, V2;
+
+            S = new Point3D(l_P1x, l_P1y, l_P1z);
+            T1 = new Point3D(l_O1x, l_O1y, l_O1z);
+            U1 = new Point3D(l_H1x, l_H1y, l_H1z);
+            V1 = new Point3D(l_Q1x, l_Q1y, l_Q1z);
+            T2 = new Point3D(_newABRRocker.X, _newABRRocker.Y, _newABRRocker.Z);
+            U2 = new Point3D(_newPushPullRocker.X, _newPushPullRocker.Y, _newPushPullRocker.Z);
+            V2 = new Point3D(l_Q1x, l_Q1y, l_Q1z);
+
+            QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, -50, false, out _arbDroopLinkLeverPoint);
+
         }
 
         //public void KO_InitialStage_PushPullRocker(Point3D _newPushPullOutboard, Point3D _newUBJ, Point3D _lbjForVerticalCheck, out Point3D _pushPullInboard)
@@ -1155,6 +1173,15 @@ namespace Coding_Attempt_with_GUI
             double wheelDef = deflectionLine_New.Length - deflectionLine_Old.Length;
 
             return wheelDef;
+        }
+
+        public double KO_InitialStage_Compute_ARBLeverDeflection(Point3D _arbDroopLinkLeverPoint)
+        {
+            Point3D arbDroopLinkLeverPoint_Old = new Point3D(l_P1x, l_P1y, l_P1z);
+
+            double arbLeverDef =  arbDroopLinkLeverPoint_Old.DistanceTo(_arbDroopLinkLeverPoint);
+
+            return arbLeverDef;
         }
 
         #endregion

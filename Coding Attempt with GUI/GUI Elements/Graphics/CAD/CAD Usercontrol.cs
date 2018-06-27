@@ -2898,9 +2898,9 @@ namespace Coding_Attempt_with_GUI
 
             viewportLayout1.Invalidate();
 
-            viewportLayout1.ZoomFit();
+            //viewportLayout1.ZoomFit();
 
-            viewportLayout1.SetView(viewType.Isometric);
+            //viewportLayout1.SetView(viewType.Isometric);
         }
 
 

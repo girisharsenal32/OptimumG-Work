@@ -129,39 +129,24 @@ namespace Coding_Attempt_with_GUI
         public MotionRatioFormat MotionRatio_Format { get; set; }
 
         /// <summary>
-        /// Motion Ratio of the Suspension as input by the user
+        /// Motion Ratio of the Suspension Sprngs as input by the user
         /// </summary>
         public double MotionRatio_Spring { get; set; }
 
-        ///// <summary>
-        ///// Axis of the Vector as input by the user
-        ///// </summary>
-        //public Vector3D Rocker_Axis { get; set; }
-
-        ///// <summary>
-        ///// <para>---Important--- This point is also present in the <see cref="VCornerParams"/>. It is still declared here because the user is going to be providing this as an input</para>
-        ///// <para>Center of the Rocker as input by the user</para>
-        ///// </summary>
-        //public Point3D Rocker_Center { get; set; }
-
-        ///// <summary>
-        ///// <para>---Important--- This point is also present in the <see cref="VCornerParams"/>. It is still declared here because the user is going to be providing this as an input</para>
-        ///// <para>Damper Inboard Point as input by the user</para>
-        ///// </summary>
-        //public Point3D Damper_Inboard { get; set; }
+        /// <summary>
+        /// Motion Ratio of the Suspension ARB as Input by the user
+        /// </summary>
+        public double MotionRatio_ARB { get; set; }
 
         /// <summary>
         /// Static Length of the Damper as input by the user
         /// </summary>
         public double Damper_Length { get; set; }
 
-        ///// <summary>
-        ///// <para>---Important--- This point is also present in the <see cref="VCornerParams"/>. It is still declared here because the user is going to be providing this as an input</para>
-        ///// <para>Pushrod Outboard Point as input by the user</para>
-        ///// </summary>
-        //public Point3D Pushrod_Outboard { get; set; }
-
-
+        /// <summary>
+        /// Length of the ARB Droop Link 
+        /// </summary>
+        public double ARB_DroopLink_Length { get; set; }
 
         /// <summary>
         /// <see cref="Point3D"/> representing the Contact Patch Initialized using the Track and Wheelbase

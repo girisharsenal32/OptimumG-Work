@@ -152,9 +152,21 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         public Point3D DamperBellCrank;
         /// <summary>
+        /// ARB Bell-Crank Pick-Up Point
+        /// </summary>
+        public Point3D ARBBellCrank;
+        /// <summary>
         /// Center or Pivot Point of the Rocker
         /// </summary>
         public Point3D Rocker_Center;
+        /// <summary>
+        /// End Point of the ARB Rod itself
+        /// </summary>
+        public Point3D ARB_EndPoint_Chassis;
+        /// <summary>
+        /// Point of attachment of the ARB Droop Link on the Lever
+        /// </summary>
+        public Point3D ARB_DroopLink_LeverPoint;
         /// <summary>
         /// Vector representing the Axis of the Rocker
         /// </summary>
@@ -334,7 +346,13 @@ namespace Coding_Attempt_with_GUI
 
             DamperBellCrank = new Point3D();
 
+            ARBBellCrank = new Point3D();
+
             DamperShockMount = new Point3D();
+
+            ARB_EndPoint_Chassis = new Point3D();
+
+            ARB_DroopLink_LeverPoint = new Point3D();
 
             Rocker_Center = new Point3D();
 
@@ -394,8 +412,17 @@ namespace Coding_Attempt_with_GUI
             ///Damper BellCrank
             InboardAssembly.Add(CoordinateOptions.DamperBellCrank.ToString(), DamperBellCrank);
 
+            //ARB BellCrank
+            InboardAssembly.Add(CoordinateOptions.ARBBellCrank.ToString(), ARBBellCrank);
+
             ///Damper Chassis Shock Mount
             InboardAssembly.Add(CoordinateOptions.DamperShockMount.ToString(), DamperShockMount);
+
+            //ARB End Point on Chassis
+            InboardAssembly.Add(CoordinateOptions.ARBEndPointChassis.ToString(), ARB_EndPoint_Chassis);
+
+            //ARB Droop Link Point on Lever
+            InboardAssembly.Add(CoordinateOptions.ARBDroopLinkEndPoint.ToString(), ARB_DroopLink_LeverPoint);
 
             ///Rocker Pivot Point
             InboardAssembly.Add(CoordinateOptions.BellCrankPivot.ToString(), Rocker_Center);

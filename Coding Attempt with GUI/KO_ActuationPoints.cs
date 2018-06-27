@@ -189,27 +189,28 @@ namespace Coding_Attempt_with_GUI
         #endregion
 
         #region -- Motion Ratio --
-        //---Motion Ratio---
+
+        //---Motion Ratio - SPRING---
         private void tbMR_Leave(object sender, EventArgs e)
         {
-            Set_MotionRatio();
+            Set_MotionRatio_Spring();
         }
 
         private void tbMR_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                Set_MotionRatio();
+                Set_MotionRatio_Spring();
             }
         }
 
-        private void Set_MotionRatio()
+        private void Set_MotionRatio_Spring()
         {
-            if (DoubleValidation(tbMR.Text))
+            if (DoubleValidation(tbMR_Spring.Text))
             {
-                if (Validatepositve_Double(tbMR.Text))
+                if (Validatepositve_Double(tbMR_Spring.Text))
                 {
-                    KO_CV_Main.MotionRatio_Spring = Convert.ToDouble(tbMR.Text);
+                    KO_CV_Main.MotionRatio_Spring = Convert.ToDouble(tbMR_Spring.Text);
 
                     if (Symmetry)
                     {
@@ -226,6 +227,188 @@ namespace Coding_Attempt_with_GUI
                 MessageBox.Show(NumericError);
             }
         }
+
+
+        //---Motion Ratio - ARB---
+        private void tbMR_ARB_Leave(object sender, EventArgs e)
+        {
+            Set_MotionRatio_ARB();
+        }
+
+        private void tbMR_ARB_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_MotionRatio_ARB();
+            }
+        }
+
+        private void Set_MotionRatio_ARB()
+        {
+            if (DoubleValidation(tbMR_ARB.Text))
+            {
+                if (Validatepositve_Double(tbMR_ARB.Text))
+                {
+                    KO_CV_Main.MotionRatio_ARB = Convert.ToDouble(tbMR_ARB.Text);
+
+                    if (Symmetry)
+                    {
+                        KO_CV_Counter.MotionRatio_ARB = KO_CV_Main.MotionRatio_ARB;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(NegativeError);
+                }
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+        #endregion
+
+        #region -- ARB Parameters --
+
+        //---Drorp Link Length---
+        private void tbARB_DroopLink_Leave(object sender, EventArgs e)
+        {
+            Set_ARB_DroopLinkLength();
+        }
+
+        private void tbARB_DroopLink_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_ARB_DroopLinkLength();
+            }
+        }
+
+        private void Set_ARB_DroopLinkLength()
+        {
+            if (DoubleValidation(tbARB_DroopLink.Text))
+            {
+                if (Validatepositve_Double(tbARB_DroopLink.Text))
+                {
+                    KO_CV_Main.ARB_DroopLink_Length = Convert.ToDouble(tbARB_DroopLink.Text);
+
+                    if (Symmetry)
+                    {
+                        KO_CV_Counter.ARB_DroopLink_Length = KO_CV_Main.ARB_DroopLink_Length;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(NegativeError);
+                }
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+
+        //--End Point--
+
+        //-X-
+        private void tbARB_EndPoint_X_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_ARB_EndPoint_X();
+            }
+        }
+
+        private void tbARB_EndPoint_X_Leave(object sender, EventArgs e)
+        {
+            Set_ARB_EndPoint_X();
+        }
+
+        private void Set_ARB_EndPoint_X()
+        {
+            if (DoubleValidation(tbARB_EndPoint_X.Text))
+            {
+
+                KO_CV_Main.VCornerParams.ARB_EndPoint_Chassis.Z = Convert.ToDouble(tbARB_EndPoint_X.Text);
+
+                if (Symmetry)
+                {
+                    KO_CV_Counter.VCornerParams.ARB_EndPoint_Chassis.Z = KO_CV_Main.VCornerParams.ARB_EndPoint_Chassis.Z;
+                }
+
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+        //-Y-
+        private void tbARB_EndPoint_Y_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_ARB_EndPoint_Y();
+            }
+        }
+
+        private void tbARB_EndPoint_Y_Leave(object sender, EventArgs e)
+        {
+            Set_ARB_EndPoint_Y();
+        }
+
+        private void Set_ARB_EndPoint_Y()
+        {
+            if (DoubleValidation(tbARB_EndPoint_Y.Text))
+            {
+                KO_CV_Main.VCornerParams.ARB_EndPoint_Chassis.X = Convert.ToDouble(tbARB_EndPoint_Y.Text);
+
+                if (Symmetry)
+                {
+                    KO_CV_Counter.VCornerParams.ARB_EndPoint_Chassis.X = -KO_CV_Main.VCornerParams.ARB_EndPoint_Chassis.X;
+                }
+
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+        //-Z-
+        private void tbARB_EndPoint_Z_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_ARB_EndPoint_Z();
+            }
+        }
+
+        private void tbARB_EndPoint_Z_Leave(object sender, EventArgs e)
+        {
+            Set_ARB_EndPoint_Z();
+        }
+
+        private void Set_ARB_EndPoint_Z()
+        {
+            if (DoubleValidation(tbARB_EndPoint_Z.Text))
+            {
+                KO_CV_Main.VCornerParams.ARB_EndPoint_Chassis.Y = Convert.ToDouble(tbARB_EndPoint_Z.Text);
+
+                if (Symmetry)
+                {
+                    KO_CV_Counter.VCornerParams.ARB_EndPoint_Chassis.Y = KO_CV_Main.VCornerParams.ARB_EndPoint_Chassis.Y;
+                }
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+
         #endregion
 
         #region -- Rocker --
@@ -759,5 +942,11 @@ namespace Coding_Attempt_with_GUI
 
             }
         }
+
+
+
+
+
+
     }
 }

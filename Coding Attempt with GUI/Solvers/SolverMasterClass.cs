@@ -315,6 +315,10 @@ namespace Coding_Attempt_with_GUI
             l_I1y = _inboardPoints[CoordinateOptions.BellCrankPivot.ToString()].Y;
             l_I1z = _inboardPoints[CoordinateOptions.BellCrankPivot.ToString()].Z;
 
+            l_Q1x = _inboardPoints[CoordinateOptions.ARBEndPointChassis.ToString()].X;
+            l_Q1y = _inboardPoints[CoordinateOptions.ARBEndPointChassis.ToString()].Y;
+            l_Q1z = _inboardPoints[CoordinateOptions.ARBEndPointChassis.ToString()].Z;
+
             l_JO1x = _inboardPoints[CoordinateOptions.DamperShockMount.ToString()].X;
             l_JO1y = _inboardPoints[CoordinateOptions.DamperShockMount.ToString()].Y;
             l_JO1z = _inboardPoints[CoordinateOptions.DamperShockMount.ToString()].Z;
@@ -326,6 +330,11 @@ namespace Coding_Attempt_with_GUI
             l_J1x = _inboardPoints[CoordinateOptions.DamperBellCrank.ToString()].X;
             l_J1y = _inboardPoints[CoordinateOptions.DamperBellCrank.ToString()].Y;
             l_J1z = _inboardPoints[CoordinateOptions.DamperBellCrank.ToString()].Z;
+
+            l_O1x = _inboardPoints[CoordinateOptions.ARBBellCrank.ToString()].X;
+            l_O1y = _inboardPoints[CoordinateOptions.ARBBellCrank.ToString()].Y;
+            l_O1z = _inboardPoints[CoordinateOptions.ARBBellCrank.ToString()].Z;
+
 
 
             ///<remarks>Assigning Outboard Pick Up Points</remarks>
@@ -353,7 +362,9 @@ namespace Coding_Attempt_with_GUI
             L1y = _outboardPoints[CoordinateOptions.WheelSpindleEnd.ToString()].Y;
             L1z = _outboardPoints[CoordinateOptions.WheelSpindleEnd.ToString()].Z;
 
-
+            l_P1x = _outboardPoints[CoordinateOptions.ARBDroopLinkEndPoint.ToString()].X;
+            l_P1y = _outboardPoints[CoordinateOptions.ARBDroopLinkEndPoint.ToString()].Y;
+            l_P1z = _outboardPoints[CoordinateOptions.ARBDroopLinkEndPoint.ToString()].Z;
 
         }
         #endregion
@@ -1090,11 +1101,35 @@ namespace Coding_Attempt_with_GUI
             JoI = Math.Sqrt(Math.Pow((l_I1x - l_JO1x), 2) + (Math.Pow((l_I1y - l_JO1y), 2)) + (Math.Pow((l_I1z - l_JO1z), 2)));
             J1Jo = Math.Sqrt(Math.Pow((l_J1x - l_JO1x), 2) + (Math.Pow((l_J1y - l_JO1y), 2)) + (Math.Pow((l_J1z - l_JO1z), 2)));
 
+            //MathNet.Spatial.Euclidean.Vector3D J1Jo_Mathnet = new MathNet.Spatial.Euclidean.Vector3D(l_J1x - l_JO1x, l_J1y - l_JO1y, l_J1z - l_JO1z);
+            //MathNet.Spatial.Euclidean.Vector3D J2Jo_Mathnet = J1Jo_Mathnet;
+
+            Line j1jo = new Line(new Point3D(l_JO1x, l_JO1y, l_JO1z), new Point3D(l_J1x, l_J1y, l_J1z));
+            
+            j1jo.Direction.Normalize();
+            Point3D j = new Point3D(l_J1x, l_J1y, l_J1z);
+
+            Point3D jo = new Point3D(l_JO1x, l_JO1y, l_JO1z);
+
+            Vector3D j1jo_Vec = new Vector3D(jo, j);
+            j1jo_Vec.Normalize();
+
+            Point3D j2 = j - (_dSpringDeflection * j1jo_Vec);
+
+            Point3D i = new Point3D(l_I1x, l_I1y, l_I1z);
+
+            MathNet.Spatial.Euclidean.Vector3D ij1 = new MathNet.Spatial.Euclidean.Vector3D(i.X - j.X, i.Y - j.Y, i.Z - j.Z);
+
+            MathNet.Spatial.Euclidean.Vector3D ij2 = new MathNet.Spatial.Euclidean.Vector3D(i.X - j2.X, i.Y - j2.Y, i.Z - j2.Z);
+
+            Angle rot = ij1.SignedAngleTo(ij2, new MathNet.Spatial.Euclidean.UnitVector3D(0, 0, 100));
 
             J2Jo = J1Jo - _dSpringDeflection;
             J2Jo_Loop = J1Jo - _dSpringDeflection;
 
-            double AngleOfRotation = Math.Acos(((Math.Pow(J1I, 2) + Math.Pow(JoI, 2) - Math.Pow(J1Jo, 2)) / (2 * J1I * JoI))) - Math.Acos(((Math.Pow(J1I, 2) + Math.Pow(JoI, 2) - Math.Pow(J2Jo_Loop, 2)) / (2 * J1I * JoI)));
+            //double AngleOfRotation = Math.Acos(((Math.Pow(J1I, 2) + Math.Pow(JoI, 2) - Math.Pow(J1Jo, 2)) / (2 * J1I * JoI))) - Math.Acos(((Math.Pow(J1I, 2) + Math.Pow(JoI, 2) - Math.Pow(J2Jo_Loop, 2)) / (2 * J1I * JoI)));
+
+            double AngleOfRotation = rot.Radians;
 
             if (Double.IsNaN(AngleOfRotation) || Double.IsInfinity(AngleOfRotation))
             {
