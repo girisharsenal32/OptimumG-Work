@@ -645,6 +645,11 @@ namespace Coding_Attempt_with_GUI
         Angle DamperRotationAngle;
 
         /// <summary>
+        /// The angle through which the ARB Droop Link will be rotated to generate a new iteration of the <see cref="CoordinateOptions.ARBLeverEndPoint"/> Point
+        /// </summary>
+        Angle DroopLinkAngle;
+
+        /// <summary>
         /// The coordinates of the <see cref="CoordinateOptions.PushrodInboard"/> which the Optimizer is trying to Optimize
         /// ---IMPORTANT--- The Optimizer will only generate X and Y Coordinates of the this point, the Z coordinate will be generated using the Equation of the Rocker Plane
         /// ---IMPORTANT--- This point is used for the Motion Analysis and hence constantly keeps changing
@@ -683,6 +688,19 @@ namespace Coding_Attempt_with_GUI
         /// ---IMPORTANT--- This point is NOT used for the Motion Analysis and hence once it is initialied by the <see cref="KO_Master_Optimizer.GA"/> it remains constant for that Solution
         /// </summary>
         Point3D ARBRockerPoint = new Point3D();
+
+        /// <summary>
+        /// The coordinates of the <see cref="CoordinateOptions.ARBLeverEndPoint"/> which the Optimizer is trying to Optimize
+        /// ---IMPORTANT--- The Optimizer will only generate X and Y Coordinates of the this point, the Z coordinate will be generated using the Equation of the Rocker Plane
+        /// ---IMPORTANT--- This point is used for the Motion Analysis and hence constantly keeps changing
+        /// </summary>
+        Point3D ARBLeverEnd_ForMotionAnalysis = new Point3D();
+        /// <summary>
+        /// The coordinates of the <see cref="CoordinateOptions.ARBLeverEndPoint"/> which the Optimizer is trying to Optimize
+        /// ---IMPORTANT--- The Optimizer will only generate X and Y Coordinates of the this point, the Z coordinate will be generated using the Equation of the Rocker Plane
+        /// ---IMPORTANT--- This point is NOT used for the Motion Analysis and hence once it is initialied by the <see cref="KO_Master_Optimizer.GA"/> it remains constant for that Solution
+        /// </summary>
+        Point3D ARBLeverEnd = new Point3D();
 
         /// <summary>
         /// Temporary assembly of Outboard Coordinates
@@ -765,7 +783,7 @@ namespace Coding_Attempt_with_GUI
 
             VCorner = _vCorner;
 
-            ChromosomeLength = 50;
+            ChromosomeLength = 60;
 
             BitSize = 10;
             
@@ -864,8 +882,11 @@ namespace Coding_Attempt_with_GUI
                 Initialize_OptimizerOutputs();
 
                 ///<summary>Extracting the Coordinates from the <see cref="IOptimizer.GA"/> generated Chromosome</summary>
-                ExtractChromosoomes(chromosome, out DamperRotationAngle, out double x, out double y);
-                PushrodRockerPoint_ForMotionAnalysis = new Point3D(x, y, 0);
+                ExtractChromosoomes(chromosome, out DamperRotationAngle, out DroopLinkAngle, out double xPushRocker, out double yPushRocker, out double xARBRocker, out double yARBRocker);
+                PushrodRockerPoint_ForMotionAnalysis = new Point3D(xPushRocker, yPushRocker, 0);
+                ARBRockerPoint_ForMotionAnalysis = new Point3D(xARBRocker, yARBRocker, 0);
+                
+
 
                 fitness = 1 - Compute_MainError();
 
@@ -954,59 +975,106 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_damperRotAngle">The rotation angle through which the damper will be rotated (about the Rocker Axis) to generate a new iteration of the <see cref="CoordinateOptions.DamperBellCrank"/></param>
         /// <param name="_xPush">X Coordinate of the <see cref="CoordinateOptions.PushrodInboard"/></param>
         /// <param name="_yPush">Y Coordinate of the <see cref="CoordinateOptions.PushrodInboard"/></param>
-        private void ExtractChromosoomes(Chromosome chromosome, out Angle _damperRotAngle, out double _xPush, out double _yPush)
+        private void ExtractChromosoomes(Chromosome chromosome, out Angle _damperRotAngle, out Angle _droopLinkAngle, out double _xPush, out double _yPush, out double _xARBRocker, out double _yARBRocker)
         {
             _damperRotAngle = new Angle();
 
+            _droopLinkAngle = new Angle();
+
             _xPush = _yPush = 0;
 
+            _xARBRocker = _yARBRocker = 0;
 
-            double nominalAngle = 0;
-            double upperAngle = 70/*360*/;
-            double lowerAngle = -70/*0*/;
+            double nominalAngle_Damper = 0;
+            double upperAngle_Damper = 70/*360*/;
+            double lowerAngle_Damper = -70/*0*/;
+
+            double nominalAngle_DroopLink = 0;
+            double upperAngle_DroopLink = /*70*/180;
+            double lowerAngle_DroopLink = /*-70*/-180;
 
             ///<summary>
-            ///Assigning the Nominal,Upper and Lower Values of the X/Y/Z Coordinates. This will be later on obtained from the User
+            ///Assigning the Nominal,Upper and Lower Values of the X/Y/Z Coordinates of the PUSHROD ROCKER . This will be later on obtained from the User
             /// </summary>
-            double nominalX = KO_CV.VCornerParams.Rocker_Center.X;
+            double nominalX_Push = KO_CV.VCornerParams.Rocker_Center.X;
             ///<remarks>
-            ///Upper and Lower limits of the X Coordinate.
+            ///Upper and Lower limits of the X Coordinate of the PUSHROD ROCKER
             ///Arbitrary as of no
             /// </remarks>
-            double upperDeltaX = 65;
-            double lowerDeltaX = /*-65*/0;
+            double upperDeltaX_Push = 65;
+            double lowerDeltaX_Push = /*-65*/0;
 
-            double nominalY = KO_CV.VCornerParams.Rocker_Center.Y;
+            double nominalY_Push = KO_CV.VCornerParams.Rocker_Center.Y;
             ///<remarks>
-            ///Upper and Lower limits of the X Coordinate.
+            ///Upper and Lower limits of the Y Coordinate of the PUSHROD ROCKER
             ///Arbitrary as of no
             /// </remarks>
-            double upperDeltaY = 65;
-            double lowerDeltaY = -65/*0*/;
+            double upperDeltaY_Push = 65;
+            double lowerDeltaY_Push = -65/*0*/;
 
-            ///Range Constant for the Angle
-            var rcAngle = GAF.Math.GetRangeConstant(upperAngle - lowerAngle, BitSize);
 
-            /// Range constant for x
-            var rcx = GAF.Math.GetRangeConstant(upperDeltaX - lowerDeltaX, BitSize);
+            ///<summary>
+            ///Assigning the Nominal,Upper and Lower Values of the X/Y/Z Coordinates of the ARB ROCKER . This will be later on obtained from the User
+            /// </summary>
+            double nominalX_ARBRocker = KO_CV.VCornerParams.Rocker_Center.X;
+            ///<remarks>
+            ///Upper and Lower limits of the X Coordinate of the ARB ROCKER
+            ///Arbitrary as of no
+            /// </remarks>
+            double upperDeltaX_ARBRocker = 65;
+            double lowerDeltaX_ARBRocker = /*-65*/0;
 
-            /// Range constant for y
-            var rcy = GAF.Math.GetRangeConstant(upperDeltaY - lowerDeltaY, BitSize);
+            double nominalY_ARBRocker = KO_CV.VCornerParams.Rocker_Center.Y;
+            ///<remarks>
+            ///Upper and Lower limits of the Y Coordinate of the ARB ROCKER
+            ///Arbitrary as of no
+            /// </remarks>
+            double upperDeltaY_ARBRocker = 65;
+            double lowerDeltaY_ARBRocker = -65/*0*/;
+
+
+
+            ///Range Constant for the Angle of Rotation of the Damper
+            var rcAngle_Damper = GAF.Math.GetRangeConstant(upperAngle_Damper - lowerAngle_Damper, BitSize);
+
+            /// Range constant for x for the Pushrod Rocker X Coordinate
+            var rcx_Push = GAF.Math.GetRangeConstant(upperDeltaX_Push - lowerDeltaX_Push, BitSize);
+
+            /// Range constant for y for the Pushrod Rocker X Coordinate
+            var rcy_Push = GAF.Math.GetRangeConstant(upperDeltaY_Push - lowerDeltaY_Push, BitSize);
+
+            ///Range Constant for the Angle of Rotation of the ARB
+            var rcAngle_DroopLink = GAF.Math.GetRangeConstant(upperAngle_DroopLink - lowerAngle_DroopLink, BitSize);
+
+            /// Range constant for x for the ARBrod Rocker X Coordinate
+            var rcx_ARBRocker = GAF.Math.GetRangeConstant(upperDeltaX_ARBRocker - lowerDeltaX_ARBRocker, BitSize);
+
+            /// Range constant for y for the ARBrod Rocker X Coordinate
+            var rcy_ARBRocker = GAF.Math.GetRangeConstant(upperDeltaY_ARBRocker - lowerDeltaY_ARBRocker, BitSize);
+
 
 
             /// Retrieving the 10 bit values as from the <param name="chromosome"
-            var angle1 = Convert.ToInt32(chromosome.ToBinaryString(0, BitSize), 2);
-            var x1 = Convert.ToInt32(chromosome.ToBinaryString(BitSize, BitSize), 2);
-            var y1 = Convert.ToInt32(chromosome.ToBinaryString(BitSize * 2, BitSize), 2);
+            var angle1_Damper = Convert.ToInt32(chromosome.ToBinaryString(0, BitSize), 2);
+            var x1_Push = Convert.ToInt32(chromosome.ToBinaryString(BitSize, BitSize), 2);
+            var y1_Push = Convert.ToInt32(chromosome.ToBinaryString(BitSize * 2, BitSize), 2);
+            var angle1_DroopLink = Convert.ToInt32(chromosome.ToBinaryString(BitSize * 3, BitSize), 2);
+            var x1_ARBRocker = Convert.ToInt32(chromosome.ToBinaryString(BitSize * 4, BitSize), 2);
+            var y1_ARBRocker = Convert.ToInt32(chromosome.ToBinaryString(BitSize * 5, BitSize), 2);
+
 
             /// Multiplying by the appropriate range constant and adjusting for any in the range (Lower Delta is the Offset) to get the real values
             ///<remarks>
             ///https://gaframework.org/wiki/index.php/How_to_Encode_Parameters
             ///Visit link above for more information on the code below
             /// </remarks>
-            _damperRotAngle = new Angle(System.Math.Round(((angle1 * rcAngle) + (nominalAngle + lowerAngle)), 2), AngleUnit.Degrees);
-            _xPush = System.Math.Round((x1 * rcx) + (nominalX + lowerDeltaX), 3);
-            _yPush = System.Math.Round((y1 * rcy) + (nominalY + lowerDeltaY), 3);
+            _damperRotAngle = new Angle(System.Math.Round(((angle1_Damper * rcAngle_Damper) + (nominalAngle_Damper + lowerAngle_Damper)), 2), AngleUnit.Degrees);
+            _xPush = System.Math.Round((x1_Push * rcx_Push) + (nominalX_Push + lowerDeltaX_Push), 3);
+            _yPush = System.Math.Round((y1_Push * rcy_Push) + (nominalY_Push + lowerDeltaY_Push), 3);
+
+            _droopLinkAngle = new Angle(System.Math.Round(((angle1_DroopLink * rcAngle_DroopLink) + (nominalAngle_DroopLink + lowerAngle_DroopLink)), 2), AngleUnit.Degrees);
+            _xARBRocker = System.Math.Round((x1_ARBRocker* rcx_ARBRocker) + (nominalX_ARBRocker + lowerDeltaX_ARBRocker), 3);
+            _yARBRocker = System.Math.Round((y1_ARBRocker * rcy_ARBRocker) + (nominalY_ARBRocker + lowerDeltaY_ARBRocker), 3);
         }
 
 
@@ -1019,12 +1087,15 @@ namespace Coding_Attempt_with_GUI
         {
             double mainError = 0;
 
+            ///<summary>Computing the Computing the <see cref="CoordinateOptions.PushrodInboard"/> Point Point</summary>
+            Compute_Pushrod_RockerPoint();
+            ///<summary>Computing the <see cref="CoordinateOptions.DamperBellCrank"/> Point</summary>
+            Compute_Damper_RockerPoint();
+            ///<summary>Computing the <see cref="CoordinateOptions.ARBBellCrank"/> Point</summary>
+            Compute_ARB_RockerPoint();
+            ///<summary>Computing the <see cref="CoordinateOptions.ARBLeverEndPoint"/> Point</summary>
+            Compute_ARB_DroopLink_LeverEnd();
 
-
-            ///<summary>Computing the Pushrod BelloCrank Point</summary>
-            Compute_PushrodInboardPoint();
-            ///<summary>Computing the Damper Bell-Crank Point</summary>
-            Compute_DamperRockerPoint();
 
             Compute_Error_MotionRatio();
 
@@ -1046,7 +1117,7 @@ namespace Coding_Attempt_with_GUI
         /// <para>The <see cref="CoordinateOptions.PushrodInboard"/> at this stage has only X and Y coordinates as given by the Optimization Algorithm
         /// This method completes the Point by using the Plane Equation of the <see cref="VehicleCornerParams.RockerPlane"/></para>
         /// </summary>
-        private void Compute_PushrodInboardPoint()
+        private void Compute_Pushrod_RockerPoint()
         {
             PushrodRockerPoint_ForMotionAnalysis = KO_CV.Compute_PointOnPlane(KO_CV.VCornerParams.RockerPlane, CoordinateInputFormat.IIO, PushrodRockerPoint_ForMotionAnalysis);
 
@@ -1057,7 +1128,7 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Method to generate the new <see cref="CoordinateOptions.DamperBellCrank"/> point using the Rotation Angle that the optimizer generated
         /// </summary>
-        private void Compute_DamperRockerPoint()
+        private void Compute_Damper_RockerPoint()
         {
             Line damperLine = new Line(KO_CV.VCornerParams.DamperShockMount, DamperRockerPoint_ForMotionAnalysis);
 
@@ -1066,11 +1137,36 @@ namespace Coding_Attempt_with_GUI
             DamperRockerPoint = DamperRockerPoint_ForMotionAnalysis.Clone() as Point3D;
 
             double damperLengthCheck = damperLine.Length();
-
-            //KO_CV.VCornerParams.Initialize_Dictionary();
         }
 
+        /// <summary>
+        /// Method to generate the coordinates of the <see cref="CoordinateOptions.ARBBellCrank"/> using Plane equations once the Optimizer has generated X and Y Coordinates 
+        /// </summary>
+        private void Compute_ARB_RockerPoint()
+        {
+            ARBRockerPoint_ForMotionAnalysis = KO_CV.Compute_PointOnPlane(KO_CV.VCornerParams.RockerPlane, CoordinateInputFormat.IIO, ARBRockerPoint_ForMotionAnalysis);
 
+            ARBRockerPoint = ARBRockerPoint_ForMotionAnalysis.Clone() as Point3D;
+        }
+
+        /// <summary>
+        /// Method to generate the coordiantes of the <see cref="CoordinateOptions.ARBLeverEndPoint"/> using the Link Length of the Droop Link and the angle of rotation of the droop link 
+        /// </summary>
+        private void Compute_ARB_DroopLink_LeverEnd()
+        {
+            ARBLeverEnd_ForMotionAnalysis = KO_CV.Compute_ApproxCorrespondingPoint_FromLinkLength(KO_CV.ARB_DroopLink_Length, ARBRockerPoint_ForMotionAnalysis, VCorner);
+            ARBLeverEnd_ForMotionAnalysis = KO_CV.Compute_PointOnPlane(KO_CV.VCornerParams.RockerPlane, CoordinateInputFormat.IIO, ARBLeverEnd_ForMotionAnalysis);
+
+            Line droopLinkLine = new Line(ARBRockerPoint_ForMotionAnalysis, ARBLeverEnd_ForMotionAnalysis);
+            droopLinkLine.Rotate(DroopLinkAngle.Radians, KO_CV.VCornerParams.Rocker_Axis_Vector, droopLinkLine.StartPoint);
+
+            ARBLeverEnd = ARBLeverEnd_ForMotionAnalysis.Clone() as Point3D;
+
+            double droopLinkLengthCheck = droopLinkLine.Length();
+
+        }
+
+        
         private void Compute_Error_MotionRatio()
         {
             DWSolver = new DoubleWishboneKinematicsSolver();
@@ -1095,6 +1191,8 @@ namespace Coding_Attempt_with_GUI
         public void KinematicsSolver_For_MotionRatio(List<double> _springDeflections, Vehicle _Vehicle, DoubleWishboneKinematicsSolver _DwSolver)
         {
             Calc_WheelDeflection_Deltas = new List<double>();
+
+            Calc_ARBLeverDeflection_Deltas = new List<double>();
 
             ///<summary>
             ///Creating a Temporary Dictionary of Outboard Points. 
@@ -1198,7 +1296,7 @@ namespace Coding_Attempt_with_GUI
 
             TempInboardAssembly[CoordinateOptions.ARBBellCrank.ToString()] = new Point3D(O.X, O.Y, O.Z);
 
-            TempInboardAssembly[CoordinateOptions.ARBDroopLinkEndPoint.ToString()] = new Point3D(P.X, P.Y, P.Z);
+            TempInboardAssembly[CoordinateOptions.ARBLeverEndPoint.ToString()] = new Point3D(P.X, P.Y, P.Z);
 
             ///<summary>Computing and storing the Wheel Deflections</summary>
             Calc_WheelDeflection_Deltas.Add(wheelDef);
@@ -1247,6 +1345,8 @@ namespace Coding_Attempt_with_GUI
             List<double> temp = new List<double>();
 
             MotionRatio_Spring = new List<double>();
+
+            MotionRatio_ARB = new List<double>();
 
             ///<summary>
             ///---IMPORTANT---
@@ -1303,6 +1403,7 @@ namespace Coding_Attempt_with_GUI
                 if (i != 0 && KO_CV.BumpSteerCurve.WheelDeflections[i] == 1) 
                 {
                     MotionRatio_ARB.Add(Calc_ARBLeverDeflection_Deltas[i] / Calc_WheelDeflection_Deltas[i]);
+                    break;
                 }
             }
 
@@ -1420,6 +1521,11 @@ namespace Coding_Attempt_with_GUI
             TempInboardAssembly[CoordinateOptions.PushrodInboard.ToString()] = PushrodRockerPoint_ForMotionAnalysis.Clone() as Point3D;
 
             TempInboardAssembly[CoordinateOptions.DamperBellCrank.ToString()] = DamperRockerPoint_ForMotionAnalysis.Clone() as Point3D;
+
+            TempInboardAssembly[CoordinateOptions.ARBBellCrank.ToString()] = ARBRockerPoint_ForMotionAnalysis.Clone() as Point3D;
+
+            TempInboardAssembly[CoordinateOptions.ARBLeverEndPoint.ToString()] = ARBLeverEnd_ForMotionAnalysis.Clone() as Point3D;
+
         }
 
         private void Assign_OptimizedPoints()
@@ -1427,6 +1533,10 @@ namespace Coding_Attempt_with_GUI
             KO_CV.VCornerParams.PushrodInboard = PushrodRockerPoint.Clone() as Point3D;
 
             KO_CV.VCornerParams.DamperBellCrank = DamperRockerPoint.Clone() as Point3D;
+
+            KO_CV.VCornerParams.ARBBellCrank = ARBRockerPoint.Clone() as Point3D;
+
+            KO_CV.VCornerParams.ARB_DroopLink_LeverPoint = ARBLeverEnd.Clone() as Point3D;
 
             KO_CV.VCornerParams.Initialize_Dictionary();
         }

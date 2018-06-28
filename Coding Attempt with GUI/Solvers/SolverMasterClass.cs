@@ -335,6 +335,9 @@ namespace Coding_Attempt_with_GUI
             l_O1y = _inboardPoints[CoordinateOptions.ARBBellCrank.ToString()].Y;
             l_O1z = _inboardPoints[CoordinateOptions.ARBBellCrank.ToString()].Z;
 
+            l_P1x = _inboardPoints[CoordinateOptions.ARBLeverEndPoint.ToString()].X;
+            l_P1y = _inboardPoints[CoordinateOptions.ARBLeverEndPoint.ToString()].Y;
+            l_P1z = _inboardPoints[CoordinateOptions.ARBLeverEndPoint.ToString()].Z;
 
 
             ///<remarks>Assigning Outboard Pick Up Points</remarks>
@@ -362,9 +365,7 @@ namespace Coding_Attempt_with_GUI
             L1y = _outboardPoints[CoordinateOptions.WheelSpindleEnd.ToString()].Y;
             L1z = _outboardPoints[CoordinateOptions.WheelSpindleEnd.ToString()].Z;
 
-            l_P1x = _outboardPoints[CoordinateOptions.ARBDroopLinkEndPoint.ToString()].X;
-            l_P1y = _outboardPoints[CoordinateOptions.ARBDroopLinkEndPoint.ToString()].Y;
-            l_P1z = _outboardPoints[CoordinateOptions.ARBDroopLinkEndPoint.ToString()].Z;
+
 
         }
         #endregion

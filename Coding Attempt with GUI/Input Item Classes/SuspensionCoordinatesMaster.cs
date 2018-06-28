@@ -366,7 +366,7 @@ namespace Coding_Attempt_with_GUI
         DamperBellCrank,
         ARBBellCrank,
         ARBEndPointChassis,
-        ARBDroopLinkEndPoint,
+        ARBLeverEndPoint,
         BellCrankPivot,
         DamperOutboard,
         UBJ,

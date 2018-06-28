@@ -422,7 +422,7 @@ namespace Coding_Attempt_with_GUI
             InboardAssembly.Add(CoordinateOptions.ARBEndPointChassis.ToString(), ARB_EndPoint_Chassis);
 
             //ARB Droop Link Point on Lever
-            InboardAssembly.Add(CoordinateOptions.ARBDroopLinkEndPoint.ToString(), ARB_DroopLink_LeverPoint);
+            InboardAssembly.Add(CoordinateOptions.ARBLeverEndPoint.ToString(), ARB_DroopLink_LeverPoint);
 
             ///Rocker Pivot Point
             InboardAssembly.Add(CoordinateOptions.BellCrankPivot.ToString(), Rocker_Center);

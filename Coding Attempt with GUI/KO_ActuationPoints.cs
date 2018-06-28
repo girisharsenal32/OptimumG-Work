@@ -333,9 +333,16 @@ namespace Coding_Attempt_with_GUI
 
                 KO_CV_Main.VCornerParams.ARB_EndPoint_Chassis.Z = Convert.ToDouble(tbARB_EndPoint_X.Text);
 
+                ParentObject.Plot_OutboardPoint(KO_CV_Main.VCornerParams.ARB_EndPoint_Chassis, "KO_CV_Main.VCornerParams.ARB_EndPoint_Chassis" + VCorner_Main.ToString());
+
                 if (Symmetry)
                 {
                     KO_CV_Counter.VCornerParams.ARB_EndPoint_Chassis.Z = KO_CV_Main.VCornerParams.ARB_EndPoint_Chassis.Z;
+
+                    ParentObject.Plot_OutboardPoint(KO_CV_Counter.VCornerParams.ARB_EndPoint_Chassis, "KO_CV_Counter.VCornerParams.ARB_EndPoint_Chassis" + VCorner_Counter.ToString());
+
+                    ParentObject.Plot_InboardPoints(KO_CV_Main.VCornerParams.ARB_EndPoint_Chassis, KO_CV_Counter.VCornerParams.ARB_EndPoint_Chassis, "KO_CV_Main.VCornerParams.ARB_EndPoint_Chassis, KO_CV_Counter.VCornerParams.ARB_EndPoint_Chassis",
+                                                    "ARB" + VCorner_Main.ToString() + VCorner_Counter.ToString());
                 }
 
             }
@@ -365,9 +372,16 @@ namespace Coding_Attempt_with_GUI
             {
                 KO_CV_Main.VCornerParams.ARB_EndPoint_Chassis.X = Convert.ToDouble(tbARB_EndPoint_Y.Text);
 
+                ParentObject.Plot_OutboardPoint(KO_CV_Main.VCornerParams.ARB_EndPoint_Chassis, "KO_CV_Main.VCornerParams.ARB_EndPoint_Chassis" + VCorner_Main.ToString());
+
                 if (Symmetry)
                 {
                     KO_CV_Counter.VCornerParams.ARB_EndPoint_Chassis.X = -KO_CV_Main.VCornerParams.ARB_EndPoint_Chassis.X;
+
+                    ParentObject.Plot_OutboardPoint(KO_CV_Counter.VCornerParams.ARB_EndPoint_Chassis, "KO_CV_Counter.VCornerParams.ARB_EndPoint_Chassis" + VCorner_Counter.ToString());
+
+                    ParentObject.Plot_InboardPoints(KO_CV_Main.VCornerParams.ARB_EndPoint_Chassis, KO_CV_Counter.VCornerParams.ARB_EndPoint_Chassis, "KO_CV_Main.VCornerParams.ARB_EndPoint_Chassis, KO_CV_Counter.VCornerParams.ARB_EndPoint_Chassis",
+                                                    "ARB" + VCorner_Main.ToString() + VCorner_Counter.ToString());
                 }
 
             }
@@ -397,9 +411,16 @@ namespace Coding_Attempt_with_GUI
             {
                 KO_CV_Main.VCornerParams.ARB_EndPoint_Chassis.Y = Convert.ToDouble(tbARB_EndPoint_Z.Text);
 
+                ParentObject.Plot_OutboardPoint(KO_CV_Main.VCornerParams.ARB_EndPoint_Chassis, "KO_CV_Main.VCornerParams.ARB_EndPoint_Chassis" + VCorner_Main.ToString());
+
                 if (Symmetry)
                 {
                     KO_CV_Counter.VCornerParams.ARB_EndPoint_Chassis.Y = KO_CV_Main.VCornerParams.ARB_EndPoint_Chassis.Y;
+
+                    ParentObject.Plot_OutboardPoint(KO_CV_Counter.VCornerParams.ARB_EndPoint_Chassis, "KO_CV_Counter.VCornerParams.ARB_EndPoint_Chassis" + VCorner_Counter.ToString());
+
+                    ParentObject.Plot_InboardPoints(KO_CV_Main.VCornerParams.ARB_EndPoint_Chassis, KO_CV_Counter.VCornerParams.ARB_EndPoint_Chassis, "KO_CV_Main.VCornerParams.ARB_EndPoint_Chassis, KO_CV_Counter.VCornerParams.ARB_EndPoint_Chassis",
+                                                    "ARB" + VCorner_Main.ToString() + VCorner_Counter.ToString());
                 }
             }
             else
@@ -924,6 +945,10 @@ namespace Coding_Attempt_with_GUI
 
             ParentObject.Plot_InboardPoints(KO_CV_Main.VCornerParams.DamperBellCrank, KO_CV_Main.VCornerParams.DamperShockMount, "KO_CV_Main.VCornerParams.DamperBellCrank" + VCorner_Main.ToString(), "Damper" + VCorner_Main.ToString());
 
+            ParentObject.Plot_OutboardPoint(KO_CV_Main.VCornerParams.ARB_DroopLink_LeverPoint, "KO_CV_Main.VCornerParams.ARB_DroopLink_LeverPoint" + VCorner_Main.ToString());
+
+            ParentObject.Plot_InboardPoints(KO_CV_Main.VCornerParams.ARBBellCrank, KO_CV_Main.VCornerParams.ARB_DroopLink_LeverPoint, "KO_CV_Main.VCornerParams.ARBBellCrank" + VCorner_Main.ToString(), "ARB" + VCorner_Main.ToString());
+
             //--Add Convergence text here--
 
             KO_CV_Main.VCornerParams.Initialize_Dictionary();
@@ -937,6 +962,10 @@ namespace Coding_Attempt_with_GUI
                 ParentObject.Plot_InboardPoints(KO_CV_Counter.VCornerParams.PushrodInboard, KO_CV_Counter.VCornerParams.PushrodOutboard, "KO_CV_Counter.VCornerParams.PushrodInboard" + VCorner_Counter.ToString(), "Pushrod" + VCorner_Counter.ToString());
 
                 ParentObject.Plot_InboardPoints(KO_CV_Counter.VCornerParams.DamperBellCrank, KO_CV_Counter.VCornerParams.DamperShockMount, "KO_CV_Counter.VCornerParams.DamperBellCrank" + VCorner_Counter.ToString(), "Damper" + VCorner_Counter.ToString());
+
+                ParentObject.Plot_OutboardPoint(KO_CV_Counter.VCornerParams.ARB_DroopLink_LeverPoint, "KO_CV_Counter.VCornerParams.ARB_DroopLink_LeverPoint" + VCorner_Counter.ToString());
+
+                ParentObject.Plot_InboardPoints(KO_CV_Counter.VCornerParams.ARBBellCrank, KO_CV_Counter.VCornerParams.ARB_DroopLink_LeverPoint, "KO_CV_Counter.VCornerParams.ARBBellCrank" + VCorner_Counter.ToString(), "ARB" + VCorner_Counter.ToString());
 
                 KO_CV_Counter.VCornerParams.Initialize_Dictionary();
 

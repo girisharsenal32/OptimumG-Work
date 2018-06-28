@@ -1077,10 +1077,10 @@ namespace Coding_Attempt_with_GUI
 
             S = new Point3D(l_P1x, l_P1y, l_P1z);
             T1 = new Point3D(l_O1x, l_O1y, l_O1z);
-            U1 = new Point3D(l_H1x, l_H1y, l_H1z);
+            U1 = new Point3D(/*l_H1x, l_H1y, l_H1z*/l_C1x, l_C1y, l_C1z);
             V1 = new Point3D(l_Q1x, l_Q1y, l_Q1z);
             T2 = new Point3D(_newABRRocker.X, _newABRRocker.Y, _newABRRocker.Z);
-            U2 = new Point3D(_newPushPullRocker.X, _newPushPullRocker.Y, _newPushPullRocker.Z);
+            U2 = new Point3D(/*_newPushPullRocker.X, _newPushPullRocker.Y, _newPushPullRocker.Z*/l_C1x, l_C1y, l_C1z);
             V2 = new Point3D(l_Q1x, l_Q1y, l_Q1z);
 
             QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, -50, false, out _arbDroopLinkLeverPoint);

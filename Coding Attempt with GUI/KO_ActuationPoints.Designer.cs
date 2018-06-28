@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.tbARB_EndPoint_X = new System.Windows.Forms.TextBox();
+            this.tbARB_EndPoint_Y = new System.Windows.Forms.TextBox();
+            this.tbARB_EndPoint_Z = new System.Windows.Forms.TextBox();
             this.tbARB_DroopLink = new System.Windows.Forms.TextBox();
             this.tbMR_ARB = new System.Windows.Forms.TextBox();
             this.tbDamperInboard_Y = new System.Windows.Forms.TextBox();
@@ -87,11 +90,8 @@
             this.emptySpaceItem12 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem14 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem13 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.tbARB_EndPoint_Z = new System.Windows.Forms.TextBox();
             this.layoutControlItem15 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.tbARB_EndPoint_Y = new System.Windows.Forms.TextBox();
             this.layoutControlItem16 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.tbARB_EndPoint_X = new System.Windows.Forms.TextBox();
             this.layoutControlItem17 = new DevExpress.XtraLayout.LayoutControlItem();
             this.simpleLabelItem9 = new DevExpress.XtraLayout.SimpleLabelItem();
             this.emptySpaceItem14 = new DevExpress.XtraLayout.EmptySpaceItem();
@@ -177,6 +177,33 @@
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
+            // tbARB_EndPoint_X
+            // 
+            this.tbARB_EndPoint_X.Location = new System.Drawing.Point(140, 159);
+            this.tbARB_EndPoint_X.Name = "tbARB_EndPoint_X";
+            this.tbARB_EndPoint_X.Size = new System.Drawing.Size(55, 20);
+            this.tbARB_EndPoint_X.TabIndex = 23;
+            this.tbARB_EndPoint_X.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbARB_EndPoint_X_KeyDown);
+            this.tbARB_EndPoint_X.Leave += new System.EventHandler(this.tbARB_EndPoint_X_Leave);
+            // 
+            // tbARB_EndPoint_Y
+            // 
+            this.tbARB_EndPoint_Y.Location = new System.Drawing.Point(234, 159);
+            this.tbARB_EndPoint_Y.Name = "tbARB_EndPoint_Y";
+            this.tbARB_EndPoint_Y.Size = new System.Drawing.Size(55, 20);
+            this.tbARB_EndPoint_Y.TabIndex = 22;
+            this.tbARB_EndPoint_Y.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbARB_EndPoint_Y_KeyDown);
+            this.tbARB_EndPoint_Y.Leave += new System.EventHandler(this.tbARB_EndPoint_Y_Leave);
+            // 
+            // tbARB_EndPoint_Z
+            // 
+            this.tbARB_EndPoint_Z.Location = new System.Drawing.Point(328, 159);
+            this.tbARB_EndPoint_Z.Name = "tbARB_EndPoint_Z";
+            this.tbARB_EndPoint_Z.Size = new System.Drawing.Size(55, 20);
+            this.tbARB_EndPoint_Z.TabIndex = 21;
+            this.tbARB_EndPoint_Z.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbARB_EndPoint_Z_KeyDown);
+            this.tbARB_EndPoint_Z.Leave += new System.EventHandler(this.tbARB_EndPoint_Z_Leave);
+            // 
             // tbARB_DroopLink
             // 
             this.tbARB_DroopLink.Location = new System.Drawing.Point(157, 135);
@@ -197,7 +224,7 @@
             // 
             // tbDamperInboard_Y
             // 
-            this.tbDamperInboard_Y.Location = new System.Drawing.Point(219, 326);
+            this.tbDamperInboard_Y.Location = new System.Drawing.Point(219, 317);
             this.tbDamperInboard_Y.Name = "tbDamperInboard_Y";
             this.tbDamperInboard_Y.Size = new System.Drawing.Size(67, 20);
             this.tbDamperInboard_Y.TabIndex = 18;
@@ -206,7 +233,7 @@
             // 
             // tbDamperInboard_Z
             // 
-            this.tbDamperInboard_Z.Location = new System.Drawing.Point(325, 326);
+            this.tbDamperInboard_Z.Location = new System.Drawing.Point(325, 317);
             this.tbDamperInboard_Z.Name = "tbDamperInboard_Z";
             this.tbDamperInboard_Z.Size = new System.Drawing.Size(64, 20);
             this.tbDamperInboard_Z.TabIndex = 17;
@@ -215,9 +242,9 @@
             // 
             // tbDamperInboard_X
             // 
-            this.tbDamperInboard_X.Location = new System.Drawing.Point(108, 326);
+            this.tbDamperInboard_X.Location = new System.Drawing.Point(107, 317);
             this.tbDamperInboard_X.Name = "tbDamperInboard_X";
-            this.tbDamperInboard_X.Size = new System.Drawing.Size(72, 20);
+            this.tbDamperInboard_X.Size = new System.Drawing.Size(73, 20);
             this.tbDamperInboard_X.TabIndex = 16;
             this.tbDamperInboard_X.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbDamperInboard_X_KeyDown);
             this.tbDamperInboard_X.Leave += new System.EventHandler(this.tbDamperInboard_X_Leave);
@@ -236,14 +263,14 @@
             // 
             this.actuationPointCompute.CurrentDevStage = Coding_Attempt_with_GUI.DevelopmentStages.WishboneInboardPoints;
             this.actuationPointCompute.InputFormat = Coding_Attempt_with_GUI.CoordinateInputFormat.IIO;
-            this.actuationPointCompute.Location = new System.Drawing.Point(12, 403);
+            this.actuationPointCompute.Location = new System.Drawing.Point(12, 393);
             this.actuationPointCompute.Name = "actuationPointCompute";
-            this.actuationPointCompute.Size = new System.Drawing.Size(408, 157);
+            this.actuationPointCompute.Size = new System.Drawing.Size(408, 164);
             this.actuationPointCompute.TabIndex = 14;
             // 
             // tbDamperStaticLength
             // 
-            this.tbDamperStaticLength.Location = new System.Drawing.Point(197, 350);
+            this.tbDamperStaticLength.Location = new System.Drawing.Point(197, 341);
             this.tbDamperStaticLength.Name = "tbDamperStaticLength";
             this.tbDamperStaticLength.Size = new System.Drawing.Size(153, 20);
             this.tbDamperStaticLength.TabIndex = 13;
@@ -252,12 +279,12 @@
             // 
             // radioGroupDamperInboardFormat
             // 
-            this.radioGroupDamperInboardFormat.Location = new System.Drawing.Point(197, 297);
+            this.radioGroupDamperInboardFormat.Location = new System.Drawing.Point(197, 287);
             this.radioGroupDamperInboardFormat.Name = "radioGroupDamperInboardFormat";
             this.radioGroupDamperInboardFormat.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
             new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "Compute"),
             new DevExpress.XtraEditors.Controls.RadioGroupItem(null, "Impose")});
-            this.radioGroupDamperInboardFormat.Size = new System.Drawing.Size(223, 25);
+            this.radioGroupDamperInboardFormat.Size = new System.Drawing.Size(223, 26);
             this.radioGroupDamperInboardFormat.StyleController = this.layoutControl1;
             this.radioGroupDamperInboardFormat.TabIndex = 12;
             this.radioGroupDamperInboardFormat.SelectedIndexChanged += new System.EventHandler(this.radioGroupDamperInboardFormat_SelectedIndexChanged);
@@ -569,7 +596,7 @@
             this.simpleLabelItem5.AppearanceItemCaption.Options.UseFont = true;
             this.simpleLabelItem5.AppearanceItemCaption.Options.UseTextOptions = true;
             this.simpleLabelItem5.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.simpleLabelItem5.Location = new System.Drawing.Point(0, 267);
+            this.simpleLabelItem5.Location = new System.Drawing.Point(0, 257);
             this.simpleLabelItem5.Name = "simpleLabelItem5";
             this.simpleLabelItem5.Size = new System.Drawing.Size(412, 18);
             this.simpleLabelItem5.Text = "Damper";
@@ -580,9 +607,9 @@
             this.layoutControlItem9.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.layoutControlItem9.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem9.Control = this.radioGroupDamperInboardFormat;
-            this.layoutControlItem9.Location = new System.Drawing.Point(0, 285);
+            this.layoutControlItem9.Location = new System.Drawing.Point(0, 275);
             this.layoutControlItem9.Name = "layoutControlItem9";
-            this.layoutControlItem9.Size = new System.Drawing.Size(412, 29);
+            this.layoutControlItem9.Size = new System.Drawing.Size(412, 30);
             this.layoutControlItem9.Text = "Inboard Point Format";
             this.layoutControlItem9.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
             this.layoutControlItem9.TextSize = new System.Drawing.Size(180, 13);
@@ -593,7 +620,7 @@
             this.layoutControlItem10.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.layoutControlItem10.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem10.Control = this.tbDamperStaticLength;
-            this.layoutControlItem10.Location = new System.Drawing.Point(0, 338);
+            this.layoutControlItem10.Location = new System.Drawing.Point(0, 329);
             this.layoutControlItem10.Name = "layoutControlItem10";
             this.layoutControlItem10.OptionsToolTip.ToolTip = "Length of the Damper in Static Condition. That is when the Vehicle is on the Grou" +
     "nd and in Static Condition";
@@ -606,7 +633,7 @@
             // emptySpaceItem4
             // 
             this.emptySpaceItem4.AllowHotTrack = false;
-            this.emptySpaceItem4.Location = new System.Drawing.Point(342, 338);
+            this.emptySpaceItem4.Location = new System.Drawing.Point(342, 329);
             this.emptySpaceItem4.Name = "emptySpaceItem4";
             this.emptySpaceItem4.Size = new System.Drawing.Size(70, 24);
             this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
@@ -618,7 +645,7 @@
             this.simpleLabelItem6.AppearanceItemCaption.Options.UseFont = true;
             this.simpleLabelItem6.AppearanceItemCaption.Options.UseTextOptions = true;
             this.simpleLabelItem6.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.simpleLabelItem6.Location = new System.Drawing.Point(0, 373);
+            this.simpleLabelItem6.Location = new System.Drawing.Point(0, 363);
             this.simpleLabelItem6.Name = "simpleLabelItem6";
             this.simpleLabelItem6.Size = new System.Drawing.Size(412, 18);
             this.simpleLabelItem6.Text = "Actuation points";
@@ -627,9 +654,9 @@
             // emptySpaceItem3
             // 
             this.emptySpaceItem3.AllowHotTrack = false;
-            this.emptySpaceItem3.Location = new System.Drawing.Point(0, 362);
+            this.emptySpaceItem3.Location = new System.Drawing.Point(0, 353);
             this.emptySpaceItem3.Name = "emptySpaceItem3";
-            this.emptySpaceItem3.Size = new System.Drawing.Size(412, 11);
+            this.emptySpaceItem3.Size = new System.Drawing.Size(412, 10);
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem6
@@ -637,15 +664,15 @@
             this.emptySpaceItem6.AllowHotTrack = false;
             this.emptySpaceItem6.Location = new System.Drawing.Point(0, 247);
             this.emptySpaceItem6.Name = "emptySpaceItem6";
-            this.emptySpaceItem6.Size = new System.Drawing.Size(412, 20);
+            this.emptySpaceItem6.Size = new System.Drawing.Size(412, 10);
             this.emptySpaceItem6.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem11
             // 
             this.layoutControlItem11.Control = this.actuationPointCompute;
-            this.layoutControlItem11.Location = new System.Drawing.Point(0, 391);
+            this.layoutControlItem11.Location = new System.Drawing.Point(0, 381);
             this.layoutControlItem11.Name = "layoutControlItem11";
-            this.layoutControlItem11.Size = new System.Drawing.Size(412, 161);
+            this.layoutControlItem11.Size = new System.Drawing.Size(412, 168);
             this.layoutControlItem11.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem11.TextVisible = false;
             // 
@@ -661,9 +688,9 @@
             // emptySpaceItem5
             // 
             this.emptySpaceItem5.AllowHotTrack = false;
-            this.emptySpaceItem5.Location = new System.Drawing.Point(0, 557);
+            this.emptySpaceItem5.Location = new System.Drawing.Point(0, 554);
             this.emptySpaceItem5.Name = "emptySpaceItem5";
-            this.emptySpaceItem5.Size = new System.Drawing.Size(412, 10);
+            this.emptySpaceItem5.Size = new System.Drawing.Size(412, 13);
             this.emptySpaceItem5.TextSize = new System.Drawing.Size(0, 0);
             // 
             // simpleLabelItem7
@@ -698,7 +725,7 @@
             // splitterItem1
             // 
             this.splitterItem1.AllowHotTrack = true;
-            this.splitterItem1.Location = new System.Drawing.Point(0, 552);
+            this.splitterItem1.Location = new System.Drawing.Point(0, 549);
             this.splitterItem1.Name = "splitterItem1";
             this.splitterItem1.Size = new System.Drawing.Size(412, 5);
             // 
@@ -707,9 +734,9 @@
             this.layoutControlItemInboardDamper_X.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.layoutControlItemInboardDamper_X.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItemInboardDamper_X.Control = this.tbDamperInboard_X;
-            this.layoutControlItemInboardDamper_X.Location = new System.Drawing.Point(61, 314);
+            this.layoutControlItemInboardDamper_X.Location = new System.Drawing.Point(60, 305);
             this.layoutControlItemInboardDamper_X.Name = "layoutControlItemInboardDamper_X";
-            this.layoutControlItemInboardDamper_X.Size = new System.Drawing.Size(111, 24);
+            this.layoutControlItemInboardDamper_X.Size = new System.Drawing.Size(112, 24);
             this.layoutControlItemInboardDamper_X.Text = "X";
             this.layoutControlItemInboardDamper_X.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
             this.layoutControlItemInboardDamper_X.TextSize = new System.Drawing.Size(30, 20);
@@ -720,7 +747,7 @@
             this.layoutControlItemInboardDamper_Z.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.layoutControlItemInboardDamper_Z.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItemInboardDamper_Z.Control = this.tbDamperInboard_Z;
-            this.layoutControlItemInboardDamper_Z.Location = new System.Drawing.Point(278, 314);
+            this.layoutControlItemInboardDamper_Z.Location = new System.Drawing.Point(278, 305);
             this.layoutControlItemInboardDamper_Z.Name = "layoutControlItemInboardDamper_Z";
             this.layoutControlItemInboardDamper_Z.Size = new System.Drawing.Size(103, 24);
             this.layoutControlItemInboardDamper_Z.Text = "Z";
@@ -733,7 +760,7 @@
             this.layoutControlItemInboardDamper_Y.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.layoutControlItemInboardDamper_Y.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItemInboardDamper_Y.Control = this.tbDamperInboard_Y;
-            this.layoutControlItemInboardDamper_Y.Location = new System.Drawing.Point(172, 314);
+            this.layoutControlItemInboardDamper_Y.Location = new System.Drawing.Point(172, 305);
             this.layoutControlItemInboardDamper_Y.Name = "layoutControlItemInboardDamper_Y";
             this.layoutControlItemInboardDamper_Y.Size = new System.Drawing.Size(106, 24);
             this.layoutControlItemInboardDamper_Y.Text = "Y";
@@ -746,9 +773,9 @@
             this.simpleLabelItemInboardDamper.AllowHotTrack = false;
             this.simpleLabelItemInboardDamper.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.simpleLabelItemInboardDamper.AppearanceItemCaption.Options.UseFont = true;
-            this.simpleLabelItemInboardDamper.Location = new System.Drawing.Point(0, 314);
+            this.simpleLabelItemInboardDamper.Location = new System.Drawing.Point(0, 305);
             this.simpleLabelItemInboardDamper.Name = "simpleLabelItemInboardDamper";
-            this.simpleLabelItemInboardDamper.Size = new System.Drawing.Size(61, 24);
+            this.simpleLabelItemInboardDamper.Size = new System.Drawing.Size(60, 24);
             this.simpleLabelItemInboardDamper.Text = "Inboard ";
             this.simpleLabelItemInboardDamper.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
             this.simpleLabelItemInboardDamper.TextSize = new System.Drawing.Size(50, 20);
@@ -756,7 +783,7 @@
             // emptySpaceItem10
             // 
             this.emptySpaceItem10.AllowHotTrack = false;
-            this.emptySpaceItem10.Location = new System.Drawing.Point(381, 314);
+            this.emptySpaceItem10.Location = new System.Drawing.Point(381, 305);
             this.emptySpaceItem10.Name = "emptySpaceItem10";
             this.emptySpaceItem10.Size = new System.Drawing.Size(31, 24);
             this.emptySpaceItem10.TextSize = new System.Drawing.Size(0, 0);
@@ -832,67 +859,40 @@
             this.emptySpaceItem13.Size = new System.Drawing.Size(121, 24);
             this.emptySpaceItem13.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // tbARB_EndPoint_Z
-            // 
-            this.tbARB_EndPoint_Z.Location = new System.Drawing.Point(338, 159);
-            this.tbARB_EndPoint_Z.Name = "tbARB_EndPoint_Z";
-            this.tbARB_EndPoint_Z.Size = new System.Drawing.Size(67, 20);
-            this.tbARB_EndPoint_Z.TabIndex = 21;
-            this.tbARB_EndPoint_Z.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbARB_EndPoint_Z_KeyDown);
-            this.tbARB_EndPoint_Z.Leave += new System.EventHandler(this.tbARB_EndPoint_Z_Leave);
-            // 
             // layoutControlItem15
             // 
             this.layoutControlItem15.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.layoutControlItem15.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem15.Control = this.tbARB_EndPoint_Z;
-            this.layoutControlItem15.Location = new System.Drawing.Point(291, 147);
+            this.layoutControlItem15.Location = new System.Drawing.Point(281, 147);
             this.layoutControlItem15.Name = "layoutControlItem15";
-            this.layoutControlItem15.Size = new System.Drawing.Size(106, 24);
+            this.layoutControlItem15.Size = new System.Drawing.Size(94, 24);
             this.layoutControlItem15.Text = "Z";
             this.layoutControlItem15.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
             this.layoutControlItem15.TextSize = new System.Drawing.Size(30, 20);
             this.layoutControlItem15.TextToControlDistance = 5;
-            // 
-            // tbARB_EndPoint_Y
-            // 
-            this.tbARB_EndPoint_Y.Location = new System.Drawing.Point(232, 159);
-            this.tbARB_EndPoint_Y.Name = "tbARB_EndPoint_Y";
-            this.tbARB_EndPoint_Y.Size = new System.Drawing.Size(67, 20);
-            this.tbARB_EndPoint_Y.TabIndex = 22;
-            this.tbARB_EndPoint_Y.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbARB_EndPoint_Y_KeyDown);
-            this.tbARB_EndPoint_Y.Leave += new System.EventHandler(this.tbARB_EndPoint_Y_Leave);
             // 
             // layoutControlItem16
             // 
             this.layoutControlItem16.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.layoutControlItem16.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem16.Control = this.tbARB_EndPoint_Y;
-            this.layoutControlItem16.Location = new System.Drawing.Point(185, 147);
+            this.layoutControlItem16.Location = new System.Drawing.Point(187, 147);
             this.layoutControlItem16.Name = "layoutControlItem16";
-            this.layoutControlItem16.Size = new System.Drawing.Size(106, 24);
+            this.layoutControlItem16.Size = new System.Drawing.Size(94, 24);
             this.layoutControlItem16.Text = "Y";
             this.layoutControlItem16.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
             this.layoutControlItem16.TextSize = new System.Drawing.Size(30, 20);
             this.layoutControlItem16.TextToControlDistance = 5;
-            // 
-            // tbARB_EndPoint_X
-            // 
-            this.tbARB_EndPoint_X.Location = new System.Drawing.Point(126, 159);
-            this.tbARB_EndPoint_X.Name = "tbARB_EndPoint_X";
-            this.tbARB_EndPoint_X.Size = new System.Drawing.Size(67, 20);
-            this.tbARB_EndPoint_X.TabIndex = 23;
-            this.tbARB_EndPoint_X.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbARB_EndPoint_X_KeyDown);
-            this.tbARB_EndPoint_X.Leave += new System.EventHandler(this.tbARB_EndPoint_X_Leave);
             // 
             // layoutControlItem17
             // 
             this.layoutControlItem17.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.layoutControlItem17.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem17.Control = this.tbARB_EndPoint_X;
-            this.layoutControlItem17.Location = new System.Drawing.Point(79, 147);
+            this.layoutControlItem17.Location = new System.Drawing.Point(93, 147);
             this.layoutControlItem17.Name = "layoutControlItem17";
-            this.layoutControlItem17.Size = new System.Drawing.Size(106, 24);
+            this.layoutControlItem17.Size = new System.Drawing.Size(94, 24);
             this.layoutControlItem17.Text = "X";
             this.layoutControlItem17.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
             this.layoutControlItem17.TextSize = new System.Drawing.Size(30, 20);
@@ -905,17 +905,17 @@
             this.simpleLabelItem9.AppearanceItemCaption.Options.UseFont = true;
             this.simpleLabelItem9.Location = new System.Drawing.Point(0, 147);
             this.simpleLabelItem9.Name = "simpleLabelItem9";
-            this.simpleLabelItem9.Size = new System.Drawing.Size(79, 24);
-            this.simpleLabelItem9.Text = "ARB End Point";
+            this.simpleLabelItem9.Size = new System.Drawing.Size(93, 24);
+            this.simpleLabelItem9.Text = "ARB Chassis End";
             this.simpleLabelItem9.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
-            this.simpleLabelItem9.TextSize = new System.Drawing.Size(50, 20);
+            this.simpleLabelItem9.TextSize = new System.Drawing.Size(85, 20);
             // 
             // emptySpaceItem14
             // 
             this.emptySpaceItem14.AllowHotTrack = false;
-            this.emptySpaceItem14.Location = new System.Drawing.Point(397, 147);
+            this.emptySpaceItem14.Location = new System.Drawing.Point(375, 147);
             this.emptySpaceItem14.Name = "emptySpaceItem14";
-            this.emptySpaceItem14.Size = new System.Drawing.Size(15, 24);
+            this.emptySpaceItem14.Size = new System.Drawing.Size(37, 24);
             this.emptySpaceItem14.TextSize = new System.Drawing.Size(0, 0);
             // 
             // KO_ActuationPoints
