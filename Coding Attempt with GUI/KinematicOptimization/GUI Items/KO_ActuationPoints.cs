@@ -939,8 +939,10 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         private void ComputeActuationPoints_Rocker()
         {
+            ///<summary>Invoking the Optimizer functions to optimize the Rocker Points of Damper, Pushrod and ARB</summary>
             KO_CV_Main.Optimize_Actuation_RockerPoints(ref KO_CV_Main, ref KO_Central, ref KO_SimParams, VCorner_Main, ParentObject);
 
+            ///<summary>Plotting the optimized Rocker points of Damper, Pushrod and ARB</summary>
             ParentObject.Plot_InboardPoints(KO_CV_Main.VCornerParams.PushrodInboard, KO_CV_Main.VCornerParams.PushrodOutboard, "KO_CV_Main.VCornerParams.PushrodInboard" + VCorner_Main.ToString(), "Pushrod" + VCorner_Main.ToString());
 
             ParentObject.Plot_InboardPoints(KO_CV_Main.VCornerParams.DamperBellCrank, KO_CV_Main.VCornerParams.DamperShockMount, "KO_CV_Main.VCornerParams.DamperBellCrank" + VCorner_Main.ToString(), "Damper" + VCorner_Main.ToString());
@@ -949,15 +951,22 @@ namespace Coding_Attempt_with_GUI
 
             ParentObject.Plot_InboardPoints(KO_CV_Main.VCornerParams.ARBBellCrank, KO_CV_Main.VCornerParams.ARB_DroopLink_LeverPoint, "KO_CV_Main.VCornerParams.ARBBellCrank" + VCorner_Main.ToString(), "ARB" + VCorner_Main.ToString());
 
-            //--Add Convergence text here--
+            ///<summary>Displaying the Convergence to the user</summary>
+            tbMR_Convergence.Text = KO_CV_Main.MotionRatio_Convergence.Percentage.ToString();
 
+            ///<summary>Invoking the initialize method to update the <see cref="VehicleCornerParams.InboardAssembly"/> and <see cref="VehicleCornerParams.OutboardAssembly"/></summary>
             KO_CV_Main.VCornerParams.Initialize_Dictionary();
 
             if (Symmetry)
             {
+                ///<summary>
+                ///All the events mentioned above are performed for the Right Corner fo the Vehicle. 
+                /// </summary>
                 KO_CV_Counter.VCornerParams.PushrodInboard = new devDept.Geometry.Point3D(-KO_CV_Main.VCornerParams.PushrodInboard.X, KO_CV_Main.VCornerParams.PushrodInboard.Y, KO_CV_Main.VCornerParams.PushrodInboard.Z);
 
                 KO_CV_Counter.VCornerParams.DamperBellCrank = new devDept.Geometry.Point3D(-KO_CV_Main.VCornerParams.DamperBellCrank.X, KO_CV_Main.VCornerParams.DamperBellCrank.Y, KO_CV_Main.VCornerParams.DamperBellCrank.Z);
+
+                KO_CV_Counter.VCornerParams.ARBBellCrank = new devDept.Geometry.Point3D(-KO_CV_Main.VCornerParams.ARBBellCrank.X, KO_CV_Main.VCornerParams.ARBBellCrank.Y, KO_CV_Main.VCornerParams.ARBBellCrank.Z);
 
                 ParentObject.Plot_InboardPoints(KO_CV_Counter.VCornerParams.PushrodInboard, KO_CV_Counter.VCornerParams.PushrodOutboard, "KO_CV_Counter.VCornerParams.PushrodInboard" + VCorner_Counter.ToString(), "Pushrod" + VCorner_Counter.ToString());
 

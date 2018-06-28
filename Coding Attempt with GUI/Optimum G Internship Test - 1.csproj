@@ -200,39 +200,39 @@
     <Compile Include="KinematicOptimization\GUI Items\DesignForm.Designer.cs">
       <DependentUpon>DesignForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="KinematicOptimization\CustomOrderableListBox.cs">
+    <Compile Include="KinematicOptimization\Obsolete GUI Classes\CustomOrderableListBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="KinematicOptimization\CustomOrderableListBox.Designer.cs">
+    <Compile Include="KinematicOptimization\Obsolete GUI Classes\CustomOrderableListBox.Designer.cs">
       <DependentUpon>CustomOrderableListBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="KinematicOptimization\KO_AdjustableCoordinates.cs">
+    <Compile Include="KinematicOptimization\Obsolete GUI Classes\KO_AdjustableCoordinates.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="KinematicOptimization\KO_AdjustableCoordinates.Designer.cs">
+    <Compile Include="KinematicOptimization\Obsolete GUI Classes\KO_AdjustableCoordinates.Designer.cs">
       <DependentUpon>KO_AdjustableCoordinates.cs</DependentUpon>
     </Compile>
     <Compile Include="KinematicOptimization\Helper Classes\KO_HelperClasses.cs" />
     <Compile Include="KinematicOptimization\Helper Classes\KO_CornverVariables.cs" />
-    <Compile Include="KinematicOptimization\ParametersAndImportance.cs">
+    <Compile Include="KinematicOptimization\Obsolete GUI Classes\ParametersAndImportance.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="KinematicOptimization\ParametersAndImportance.Designer.cs">
+    <Compile Include="KinematicOptimization\Obsolete GUI Classes\ParametersAndImportance.Designer.cs">
       <DependentUpon>ParametersAndImportance.cs</DependentUpon>
     </Compile>
     <Compile Include="KinematicOptimization\KO.cs" />
     <Compile Include="KinematicOptimization\KO_GUI.cs" />
-    <Compile Include="KO_ActuationPoints.cs">
+    <Compile Include="KinematicOptimization\GUI Items\KO_ActuationPoints.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="KO_ActuationPoints.Designer.cs">
+    <Compile Include="KinematicOptimization\GUI Items\KO_ActuationPoints.Designer.cs">
       <DependentUpon>KO_ActuationPoints.cs</DependentUpon>
     </Compile>
     <Compile Include="KinematicOptimization\Solvers\KO_Solver.cs" />
-    <Compile Include="KO_WishboneInboardPoints.cs">
+    <Compile Include="KinematicOptimization\GUI Items\KO_WishboneInboardPoints.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="KO_WishboneInboardPoints.Designer.cs">
+    <Compile Include="KinematicOptimization\GUI Items\KO_WishboneInboardPoints.Designer.cs">
       <DependentUpon>KO_WishboneInboardPoints.cs</DependentUpon>
     </Compile>
     <Compile Include="KinematicOptimization\Solvers\KO_Optimizer.cs" />
@@ -601,57 +601,57 @@
     </Compile>
     <Compile Include="Solvers\Optimization\SetupChange_Optimizer.cs" />
     <Compile Include="Helper Classes\VehicleParamsAssigner.cs" />
-    <Compile Include="KinematicOptimization\XUC_KinematicOptimization.cs">
+    <Compile Include="KinematicOptimization\Obsolete GUI Classes\XUC_KinematicOptimization.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="KinematicOptimization\XUC_KinematicOptimization.Designer.cs">
+    <Compile Include="KinematicOptimization\Obsolete GUI Classes\XUC_KinematicOptimization.Designer.cs">
       <DependentUpon>XUC_KinematicOptimization.cs</DependentUpon>
     </Compile>
-    <Compile Include="KinematicOptimization\XUC_KO_Camber.cs">
+    <Compile Include="KinematicOptimization\GUI Items\Charts\XUC_KO_Camber.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="KinematicOptimization\XUC_KO_Camber.Designer.cs">
+    <Compile Include="KinematicOptimization\GUI Items\Charts\XUC_KO_Camber.Designer.cs">
       <DependentUpon>XUC_KO_Camber.cs</DependentUpon>
     </Compile>
-    <Compile Include="KinematicOptimization\XUC_KO_BS.cs">
+    <Compile Include="KinematicOptimization\GUI Items\Charts\XUC_KO_BS.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="KinematicOptimization\XUC_KO_BS.Designer.cs">
+    <Compile Include="KinematicOptimization\GUI Items\Charts\XUC_KO_BS.Designer.cs">
       <DependentUpon>XUC_KO_BS.cs</DependentUpon>
     </Compile>
-    <Compile Include="KinematicOptimization\XUC_KO_GenericChart.cs">
+    <Compile Include="KinematicOptimization\GUI Items\Charts\XUC_KO_GenericChart.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="KinematicOptimization\XUC_KO_GenericChart.Designer.cs">
+    <Compile Include="KinematicOptimization\GUI Items\Charts\XUC_KO_GenericChart.Designer.cs">
       <DependentUpon>XUC_KO_GenericChart.cs</DependentUpon>
     </Compile>
     <Compile Include="KinematicOptimization\Helper Classes\KO_CentralVariables.cs" />
     <Compile Include="VehicleCornerParams.cs" />
-    <EmbeddedResource Include="KinematicOptimization\CustomOrderableListBox.resx">
+    <EmbeddedResource Include="KinematicOptimization\Obsolete GUI Classes\CustomOrderableListBox.resx">
       <DependentUpon>CustomOrderableListBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="KinematicOptimization\GUI Items\DesignForm.resx">
       <DependentUpon>DesignForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="KinematicOptimization\KO_AdjustableCoordinates.resx">
+    <EmbeddedResource Include="KinematicOptimization\Obsolete GUI Classes\KO_AdjustableCoordinates.resx">
       <DependentUpon>KO_AdjustableCoordinates.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="KinematicOptimization\XUC_KinematicOptimization.resx">
+    <EmbeddedResource Include="KinematicOptimization\Obsolete GUI Classes\XUC_KinematicOptimization.resx">
       <DependentUpon>XUC_KinematicOptimization.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="KinematicOptimization\XUC_KO_BS.resx">
+    <EmbeddedResource Include="KinematicOptimization\GUI Items\Charts\XUC_KO_BS.resx">
       <DependentUpon>XUC_KO_BS.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="KinematicOptimization\XUC_KO_Camber.resx">
+    <EmbeddedResource Include="KinematicOptimization\GUI Items\Charts\XUC_KO_Camber.resx">
       <DependentUpon>XUC_KO_Camber.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="KinematicOptimization\ParametersAndImportance.resx">
+    <EmbeddedResource Include="KinematicOptimization\Obsolete GUI Classes\ParametersAndImportance.resx">
       <DependentUpon>ParametersAndImportance.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="KO_ActuationPoints.resx">
+    <EmbeddedResource Include="KinematicOptimization\GUI Items\KO_ActuationPoints.resx">
       <DependentUpon>KO_ActuationPoints.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="KO_WishboneInboardPoints.resx">
+    <EmbeddedResource Include="KinematicOptimization\GUI Items\KO_WishboneInboardPoints.resx">
       <DependentUpon>KO_WishboneInboardPoints.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SetupChange\BumpSteerCurve.resx">
@@ -760,7 +760,7 @@
     <EmbeddedResource Include="Temp_BobillierMethod.resx">
       <DependentUpon>Temp_BobillierMethod.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="KinematicOptimization\XUC_KO_GenericChart.resx">
+    <EmbeddedResource Include="KinematicOptimization\GUI Items\Charts\XUC_KO_GenericChart.resx">
       <DependentUpon>XUC_KO_GenericChart.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config">

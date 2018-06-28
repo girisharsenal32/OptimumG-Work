@@ -662,30 +662,30 @@ namespace Coding_Attempt_with_GUI
 
                     KO_CV_Counter.VCornerParams.Initialize_Dictionary();
                 }
-                else if (CurrentCoordinate == CoordinateOptions.ARBLeverEndPoint)
-                {
-                    Point_Main = KO_CV_Main.Compute_PointOnPlane(KO_CV_Main.VCornerParams.RockerPlane, KO_CV_Main.VCornerParams.InputFormat, Point_Main);
-
-                    Plot_Point(Point_Main, PointName + VCorner_Main.ToString());
-
-                    Design_Form.Plot_InboardPoints(Point_Main, KO_CV_Main.VCornerParams.ARB_EndPoint_Chassis, PointName + VCorner_Main.ToString(), "ARB Lever" + VCorner_Main.ToString());
-
-                    KO_CV_Main.VCornerParams.Initialize_Dictionary();
-
-                    if (SymmetricSuspension)
-                    {
-                        Point_Counter = KO_CV_Counter.Compute_PointOnPlane(KO_CV_Counter.VCornerParams.RockerPlane, KO_CV_Counter.VCornerParams.InputFormat, Point_Counter);
-
-                        Plot_Point(Point_Counter, PointName + VCorner_Counter.ToString());
-
-                        Design_Form.Plot_InboardPoints(Point_Counter, KO_CV_Counter.VCornerParams.ARB_EndPoint_Chassis, PointName + VCorner_Counter.ToString(), "ARB Lever" + VCorner_Counter.ToString.ToString());
-
-                        KO_CV_Counter.VCornerParams.Initialize_Dictionary();
-                    }
-                }
 
             }
 
+            else if (CurrentCoordinate == CoordinateOptions.ARBLeverEndPoint)
+            {
+                Point_Main = KO_CV_Main.Compute_PointOnPlane(KO_CV_Main.VCornerParams.RockerPlane, KO_CV_Main.VCornerParams.InputFormat, Point_Main);
+
+                Plot_Point(Point_Main, PointName + VCorner_Main.ToString());
+
+                Design_Form.Plot_InboardPoints(Point_Main, KO_CV_Main.VCornerParams.ARB_EndPoint_Chassis, PointName + VCorner_Main.ToString(), "ARB Lever" + VCorner_Main.ToString());
+
+                KO_CV_Main.VCornerParams.Initialize_Dictionary();
+
+                if (SymmetricSuspension)
+                {
+                    Point_Counter = KO_CV_Counter.Compute_PointOnPlane(KO_CV_Counter.VCornerParams.RockerPlane, KO_CV_Counter.VCornerParams.InputFormat, Point_Counter);
+
+                    Plot_Point(Point_Counter, PointName + VCorner_Counter.ToString());
+
+                    Design_Form.Plot_InboardPoints(Point_Counter, KO_CV_Counter.VCornerParams.ARB_EndPoint_Chassis, PointName + VCorner_Counter.ToString(), "ARB Lever" + VCorner_Counter.ToString());
+
+                    KO_CV_Counter.VCornerParams.Initialize_Dictionary();
+                }
+            }
 
 
             KO_CV_Main.VCornerParams.Initialize_Dictionary();

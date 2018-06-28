@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.tbMR_Convergence = new System.Windows.Forms.TextBox();
             this.tbARB_EndPoint_X = new System.Windows.Forms.TextBox();
             this.tbARB_EndPoint_Y = new System.Windows.Forms.TextBox();
             this.tbARB_EndPoint_Z = new System.Windows.Forms.TextBox();
@@ -72,7 +73,6 @@
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem6 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem12 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.simpleLabelItem7 = new DevExpress.XtraLayout.SimpleLabelItem();
             this.emptySpaceItem7 = new DevExpress.XtraLayout.EmptySpaceItem();
@@ -95,6 +95,8 @@
             this.layoutControlItem17 = new DevExpress.XtraLayout.LayoutControlItem();
             this.simpleLabelItem9 = new DevExpress.XtraLayout.SimpleLabelItem();
             this.emptySpaceItem14 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.layoutControlItem12 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem18 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radioGroupDamperInboardFormat.Properties)).BeginInit();
@@ -122,7 +124,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).BeginInit();
@@ -145,10 +146,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem17)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem14)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem18)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.tbMR_Convergence);
             this.layoutControl1.Controls.Add(this.tbARB_EndPoint_X);
             this.layoutControl1.Controls.Add(this.tbARB_EndPoint_Y);
             this.layoutControl1.Controls.Add(this.tbARB_EndPoint_Z);
@@ -176,6 +180,13 @@
             this.layoutControl1.Size = new System.Drawing.Size(432, 631);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
+            // 
+            // tbMR_Convergence
+            // 
+            this.tbMR_Convergence.Location = new System.Drawing.Point(351, 597);
+            this.tbMR_Convergence.Name = "tbMR_Convergence";
+            this.tbMR_Convergence.Size = new System.Drawing.Size(59, 20);
+            this.tbMR_Convergence.TabIndex = 24;
             // 
             // tbARB_EndPoint_X
             // 
@@ -251,9 +262,9 @@
             // 
             // simpleButtonComputePoint
             // 
-            this.simpleButtonComputePoint.Location = new System.Drawing.Point(184, 597);
+            this.simpleButtonComputePoint.Location = new System.Drawing.Point(12, 597);
             this.simpleButtonComputePoint.Name = "simpleButtonComputePoint";
-            this.simpleButtonComputePoint.Size = new System.Drawing.Size(236, 22);
+            this.simpleButtonComputePoint.Size = new System.Drawing.Size(200, 22);
             this.simpleButtonComputePoint.StyleController = this.layoutControl1;
             this.simpleButtonComputePoint.TabIndex = 15;
             this.simpleButtonComputePoint.Text = "Compute Points";
@@ -391,7 +402,6 @@
             this.emptySpaceItem3,
             this.emptySpaceItem6,
             this.layoutControlItem11,
-            this.layoutControlItem12,
             this.emptySpaceItem5,
             this.simpleLabelItem7,
             this.emptySpaceItem7,
@@ -413,7 +423,9 @@
             this.layoutControlItem16,
             this.layoutControlItem17,
             this.simpleLabelItem9,
-            this.emptySpaceItem14});
+            this.emptySpaceItem14,
+            this.layoutControlItem12,
+            this.layoutControlItem18});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
             this.layoutControlGroup1.Size = new System.Drawing.Size(432, 631);
@@ -676,15 +688,6 @@
             this.layoutControlItem11.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem11.TextVisible = false;
             // 
-            // layoutControlItem12
-            // 
-            this.layoutControlItem12.Control = this.simpleButtonComputePoint;
-            this.layoutControlItem12.Location = new System.Drawing.Point(172, 585);
-            this.layoutControlItem12.Name = "layoutControlItem12";
-            this.layoutControlItem12.Size = new System.Drawing.Size(240, 26);
-            this.layoutControlItem12.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem12.TextVisible = false;
-            // 
             // emptySpaceItem5
             // 
             this.emptySpaceItem5.AllowHotTrack = false;
@@ -709,9 +712,9 @@
             // emptySpaceItem7
             // 
             this.emptySpaceItem7.AllowHotTrack = false;
-            this.emptySpaceItem7.Location = new System.Drawing.Point(0, 585);
+            this.emptySpaceItem7.Location = new System.Drawing.Point(402, 585);
             this.emptySpaceItem7.Name = "emptySpaceItem7";
-            this.emptySpaceItem7.Size = new System.Drawing.Size(172, 26);
+            this.emptySpaceItem7.Size = new System.Drawing.Size(10, 26);
             this.emptySpaceItem7.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem8
@@ -918,6 +921,27 @@
             this.emptySpaceItem14.Size = new System.Drawing.Size(37, 24);
             this.emptySpaceItem14.TextSize = new System.Drawing.Size(0, 0);
             // 
+            // layoutControlItem12
+            // 
+            this.layoutControlItem12.Control = this.simpleButtonComputePoint;
+            this.layoutControlItem12.Location = new System.Drawing.Point(0, 585);
+            this.layoutControlItem12.Name = "layoutControlItem12";
+            this.layoutControlItem12.Size = new System.Drawing.Size(204, 26);
+            this.layoutControlItem12.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem12.TextVisible = false;
+            // 
+            // layoutControlItem18
+            // 
+            this.layoutControlItem18.Control = this.tbMR_Convergence;
+            this.layoutControlItem18.Enabled = false;
+            this.layoutControlItem18.Location = new System.Drawing.Point(204, 585);
+            this.layoutControlItem18.Name = "layoutControlItem18";
+            this.layoutControlItem18.Size = new System.Drawing.Size(198, 26);
+            this.layoutControlItem18.Text = "Motion Ratio Convergence";
+            this.layoutControlItem18.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
+            this.layoutControlItem18.TextSize = new System.Drawing.Size(130, 20);
+            this.layoutControlItem18.TextToControlDistance = 5;
+            // 
             // KO_ActuationPoints
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -952,7 +976,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).EndInit();
@@ -975,6 +998,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem17)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem14)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem18)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1048,5 +1073,7 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem17;
         private DevExpress.XtraLayout.SimpleLabelItem simpleLabelItem9;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem14;
+        private System.Windows.Forms.TextBox tbMR_Convergence;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem18;
     }
 }

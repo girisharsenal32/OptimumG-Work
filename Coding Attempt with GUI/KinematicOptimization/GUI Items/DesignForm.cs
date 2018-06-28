@@ -1567,6 +1567,130 @@ namespace Coding_Attempt_with_GUI
 
         #endregion
 
+        #region Wheel Center - Offset
+        private void tbWC_Offset_FL_X_Leave(object sender, EventArgs e)
+        {
+            Set_WheelCenter_Offset_FL_X();
+        }
+
+        private void tbWC_Offset_FL_X_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_WheelCenter_Offset_FL_X();
+            }
+        }
+
+        private void Set_WheelCenter_Offset_FL_X()
+        {
+            if (DoubleValidation(tbWC_Offset_FL_X.Text))
+            {
+
+                KO_CV_FL.VCornerParams.WheelCenter.Z += Convert.ToDouble(tbWC_Offset_FL_X.Text);
+
+                Plot_OutboardPoint(KO_CV_FL.VCornerParams.WheelCenter, "KO_CV_FL.VCornerParams.WheelCenter");
+
+                KO_CV_FL.VCornerParams.Initialize_Dictionary();
+
+
+                if (Sus_Type.FrontSymmetry_Boolean)
+                {
+                    KO_CV_FR.VCornerParams.WheelCenter.Z = KO_CV_FR.VCornerParams.WheelCenter.Z;
+
+                    Plot_OutboardPoint(KO_CV_FR.VCornerParams.WheelCenter, "KO_CV_FR.VCornerParams.WheelCenter");
+
+                    KO_CV_FR.VCornerParams.Initialize_Dictionary();
+                }
+
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+
+        private void tbWC_Offset_FL_Y_Leave(object sender, EventArgs e)
+        {
+            Set_WheelCenter_Offset_FL_Y();
+        }
+
+        private void tbWC_Offset_FL_Y_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_WheelCenter_Offset_FL_Y();
+            }
+        }
+
+        private void Set_WheelCenter_Offset_FL_Y()
+        {
+            if (DoubleValidation(tbWC_Offset_FL_Y.Text))
+            {
+                KO_CV_FL.VCornerParams.WheelCenter.X += Convert.ToDouble(tbWC_Offset_FL_Y.Text);
+
+                Plot_OutboardPoint(KO_CV_FL.VCornerParams.WheelCenter, "KO_CV_FL.VCornerParams.WheelCenter");
+
+                KO_CV_FL.VCornerParams.Initialize_Dictionary();
+
+
+                if (Sus_Type.FrontSymmetry_Boolean)
+                {
+                    KO_CV_FR.VCornerParams.WheelCenter.X = -KO_CV_FR.VCornerParams.WheelCenter.X;
+
+                    Plot_OutboardPoint(KO_CV_FR.VCornerParams.WheelCenter, "KO_CV_FR.VCornerParams.WheelCenter");
+
+                    KO_CV_FR.VCornerParams.Initialize_Dictionary();
+                }
+
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+        private void tbWC_Offset_FL_Z_Leave(object sender, EventArgs e)
+        {
+            Set_WheelCenter_Offset_FL_Z();
+        }
+
+        private void tbWC_Offset_FL_Z_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_WheelCenter_Offset_FL_Z();
+            }
+        }
+
+        private void Set_WheelCenter_Offset_FL_Z()
+        {
+            if (DoubleValidation(tbWC_Offset_FL_Z.Text))
+            {
+
+                KO_CV_FL.VCornerParams.WheelCenter.Y += Convert.ToDouble(tbWC_Offset_FL_Z.Text);
+
+                Plot_OutboardPoint(KO_CV_FL.VCornerParams.WheelCenter, "KO_CV_FL.VCornerParams.WheelCenter");
+
+                KO_CV_FL.VCornerParams.Initialize_Dictionary();
+
+
+                if (Sus_Type.FrontSymmetry_Boolean)
+                {
+                    KO_CV_FR.VCornerParams.WheelCenter.Y = KO_CV_FR.VCornerParams.WheelCenter.Y;
+
+                    Plot_OutboardPoint(KO_CV_FR.VCornerParams.WheelCenter, "KO_CV_FR.VCornerParams.WheelCenter");
+
+                    KO_CV_FR.VCornerParams.Initialize_Dictionary();
+                }
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+        #endregion
+        
         #endregion
 
         #region --Front Right--
@@ -1844,6 +1968,100 @@ namespace Coding_Attempt_with_GUI
         }
 
 
+        #endregion
+
+        #region Wheel Center - Offset
+        private void tbWC_Offset_FR_X_Leave(object sender, EventArgs e)
+        {
+            Set_WheelCenter_Offset_FR_X();
+        }
+
+        private void tbWC_Offset_FR_X_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_WheelCenter_Offset_FR_X();
+            }
+        }
+
+        private void Set_WheelCenter_Offset_FR_X()
+        {
+            if (DoubleValidation(tbWC_Offset_FR_X.Text))
+            {
+
+                KO_CV_FR.VCornerParams.WheelCenter.Z += Convert.ToDouble(tbWC_Offset_FR_X.Text);
+
+                Plot_OutboardPoint(KO_CV_FR.VCornerParams.WheelCenter, "KO_CV_FR.VCornerParams.WheelCenter");
+
+                KO_CV_FR.VCornerParams.Initialize_Dictionary();
+
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+
+        private void tbWC_Offset_FR_Y_Leave(object sender, EventArgs e)
+        {
+            Set_WheelCenter_Offset_FR_Y();
+        }
+
+        private void tbWC_Offset_FR_Y_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_WheelCenter_Offset_FR_Y();
+            }
+        }
+
+        private void Set_WheelCenter_Offset_FR_Y()
+        {
+            if (DoubleValidation(tbWC_Offset_FR_Y.Text))
+            {
+                KO_CV_FR.VCornerParams.WheelCenter.X += Convert.ToDouble(tbWC_Offset_FR_Y.Text);
+
+                Plot_OutboardPoint(KO_CV_FR.VCornerParams.WheelCenter, "KO_CV_FR.VCornerParams.WheelCenter");
+
+                KO_CV_FR.VCornerParams.Initialize_Dictionary();
+
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+        private void tbWC_Offset_FR_Z_Leave(object sender, EventArgs e)
+        {
+            Set_WheelCenter_Offset_FR_Z();
+        }
+
+        private void tbWC_Offset_FR_Z_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_WheelCenter_Offset_FR_Z();
+            }
+        }
+
+        private void Set_WheelCenter_Offset_FR_Z()
+        {
+            if (DoubleValidation(tbWC_Offset_FR_Z.Text))
+            {
+
+                KO_CV_FR.VCornerParams.WheelCenter.Y += Convert.ToDouble(tbWC_Offset_FR_Z.Text);
+
+                Plot_OutboardPoint(KO_CV_FR.VCornerParams.WheelCenter, "KO_CV_FR.VCornerParams.WheelCenter");
+
+                KO_CV_FR.VCornerParams.Initialize_Dictionary();
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
         #endregion
 
         #endregion
@@ -2205,6 +2423,130 @@ namespace Coding_Attempt_with_GUI
 
         #endregion
 
+        #region Wheel Center - Offset
+        private void tbWC_Offset_RL_X_Leave(object sender, EventArgs e)
+        {
+            Set_WheelCenter_Offset_RL_X();
+        }
+
+        private void tbWC_Offset_RL_X_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_WheelCenter_Offset_RL_X();
+            }
+        }
+
+        private void Set_WheelCenter_Offset_RL_X()
+        {
+            if (DoubleValidation(tbWC_Offset_RL_X.Text))
+            {
+
+                KO_CV_RL.VCornerParams.WheelCenter.Z += Convert.ToDouble(tbWC_Offset_RL_X.Text);
+
+                Plot_OutboardPoint(KO_CV_RL.VCornerParams.WheelCenter, "KO_CV_RL.VCornerParams.WheelCenter");
+
+                KO_CV_RL.VCornerParams.Initialize_Dictionary();
+
+
+                if (Sus_Type.FrontSymmetry_Boolean)
+                {
+                    KO_CV_FR.VCornerParams.WheelCenter.Z = KO_CV_FR.VCornerParams.WheelCenter.Z;
+
+                    Plot_OutboardPoint(KO_CV_FR.VCornerParams.WheelCenter, "KO_CV_FR.VCornerParams.WheelCenter");
+
+                    KO_CV_FR.VCornerParams.Initialize_Dictionary();
+                }
+
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+
+        private void tbWC_Offset_RL_Y_Leave(object sender, EventArgs e)
+        {
+            Set_WheelCenter_Offset_RL_Y();
+        }
+
+        private void tbWC_Offset_RL_Y_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_WheelCenter_Offset_RL_Y();
+            }
+        }
+
+        private void Set_WheelCenter_Offset_RL_Y()
+        {
+            if (DoubleValidation(tbWC_Offset_RL_Y.Text))
+            {
+                KO_CV_RL.VCornerParams.WheelCenter.X += Convert.ToDouble(tbWC_Offset_RL_Y.Text);
+
+                Plot_OutboardPoint(KO_CV_RL.VCornerParams.WheelCenter, "KO_CV_RL.VCornerParams.WheelCenter");
+
+                KO_CV_RL.VCornerParams.Initialize_Dictionary();
+
+
+                if (Sus_Type.FrontSymmetry_Boolean)
+                {
+                    KO_CV_FR.VCornerParams.WheelCenter.X = -KO_CV_FR.VCornerParams.WheelCenter.X;
+
+                    Plot_OutboardPoint(KO_CV_FR.VCornerParams.WheelCenter, "KO_CV_FR.VCornerParams.WheelCenter");
+
+                    KO_CV_FR.VCornerParams.Initialize_Dictionary();
+                }
+
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+        private void tbWC_Offset_RL_Z_Leave(object sender, EventArgs e)
+        {
+            Set_WheelCenter_Offset_RL_Z();
+        }
+
+        private void tbWC_Offset_RL_Z_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_WheelCenter_Offset_RL_Z();
+            }
+        }
+
+        private void Set_WheelCenter_Offset_RL_Z()
+        {
+            if (DoubleValidation(tbWC_Offset_RL_Z.Text))
+            {
+
+                KO_CV_RL.VCornerParams.WheelCenter.Y += Convert.ToDouble(tbWC_Offset_RL_Z.Text);
+
+                Plot_OutboardPoint(KO_CV_RL.VCornerParams.WheelCenter, "KO_CV_RL.VCornerParams.WheelCenter");
+
+                KO_CV_RL.VCornerParams.Initialize_Dictionary();
+
+
+                if (Sus_Type.FrontSymmetry_Boolean)
+                {
+                    KO_CV_FR.VCornerParams.WheelCenter.Y = KO_CV_FR.VCornerParams.WheelCenter.Y;
+
+                    Plot_OutboardPoint(KO_CV_FR.VCornerParams.WheelCenter, "KO_CV_FR.VCornerParams.WheelCenter");
+
+                    KO_CV_FR.VCornerParams.Initialize_Dictionary();
+                }
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+        #endregion
+
         #endregion
 
         #region --Rear Right--
@@ -2476,7 +2818,101 @@ namespace Coding_Attempt_with_GUI
 
         #endregion
 
-        //--Rear Right EEN
+        #region Wheel Center - Offset
+        private void tbWC_Offset_RR_X_Leave(object sender, EventArgs e)
+        {
+            Set_WheelCenter_Offset_RR_X();
+        }
+
+        private void tbWC_Offset_RR_X_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_WheelCenter_Offset_RR_X();
+            }
+        }
+
+        private void Set_WheelCenter_Offset_RR_X()
+        {
+            if (DoubleValidation(tbWC_Offset_RR_X.Text))
+            {
+
+                KO_CV_RR.VCornerParams.WheelCenter.Z += Convert.ToDouble(tbWC_Offset_RR_X.Text);
+
+                Plot_OutboardPoint(KO_CV_RR.VCornerParams.WheelCenter, "KO_CV_RR.VCornerParams.WheelCenter");
+
+                KO_CV_RR.VCornerParams.Initialize_Dictionary();
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+
+        private void tbWC_Offset_RR_Y_Leave(object sender, EventArgs e)
+        {
+            Set_WheelCenter_Offset_RR_Y();
+        }
+
+        private void tbWC_Offset_RR_Y_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_WheelCenter_Offset_RR_Y();
+            }
+        }
+
+        private void Set_WheelCenter_Offset_RR_Y()
+        {
+            if (DoubleValidation(tbWC_Offset_RR_Y.Text))
+            {
+                KO_CV_RR.VCornerParams.WheelCenter.X += Convert.ToDouble(tbWC_Offset_RR_Y.Text);
+
+                Plot_OutboardPoint(KO_CV_RR.VCornerParams.WheelCenter, "KO_CV_RR.VCornerParams.WheelCenter");
+
+                KO_CV_RR.VCornerParams.Initialize_Dictionary();
+
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+        private void tbWC_Offset_RR_Z_Leave(object sender, EventArgs e)
+        {
+            Set_WheelCenter_Offset_RR_Z();
+        }
+
+        private void tbWC_Offset_RR_Z_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_WheelCenter_Offset_RR_Z();
+            }
+        }
+
+        private void Set_WheelCenter_Offset_RR_Z()
+        {
+            if (DoubleValidation(tbWC_Offset_RR_Z.Text))
+            {
+
+                KO_CV_RR.VCornerParams.WheelCenter.Y += Convert.ToDouble(tbWC_Offset_RR_Z.Text);
+
+                Plot_OutboardPoint(KO_CV_RR.VCornerParams.WheelCenter, "KO_CV_RR.VCornerParams.WheelCenter");
+
+                KO_CV_RR.VCornerParams.Initialize_Dictionary();
+
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+        #endregion
+
+        //--END : Rear Right---
         #endregion
 
         //---END : TAB PAGE - Conrer params---
@@ -2532,6 +2968,48 @@ namespace Coding_Attempt_with_GUI
             }
         }
 
+        #endregion
+
+
+        #region Outboard Vertical Offset
+        private void tbToeLink_Outboard_FL_Y_Leave(object sender, EventArgs e)
+        {
+            Set_ToeLinkOutboard_Y_FL();
+        }
+
+        private void tbToeLink_Outboard_FL_Y_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_ToeLinkOutboard_Y_FL();
+            }
+        }
+
+        private void Set_ToeLinkOutboard_Y_FL()
+        {
+            if (DoubleValidation(tbToeLink_Outboard_FL_Y.Text))
+            {
+                KO_CV_FL.VCornerParams.ToeLinkOutboard.Y = Convert.ToDouble(tbToeLink_Outboard_FL_Y.Text);
+
+                if (Sus_Type.FrontSymmetry_Boolean)
+                {
+                    KO_CV_FR.VCornerParams.ToeLinkOutboard.Y = Convert.ToDouble(tbToeLink_Outboard_FL_Y.Text);
+
+                    Plot_OutboardPoint(KO_CV_FR.VCornerParams.ToeLinkOutboard, "KO_CV_FR.VCornerParams.ToeLinkOutboard");
+
+                    KO_CV_FR.VCornerParams.Initialize_Dictionary();
+                }
+
+                Plot_OutboardPoint(KO_CV_FL.VCornerParams.ToeLinkOutboard, "KO_CV_FL.VCornerParams.ToeLinkOutboard");
+
+                KO_CV_FL.VCornerParams.Initialize_Dictionary();
+
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
         #endregion
 
 
@@ -2620,6 +3098,32 @@ namespace Coding_Attempt_with_GUI
             {
                 MessageBox.Show(NumericError);
             }
+        }
+
+        #endregion
+
+
+        #region Outboard Vertical Offset
+        private void tbToeLink_Outboard_FR_Y_Leave(object sender, EventArgs e)
+        {
+            Set_ToeLinkOutboard_Y_FR();
+        }
+
+        private void tbToeLink_Outboard_FR_Y_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_ToeLinkOutboard_Y_FR();
+            }
+        }
+
+        private void Set_ToeLinkOutboard_Y_FR()
+        {
+            KO_CV_FR.VCornerParams.ToeLinkOutboard.Y = Convert.ToDouble(tbToeLink_Outboard_FR_Y.Text);
+
+            Plot_OutboardPoint(KO_CV_FR.VCornerParams.ToeLinkOutboard, "KO_CV_FR.VCornerParams.ToeLinkOutboard");
+
+            KO_CV_FR.VCornerParams.Initialize_Dictionary();
         }
 
         #endregion
@@ -3182,6 +3686,7 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_rearSymmetric"></param>
         private void SymmtryOperations()
         {
+            ///---Tab Page Vehicle GUI Symmetry Operations---
             layoutControlItemRC_LatOff_Front.HideToCustomization();
 
             layoutControlItemRC_LatOff_Rear.HideToCustomization();
@@ -3198,12 +3703,14 @@ namespace Coding_Attempt_with_GUI
 
             layoutControlItemSV_VSAL_RR.HideToCustomization();
 
-            layoutControlItemPitman_Right.HideToCustomization();
 
+            ///---Tab Page Corner ParametersGUI Symmetry Operations---
             layoutControl_CornerParams_FR.Hide();
 
             layoutControl_CornerParams_RR.Hide();
 
+
+            ///---Tab Page Wishbone Inboard PointsGUI Symmetry Operations---
             layoutControlItemwishboneInboardFR.HideToCustomization();
             layoutControlItemwishboneInboardFR.Height = 336;
 
@@ -3213,16 +3720,24 @@ namespace Coding_Attempt_with_GUI
 
             simpleLabelItemwishboneInboardRR.HideToCustomization();
 
+
+            ///---Tab Page Toe Link Points GUI Symmetry Operations---
+            layoutControlItemPitman_Right.HideToCustomization();
+
             layoutControlItembumpSteerCurveFR.HideToCustomization();
 
             layoutControlItemToeLinkLength.HideToCustomization();
 
             simpleLabelItem_BS_FR.HideToCustomization();
 
+            layoutControlItemToeLink_Outboard_Y.HideToCustomization();
+
             layoutControlItemConvergence_BS_FR.HideToCustomization();
 
             layoutControlItemPlotToeLinkInboard_FR.HideToCustomization();
 
+
+            ///---Tab Page Actuation Points GUI Symmetry Operations---
             layoutControlItemActuationPointsFR.HideToCustomization();
 
             layoutControlItemActuationPointsRR.HideToCustomization();
@@ -3237,6 +3752,7 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         private void AssymmetryOperations()
         {
+            ///---Tab Page Vehicle GUI Symmetry Operations---
             layoutControlItemRC_LatOff_Front.ShowInCustomizationForm = true;
 
             layoutControlItemRC_LatOff_Rear.ShowInCustomizationForm = true;
@@ -3253,12 +3769,15 @@ namespace Coding_Attempt_with_GUI
 
             layoutControlItemSV_VSAL_RR.ShowInCustomizationForm = true;
 
-            layoutControlItemPitman_Right.ShowInCustomizationForm = true;
+
+            ///---Tab Page Corner ParametersGUI Symmetry Operations---
 
             layoutControl_CornerParams_FR.Show();
 
             layoutControl_CornerParams_RR.Show();
 
+
+            ///---Tab Page Wishbone Inboard PointsGUI Symmetry Operations---
             layoutControlItemwishboneInboardFR.ShowInCustomizationForm = true;
             layoutControlItemwishboneInboardFR.Height = 336;
 
@@ -3268,16 +3787,24 @@ namespace Coding_Attempt_with_GUI
 
             simpleLabelItemwishboneInboardRR.ShowInCustomizationForm = true;
 
+
+            ///---Tab Page Toe Link Points GUI Symmetry Operations---
+            layoutControlItemPitman_Right.ShowInCustomizationForm = true;
+
             layoutControlItembumpSteerCurveFR.ShowInCustomizationForm = true;
 
             layoutControlItemToeLinkLength.ShowInCustomizationForm = true;
 
             simpleLabelItem_BS_FR.ShowInCustomizationForm = true;
 
+            layoutControlItemToeLink_Outboard_Y.ShowInCustomizationForm = false;
+
             layoutControlItemConvergence_BS_FR.ShowInCustomizationForm = true;
 
             layoutControlItemPlotToeLinkInboard_FR.ShowInCustomizationForm = true;
 
+
+            ///---Tab Page Actuation Points GUI Symmetry Operations---
             layoutControlItemActuationPointsFR.ShowInCustomizationForm = true;
 
             layoutControlItemActuationPointsRR.ShowInCustomizationForm = true;
@@ -3470,5 +3997,7 @@ namespace Coding_Attempt_with_GUI
         {
 
         }
+
+
     }
 }

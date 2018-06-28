@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MathNet.Spatial.Units;
 using devDept.Geometry;
-
+using System.Windows.Forms;
 
 
 namespace Coding_Attempt_with_GUI
@@ -97,7 +97,14 @@ namespace Coding_Attempt_with_GUI
 
             BS_Optimization.Initialize_CornverVariables(ref KO_Central.Vehicle, ref SimParams, ref KO_CV, this);
 
-            BS_Optimization.ConstructGeneticAlgorithm(150);
+            if (KO_CV.BumpSteerCurve.WheelDeflections.Count != 0)
+            {
+                BS_Optimization.ConstructGeneticAlgorithm(150); 
+            }
+            else
+            {
+                MessageBox.Show("Initialize Bump Steer Chart");
+            }
         }
 
         private void Initialize_Optimizer_ActuationPoints_RockerPoints()
@@ -110,7 +117,14 @@ namespace Coding_Attempt_with_GUI
 
             Actuation_Opt.Initialize_CornverVariables(ref KO_Central.Vehicle, ref SimParams, ref KO_CV, this);
 
-            Actuation_Opt.ConstructGeneticAlgorithm(150);
+            if (KO_CV.BumpSteerCurve.WheelDeflections.Count != 0)
+            {
+                Actuation_Opt.ConstructGeneticAlgorithm(150); 
+            }
+            else
+            {
+                MessageBox.Show("Motion Profile not generated. Please perform Bump Steer Optimization before proceeding with Actuation Points");
+            }
         }
 
         /// <summary>

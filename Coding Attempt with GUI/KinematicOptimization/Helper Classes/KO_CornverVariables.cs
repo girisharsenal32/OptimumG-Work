@@ -59,7 +59,7 @@ namespace Coding_Attempt_with_GUI
         public CustomBumpSteerParams BumpSteerCurve { get; set; }
 
         /// <summary>
-        /// Convergence of the Bump Steer
+        /// Object of the <see cref="Convergence"/> indicating the Bump Steer Convergence
         /// </summary>
         public Convergence BumpSteerConvergence { get; set; }
 
@@ -67,6 +67,11 @@ namespace Coding_Attempt_with_GUI
         /// Object of the <see cref="CustomCamberCurve"/> which contains information regarding the Custom Curve of Camber which the user has generated
         /// </summary>
         public CustomCamberCurve CamberCurve { get; set; }
+
+        /// <summary>
+        /// Object of the <see cref="Convergence"/> indicating the Motion Ratio Convergence
+        /// </summary>
+        public Convergence MotionRatio_Convergence { get; set; }
 
         #endregion
 
