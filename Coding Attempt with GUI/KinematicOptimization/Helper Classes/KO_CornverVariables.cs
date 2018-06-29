@@ -54,6 +54,16 @@ namespace Coding_Attempt_with_GUI
         //--Parameter Variation Curves--
 
         /// <summary>
+        /// Default Curve which will can be used by any corner in case no Specific chart is initialized
+        /// </summary>
+        public List<double> Default_Curve { get; set; }
+
+        /// <summary>
+        /// Object of the <see cref="XUC_KO_GenericChart"/> which is used to initialize the default Wheel Deflection Curve
+        /// </summary>
+        public XUC_KO_GenericChart GenericChart { get; set; }
+
+        /// <summary>
         /// Object of the <see cref="CustomBumpSteerParams"/> which contains information regarding the Custom Curve of BUmp Steer which the user has generated
         /// </summary>
         public CustomBumpSteerParams BumpSteerCurve { get; set; }
@@ -156,7 +166,7 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// <see cref="Point3D"/> representing the Contact Patch Initialized using the Track and Wheelbase
         /// </summary>
-        public Point3D ContactPatch { get; set; }
+        //public Point3D ContactPatch { get; set; }
 
         #endregion
 
@@ -194,16 +204,34 @@ namespace Coding_Attempt_with_GUI
 
             VCornerParams = new VehicleCornerParams();
 
-            //Rocker_Axis = new Vector3D();
+            Initialize_Default_MotionProfile();
 
-            //Rocker_Center = new Vector3D();
+            //ContactPatch = new Point3D();
 
-            //Damper_Inboard = new Point3D();
+        }
 
-            //Pushrod_Outboard = new Point3D();
+        /// <summary>
+        /// Method to create a Generic Motion Profile. 
+        /// This step is important when the user doesn't create a Motion Profile. 
+        /// This can happen for example in the rear where the user doesn't initialize a bump steer profile
+        /// </summary>
+        public void Initialize_Default_MotionProfile()
+        {
+            GenericChart = new XUC_KO_GenericChart();
 
-            ContactPatch = new Point3D();
+            GenericChart.AddPointToChart(GenericChart.chartControl1, 25, 0, 0, false);
 
+            GenericChart.AddPointToChart(GenericChart.chartControl1, -25, 0, 0, false);
+
+            BumpSteerCurve.PopulateBumpSteerGraph(GenericChart.ChartPoints_X, GenericChart.ChartPoints_Y);
+
+            Default_Curve = BumpSteerCurve.WheelDeflections.ToList();
+
+            BumpSteerCurve.ToeAngles.Clear();
+
+            BumpSteerCurve.WheelDeflections.Clear();
+
+            GenericChart.chartControl1.Series[0].Points.Clear();
         }
 
 

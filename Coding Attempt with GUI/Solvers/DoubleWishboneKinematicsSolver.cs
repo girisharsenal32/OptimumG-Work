@@ -1087,41 +1087,41 @@ namespace Coding_Attempt_with_GUI
 
         }
 
-        //public void KO_InitialStage_PushPullRocker(Point3D _newPushPullOutboard, Point3D _newUBJ, Point3D _lbjForVerticalCheck, out Point3D _pushPullInboard)
-        //{
-        //    _pushPullInboard = new Point3D();
+        public void KO_InitialStage_MR_ToeLinkOutboard(Point3D _newLBJ, Point3D _newUBJ, out Point3D _toeLinkOutboard)
+        {
+            _toeLinkOutboard = new Point3D();
 
-        //    Point3D S, T1, U1, V1, T2, U2, V2;
+            Point3D S, T1, U1, V1, T2, U2, V2;
+            
+            S = new Point3D(l_M1x, l_M1y, l_M1z);
+            T1 = new Point3D(l_N1x, l_N1y, l_N1z);
+            U1 = new Point3D(l_E1x, l_E1y, l_E1z);
+            V1 = new Point3D(l_F1x, l_F1y, l_F1z);
+            T2 = new Point3D(l_N1x, l_N1y, l_N1z);
+            U2 = new Point3D(_newLBJ.X, _newLBJ.Y, _newLBJ.Z);
+            V2 = new Point3D(_newUBJ.X, _newUBJ.Y, _newUBJ.Z);
 
-        //    S = new Point3D(l_H1x, l_H1y, l_H1z);
-        //    T1 = new Point3D(l_I1x, l_I1y, l_I1z);
-        //    U1 = new Point3D(l_G1x, l_G1y, l_G1z);
-        //    V1 = new Point3D(l_F1x, l_F1y, l_F1z);
-        //    T2 = new Point3D(l_I1x, l_I1y, l_I1z);
-        //    U2 = new Point3D(_newPushPullOutboard.X, _newPushPullOutboard.Y, _newPushPullOutboard.Z);
-        //    V2 = new Point3D(_newUBJ.X, _newUBJ.Y, _newUBJ.Z);
+            QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, -50, false, out _toeLinkOutboard);
 
-        //    QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, _lbjForVerticalCheck.Y, false, out _pushPullInboard);
+        }
 
-        //}
+        public void KO_InitialStage_MR_ContactPatch(Point3D _newLBJ, Point3D _newToeLinkOut, Point3D _newUBJ, out Point3D _contactPatch)
+        {
+            _contactPatch = new Point3D();
 
+            Point3D S, T1, U1, V1, T2, U2, V2;
 
-        //public void KO_InitialStage_DamperRocker(Point3D _newPushPullRocker, Point3D _newPushPullOutboard, Point3D _lbjForVerticalCheck, out Point3D _damperRocker)
-        //{
-        //    _damperRocker = new Point3D();
+            S = new Point3D(l_W1x, l_W1y, l_W1z);
+            T1 = new Point3D(l_M1x, l_M1y, l_M1z);
+            U1 = new Point3D(l_E1x, l_E1y, l_E1z);
+            V1 = new Point3D(l_F1x, l_F1y, l_F1z);
+            T2 = new Point3D(l_M1x, l_M1y, l_M1z);
+            U2 = new Point3D(_newLBJ.X, _newLBJ.Y, _newLBJ.Z);
+            V2 = new Point3D(_newUBJ.X, _newUBJ.Y, _newUBJ.Z);
 
-        //    Point3D S, T1, U1, V1, T2, U2, V2;
+            QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, -200, false, out _contactPatch);
 
-        //    S = new Point3D(l_J1x, l_J1y, l_J1z);
-        //    T1 = new Point3D(l_I1x, l_I1y, l_I1z);
-        //    U1 = new Point3D(l_H1x, l_H1y, l_H1z);
-        //    V1 = new Point3D(l_G1x, l_G1y, l_G1z);
-        //    T2 = new Point3D(l_I1x, l_I1y, l_I1z);
-        //    U2 = new Point3D(_newPushPullRocker.X, _newPushPullRocker.Y, _newPushPullRocker.Z);
-        //    V2 = new Point3D(_newPushPullOutboard.X, _newPushPullOutboard.Y, _newPushPullOutboard.Z);
-
-        //    QuadraticEquationSolver.Solver(S, T1, U1, V1, T2, U2, V2, _lbjForVerticalCheck.Y, false, out _damperRocker);
-        //}
+        }
 
         public void KO_InitialStage_BumpSteer_ContactPatch(Point3D _newLBJ, Point3D _newWheelCenter, Point3D _newToeLinkOutboard, out Point3D _contactPatch)
         {
@@ -1159,6 +1159,7 @@ namespace Coding_Attempt_with_GUI
 
 
         /// <summary>
+        /// ---OBSOLETE--- NOT USED NOW
         /// Method to compute the Wheel Deflection using the Lower Ball Joint's old and new position
         /// </summary>
         /// <param name="_contactPatch">Contact Patch Point which will be used a reference points to compute the Wheel Deflection</param>
@@ -1175,6 +1176,26 @@ namespace Coding_Attempt_with_GUI
             return wheelDef;
         }
 
+        /// <summary>
+        /// Method to compute the Wheel Deflection using the Lower Ball Joint's old and new position
+        /// </summary>
+        /// <param name="_contactPatch">Contact Patch Point which will be used a reference points to compute the Wheel Deflection</param>
+        /// <param name="_newLBJ">The new <see cref="CoordinateOptions.LBJ"/> point</param>
+        /// <returns></returns>
+        public double KO_InitialStage_ComputeWheelDeflection_Correct(Point3D _contactPatch)
+        {
+            Point3D contactPatch_Old = new Point3D(l_W1x, l_W1y, l_W1z);
+
+            double wheelDef = _contactPatch.DistanceTo(contactPatch_Old);
+
+            return wheelDef;
+        }
+
+        /// <summary>
+        /// Method to compute the deflection of the ARB Lever
+        /// </summary>
+        /// <param name="_arbDroopLinkLeverPoint">New Point representing the ARB Lever's End Point</param>
+        /// <returns></returns>
         public double KO_InitialStage_Compute_ARBLeverDeflection(Point3D _arbDroopLinkLeverPoint)
         {
             Point3D arbDroopLinkLeverPoint_Old = new Point3D(l_P1x, l_P1y, l_P1z);

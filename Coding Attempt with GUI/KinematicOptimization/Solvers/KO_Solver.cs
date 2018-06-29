@@ -117,9 +117,21 @@ namespace Coding_Attempt_with_GUI
 
             Actuation_Opt.Initialize_CornverVariables(ref KO_Central.Vehicle, ref SimParams, ref KO_CV, this);
 
-            if (KO_CV.BumpSteerCurve.WheelDeflections.Count != 0)
+            //if (VCorner == VehicleCorner.RearLeft || VCorner == VehicleCorner.RearRight) 
+            //{
+            //    if (KO_CV.Default_Curve.Count != 0)
+            //    {
+            //        Actuation_Opt.ConstructGeneticAlgorithm(150);
+            //    }
+
+            //}
+            //else if (KO_CV.BumpSteerCurve.WheelDeflections.Count != 0)
+            //{
+            //    Actuation_Opt.ConstructGeneticAlgorithm(150); 
+            //}
+            if (KO_CV.Default_Curve.Count != 0)
             {
-                Actuation_Opt.ConstructGeneticAlgorithm(150); 
+                Actuation_Opt.ConstructGeneticAlgorithm(150);
             }
             else
             {

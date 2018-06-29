@@ -40,11 +40,11 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// Array containing the X Coordinates of the Chart
         /// </summary>
-        public List<double> ChartPoints_X { get; set; }
+        public List<double> ChartPoints_X { get; set; } = new List<double>();
         /// <summary>
         /// Array containing the Y Coordinates of the Chart
         /// </summary>
-        public List<double> ChartPoints_Y { get; set; }
+        public List<double> ChartPoints_Y { get; set; } = new List<double>();
         /// <summary>
         /// Boolean to determine if the Chart is being plotted by the USER during input or by solver during Output Display
         /// </summary>

@@ -258,6 +258,9 @@
             this.splitterItem2 = new DevExpress.XtraLayout.SplitterItem();
             this.xtraTabPageBumpSteer = new DevExpress.XtraTab.XtraTabPage();
             this.layoutControl7 = new DevExpress.XtraLayout.LayoutControl();
+            this.tbToe_Outboard_RL_Y = new System.Windows.Forms.TextBox();
+            this.tbToe_Outboard_RL_X = new System.Windows.Forms.TextBox();
+            this.tbToe_Outboard_RL_Z = new System.Windows.Forms.TextBox();
             this.tbToeLink_Outboard_FR_Y = new System.Windows.Forms.TextBox();
             this.tbToeLink_Outboard_FL_Y = new System.Windows.Forms.TextBox();
             this.tbConvergence_BS_FR = new System.Windows.Forms.TextBox();
@@ -270,6 +273,15 @@
             this.tbPitmanLeft = new System.Windows.Forms.TextBox();
             this.bumpSteerCurveFR = new Coding_Attempt_with_GUI.BumpSteerCurve();
             this.bumpSteerCurveFL = new Coding_Attempt_with_GUI.BumpSteerCurve();
+            this.tbToe_Inboard_RL_Z = new System.Windows.Forms.TextBox();
+            this.tbToe_Inboard_RL_X = new System.Windows.Forms.TextBox();
+            this.tbToe_Inboard_RL_Y = new System.Windows.Forms.TextBox();
+            this.tbToe_Outboard_RR_Z = new System.Windows.Forms.TextBox();
+            this.tbToe_Outboard_RR_X = new System.Windows.Forms.TextBox();
+            this.tbToe_Outboard_RR_Y = new System.Windows.Forms.TextBox();
+            this.tbToe_Inboard_RR_Y = new System.Windows.Forms.TextBox();
+            this.tbToe_Inboard_RR_Z = new System.Windows.Forms.TextBox();
+            this.tbToe_Inboard_RR_X = new System.Windows.Forms.TextBox();
             this.layoutControlGroup8 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem32 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItembumpSteerCurveFR = new DevExpress.XtraLayout.LayoutControlItem();
@@ -283,7 +295,6 @@
             this.emptySpaceItem28 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem52 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItemPlotToeLinkInboard_FR = new DevExpress.XtraLayout.LayoutControlItem();
-            this.simpleLabelItem11 = new DevExpress.XtraLayout.SimpleLabelItem();
             this.layoutControlItem61 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItemConvergence_BS_FR = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem34 = new DevExpress.XtraLayout.EmptySpaceItem();
@@ -292,6 +303,30 @@
             this.layoutControlItemToeLink_Outboard_Y = new DevExpress.XtraLayout.LayoutControlItem();
             this.simpleLabelItem_BS_FR = new DevExpress.XtraLayout.SimpleLabelItem();
             this.emptySpaceItem29 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.simpleLabelItem11 = new DevExpress.XtraLayout.SimpleLabelItem();
+            this.simpleLabelItem23 = new DevExpress.XtraLayout.SimpleLabelItem();
+            this.layoutControlItem67 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem68 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem69 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.simpleLabelItem25 = new DevExpress.XtraLayout.SimpleLabelItem();
+            this.emptySpaceItem36 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.emptySpaceItem37 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.layoutControlItem72 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem70 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem71 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpaceItem38 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.simpleLabelItem27 = new DevExpress.XtraLayout.SimpleLabelItem();
+            this.simpleLabelItemToe_Points_RR = new DevExpress.XtraLayout.SimpleLabelItem();
+            this.layoutControlItemToe_Outboard_RR_Z = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItemToe_Outboard_RR_X = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItemToe_Outboard_RR_Y = new DevExpress.XtraLayout.LayoutControlItem();
+            this.simpleLabelItemToe_Outboard_RR = new DevExpress.XtraLayout.SimpleLabelItem();
+            this.emptySpaceItem39 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.layoutControlItemToe_Inboard_RR_Y = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItemToe_Inboard_RR_Z = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItemToe_Inboard_RR_X = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpaceItem40 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.simpleLabelItemToe_Inboard_RR = new DevExpress.XtraLayout.SimpleLabelItem();
             this.xtraTabPageActuationPoints = new DevExpress.XtraTab.XtraTabPage();
             this.layoutControl6 = new DevExpress.XtraLayout.LayoutControl();
             this.actuationPoints_RR = new Coding_Attempt_with_GUI.KO_ActuationPoints();
@@ -308,13 +343,13 @@
             this.simpleLabelItem24 = new DevExpress.XtraLayout.SimpleLabelItem();
             this.simpleLabelItemActuationPoint_RR = new DevExpress.XtraLayout.SimpleLabelItem();
             this.groupControlCAD = new DevExpress.XtraEditors.GroupControl();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.tabbedControlGroup1 = new DevExpress.XtraLayout.TabbedControlGroup();
             this.layoutControlGroup7 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.emptySpaceItem23 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.simpleSeparator1 = new DevExpress.XtraLayout.SimpleSeparator();
             this.splitter1 = new System.Windows.Forms.Splitter();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
             this.xtraTabControl1.SuspendLayout();
             this.xtraTabPageVehicleParams.SuspendLayout();
@@ -490,7 +525,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem28)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem52)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemPlotToeLinkInboard_FR)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem61)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemConvergence_BS_FR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem34)).BeginInit();
@@ -499,6 +533,30 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemToeLink_Outboard_Y)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem_BS_FR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem29)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem23)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem67)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem68)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem69)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem25)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem36)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem37)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem72)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem70)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem71)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem38)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem27)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItemToe_Points_RR)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemToe_Outboard_RR_Z)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemToe_Outboard_RR_X)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemToe_Outboard_RR_Y)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItemToe_Outboard_RR)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem39)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemToe_Inboard_RR_Y)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemToe_Inboard_RR_Z)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemToe_Inboard_RR_X)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem40)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItemToe_Inboard_RR)).BeginInit();
             this.xtraTabPageActuationPoints.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl6)).BeginInit();
             this.layoutControl6.SuspendLayout();
@@ -512,11 +570,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem24)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItemActuationPoint_RR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControlCAD)).BeginInit();
+            this.groupControlCAD.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem23)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleSeparator1)).BeginInit();
-            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // xtraTabControl1
@@ -1507,6 +1566,7 @@
             this.tbWC_Offset_FL_Y.Name = "tbWC_Offset_FL_Y";
             this.tbWC_Offset_FL_Y.Size = new System.Drawing.Size(56, 20);
             this.tbWC_Offset_FL_Y.TabIndex = 14;
+            this.tbWC_Offset_FL_Y.Text = "0";
             this.tbWC_Offset_FL_Y.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbWC_Offset_FL_Y_KeyDown);
             this.tbWC_Offset_FL_Y.Leave += new System.EventHandler(this.tbWC_Offset_FL_Y_Leave);
             // 
@@ -1516,6 +1576,7 @@
             this.tbWC_Offset_FL_X.Name = "tbWC_Offset_FL_X";
             this.tbWC_Offset_FL_X.Size = new System.Drawing.Size(56, 20);
             this.tbWC_Offset_FL_X.TabIndex = 13;
+            this.tbWC_Offset_FL_X.Text = "0";
             this.tbWC_Offset_FL_X.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbWC_Offset_FL_X_KeyDown);
             this.tbWC_Offset_FL_X.Leave += new System.EventHandler(this.tbWC_Offset_FL_X_Leave);
             // 
@@ -1525,6 +1586,7 @@
             this.tbWC_Offset_FL_Z.Name = "tbWC_Offset_FL_Z";
             this.tbWC_Offset_FL_Z.Size = new System.Drawing.Size(56, 20);
             this.tbWC_Offset_FL_Z.TabIndex = 12;
+            this.tbWC_Offset_FL_Z.Text = "0";
             this.tbWC_Offset_FL_Z.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbWC_Offset_FL_Z_KeyDown);
             this.tbWC_Offset_FL_Z.Leave += new System.EventHandler(this.tbWC_Offset_FL_Z_Leave);
             // 
@@ -1940,6 +2002,9 @@
             this.tbWC_Offset_FR_Z.Name = "tbWC_Offset_FR_Z";
             this.tbWC_Offset_FR_Z.Size = new System.Drawing.Size(56, 20);
             this.tbWC_Offset_FR_Z.TabIndex = 12;
+            this.tbWC_Offset_FR_Z.Text = "0";
+            this.tbWC_Offset_FR_Z.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbWC_Offset_FR_Z_KeyDown);
+            this.tbWC_Offset_FR_Z.Leave += new System.EventHandler(this.tbWC_Offset_FR_Z_Leave);
             // 
             // tbWC_Offset_FR_Y
             // 
@@ -1947,6 +2012,9 @@
             this.tbWC_Offset_FR_Y.Name = "tbWC_Offset_FR_Y";
             this.tbWC_Offset_FR_Y.Size = new System.Drawing.Size(56, 20);
             this.tbWC_Offset_FR_Y.TabIndex = 14;
+            this.tbWC_Offset_FR_Y.Text = "0";
+            this.tbWC_Offset_FR_Y.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbWC_Offset_FR_Y_KeyDown);
+            this.tbWC_Offset_FR_Y.Leave += new System.EventHandler(this.tbWC_Offset_FR_Y_Leave);
             // 
             // tbWC_Offset_FR_X
             // 
@@ -1954,6 +2022,9 @@
             this.tbWC_Offset_FR_X.Name = "tbWC_Offset_FR_X";
             this.tbWC_Offset_FR_X.Size = new System.Drawing.Size(56, 20);
             this.tbWC_Offset_FR_X.TabIndex = 13;
+            this.tbWC_Offset_FR_X.Text = "0";
+            this.tbWC_Offset_FR_X.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbWC_Offset_FR_X_KeyDown);
+            this.tbWC_Offset_FR_X.Leave += new System.EventHandler(this.tbWC_Offset_FR_X_Leave);
             // 
             // layoutControlGroup4
             // 
@@ -2291,6 +2362,9 @@
             this.tbWC_Offset_RL_Z.Name = "tbWC_Offset_RL_Z";
             this.tbWC_Offset_RL_Z.Size = new System.Drawing.Size(56, 20);
             this.tbWC_Offset_RL_Z.TabIndex = 12;
+            this.tbWC_Offset_RL_Z.Text = "0";
+            this.tbWC_Offset_RL_Z.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbWC_Offset_RL_Z_KeyDown);
+            this.tbWC_Offset_RL_Z.Leave += new System.EventHandler(this.tbWC_Offset_RL_Z_Leave);
             // 
             // tbWC_Offset_RL_Y
             // 
@@ -2298,6 +2372,8 @@
             this.tbWC_Offset_RL_Y.Name = "tbWC_Offset_RL_Y";
             this.tbWC_Offset_RL_Y.Size = new System.Drawing.Size(56, 20);
             this.tbWC_Offset_RL_Y.TabIndex = 14;
+            this.tbWC_Offset_RL_Y.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbWC_Offset_RL_Y_KeyDown);
+            this.tbWC_Offset_RL_Y.Leave += new System.EventHandler(this.tbWC_Offset_RL_Y_Leave);
             // 
             // tbWC_Offset_RL_X
             // 
@@ -2305,6 +2381,9 @@
             this.tbWC_Offset_RL_X.Name = "tbWC_Offset_RL_X";
             this.tbWC_Offset_RL_X.Size = new System.Drawing.Size(56, 20);
             this.tbWC_Offset_RL_X.TabIndex = 13;
+            this.tbWC_Offset_RL_X.Text = "0";
+            this.tbWC_Offset_RL_X.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbWC_Offset_RL_X_KeyDown);
+            this.tbWC_Offset_RL_X.Leave += new System.EventHandler(this.tbWC_Offset_RL_X_Leave);
             // 
             // layoutControlGroup5
             // 
@@ -2648,6 +2727,9 @@
             this.tbWC_Offset_RR_Z.Name = "tbWC_Offset_RR_Z";
             this.tbWC_Offset_RR_Z.Size = new System.Drawing.Size(56, 20);
             this.tbWC_Offset_RR_Z.TabIndex = 12;
+            this.tbWC_Offset_RR_Z.Text = "0";
+            this.tbWC_Offset_RR_Z.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbWC_Offset_RR_Z_KeyDown);
+            this.tbWC_Offset_RR_Z.Leave += new System.EventHandler(this.tbWC_Offset_RR_Z_Leave);
             // 
             // tbWC_Offset_RR_Y
             // 
@@ -2655,6 +2737,9 @@
             this.tbWC_Offset_RR_Y.Name = "tbWC_Offset_RR_Y";
             this.tbWC_Offset_RR_Y.Size = new System.Drawing.Size(56, 20);
             this.tbWC_Offset_RR_Y.TabIndex = 14;
+            this.tbWC_Offset_RR_Y.Text = "0";
+            this.tbWC_Offset_RR_Y.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbWC_Offset_RR_Y_KeyDown);
+            this.tbWC_Offset_RR_Y.Leave += new System.EventHandler(this.tbWC_Offset_RR_Y_Leave);
             // 
             // tbWC_Offset_RR_X
             // 
@@ -2662,6 +2747,9 @@
             this.tbWC_Offset_RR_X.Name = "tbWC_Offset_RR_X";
             this.tbWC_Offset_RR_X.Size = new System.Drawing.Size(56, 20);
             this.tbWC_Offset_RR_X.TabIndex = 13;
+            this.tbWC_Offset_RR_X.Text = "0";
+            this.tbWC_Offset_RR_X.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbWC_Offset_RR_X_KeyDown);
+            this.tbWC_Offset_RR_X.Leave += new System.EventHandler(this.tbWC_Offset_RR_X_Leave);
             // 
             // layoutControlGroup6
             // 
@@ -3139,6 +3227,9 @@
             // 
             this.layoutControl7.Appearance.Control.BorderColor = System.Drawing.Color.Black;
             this.layoutControl7.Appearance.Control.Options.UseBorderColor = true;
+            this.layoutControl7.Controls.Add(this.tbToe_Outboard_RL_Y);
+            this.layoutControl7.Controls.Add(this.tbToe_Outboard_RL_X);
+            this.layoutControl7.Controls.Add(this.tbToe_Outboard_RL_Z);
             this.layoutControl7.Controls.Add(this.tbToeLink_Outboard_FR_Y);
             this.layoutControl7.Controls.Add(this.tbToeLink_Outboard_FL_Y);
             this.layoutControl7.Controls.Add(this.tbConvergence_BS_FR);
@@ -3151,6 +3242,15 @@
             this.layoutControl7.Controls.Add(this.tbPitmanLeft);
             this.layoutControl7.Controls.Add(this.bumpSteerCurveFR);
             this.layoutControl7.Controls.Add(this.bumpSteerCurveFL);
+            this.layoutControl7.Controls.Add(this.tbToe_Inboard_RL_Z);
+            this.layoutControl7.Controls.Add(this.tbToe_Inboard_RL_X);
+            this.layoutControl7.Controls.Add(this.tbToe_Inboard_RL_Y);
+            this.layoutControl7.Controls.Add(this.tbToe_Outboard_RR_Z);
+            this.layoutControl7.Controls.Add(this.tbToe_Outboard_RR_X);
+            this.layoutControl7.Controls.Add(this.tbToe_Outboard_RR_Y);
+            this.layoutControl7.Controls.Add(this.tbToe_Inboard_RR_Y);
+            this.layoutControl7.Controls.Add(this.tbToe_Inboard_RR_Z);
+            this.layoutControl7.Controls.Add(this.tbToe_Inboard_RR_X);
             this.layoutControl7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl7.Location = new System.Drawing.Point(0, 0);
             this.layoutControl7.Name = "layoutControl7";
@@ -3165,9 +3265,36 @@
             this.layoutControl7.TabIndex = 0;
             this.layoutControl7.Text = "layoutControl7";
             // 
+            // tbToe_Outboard_RL_Y
+            // 
+            this.tbToe_Outboard_RL_Y.Location = new System.Drawing.Point(247, 390);
+            this.tbToe_Outboard_RL_Y.Name = "tbToe_Outboard_RL_Y";
+            this.tbToe_Outboard_RL_Y.Size = new System.Drawing.Size(61, 20);
+            this.tbToe_Outboard_RL_Y.TabIndex = 22;
+            this.tbToe_Outboard_RL_Y.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbToe_Outboard_RL_Y_KeyDown);
+            this.tbToe_Outboard_RL_Y.Leave += new System.EventHandler(this.tbToe_Outboard_RL_Y_Leave);
+            // 
+            // tbToe_Outboard_RL_X
+            // 
+            this.tbToe_Outboard_RL_X.Location = new System.Drawing.Point(147, 390);
+            this.tbToe_Outboard_RL_X.Name = "tbToe_Outboard_RL_X";
+            this.tbToe_Outboard_RL_X.Size = new System.Drawing.Size(61, 20);
+            this.tbToe_Outboard_RL_X.TabIndex = 21;
+            this.tbToe_Outboard_RL_X.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbToe_Outboard_RL_X_KeyDown);
+            this.tbToe_Outboard_RL_X.Leave += new System.EventHandler(this.tbToe_Outboard_RL_X_Leave);
+            // 
+            // tbToe_Outboard_RL_Z
+            // 
+            this.tbToe_Outboard_RL_Z.Location = new System.Drawing.Point(347, 390);
+            this.tbToe_Outboard_RL_Z.Name = "tbToe_Outboard_RL_Z";
+            this.tbToe_Outboard_RL_Z.Size = new System.Drawing.Size(61, 20);
+            this.tbToe_Outboard_RL_Z.TabIndex = 20;
+            this.tbToe_Outboard_RL_Z.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbToe_Outboard_RL_Z_KeyDown);
+            this.tbToe_Outboard_RL_Z.Leave += new System.EventHandler(this.tbToe_Outboard_RL_Z_Leave);
+            // 
             // tbToeLink_Outboard_FR_Y
             // 
-            this.tbToeLink_Outboard_FR_Y.Location = new System.Drawing.Point(547, 415);
+            this.tbToeLink_Outboard_FR_Y.Location = new System.Drawing.Point(547, 455);
             this.tbToeLink_Outboard_FR_Y.Name = "tbToeLink_Outboard_FR_Y";
             this.tbToeLink_Outboard_FR_Y.Size = new System.Drawing.Size(75, 20);
             this.tbToeLink_Outboard_FR_Y.TabIndex = 19;
@@ -3176,7 +3303,7 @@
             // 
             // tbToeLink_Outboard_FL_Y
             // 
-            this.tbToeLink_Outboard_FL_Y.Location = new System.Drawing.Point(547, 32);
+            this.tbToeLink_Outboard_FL_Y.Location = new System.Drawing.Point(547, 49);
             this.tbToeLink_Outboard_FL_Y.Name = "tbToeLink_Outboard_FL_Y";
             this.tbToeLink_Outboard_FL_Y.Size = new System.Drawing.Size(75, 20);
             this.tbToeLink_Outboard_FL_Y.TabIndex = 18;
@@ -3186,7 +3313,7 @@
             // tbConvergence_BS_FR
             // 
             this.tbConvergence_BS_FR.Enabled = false;
-            this.tbConvergence_BS_FR.Location = new System.Drawing.Point(205, 827);
+            this.tbConvergence_BS_FR.Location = new System.Drawing.Point(205, 752);
             this.tbConvergence_BS_FR.Name = "tbConvergence_BS_FR";
             this.tbConvergence_BS_FR.Size = new System.Drawing.Size(59, 20);
             this.tbConvergence_BS_FR.TabIndex = 17;
@@ -3194,14 +3321,14 @@
             // tbConvergence_BS_FL
             // 
             this.tbConvergence_BS_FL.Enabled = false;
-            this.tbConvergence_BS_FL.Location = new System.Drawing.Point(215, 372);
+            this.tbConvergence_BS_FL.Location = new System.Drawing.Point(215, 347);
             this.tbConvergence_BS_FL.Name = "tbConvergence_BS_FL";
             this.tbConvergence_BS_FL.Size = new System.Drawing.Size(55, 20);
             this.tbConvergence_BS_FL.TabIndex = 13;
             // 
             // simpleButtonPlotToelinkInboard_FR
             // 
-            this.simpleButtonPlotToelinkInboard_FR.Location = new System.Drawing.Point(12, 827);
+            this.simpleButtonPlotToelinkInboard_FR.Location = new System.Drawing.Point(12, 752);
             this.simpleButtonPlotToelinkInboard_FR.Name = "simpleButtonPlotToelinkInboard_FR";
             this.simpleButtonPlotToelinkInboard_FR.Size = new System.Drawing.Size(110, 22);
             this.simpleButtonPlotToelinkInboard_FR.StyleController = this.layoutControl7;
@@ -3211,7 +3338,7 @@
             // 
             // simpleButtonPlotToelinkInboard_FL
             // 
-            this.simpleButtonPlotToelinkInboard_FL.Location = new System.Drawing.Point(12, 372);
+            this.simpleButtonPlotToelinkInboard_FL.Location = new System.Drawing.Point(12, 347);
             this.simpleButtonPlotToelinkInboard_FL.Name = "simpleButtonPlotToelinkInboard_FL";
             this.simpleButtonPlotToelinkInboard_FL.Size = new System.Drawing.Size(120, 22);
             this.simpleButtonPlotToelinkInboard_FL.StyleController = this.layoutControl7;
@@ -3221,7 +3348,7 @@
             // 
             // tbToeLinkLength_FR
             // 
-            this.tbToeLinkLength_FR.Location = new System.Drawing.Point(259, 439);
+            this.tbToeLinkLength_FR.Location = new System.Drawing.Point(259, 479);
             this.tbToeLinkLength_FR.Name = "tbToeLinkLength_FR";
             this.tbToeLinkLength_FR.Size = new System.Drawing.Size(119, 20);
             this.tbToeLinkLength_FR.TabIndex = 10;
@@ -3230,7 +3357,7 @@
             // 
             // tbToeLinkLength_FL
             // 
-            this.tbToeLinkLength_FL.Location = new System.Drawing.Point(259, 56);
+            this.tbToeLinkLength_FL.Location = new System.Drawing.Point(259, 73);
             this.tbToeLinkLength_FL.Name = "tbToeLinkLength_FL";
             this.tbToeLinkLength_FL.Size = new System.Drawing.Size(119, 20);
             this.tbToeLinkLength_FL.TabIndex = 9;
@@ -3239,7 +3366,7 @@
             // 
             // tbPitmanRight
             // 
-            this.tbPitmanRight.Location = new System.Drawing.Point(259, 415);
+            this.tbPitmanRight.Location = new System.Drawing.Point(259, 455);
             this.tbPitmanRight.Name = "tbPitmanRight";
             this.tbPitmanRight.Size = new System.Drawing.Size(119, 20);
             this.tbPitmanRight.TabIndex = 8;
@@ -3248,7 +3375,7 @@
             // 
             // tbPitmanLeft
             // 
-            this.tbPitmanLeft.Location = new System.Drawing.Point(259, 32);
+            this.tbPitmanLeft.Location = new System.Drawing.Point(259, 49);
             this.tbPitmanLeft.Name = "tbPitmanLeft";
             this.tbPitmanLeft.Size = new System.Drawing.Size(119, 20);
             this.tbPitmanLeft.TabIndex = 7;
@@ -3260,10 +3387,10 @@
             this.bumpSteerCurveFR.Cursor = System.Windows.Forms.Cursors.Default;
             this.bumpSteerCurveFR.CustomBumpSteerCurve = false;
             this.bumpSteerCurveFR.IsOutputChart = false;
-            this.bumpSteerCurveFR.Location = new System.Drawing.Point(12, 463);
+            this.bumpSteerCurveFR.Location = new System.Drawing.Point(12, 503);
             this.bumpSteerCurveFR.Name = "bumpSteerCurveFR";
             this.bumpSteerCurveFR.seriesPointsInChart = null;
-            this.bumpSteerCurveFR.Size = new System.Drawing.Size(620, 360);
+            this.bumpSteerCurveFR.Size = new System.Drawing.Size(620, 245);
             this.bumpSteerCurveFR.StepSize = 0D;
             this.bumpSteerCurveFR.TabIndex = 6;
             this.bumpSteerCurveFR.X_Lower = 0D;
@@ -3279,13 +3406,94 @@
             this.bumpSteerCurveFL.Location = new System.Drawing.Point(12, 97);
             this.bumpSteerCurveFL.Name = "bumpSteerCurveFL";
             this.bumpSteerCurveFL.seriesPointsInChart = null;
-            this.bumpSteerCurveFL.Size = new System.Drawing.Size(620, 271);
+            this.bumpSteerCurveFL.Size = new System.Drawing.Size(620, 246);
             this.bumpSteerCurveFL.StepSize = 0D;
             this.bumpSteerCurveFL.TabIndex = 5;
             this.bumpSteerCurveFL.X_Lower = 0D;
             this.bumpSteerCurveFL.X_Upper = 0D;
             this.bumpSteerCurveFL.Y_Lower = 0D;
             this.bumpSteerCurveFL.Y_Upper = 0D;
+            // 
+            // tbToe_Inboard_RL_Z
+            // 
+            this.tbToe_Inboard_RL_Z.Location = new System.Drawing.Point(347, 414);
+            this.tbToe_Inboard_RL_Z.Name = "tbToe_Inboard_RL_Z";
+            this.tbToe_Inboard_RL_Z.Size = new System.Drawing.Size(61, 20);
+            this.tbToe_Inboard_RL_Z.TabIndex = 20;
+            this.tbToe_Inboard_RL_Z.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbToe_Inboard_RL_Z_KeyDown);
+            this.tbToe_Inboard_RL_Z.Leave += new System.EventHandler(this.tbToe_Inboard_RL_Z_Leave);
+            // 
+            // tbToe_Inboard_RL_X
+            // 
+            this.tbToe_Inboard_RL_X.Location = new System.Drawing.Point(147, 414);
+            this.tbToe_Inboard_RL_X.Name = "tbToe_Inboard_RL_X";
+            this.tbToe_Inboard_RL_X.Size = new System.Drawing.Size(61, 20);
+            this.tbToe_Inboard_RL_X.TabIndex = 21;
+            this.tbToe_Inboard_RL_X.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbToe_Inboard_RL_X_KeyDown);
+            this.tbToe_Inboard_RL_X.Leave += new System.EventHandler(this.tbToe_Inboard_RL_X_Leave);
+            // 
+            // tbToe_Inboard_RL_Y
+            // 
+            this.tbToe_Inboard_RL_Y.Location = new System.Drawing.Point(247, 414);
+            this.tbToe_Inboard_RL_Y.Name = "tbToe_Inboard_RL_Y";
+            this.tbToe_Inboard_RL_Y.Size = new System.Drawing.Size(61, 20);
+            this.tbToe_Inboard_RL_Y.TabIndex = 22;
+            this.tbToe_Inboard_RL_Y.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbToe_Inboard_RL_Y_KeyDown);
+            this.tbToe_Inboard_RL_Y.Leave += new System.EventHandler(this.tbToe_Inboard_RL_Y_Leave);
+            // 
+            // tbToe_Outboard_RR_Z
+            // 
+            this.tbToe_Outboard_RR_Z.Location = new System.Drawing.Point(347, 805);
+            this.tbToe_Outboard_RR_Z.Name = "tbToe_Outboard_RR_Z";
+            this.tbToe_Outboard_RR_Z.Size = new System.Drawing.Size(61, 20);
+            this.tbToe_Outboard_RR_Z.TabIndex = 20;
+            this.tbToe_Outboard_RR_Z.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbToe_Outboard_RR_Z_KeyDown);
+            this.tbToe_Outboard_RR_Z.Leave += new System.EventHandler(this.tbToe_Outboard_RR_Z_Leave);
+            // 
+            // tbToe_Outboard_RR_X
+            // 
+            this.tbToe_Outboard_RR_X.Location = new System.Drawing.Point(147, 805);
+            this.tbToe_Outboard_RR_X.Name = "tbToe_Outboard_RR_X";
+            this.tbToe_Outboard_RR_X.Size = new System.Drawing.Size(61, 20);
+            this.tbToe_Outboard_RR_X.TabIndex = 21;
+            this.tbToe_Outboard_RR_X.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbToe_Outboard_RR_X_KeyDown);
+            this.tbToe_Outboard_RR_X.Leave += new System.EventHandler(this.tbToe_Outboard_RR_X_Leave);
+            // 
+            // tbToe_Outboard_RR_Y
+            // 
+            this.tbToe_Outboard_RR_Y.Location = new System.Drawing.Point(247, 805);
+            this.tbToe_Outboard_RR_Y.Name = "tbToe_Outboard_RR_Y";
+            this.tbToe_Outboard_RR_Y.Size = new System.Drawing.Size(61, 20);
+            this.tbToe_Outboard_RR_Y.TabIndex = 22;
+            this.tbToe_Outboard_RR_Y.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbToe_Outboard_RR_Y_KeyDown);
+            this.tbToe_Outboard_RR_Y.Leave += new System.EventHandler(this.tbToe_Outboard_RR_Y_Leave);
+            // 
+            // tbToe_Inboard_RR_Y
+            // 
+            this.tbToe_Inboard_RR_Y.Location = new System.Drawing.Point(247, 829);
+            this.tbToe_Inboard_RR_Y.Name = "tbToe_Inboard_RR_Y";
+            this.tbToe_Inboard_RR_Y.Size = new System.Drawing.Size(61, 20);
+            this.tbToe_Inboard_RR_Y.TabIndex = 22;
+            this.tbToe_Inboard_RR_Y.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbToe_Inboard_RR_Y_KeyDown);
+            this.tbToe_Inboard_RR_Y.Leave += new System.EventHandler(this.tbToe_Inboard_RR_Y_Leave);
+            // 
+            // tbToe_Inboard_RR_Z
+            // 
+            this.tbToe_Inboard_RR_Z.Location = new System.Drawing.Point(347, 829);
+            this.tbToe_Inboard_RR_Z.Name = "tbToe_Inboard_RR_Z";
+            this.tbToe_Inboard_RR_Z.Size = new System.Drawing.Size(61, 20);
+            this.tbToe_Inboard_RR_Z.TabIndex = 20;
+            this.tbToe_Inboard_RR_Z.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbToe_Inboard_RR_Z_KeyDown);
+            this.tbToe_Inboard_RR_Z.Leave += new System.EventHandler(this.tbToe_Inboard_RR_Z_Leave);
+            // 
+            // tbToe_Inboard_RR_X
+            // 
+            this.tbToe_Inboard_RR_X.Location = new System.Drawing.Point(147, 829);
+            this.tbToe_Inboard_RR_X.Name = "tbToe_Inboard_RR_X";
+            this.tbToe_Inboard_RR_X.Size = new System.Drawing.Size(61, 20);
+            this.tbToe_Inboard_RR_X.TabIndex = 21;
+            this.tbToe_Inboard_RR_X.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbToe_Inboard_RR_X_KeyDown);
+            this.tbToe_Inboard_RR_X.Leave += new System.EventHandler(this.tbToe_Inboard_RR_X_Leave);
             // 
             // layoutControlGroup8
             // 
@@ -3304,7 +3512,6 @@
             this.emptySpaceItem28,
             this.layoutControlItem52,
             this.layoutControlItemPlotToeLinkInboard_FR,
-            this.simpleLabelItem11,
             this.layoutControlItem61,
             this.layoutControlItemConvergence_BS_FR,
             this.emptySpaceItem34,
@@ -3312,9 +3519,33 @@
             this.layoutControlItem53,
             this.layoutControlItemToeLink_Outboard_Y,
             this.simpleLabelItem_BS_FR,
-            this.emptySpaceItem29});
+            this.emptySpaceItem29,
+            this.simpleLabelItem11,
+            this.simpleLabelItem23,
+            this.layoutControlItem67,
+            this.layoutControlItem68,
+            this.layoutControlItem69,
+            this.simpleLabelItem25,
+            this.emptySpaceItem36,
+            this.emptySpaceItem37,
+            this.layoutControlItem72,
+            this.layoutControlItem70,
+            this.layoutControlItem71,
+            this.emptySpaceItem38,
+            this.simpleLabelItem27,
+            this.simpleLabelItemToe_Points_RR,
+            this.layoutControlItemToe_Outboard_RR_Z,
+            this.layoutControlItemToe_Outboard_RR_X,
+            this.layoutControlItemToe_Outboard_RR_Y,
+            this.simpleLabelItemToe_Outboard_RR,
+            this.emptySpaceItem39,
+            this.layoutControlItemToe_Inboard_RR_Y,
+            this.layoutControlItemToe_Inboard_RR_Z,
+            this.layoutControlItemToe_Inboard_RR_X,
+            this.emptySpaceItem40,
+            this.simpleLabelItemToe_Inboard_RR});
             this.layoutControlGroup8.Location = new System.Drawing.Point(0, 0);
-            this.layoutControlGroup8.Name = "layoutControlGroup8";
+            this.layoutControlGroup8.Name = "Root";
             this.layoutControlGroup8.Size = new System.Drawing.Size(644, 861);
             this.layoutControlGroup8.TextVisible = false;
             // 
@@ -3323,16 +3554,16 @@
             this.layoutControlItem32.Control = this.bumpSteerCurveFL;
             this.layoutControlItem32.Location = new System.Drawing.Point(0, 85);
             this.layoutControlItem32.Name = "layoutControlItem32";
-            this.layoutControlItem32.Size = new System.Drawing.Size(624, 275);
+            this.layoutControlItem32.Size = new System.Drawing.Size(624, 250);
             this.layoutControlItem32.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem32.TextVisible = false;
             // 
             // layoutControlItembumpSteerCurveFR
             // 
             this.layoutControlItembumpSteerCurveFR.Control = this.bumpSteerCurveFR;
-            this.layoutControlItembumpSteerCurveFR.Location = new System.Drawing.Point(0, 451);
+            this.layoutControlItembumpSteerCurveFR.Location = new System.Drawing.Point(0, 491);
             this.layoutControlItembumpSteerCurveFR.Name = "layoutControlItembumpSteerCurveFR";
-            this.layoutControlItembumpSteerCurveFR.Size = new System.Drawing.Size(624, 364);
+            this.layoutControlItembumpSteerCurveFR.Size = new System.Drawing.Size(624, 249);
             this.layoutControlItembumpSteerCurveFR.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItembumpSteerCurveFR.TextVisible = false;
             // 
@@ -3354,7 +3585,7 @@
             this.layoutControlItemPitman_Left.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.layoutControlItemPitman_Left.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItemPitman_Left.Control = this.tbPitmanLeft;
-            this.layoutControlItemPitman_Left.Location = new System.Drawing.Point(0, 20);
+            this.layoutControlItemPitman_Left.Location = new System.Drawing.Point(0, 37);
             this.layoutControlItemPitman_Left.Name = "layoutControlItemPitman_Left";
             this.layoutControlItemPitman_Left.Size = new System.Drawing.Size(370, 24);
             this.layoutControlItemPitman_Left.Text = "Pitman Trail (mm)";
@@ -3365,7 +3596,7 @@
             this.layoutControlItemPitman_Right.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.layoutControlItemPitman_Right.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItemPitman_Right.Control = this.tbPitmanRight;
-            this.layoutControlItemPitman_Right.Location = new System.Drawing.Point(0, 403);
+            this.layoutControlItemPitman_Right.Location = new System.Drawing.Point(0, 443);
             this.layoutControlItemPitman_Right.Name = "layoutControlItemPitman_Right";
             this.layoutControlItemPitman_Right.Size = new System.Drawing.Size(370, 24);
             this.layoutControlItemPitman_Right.Text = "Pitman Trail";
@@ -3376,13 +3607,13 @@
             this.emptySpaceItem26.AllowHotTrack = false;
             this.emptySpaceItem26.Location = new System.Drawing.Point(614, 20);
             this.emptySpaceItem26.Name = "emptySpaceItem26";
-            this.emptySpaceItem26.Size = new System.Drawing.Size(10, 24);
+            this.emptySpaceItem26.Size = new System.Drawing.Size(10, 41);
             this.emptySpaceItem26.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem27
             // 
             this.emptySpaceItem27.AllowHotTrack = false;
-            this.emptySpaceItem27.Location = new System.Drawing.Point(370, 427);
+            this.emptySpaceItem27.Location = new System.Drawing.Point(370, 467);
             this.emptySpaceItem27.Name = "emptySpaceItem27";
             this.emptySpaceItem27.Size = new System.Drawing.Size(254, 24);
             this.emptySpaceItem27.TextSize = new System.Drawing.Size(0, 0);
@@ -3392,7 +3623,7 @@
             this.layoutControlItem31.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.layoutControlItem31.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem31.Control = this.tbToeLinkLength_FL;
-            this.layoutControlItem31.Location = new System.Drawing.Point(0, 44);
+            this.layoutControlItem31.Location = new System.Drawing.Point(0, 61);
             this.layoutControlItem31.Name = "layoutControlItem31";
             this.layoutControlItem31.Size = new System.Drawing.Size(370, 24);
             this.layoutControlItem31.Text = "Approx. Toe Link Length (mm)";
@@ -3403,7 +3634,7 @@
             this.layoutControlItemToeLinkLength.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.layoutControlItemToeLinkLength.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItemToeLinkLength.Control = this.tbToeLinkLength_FR;
-            this.layoutControlItemToeLinkLength.Location = new System.Drawing.Point(0, 427);
+            this.layoutControlItemToeLinkLength.Location = new System.Drawing.Point(0, 467);
             this.layoutControlItemToeLinkLength.Name = "layoutControlItemToeLinkLength";
             this.layoutControlItemToeLinkLength.Size = new System.Drawing.Size(370, 24);
             this.layoutControlItemToeLinkLength.Text = "Approx. Toe Link Length (mm)";
@@ -3412,7 +3643,7 @@
             // emptySpaceItem28
             // 
             this.emptySpaceItem28.AllowHotTrack = false;
-            this.emptySpaceItem28.Location = new System.Drawing.Point(370, 44);
+            this.emptySpaceItem28.Location = new System.Drawing.Point(370, 61);
             this.emptySpaceItem28.Name = "emptySpaceItem28";
             this.emptySpaceItem28.Size = new System.Drawing.Size(254, 24);
             this.emptySpaceItem28.TextSize = new System.Drawing.Size(0, 0);
@@ -3420,7 +3651,7 @@
             // layoutControlItem52
             // 
             this.layoutControlItem52.Control = this.simpleButtonPlotToelinkInboard_FL;
-            this.layoutControlItem52.Location = new System.Drawing.Point(0, 360);
+            this.layoutControlItem52.Location = new System.Drawing.Point(0, 335);
             this.layoutControlItem52.Name = "layoutControlItem52";
             this.layoutControlItem52.Size = new System.Drawing.Size(124, 26);
             this.layoutControlItem52.TextSize = new System.Drawing.Size(0, 0);
@@ -3429,31 +3660,18 @@
             // layoutControlItemPlotToeLinkInboard_FR
             // 
             this.layoutControlItemPlotToeLinkInboard_FR.Control = this.simpleButtonPlotToelinkInboard_FR;
-            this.layoutControlItemPlotToeLinkInboard_FR.Location = new System.Drawing.Point(0, 815);
+            this.layoutControlItemPlotToeLinkInboard_FR.Location = new System.Drawing.Point(0, 740);
             this.layoutControlItemPlotToeLinkInboard_FR.Name = "layoutControlItemPlotToeLinkInboard_FR";
             this.layoutControlItemPlotToeLinkInboard_FR.Size = new System.Drawing.Size(114, 26);
             this.layoutControlItemPlotToeLinkInboard_FR.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItemPlotToeLinkInboard_FR.TextVisible = false;
-            // 
-            // simpleLabelItem11
-            // 
-            this.simpleLabelItem11.AllowHotTrack = false;
-            this.simpleLabelItem11.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
-            this.simpleLabelItem11.AppearanceItemCaption.Options.UseFont = true;
-            this.simpleLabelItem11.AppearanceItemCaption.Options.UseTextOptions = true;
-            this.simpleLabelItem11.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.simpleLabelItem11.Location = new System.Drawing.Point(0, 68);
-            this.simpleLabelItem11.Name = "simpleLabelItem11";
-            this.simpleLabelItem11.Size = new System.Drawing.Size(624, 17);
-            this.simpleLabelItem11.Text = "Front Left";
-            this.simpleLabelItem11.TextSize = new System.Drawing.Size(244, 13);
             // 
             // layoutControlItem61
             // 
             this.layoutControlItem61.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.layoutControlItem61.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem61.Control = this.tbConvergence_BS_FL;
-            this.layoutControlItem61.Location = new System.Drawing.Point(124, 360);
+            this.layoutControlItem61.Location = new System.Drawing.Point(124, 335);
             this.layoutControlItem61.Name = "layoutControlItem61";
             this.layoutControlItem61.Size = new System.Drawing.Size(138, 26);
             this.layoutControlItem61.Text = "Convergence";
@@ -3466,7 +3684,7 @@
             this.layoutControlItemConvergence_BS_FR.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.layoutControlItemConvergence_BS_FR.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItemConvergence_BS_FR.Control = this.tbConvergence_BS_FR;
-            this.layoutControlItemConvergence_BS_FR.Location = new System.Drawing.Point(114, 815);
+            this.layoutControlItemConvergence_BS_FR.Location = new System.Drawing.Point(114, 740);
             this.layoutControlItemConvergence_BS_FR.Name = "layoutControlItemConvergence_BS_FR";
             this.layoutControlItemConvergence_BS_FR.Size = new System.Drawing.Size(142, 26);
             this.layoutControlItemConvergence_BS_FR.Text = "Convergence";
@@ -3477,7 +3695,7 @@
             // emptySpaceItem34
             // 
             this.emptySpaceItem34.AllowHotTrack = false;
-            this.emptySpaceItem34.Location = new System.Drawing.Point(262, 360);
+            this.emptySpaceItem34.Location = new System.Drawing.Point(262, 335);
             this.emptySpaceItem34.Name = "emptySpaceItem34";
             this.emptySpaceItem34.Size = new System.Drawing.Size(362, 26);
             this.emptySpaceItem34.TextSize = new System.Drawing.Size(0, 0);
@@ -3485,7 +3703,7 @@
             // emptySpaceItem35
             // 
             this.emptySpaceItem35.AllowHotTrack = false;
-            this.emptySpaceItem35.Location = new System.Drawing.Point(256, 815);
+            this.emptySpaceItem35.Location = new System.Drawing.Point(256, 740);
             this.emptySpaceItem35.Name = "emptySpaceItem35";
             this.emptySpaceItem35.Size = new System.Drawing.Size(368, 26);
             this.emptySpaceItem35.TextSize = new System.Drawing.Size(0, 0);
@@ -3495,7 +3713,7 @@
             this.layoutControlItem53.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.layoutControlItem53.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem53.Control = this.tbToeLink_Outboard_FL_Y;
-            this.layoutControlItem53.Location = new System.Drawing.Point(370, 20);
+            this.layoutControlItem53.Location = new System.Drawing.Point(370, 37);
             this.layoutControlItem53.Name = "layoutControlItem53";
             this.layoutControlItem53.Size = new System.Drawing.Size(244, 24);
             this.layoutControlItem53.Text = "Toe Link Outboard Vertical";
@@ -3508,7 +3726,7 @@
             this.layoutControlItemToeLink_Outboard_Y.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
             this.layoutControlItemToeLink_Outboard_Y.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItemToeLink_Outboard_Y.Control = this.tbToeLink_Outboard_FR_Y;
-            this.layoutControlItemToeLink_Outboard_Y.Location = new System.Drawing.Point(370, 403);
+            this.layoutControlItemToeLink_Outboard_Y.Location = new System.Drawing.Point(370, 443);
             this.layoutControlItemToeLink_Outboard_Y.Name = "layoutControlItemToeLink_Outboard_Y";
             this.layoutControlItemToeLink_Outboard_Y.Size = new System.Drawing.Size(244, 24);
             this.layoutControlItemToeLink_Outboard_Y.Text = "Toe Link Outboard Vertical ";
@@ -3523,7 +3741,7 @@
             this.simpleLabelItem_BS_FR.AppearanceItemCaption.Options.UseFont = true;
             this.simpleLabelItem_BS_FR.AppearanceItemCaption.Options.UseTextOptions = true;
             this.simpleLabelItem_BS_FR.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.simpleLabelItem_BS_FR.Location = new System.Drawing.Point(0, 386);
+            this.simpleLabelItem_BS_FR.Location = new System.Drawing.Point(0, 426);
             this.simpleLabelItem_BS_FR.Name = "simpleLabelItem_BS_FR";
             this.simpleLabelItem_BS_FR.Size = new System.Drawing.Size(624, 17);
             this.simpleLabelItem_BS_FR.Text = "Front Right";
@@ -3532,10 +3750,311 @@
             // emptySpaceItem29
             // 
             this.emptySpaceItem29.AllowHotTrack = false;
-            this.emptySpaceItem29.Location = new System.Drawing.Point(614, 403);
+            this.emptySpaceItem29.Location = new System.Drawing.Point(614, 443);
             this.emptySpaceItem29.Name = "emptySpaceItem29";
             this.emptySpaceItem29.Size = new System.Drawing.Size(10, 24);
             this.emptySpaceItem29.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // simpleLabelItem11
+            // 
+            this.simpleLabelItem11.AllowHotTrack = false;
+            this.simpleLabelItem11.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
+            this.simpleLabelItem11.AppearanceItemCaption.Options.UseFont = true;
+            this.simpleLabelItem11.AppearanceItemCaption.Options.UseTextOptions = true;
+            this.simpleLabelItem11.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.simpleLabelItem11.Location = new System.Drawing.Point(0, 20);
+            this.simpleLabelItem11.Name = "simpleLabelItem11";
+            this.simpleLabelItem11.Size = new System.Drawing.Size(614, 17);
+            this.simpleLabelItem11.Text = "Front Left";
+            this.simpleLabelItem11.TextSize = new System.Drawing.Size(244, 13);
+            // 
+            // simpleLabelItem23
+            // 
+            this.simpleLabelItem23.AllowHotTrack = false;
+            this.simpleLabelItem23.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
+            this.simpleLabelItem23.AppearanceItemCaption.Options.UseFont = true;
+            this.simpleLabelItem23.AppearanceItemCaption.Options.UseTextOptions = true;
+            this.simpleLabelItem23.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.simpleLabelItem23.Location = new System.Drawing.Point(0, 361);
+            this.simpleLabelItem23.Name = "simpleLabelItem23";
+            this.simpleLabelItem23.Size = new System.Drawing.Size(624, 17);
+            this.simpleLabelItem23.Text = "Rear Left";
+            this.simpleLabelItem23.TextSize = new System.Drawing.Size(244, 13);
+            // 
+            // layoutControlItem67
+            // 
+            this.layoutControlItem67.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 7F, System.Drawing.FontStyle.Bold);
+            this.layoutControlItem67.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItem67.Control = this.tbToe_Outboard_RL_Z;
+            this.layoutControlItem67.Location = new System.Drawing.Point(300, 378);
+            this.layoutControlItem67.Name = "layoutControlItem67";
+            this.layoutControlItem67.Size = new System.Drawing.Size(100, 24);
+            this.layoutControlItem67.Text = "Z";
+            this.layoutControlItem67.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
+            this.layoutControlItem67.TextSize = new System.Drawing.Size(30, 20);
+            this.layoutControlItem67.TextToControlDistance = 5;
+            // 
+            // layoutControlItem68
+            // 
+            this.layoutControlItem68.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 7F, System.Drawing.FontStyle.Bold);
+            this.layoutControlItem68.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItem68.Control = this.tbToe_Outboard_RL_X;
+            this.layoutControlItem68.Location = new System.Drawing.Point(100, 378);
+            this.layoutControlItem68.Name = "layoutControlItem68";
+            this.layoutControlItem68.Size = new System.Drawing.Size(100, 24);
+            this.layoutControlItem68.Text = "X";
+            this.layoutControlItem68.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
+            this.layoutControlItem68.TextSize = new System.Drawing.Size(30, 20);
+            this.layoutControlItem68.TextToControlDistance = 5;
+            // 
+            // layoutControlItem69
+            // 
+            this.layoutControlItem69.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 7F, System.Drawing.FontStyle.Bold);
+            this.layoutControlItem69.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItem69.Control = this.tbToe_Outboard_RL_Y;
+            this.layoutControlItem69.Location = new System.Drawing.Point(200, 378);
+            this.layoutControlItem69.Name = "layoutControlItem69";
+            this.layoutControlItem69.Size = new System.Drawing.Size(100, 24);
+            this.layoutControlItem69.Text = "Y";
+            this.layoutControlItem69.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
+            this.layoutControlItem69.TextSize = new System.Drawing.Size(30, 20);
+            this.layoutControlItem69.TextToControlDistance = 5;
+            // 
+            // simpleLabelItem25
+            // 
+            this.simpleLabelItem25.AllowHotTrack = false;
+            this.simpleLabelItem25.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 7F, System.Drawing.FontStyle.Bold);
+            this.simpleLabelItem25.AppearanceItemCaption.Options.UseFont = true;
+            this.simpleLabelItem25.Location = new System.Drawing.Point(0, 378);
+            this.simpleLabelItem25.Name = "simpleLabelItem25";
+            this.simpleLabelItem25.Size = new System.Drawing.Size(100, 24);
+            this.simpleLabelItem25.Text = "Toe Link Outboard";
+            this.simpleLabelItem25.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
+            this.simpleLabelItem25.TextSize = new System.Drawing.Size(30, 20);
+            // 
+            // emptySpaceItem36
+            // 
+            this.emptySpaceItem36.AllowHotTrack = false;
+            this.emptySpaceItem36.Location = new System.Drawing.Point(400, 378);
+            this.emptySpaceItem36.Name = "emptySpaceItem36";
+            this.emptySpaceItem36.Size = new System.Drawing.Size(224, 24);
+            this.emptySpaceItem36.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // emptySpaceItem37
+            // 
+            this.emptySpaceItem37.AllowHotTrack = false;
+            this.emptySpaceItem37.CustomizationFormText = "emptySpaceItem36";
+            this.emptySpaceItem37.Location = new System.Drawing.Point(0, 766);
+            this.emptySpaceItem37.Name = "emptySpaceItem37";
+            this.emptySpaceItem37.Size = new System.Drawing.Size(624, 10);
+            this.emptySpaceItem37.Text = "emptySpaceItem36";
+            this.emptySpaceItem37.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // layoutControlItem72
+            // 
+            this.layoutControlItem72.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 7F, System.Drawing.FontStyle.Bold);
+            this.layoutControlItem72.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItem72.Control = this.tbToe_Inboard_RL_Y;
+            this.layoutControlItem72.CustomizationFormText = "Y";
+            this.layoutControlItem72.Location = new System.Drawing.Point(200, 402);
+            this.layoutControlItem72.Name = "layoutControlItem72";
+            this.layoutControlItem72.Size = new System.Drawing.Size(100, 24);
+            this.layoutControlItem72.Text = "Y";
+            this.layoutControlItem72.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
+            this.layoutControlItem72.TextSize = new System.Drawing.Size(30, 20);
+            this.layoutControlItem72.TextToControlDistance = 5;
+            // 
+            // layoutControlItem70
+            // 
+            this.layoutControlItem70.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 7F, System.Drawing.FontStyle.Bold);
+            this.layoutControlItem70.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItem70.Control = this.tbToe_Inboard_RL_Z;
+            this.layoutControlItem70.CustomizationFormText = "Z";
+            this.layoutControlItem70.Location = new System.Drawing.Point(300, 402);
+            this.layoutControlItem70.Name = "layoutControlItem70";
+            this.layoutControlItem70.Size = new System.Drawing.Size(100, 24);
+            this.layoutControlItem70.Text = "Z";
+            this.layoutControlItem70.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
+            this.layoutControlItem70.TextSize = new System.Drawing.Size(30, 20);
+            this.layoutControlItem70.TextToControlDistance = 5;
+            // 
+            // layoutControlItem71
+            // 
+            this.layoutControlItem71.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 7F, System.Drawing.FontStyle.Bold);
+            this.layoutControlItem71.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItem71.Control = this.tbToe_Inboard_RL_X;
+            this.layoutControlItem71.CustomizationFormText = "X";
+            this.layoutControlItem71.Location = new System.Drawing.Point(100, 402);
+            this.layoutControlItem71.Name = "layoutControlItem71";
+            this.layoutControlItem71.Size = new System.Drawing.Size(100, 24);
+            this.layoutControlItem71.Text = "X";
+            this.layoutControlItem71.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
+            this.layoutControlItem71.TextSize = new System.Drawing.Size(30, 20);
+            this.layoutControlItem71.TextToControlDistance = 5;
+            // 
+            // emptySpaceItem38
+            // 
+            this.emptySpaceItem38.AllowHotTrack = false;
+            this.emptySpaceItem38.Location = new System.Drawing.Point(400, 402);
+            this.emptySpaceItem38.Name = "emptySpaceItem38";
+            this.emptySpaceItem38.Size = new System.Drawing.Size(224, 24);
+            this.emptySpaceItem38.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // simpleLabelItem27
+            // 
+            this.simpleLabelItem27.AllowHotTrack = false;
+            this.simpleLabelItem27.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 7F, System.Drawing.FontStyle.Bold);
+            this.simpleLabelItem27.AppearanceItemCaption.Options.UseFont = true;
+            this.simpleLabelItem27.Location = new System.Drawing.Point(0, 402);
+            this.simpleLabelItem27.Name = "simpleLabelItem27";
+            this.simpleLabelItem27.Size = new System.Drawing.Size(100, 24);
+            this.simpleLabelItem27.Text = "Toe Link Inboard";
+            this.simpleLabelItem27.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
+            this.simpleLabelItem27.TextSize = new System.Drawing.Size(30, 13);
+            // 
+            // simpleLabelItemToe_Points_RR
+            // 
+            this.simpleLabelItemToe_Points_RR.AllowHotTrack = false;
+            this.simpleLabelItemToe_Points_RR.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
+            this.simpleLabelItemToe_Points_RR.AppearanceItemCaption.Options.UseFont = true;
+            this.simpleLabelItemToe_Points_RR.AppearanceItemCaption.Options.UseTextOptions = true;
+            this.simpleLabelItemToe_Points_RR.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.simpleLabelItemToe_Points_RR.CustomizationFormText = "Rear Left";
+            this.simpleLabelItemToe_Points_RR.Location = new System.Drawing.Point(0, 776);
+            this.simpleLabelItemToe_Points_RR.Name = "simpleLabelItemToe_Points_RR";
+            this.simpleLabelItemToe_Points_RR.Size = new System.Drawing.Size(624, 17);
+            this.simpleLabelItemToe_Points_RR.Text = "Rear Right";
+            this.simpleLabelItemToe_Points_RR.TextSize = new System.Drawing.Size(244, 13);
+            // 
+            // layoutControlItemToe_Outboard_RR_Z
+            // 
+            this.layoutControlItemToe_Outboard_RR_Z.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
+            this.layoutControlItemToe_Outboard_RR_Z.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItemToe_Outboard_RR_Z.Control = this.tbToe_Outboard_RR_Z;
+            this.layoutControlItemToe_Outboard_RR_Z.CustomizationFormText = "Z";
+            this.layoutControlItemToe_Outboard_RR_Z.Location = new System.Drawing.Point(300, 793);
+            this.layoutControlItemToe_Outboard_RR_Z.Name = "layoutControlItemToe_Outboard_RR_Z";
+            this.layoutControlItemToe_Outboard_RR_Z.Size = new System.Drawing.Size(100, 24);
+            this.layoutControlItemToe_Outboard_RR_Z.Text = "Z";
+            this.layoutControlItemToe_Outboard_RR_Z.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
+            this.layoutControlItemToe_Outboard_RR_Z.TextSize = new System.Drawing.Size(30, 20);
+            this.layoutControlItemToe_Outboard_RR_Z.TextToControlDistance = 5;
+            // 
+            // layoutControlItemToe_Outboard_RR_X
+            // 
+            this.layoutControlItemToe_Outboard_RR_X.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
+            this.layoutControlItemToe_Outboard_RR_X.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItemToe_Outboard_RR_X.Control = this.tbToe_Outboard_RR_X;
+            this.layoutControlItemToe_Outboard_RR_X.CustomizationFormText = "X";
+            this.layoutControlItemToe_Outboard_RR_X.Location = new System.Drawing.Point(100, 793);
+            this.layoutControlItemToe_Outboard_RR_X.Name = "layoutControlItemToe_Outboard_RR_X";
+            this.layoutControlItemToe_Outboard_RR_X.Size = new System.Drawing.Size(100, 24);
+            this.layoutControlItemToe_Outboard_RR_X.Text = "X";
+            this.layoutControlItemToe_Outboard_RR_X.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
+            this.layoutControlItemToe_Outboard_RR_X.TextSize = new System.Drawing.Size(30, 20);
+            this.layoutControlItemToe_Outboard_RR_X.TextToControlDistance = 5;
+            // 
+            // layoutControlItemToe_Outboard_RR_Y
+            // 
+            this.layoutControlItemToe_Outboard_RR_Y.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
+            this.layoutControlItemToe_Outboard_RR_Y.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItemToe_Outboard_RR_Y.Control = this.tbToe_Outboard_RR_Y;
+            this.layoutControlItemToe_Outboard_RR_Y.CustomizationFormText = "Y";
+            this.layoutControlItemToe_Outboard_RR_Y.Location = new System.Drawing.Point(200, 793);
+            this.layoutControlItemToe_Outboard_RR_Y.Name = "layoutControlItemToe_Outboard_RR_Y";
+            this.layoutControlItemToe_Outboard_RR_Y.Size = new System.Drawing.Size(100, 24);
+            this.layoutControlItemToe_Outboard_RR_Y.Text = "Y";
+            this.layoutControlItemToe_Outboard_RR_Y.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
+            this.layoutControlItemToe_Outboard_RR_Y.TextSize = new System.Drawing.Size(30, 20);
+            this.layoutControlItemToe_Outboard_RR_Y.TextToControlDistance = 5;
+            // 
+            // simpleLabelItemToe_Outboard_RR
+            // 
+            this.simpleLabelItemToe_Outboard_RR.AllowHotTrack = false;
+            this.simpleLabelItemToe_Outboard_RR.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 7F, System.Drawing.FontStyle.Bold);
+            this.simpleLabelItemToe_Outboard_RR.AppearanceItemCaption.Options.UseFont = true;
+            this.simpleLabelItemToe_Outboard_RR.CustomizationFormText = "Toe Link Outboard";
+            this.simpleLabelItemToe_Outboard_RR.Location = new System.Drawing.Point(0, 793);
+            this.simpleLabelItemToe_Outboard_RR.Name = "simpleLabelItemToe_Outboard_RR";
+            this.simpleLabelItemToe_Outboard_RR.Size = new System.Drawing.Size(100, 24);
+            this.simpleLabelItemToe_Outboard_RR.Text = "Toe Link Outboard";
+            this.simpleLabelItemToe_Outboard_RR.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
+            this.simpleLabelItemToe_Outboard_RR.TextSize = new System.Drawing.Size(30, 20);
+            // 
+            // emptySpaceItem39
+            // 
+            this.emptySpaceItem39.AllowHotTrack = false;
+            this.emptySpaceItem39.CustomizationFormText = "emptySpaceItem36";
+            this.emptySpaceItem39.Location = new System.Drawing.Point(400, 793);
+            this.emptySpaceItem39.Name = "emptySpaceItem39";
+            this.emptySpaceItem39.Size = new System.Drawing.Size(224, 24);
+            this.emptySpaceItem39.Text = "emptySpaceItem36";
+            this.emptySpaceItem39.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // layoutControlItemToe_Inboard_RR_Y
+            // 
+            this.layoutControlItemToe_Inboard_RR_Y.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
+            this.layoutControlItemToe_Inboard_RR_Y.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItemToe_Inboard_RR_Y.Control = this.tbToe_Inboard_RR_Y;
+            this.layoutControlItemToe_Inboard_RR_Y.CustomizationFormText = "Y";
+            this.layoutControlItemToe_Inboard_RR_Y.Location = new System.Drawing.Point(200, 817);
+            this.layoutControlItemToe_Inboard_RR_Y.Name = "layoutControlItemToe_Inboard_RR_Y";
+            this.layoutControlItemToe_Inboard_RR_Y.Size = new System.Drawing.Size(100, 24);
+            this.layoutControlItemToe_Inboard_RR_Y.Text = "Y";
+            this.layoutControlItemToe_Inboard_RR_Y.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
+            this.layoutControlItemToe_Inboard_RR_Y.TextSize = new System.Drawing.Size(30, 20);
+            this.layoutControlItemToe_Inboard_RR_Y.TextToControlDistance = 5;
+            // 
+            // layoutControlItemToe_Inboard_RR_Z
+            // 
+            this.layoutControlItemToe_Inboard_RR_Z.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
+            this.layoutControlItemToe_Inboard_RR_Z.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItemToe_Inboard_RR_Z.Control = this.tbToe_Inboard_RR_Z;
+            this.layoutControlItemToe_Inboard_RR_Z.CustomizationFormText = "Z";
+            this.layoutControlItemToe_Inboard_RR_Z.Location = new System.Drawing.Point(300, 817);
+            this.layoutControlItemToe_Inboard_RR_Z.Name = "layoutControlItemToe_Inboard_RR_Z";
+            this.layoutControlItemToe_Inboard_RR_Z.Size = new System.Drawing.Size(100, 24);
+            this.layoutControlItemToe_Inboard_RR_Z.Text = "Z";
+            this.layoutControlItemToe_Inboard_RR_Z.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
+            this.layoutControlItemToe_Inboard_RR_Z.TextSize = new System.Drawing.Size(30, 20);
+            this.layoutControlItemToe_Inboard_RR_Z.TextToControlDistance = 5;
+            // 
+            // layoutControlItemToe_Inboard_RR_X
+            // 
+            this.layoutControlItemToe_Inboard_RR_X.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
+            this.layoutControlItemToe_Inboard_RR_X.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItemToe_Inboard_RR_X.Control = this.tbToe_Inboard_RR_X;
+            this.layoutControlItemToe_Inboard_RR_X.CustomizationFormText = "X";
+            this.layoutControlItemToe_Inboard_RR_X.Location = new System.Drawing.Point(100, 817);
+            this.layoutControlItemToe_Inboard_RR_X.Name = "layoutControlItemToe_Inboard_RR_X";
+            this.layoutControlItemToe_Inboard_RR_X.Size = new System.Drawing.Size(100, 24);
+            this.layoutControlItemToe_Inboard_RR_X.Text = "X";
+            this.layoutControlItemToe_Inboard_RR_X.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
+            this.layoutControlItemToe_Inboard_RR_X.TextSize = new System.Drawing.Size(30, 20);
+            this.layoutControlItemToe_Inboard_RR_X.TextToControlDistance = 5;
+            // 
+            // emptySpaceItem40
+            // 
+            this.emptySpaceItem40.AllowHotTrack = false;
+            this.emptySpaceItem40.CustomizationFormText = "emptySpaceItem38";
+            this.emptySpaceItem40.Location = new System.Drawing.Point(400, 817);
+            this.emptySpaceItem40.Name = "emptySpaceItem40";
+            this.emptySpaceItem40.Size = new System.Drawing.Size(224, 24);
+            this.emptySpaceItem40.Text = "emptySpaceItem38";
+            this.emptySpaceItem40.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // simpleLabelItemToe_Inboard_RR
+            // 
+            this.simpleLabelItemToe_Inboard_RR.AllowHotTrack = false;
+            this.simpleLabelItemToe_Inboard_RR.AppearanceItemCaption.Font = new System.Drawing.Font("Tahoma", 7F, System.Drawing.FontStyle.Bold);
+            this.simpleLabelItemToe_Inboard_RR.AppearanceItemCaption.Options.UseFont = true;
+            this.simpleLabelItemToe_Inboard_RR.CustomizationFormText = "Toe Link Inboard";
+            this.simpleLabelItemToe_Inboard_RR.Location = new System.Drawing.Point(0, 817);
+            this.simpleLabelItemToe_Inboard_RR.Name = "simpleLabelItemToe_Inboard_RR";
+            this.simpleLabelItemToe_Inboard_RR.Size = new System.Drawing.Size(100, 24);
+            this.simpleLabelItemToe_Inboard_RR.Text = "Toe Link Inboard";
+            this.simpleLabelItemToe_Inboard_RR.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.CustomSize;
+            this.simpleLabelItemToe_Inboard_RR.TextSize = new System.Drawing.Size(30, 13);
             // 
             // xtraTabPageActuationPoints
             // 
@@ -3561,9 +4080,9 @@
             // 
             // actuationPoints_RR
             // 
-            this.actuationPoints_RR.Location = new System.Drawing.Point(325, 662);
+            this.actuationPoints_RR.Location = new System.Drawing.Point(316, 662);
             this.actuationPoints_RR.Name = "actuationPoints_RR";
-            this.actuationPoints_RR.Size = new System.Drawing.Size(307, 606);
+            this.actuationPoints_RR.Size = new System.Drawing.Size(299, 606);
             this.actuationPoints_RR.TabIndex = 7;
             this.actuationPoints_RR.Visible = false;
             // 
@@ -3571,14 +4090,14 @@
             // 
             this.actuationPoints_RL.Location = new System.Drawing.Point(12, 662);
             this.actuationPoints_RL.Name = "actuationPoints_RL";
-            this.actuationPoints_RL.Size = new System.Drawing.Size(309, 606);
+            this.actuationPoints_RL.Size = new System.Drawing.Size(300, 606);
             this.actuationPoints_RL.TabIndex = 6;
             // 
             // actuationPoints_FR
             // 
-            this.actuationPoints_FR.Location = new System.Drawing.Point(325, 32);
+            this.actuationPoints_FR.Location = new System.Drawing.Point(316, 32);
             this.actuationPoints_FR.Name = "actuationPoints_FR";
-            this.actuationPoints_FR.Size = new System.Drawing.Size(307, 606);
+            this.actuationPoints_FR.Size = new System.Drawing.Size(299, 606);
             this.actuationPoints_FR.TabIndex = 5;
             this.actuationPoints_FR.Visible = false;
             // 
@@ -3586,7 +4105,7 @@
             // 
             this.actuationPoints_FL.Location = new System.Drawing.Point(12, 32);
             this.actuationPoints_FL.Name = "actuationPoints_FL";
-            this.actuationPoints_FL.Size = new System.Drawing.Size(309, 606);
+            this.actuationPoints_FL.Size = new System.Drawing.Size(300, 606);
             this.actuationPoints_FL.TabIndex = 4;
             // 
             // layoutControlGroup10
@@ -3604,7 +4123,7 @@
             this.simpleLabelItemActuationPoint_RR});
             this.layoutControlGroup10.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup10.Name = "layoutControlGroup10";
-            this.layoutControlGroup10.Size = new System.Drawing.Size(644, 1280);
+            this.layoutControlGroup10.Size = new System.Drawing.Size(627, 1280);
             this.layoutControlGroup10.TextVisible = false;
             // 
             // layoutControlItem62
@@ -3612,16 +4131,16 @@
             this.layoutControlItem62.Control = this.actuationPoints_FL;
             this.layoutControlItem62.Location = new System.Drawing.Point(0, 20);
             this.layoutControlItem62.Name = "layoutControlItem62";
-            this.layoutControlItem62.Size = new System.Drawing.Size(313, 610);
+            this.layoutControlItem62.Size = new System.Drawing.Size(304, 610);
             this.layoutControlItem62.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem62.TextVisible = false;
             // 
             // layoutControlItemActuationPointsFR
             // 
             this.layoutControlItemActuationPointsFR.Control = this.actuationPoints_FR;
-            this.layoutControlItemActuationPointsFR.Location = new System.Drawing.Point(313, 20);
+            this.layoutControlItemActuationPointsFR.Location = new System.Drawing.Point(304, 20);
             this.layoutControlItemActuationPointsFR.Name = "layoutControlItemActuationPointsFR";
-            this.layoutControlItemActuationPointsFR.Size = new System.Drawing.Size(311, 610);
+            this.layoutControlItemActuationPointsFR.Size = new System.Drawing.Size(303, 610);
             this.layoutControlItemActuationPointsFR.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItemActuationPointsFR.TextVisible = false;
             // 
@@ -3630,16 +4149,16 @@
             this.layoutControlItem64.Control = this.actuationPoints_RL;
             this.layoutControlItem64.Location = new System.Drawing.Point(0, 650);
             this.layoutControlItem64.Name = "layoutControlItem64";
-            this.layoutControlItem64.Size = new System.Drawing.Size(313, 610);
+            this.layoutControlItem64.Size = new System.Drawing.Size(304, 610);
             this.layoutControlItem64.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem64.TextVisible = false;
             // 
             // layoutControlItemActuationPointsRR
             // 
             this.layoutControlItemActuationPointsRR.Control = this.actuationPoints_RR;
-            this.layoutControlItemActuationPointsRR.Location = new System.Drawing.Point(313, 650);
+            this.layoutControlItemActuationPointsRR.Location = new System.Drawing.Point(304, 650);
             this.layoutControlItemActuationPointsRR.Name = "layoutControlItemActuationPointsRR";
-            this.layoutControlItemActuationPointsRR.Size = new System.Drawing.Size(311, 610);
+            this.layoutControlItemActuationPointsRR.Size = new System.Drawing.Size(303, 610);
             this.layoutControlItemActuationPointsRR.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItemActuationPointsRR.TextVisible = false;
             // 
@@ -3652,7 +4171,7 @@
             this.simpleLabelItem22.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.simpleLabelItem22.Location = new System.Drawing.Point(0, 0);
             this.simpleLabelItem22.Name = "simpleLabelItem22";
-            this.simpleLabelItem22.Size = new System.Drawing.Size(313, 20);
+            this.simpleLabelItem22.Size = new System.Drawing.Size(304, 20);
             this.simpleLabelItem22.Text = "Front Left";
             this.simpleLabelItem22.TextSize = new System.Drawing.Size(72, 16);
             // 
@@ -3663,9 +4182,9 @@
             this.simpleLabelItemActuationPoint_FR.AppearanceItemCaption.Options.UseFont = true;
             this.simpleLabelItemActuationPoint_FR.AppearanceItemCaption.Options.UseTextOptions = true;
             this.simpleLabelItemActuationPoint_FR.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.simpleLabelItemActuationPoint_FR.Location = new System.Drawing.Point(313, 0);
+            this.simpleLabelItemActuationPoint_FR.Location = new System.Drawing.Point(304, 0);
             this.simpleLabelItemActuationPoint_FR.Name = "simpleLabelItemActuationPoint_FR";
-            this.simpleLabelItemActuationPoint_FR.Size = new System.Drawing.Size(311, 20);
+            this.simpleLabelItemActuationPoint_FR.Size = new System.Drawing.Size(303, 20);
             this.simpleLabelItemActuationPoint_FR.Text = "Front Right";
             this.simpleLabelItemActuationPoint_FR.TextSize = new System.Drawing.Size(72, 16);
             // 
@@ -3678,7 +4197,7 @@
             this.simpleLabelItem24.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.simpleLabelItem24.Location = new System.Drawing.Point(0, 630);
             this.simpleLabelItem24.Name = "simpleLabelItem24";
-            this.simpleLabelItem24.Size = new System.Drawing.Size(313, 20);
+            this.simpleLabelItem24.Size = new System.Drawing.Size(304, 20);
             this.simpleLabelItem24.Text = "Rear Left";
             this.simpleLabelItem24.TextSize = new System.Drawing.Size(72, 16);
             // 
@@ -3689,20 +4208,37 @@
             this.simpleLabelItemActuationPoint_RR.AppearanceItemCaption.Options.UseFont = true;
             this.simpleLabelItemActuationPoint_RR.AppearanceItemCaption.Options.UseTextOptions = true;
             this.simpleLabelItemActuationPoint_RR.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.simpleLabelItemActuationPoint_RR.Location = new System.Drawing.Point(313, 630);
+            this.simpleLabelItemActuationPoint_RR.Location = new System.Drawing.Point(304, 630);
             this.simpleLabelItemActuationPoint_RR.Name = "simpleLabelItemActuationPoint_RR";
-            this.simpleLabelItemActuationPoint_RR.Size = new System.Drawing.Size(311, 20);
+            this.simpleLabelItemActuationPoint_RR.Size = new System.Drawing.Size(303, 20);
             this.simpleLabelItemActuationPoint_RR.Text = "Rear Right";
             this.simpleLabelItemActuationPoint_RR.TextSize = new System.Drawing.Size(72, 16);
             // 
             // groupControlCAD
             // 
+            this.groupControlCAD.Controls.Add(this.toolStrip1);
             this.groupControlCAD.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupControlCAD.Location = new System.Drawing.Point(653, 0);
             this.groupControlCAD.Name = "groupControlCAD";
-            this.groupControlCAD.Size = new System.Drawing.Size(1168, 864);
+            this.groupControlCAD.Size = new System.Drawing.Size(1168, 889);
             this.groupControlCAD.TabIndex = 1;
             this.groupControlCAD.Text = "CAD";
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripProgressBar1});
+            this.toolStrip1.Location = new System.Drawing.Point(2, 862);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(1164, 25);
+            this.toolStrip1.TabIndex = 0;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripProgressBar1
+            // 
+            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(300, 22);
             // 
             // tabbedControlGroup1
             // 
@@ -3743,32 +4279,12 @@
             this.splitter1.TabIndex = 2;
             this.splitter1.TabStop = false;
             // 
-            // toolStrip1
-            // 
-            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripProgressBar1});
-            this.toolStrip1.Location = new System.Drawing.Point(653, 864);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1168, 25);
-            this.toolStrip1.TabIndex = 3;
-            this.toolStrip1.Text = "toolStrip1";
-            // 
-            // toolStripProgressBar1
-            // 
-            this.toolStripProgressBar1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
-            this.toolStripProgressBar1.Size = new System.Drawing.Size(200, 22);
-            this.toolStripProgressBar1.Step = 1;
-            this.toolStripProgressBar1.Visible = false;
-            // 
             // DesignForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1821, 889);
             this.Controls.Add(this.groupControlCAD);
-            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.splitter1);
             this.Controls.Add(this.xtraTabControl1);
             this.Name = "DesignForm";
@@ -3948,7 +4464,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem28)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem52)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemPlotToeLinkInboard_FR)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem61)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemConvergence_BS_FR)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem34)).EndInit();
@@ -3957,6 +4472,30 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemToeLink_Outboard_Y)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem_BS_FR)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem29)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem23)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem67)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem68)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem69)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem25)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem36)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem37)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem72)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem70)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem71)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem38)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem27)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItemToe_Points_RR)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemToe_Outboard_RR_Z)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemToe_Outboard_RR_X)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemToe_Outboard_RR_Y)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItemToe_Outboard_RR)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem39)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemToe_Inboard_RR_Y)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemToe_Inboard_RR_Z)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItemToe_Inboard_RR_X)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem40)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItemToe_Inboard_RR)).EndInit();
             this.xtraTabPageActuationPoints.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl6)).EndInit();
             this.layoutControl6.ResumeLayout(false);
@@ -3970,14 +4509,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem24)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItemActuationPoint_RR)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControlCAD)).EndInit();
+            this.groupControlCAD.ResumeLayout(false);
+            this.groupControlCAD.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem23)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleSeparator1)).EndInit();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -4221,8 +4761,6 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItemConvergence_BS_FR;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem34;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem35;
-        private System.Windows.Forms.ToolStrip toolStrip1;
-        public System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
         private DevExpress.XtraTab.XtraTabPage xtraTabPageActuationPoints;
         private DevExpress.XtraLayout.LayoutControl layoutControl6;
         private KO_ActuationPoints actuationPoints_RR;
@@ -4270,5 +4808,42 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItemWCOffset_RR_Y;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItemWCOffset_RR_X;
         private DevExpress.XtraLayout.SimpleLabelItem simpleLabelItemWCOffset_RR;
+        private DevExpress.XtraLayout.SimpleLabelItem simpleLabelItem23;
+        private System.Windows.Forms.TextBox tbToe_Outboard_RL_Y;
+        private System.Windows.Forms.TextBox tbToe_Outboard_RL_X;
+        private System.Windows.Forms.TextBox tbToe_Outboard_RL_Z;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem67;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem68;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem69;
+        private DevExpress.XtraLayout.SimpleLabelItem simpleLabelItem25;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem36;
+        private System.Windows.Forms.TextBox tbToe_Inboard_RL_Z;
+        private System.Windows.Forms.TextBox tbToe_Inboard_RL_X;
+        private System.Windows.Forms.TextBox tbToe_Inboard_RL_Y;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem37;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem72;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem70;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem71;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem38;
+        private DevExpress.XtraLayout.SimpleLabelItem simpleLabelItem27;
+        private System.Windows.Forms.TextBox tbToe_Outboard_RR_Z;
+        private System.Windows.Forms.TextBox tbToe_Outboard_RR_X;
+        private System.Windows.Forms.TextBox tbToe_Outboard_RR_Y;
+        private System.Windows.Forms.TextBox tbToe_Inboard_RR_Y;
+        private System.Windows.Forms.TextBox tbToe_Inboard_RR_Z;
+        private System.Windows.Forms.TextBox tbToe_Inboard_RR_X;
+        private DevExpress.XtraLayout.SimpleLabelItem simpleLabelItemToe_Points_RR;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItemToe_Outboard_RR_Z;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItemToe_Outboard_RR_X;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItemToe_Outboard_RR_Y;
+        private DevExpress.XtraLayout.SimpleLabelItem simpleLabelItemToe_Outboard_RR;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem39;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItemToe_Inboard_RR_Y;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItemToe_Inboard_RR_Z;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItemToe_Inboard_RR_X;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem40;
+        private DevExpress.XtraLayout.SimpleLabelItem simpleLabelItemToe_Inboard_RR;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        public System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
     }
 }

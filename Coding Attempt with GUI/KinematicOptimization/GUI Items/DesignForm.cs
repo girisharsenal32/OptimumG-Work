@@ -597,7 +597,7 @@ namespace Coding_Attempt_with_GUI
                 /// </remarks>
                 KO_CV_FL.VSAL_FV = +Convert.ToDouble(tbFV_VSAL_FL.Text);
 
-                Plot_VSAL_FV(out KO_CV_FL.VCornerParams.FV_IC_Line, KO_CV_FL.VSAL_FV, KO_CV_FL.ContactPatch, KO_Central.RC_Front, "KO_CV_FL.VCornerParams.FV_IC_Line");
+                Plot_VSAL_FV(out KO_CV_FL.VCornerParams.FV_IC_Line, KO_CV_FL.VSAL_FV, KO_CV_FL.VCornerParams.ContactPatch, KO_Central.RC_Front, "KO_CV_FL.VCornerParams.FV_IC_Line");
 
                 if (Sus_Type.FrontSymmetry_Boolean)
                 {
@@ -609,7 +609,7 @@ namespace Coding_Attempt_with_GUI
                     /// </remarks>
                     KO_CV_FR.VSAL_FV = -Convert.ToDouble(tbFV_VSAL_FL.Text);
 
-                    Plot_VSAL_FV(out KO_CV_FR.VCornerParams.FV_IC_Line, KO_CV_FR.VSAL_FV, KO_CV_FR.ContactPatch, KO_Central.RC_Front, "KO_CV_FR.VCornerParams.FV_IC_Line");
+                    Plot_VSAL_FV(out KO_CV_FR.VCornerParams.FV_IC_Line, KO_CV_FR.VSAL_FV, KO_CV_FR.VCornerParams.ContactPatch, KO_Central.RC_Front, "KO_CV_FR.VCornerParams.FV_IC_Line");
                 }
 
             }
@@ -650,7 +650,7 @@ namespace Coding_Attempt_with_GUI
                 /// </remarks>
                 KO_CV_FR.VSAL_FV = -Convert.ToDouble(tbFV_VSAL_FR.Text);
 
-                Plot_VSAL_FV(out KO_CV_FR.VCornerParams.FV_IC_Line, KO_CV_FR.VSAL_FV, KO_CV_FR.ContactPatch, KO_Central.RC_Front, "KO_CV_FR.VCornerParams.FV_IC_Line");
+                Plot_VSAL_FV(out KO_CV_FR.VCornerParams.FV_IC_Line, KO_CV_FR.VSAL_FV, KO_CV_FR.VCornerParams.ContactPatch, KO_Central.RC_Front, "KO_CV_FR.VCornerParams.FV_IC_Line");
 
             }
             else
@@ -756,7 +756,7 @@ namespace Coding_Attempt_with_GUI
                 /// </remarks>
                 KO_CV_RL.VSAL_FV = +Convert.ToDouble(tbFV_VSAL_RL.Text);
 
-                Plot_VSAL_FV(out KO_CV_RL.VCornerParams.FV_IC_Line, KO_CV_RL.VSAL_FV, KO_CV_RL.ContactPatch, KO_Central.RC_Rear, "KO_CV_RL.VCornerParams.FV_IC_Line");
+                Plot_VSAL_FV(out KO_CV_RL.VCornerParams.FV_IC_Line, KO_CV_RL.VSAL_FV, KO_CV_RL.VCornerParams.ContactPatch, KO_Central.RC_Rear, "KO_CV_RL.VCornerParams.FV_IC_Line");
 
                 if (Sus_Type.RearSymmetry_Boolean)
                 {
@@ -768,7 +768,7 @@ namespace Coding_Attempt_with_GUI
                     /// </remarks>
                     KO_CV_RR.VSAL_FV = -Convert.ToDouble(tbFV_VSAL_RL.Text);
 
-                    Plot_VSAL_FV(out KO_CV_RR.VCornerParams.FV_IC_Line, KO_CV_RR.VSAL_FV, KO_CV_RR.ContactPatch, KO_Central.RC_Rear, "KO_CV_RR.VCornerParams.FV_IC_Line");
+                    Plot_VSAL_FV(out KO_CV_RR.VCornerParams.FV_IC_Line, KO_CV_RR.VSAL_FV, KO_CV_RR.VCornerParams.ContactPatch, KO_Central.RC_Rear, "KO_CV_RR.VCornerParams.FV_IC_Line");
                 }
 
             }
@@ -809,7 +809,7 @@ namespace Coding_Attempt_with_GUI
                 /// </remarks>
                 KO_CV_RR.VSAL_FV = -Convert.ToDouble(tbFV_VSAL_RR.Text);
 
-                Plot_VSAL_FV(out KO_CV_RR.VCornerParams.FV_IC_Line, KO_CV_RR.VSAL_FV, KO_CV_RR.ContactPatch, KO_Central.RC_Rear, "KO_CV_RR.VCornerParams.FV_IC_Line");
+                Plot_VSAL_FV(out KO_CV_RR.VCornerParams.FV_IC_Line, KO_CV_RR.VSAL_FV, KO_CV_RR.VCornerParams.ContactPatch, KO_Central.RC_Rear, "KO_CV_RR.VCornerParams.FV_IC_Line");
             }
             else
             {
@@ -915,7 +915,7 @@ namespace Coding_Attempt_with_GUI
                 /// </remarks>
                 KO_CV_FL.VSAL_SV = +Convert.ToDouble(tbSV_VSAL_FL.Text);
 
-                Plot_VSAL_SV(out KO_CV_FL.VCornerParams.SV_IC_Line, KO_CV_FL.VSAL_SV, KO_CV_FL.ContactPatch, KO_Central.PC_Left, "KO_CV_FL.VCornerParams.SV_IC_Line");
+                Plot_VSAL_SV(out KO_CV_FL.VCornerParams.SV_IC_Line, KO_CV_FL.VSAL_SV, KO_CV_FL.VCornerParams.ContactPatch, KO_Central.PC_Left, "KO_CV_FL.VCornerParams.SV_IC_Line");
 
                 if (Sus_Type.FrontSymmetry_Boolean && Sus_Type.RearSymmetry_Boolean)
                 {
@@ -927,7 +927,7 @@ namespace Coding_Attempt_with_GUI
                     /// </remarks>
                     KO_CV_FR.VSAL_SV = +Convert.ToDouble(tbSV_VSAL_FL.Text);
 
-                    Plot_VSAL_SV(out KO_CV_FR.VCornerParams.SV_IC_Line, KO_CV_FR.VSAL_SV, KO_CV_FR.ContactPatch, KO_Central.PC_Right, "KO_CV_FR.VCornerParams.SV_IC_Line");
+                    Plot_VSAL_SV(out KO_CV_FR.VCornerParams.SV_IC_Line, KO_CV_FR.VSAL_SV, KO_CV_FR.VCornerParams.ContactPatch, KO_Central.PC_Right, "KO_CV_FR.VCornerParams.SV_IC_Line");
                 }
 
             }
@@ -971,7 +971,7 @@ namespace Coding_Attempt_with_GUI
                     /// </remarks>
                     KO_CV_RL.VSAL_SV = -Convert.ToDouble(tbSV_VSAL_RL.Text);
 
-                    Plot_VSAL_SV(out KO_CV_RL.VCornerParams.SV_IC_Line, KO_CV_RL.VSAL_SV, KO_CV_RL.ContactPatch, KO_Central.PC_Left, "KO_CV_RL.VCornerParams.SV_IC_Line");
+                    Plot_VSAL_SV(out KO_CV_RL.VCornerParams.SV_IC_Line, KO_CV_RL.VSAL_SV, KO_CV_RL.VCornerParams.ContactPatch, KO_Central.PC_Left, "KO_CV_RL.VCornerParams.SV_IC_Line");
 
                     if (Sus_Type.FrontSymmetry_Boolean && Sus_Type.RearSymmetry_Boolean)
                     {
@@ -983,7 +983,7 @@ namespace Coding_Attempt_with_GUI
                         /// </remarks>
                         KO_CV_RR.VSAL_SV = -Convert.ToDouble(tbSV_VSAL_RL.Text);
 
-                        Plot_VSAL_SV(out KO_CV_RR.VCornerParams.SV_IC_Line, KO_CV_RR.VSAL_SV, KO_CV_RR.ContactPatch, KO_Central.PC_Right, "KO_CV_RR.VCornerParams.SV_IC_Line");
+                        Plot_VSAL_SV(out KO_CV_RR.VCornerParams.SV_IC_Line, KO_CV_RR.VSAL_SV, KO_CV_RR.VCornerParams.ContactPatch, KO_Central.PC_Right, "KO_CV_RR.VCornerParams.SV_IC_Line");
                     }
 
                 }
@@ -1097,7 +1097,7 @@ namespace Coding_Attempt_with_GUI
                 /// </remarks>
                 KO_CV_FR.VSAL_SV = +Convert.ToDouble(tbSV_VSAL_FR.Text);
 
-                Plot_VSAL_SV(out KO_CV_FR.VCornerParams.SV_IC_Line, KO_CV_FR.VSAL_SV, KO_CV_FR.ContactPatch, KO_Central.PC_Right, "KO_CV_FR.VCornerParams.SV_IC_Line");
+                Plot_VSAL_SV(out KO_CV_FR.VCornerParams.SV_IC_Line, KO_CV_FR.VSAL_SV, KO_CV_FR.VCornerParams.ContactPatch, KO_Central.PC_Right, "KO_CV_FR.VCornerParams.SV_IC_Line");
 
             }
             else
@@ -1139,7 +1139,7 @@ namespace Coding_Attempt_with_GUI
                 /// </remarks>
                 KO_CV_RR.VSAL_SV = -Convert.ToDouble(tbSV_VSAL_RR.Text);
 
-                Plot_VSAL_SV(out KO_CV_RR.VCornerParams.SV_IC_Line, KO_CV_RR.VSAL_SV, KO_CV_RR.ContactPatch, KO_Central.PC_Right, "KO_CV_RR.VCornerParams.SV_IC_Line");
+                Plot_VSAL_SV(out KO_CV_RR.VCornerParams.SV_IC_Line, KO_CV_RR.VSAL_SV, KO_CV_RR.VCornerParams.ContactPatch, KO_Central.PC_Right, "KO_CV_RR.VCornerParams.SV_IC_Line");
 
             }
             else
@@ -1223,7 +1223,7 @@ namespace Coding_Attempt_with_GUI
 
                 KO_CV_FL.KPI = new Angle(Convert.ToDouble(tbKPI_FL.Text), AngleUnit.Degrees);
 
-                Plot_SteeringAxis(out KO_CV_FL.VCornerParams.SteeringAxis, KO_CV_FL.KPI, KO_CV_FL.Caster, KO_CV_FL.ScrubRadius, KO_CV_FL.MechTrail, KO_CV_FL.ContactPatch, "KO_CV_FL.VCornerParams.SteeringAxis");
+                Plot_SteeringAxis(out KO_CV_FL.VCornerParams.SteeringAxis, KO_CV_FL.KPI, KO_CV_FL.Caster, KO_CV_FL.ScrubRadius, KO_CV_FL.MechTrail, KO_CV_FL.VCornerParams.ContactPatch, "KO_CV_FL.VCornerParams.SteeringAxis");
 
                 ///<summary>Handling condition of Symmetry</summary>
                 if (Sus_Type.FrontSymmetry_Boolean)
@@ -1233,7 +1233,7 @@ namespace Coding_Attempt_with_GUI
                     ///For the Left side this is a clockwise rotation which is positive. But for the RIGHT side this is a CCW rotation which is neggative. Hence the user input needs to be conditioned
                     /// </remarks>
                     KO_CV_FR.KPI = new Angle(-Convert.ToDouble(tbKPI_FL.Text), AngleUnit.Degrees);
-                    Plot_SteeringAxis(out KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.ContactPatch, "KO_CV_FR.VCornerParams.SteeringAxis");
+                    Plot_SteeringAxis(out KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.VCornerParams.ContactPatch, "KO_CV_FR.VCornerParams.SteeringAxis");
                 }
 
             }
@@ -1275,14 +1275,14 @@ namespace Coding_Attempt_with_GUI
                     /// </remarks>
                     KO_CV_FL.ScrubRadius = -Convert.ToDouble(tbScrub_FL.Text);
 
-                    Plot_SteeringAxis(out KO_CV_FL.VCornerParams.SteeringAxis, KO_CV_FL.KPI, KO_CV_FL.Caster, KO_CV_FL.ScrubRadius, KO_CV_FL.MechTrail, KO_CV_FL.ContactPatch, "KO_CV_FL.VCornerParams.SteeringAxis");
+                    Plot_SteeringAxis(out KO_CV_FL.VCornerParams.SteeringAxis, KO_CV_FL.KPI, KO_CV_FL.Caster, KO_CV_FL.ScrubRadius, KO_CV_FL.MechTrail, KO_CV_FL.VCornerParams.ContactPatch, "KO_CV_FL.VCornerParams.SteeringAxis");
 
                     ///<summary>Handling condition of Symmetry</summary>
                     if (Sus_Type.FrontSymmetry_Boolean)
                     {
                         ///<summary>In order to maintain the convention of positive Scrub is translating the Steering Axis Inward, psoitive sign is applied</summary>
                         KO_CV_FR.ScrubRadius = +Convert.ToDouble(tbScrub_FL.Text);
-                        Plot_SteeringAxis(out KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.ContactPatch, "KO_CV_FR.VCornerParams.SteeringAxis");
+                        Plot_SteeringAxis(out KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.VCornerParams.ContactPatch, "KO_CV_FR.VCornerParams.SteeringAxis");
                     }
 
                 }
@@ -1326,7 +1326,7 @@ namespace Coding_Attempt_with_GUI
                 /// </remarks>
                 KO_CV_FL.Caster = new Angle(-Convert.ToDouble(tbCaster_FL.Text), AngleUnit.Degrees);
 
-                Plot_SteeringAxis(out KO_CV_FL.VCornerParams.SteeringAxis, KO_CV_FL.KPI, KO_CV_FL.Caster, KO_CV_FL.ScrubRadius, KO_CV_FL.MechTrail, KO_CV_FL.ContactPatch, "KO_CV_FL.VCornerParams.SteeringAxis");
+                Plot_SteeringAxis(out KO_CV_FL.VCornerParams.SteeringAxis, KO_CV_FL.KPI, KO_CV_FL.Caster, KO_CV_FL.ScrubRadius, KO_CV_FL.MechTrail, KO_CV_FL.VCornerParams.ContactPatch, "KO_CV_FL.VCornerParams.SteeringAxis");
 
                 ///<summary>Handling condition of Symmetry</summary>
                 if (Sus_Type.FrontSymmetry_Boolean)
@@ -1336,7 +1336,7 @@ namespace Coding_Attempt_with_GUI
                     ///This is for the solver a CW rotation which is negative. 
                     ///Hence the user input value must be conditioned
                     KO_CV_FR.Caster = new Angle(-Convert.ToDouble(tbCaster_FL.Text), AngleUnit.Degrees);
-                    Plot_SteeringAxis(out KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.ContactPatch, "KO_CV_FR.VCornerParams.SteeringAxis");
+                    Plot_SteeringAxis(out KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.VCornerParams.ContactPatch, "KO_CV_FR.VCornerParams.SteeringAxis");
                 }
 
             }
@@ -1372,13 +1372,13 @@ namespace Coding_Attempt_with_GUI
                 {
                     KO_CV_FL.MechTrail = Convert.ToDouble(tbMechtrail_FL.Text);
 
-                    Plot_SteeringAxis(out KO_CV_FL.VCornerParams.SteeringAxis, KO_CV_FL.KPI, KO_CV_FL.Caster, KO_CV_FL.ScrubRadius, KO_CV_FL.MechTrail, KO_CV_FL.ContactPatch, "KO_CV_FL.VCornerParams.SteeringAxis");
+                    Plot_SteeringAxis(out KO_CV_FL.VCornerParams.SteeringAxis, KO_CV_FL.KPI, KO_CV_FL.Caster, KO_CV_FL.ScrubRadius, KO_CV_FL.MechTrail, KO_CV_FL.VCornerParams.ContactPatch, "KO_CV_FL.VCornerParams.SteeringAxis");
 
                     ///<summary>Handling condition of Symmetry</summary>
                     if (Sus_Type.FrontSymmetry_Boolean)
                     {
                         KO_CV_FR.MechTrail = Convert.ToDouble(tbMechtrail_FL.Text);
-                        Plot_SteeringAxis(out KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.ContactPatch, "KO_CV_FR.VCornerParams.SteeringAxis");
+                        Plot_SteeringAxis(out KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.VCornerParams.ContactPatch, "KO_CV_FR.VCornerParams.SteeringAxis");
                     }
 
                 }
@@ -1720,7 +1720,7 @@ namespace Coding_Attempt_with_GUI
                 /// </remarks>
                 KO_CV_FR.KPI = new Angle(-Convert.ToDouble(tbKPI_FR.Text), AngleUnit.Degrees);
 
-                Plot_SteeringAxis(out KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.ContactPatch, "KO_CV_FR.VCornerParams.SteeringAxis");
+                Plot_SteeringAxis(out KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.VCornerParams.ContactPatch, "KO_CV_FR.VCornerParams.SteeringAxis");
 
             }
             else
@@ -1752,7 +1752,7 @@ namespace Coding_Attempt_with_GUI
                 {
                     KO_CV_FR.ScrubRadius = Convert.ToDouble(tbScrub_FR.Text);
 
-                    Plot_SteeringAxis(out KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.ContactPatch, "KO_CV_FR.VCornerParams.SteeringAxis");
+                    Plot_SteeringAxis(out KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.VCornerParams.ContactPatch, "KO_CV_FR.VCornerParams.SteeringAxis");
 
                 }
                 else
@@ -1792,7 +1792,7 @@ namespace Coding_Attempt_with_GUI
                 ///Hence the user input value must be conditioned
                 KO_CV_FR.Caster = new Angle(-Convert.ToDouble(tbCaster_FR.Text), AngleUnit.Degrees);
 
-                Plot_SteeringAxis(out KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.ContactPatch, "KO_CV_FR.VCornerParams.SteeringAxis");
+                Plot_SteeringAxis(out KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.VCornerParams.ContactPatch, "KO_CV_FR.VCornerParams.SteeringAxis");
 
             }
             else
@@ -1825,7 +1825,7 @@ namespace Coding_Attempt_with_GUI
                 {
                     KO_CV_FR.MechTrail = Convert.ToDouble(tbMechtrail_FR.Text);
 
-                    Plot_SteeringAxis(out KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.ContactPatch, "KO_CV_FR.VCornerParams.SteeringAxis");
+                    Plot_SteeringAxis(out KO_CV_FR.VCornerParams.SteeringAxis, KO_CV_FR.KPI, KO_CV_FR.Caster, KO_CV_FR.ScrubRadius, KO_CV_FR.MechTrail, KO_CV_FR.VCornerParams.ContactPatch, "KO_CV_FR.VCornerParams.SteeringAxis");
 
                 }
                 else
@@ -1978,10 +1978,7 @@ namespace Coding_Attempt_with_GUI
 
         private void tbWC_Offset_FR_X_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                Set_WheelCenter_Offset_FR_X();
-            }
+
         }
 
         private void Set_WheelCenter_Offset_FR_X()
@@ -2090,7 +2087,7 @@ namespace Coding_Attempt_with_GUI
 
                 KO_CV_RL.KPI = new Angle(Convert.ToDouble(tbKPI_RL.Text), AngleUnit.Degrees);
 
-                Plot_SteeringAxis(out KO_CV_RL.VCornerParams.SteeringAxis, KO_CV_RL.KPI, KO_CV_RL.Caster, KO_CV_RL.ScrubRadius, KO_CV_RL.MechTrail, KO_CV_RL.ContactPatch, "KO_CV_RL.VCornerParams.SteeringAxis");
+                Plot_SteeringAxis(out KO_CV_RL.VCornerParams.SteeringAxis, KO_CV_RL.KPI, KO_CV_RL.Caster, KO_CV_RL.ScrubRadius, KO_CV_RL.MechTrail, KO_CV_RL.VCornerParams.ContactPatch, "KO_CV_RL.VCornerParams.SteeringAxis");
 
                 ///<summary>Handling condition of Symmetry</summary>
                 if (Sus_Type.FrontSymmetry_Boolean)
@@ -2100,7 +2097,7 @@ namespace Coding_Attempt_with_GUI
                     ///For the Left side this is a clockwise rotation which is positive. But for the RIGHT side this is a CCW rotation which is neggative. Hence the user input needs to be conditioned
                     /// </remarks>
                     KO_CV_RR.KPI = new Angle(-Convert.ToDouble(tbKPI_RL.Text), AngleUnit.Degrees);
-                    Plot_SteeringAxis(out KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.ContactPatch, "KO_CV_RR.VCornerParams.SteeringAxis");
+                    Plot_SteeringAxis(out KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.VCornerParams.ContactPatch, "KO_CV_RR.VCornerParams.SteeringAxis");
                 }
 
             }
@@ -2139,13 +2136,13 @@ namespace Coding_Attempt_with_GUI
                     /// </remarks>
                     KO_CV_RL.ScrubRadius = -Convert.ToDouble(tbScrub_RL.Text);
 
-                    Plot_SteeringAxis(out KO_CV_RL.VCornerParams.SteeringAxis, KO_CV_RL.KPI, KO_CV_RL.Caster, KO_CV_RL.ScrubRadius, KO_CV_RL.MechTrail, KO_CV_RL.ContactPatch, "KO_CV_RL.VCornerParams.SteeringAxis");
+                    Plot_SteeringAxis(out KO_CV_RL.VCornerParams.SteeringAxis, KO_CV_RL.KPI, KO_CV_RL.Caster, KO_CV_RL.ScrubRadius, KO_CV_RL.MechTrail, KO_CV_RL.VCornerParams.ContactPatch, "KO_CV_RL.VCornerParams.SteeringAxis");
 
                     ///<summary>Handling condition of Symmetry</summary>
                     if (Sus_Type.FrontSymmetry_Boolean)
                     {
                         KO_CV_RR.ScrubRadius = +Convert.ToDouble(tbScrub_RL.Text);
-                        Plot_SteeringAxis(out KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.ContactPatch, "KO_CV_RR.VCornerParams.SteeringAxis");
+                        Plot_SteeringAxis(out KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.VCornerParams.ContactPatch, "KO_CV_RR.VCornerParams.SteeringAxis");
                     }
 
 
@@ -2186,7 +2183,7 @@ namespace Coding_Attempt_with_GUI
                 ///Hence the user input value must be conditioned
                 KO_CV_RL.Caster = new Angle(-Convert.ToDouble(tbCaster_RL.Text), AngleUnit.Degrees);
 
-                Plot_SteeringAxis(out KO_CV_RL.VCornerParams.SteeringAxis, KO_CV_RL.KPI, KO_CV_RL.Caster, KO_CV_RL.ScrubRadius, KO_CV_RL.MechTrail, KO_CV_RL.ContactPatch, "KO_CV_RL.VCornerParams.SteeringAxis");
+                Plot_SteeringAxis(out KO_CV_RL.VCornerParams.SteeringAxis, KO_CV_RL.KPI, KO_CV_RL.Caster, KO_CV_RL.ScrubRadius, KO_CV_RL.MechTrail, KO_CV_RL.VCornerParams.ContactPatch, "KO_CV_RL.VCornerParams.SteeringAxis");
 
                 ///<summary>Handling condition of Symmetry</summary>
                 if (Sus_Type.FrontSymmetry_Boolean)
@@ -2196,7 +2193,7 @@ namespace Coding_Attempt_with_GUI
                     ///This is for the solver a CW rotation which is negative. 
                     ///Hence the user input value must be conditioned
                     KO_CV_RR.Caster = new Angle(-Convert.ToDouble(tbCaster_RL.Text), AngleUnit.Degrees);
-                    Plot_SteeringAxis(out KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.ContactPatch, "KO_CV_RR.VCornerParams.SteeringAxis");
+                    Plot_SteeringAxis(out KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.VCornerParams.ContactPatch, "KO_CV_RR.VCornerParams.SteeringAxis");
                 }
 
             }
@@ -2229,13 +2226,13 @@ namespace Coding_Attempt_with_GUI
                 {
                     KO_CV_RL.MechTrail = Convert.ToDouble(tbMechtrail_RL.Text);
 
-                    Plot_SteeringAxis(out KO_CV_RL.VCornerParams.SteeringAxis, KO_CV_RL.KPI, KO_CV_RL.Caster, KO_CV_RL.ScrubRadius, KO_CV_RL.MechTrail, KO_CV_RL.ContactPatch, "KO_CV_RL.VCornerParams.SteeringAxis");
+                    Plot_SteeringAxis(out KO_CV_RL.VCornerParams.SteeringAxis, KO_CV_RL.KPI, KO_CV_RL.Caster, KO_CV_RL.ScrubRadius, KO_CV_RL.MechTrail, KO_CV_RL.VCornerParams.ContactPatch, "KO_CV_RL.VCornerParams.SteeringAxis");
 
                     ///<summary>Handling condition of Symmetry</summary>
                     if (Sus_Type.FrontSymmetry_Boolean)
                     {
                         KO_CV_RR.MechTrail = Convert.ToDouble(tbMechtrail_RL.Text);
-                        Plot_SteeringAxis(out KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.ContactPatch, "KO_CV_RR.VCornerParams.SteeringAxis");
+                        Plot_SteeringAxis(out KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.VCornerParams.ContactPatch, "KO_CV_RR.VCornerParams.SteeringAxis");
                     }
 
 
@@ -2575,7 +2572,7 @@ namespace Coding_Attempt_with_GUI
                 ///For the Left side this is a clockwise rotation which is positive. But for the RIGHT side this is a CCW rotation which is neggative. Hence the user input needs to be conditioned
                 /// </remarks>
                 KO_CV_RR.KPI = new Angle(-Convert.ToDouble(tbKPI_RR.Text), AngleUnit.Degrees);
-                Plot_SteeringAxis(out KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.ContactPatch, "KO_CV_RR.VCornerParams.SteeringAxis");
+                Plot_SteeringAxis(out KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.VCornerParams.ContactPatch, "KO_CV_RR.VCornerParams.SteeringAxis");
 
             }
             else
@@ -2606,7 +2603,7 @@ namespace Coding_Attempt_with_GUI
                 if (Validatepositve_Double(tbScrub_RR.Text))
                 {
                     KO_CV_RR.ScrubRadius = Convert.ToDouble(tbScrub_RR.Text);
-                    Plot_SteeringAxis(out KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.ContactPatch, "KO_CV_RR.VCornerParams.SteeringAxis");
+                    Plot_SteeringAxis(out KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.VCornerParams.ContactPatch, "KO_CV_RR.VCornerParams.SteeringAxis");
 
                 }
                 else
@@ -2644,7 +2641,7 @@ namespace Coding_Attempt_with_GUI
                 ///This is for the solver a CW rotation which is negative. 
                 ///Hence the user input value must be conditioned
                 KO_CV_RR.Caster = new Angle(-Convert.ToDouble(tbCaster_RR.Text), AngleUnit.Degrees);
-                Plot_SteeringAxis(out KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.ContactPatch, "KO_CV_RR.VCornerParams.SteeringAxis");
+                Plot_SteeringAxis(out KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.VCornerParams.ContactPatch, "KO_CV_RR.VCornerParams.SteeringAxis");
 
             }
             else
@@ -2675,7 +2672,7 @@ namespace Coding_Attempt_with_GUI
                 if (Validatepositve_Double(tbMechtrail_RR.Text))
                 {
                     KO_CV_RR.MechTrail = Convert.ToDouble(tbMechtrail_RR.Text);
-                    Plot_SteeringAxis(out KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.ContactPatch, "KO_CV_RR.VCornerParams.SteeringAxis");
+                    Plot_SteeringAxis(out KO_CV_RR.VCornerParams.SteeringAxis, KO_CV_RR.KPI, KO_CV_RR.Caster, KO_CV_RR.ScrubRadius, KO_CV_RR.MechTrail, KO_CV_RR.VCornerParams.ContactPatch, "KO_CV_RR.VCornerParams.SteeringAxis");
 
                 }
                 else
@@ -2945,11 +2942,15 @@ namespace Coding_Attempt_with_GUI
 
                 Set_OutboardToeLink();
 
+                KO_CV_FL.Compute_InboardToeLink(out KO_CV_FL.VCornerParams.ToeLinkInboard, KO_CV_FL.VCornerParams.ToeLinkOutboard, KO_CV_FL.ToeLinkLength);
+
                 if (Sus_Type.FrontSymmetry_Boolean)
                 {
                     KO_CV_FR.PitmanTrail = Convert.ToDouble(tbPitmanLeft.Text);
 
                     Set_OutboardToeLink();
+
+                    KO_CV_FR.Compute_InboardToeLink(out KO_CV_FR.VCornerParams.ToeLinkInboard, KO_CV_FR.VCornerParams.ToeLinkOutboard, KO_CV_FR.ToeLinkLength);
 
                     Plot_OutboardPoint(KO_CV_FR.VCornerParams.ToeLinkOutboard, "KO_CV_FR.VCornerParams.ToeLinkOutboard");
 
@@ -2991,9 +2992,13 @@ namespace Coding_Attempt_with_GUI
             {
                 KO_CV_FL.VCornerParams.ToeLinkOutboard.Y = Convert.ToDouble(tbToeLink_Outboard_FL_Y.Text);
 
+                KO_CV_FL.Compute_InboardToeLink(out KO_CV_FL.VCornerParams.ToeLinkInboard, KO_CV_FL.VCornerParams.ToeLinkOutboard, KO_CV_FL.ToeLinkLength);
+
                 if (Sus_Type.FrontSymmetry_Boolean)
                 {
                     KO_CV_FR.VCornerParams.ToeLinkOutboard.Y = Convert.ToDouble(tbToeLink_Outboard_FL_Y.Text);
+
+                    KO_CV_FR.Compute_InboardToeLink(out KO_CV_FR.VCornerParams.ToeLinkInboard, KO_CV_FR.VCornerParams.ToeLinkOutboard, KO_CV_FR.ToeLinkLength);
 
                     Plot_OutboardPoint(KO_CV_FR.VCornerParams.ToeLinkOutboard, "KO_CV_FR.VCornerParams.ToeLinkOutboard");
 
@@ -3089,6 +3094,8 @@ namespace Coding_Attempt_with_GUI
 
                 Set_OutboardToeLink();
 
+                KO_CV_FR.Compute_InboardToeLink(out KO_CV_FR.VCornerParams.ToeLinkInboard, KO_CV_FR.VCornerParams.ToeLinkOutboard, KO_CV_FR.ToeLinkLength);
+
                 Plot_OutboardPoint(KO_CV_FR.VCornerParams.ToeLinkOutboard, "KO_CV_FR.VCornerParams.ToeLinkOutboard");
 
                 KO_CV_FR.VCornerParams.Initialize_Dictionary();
@@ -3120,6 +3127,8 @@ namespace Coding_Attempt_with_GUI
         private void Set_ToeLinkOutboard_Y_FR()
         {
             KO_CV_FR.VCornerParams.ToeLinkOutboard.Y = Convert.ToDouble(tbToeLink_Outboard_FR_Y.Text);
+
+            KO_CV_FR.Compute_InboardToeLink(out KO_CV_FR.VCornerParams.ToeLinkInboard, KO_CV_FR.VCornerParams.ToeLinkOutboard, KO_CV_FR.ToeLinkLength);
 
             Plot_OutboardPoint(KO_CV_FR.VCornerParams.ToeLinkOutboard, "KO_CV_FR.VCornerParams.ToeLinkOutboard");
 
@@ -3174,6 +3183,12 @@ namespace Coding_Attempt_with_GUI
         #region Toe Link Inboard FL
         private void simpleButtonPlotToelinkInboard_FL_Click(object sender, EventArgs e)
         {
+            Set_PitmanTrail_Left();
+
+            Set_ToeLinkOutboard_Y_FL();
+
+            Set_ToeLinkLength_FL();
+
             Compute_InboardToeLinkPoint();
         }
 
@@ -3204,6 +3219,12 @@ namespace Coding_Attempt_with_GUI
         #region Toe Link Inboard FR
         private void simpleButtonPlotToelinkInboard_FR_Click(object sender, EventArgs e)
         {
+            Set_PitmanTrail_Right();
+
+            Set_ToeLinkOutboard_Y_FR();
+
+            Set_ToeLinkLength_FR();
+
             Compute_InboardToeLink_FR();
         }
 
@@ -3218,6 +3239,450 @@ namespace Coding_Attempt_with_GUI
             tbConvergence_BS_FR.Text = Convert.ToString(KO_CV_FR.BumpSteerConvergence.Percentage);
 
         }
+        #endregion
+
+
+        #region Rear Toe Points
+
+        #region Rear Left Toe Link 
+
+        #region Oubtoard
+        //---OUTBOARD
+        private void tbToe_Outboard_RL_X_Leave(object sender, EventArgs e)
+        {
+            Set_ToeLinkOutboard_RL_X();
+        }
+
+        private void tbToe_Outboard_RL_X_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_ToeLinkOutboard_RL_X();
+            }
+        }
+
+        private void Set_ToeLinkOutboard_RL_X()
+        {
+            if (DoubleValidation(tbToe_Outboard_RL_X.Text))
+            {
+                KO_CV_RL.VCornerParams.ToeLinkOutboard.Z = Convert.ToDouble(tbToe_Outboard_RL_X.Text);
+
+                if (Sus_Type.FrontSymmetry_Boolean)
+                {
+                    KO_CV_RR.VCornerParams.ToeLinkOutboard.Z = Convert.ToDouble(tbToe_Outboard_RL_X.Text);
+
+                    Plot_OutboardPoint(KO_CV_RR.VCornerParams.ToeLinkOutboard, "KO_CV_RR.VCornerParams.ToeLinkOutboard");
+
+                    KO_CV_RR.VCornerParams.Initialize_Dictionary();
+                }
+
+                Plot_OutboardPoint(KO_CV_RL.VCornerParams.ToeLinkOutboard, "KO_CV_RL.VCornerParams.ToeLinkOutboard");
+
+                KO_CV_RL.VCornerParams.Initialize_Dictionary();
+
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+
+        private void tbToe_Outboard_RL_Y_Leave(object sender, EventArgs e)
+        {
+            Set_ToeLinkOutboard_RL_Y();
+        }
+
+        private void tbToe_Outboard_RL_Y_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_ToeLinkOutboard_RL_Y();
+            }
+        }
+
+        private void Set_ToeLinkOutboard_RL_Y()
+        {
+            if (DoubleValidation(tbToe_Outboard_RL_Y.Text))
+            {
+                KO_CV_RL.VCornerParams.ToeLinkOutboard.X = Convert.ToDouble(tbToe_Outboard_RL_Y.Text);
+
+                if (Sus_Type.FrontSymmetry_Boolean)
+                {
+                    KO_CV_RR.VCornerParams.ToeLinkOutboard.X = -Convert.ToDouble(tbToe_Outboard_RL_Y.Text);
+
+                    Plot_OutboardPoint(KO_CV_RR.VCornerParams.ToeLinkOutboard, "KO_CV_RR.VCornerParams.ToeLinkOutboard");
+
+                    KO_CV_RR.VCornerParams.Initialize_Dictionary();
+                }
+
+                Plot_OutboardPoint(KO_CV_RL.VCornerParams.ToeLinkOutboard, "KO_CV_RL.VCornerParams.ToeLinkOutboard");
+
+                KO_CV_RL.VCornerParams.Initialize_Dictionary();
+
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+        private void tbToe_Outboard_RL_Z_Leave(object sender, EventArgs e)
+        {
+            Set_ToeLinkOutboard_RL_Z();
+        }
+
+        private void tbToe_Outboard_RL_Z_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_ToeLinkOutboard_RL_Z();
+            }
+        }
+
+        private void Set_ToeLinkOutboard_RL_Z()
+        {
+            if (DoubleValidation(tbToe_Outboard_RL_Z.Text))
+            {
+                KO_CV_RL.VCornerParams.ToeLinkOutboard.Y = Convert.ToDouble(tbToe_Outboard_RL_Z.Text);
+
+                if (Sus_Type.FrontSymmetry_Boolean)
+                {
+                    KO_CV_RR.VCornerParams.ToeLinkOutboard.Y = Convert.ToDouble(tbToe_Outboard_RL_Z.Text);
+
+                    Plot_OutboardPoint(KO_CV_RR.VCornerParams.ToeLinkOutboard, "KO_CV_RR.VCornerParams.ToeLinkOutboard");
+
+                    KO_CV_RR.VCornerParams.Initialize_Dictionary();
+                }
+
+                Plot_OutboardPoint(KO_CV_RL.VCornerParams.ToeLinkOutboard, "KO_CV_RL.VCornerParams.ToeLinkOutboard");
+
+                KO_CV_RL.VCornerParams.Initialize_Dictionary();
+
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+        #endregion
+
+        #region Inboard
+
+        private void tbToe_Inboard_RL_X_Leave(object sender, EventArgs e)
+        {
+            Set_ToeLinkInboard_RL_X();
+        }
+
+        private void tbToe_Inboard_RL_X_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_ToeLinkInboard_RL_X();
+            }
+        }
+
+        private void Set_ToeLinkInboard_RL_X()
+        {
+            if (DoubleValidation(tbToe_Inboard_RL_X.Text))
+            {
+                KO_CV_RL.VCornerParams.ToeLinkInboard.Z = Convert.ToDouble(tbToe_Inboard_RL_X.Text);
+
+                if (Sus_Type.FrontSymmetry_Boolean)
+                {
+                    KO_CV_RR.VCornerParams.ToeLinkInboard.Z = Convert.ToDouble(tbToe_Inboard_RL_X.Text);
+
+                    Plot_InboardPoints(KO_CV_RR.VCornerParams.ToeLinkInboard, KO_CV_RR.VCornerParams.ToeLinkOutboard, "KO_CV_RR.VCornerParams.ToeLinkInboard", "KO_CV_RR.VCornerParams.ToeLink");
+
+                    KO_CV_RR.VCornerParams.Initialize_Dictionary();
+                }
+
+                Plot_InboardPoints(KO_CV_RL.VCornerParams.ToeLinkInboard, KO_CV_RL.VCornerParams.ToeLinkOutboard, "KO_CV_RL.VCornerParams.ToeLinkInboard", "KO_CV_RL.VCornerParams.ToeLink");
+
+                KO_CV_RL.VCornerParams.Initialize_Dictionary();
+
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+        private void tbToe_Inboard_RL_Y_Leave(object sender, EventArgs e)
+        {
+            Set_ToeLinkInboard_RL_Y();
+        }
+
+        private void tbToe_Inboard_RL_Y_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_ToeLinkInboard_RL_Y();
+            }
+        }
+        private void Set_ToeLinkInboard_RL_Y()
+        {
+            if (DoubleValidation(tbToe_Inboard_RL_Y.Text))
+            {
+                KO_CV_RL.VCornerParams.ToeLinkInboard.X = Convert.ToDouble(tbToe_Inboard_RL_Y.Text);
+
+                if (Sus_Type.FrontSymmetry_Boolean)
+                {
+                    KO_CV_RR.VCornerParams.ToeLinkInboard.X = -Convert.ToDouble(tbToe_Inboard_RL_Y.Text);
+
+                    Plot_InboardPoints(KO_CV_RR.VCornerParams.ToeLinkInboard, KO_CV_RR.VCornerParams.ToeLinkOutboard, "KO_CV_RR.VCornerParams.ToeLinkInboard", "KO_CV_RR.VCornerParams.ToeLink");
+
+                    KO_CV_RR.VCornerParams.Initialize_Dictionary();
+                }
+
+                Plot_InboardPoints(KO_CV_RL.VCornerParams.ToeLinkInboard, KO_CV_RL.VCornerParams.ToeLinkOutboard, "KO_CV_RL.VCornerParams.ToeLinkInboard", "KO_CV_RL.VCornerParams.ToeLink");
+
+                KO_CV_RL.VCornerParams.Initialize_Dictionary();
+
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+
+        private void tbToe_Inboard_RL_Z_Leave(object sender, EventArgs e)
+        {
+            Set_ToeLinkInboard_RL_Z();
+        }
+
+        private void tbToe_Inboard_RL_Z_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_ToeLinkInboard_RL_Z();
+            }
+        }
+        private void Set_ToeLinkInboard_RL_Z()
+        {
+            if (DoubleValidation(tbToe_Inboard_RL_Z.Text))
+            {
+                KO_CV_RL.VCornerParams.ToeLinkInboard.Y = Convert.ToDouble(tbToe_Inboard_RL_Z.Text);
+
+                if (Sus_Type.FrontSymmetry_Boolean)
+                {
+                    KO_CV_RR.VCornerParams.ToeLinkInboard.Y = Convert.ToDouble(tbToe_Inboard_RL_Z.Text);
+
+                    Plot_InboardPoints(KO_CV_RR.VCornerParams.ToeLinkInboard, KO_CV_RR.VCornerParams.ToeLinkOutboard, "KO_CV_RR.VCornerParams.ToeLinkInboard", "KO_CV_RR.VCornerParams.ToeLink");
+
+                    KO_CV_RR.VCornerParams.Initialize_Dictionary();
+                }
+
+                Plot_InboardPoints(KO_CV_RL.VCornerParams.ToeLinkInboard, KO_CV_RL.VCornerParams.ToeLinkOutboard, "KO_CV_RL.VCornerParams.ToeLinkInboard", "KO_CV_RL.VCornerParams.ToeLink");
+
+                KO_CV_RL.VCornerParams.Initialize_Dictionary();
+
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+        #endregion
+
+        //---END : Rear Left Toe Link ---
+        #endregion
+
+        #region Rear Right Toe Link
+
+        #region Oubtoard
+        //---OUTBOARD
+        private void tbToe_Outboard_RR_X_Leave(object sender, EventArgs e)
+        {
+            Set_ToeLinkOutboard_RR_X();
+        }
+
+        private void tbToe_Outboard_RR_X_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_ToeLinkOutboard_RR_X();
+            }
+        }
+
+        private void Set_ToeLinkOutboard_RR_X()
+        {
+            if (DoubleValidation(tbToe_Outboard_RR_X.Text))
+            {
+                KO_CV_RR.VCornerParams.ToeLinkOutboard.Z = Convert.ToDouble(tbToe_Outboard_RR_X.Text);
+
+                Plot_OutboardPoint(KO_CV_RR.VCornerParams.ToeLinkOutboard, "KO_CV_RR.VCornerParams.ToeLinkOutboard");
+
+                KO_CV_RR.VCornerParams.Initialize_Dictionary();
+
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+
+        private void tbToe_Outboard_RR_Y_Leave(object sender, EventArgs e)
+        {
+            Set_ToeLinkOutboard_RR_Y();
+        }
+
+        private void tbToe_Outboard_RR_Y_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_ToeLinkOutboard_RR_Y();
+            }
+        }
+
+        private void Set_ToeLinkOutboard_RR_Y()
+        {
+            if (DoubleValidation(tbToe_Outboard_RR_Y.Text))
+            {
+                KO_CV_RR.VCornerParams.ToeLinkOutboard.X = Convert.ToDouble(tbToe_Outboard_RR_Y.Text);
+
+                Plot_OutboardPoint(KO_CV_RR.VCornerParams.ToeLinkOutboard, "KO_CV_RR.VCornerParams.ToeLinkOutboard");
+
+                KO_CV_RR.VCornerParams.Initialize_Dictionary();
+
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+        private void tbToe_Outboard_RR_Z_Leave(object sender, EventArgs e)
+        {
+            Set_ToeLinkOutboard_RR_Z();
+        }
+
+        private void tbToe_Outboard_RR_Z_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_ToeLinkOutboard_RR_Z();
+            }
+        }
+
+        private void Set_ToeLinkOutboard_RR_Z()
+        {
+            if (DoubleValidation(tbToe_Outboard_RR_Z.Text))
+            {
+                KO_CV_RR.VCornerParams.ToeLinkOutboard.Y = Convert.ToDouble(tbToe_Outboard_RR_Z.Text);
+
+                Plot_OutboardPoint(KO_CV_RR.VCornerParams.ToeLinkOutboard, "KO_CV_RR.VCornerParams.ToeLinkOutboard");
+
+                KO_CV_RR.VCornerParams.Initialize_Dictionary();
+
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+        #endregion
+
+        #region Inboard
+
+        private void tbToe_Inboard_RR_X_Leave(object sender, EventArgs e)
+        {
+            Set_ToeLinkInboard_RR_X();
+        }
+
+        private void tbToe_Inboard_RR_X_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_ToeLinkInboard_RR_X();
+            }
+        }
+
+        private void Set_ToeLinkInboard_RR_X()
+        {
+            if (DoubleValidation(tbToe_Inboard_RR_X.Text))
+            {
+                KO_CV_RR.VCornerParams.ToeLinkInboard.Z = Convert.ToDouble(tbToe_Inboard_RR_X.Text);
+
+                Plot_InboardPoints(KO_CV_RR.VCornerParams.ToeLinkInboard, KO_CV_RR.VCornerParams.ToeLinkOutboard, "KO_CV_RR.VCornerParams.ToeLinkInboard", "KO_CV_RR.VCornerParams.ToeLink");
+
+                KO_CV_RR.VCornerParams.Initialize_Dictionary();
+
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+        private void tbToe_Inboard_RR_Y_Leave(object sender, EventArgs e)
+        {
+            Set_ToeLinkInboard_RR_Y();
+        }
+
+        private void tbToe_Inboard_RR_Y_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_ToeLinkInboard_RR_Y();
+            }
+        }
+        private void Set_ToeLinkInboard_RR_Y()
+        {
+            if (DoubleValidation(tbToe_Inboard_RR_Y.Text))
+            {
+                KO_CV_RR.VCornerParams.ToeLinkInboard.X = Convert.ToDouble(tbToe_Inboard_RR_Y.Text);
+
+                Plot_InboardPoints(KO_CV_RR.VCornerParams.ToeLinkInboard, KO_CV_RR.VCornerParams.ToeLinkOutboard, "KO_CV_RR.VCornerParams.ToeLinkInboard", "KO_CV_RR.VCornerParams.ToeLink");
+
+                KO_CV_RR.VCornerParams.Initialize_Dictionary();
+
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+
+        private void tbToe_Inboard_RR_Z_Leave(object sender, EventArgs e)
+        {
+            Set_ToeLinkInboard_RR_Z();
+        }
+
+        private void tbToe_Inboard_RR_Z_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Set_ToeLinkInboard_RR_Z();
+            }
+        }
+        private void Set_ToeLinkInboard_RR_Z()
+        {
+            if (DoubleValidation(tbToe_Inboard_RR_Z.Text))
+            {
+                KO_CV_RR.VCornerParams.ToeLinkInboard.Y = Convert.ToDouble(tbToe_Inboard_RR_Z.Text);
+
+                Plot_InboardPoints(KO_CV_RR.VCornerParams.ToeLinkInboard, KO_CV_RR.VCornerParams.ToeLinkOutboard, "KO_CV_RR.VCornerParams.ToeLinkInboard", "KO_CV_RR.VCornerParams.ToeLink");
+
+                KO_CV_RR.VCornerParams.Initialize_Dictionary();
+
+            }
+            else
+            {
+                MessageBox.Show(NumericError);
+            }
+        }
+
+        #endregion
+
+        //---END : Rear Right Toe Link
+        #endregion
+
+        //---END : Rear Toe Points---
         #endregion
 
         //---END : Tab Page - Toe Link Points---
@@ -3378,20 +3843,20 @@ namespace Coding_Attempt_with_GUI
             //---Front Contact Patch---
 
             ///<summary>Using the Track Width to Set the Front Contact Patch</summary>
-            KO_CV_FL.ContactPatch.X = KO_Central.Track_Front / 2;
+            KO_CV_FL.VCornerParams.ContactPatch.X = KO_Central.Track_Front / 2;
 
-            KO_CV_FR.ContactPatch.X = -KO_Central.Track_Front / 2;
+            KO_CV_FR.VCornerParams.ContactPatch.X = -KO_Central.Track_Front / 2;
 
             //---Rear Contact Patch---
 
             ///<summary>Using the Rear Track to Set tthe Rear COntact Patch</summary>
-            KO_CV_RL.ContactPatch.X = KO_Central.Track_Rear / 2;
+            KO_CV_RL.VCornerParams.ContactPatch.X = KO_Central.Track_Rear / 2;
 
-            KO_CV_RR.ContactPatch.X = -KO_Central.Track_Rear / 2;
+            KO_CV_RR.VCornerParams.ContactPatch.X = -KO_Central.Track_Rear / 2;
             ///<summary>Uisng the Wheelbase to Set the RearC Contact Patch</summary>
-            KO_CV_RL.ContactPatch.Z = KO_Central.WheelBase;
+            KO_CV_RL.VCornerParams.ContactPatch.Z = KO_Central.WheelBase;
 
-            KO_CV_RR.ContactPatch.Z = KO_Central.WheelBase;
+            KO_CV_RR.VCornerParams.ContactPatch.Z = KO_Central.WheelBase;
 
         }
 
@@ -3736,6 +4201,23 @@ namespace Coding_Attempt_with_GUI
 
             layoutControlItemPlotToeLinkInboard_FR.HideToCustomization();
 
+            simpleLabelItemToe_Points_RR.HideToCustomization();
+
+            simpleLabelItemToe_Outboard_RR.HideToCustomization();
+
+            simpleLabelItemToe_Inboard_RR.HideToCustomization();
+
+            layoutControlItemToe_Outboard_RR_X.HideToCustomization();
+
+            layoutControlItemToe_Outboard_RR_Y.HideToCustomization();
+
+            layoutControlItemToe_Outboard_RR_Z.HideToCustomization();
+
+            layoutControlItemToe_Inboard_RR_X.HideToCustomization();
+
+            layoutControlItemToe_Inboard_RR_Y.HideToCustomization();
+
+            layoutControlItemToe_Inboard_RR_Z.HideToCustomization();
 
             ///---Tab Page Actuation Points GUI Symmetry Operations---
             layoutControlItemActuationPointsFR.HideToCustomization();
@@ -3802,6 +4284,24 @@ namespace Coding_Attempt_with_GUI
             layoutControlItemConvergence_BS_FR.ShowInCustomizationForm = true;
 
             layoutControlItemPlotToeLinkInboard_FR.ShowInCustomizationForm = true;
+
+            simpleLabelItemToe_Points_RR.ShowInCustomizationForm = true;
+
+            simpleLabelItemToe_Outboard_RR.ShowInCustomizationForm = true;
+
+            simpleLabelItemToe_Inboard_RR.ShowInCustomizationForm = true;
+
+            layoutControlItemToe_Outboard_RR_X.ShowInCustomizationForm = true;
+
+            layoutControlItemToe_Outboard_RR_Y.ShowInCustomizationForm = true;
+
+            layoutControlItemToe_Outboard_RR_Z.ShowInCustomizationForm = true;
+
+            layoutControlItemToe_Inboard_RR_X.ShowInCustomizationForm = true;
+
+            layoutControlItemToe_Inboard_RR_Y.ShowInCustomizationForm = true;
+
+            layoutControlItemToe_Inboard_RR_Z.ShowInCustomizationForm = true;
 
 
             ///---Tab Page Actuation Points GUI Symmetry Operations---
@@ -3997,7 +4497,6 @@ namespace Coding_Attempt_with_GUI
         {
 
         }
-
 
     }
 }

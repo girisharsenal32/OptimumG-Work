@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MathNet.Numerics.LinearAlgebra;
-//using MathNet.Spatial.Euclidean;
 using MathNet.Spatial.Units;
 using devDept.Geometry;
 using devDept.Eyeshot.Entities;
@@ -365,14 +364,13 @@ namespace Coding_Attempt_with_GUI
             L1y = _outboardPoints[CoordinateOptions.WheelSpindleEnd.ToString()].Y;
             L1z = _outboardPoints[CoordinateOptions.WheelSpindleEnd.ToString()].Z;
 
-
+            l_W1x = _outboardPoints[CoordinateOptions.ContactPatch.ToString()].X;
+            l_W1y = _outboardPoints[CoordinateOptions.ContactPatch.ToString()].Y;
+            l_W1z = _outboardPoints[CoordinateOptions.ContactPatch.ToString()].Z;
 
         }
         #endregion
-
-
-
-
+        
         #region Initializing Camber and Toe
         public void InitializeWheelAlignmentVariables(WheelAlignment _waInitialize, OutputClass _ocInitialize, int _identifierInitialize, bool _steeringExists)
         {
@@ -3635,8 +3633,7 @@ namespace Coding_Attempt_with_GUI
 
 
         #endregion
-
-
+        
     }
 }
     

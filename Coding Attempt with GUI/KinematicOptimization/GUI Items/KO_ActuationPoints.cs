@@ -939,6 +939,23 @@ namespace Coding_Attempt_with_GUI
         /// </summary>
         private void ComputeActuationPoints_Rocker()
         {
+            ///<summary>>
+            ///The below lines of code are added to reset an residue that may exist after the Optimizer has run. 
+            /// </summary>
+            if (radioGroupDamperInboardFormat.SelectedIndex == 0) 
+            {
+                actuationPointCompute.Compute_DamperShockMount(); 
+            }
+            else
+            {
+                KO_CV_Main.VCornerParams.DamperBellCrank = KO_CV_Main.Compute_ApproxCorrespondingPoint_FromLinkLength(KO_CV_Main.Damper_Length, KO_CV_Main.VCornerParams.DamperShockMount, VCorner_Main);
+                KO_CV_Main.VCornerParams.DamperBellCrank = KO_CV_Main.Compute_PointOnPlane(KO_CV_Main.VCornerParams.RockerPlane, CoordinateInputFormat.IIO, KO_CV_Main.VCornerParams.DamperBellCrank);
+            }
+
+            actuationPointCompute.Compute_PushrodOutboard();
+
+            actuationPointCompute.Compute_ARBLeverEnd();
+
             ///<summary>Invoking the Optimizer functions to optimize the Rocker Points of Damper, Pushrod and ARB</summary>
             KO_CV_Main.Optimize_Actuation_RockerPoints(ref KO_CV_Main, ref KO_Central, ref KO_SimParams, VCorner_Main, ParentObject);
 

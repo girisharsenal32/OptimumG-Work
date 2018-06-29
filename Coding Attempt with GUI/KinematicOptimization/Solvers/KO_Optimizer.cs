@@ -373,7 +373,7 @@ namespace Coding_Attempt_with_GUI
         {
             DWSolver = new DoubleWishboneKinematicsSolver();
 
-            BumpSteerSolver_FirstPass(KO_CV.BumpSteerCurve.WheelDeflections, Vehicle, DWSolver);
+            BumpSteerSolver_FirstPass(KO_CV.Default_Curve, Vehicle, DWSolver);
 
             ExtractToeAngles(KO_CV.VCornerParams.OC_BumpSteer);
 
@@ -915,8 +915,6 @@ namespace Coding_Attempt_with_GUI
 
             EvaluateFitnessCurve(chromosome);
 
-            //Assign_OptimizedPoints();
-
             ParentSolver.MaxProgressBar(No_Generations);
 
 
@@ -956,6 +954,15 @@ namespace Coding_Attempt_with_GUI
         {
             if (_currGeneration > No_Generations-50 || _population.MaximumFitness>=0.99)
             {
+                ///<summary>Extracting the BEST <see cref="Chromosome"/> from the <see cref="Population"/></summary>
+                var chromosome = _population.GetTop(1)[0];
+
+                Initialize_OptimizerOutputs();
+
+                EvaluateFitnessCurve(chromosome);
+
+                ParentSolver.MaxProgressBar(No_Generations);
+
                 return true;
             }
             else
@@ -978,6 +985,17 @@ namespace Coding_Attempt_with_GUI
         /// <param name="_yPush">Y Coordinate of the <see cref="CoordinateOptions.PushrodInboard"/></param>
         private void ExtractChromosoomes(Chromosome chromosome, out Angle _damperRotAngle/*, out Angle _droopLinkAngle*/, out double _xPush, out double _yPush, out double _xARBRocker, out double _yARBRocker)
         {
+            int sign = 1;
+
+            if (VCorner == VehicleCorner.FrontLeft || VCorner == VehicleCorner.RearLeft)
+            {
+                sign = 1;
+            }
+            else
+            {
+                sign = -1;
+            }
+
             _damperRotAngle = new Angle();
 
             //_droopLinkAngle = new Angle();
@@ -987,8 +1005,8 @@ namespace Coding_Attempt_with_GUI
             _xARBRocker = _yARBRocker = 0;
 
             double nominalAngle_Damper = 0;
-            double upperAngle_Damper = /*70*//*180*/90/*360*/;
-            double lowerAngle_Damper = /*-70*//*-180*/-90/*0*/;
+            double upperAngle_Damper = /*70*//*180*//*90*//*360*/45 * sign;
+            double lowerAngle_Damper = /*-70*//*-180*//*-90*/0 /*- 45*/ ;
 
             //double nominalAngle_DroopLink = 0;
             //double upperAngle_DroopLink = /*70*/180;
@@ -1002,7 +1020,7 @@ namespace Coding_Attempt_with_GUI
             ///Upper and Lower limits of the X Coordinate of the PUSHROD ROCKER
             ///Arbitrary as of no
             /// </remarks>
-            double upperDeltaX_Push = 65;
+            double upperDeltaX_Push = 65 * sign;
             double lowerDeltaX_Push = /*-65*/0;
 
             double nominalY_Push = KO_CV.VCornerParams.Rocker_Center.Y;
@@ -1010,27 +1028,27 @@ namespace Coding_Attempt_with_GUI
             ///Upper and Lower limits of the Y Coordinate of the PUSHROD ROCKER
             ///Arbitrary as of no
             /// </remarks>
-            double upperDeltaY_Push = 65;
-            double lowerDeltaY_Push = -65/*0*/;
+            double upperDeltaY_Push = 65/*80*/;
+            double lowerDeltaY_Push = /*-65*/0/*40*/;
 
 
             ///<summary>
             ///Assigning the Nominal,Upper and Lower Values of the X/Y/Z Coordinates of the ARB ROCKER . This will be later on obtained from the User
             /// </summary>
-            double nominalX_ARBRocker = KO_CV.VCornerParams.Rocker_Center.X;
+            double nominalX_ARBRocker = KO_CV.VCornerParams.Rocker_Center.X /*nominalX_Push*/;
             ///<remarks>
             ///Upper and Lower limits of the X Coordinate of the ARB ROCKER
             ///Arbitrary as of no
             /// </remarks>
-            double upperDeltaX_ARBRocker = 65;
-            double lowerDeltaX_ARBRocker = /*-65*/0;
+            double upperDeltaX_ARBRocker = /*65*//*0*/20 * sign;
+            double lowerDeltaX_ARBRocker = /*-20*//*0*/-65 * sign;
 
-            double nominalY_ARBRocker = KO_CV.VCornerParams.Rocker_Center.Y;
+            double nominalY_ARBRocker = KO_CV.VCornerParams.Rocker_Center.Y /*nominalY_Push*/;
             ///<remarks>
             ///Upper and Lower limits of the Y Coordinate of the ARB ROCKER
             ///Arbitrary as of no
             /// </remarks>
-            double upperDeltaY_ARBRocker = 65;
+            double upperDeltaY_ARBRocker = /*65*/0;
             double lowerDeltaY_ARBRocker = -65/*0*/;
 
 
@@ -1172,13 +1190,12 @@ namespace Coding_Attempt_with_GUI
         {
             DWSolver = new DoubleWishboneKinematicsSolver();
 
-            KinematicsSolver_For_MotionRatio(KO_CV.BumpSteerCurve.WheelDeflections, Vehicle, DWSolver);
+            KinematicsSolver_For_MotionRatio(/*KO_CV.BumpSteerCurve.WheelDeflections*/KO_CV.Default_Curve, Vehicle, DWSolver);
 
             Extract_MotionRatio();
 
-            /*double mrError =*/ EvaluateDevlationError_Static();
+            EvaluateDevlationError_Static();
 
-            //return mrError;
         }
 
   
@@ -1279,7 +1296,13 @@ namespace Coding_Attempt_with_GUI
 
             _dwSolver.KO_InitialStage_MR_ARBLeverEnd(H, O, out MathNet.Spatial.Euclidean.Point3D P);
 
-            double wheelDef = _dwSolver.KO_InitialStage_ComputeWheelDeflection(new MathNet.Spatial.Euclidean.Point3D(KO_CV.VCornerParams.ContactPatch.X, KO_CV.VCornerParams.ContactPatch.Y, KO_CV.VCornerParams.ContactPatch.Z), E);
+            _dwSolver.KO_InitialStage_MR_ToeLinkOutboard(E, F, out MathNet.Spatial.Euclidean.Point3D M);
+
+            _dwSolver.KO_InitialStage_MR_ContactPatch(E, M, F, out MathNet.Spatial.Euclidean.Point3D W);
+
+            //double wheelDef = _dwSolver.KO_InitialStage_ComputeWheelDeflection(new MathNet.Spatial.Euclidean.Point3D(KO_CV.VCornerParams.ContactPatch.X, KO_CV.VCornerParams.ContactPatch.Y, KO_CV.VCornerParams.ContactPatch.Z), E);
+
+            double wheelDef = _dwSolver.KO_InitialStage_ComputeWheelDeflection_Correct(W);
 
             double arbDef = _dwSolver.KO_InitialStage_Compute_ARBLeverDeflection(P);
 
@@ -1298,6 +1321,10 @@ namespace Coding_Attempt_with_GUI
             TempInboardAssembly[CoordinateOptions.ARBBellCrank.ToString()] = new Point3D(O.X, O.Y, O.Z);
 
             TempInboardAssembly[CoordinateOptions.ARBLeverEndPoint.ToString()] = new Point3D(P.X, P.Y, P.Z);
+
+            TempInboardAssembly[CoordinateOptions.ToeLinkOutboard.ToString()] = new Point3D(M.X, M.Y, M.Z);
+
+            TempInboardAssembly[CoordinateOptions.ContactPatch.ToString()] = new Point3D(W.X, W.Y, W.Z);
 
             ///<summary>Computing and storing the Wheel Deflections</summary>
             Calc_WheelDeflection_Deltas.Add(wheelDef);
@@ -1381,9 +1408,9 @@ namespace Coding_Attempt_with_GUI
 
 
 
-            for (int i = 0; i < KO_CV.BumpSteerCurve.WheelDeflections.Count; i++)
+            for (int i = 0; i < KO_CV.Default_Curve.Count; i++)
             {
-                if (i != 0 && KO_CV.BumpSteerCurve.WheelDeflections[i] == 1)
+                if (i != 0 && KO_CV.Default_Curve[i] == 1)
                 {
                     //Calc_SpringDeflection_Deltas.Add(temp[i]);
                     if (KO_CV.MotionRatio_Format == MotionRatioFormat.WheelByShock)
@@ -1399,9 +1426,9 @@ namespace Coding_Attempt_with_GUI
                 }
             }
 
-            for (int i = 0; i < KO_CV.BumpSteerCurve.WheelDeflections.Count; i++)
+            for (int i = 0; i < KO_CV.Default_Curve.Count; i++)
             {
-                if (i != 0 && KO_CV.BumpSteerCurve.WheelDeflections[i] == 1) 
+                if (i != 0 && KO_CV.Default_Curve[i] == 1) 
                 {
                     MotionRatio_ARB.Add(Calc_ARBLeverDeflection_Deltas[i] / Calc_WheelDeflection_Deltas[i]);
                     break;
@@ -1517,6 +1544,9 @@ namespace Coding_Attempt_with_GUI
             return FinalError;
         }
 
+        /// <summary>
+        /// Method to update the Dictionaries with the values that the Optimizer generated
+        /// </summary>
         private void Update_InboardCoordinateDictionary()
         {
             TempInboardAssembly[CoordinateOptions.PushrodInboard.ToString()] = PushrodRockerPoint_ForMotionAnalysis.Clone() as Point3D;
@@ -1529,6 +1559,9 @@ namespace Coding_Attempt_with_GUI
 
         }
 
+        /// <summary>
+        /// Final assignment stage which is called during the <see cref="GA_OnRunComplete(object, GaEventArgs)"/> event
+        /// </summary>
         private void Assign_OptimizedPoints()
         {
             KO_CV.VCornerParams.PushrodInboard = PushrodRockerPoint.Clone() as Point3D;

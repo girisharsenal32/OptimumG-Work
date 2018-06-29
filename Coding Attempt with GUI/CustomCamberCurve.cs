@@ -271,8 +271,6 @@ namespace Coding_Attempt_with_GUI
 
         }
         
-
-
         /// <summary>
         /// Method to Sort the Toe Angles according to the Wheel Deflections
         /// </summary>
