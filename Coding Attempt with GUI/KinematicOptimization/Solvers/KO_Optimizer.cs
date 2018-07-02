@@ -915,7 +915,7 @@ namespace Coding_Attempt_with_GUI
 
             EvaluateFitnessCurve(chromosome);
 
-            ParentSolver.MaxProgressBar(No_Generations);
+            ParentSolver.UpdateProgressBar();
 
 
         }

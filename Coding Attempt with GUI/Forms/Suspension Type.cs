@@ -493,7 +493,7 @@ namespace Coding_Attempt_with_GUI
             R1.NoOfCouplings(NoOfCouplings);
             #endregion
 
-            R1.CurrentSuspensionIsMapped = false;
+            R1.CurrentSuspensionIsMapped = SuspensionCreationMode.Normal;
 
             #region Creating new Suspension Coordinate items for each corner
             R1.barButtonSCFLItem.PerformClick();

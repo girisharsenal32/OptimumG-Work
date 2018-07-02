@@ -132,7 +132,7 @@ namespace Coding_Attempt_with_GUI
             #region Populating the SCFL Data Table for Double Wishbone
             public static void DoubleWishBone(Kinematics_Software_New r1, SuspensionCoordinatesFrontGUI _scflGUI)
             {
-                 #region Lower Front Chassis - Point D
+                #region Lower Front Chassis - Point D
                 _scflGUI.SCFLDataTableGUI.Rows.Add("Lower Front Chassis", 105, 221.21, 32.17 + Convert.ToDouble(r1.InputOriginY.Text));
                 #endregion
                 
@@ -487,31 +487,111 @@ namespace Coding_Attempt_with_GUI
             #region Populating the Data Table using the Suspension points Optimized by the Kinmeatic Optimizer and stored in Inboarrd and Outboard Point3D Dictionaries,
             public static void CreateOptimizedSuspension(Dictionary<string, Point3D> _inboardPoints, Dictionary<string, Point3D> _ouboardPoints, SuspensionCoordinatesFrontGUI _scFLGUI)
             {
+               
+                ///<remarks>
+                ///Cannot use the <see cref="foreach"/> loop method as above because the DataTable has String values in a different format
+                /// </remarks>
                 for (int i = 0; i < _scFLGUI.SCFLDataTableGUI.Rows.Count; i++)
                 {
-                    foreach (string coordinate in _inboardPoints.Keys)
+                    if (_scFLGUI.SCFLDataTableGUI.Rows[i].Field<string>(0) == "Lower Front Chassis")
                     {
-                        if (_scFLGUI.SCFLDataTableGUI.Rows[i].Field<string>(0) == coordinate)
-                        {
-                            _scFLGUI.SCFLDataTableGUI.Rows[i].SetField<double>("X (mm)", _inboardPoints[coordinate].Z);
-                            _scFLGUI.SCFLDataTableGUI.Rows[i].SetField<double>("Y (mm)", _inboardPoints[coordinate].X);
-                            _scFLGUI.SCFLDataTableGUI.Rows[i].SetField<double>("Z (mm)", _inboardPoints[coordinate].Y);
-                            break;
-                        }
+                        HelperMethod_AssignCoordinate(_scFLGUI, CoordinateOptions.LowerFront.ToString(), _inboardPoints, i);
+                        
                     }
-
-                    foreach (string coordinate in _ouboardPoints.Keys)
+                    else if (_scFLGUI.SCFLDataTableGUI.Rows[i].Field<string>(0) == "Lower Rear Chassis")
                     {
-                        if (_scFLGUI.SCFLDataTableGUI.Rows[i].Field<string>(0) == coordinate)
-                        {
-                            _scFLGUI.SCFLDataTableGUI.Rows[i].SetField<double>("X (mm)", _ouboardPoints[coordinate].Z);
-                            _scFLGUI.SCFLDataTableGUI.Rows[i].SetField<double>("Y (mm)", _ouboardPoints[coordinate].X);
-                            _scFLGUI.SCFLDataTableGUI.Rows[i].SetField<double>("Z (mm)", _ouboardPoints[coordinate].Y);
-                            break;
-                        }
+                        HelperMethod_AssignCoordinate(_scFLGUI, CoordinateOptions.LowerRear.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scFLGUI.SCFLDataTableGUI.Rows[i].Field<string>(0) == "Upper Front Chassis")
+                    {
+                        HelperMethod_AssignCoordinate(_scFLGUI, CoordinateOptions.UpperFront.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scFLGUI.SCFLDataTableGUI.Rows[i].Field<string>(0) == "Upper Rear Chassis")
+                    {
+                        HelperMethod_AssignCoordinate(_scFLGUI, CoordinateOptions.UpperRear.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scFLGUI.SCFLDataTableGUI.Rows[i].Field<string>(0) == "Bell Crank Pivot")
+                    {
+                        HelperMethod_AssignCoordinate(_scFLGUI, CoordinateOptions.BellCrankPivot.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scFLGUI.SCFLDataTableGUI.Rows[i].Field<string>(0) == "Anti-Roll Bar Chassis")
+                    {
+                        HelperMethod_AssignCoordinate(_scFLGUI, CoordinateOptions.ARBEndPointChassis.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scFLGUI.SCFLDataTableGUI.Rows[i].Field<string>(0) == "Steering Link Chassis")
+                    {
+                        HelperMethod_AssignCoordinate(_scFLGUI, CoordinateOptions.ToeLinkInboard.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scFLGUI.SCFLDataTableGUI.Rows[i].Field<string>(0) == "Damper Shock Mount")
+                    {
+                        HelperMethod_AssignCoordinate(_scFLGUI, CoordinateOptions.DamperShockMount.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scFLGUI.SCFLDataTableGUI.Rows[i].Field<string>(0) == "Damper Bell-Crank")
+                    {
+                        HelperMethod_AssignCoordinate(_scFLGUI, CoordinateOptions.DamperBellCrank.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scFLGUI.SCFLDataTableGUI.Rows[i].Field<string>(0) == "Pushrod Bell-Crank")
+                    {
+                        HelperMethod_AssignCoordinate(_scFLGUI, CoordinateOptions.PushrodInboard.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scFLGUI.SCFLDataTableGUI.Rows[i].Field<string>(0) == "Anti-Roll Bar Bell-Crank")
+                    {
+                        HelperMethod_AssignCoordinate(_scFLGUI, CoordinateOptions.ARBBellCrank.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scFLGUI.SCFLDataTableGUI.Rows[i].Field<string>(0) == "Pushrod Upright")
+                    {
+                        HelperMethod_AssignCoordinate(_scFLGUI, CoordinateOptions.PushrodOutboard.ToString(), _ouboardPoints, i);
+                        
+                    }
+                    else if (_scFLGUI.SCFLDataTableGUI.Rows[i].Field<string>(0) == "Upper Ball Joint")
+                    {
+                        HelperMethod_AssignCoordinate(_scFLGUI, CoordinateOptions.UBJ.ToString(), _ouboardPoints, i);
+                        
+                    }
+                    else if (_scFLGUI.SCFLDataTableGUI.Rows[i].Field<string>(0) == "Lower Ball Joint")
+                    {
+                        HelperMethod_AssignCoordinate(_scFLGUI, CoordinateOptions.LBJ.ToString(), _ouboardPoints, i);
+                        
+                    }
+                    else if (_scFLGUI.SCFLDataTableGUI.Rows[i].Field<string>(0) == "Anti-Roll Bar Link")
+                    {
+                        HelperMethod_AssignCoordinate(_scFLGUI, CoordinateOptions.ARBLeverEndPoint.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scFLGUI.SCFLDataTableGUI.Rows[i].Field<string>(0) == "Wheel Centre")
+                    {
+                        HelperMethod_AssignCoordinate(_scFLGUI, CoordinateOptions.WheelCenter.ToString(), _ouboardPoints, i);
+                        
+                    }
+                    else if (_scFLGUI.SCFLDataTableGUI.Rows[i].Field<string>(0) == "Steering Link Upright")
+                    {
+                        HelperMethod_AssignCoordinate(_scFLGUI, CoordinateOptions.ToeLinkOutboard.ToString(), _ouboardPoints, i);
+                        
+                    }
+                    else if (_scFLGUI.SCFLDataTableGUI.Rows[i].Field<string>(0) == "Contact Patch")
+                    {
+                        HelperMethod_AssignCoordinate(_scFLGUI, CoordinateOptions.ContactPatch.ToString(), _ouboardPoints, i);
+                        
                     }
 
                 }
+            }
+
+            private static void HelperMethod_AssignCoordinate(SuspensionCoordinatesFrontGUI _scflGUI, string _coordinateName, Dictionary<string, Point3D> _pointsDictionary, int _index)
+            {
+                _scflGUI.SCFLDataTableGUI.Rows[_index].SetField<double>("X (mm)", _pointsDictionary[_coordinateName].Z);
+                _scflGUI.SCFLDataTableGUI.Rows[_index].SetField<double>("Y (mm)", _pointsDictionary[_coordinateName].X);
+                _scflGUI.SCFLDataTableGUI.Rows[_index].SetField<double>("Z (mm)", _pointsDictionary[_coordinateName].Y);
             }
             #endregion
         }
@@ -841,31 +921,111 @@ namespace Coding_Attempt_with_GUI
             #region Populating the Data Table using the Suspension points Optimized by the Kinmeatic Optimizer and stored in Inboarrd and Outboard Point3D Dictionaries,
             public static void CreateOptimizedSuspension(Dictionary<string, Point3D> _inboardPoints, Dictionary<string, Point3D> _ouboardPoints, SuspensionCoordinatesFrontRightGUI _scFRGUI)
             {
+
+                ///<remarks>
+                ///Cannot use the <see cref="foreach"/> loop method as above because the DataTable has String values in a different format
+                /// </remarks>
                 for (int i = 0; i < _scFRGUI.SCFRDataTableGUI.Rows.Count; i++)
                 {
-                    foreach (string coordinate in _inboardPoints.Keys)
+                    if (_scFRGUI.SCFRDataTableGUI.Rows[i].Field<string>(0) == "Lower Front Chassis")
                     {
-                        if (_scFRGUI.SCFRDataTableGUI.Rows[i].Field<string>(0) == coordinate)
-                        {
-                            _scFRGUI.SCFRDataTableGUI.Rows[i].SetField<double>("X (mm)", _inboardPoints[coordinate].Z);
-                            _scFRGUI.SCFRDataTableGUI.Rows[i].SetField<double>("Y (mm)", _inboardPoints[coordinate].X);
-                            _scFRGUI.SCFRDataTableGUI.Rows[i].SetField<double>("Z (mm)", _inboardPoints[coordinate].Y);
-                            break;
-                        }
+                        HelperMethod_AssignCoordinate(_scFRGUI, CoordinateOptions.LowerFront.ToString(), _inboardPoints, i);
+                        
                     }
-
-                    foreach (string coordinate in _ouboardPoints.Keys)
+                    else if (_scFRGUI.SCFRDataTableGUI.Rows[i].Field<string>(0) == "Lower Rear Chassis")
                     {
-                        if (_scFRGUI.SCFRDataTableGUI.Rows[i].Field<string>(0) == coordinate)
-                        {
-                            _scFRGUI.SCFRDataTableGUI.Rows[i].SetField<double>("X (mm)", _ouboardPoints[coordinate].Z);
-                            _scFRGUI.SCFRDataTableGUI.Rows[i].SetField<double>("Y (mm)", _ouboardPoints[coordinate].X);
-                            _scFRGUI.SCFRDataTableGUI.Rows[i].SetField<double>("Z (mm)", _ouboardPoints[coordinate].Y);
-                            break;
-                        }
+                        HelperMethod_AssignCoordinate(_scFRGUI, CoordinateOptions.LowerRear.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scFRGUI.SCFRDataTableGUI.Rows[i].Field<string>(0) == "Upper Front Chassis")
+                    {
+                        HelperMethod_AssignCoordinate(_scFRGUI, CoordinateOptions.UpperFront.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scFRGUI.SCFRDataTableGUI.Rows[i].Field<string>(0) == "Upper Rear Chassis")
+                    {
+                        HelperMethod_AssignCoordinate(_scFRGUI, CoordinateOptions.UpperRear.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scFRGUI.SCFRDataTableGUI.Rows[i].Field<string>(0) == "Bell Crank Pivot")
+                    {
+                        HelperMethod_AssignCoordinate(_scFRGUI, CoordinateOptions.BellCrankPivot.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scFRGUI.SCFRDataTableGUI.Rows[i].Field<string>(0) == "Anti-Roll Bar Chassis")
+                    {
+                        HelperMethod_AssignCoordinate(_scFRGUI, CoordinateOptions.ARBEndPointChassis.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scFRGUI.SCFRDataTableGUI.Rows[i].Field<string>(0) == "Steering Link Chassis")
+                    {
+                        HelperMethod_AssignCoordinate(_scFRGUI, CoordinateOptions.ToeLinkInboard.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scFRGUI.SCFRDataTableGUI.Rows[i].Field<string>(0) == "Damper Shock Mount")
+                    {
+                        HelperMethod_AssignCoordinate(_scFRGUI, CoordinateOptions.DamperShockMount.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scFRGUI.SCFRDataTableGUI.Rows[i].Field<string>(0) == "Damper Bell-Crank")
+                    {
+                        HelperMethod_AssignCoordinate(_scFRGUI, CoordinateOptions.DamperBellCrank.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scFRGUI.SCFRDataTableGUI.Rows[i].Field<string>(0) == "Pushrod Bell-Crank")
+                    {
+                        HelperMethod_AssignCoordinate(_scFRGUI, CoordinateOptions.PushrodInboard.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scFRGUI.SCFRDataTableGUI.Rows[i].Field<string>(0) == "Anti-Roll Bar Bell-Crank")
+                    {
+                        HelperMethod_AssignCoordinate(_scFRGUI, CoordinateOptions.ARBBellCrank.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scFRGUI.SCFRDataTableGUI.Rows[i].Field<string>(0) == "Pushrod Upright")
+                    {
+                        HelperMethod_AssignCoordinate(_scFRGUI, CoordinateOptions.PushrodOutboard.ToString(), _ouboardPoints, i);
+                        
+                    }
+                    else if (_scFRGUI.SCFRDataTableGUI.Rows[i].Field<string>(0) == "Upper Ball Joint")
+                    {
+                        HelperMethod_AssignCoordinate(_scFRGUI, CoordinateOptions.UBJ.ToString(), _ouboardPoints, i);
+                        
+                    }
+                    else if (_scFRGUI.SCFRDataTableGUI.Rows[i].Field<string>(0) == "Lower Ball Joint")
+                    {
+                        HelperMethod_AssignCoordinate(_scFRGUI, CoordinateOptions.LBJ.ToString(), _ouboardPoints, i);
+                        
+                    }
+                    else if (_scFRGUI.SCFRDataTableGUI.Rows[i].Field<string>(0) == "Anti-Roll Bar Link")
+                    {
+                        HelperMethod_AssignCoordinate(_scFRGUI, CoordinateOptions.ARBLeverEndPoint.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scFRGUI.SCFRDataTableGUI.Rows[i].Field<string>(0) == "Wheel Centre")
+                    {
+                        HelperMethod_AssignCoordinate(_scFRGUI, CoordinateOptions.WheelCenter.ToString(), _ouboardPoints, i);
+                        
+                    }
+                    else if (_scFRGUI.SCFRDataTableGUI.Rows[i].Field<string>(0) == "Steering Link Upright")
+                    {
+                        HelperMethod_AssignCoordinate(_scFRGUI, CoordinateOptions.ToeLinkOutboard.ToString(), _ouboardPoints, i);
+                        
+                    }
+                    else if (_scFRGUI.SCFRDataTableGUI.Rows[i].Field<string>(0) == "Contact Patch")
+                    {
+                        HelperMethod_AssignCoordinate(_scFRGUI, CoordinateOptions.ContactPatch.ToString(), _ouboardPoints, i);
+                        
                     }
 
                 }
+            }
+
+            private static void HelperMethod_AssignCoordinate(SuspensionCoordinatesFrontRightGUI _scfrGUI, string _coordinateName, Dictionary<string, Point3D> _pointsDictionary, int _index)
+            {
+                _scfrGUI.SCFRDataTableGUI.Rows[_index].SetField<double>("X (mm)", _pointsDictionary[_coordinateName].Z);
+                _scfrGUI.SCFRDataTableGUI.Rows[_index].SetField<double>("Y (mm)", _pointsDictionary[_coordinateName].X);
+                _scfrGUI.SCFRDataTableGUI.Rows[_index].SetField<double>("Z (mm)", _pointsDictionary[_coordinateName].Y);
             }
             #endregion
 
@@ -1197,31 +1357,111 @@ namespace Coding_Attempt_with_GUI
             #region Populating the Data Table using the Suspension points Optimized by the Kinmeatic Optimizer and stored in Inboarrd and Outboard Point3D Dictionaries,
             public static void CreateOptimizedSuspension(Dictionary<string, Point3D> _inboardPoints, Dictionary<string, Point3D> _ouboardPoints, SuspensionCoordinatesRearGUI _scRLGUI)
             {
+
+                ///<remarks>
+                ///Cannot use the <see cref="foreach"/> loop method as above because the DataTable has String values in a different format
+                /// </remarks>
                 for (int i = 0; i < _scRLGUI.SCRLDataTableGUI.Rows.Count; i++)
                 {
-                    foreach (string coordinate in _inboardPoints.Keys)
+                    if (_scRLGUI.SCRLDataTableGUI.Rows[i].Field<string>(0) == "Lower Front Chassis")
                     {
-                        if (_scRLGUI.SCRLDataTableGUI.Rows[i].Field<string>(0) == coordinate)
-                        {
-                            _scRLGUI.SCRLDataTableGUI.Rows[i].SetField<double>("X (mm)", _inboardPoints[coordinate].Z);
-                            _scRLGUI.SCRLDataTableGUI.Rows[i].SetField<double>("Y (mm)", _inboardPoints[coordinate].X);
-                            _scRLGUI.SCRLDataTableGUI.Rows[i].SetField<double>("Z (mm)", _inboardPoints[coordinate].Y);
-                            break;
-                        }
+                        HelperMethod_AssignCoordinate(_scRLGUI, CoordinateOptions.LowerFront.ToString(), _inboardPoints, i);
+                        
                     }
-
-                    foreach (string coordinate in _ouboardPoints.Keys)
+                    else if (_scRLGUI.SCRLDataTableGUI.Rows[i].Field<string>(0) == "Lower Rear Chassis")
                     {
-                        if (_scRLGUI.SCRLDataTableGUI.Rows[i].Field<string>(0) == coordinate)
-                        {
-                            _scRLGUI.SCRLDataTableGUI.Rows[i].SetField<double>("X (mm)", _ouboardPoints[coordinate].Z);
-                            _scRLGUI.SCRLDataTableGUI.Rows[i].SetField<double>("Y (mm)", _ouboardPoints[coordinate].X);
-                            _scRLGUI.SCRLDataTableGUI.Rows[i].SetField<double>("Z (mm)", _ouboardPoints[coordinate].Y);
-                            break;
-                        }
+                        HelperMethod_AssignCoordinate(_scRLGUI, CoordinateOptions.LowerRear.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scRLGUI.SCRLDataTableGUI.Rows[i].Field<string>(0) == "Upper Front Chassis")
+                    {
+                        HelperMethod_AssignCoordinate(_scRLGUI, CoordinateOptions.UpperFront.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scRLGUI.SCRLDataTableGUI.Rows[i].Field<string>(0) == "Upper Rear Chassis")
+                    {
+                        HelperMethod_AssignCoordinate(_scRLGUI, CoordinateOptions.UpperRear.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scRLGUI.SCRLDataTableGUI.Rows[i].Field<string>(0) == "Bell Crank Pivot")
+                    {
+                        HelperMethod_AssignCoordinate(_scRLGUI, CoordinateOptions.BellCrankPivot.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scRLGUI.SCRLDataTableGUI.Rows[i].Field<string>(0) == "Anti-Roll Bar Chassis")
+                    {
+                        HelperMethod_AssignCoordinate(_scRLGUI, CoordinateOptions.ARBEndPointChassis.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scRLGUI.SCRLDataTableGUI.Rows[i].Field<string>(0) == "Steering Link Chassis")
+                    {
+                        HelperMethod_AssignCoordinate(_scRLGUI, CoordinateOptions.ToeLinkInboard.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scRLGUI.SCRLDataTableGUI.Rows[i].Field<string>(0) == "Damper Shock Mount")
+                    {
+                        HelperMethod_AssignCoordinate(_scRLGUI, CoordinateOptions.DamperShockMount.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scRLGUI.SCRLDataTableGUI.Rows[i].Field<string>(0) == "Damper Bell-Crank")
+                    {
+                        HelperMethod_AssignCoordinate(_scRLGUI, CoordinateOptions.DamperBellCrank.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scRLGUI.SCRLDataTableGUI.Rows[i].Field<string>(0) == "Pushrod Bell-Crank")
+                    {
+                        HelperMethod_AssignCoordinate(_scRLGUI, CoordinateOptions.PushrodInboard.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scRLGUI.SCRLDataTableGUI.Rows[i].Field<string>(0) == "Anti-Roll Bar Bell-Crank")
+                    {
+                        HelperMethod_AssignCoordinate(_scRLGUI, CoordinateOptions.ARBBellCrank.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scRLGUI.SCRLDataTableGUI.Rows[i].Field<string>(0) == "Pushrod Upright")
+                    {
+                        HelperMethod_AssignCoordinate(_scRLGUI, CoordinateOptions.PushrodOutboard.ToString(), _ouboardPoints, i);
+                        
+                    }
+                    else if (_scRLGUI.SCRLDataTableGUI.Rows[i].Field<string>(0) == "Upper Ball Joint")
+                    {
+                        HelperMethod_AssignCoordinate(_scRLGUI, CoordinateOptions.UBJ.ToString(), _ouboardPoints, i);
+                        
+                    }
+                    else if (_scRLGUI.SCRLDataTableGUI.Rows[i].Field<string>(0) == "Lower Ball Joint")
+                    {
+                        HelperMethod_AssignCoordinate(_scRLGUI, CoordinateOptions.LBJ.ToString(), _ouboardPoints, i);
+                        
+                    }
+                    else if (_scRLGUI.SCRLDataTableGUI.Rows[i].Field<string>(0) == "Anti-Roll Bar Link")
+                    {
+                        HelperMethod_AssignCoordinate(_scRLGUI, CoordinateOptions.ARBLeverEndPoint.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scRLGUI.SCRLDataTableGUI.Rows[i].Field<string>(0) == "Wheel Centre")
+                    {
+                        HelperMethod_AssignCoordinate(_scRLGUI, CoordinateOptions.WheelCenter.ToString(), _ouboardPoints, i);
+                        
+                    }
+                    else if (_scRLGUI.SCRLDataTableGUI.Rows[i].Field<string>(0) == "Steering Link Upright")
+                    {
+                        HelperMethod_AssignCoordinate(_scRLGUI, CoordinateOptions.ToeLinkOutboard.ToString(), _ouboardPoints, i);
+                        
+                    }
+                    else if (_scRLGUI.SCRLDataTableGUI.Rows[i].Field<string>(0) == "Contact Patch")
+                    {
+                        HelperMethod_AssignCoordinate(_scRLGUI, CoordinateOptions.ContactPatch.ToString(), _ouboardPoints, i);
+                        
                     }
 
                 }
+            }
+
+            private static void HelperMethod_AssignCoordinate(SuspensionCoordinatesRearGUI _scrlGUI, string _coordinateName, Dictionary<string, Point3D> _pointsDictionary, int _index)
+            {
+                _scrlGUI.SCRLDataTableGUI.Rows[_index].SetField<double>("X (mm)", _pointsDictionary[_coordinateName].Z);
+                _scrlGUI.SCRLDataTableGUI.Rows[_index].SetField<double>("Y (mm)", _pointsDictionary[_coordinateName].X);
+                _scrlGUI.SCRLDataTableGUI.Rows[_index].SetField<double>("Z (mm)", _pointsDictionary[_coordinateName].Y);
             }
             #endregion
 
@@ -1552,31 +1792,111 @@ namespace Coding_Attempt_with_GUI
             #region Populating the Data Table using the Suspension points Optimized by the Kinmeatic Optimizer and stored in Inboarrd and Outboard Point3D Dictionaries,
             public static void CreateOptimizedSuspension(Dictionary<string, Point3D> _inboardPoints, Dictionary<string, Point3D> _ouboardPoints, SuspensionCoordinatesRearRightGUI _scRRGUI)
             {
+
+                ///<remarks>
+                ///Cannot use the <see cref="foreach"/> loop method as above because the DataTable has String values in a different format
+                /// </remarks>
                 for (int i = 0; i < _scRRGUI.SCRRDataTableGUI.Rows.Count; i++)
                 {
-                    foreach (string coordinate in _inboardPoints.Keys)
+                    if (_scRRGUI.SCRRDataTableGUI.Rows[i].Field<string>(0) == "Lower Front Chassis")
                     {
-                        if (_scRRGUI.SCRRDataTableGUI.Rows[i].Field<string>(0) == coordinate)
-                        {
-                            _scRRGUI.SCRRDataTableGUI.Rows[i].SetField<double>("X (mm)", _inboardPoints[coordinate].Z);
-                            _scRRGUI.SCRRDataTableGUI.Rows[i].SetField<double>("Y (mm)", _inboardPoints[coordinate].X);
-                            _scRRGUI.SCRRDataTableGUI.Rows[i].SetField<double>("Z (mm)", _inboardPoints[coordinate].Y);
-                            break;
-                        }
+                        HelperMethod_AssignCoordinate(_scRRGUI, CoordinateOptions.LowerFront.ToString(), _inboardPoints, i);
+                        
                     }
-
-                    foreach (string coordinate in _ouboardPoints.Keys)
+                    else if (_scRRGUI.SCRRDataTableGUI.Rows[i].Field<string>(0) == "Lower Rear Chassis")
                     {
-                        if (_scRRGUI.SCRRDataTableGUI.Rows[i].Field<string>(0) == coordinate)
-                        {
-                            _scRRGUI.SCRRDataTableGUI.Rows[i].SetField<double>("X (mm)", _ouboardPoints[coordinate].Z);
-                            _scRRGUI.SCRRDataTableGUI.Rows[i].SetField<double>("Y (mm)", _ouboardPoints[coordinate].X);
-                            _scRRGUI.SCRRDataTableGUI.Rows[i].SetField<double>("Z (mm)", _ouboardPoints[coordinate].Y);
-                            break;
-                        }
+                        HelperMethod_AssignCoordinate(_scRRGUI, CoordinateOptions.LowerRear.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scRRGUI.SCRRDataTableGUI.Rows[i].Field<string>(0) == "Upper Front Chassis")
+                    {
+                        HelperMethod_AssignCoordinate(_scRRGUI, CoordinateOptions.UpperFront.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scRRGUI.SCRRDataTableGUI.Rows[i].Field<string>(0) == "Upper Rear Chassis")
+                    {
+                        HelperMethod_AssignCoordinate(_scRRGUI, CoordinateOptions.UpperRear.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scRRGUI.SCRRDataTableGUI.Rows[i].Field<string>(0) == "Bell Crank Pivot")
+                    {
+                        HelperMethod_AssignCoordinate(_scRRGUI, CoordinateOptions.BellCrankPivot.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scRRGUI.SCRRDataTableGUI.Rows[i].Field<string>(0) == "Anti-Roll Bar Chassis")
+                    {
+                        HelperMethod_AssignCoordinate(_scRRGUI, CoordinateOptions.ARBEndPointChassis.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scRRGUI.SCRRDataTableGUI.Rows[i].Field<string>(0) == "Steering Link Chassis")
+                    {
+                        HelperMethod_AssignCoordinate(_scRRGUI, CoordinateOptions.ToeLinkInboard.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scRRGUI.SCRRDataTableGUI.Rows[i].Field<string>(0) == "Damper Shock Mount")
+                    {
+                        HelperMethod_AssignCoordinate(_scRRGUI, CoordinateOptions.DamperShockMount.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scRRGUI.SCRRDataTableGUI.Rows[i].Field<string>(0) == "Damper Bell-Crank")
+                    {
+                        HelperMethod_AssignCoordinate(_scRRGUI, CoordinateOptions.DamperBellCrank.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scRRGUI.SCRRDataTableGUI.Rows[i].Field<string>(0) == "Pushrod Bell-Crank")
+                    {
+                        HelperMethod_AssignCoordinate(_scRRGUI, CoordinateOptions.PushrodInboard.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scRRGUI.SCRRDataTableGUI.Rows[i].Field<string>(0) == "Anti-Roll Bar Bell-Crank")
+                    {
+                        HelperMethod_AssignCoordinate(_scRRGUI, CoordinateOptions.ARBBellCrank.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scRRGUI.SCRRDataTableGUI.Rows[i].Field<string>(0) == "Pushrod Upright")
+                    {
+                        HelperMethod_AssignCoordinate(_scRRGUI, CoordinateOptions.PushrodOutboard.ToString(), _ouboardPoints, i);
+                        
+                    }
+                    else if (_scRRGUI.SCRRDataTableGUI.Rows[i].Field<string>(0) == "Upper Ball Joint")
+                    {
+                        HelperMethod_AssignCoordinate(_scRRGUI, CoordinateOptions.UBJ.ToString(), _ouboardPoints, i);
+                        
+                    }
+                    else if (_scRRGUI.SCRRDataTableGUI.Rows[i].Field<string>(0) == "Lower Ball Joint")
+                    {
+                        HelperMethod_AssignCoordinate(_scRRGUI, CoordinateOptions.LBJ.ToString(), _ouboardPoints, i);
+                        
+                    }
+                    else if (_scRRGUI.SCRRDataTableGUI.Rows[i].Field<string>(0) == "Anti-Roll Bar Link")
+                    {
+                        HelperMethod_AssignCoordinate(_scRRGUI, CoordinateOptions.ARBLeverEndPoint.ToString(), _inboardPoints, i);
+                        
+                    }
+                    else if (_scRRGUI.SCRRDataTableGUI.Rows[i].Field<string>(0) == "Wheel Centre")
+                    {
+                        HelperMethod_AssignCoordinate(_scRRGUI, CoordinateOptions.WheelCenter.ToString(), _ouboardPoints, i);
+                        
+                    }
+                    else if (_scRRGUI.SCRRDataTableGUI.Rows[i].Field<string>(0) == "Steering Link Upright")
+                    {
+                        HelperMethod_AssignCoordinate(_scRRGUI, CoordinateOptions.ToeLinkOutboard.ToString(), _ouboardPoints, i);
+                        
+                    }
+                    else if (_scRRGUI.SCRRDataTableGUI.Rows[i].Field<string>(0) == "Contact Patch")
+                    {
+                        HelperMethod_AssignCoordinate(_scRRGUI, CoordinateOptions.ContactPatch.ToString(), _ouboardPoints, i);
+                        
                     }
 
                 }
+            }
+
+            private static void HelperMethod_AssignCoordinate(SuspensionCoordinatesRearRightGUI _scrrGUI, string _coordinateName, Dictionary<string, Point3D> _pointsDictionary, int _index)
+            {
+                _scrrGUI.SCRRDataTableGUI.Rows[_index].SetField<double>("X (mm)", _pointsDictionary[_coordinateName].Z);
+                _scrrGUI.SCRRDataTableGUI.Rows[_index].SetField<double>("Y (mm)", _pointsDictionary[_coordinateName].X);
+                _scrrGUI.SCRRDataTableGUI.Rows[_index].SetField<double>("Z (mm)", _pointsDictionary[_coordinateName].Y);
             }
             #endregion
 

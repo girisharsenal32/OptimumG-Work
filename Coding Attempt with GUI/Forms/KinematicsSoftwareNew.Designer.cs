@@ -196,6 +196,7 @@
             this.barButtonItem7 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem12 = new DevExpress.XtraBars.BarButtonItem();
             this.popupControlContainerSimulationType = new DevExpress.XtraBars.PopupControlContainer(this.components);
+            this.radioButtonDesignMode = new System.Windows.Forms.RadioButton();
             this.radioButtonSimulationMode = new System.Windows.Forms.RadioButton();
             this.radioButtonSetupMode = new System.Windows.Forms.RadioButton();
             this.barButtonItemCreateMotion = new DevExpress.XtraBars.BarButtonItem();
@@ -235,7 +236,7 @@
             this.barButtonItemCreateBatchRun = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItemCreateWorksheet = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItemModifyHeatMap = new DevExpress.XtraBars.BarButtonItem();
-            this.barButtonItem9 = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemDesignForm = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageDesign = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageSimulationType = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.RibbonPageGroupTire = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -244,7 +245,7 @@
             this.RibbonPageGroupWeights = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup7 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroupDesignForm = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageSimulation = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupSelectVehicle = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupMotion = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -370,7 +371,6 @@
             this.GC = new Coding_Attempt_with_GUI.GraphicsCoordinatesJoint();
             this.GCArrow = new Coding_Attempt_with_GUI.Arrow_Force();
             this.GCBar = new Coding_Attempt_with_GUI.GraphicsCoorsdinatesBar();
-            this.radioButtonDesignMode = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.backstageViewControl1)).BeginInit();
             this.backstageViewControl1.SuspendLayout();
@@ -564,7 +564,7 @@
             this.barButtonNSMAyNeg,
             this.barButtonItemAyNegAxPos,
             this.barButtonItemAyNegAxNeg,
-            this.barButtonItem9});
+            this.barButtonItemDesignForm});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
             this.ribbon.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ribbon.MaxItemId = 106;
@@ -1405,6 +1405,18 @@
             this.popupControlContainerSimulationType.TabIndex = 66;
             this.popupControlContainerSimulationType.Visible = false;
             // 
+            // radioButtonDesignMode
+            // 
+            this.radioButtonDesignMode.AutoSize = true;
+            this.radioButtonDesignMode.Location = new System.Drawing.Point(7, 67);
+            this.radioButtonDesignMode.Name = "radioButtonDesignMode";
+            this.radioButtonDesignMode.Size = new System.Drawing.Size(86, 17);
+            this.radioButtonDesignMode.TabIndex = 1;
+            this.radioButtonDesignMode.TabStop = true;
+            this.radioButtonDesignMode.Text = "Design mode";
+            this.radioButtonDesignMode.UseVisualStyleBackColor = true;
+            this.radioButtonDesignMode.CheckedChanged += new System.EventHandler(this.radioButtonDesignMode_CheckedChanged);
+            // 
             // radioButtonSimulationMode
             // 
             this.radioButtonSimulationMode.AutoSize = true;
@@ -1762,12 +1774,12 @@
             this.barButtonItemModifyHeatMap.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             this.barButtonItemModifyHeatMap.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemCreateHeatMap_ItemClick);
             // 
-            // barButtonItem9
+            // barButtonItemDesignForm
             // 
-            this.barButtonItem9.Caption = "barButtonItem9";
-            this.barButtonItem9.Id = 105;
-            this.barButtonItem9.Name = "barButtonItem9";
-            this.barButtonItem9.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem9_ItemClick);
+            this.barButtonItemDesignForm.Caption = "Kinematic Design Optimization";
+            this.barButtonItemDesignForm.Id = 105;
+            this.barButtonItemDesignForm.Name = "barButtonItemDesignForm";
+            this.barButtonItemDesignForm.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem9_ItemClick);
             // 
             // ribbonPageDesign
             // 
@@ -1775,13 +1787,13 @@
             this.ribbonPageDesign.Appearance.Options.UseBackColor = true;
             this.ribbonPageDesign.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.ribbonPageSimulationType,
+            this.ribbonPageGroupDesignForm,
             this.RibbonPageGroupTire,
             this.RibbonPageGroupSuspensionCoordinates,
             this.RibbonPageGroupSuspensionStiffness,
             this.RibbonPageGroupWeights,
             this.ribbonPageGroup1,
-            this.ribbonPageGroup7,
-            this.ribbonPageGroup2});
+            this.ribbonPageGroup7});
             this.ribbonPageDesign.Name = "ribbonPageDesign";
             this.ribbonPageDesign.Text = "Design";
             // 
@@ -1844,11 +1856,11 @@
             this.ribbonPageGroup7.Name = "ribbonPageGroup7";
             this.ribbonPageGroup7.Text = "Vehicle ";
             // 
-            // ribbonPageGroup2
+            // ribbonPageGroupDesignForm
             // 
-            this.ribbonPageGroup2.ItemLinks.Add(this.barButtonItem9);
-            this.ribbonPageGroup2.Name = "ribbonPageGroup2";
-            this.ribbonPageGroup2.Text = "ribbonPageGroup2";
+            this.ribbonPageGroupDesignForm.ItemLinks.Add(this.barButtonItemDesignForm);
+            this.ribbonPageGroupDesignForm.Name = "ribbonPageGroupDesignForm";
+            this.ribbonPageGroupDesignForm.Text = "Design Form";
             // 
             // ribbonPageSimulation
             // 
@@ -3375,18 +3387,6 @@
             this.GCBar.Size = new System.Drawing.Size(245, 120);
             this.GCBar.TabIndex = 77;
             // 
-            // radioButtonDesignMode
-            // 
-            this.radioButtonDesignMode.AutoSize = true;
-            this.radioButtonDesignMode.Location = new System.Drawing.Point(7, 67);
-            this.radioButtonDesignMode.Name = "radioButtonDesignMode";
-            this.radioButtonDesignMode.Size = new System.Drawing.Size(86, 17);
-            this.radioButtonDesignMode.TabIndex = 1;
-            this.radioButtonDesignMode.TabStop = true;
-            this.radioButtonDesignMode.Text = "Design mode";
-            this.radioButtonDesignMode.UseVisualStyleBackColor = true;
-            this.radioButtonDesignMode.CheckedChanged += new System.EventHandler(this.radioButtonDesignMode_CheckedChanged);
-            // 
             // Kinematics_Software_New
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3779,8 +3779,8 @@
         private DevExpress.XtraBars.BarButtonItem barButtonItemAyNegAxNeg;
         private Arrow_Force GCArrow;
         private GraphicsCoorsdinatesBar GCBar;
-        private DevExpress.XtraBars.BarButtonItem barButtonItem9;
-        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemDesignForm;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupDesignForm;
         private System.Windows.Forms.RadioButton radioButtonDesignMode;
     }
 }

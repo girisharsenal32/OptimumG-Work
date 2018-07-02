@@ -89,6 +89,10 @@ namespace Coding_Attempt_with_GUI
 
             MotionExists = true;
             InputOriginY.Text = Convert.ToString(60);
+
+            ribbonPageGroupDesignForm.Visible = false;
+
+
         }
 
 
@@ -121,6 +125,14 @@ namespace Coding_Attempt_with_GUI
         }
         private void radioButtonDesignMode_CheckedChanged(object sender, EventArgs e)
         {
+            if (radioButtonDesignMode.Checked == true)
+            {
+                ribbonPageGroupDesignForm.Visible = true;
+            }
+            else
+            {
+                ribbonPageGroupDesignForm.Visible = false;
+            }
         }
 
 
