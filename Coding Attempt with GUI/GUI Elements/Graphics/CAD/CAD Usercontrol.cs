@@ -820,8 +820,6 @@ namespace Coding_Attempt_with_GUI
 
         #endregion
 
-
-
         #region Clone Method to Clone the Imported entities from the Input Viewport to the Output Viewport
         public void CloneOutputViewPort(ViewportLayout _outputViewPort, ViewportLayout _inputViewport)
         {
@@ -3195,6 +3193,23 @@ namespace Coding_Attempt_with_GUI
             AddOrRegen(axisLine, _axisColour);
         }
 
+        /// <summary>
+        /// Method to draw a triangle to represent the Bell-Crank coordinate
+        /// </summary>
+        /// <param name="_p1">Point 1 of the Triangle</param>
+        /// <param name="_p2">Point 2 of the Triangle</param>
+        /// <param name="_p3">Point 3 of the Triangle</param>
+        /// <param name="_triangleColour">Colour of the Triangle</param>
+        /// <param name="_triangleName">Name of the Triangle</param>
+        public void Plot_RockerTriangle(Point3D _p1, Point3D _p2, Point3D _p3, Color _triangleColour, string _triangleName)
+        {
+            Triangle rockerTriangle = new Triangle(_p1, _p2, _p3);
+            rockerTriangle.EntityData = new CustomData(_triangleName, EntityTypes.Triangle.ToString(), Color.Orange, _p1);
+            rockerTriangle.ColorMethod = colorMethodType.byEntity;
+            rockerTriangle.Color = _triangleColour;
+
+            AddOrRegen(rockerTriangle, _triangleColour);
+        }
 
         #endregion
 
@@ -4080,7 +4095,6 @@ namespace Coding_Attempt_with_GUI
 
         }
         #endregion
-
 
         #region ---IMPORTANT--- This  method must be called EVERY TIME a Viewport is housed inside a Docking Panel
         public void ResizeVP()

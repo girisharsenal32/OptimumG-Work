@@ -31,22 +31,22 @@ namespace Coding_Attempt_with_GUI
         /// <summary>
         /// <see cref="KO_CornverVariables"/> Object of the Front Left Corner
         /// </summary>
-        KO_CornverVariables KO_CV_FL;
+        public KO_CornverVariables KO_CV_FL;
 
         /// <summary>
         /// <see cref="KO_CornverVariables"/> Object of the Front Right Corner
         /// </summary>
-        KO_CornverVariables KO_CV_FR;
+        public KO_CornverVariables KO_CV_FR;
 
         /// <summary>
         /// <see cref="KO_CornverVariables"/> Object of the Rear Left Corner
         /// </summary>
-        KO_CornverVariables KO_CV_RL;
+        public KO_CornverVariables KO_CV_RL;
 
         /// <summary>
         /// <see cref="KO_CornverVariables"/> Object of the Rear Right Corner
         /// </summary>
-        KO_CornverVariables KO_CV_RR;
+        public KO_CornverVariables KO_CV_RR;
 
         /// <summary>
         /// Object of the <see cref="KO_SimulationParams"/>

@@ -387,4 +387,11 @@ namespace Coding_Attempt_with_GUI
         WheelByShock,
         ShockByWheel
     }
+
+    public enum SuspensionCreationMode
+    {
+        Normal, 
+        Mapping, 
+        DesignOptimization
+    }
 }

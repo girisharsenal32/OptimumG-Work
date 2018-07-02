@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data;
+using devDept.Geometry;
 
 namespace Coding_Attempt_with_GUI
 {
@@ -483,7 +484,37 @@ namespace Coding_Attempt_with_GUI
             public static void EditMappedSuspension() { } /// <remarks>Mostly won't be needing this. Aldready have a method to modify the created Suspension</remarks>
             #endregion
 
-        } 
+            #region Populating the Data Table using the Suspension points Optimized by the Kinmeatic Optimizer and stored in Inboarrd and Outboard Point3D Dictionaries,
+            public static void CreateOptimizedSuspension(Dictionary<string, Point3D> _inboardPoints, Dictionary<string, Point3D> _ouboardPoints, SuspensionCoordinatesFrontGUI _scFLGUI)
+            {
+                for (int i = 0; i < _scFLGUI.SCFLDataTableGUI.Rows.Count; i++)
+                {
+                    foreach (string coordinate in _inboardPoints.Keys)
+                    {
+                        if (_scFLGUI.SCFLDataTableGUI.Rows[i].Field<string>(0) == coordinate)
+                        {
+                            _scFLGUI.SCFLDataTableGUI.Rows[i].SetField<double>("X (mm)", _inboardPoints[coordinate].Z);
+                            _scFLGUI.SCFLDataTableGUI.Rows[i].SetField<double>("Y (mm)", _inboardPoints[coordinate].X);
+                            _scFLGUI.SCFLDataTableGUI.Rows[i].SetField<double>("Z (mm)", _inboardPoints[coordinate].Y);
+                            break;
+                        }
+                    }
+
+                    foreach (string coordinate in _ouboardPoints.Keys)
+                    {
+                        if (_scFLGUI.SCFLDataTableGUI.Rows[i].Field<string>(0) == coordinate)
+                        {
+                            _scFLGUI.SCFLDataTableGUI.Rows[i].SetField<double>("X (mm)", _ouboardPoints[coordinate].Z);
+                            _scFLGUI.SCFLDataTableGUI.Rows[i].SetField<double>("Y (mm)", _ouboardPoints[coordinate].X);
+                            _scFLGUI.SCFLDataTableGUI.Rows[i].SetField<double>("Z (mm)", _ouboardPoints[coordinate].Y);
+                            break;
+                        }
+                    }
+
+                }
+            }
+            #endregion
+        }
         #endregion
 
         #region Default values of Front Right Suspension Coordinate Item
@@ -805,6 +836,37 @@ namespace Coding_Attempt_with_GUI
 
             #region Editing the DataTable which had been created using the Map Method above
             public static void EditMappedSuspension() { } /// <remarks>Mostly won't be needing this. Aldready have a method to modify the created Suspension</remarks>
+            #endregion
+
+            #region Populating the Data Table using the Suspension points Optimized by the Kinmeatic Optimizer and stored in Inboarrd and Outboard Point3D Dictionaries,
+            public static void CreateOptimizedSuspension(Dictionary<string, Point3D> _inboardPoints, Dictionary<string, Point3D> _ouboardPoints, SuspensionCoordinatesFrontRightGUI _scFRGUI)
+            {
+                for (int i = 0; i < _scFRGUI.SCFRDataTableGUI.Rows.Count; i++)
+                {
+                    foreach (string coordinate in _inboardPoints.Keys)
+                    {
+                        if (_scFRGUI.SCFRDataTableGUI.Rows[i].Field<string>(0) == coordinate)
+                        {
+                            _scFRGUI.SCFRDataTableGUI.Rows[i].SetField<double>("X (mm)", _inboardPoints[coordinate].Z);
+                            _scFRGUI.SCFRDataTableGUI.Rows[i].SetField<double>("Y (mm)", _inboardPoints[coordinate].X);
+                            _scFRGUI.SCFRDataTableGUI.Rows[i].SetField<double>("Z (mm)", _inboardPoints[coordinate].Y);
+                            break;
+                        }
+                    }
+
+                    foreach (string coordinate in _ouboardPoints.Keys)
+                    {
+                        if (_scFRGUI.SCFRDataTableGUI.Rows[i].Field<string>(0) == coordinate)
+                        {
+                            _scFRGUI.SCFRDataTableGUI.Rows[i].SetField<double>("X (mm)", _ouboardPoints[coordinate].Z);
+                            _scFRGUI.SCFRDataTableGUI.Rows[i].SetField<double>("Y (mm)", _ouboardPoints[coordinate].X);
+                            _scFRGUI.SCFRDataTableGUI.Rows[i].SetField<double>("Z (mm)", _ouboardPoints[coordinate].Y);
+                            break;
+                        }
+                    }
+
+                }
+            }
             #endregion
 
         }
@@ -1132,6 +1194,36 @@ namespace Coding_Attempt_with_GUI
             public static void EditMappedSuspension() { } /// <remarks>Mostly won't be needing this. Aldready have a method to modify the created Suspension</remarks>
             #endregion
 
+            #region Populating the Data Table using the Suspension points Optimized by the Kinmeatic Optimizer and stored in Inboarrd and Outboard Point3D Dictionaries,
+            public static void CreateOptimizedSuspension(Dictionary<string, Point3D> _inboardPoints, Dictionary<string, Point3D> _ouboardPoints, SuspensionCoordinatesRearGUI _scRLGUI)
+            {
+                for (int i = 0; i < _scRLGUI.SCRLDataTableGUI.Rows.Count; i++)
+                {
+                    foreach (string coordinate in _inboardPoints.Keys)
+                    {
+                        if (_scRLGUI.SCRLDataTableGUI.Rows[i].Field<string>(0) == coordinate)
+                        {
+                            _scRLGUI.SCRLDataTableGUI.Rows[i].SetField<double>("X (mm)", _inboardPoints[coordinate].Z);
+                            _scRLGUI.SCRLDataTableGUI.Rows[i].SetField<double>("Y (mm)", _inboardPoints[coordinate].X);
+                            _scRLGUI.SCRLDataTableGUI.Rows[i].SetField<double>("Z (mm)", _inboardPoints[coordinate].Y);
+                            break;
+                        }
+                    }
+
+                    foreach (string coordinate in _ouboardPoints.Keys)
+                    {
+                        if (_scRLGUI.SCRLDataTableGUI.Rows[i].Field<string>(0) == coordinate)
+                        {
+                            _scRLGUI.SCRLDataTableGUI.Rows[i].SetField<double>("X (mm)", _ouboardPoints[coordinate].Z);
+                            _scRLGUI.SCRLDataTableGUI.Rows[i].SetField<double>("Y (mm)", _ouboardPoints[coordinate].X);
+                            _scRLGUI.SCRLDataTableGUI.Rows[i].SetField<double>("Z (mm)", _ouboardPoints[coordinate].Y);
+                            break;
+                        }
+                    }
+
+                }
+            }
+            #endregion
 
         }
         #endregion
@@ -1455,6 +1547,37 @@ namespace Coding_Attempt_with_GUI
 
             #region Editing the DataTable which had been created using the Map Method above
             public static void EditMappedSuspension() { } /// <remarks>Mostly won't be needing this. Aldready have a method to modify the created Suspension</remarks>
+            #endregion
+
+            #region Populating the Data Table using the Suspension points Optimized by the Kinmeatic Optimizer and stored in Inboarrd and Outboard Point3D Dictionaries,
+            public static void CreateOptimizedSuspension(Dictionary<string, Point3D> _inboardPoints, Dictionary<string, Point3D> _ouboardPoints, SuspensionCoordinatesRearRightGUI _scRRGUI)
+            {
+                for (int i = 0; i < _scRRGUI.SCRRDataTableGUI.Rows.Count; i++)
+                {
+                    foreach (string coordinate in _inboardPoints.Keys)
+                    {
+                        if (_scRRGUI.SCRRDataTableGUI.Rows[i].Field<string>(0) == coordinate)
+                        {
+                            _scRRGUI.SCRRDataTableGUI.Rows[i].SetField<double>("X (mm)", _inboardPoints[coordinate].Z);
+                            _scRRGUI.SCRRDataTableGUI.Rows[i].SetField<double>("Y (mm)", _inboardPoints[coordinate].X);
+                            _scRRGUI.SCRRDataTableGUI.Rows[i].SetField<double>("Z (mm)", _inboardPoints[coordinate].Y);
+                            break;
+                        }
+                    }
+
+                    foreach (string coordinate in _ouboardPoints.Keys)
+                    {
+                        if (_scRRGUI.SCRRDataTableGUI.Rows[i].Field<string>(0) == coordinate)
+                        {
+                            _scRRGUI.SCRRDataTableGUI.Rows[i].SetField<double>("X (mm)", _ouboardPoints[coordinate].Z);
+                            _scRRGUI.SCRRDataTableGUI.Rows[i].SetField<double>("Y (mm)", _ouboardPoints[coordinate].X);
+                            _scRRGUI.SCRRDataTableGUI.Rows[i].SetField<double>("Z (mm)", _ouboardPoints[coordinate].Y);
+                            break;
+                        }
+                    }
+
+                }
+            }
             #endregion
 
         }

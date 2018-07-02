@@ -329,6 +329,7 @@
             this.simpleLabelItemToe_Inboard_RR = new DevExpress.XtraLayout.SimpleLabelItem();
             this.xtraTabPageActuationPoints = new DevExpress.XtraTab.XtraTabPage();
             this.layoutControl6 = new DevExpress.XtraLayout.LayoutControl();
+            this.simpleButtonCreateSuspension = new DevExpress.XtraEditors.SimpleButton();
             this.actuationPoints_RR = new Coding_Attempt_with_GUI.KO_ActuationPoints();
             this.actuationPoints_RL = new Coding_Attempt_with_GUI.KO_ActuationPoints();
             this.actuationPoints_FR = new Coding_Attempt_with_GUI.KO_ActuationPoints();
@@ -342,6 +343,9 @@
             this.simpleLabelItemActuationPoint_FR = new DevExpress.XtraLayout.SimpleLabelItem();
             this.simpleLabelItem24 = new DevExpress.XtraLayout.SimpleLabelItem();
             this.simpleLabelItemActuationPoint_RR = new DevExpress.XtraLayout.SimpleLabelItem();
+            this.layoutControlItem76 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpaceItem41 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.emptySpaceItem42 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.groupControlCAD = new DevExpress.XtraEditors.GroupControl();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
@@ -569,6 +573,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItemActuationPoint_FR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem24)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItemActuationPoint_RR)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem76)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem41)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem42)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControlCAD)).BeginInit();
             this.groupControlCAD.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -4066,6 +4073,7 @@
             // 
             // layoutControl6
             // 
+            this.layoutControl6.Controls.Add(this.simpleButtonCreateSuspension);
             this.layoutControl6.Controls.Add(this.actuationPoints_RR);
             this.layoutControl6.Controls.Add(this.actuationPoints_RL);
             this.layoutControl6.Controls.Add(this.actuationPoints_FR);
@@ -4078,9 +4086,19 @@
             this.layoutControl6.TabIndex = 0;
             this.layoutControl6.Text = "layoutControl6";
             // 
+            // simpleButtonCreateSuspension
+            // 
+            this.simpleButtonCreateSuspension.Location = new System.Drawing.Point(237, 827);
+            this.simpleButtonCreateSuspension.Name = "simpleButtonCreateSuspension";
+            this.simpleButtonCreateSuspension.Size = new System.Drawing.Size(147, 22);
+            this.simpleButtonCreateSuspension.StyleController = this.layoutControl6;
+            this.simpleButtonCreateSuspension.TabIndex = 8;
+            this.simpleButtonCreateSuspension.Text = "Create Suspension";
+            this.simpleButtonCreateSuspension.Click += new System.EventHandler(this.simpleButtonCreateSuspension_Click);
+            // 
             // actuationPoints_RR
             // 
-            this.actuationPoints_RR.Location = new System.Drawing.Point(316, 662);
+            this.actuationPoints_RR.Location = new System.Drawing.Point(316, 217);
             this.actuationPoints_RR.Name = "actuationPoints_RR";
             this.actuationPoints_RR.Size = new System.Drawing.Size(299, 606);
             this.actuationPoints_RR.TabIndex = 7;
@@ -4088,14 +4106,14 @@
             // 
             // actuationPoints_RL
             // 
-            this.actuationPoints_RL.Location = new System.Drawing.Point(12, 662);
+            this.actuationPoints_RL.Location = new System.Drawing.Point(12, 217);
             this.actuationPoints_RL.Name = "actuationPoints_RL";
             this.actuationPoints_RL.Size = new System.Drawing.Size(300, 606);
             this.actuationPoints_RL.TabIndex = 6;
             // 
             // actuationPoints_FR
             // 
-            this.actuationPoints_FR.Location = new System.Drawing.Point(316, 32);
+            this.actuationPoints_FR.Location = new System.Drawing.Point(316, -413);
             this.actuationPoints_FR.Name = "actuationPoints_FR";
             this.actuationPoints_FR.Size = new System.Drawing.Size(299, 606);
             this.actuationPoints_FR.TabIndex = 5;
@@ -4103,7 +4121,7 @@
             // 
             // actuationPoints_FL
             // 
-            this.actuationPoints_FL.Location = new System.Drawing.Point(12, 32);
+            this.actuationPoints_FL.Location = new System.Drawing.Point(12, -413);
             this.actuationPoints_FL.Name = "actuationPoints_FL";
             this.actuationPoints_FL.Size = new System.Drawing.Size(300, 606);
             this.actuationPoints_FL.TabIndex = 4;
@@ -4120,10 +4138,13 @@
             this.simpleLabelItem22,
             this.simpleLabelItemActuationPoint_FR,
             this.simpleLabelItem24,
-            this.simpleLabelItemActuationPoint_RR});
-            this.layoutControlGroup10.Location = new System.Drawing.Point(0, 0);
+            this.simpleLabelItemActuationPoint_RR,
+            this.layoutControlItem76,
+            this.emptySpaceItem41,
+            this.emptySpaceItem42});
+            this.layoutControlGroup10.Location = new System.Drawing.Point(0, -445);
             this.layoutControlGroup10.Name = "layoutControlGroup10";
-            this.layoutControlGroup10.Size = new System.Drawing.Size(627, 1280);
+            this.layoutControlGroup10.Size = new System.Drawing.Size(627, 1306);
             this.layoutControlGroup10.TextVisible = false;
             // 
             // layoutControlItem62
@@ -4213,6 +4234,31 @@
             this.simpleLabelItemActuationPoint_RR.Size = new System.Drawing.Size(303, 20);
             this.simpleLabelItemActuationPoint_RR.Text = "Rear Right";
             this.simpleLabelItemActuationPoint_RR.TextSize = new System.Drawing.Size(72, 16);
+            // 
+            // layoutControlItem76
+            // 
+            this.layoutControlItem76.Control = this.simpleButtonCreateSuspension;
+            this.layoutControlItem76.Location = new System.Drawing.Point(225, 1260);
+            this.layoutControlItem76.Name = "layoutControlItem76";
+            this.layoutControlItem76.Size = new System.Drawing.Size(151, 26);
+            this.layoutControlItem76.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem76.TextVisible = false;
+            // 
+            // emptySpaceItem41
+            // 
+            this.emptySpaceItem41.AllowHotTrack = false;
+            this.emptySpaceItem41.Location = new System.Drawing.Point(0, 1260);
+            this.emptySpaceItem41.Name = "emptySpaceItem41";
+            this.emptySpaceItem41.Size = new System.Drawing.Size(225, 26);
+            this.emptySpaceItem41.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // emptySpaceItem42
+            // 
+            this.emptySpaceItem42.AllowHotTrack = false;
+            this.emptySpaceItem42.Location = new System.Drawing.Point(376, 1260);
+            this.emptySpaceItem42.Name = "emptySpaceItem42";
+            this.emptySpaceItem42.Size = new System.Drawing.Size(231, 26);
+            this.emptySpaceItem42.TextSize = new System.Drawing.Size(0, 0);
             // 
             // groupControlCAD
             // 
@@ -4508,6 +4554,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItemActuationPoint_FR)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem24)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItemActuationPoint_RR)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem76)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem41)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem42)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControlCAD)).EndInit();
             this.groupControlCAD.ResumeLayout(false);
             this.groupControlCAD.PerformLayout();
@@ -4845,5 +4894,9 @@
         private DevExpress.XtraLayout.SimpleLabelItem simpleLabelItemToe_Inboard_RR;
         private System.Windows.Forms.ToolStrip toolStrip1;
         public System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
+        private DevExpress.XtraEditors.SimpleButton simpleButtonCreateSuspension;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem76;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem41;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem42;
     }
 }

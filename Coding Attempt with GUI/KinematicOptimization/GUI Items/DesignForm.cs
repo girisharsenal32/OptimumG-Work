@@ -3829,6 +3829,19 @@ namespace Coding_Attempt_with_GUI
 
         #endregion
 
+        /// <summary>
+        /// Method to Plot the triangle to represent the Rocker
+        /// </summary>
+        /// <param name="_P1">Point 1 of the Triangle</param>
+        /// <param name="_P2">Point 2 of the Triangle</param>
+        /// <param name="_P3">Point 3 of the Triangle</param>
+        /// <param name="_TriangleColor">Colour of the Triangle</param>
+        /// <param name="_TriangleName">Name of the Triangle</param>
+        public void Plot_Triangle(Point3D _P1, Point3D _P2, Point3D _P3, Color _TriangleColor, string _TriangleName)
+        {
+            cad1.Plot_RockerTriangle(_P1, _P2, _P3, _TriangleColor, _TriangleName);
+        }
+
         //---END : CAD UserControl Plotter Methods---
         #endregion
 
@@ -4498,5 +4511,35 @@ namespace Coding_Attempt_with_GUI
 
         }
 
+        private void simpleButtonCreateSuspension_Click(object sender, EventArgs e)
+        {
+            CreateSuspension();
+        }
+
+        private void CreateSuspension()
+        {
+            Kinematics_Software_New R1 = Kinematics_Software_New.AssignFormVariable();
+            R1.GeometryType(Sus_Type.DoubleWishboneFront, Sus_Type.DoubleWishboneRear, Sus_Type.McPhersonFront, Sus_Type.McPhersonRear);
+            R1.ActuationType(Sus_Type.PushrodFront, Sus_Type.PullrodFront, Sus_Type.PushrodRear, Sus_Type.PullrodRear);
+            R1.AntiRollBarType(Sus_Type.UARBFront, Sus_Type.TARBFront, Sus_Type.UARBRear, Sus_Type.TARBRear);
+            R1.NoOfCouplings(Sus_Type.NoOfCouplings);
+            R1.FrontSymmetry = Sus_Type.FrontSymmetry_Boolean;
+            R1.RearSymmetry = Sus_Type.RearSymmetry_Boolean;
+            R1.CurrentSuspensionIsMapped = SuspensionCreationMode.DesignOptimization;
+
+
+            #region Creating new Suspension Coordinate items for each corner
+            R1.barButtonSCFLItem.PerformClick();
+            R1.barButtonItemSCFRItem.PerformClick();
+            R1.barButtonItemSCRLItem.PerformClick();
+            R1.barButtonItemSCRRItem.PerformClick();
+            #endregion
+
+            #region Invoking the CAD Creator
+            R1.CreateFrontInputCAD(SuspensionCoordinatesFront.SCFLCounter - 1, false);
+            R1.CreateRearInputCAD(SuspensionCoordinatesRear.SCRLCounter - 1, false);
+            #endregion
+
+        }
     }
 }

@@ -968,6 +968,11 @@ namespace Coding_Attempt_with_GUI
 
             ParentObject.Plot_InboardPoints(KO_CV_Main.VCornerParams.ARBBellCrank, KO_CV_Main.VCornerParams.ARB_DroopLink_LeverPoint, "KO_CV_Main.VCornerParams.ARBBellCrank" + VCorner_Main.ToString(), "ARB" + VCorner_Main.ToString());
 
+            ParentObject.Plot_Triangle(KO_CV_Main.VCornerParams.PushrodInboard, KO_CV_Main.VCornerParams.DamperBellCrank, KO_CV_Main.VCornerParams.Rocker_Center, Color.Orange, "Rocker" + VCorner_Main.ToString());
+
+            ParentObject.Plot_Triangle(KO_CV_Main.VCornerParams.PushrodInboard, KO_CV_Main.VCornerParams.ARBBellCrank, KO_CV_Main.VCornerParams.Rocker_Center, Color.Orange, "Rocker" + VCorner_Main.ToString());
+
+
             ///<summary>Displaying the Convergence to the user</summary>
             tbMR_Convergence.Text = KO_CV_Main.MotionRatio_Convergence.Percentage.ToString();
 
@@ -992,6 +997,10 @@ namespace Coding_Attempt_with_GUI
                 ParentObject.Plot_OutboardPoint(KO_CV_Counter.VCornerParams.ARB_DroopLink_LeverPoint, "KO_CV_Counter.VCornerParams.ARB_DroopLink_LeverPoint" + VCorner_Counter.ToString());
 
                 ParentObject.Plot_InboardPoints(KO_CV_Counter.VCornerParams.ARBBellCrank, KO_CV_Counter.VCornerParams.ARB_DroopLink_LeverPoint, "KO_CV_Counter.VCornerParams.ARBBellCrank" + VCorner_Counter.ToString(), "ARB" + VCorner_Counter.ToString());
+
+                ParentObject.Plot_Triangle(KO_CV_Counter.VCornerParams.PushrodInboard, KO_CV_Counter.VCornerParams.DamperBellCrank, KO_CV_Counter.VCornerParams.Rocker_Center, Color.Orange, "Rocker" + VCorner_Counter.ToString());
+
+                ParentObject.Plot_Triangle(KO_CV_Counter.VCornerParams.PushrodInboard, KO_CV_Counter.VCornerParams.ARBBellCrank, KO_CV_Counter.VCornerParams.Rocker_Center, Color.Orange, "Rocker" + VCorner_Counter.ToString());
 
                 KO_CV_Counter.VCornerParams.Initialize_Dictionary();
 

@@ -46,7 +46,7 @@ namespace Coding_Attempt_with_GUI
         public bool MotionExists;
         public int OutputIndex = 0;
         public bool IsBeingOpened = false;
-        public bool CurrentSuspensionIsMapped = false;
+        public SuspensionCreationMode CurrentSuspensionIsMapped = SuspensionCreationMode.Normal;
         #endregion
 
         #region Constructor
@@ -4734,9 +4734,15 @@ namespace Coding_Attempt_with_GUI
 
                     }
                     /*else*/
-                    if (CurrentSuspensionIsMapped)
+                    if (CurrentSuspensionIsMapped == SuspensionCreationMode.Mapping)
                     {
                         Default_Values.FRONTLEFTSuspensionDefaultValues.CreateMappedSuspension(M1_Global.vehicleGUI[navBarGroupVehicle.SelectedLinkIndex].importCADForm.importCADViewport.CoordinatesFL, scflGUI[l_scfl]);
+                    }
+                    if (CurrentSuspensionIsMapped == SuspensionCreationMode.DesignOptimization)
+                    {
+                        Default_Values.FRONTLEFTSuspensionDefaultValues.CreateOptimizedSuspension(KO.List_KO[KO.List_KO.Count - 1].KO_CV_FL.VCornerParams.InboardAssembly,
+                                                                                                  KO.List_KO[KO.List_KO.Count - 1].KO_CV_FL.VCornerParams.OutboardAssembly, 
+                                                                                                  scflGUI[l_scfl]);
                     }
                     #endregion
 
@@ -5026,9 +5032,15 @@ namespace Coding_Attempt_with_GUI
                         Default_Values.FRONTRIGHTSuspensionDefaultValues.McPherson(scfrGUI[l_scfr], this);
                     }
                     /*else*/
-                    if (CurrentSuspensionIsMapped)
+                    if (CurrentSuspensionIsMapped == SuspensionCreationMode.Mapping)
                     {
                         Default_Values.FRONTRIGHTSuspensionDefaultValues.CreateMappedSuspension(M1_Global.vehicleGUI[navBarGroupVehicle.SelectedLinkIndex].importCADForm.importCADViewport.CoordinatesFR, scfrGUI[l_scfr]);
+                    }
+                    if (CurrentSuspensionIsMapped == SuspensionCreationMode.DesignOptimization)
+                    {
+                        Default_Values.FRONTRIGHTSuspensionDefaultValues.CreateOptimizedSuspension(KO.List_KO[KO.List_KO.Count - 1].KO_CV_FR.VCornerParams.InboardAssembly,
+                                                                                                   KO.List_KO[KO.List_KO.Count - 1].KO_CV_FR.VCornerParams.OutboardAssembly,
+                                                                                                   scfrGUI[l_scfr]);
                     }
                     #endregion
 
@@ -5327,9 +5339,15 @@ namespace Coding_Attempt_with_GUI
                         Default_Values.REARLEFTSuspensionDefaultValues.McPherson(scrlGUI[l_scrl], this);
                     }
                     /*else*/
-                    if (CurrentSuspensionIsMapped)
+                    if (CurrentSuspensionIsMapped == SuspensionCreationMode.Mapping)
                     {
                         Default_Values.REARLEFTSuspensionDefaultValues.CreateMappedSuspension(M1_Global.vehicleGUI[navBarGroupVehicle.SelectedLinkIndex].importCADForm.importCADViewport.CoordinatesRL, scrlGUI[l_scrl]);
+                    }
+                    if (CurrentSuspensionIsMapped == SuspensionCreationMode.DesignOptimization)
+                    {
+                        Default_Values.REARLEFTSuspensionDefaultValues.CreateOptimizedSuspension(KO.List_KO[KO.List_KO.Count - 1].KO_CV_RL.VCornerParams.InboardAssembly,
+                                                                                                 KO.List_KO[KO.List_KO.Count - 1].KO_CV_RL.VCornerParams.OutboardAssembly,
+                                                                                                 scrlGUI[l_scrl]);
                     }
                     #endregion
 
@@ -5613,9 +5631,15 @@ namespace Coding_Attempt_with_GUI
                         Default_Values.REARRIGHTSuspensionDefaultValues.McPherson(scrrGUI[l_scrr], this);
                     }
                     /*else*/
-                    if (CurrentSuspensionIsMapped)
+                    if (CurrentSuspensionIsMapped == SuspensionCreationMode.Mapping)
                     {
                         Default_Values.REARRIGHTSuspensionDefaultValues.CreateMappedSuspension(M1_Global.vehicleGUI[navBarGroupVehicle.SelectedLinkIndex].importCADForm.importCADViewport.CoordinatesRR, scrrGUI[l_scrr]);
+                    }
+                    if (CurrentSuspensionIsMapped == SuspensionCreationMode.DesignOptimization)
+                    {
+                        Default_Values.REARRIGHTSuspensionDefaultValues.CreateOptimizedSuspension(KO.List_KO[KO.List_KO.Count - 1].KO_CV_RR.VCornerParams.InboardAssembly,
+                                                                                                  KO.List_KO[KO.List_KO.Count - 1].KO_CV_RR.VCornerParams.OutboardAssembly,
+                                                                                                  scrrGUI[l_scrr]);
                     }
                     #endregion
 

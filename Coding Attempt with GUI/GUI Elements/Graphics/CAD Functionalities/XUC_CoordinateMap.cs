@@ -577,8 +577,8 @@ namespace Coding_Attempt_with_GUI
             R1.AntiRollBarType(UARBFront, TARBFront, UARBRear, TARBRear);
             R1.NoOfCouplings(NoOfCouplings);
             R1.FrontSymmetry = FrontSymmetry;
-            R1.RearSymmetry = RearSymmetry; 
-            R1.CurrentSuspensionIsMapped = true;
+            R1.RearSymmetry = RearSymmetry;
+            R1.CurrentSuspensionIsMapped = SuspensionCreationMode.Mapping;
 
             #region Creating new Suspension Coordinate items for each corner
             R1.barButtonSCFLItem.PerformClick();
