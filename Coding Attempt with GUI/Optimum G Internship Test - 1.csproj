@@ -192,7 +192,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomCamberCurve.cs" />
+    <Compile Include="KinematicOptimization\GUI Items\Charts\CustomCamberCurve.cs" />
     <Compile Include="IOptimizer_KO.cs" />
     <Compile Include="KinematicOptimization\GUI Items\DesignForm.cs">
       <SubType>Form</SubType>
@@ -235,7 +235,7 @@
     <Compile Include="KinematicOptimization\GUI Items\KO_WishboneInboardPoints.Designer.cs">
       <DependentUpon>KO_WishboneInboardPoints.cs</DependentUpon>
     </Compile>
-    <Compile Include="KinematicOptimization\Solvers\KO_Optimizer.cs" />
+    <Compile Include="Solvers\Optimization\KO_Optimizer.cs" />
     <Compile Include="KinematicOptimization\Outputs\KO_Outputs.cs" />
     <Compile Include="KinematicOptimization\Helper Classes\KO_SimulationParams.cs" />
     <Compile Include="Solvers\Optimization\Master_Optimizer.cs" />

@@ -119,6 +119,7 @@ namespace Coding_Attempt_with_GUI
                 MotionExists = true;
                 InputOriginY.Text = Convert.ToString(60);
                 ribbonPageGroupSetupChange.Visible = false;
+                ribbonPageGroupSetupChange.Visible = false;
                 ChangeTracker++;
                 //ribbonPageGroupRecalculate.Visible = false;
             }

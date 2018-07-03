@@ -697,13 +697,6 @@ namespace Coding_Attempt_with_GUI
                 ///<summary>Calling the <see cref="LegendEditor"/> and initializing it and then calling the <see cref="CAD.PostProcessing(LegendEditor, OutputClass, Color, Color, GradientStyle, int, double)"/> method which draws the DataTable for the Legend and the Legend too </summary>
                 LoadCaseLegend.InitializeLegendEditor(MasterOC, CADVehicleOutputs);
 
-                /////<summary>Painting the Bars according to Force Range in between which they lie. <see cref="LegendEditor.UserNoForceColour"/> value passed as <see cref="Color.White"/></summary>
-                //CADVehicleOutputs.PaintBarForce(Color.White);
-
-                /////<summary>Painting the Arrows according to Force Range in between which they lie</summary>
-                /////<remarks>Since by default we have <see cref="ForceArrowStyle.Both"/> I can pass any random values for Length and Colour below</remarks>
-                //CADVehicleOutputs.ConditionArrowForce(ForceArrowStyle.Both, 100, Color.White);
-
                 ///<summary>This Loop exists to allow the imported files to be translated around the Suspension  </summary>
                 if (_importCAD && OutputIGESPlotted && TranslateChassisToGround)
                 {
@@ -717,30 +710,20 @@ namespace Coding_Attempt_with_GUI
 
                     ImportedCADTranslationHistory.Add(-Vehicle.List_Vehicle[_VehicleID - 1].oc_FL[opIndex].FinalRideHeight_1);
 
-                    //for (int i = 0; i < vehicleCADDrawer_Output.viewportLayout1.Blocks["VehicleCAD"].Entities.Count; i++)
-                    //{
-                    //    vehicleCADDrawer_Output.viewportLayout1.Blocks["VehicleCAD"].Entities[i].Translate(0, -(ImportedCADTranslationHistory[ImportedCADTranslationHistory.Count - 1] - ImportedCADTranslationHistory[ImportedCADTranslationHistory.Count - 2]), 0);
-                    //}
-
                     for (int i = 0; i < vehicleCADDrawer_Output.viewportLayout1.Entities.Count; i++)
                     {
                         if (vehicleCADDrawer_Output.viewportLayout1.Entities[i] is BlockReference)
                         {
                             BlockReference br = vehicleCADDrawer_Output.viewportLayout1.Entities[i] as BlockReference;
                             br.Translate(0, -(ImportedCADTranslationHistory[ImportedCADTranslationHistory.Count - 1] - ImportedCADTranslationHistory[ImportedCADTranslationHistory.Count - 2]), 0);
-                            devDept.Eyeshot.RegenParams rp = new devDept.Eyeshot.RegenParams(0, vehicleCADDrawer_Output.viewportLayout1);
-                            br.Regen(rp);
                         }
                     }
-                    
-
-
                 }
 
+                devDept.Eyeshot.RegenOptions ro = new devDept.Eyeshot.RegenOptions();
+                vehicleCADDrawer_Output.viewportLayout1.Entities.Regen(ro);
                 vehicleCADDrawer_Output.viewportLayout1.Invalidate();
-                //vehicleCADDrawer_Output.viewportLayout1.Update();
-                //vehicleCADDrawer_Output.viewportLayout1.Refresh();
-                //vehicleCADDrawer_Output.SetupViewPort();
+
             }
             catch (Exception E)
             {

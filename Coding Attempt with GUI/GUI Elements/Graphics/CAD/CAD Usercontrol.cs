@@ -2332,7 +2332,6 @@ namespace Coding_Attempt_with_GUI
             if (_PlotWheel)
             {
                 PlotWheel(_scm, _wa, Identifier, _IsInitializing);
-
             }
 
             //PlotSpring(_scm);
